@@ -1,0 +1,50 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:background="#0099cc" tools:context=".HomeActivity">
+
+    <!-- The primary full-screen view. This can be replaced with whatever view
+         is needed to present your content, e.g. VideoView, SurfaceView,
+         TextureView, etc. -->
+    <LinearLayout android:id="@+id/fullscreen_content" android:layout_width="match_parent"
+        android:layout_height="match_parent" android:keepScreenOn="true"
+        android:gravity="center" android:orientation="vertical">
+
+        <view
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            class="dan.dit.whatsthat.riddle.RiddleView"
+            android:id="@+id/riddleView"
+            android:background="#00ffffff" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/dummyImage1"
+            android:backgroundTint="#00000000" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/dummyImage2"
+            android:backgroundTint="#00000000" />
+    </LinearLayout>
+
+    <!-- This FrameLayout insets its children based on system windows using
+         android:fitsSystemWindows. -->
+    <FrameLayout android:layout_width="match_parent" android:layout_height="match_parent"
+        android:fitsSystemWindows="true">
+
+        <LinearLayout android:id="@+id/fullscreen_content_controls" style="?metaButtonBarStyle"
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal|top"
+            android:background="@color/black_overlay" android:orientation="horizontal"
+            tools:ignore="UselessParent">
+
+            <Button android:id="@+id/riddle_make_next" style="?metaButtonBarButtonStyle"
+                android:layout_width="0dp" android:layout_height="wrap_content"
+                android:layout_weight="1" android:text="@string/riddle_make_next" />
+
+        </LinearLayout>
+    </FrameLayout>
+
+</FrameLayout>
