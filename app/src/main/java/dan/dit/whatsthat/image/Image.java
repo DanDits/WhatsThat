@@ -364,55 +364,64 @@ public class Image {
         }
 
 
-        public void setOrigin(String origin) {
+        public Builder setOrigin(String origin) {
             mImage.mOrigin = origin;
+            return this;
         }
 
-        public void setIsObfuscated() {
+        public Builder setIsObfuscated() {
             mImage.mIsObfuscated = ImageObfuscator.IS_OBFUSCATED_HINT;
+            return this;
         }
 
-        public void setObfuscation(int obfuscation) {
+        public Builder setObfuscation(int obfuscation) {
             mImage.mIsObfuscated = obfuscation;
+            return this;
         }
 
-        public void addSolution(Solution solution) {
+        public Builder addSolution(Solution solution) {
             if (mImage.mSolutions == null) {
                 mImage.mSolutions = new LinkedList<>();
             }
             if (solution != null) {
                 mImage.mSolutions.add(solution);
             }
+            return this;
         }
 
-        public void setSolutions(List<Solution> solutions) {
+        public Builder setSolutions(List<Solution> solutions) {
             mImage.mSolutions = solutions;
+            return this;
         }
 
-        public void addPreferredRiddleType(RiddleType type) {
+        public Builder addPreferredRiddleType(RiddleType type) {
             if (mImage.mPreferredRiddleTypes == null) {
                 mImage.mPreferredRiddleTypes = new LinkedList<>();
             }
             if (type != null) {
                 mImage.mPreferredRiddleTypes.add(type);
             }
+            return this;
         }
 
-        public void setPreferredRiddleTypes(List<RiddleType> types) {
+        public Builder setPreferredRiddleTypes(List<RiddleType> types) {
             mImage.mPreferredRiddleTypes = types;
+            return this;
         }
 
-        public void addDislikedRiddleType(RiddleType type) {
+        public Builder addDislikedRiddleType(RiddleType type) {
             if (mImage.mDislikedRiddleTypes == null) {
                 mImage.mDislikedRiddleTypes = new LinkedList<>();
             }
             if (type != null) {
                 mImage.mDislikedRiddleTypes.add(type);
             }
+            return this;
         }
 
-        public void setDislikedRiddleTypes(List<RiddleType> types) {
+        public Builder setDislikedRiddleTypes(List<RiddleType> types) {
             mImage.mDislikedRiddleTypes = types;
+            return this;
         }
 
         public Image build() throws BuildException {

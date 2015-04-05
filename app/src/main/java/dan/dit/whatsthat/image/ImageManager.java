@@ -138,6 +138,9 @@ public class ImageManager {
         } catch (BuildException be) {
             Log.e("Image", "Failed synching database from version " + currVersion + " to version " + VERSION + " build exception " + be);
         }
+        for (Image img : newImages) {
+            img.saveToDatabase(context);
+        }
         prefs.edit().putInt(PREFERENCES_KEY_IMAGE_MANAGER_VERSION, VERSION).commit();
         return newImages;
     }
@@ -147,92 +150,65 @@ public class ImageManager {
 
         //hash esel 1a25d825c94dd0dae1140562439362d0
         ImageAuthor author = new ImageAuthor("Nemo", "pixabay.com/en/donkey-animal-farm-gray-comic-310798", "CC0 Public Domain", "donkey2", null);
-        Image.Builder builder = new Image.Builder(context, R.drawable.esel, author);
-        builder.addSolution(new Solution(Tongue.GERMAN, "ESEL"));
-        builder.addSolution(new Solution(Tongue.ENGLISH, "DONKEY"));
-        Image image = builder.build();
-        Log.d("Image", "Created esel, prefs: " + image.getPreferredRiddleTypes());
-        boolean success = image.saveToDatabase(context);
-        if (success) { newImages.add(image); }
+        easyBuild(context, author, newImages,
+                R.drawable.esel, "ESEL", "DONKEY")
+                .addPreferredRiddleType(PracticalRiddleType.Circle.INSTANCE);
 
         //hash fisch 6085d77d9198d7fa6070873214baead8
         author = new ImageAuthor("?", "pngimg.com/download/1160", "", "fish", null);
-        builder = new Image.Builder(context, R.drawable.fisch, author);
-        builder.addSolution(new Solution(Tongue.GERMAN, "FISCH"));
-        builder.addSolution(new Solution(Tongue.ENGLISH, "FISH"));
-        builder.addDislikedRiddleType(PracticalRiddleType.Circle.INSTANCE);
-        image = builder.build();
-        Log.d("Image", "Created fisch, prefs: " + image.getPreferredRiddleTypes());
-        success = image.saveToDatabase(context);
-        if (success) { newImages.add(image); }
+        easyBuild(context, author, newImages,
+                R.drawable.fisch, "FISCH", "FISH")
+                .addDislikedRiddleType(PracticalRiddleType.Circle.INSTANCE);
 
         //hash screwdriver
-
         author = new ImageAuthor("?", "pixabay.com/en/screwdriver-starhead-star-torx-33634", "CC0 Public Domain", "screwdriver", null);
-        builder = new Image.Builder(context, R.drawable.screwdriver, author);
-        builder.addSolution(new Solution(Tongue.GERMAN, "SCHRAUBENZIEHER"));
-        builder.addSolution(new Solution(Tongue.ENGLISH, "SCREWDRIVER"));
-        image = builder.build();
-        Log.d("Image", "Created screwdriver, prefs: " + image.getPreferredRiddleTypes());
-        success = image.saveToDatabase(context);
-        if (success) { newImages.add(image); }
+        easyBuild(context, author, newImages,
+                R.drawable.screwdriver, "SCHRAUBENZIEHER", "SCREWDRIVER")
+                .addPreferredRiddleType(PracticalRiddleType.Circle.INSTANCE);
 
         //hash bunny
         author = new ImageAuthor("Nemo", "pixabay.com/en/bunny-outline-easter-cutout-cookie-306263/", "CC0 Public Domain", "bunny", null);
-        builder = new Image.Builder(context, R.drawable.bunny, author);
-        builder.addSolution(new Solution(Tongue.GERMAN, "HASE"));
-        builder.addSolution(new Solution(Tongue.ENGLISH, "BUNNY", "RABBIT"));
-        builder.addPreferredRiddleType(PracticalRiddleType.Circle.INSTANCE);
-        image = builder.build();
-        Log.d("Image", "Created rabbit, prefs: " + image.getPreferredRiddleTypes());
-        success = image.saveToDatabase(context);
-        if (success) { newImages.add(image); }
+        easyBuild(context, author, newImages,
+                R.drawable.football, "HASE", "BUNNY")
+                .addPreferredRiddleType(PracticalRiddleType.Circle.INSTANCE)
+                .addSolution(new Solution(Tongue.ENGLISH, "RABBIT"));
+
 
         //hash scissor
         author = new ImageAuthor("Nemo", "pixabay.com/en/scissors-shears-cut-tool-equipment-24188/", "CC0 Public Domain", "scissor", null);
-        builder = new Image.Builder(context, R.drawable.scissor, author);
-        builder.addSolution(new Solution(Tongue.GERMAN, "SCHERE"));
-        builder.addSolution(new Solution(Tongue.ENGLISH, "SCISSOR"));
-        builder.addPreferredRiddleType(PracticalRiddleType.Circle.INSTANCE);
-        builder.addPreferredRiddleType(PracticalRiddleType.Circle.INSTANCE);
-        image = builder.build();
-        Log.d("Image", "Created scissor, prefs: " + image.getPreferredRiddleTypes());
-        success = image.saveToDatabase(context);
-        if (success) { newImages.add(image); }
+        easyBuild(context, author, newImages,
+                R.drawable.scissor, "SCHERE", "SCISSOR")
+                .addPreferredRiddleType(PracticalRiddleType.Circle.INSTANCE)
+                .addPreferredRiddleType(PracticalRiddleType.Circle.INSTANCE);
 
         //hash soccer
         author = new ImageAuthor("OpenClips", "pixabay.com/en/football-ball-sport-soccer-round-157930", "CC0 Public Domain", "soccer", null);
-        builder = new Image.Builder(context, R.drawable.football, author);
-        builder.addSolution(new Solution(Tongue.GERMAN, "FUßBALL"));
-        builder.addSolution(new Solution(Tongue.ENGLISH, "FOOTBALL"));
-        builder.addPreferredRiddleType(PracticalRiddleType.Circle.INSTANCE);
-        image = builder.build();
-        Log.d("Image", "Created soccer, prefs: " + image.getPreferredRiddleTypes());
-        success = image.saveToDatabase(context);
-        if (success) { newImages.add(image); }
+        easyBuild(context, author, newImages,
+                R.drawable.football, "FUßBALL", "FOOTBALL")
+                .addPreferredRiddleType(PracticalRiddleType.Circle.INSTANCE);
 
         //hash penguin
         author = new ImageAuthor("Nemo", "pixabay.com/en/penguin-aquatic-flightless-birds-41066/", "CC0 Public Domain", "penguin", null);
-        builder = new Image.Builder(context, R.drawable.penguin, author);
-        builder.addSolution(new Solution(Tongue.GERMAN, "PINGUIN"));
-        builder.addSolution(new Solution(Tongue.ENGLISH, "PENGUIN"));
-        builder.addPreferredRiddleType(PracticalRiddleType.Circle.INSTANCE);
-        image = builder.build();
-        Log.d("Image", "Created penguin, prefs: " + image.getPreferredRiddleTypes());
-        success = image.saveToDatabase(context);
-        if (success) { newImages.add(image); }
+        easyBuild(context, author, newImages,
+                R.drawable.penguin, "PINGUIN", "PENGUIN")
+                .addPreferredRiddleType(PracticalRiddleType.Circle.INSTANCE);
 
 
         //hash castle
         author = new ImageAuthor("stux", "pixabay.com/en/castle-padlock-shut-off-to-378353", "CC0 Public Domain", "castle", null);
-        builder = new Image.Builder(context, R.drawable.castle, author);
-        builder.addSolution(new Solution(Tongue.GERMAN, "SCHLOSS"));
-        builder.addSolution(new Solution(Tongue.ENGLISH, "CASTLE"));
-        builder.addPreferredRiddleType(PracticalRiddleType.Circle.INSTANCE);
-        image = builder.build();
-        Log.d("Image", "Created castle, prefs: " + image.getPreferredRiddleTypes());
-        success = image.saveToDatabase(context);
-        if (success) { newImages.add(image); }
+        easyBuild(context, author, newImages,
+                R.drawable.castle, "SCHLOSS", "LOCK");
+
+    }
+
+    private static Image.Builder easyBuild(Context context, ImageAuthor author, List<Image> newImages,
+                                    int resId, String german, String english) throws BuildException {
+        Image.Builder builder = new Image.Builder(context, resId, author);
+        builder.addSolution(new Solution(Tongue.GERMAN, german));
+        builder.addSolution(new Solution(Tongue.ENGLISH, english));
+        Image image = builder.build();
+        newImages.add(image);
+        return builder;
     }
 
     public static void markInvalidImage(Image image) {

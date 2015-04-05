@@ -59,6 +59,7 @@ public class HomeActivity extends Activity {
 
     private void nextRiddle() {
         mBtnNextRiddle.setEnabled(false);
+
         DisplayMetrics displaymetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
 
