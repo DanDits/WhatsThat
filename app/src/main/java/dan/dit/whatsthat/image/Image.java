@@ -64,6 +64,11 @@ public class Image {
         }
     }
 
+    @Override
+    public int hashCode() {
+        return mHash.hashCode();
+    }
+
     public boolean isObfuscated() {
         return mIsObfuscated != 0;
     }

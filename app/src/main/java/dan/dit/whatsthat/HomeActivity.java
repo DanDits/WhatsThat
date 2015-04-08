@@ -26,7 +26,7 @@ import dan.dit.whatsthat.util.ui.SystemUiHider;
  * @see SystemUiHider
  */
 public class HomeActivity extends Activity {
-    private Riddle mRiddle;
+    private RiddleView mRiddleView;
     private Button mBtnNextRiddle;
 
     @Override
@@ -36,22 +36,17 @@ public class HomeActivity extends Activity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         testDatabase();
         setContentView(R.layout.activity_home);
+        mRiddleView = (RiddleView) findViewById(R.id.riddleView);
 
         mBtnNextRiddle = (Button) findViewById(R.id.riddle_make_next);
         mBtnNextRiddle.setEnabled(false);
         mBtnNextRiddle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (mRiddle != null) {
-                    mRiddle.executeSolved(getApplicationContext(), new OperationDoneListener() {
-                        @Override
-                        public void operationDone() {
-                            nextRiddle();
-                        }
-                    });
-                } else {
-                    nextRiddle();
+                if (mRiddleView.hasController()) {
+                    mRiddleView.removeController();
                 }
+                nextRiddle();
             }
         });
 
@@ -72,11 +67,9 @@ public class HomeActivity extends Activity {
             @Override
             public void onRiddleReady(Riddle riddle) {
                 Log.d("HomeStuff", "Riddle ready! " + riddle + " image: " + riddle.getImage());
-                RiddleView riddleView = (RiddleView) findViewById(R.id.riddleView);
                 Log.d("Riddle", "Init state: " + riddle.getInitializationState());
-                mRiddle = riddle;
                 if (riddle.getInitializationState() == Riddle.INITIALIZATION_STATE_BITMAP) {
-                    riddleView.setRiddle(riddle);
+                    mRiddleView.setController(riddle.getController());
                 }
                 mBtnNextRiddle.setEnabled(true);
             }
