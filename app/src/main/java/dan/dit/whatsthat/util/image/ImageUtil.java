@@ -8,7 +8,6 @@ import android.os.Environment;
 import android.text.TextUtils;
 import android.util.Log;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -120,41 +119,6 @@ public final class ImageUtil {
     }
 
 
-	/**
-	 * Resizes the given image to the wanted height and width
-	 * using the specified render options.
-	 *
-	 * @param originalImage
-	 *            The image that will be resized.
-	 * @param wantedHeight The new height of the resized image.
-	 * @param wantedWidth The new width of the resized image.
-	 * @return A new Bitmap with the given height and width, rendered
-	 *         with the given options. <code>null</code> if given image is <code>null</code>.
-	 */
-	public static Bitmap resize(Bitmap originalImage,
-			int wantedHeight, int wantedWidth) {
-		if (originalImage == null) {
-			return null;
-		}
-        if (wantedHeight <= 0 || wantedWidth <= 0) {
-            return originalImage;
-        }
-		// Create new Image
-        Bitmap resizedImage = Bitmap.createScaledBitmap(originalImage, wantedWidth, wantedHeight, true);
-        return resizedImage;
-	}
-    /**
-     * Extract the data bytes from the given png image.
-     * @param image The image in png format.
-     * @return Data in bytes that describe the image.
-     */
-    public static byte[] extractDataFromBitmap(Bitmap image) {
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        image.compress(Bitmap.CompressFormat.PNG, 100, baos); //bm is the bitmap object
-        byte[] bitmapBytes = baos.toByteArray();
-        return bitmapBytes;
-    }
-
     /**
      * Returns a MD5 hash of the given data.
      * @param data Data to hash, not null.
@@ -218,25 +182,6 @@ public final class ImageUtil {
         return areAspectRatiosSimilar(width, height, 1, 1);
     }
 
-    public static Bitmap attemptBitmapScaling(Bitmap result, int reqWidth, int reqHeight) {
-        if (reqWidth <= 0 || reqHeight <= 0) {
-            return result;
-        }
-        if (result.getWidth() == reqWidth && result.getHeight() == reqHeight) {
-            return result;
-        } else {
-            // calculate how bad it is to forced scale the image to desired dimensions
-            if (areAspectRatiosSimilar(reqWidth, reqHeight, result.getWidth(), result.getHeight())) {
-                // scale the image exactly to required dimensions, will most likely break the aspect ratio but not too hard
-                result = Bitmap.createScaledBitmap(result, reqWidth, reqHeight, true);
-            } else {
-                // scale the bitmap so that bitmaps dimensions are smaller or equal to required dimensions, keeping aspect ratio
-                double scalingFactor = Math.min(reqHeight / ((double) result.getHeight()), reqWidth / ((double) result.getWidth()));
-                result = Bitmap.createScaledBitmap(result, (int) (result.getWidth() * scalingFactor), (int) (result.getHeight() * scalingFactor), true);
-            }
-            return result;
-        }
-    }
     /**
      * Loads the bitmap specified by the given resource id. A negative value or zero for the required
      * height or width will result in loading the unscaled original image.
@@ -266,7 +211,7 @@ public final class ImageUtil {
         options.inJustDecodeBounds = false;
         options.inPreferredConfig = Bitmap.Config.ARGB_8888;
         Bitmap result = BitmapFactory.decodeResource(res, resId, options);
-        return attemptBitmapScaling(result, reqWidth, reqHeight);
+        return BitmapUtil.attemptBitmapScaling(result, reqWidth, reqHeight);
     }
 
     /**
@@ -295,7 +240,7 @@ public final class ImageUtil {
         options.inJustDecodeBounds = false;
         options.inPreferredConfig = Bitmap.Config.ARGB_8888;
         Bitmap result = BitmapFactory.decodeFile(path.getAbsolutePath(), options);
-        return attemptBitmapScaling(result, reqWidth, reqHeight);
+        return BitmapUtil.attemptBitmapScaling(result, reqWidth, reqHeight);
     }
 
     /**

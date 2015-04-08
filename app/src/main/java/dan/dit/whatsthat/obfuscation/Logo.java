@@ -2,8 +2,8 @@ package dan.dit.whatsthat.obfuscation;
 
 import android.graphics.Bitmap;
 
+import dan.dit.whatsthat.util.image.BitmapUtil;
 import dan.dit.whatsthat.util.image.ImageMultiCache;
-import dan.dit.whatsthat.util.image.ImageUtil;
 
 /**
  * Created by daniel on 21.01.15.
@@ -35,7 +35,7 @@ public class Logo {
         Bitmap logo = null;
         logo= ImageMultiCache.INSTANCE.get(IMAGE_CACHE_KEY_LOGO, wantedWidth, wantedHeight);
         if (logo == null || logo.getHeight() != wantedHeight || logo.getWidth() != wantedWidth) {
-            logo= ImageUtil.resize(mLogo, wantedHeight, wantedWidth);
+            logo= BitmapUtil.resize(mLogo, wantedHeight, wantedWidth);
             ImageMultiCache.INSTANCE.add(IMAGE_CACHE_KEY_LOGO, logo);
         }
         return logo;

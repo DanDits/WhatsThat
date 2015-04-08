@@ -16,6 +16,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import dan.dit.whatsthat.obfuscation.ImageObfuscator;
+import dan.dit.whatsthat.riddle.ContentRiddleType;
 import dan.dit.whatsthat.riddle.FormatRiddleType;
 import dan.dit.whatsthat.riddle.RiddleType;
 import dan.dit.whatsthat.solution.Solution;
@@ -24,6 +25,7 @@ import dan.dit.whatsthat.storage.ImageTable;
 import dan.dit.whatsthat.util.BuildException;
 import dan.dit.whatsthat.util.compaction.CompactedDataCorruptException;
 import dan.dit.whatsthat.util.compaction.Compacter;
+import dan.dit.whatsthat.util.image.BitmapUtil;
 import dan.dit.whatsthat.util.image.ImageUtil;
 
 /**
@@ -275,7 +277,7 @@ public class Image {
             if (reqWidth <= 0 || reqHeight <= 0 || (result.getWidth() == reqWidth && result.getHeight() == reqHeight)) {
                 return result; // we got a valid bitmap with required dimensions
             } else if (result.getWidth() >= reqWidth && result.getHeight() >= reqHeight) {
-                return ImageUtil.attemptBitmapScaling(result, reqWidth, reqHeight); // we are bigger than required, scale down
+                return BitmapUtil.attemptBitmapScaling(result, reqWidth, reqHeight); // we are bigger than required, scale down
             }
             // else we are smaller than required, try fresh loading and then scaling
         }
@@ -351,20 +353,30 @@ public class Image {
             mImage.mTimestamp = System.currentTimeMillis();
             mImage.mAuthor = author;
             mImage.mImageData = new WeakReference<>(image);
-            mImage.mHash = ImageUtil.getHash(ImageUtil.extractDataFromBitmap(image));
+            mImage.mHash = ImageUtil.getHash(BitmapUtil.extractDataFromBitmap(image));
             addOwnFormatAsPreference(image);
+            addOwnContrastAsPreference(image);
         }
 
         private void addOwnFormatAsPreference(Bitmap bitmap) {
-            if (bitmap != null) {
-                boolean almostASquare = ImageUtil.isAspectRatioSquareSimilar(bitmap.getWidth(), bitmap.getHeight());
-                if (almostASquare) {
-                    addPreferredRiddleType(FormatRiddleType.FormatSquare.INSTANCE);
-                } else if (bitmap.getWidth() > bitmap.getHeight()) {
-                    addPreferredRiddleType(FormatRiddleType.FormatLandscape.INSTANCE);
-                } else {
-                    addPreferredRiddleType(FormatRiddleType.FormatPortrait.INSTANCE);
-                }
+            boolean almostASquare = ImageUtil.isAspectRatioSquareSimilar(bitmap.getWidth(), bitmap.getHeight());
+            if (almostASquare) {
+                addPreferredRiddleType(FormatRiddleType.FormatSquare.INSTANCE);
+            } else if (bitmap.getWidth() > bitmap.getHeight()) {
+                addPreferredRiddleType(FormatRiddleType.FormatLandscape.INSTANCE);
+            } else {
+                addPreferredRiddleType(FormatRiddleType.FormatPortrait.INSTANCE);
+            }
+        }
+
+        private void addOwnContrastAsPreference(Bitmap bitmap) {
+            double contrast = BitmapUtil.calculateContrast(bitmap);
+            if (BitmapUtil.CONTRAST_STRONG_THRESHOLD > contrast && contrast >= BitmapUtil.CONTRAST_WEAK_THRESHOLD) {
+                addPreferredRiddleType(ContentRiddleType.ContentMediumContrast.INSTANCE);
+            } else if (BitmapUtil.CONTRAST_STRONG_THRESHOLD <= contrast) {
+                addPreferredRiddleType(ContentRiddleType.ContentStrongContrast.INSTANCE);
+            } else {
+                addDislikedRiddleType(ContentRiddleType.ContentStrongContrast.INSTANCE);
             }
         }
 

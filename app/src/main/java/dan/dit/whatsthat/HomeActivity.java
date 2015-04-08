@@ -1,6 +1,7 @@
 package dan.dit.whatsthat;
 
 import android.app.Activity;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -8,6 +9,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageView;
 
 import dan.dit.whatsthat.image.ImageManager;
 import dan.dit.whatsthat.riddle.PracticalRiddleType;
@@ -16,6 +18,8 @@ import dan.dit.whatsthat.riddle.RiddleManager;
 import dan.dit.whatsthat.riddle.RiddleView;
 import dan.dit.whatsthat.util.OperationDoneListener;
 import dan.dit.whatsthat.util.OperationWaiter;
+import dan.dit.whatsthat.util.image.BitmapUtil;
+import dan.dit.whatsthat.util.image.ImageUtil;
 import dan.dit.whatsthat.util.ui.SystemUiHider;
 
 
@@ -34,8 +38,9 @@ public class HomeActivity extends Activity {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        testDatabase();
         setContentView(R.layout.activity_home);
+        testDatabase();
+        //testImageStuff();
         mRiddleView = (RiddleView) findViewById(R.id.riddleView);
 
         mBtnNextRiddle = (Button) findViewById(R.id.riddle_make_next);
@@ -67,10 +72,7 @@ public class HomeActivity extends Activity {
             @Override
             public void onRiddleReady(Riddle riddle) {
                 Log.d("HomeStuff", "Riddle ready! " + riddle + " image: " + riddle.getImage());
-                Log.d("Riddle", "Init state: " + riddle.getInitializationState());
-                if (riddle.getInitializationState() == Riddle.INITIALIZATION_STATE_BITMAP) {
-                    mRiddleView.setController(riddle.getController());
-                }
+                mRiddleView.setController(riddle.getController());
                 mBtnNextRiddle.setEnabled(true);
             }
 
@@ -98,4 +100,13 @@ public class HomeActivity extends Activity {
         RiddleManager.init(getApplicationContext(), init2); // loads all cores
     }
 
+    private void testImageStuff() {
+        ImageView img1 = (ImageView) findViewById(R.id.dummyImage1);
+        ImageView img2 = (ImageView) findViewById(R.id.dummyImage2);
+
+        Bitmap bmp = ImageUtil.loadBitmap(getResources(), R.drawable.rhino4, 0, 0);
+        //img1.setImageBitmap(bmp);
+        Bitmap bmp2 = BitmapUtil.improveContrast(bmp);
+        img2.setImageBitmap(bmp2);
+    }
 }
