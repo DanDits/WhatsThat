@@ -128,6 +128,17 @@ public class Compacter implements Iterable<String> {
         appendData(ldata);
         return this;
     }
+
+    public Compacter appendData(float data) {
+        int idata = Float.floatToIntBits(data);
+        appendData(idata);
+        return this;
+    }
+
+    public float getFloat(int index) throws CompactedDataCorruptException {
+        int idata = getInt(index);
+        return Float.intBitsToFloat(idata);
+    }
     
     public double getDouble(int index) throws CompactedDataCorruptException {
         long ldata = getLong(index);
