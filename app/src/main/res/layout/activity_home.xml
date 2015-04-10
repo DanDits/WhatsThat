@@ -6,45 +6,24 @@
          is needed to present your content, e.g. VideoView, SurfaceView,
          TextureView, etc. -->
     <LinearLayout android:id="@+id/fullscreen_content" android:layout_width="match_parent"
-        android:layout_height="match_parent" android:keepScreenOn="true"
+        android:layout_height="match_parent" android:keepScreenOn="false"
         android:gravity="center" android:orientation="vertical">
 
-        <view
+
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            class="dan.dit.whatsthat.riddle.RiddleView"
-            android:id="@+id/riddleView"
-            android:background="#00ffffff" />
+            android:layout_height="match_parent"
+            android:id="@+id/home_fragment_container">
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/dummyImage1"
-            android:backgroundTint="#00000000" />
+            <fragment android:name="dan.dit.whatsthat.SyncingFragment"
+                android:id="@+id/syncing_base_fragment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:layout="@layout/syncing_base"/>
+            </FrameLayout>
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/dummyImage2"
-            android:backgroundTint="#00000000" />
+
+
     </LinearLayout>
-
-    <!-- This FrameLayout insets its children based on system windows using
-         android:fitsSystemWindows. -->
-    <FrameLayout android:layout_width="match_parent" android:layout_height="match_parent"
-        android:fitsSystemWindows="true">
-
-        <LinearLayout android:id="@+id/fullscreen_content_controls" style="?metaButtonBarStyle"
-            android:layout_width="match_parent" android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal|top"
-            android:background="@color/black_overlay" android:orientation="horizontal"
-            tools:ignore="UselessParent">
-
-            <Button android:id="@+id/riddle_make_next" style="?metaButtonBarButtonStyle"
-                android:layout_width="0dp" android:layout_height="wrap_content"
-                android:layout_weight="1" android:text="@string/riddle_make_next" />
-
-        </LinearLayout>
-    </FrameLayout>
 
 </FrameLayout>

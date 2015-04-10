@@ -3,7 +3,9 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 21
     buildToolsVersion "21.1.2"
-
+    aaptOptions {
+        noCompress 'png'
+    }
     defaultConfig {
         applicationId "dan.dit.whatsthat"
         minSdkVersion 16

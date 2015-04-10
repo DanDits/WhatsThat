@@ -141,7 +141,7 @@ public class AsyncImageOperator {
         }.execute(mImages);
     }
 
-    public void loadImageFromDatabase(Context context, String[] hashes, Callback cb) {
+    private void loadImageFromDatabase(Context context, String[] hashes, Callback cb) {
         startOperation(OPERATION_LOAD_IMAGE);
         mContext = context;
         mHashes = hashes;

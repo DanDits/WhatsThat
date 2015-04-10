@@ -4,8 +4,6 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.res.Resources;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteQueryBuilder;
 import android.graphics.Bitmap;
 import android.text.TextUtils;
 import android.util.Log;
@@ -20,8 +18,8 @@ import dan.dit.whatsthat.riddle.ContentRiddleType;
 import dan.dit.whatsthat.riddle.FormatRiddleType;
 import dan.dit.whatsthat.riddle.RiddleType;
 import dan.dit.whatsthat.solution.Solution;
-import dan.dit.whatsthat.storage.ImageSQLiteHelper;
 import dan.dit.whatsthat.storage.ImageTable;
+import dan.dit.whatsthat.storage.ImagesContentProvider;
 import dan.dit.whatsthat.util.BuildException;
 import dan.dit.whatsthat.util.compaction.CompactedDataCorruptException;
 import dan.dit.whatsthat.util.compaction.Compacter;
@@ -85,13 +83,7 @@ public class Image {
      * @return True if successfully deleted from the database.
      */
     protected static boolean deleteFromDatabase(Context context, String hash) {
-        ImageSQLiteHelper helper = ImageSQLiteHelper.getInstance(context);
-        SQLiteDatabase database = helper.getWritableDatabase();
-        if (database == null) {
-            Log.e("Image", "Deleting from database failed, database not available.");
-            return false;
-        }
-        return database.delete(ImageTable.TABLE_IMAGES, ImageTable.COLUMN_HASH + "=?", new String[] {hash}) > 0;
+        return context.getContentResolver().delete(ImagesContentProvider.buildImageUri(hash), null, null) > 0;
     }
 
     /**
@@ -100,7 +92,6 @@ public class Image {
      * @return If the image has been saved successfully.
      */
     protected boolean saveToDatabase(Context context) {
-        ImageSQLiteHelper helper = ImageSQLiteHelper.getInstance(context);
         ContentValues cv = new ContentValues();
         cv.put(ImageTable.COLUMN_TIMESTAMP, mTimestamp);
         cv.put(ImageTable.COLUMN_AUTHOR, mAuthor.compact());
@@ -142,21 +133,14 @@ public class Image {
             cv.put(ImageTable.COLUMN_RIDDLEDISLIKEDTYPES, cmp.compact());
         }
 
-        SQLiteDatabase database = helper.getWritableDatabase();
-        if (database == null) {
-            Log.e("Image", "Saving image to database failed, database not available.");
-            return false;
-        }
-        database.replace(ImageTable.TABLE_IMAGES, null, cv);
-        return true;
+        cv.put(ImagesContentProvider.SQL_INSERT_OR_REPLACE, true);
+        return context.getContentResolver().insert(ImagesContentProvider.CONTENT_URI_IMAGE, cv) != null;
     }
 
     protected static String[] loadAvailableHashes(Context context) {
-        ImageSQLiteHelper helper = ImageSQLiteHelper.getInstance(context);
-        SQLiteDatabase db = helper.getReadableDatabase();
-        SQLiteQueryBuilder queryBuilder = new SQLiteQueryBuilder();
-        queryBuilder.setTables(ImageTable.TABLE_IMAGES);
-        Cursor cursor = queryBuilder.query(db,new String[] {ImageTable.COLUMN_HASH},null,null,null,null,ImageTable.COLUMN_TIMESTAMP + " ASC");
+        Cursor cursor = context.getContentResolver().query(ImagesContentProvider.CONTENT_URI_IMAGE,
+                new String[] {ImageTable.COLUMN_HASH}, null, null, ImageTable.COLUMN_TIMESTAMP + " ASC");
+
         String[] hashes = new String[cursor.getCount()];
         cursor.moveToFirst();
 
@@ -165,24 +149,28 @@ public class Image {
             hashes[index++]=cursor.getString(cursor.getColumnIndexOrThrow(ImageTable.COLUMN_HASH));
             cursor.moveToNext();
         }
+        cursor.close();
         return hashes;
     }
 
     protected static Image loadFromDatabase(Context context, String hash) {
-        ImageSQLiteHelper helper = ImageSQLiteHelper.getInstance(context);
-        SQLiteDatabase db = helper.getReadableDatabase();
-        SQLiteQueryBuilder queryBuilder = new SQLiteQueryBuilder();
-        queryBuilder.setTables(ImageTable.TABLE_IMAGES);
-        Cursor cursor = queryBuilder.query(db,ImageTable.ALL_COLUMNS,ImageTable.COLUMN_HASH + "=?",new String[] {hash},null, null,null);
+        Cursor cursor = context.getContentResolver().query(ImagesContentProvider.buildImageUri(hash), ImageTable.ALL_COLUMNS, null, null, null);
         cursor.moveToFirst();
         if (cursor.isAfterLast()) {
             Log.e("Image", "Failed loading image with hash "  + hash + " from database. Cursor empty.");
             return null;
         }
+        Image curr = loadFromCursor(context, cursor);
+        cursor.close();
+        return curr;
+    }
+
+    public static Image loadFromCursor(Context context, Cursor cursor) {
         String resName = cursor.getString(cursor.getColumnIndexOrThrow(ImageTable.COLUMN_RESNAME));
         int resId = TextUtils.isEmpty(resName) ? 0 : ImageUtil.getDrawableResIdFromName(context, resName);
         String resPathRaw = cursor.getString(cursor.getColumnIndexOrThrow(ImageTable.COLUMN_SAVELOC));
         File resPath = TextUtils.isEmpty(resPathRaw) ? null : new File(resPathRaw);
+        String hash = cursor.getString(cursor.getColumnIndexOrThrow(ImageTable.COLUMN_HASH));
         ImageAuthor author;
         try {
             author = new ImageAuthor(new Compacter(cursor.getString(cursor.getColumnIndexOrThrow(ImageTable.COLUMN_AUTHOR))));
@@ -202,6 +190,7 @@ public class Image {
                 builder.addSolution(new Solution(new Compacter(sol)));
             } catch (CompactedDataCorruptException exp) {
                 Log.e("Image", "Problem loading image with hash "  + hash + " from database. Failed to load solution " + sol);
+                return null;
             }
         }
 
@@ -227,7 +216,6 @@ public class Image {
         } catch (BuildException be) {
             Log.e("Image", "Failed loading image with hash "  + hash + " from database. Building failed.");
         }
-
         return result;
     }
 

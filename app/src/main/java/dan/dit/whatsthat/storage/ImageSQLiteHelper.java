@@ -17,21 +17,12 @@ public class ImageSQLiteHelper extends SQLiteOpenHelper{
     //Database name will not change
     private static final String DATABASE_NAME="imageData";
 
-    private static ImageSQLiteHelper INSTANCE;
-
     /**
      * Creates an instance of the SQLiteOpenHelper required to use the imageData database.
      * @param context Context object.
      */
-    private ImageSQLiteHelper(Context context) {
+    protected ImageSQLiteHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
-    }
-
-    public static synchronized ImageSQLiteHelper getInstance(Context context) {
-        if (INSTANCE == null) {
-            INSTANCE = new ImageSQLiteHelper(context);
-        }
-        return INSTANCE;
     }
 
     @Override
