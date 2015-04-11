@@ -6,6 +6,8 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Set;
 
 import dan.dit.whatsthat.R;
@@ -27,6 +29,7 @@ public class ImageManager {
     private static final String PREFERENCES_KEY_IMAGE_MANAGER_VERSION = "dan.dit.whatsthat.prefkey_imagemanagerversion";
 
     private static final Set<Image> INVALID_IMAGES = new HashSet<>(); //TODO remove images from database when some async operation is started
+    public static final int PROGRESS_COMPLETE = 100;
 
     private ImageManager() {}
 
@@ -38,8 +41,21 @@ public class ImageManager {
         SYNCING_TASK.execute();
     }
 
+    public static void registerSynchronizationListener(SynchronizationListener listener) {
+        if (SYNCING_TASK != null && listener != null) {
+            SYNCING_TASK.mListener.add(listener);
+        }
+    }
+
+    public static void unregisterSynchronizationListener(SynchronizationListener listener) {
+        if (SYNCING_TASK != null && listener != null) {
+            SYNCING_TASK.mListener.remove(listener);
+        }
+    }
+
     public static void cancelSync() {
         if (SYNCING_TASK != null) {
+            SYNCING_TASK.mListener.clear();
             SYNCING_TASK.cancel(true);
             SYNCING_TASK = null;
         }
@@ -64,7 +80,7 @@ public class ImageManager {
 
     private static class SyncingTask extends AsyncTask<Void, Integer, Void> {
 
-        private SynchronizationListener mListener;
+        private List<SynchronizationListener> mListener;
         private Context mContext;
         private int mCurrentVersion;
         private int mCurrImageIndex;
@@ -72,7 +88,10 @@ public class ImageManager {
 
         public SyncingTask(Context context, SynchronizationListener listener) {
             mContext = context;
-            mListener = listener;
+            mListener = new LinkedList<>();
+            if (listener != null) {
+                mListener.add(listener);
+            }
         }
 
         @Override
@@ -112,12 +131,12 @@ public class ImageManager {
         @Override
         protected void onProgressUpdate(Integer... progress) {
             if (progress.length == 1) {
-                if (mListener != null) {
-                    mListener.onSyncComplete(progress[0]);
+                for (SynchronizationListener listener : mListener) {
+                    listener.onSyncComplete(progress[0]);
                 }
             } else if (progress.length == 3) {
-                if (mListener != null) {
-                    mListener.onSyncProgress(progress[0], (int) (100. * progress[1] / ((double) progress[2])));
+                for (SynchronizationListener listener : mListener) {
+                    listener.onSyncProgress(progress[0], (int) (PROGRESS_COMPLETE * progress[1] / ((double) progress[2])));
                 }
             }
         }
@@ -125,8 +144,8 @@ public class ImageManager {
         @Override
         protected void onPostExecute(Void nothing) {
             SYNCING_TASK = null;
-            if (mListener != null) {
-                mListener.onSyncComplete(SYNC_VERSION);
+            for (SynchronizationListener listener : mListener) {
+                listener.onSyncComplete(SYNC_VERSION);
             }
         }
 

@@ -41,7 +41,6 @@ public class RiddleFragment extends Fragment implements LoaderManager.LoaderCall
 
     public static final int MINIMUM_IMAGES_COUNT = 30;
     public static final Map<String, Image> ALL_IMAGES = new HashMap<>();
-    public static final String FLAG_SYNCING_STILL_IN_PROGRESS = "FLAG_SYNCING_IN_PROGRESS";
     private RiddleView mRiddleView;
     private Button mBtnNextRiddle;
     private boolean mIsMakingRiddle;
@@ -49,7 +48,7 @@ public class RiddleFragment extends Fragment implements LoaderManager.LoaderCall
     private ProgressBar mRiddleMakeProgress;
 
     private boolean canClickNextRiddle() {
-        return !mIsMakingRiddle && ALL_IMAGES.size() >= MINIMUM_IMAGES_COUNT && RiddleManager.STATE_INITIALIZED;
+        return !mIsMakingRiddle && ALL_IMAGES.size() >= MINIMUM_IMAGES_COUNT && !RiddleManager.isInitializing();
     }
 
     private void updateNextRiddleButton() {
@@ -218,10 +217,6 @@ public class RiddleFragment extends Fragment implements LoaderManager.LoaderCall
     public void onStart() {
         super.onStart();
         getLoaderManager().initLoader(0, null, this);
-        Bundle args = getArguments();
-        if (args != null) {
-            applySyncingStillInProgress(args.getBoolean(FLAG_SYNCING_STILL_IN_PROGRESS));
-        }
         nextRiddleIfEmpty();
     }
 

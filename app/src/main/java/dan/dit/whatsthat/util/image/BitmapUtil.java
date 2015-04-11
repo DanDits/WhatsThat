@@ -13,12 +13,12 @@ public class BitmapUtil {
     public static final double CONTRAST_STRONG_THRESHOLD = 0.09; // everything between this and weak is ok, everything above is great
 
     public static double calculateContrast(Bitmap image) {
-        final int depth = 256;
+        final int depth = 64;
         int[] frequencies = new int[depth];
         for (int x = 0; x < image.getWidth(); x++) {
             for (int y = 0; y < image.getHeight(); y++) {
                 int rgba = image.getPixel(x, y);
-                int value = (int) ((depth - 1) * ColorAnalysisUtil.getBrightness(rgba, true));
+                int value = (int) ((depth - 1) * ColorAnalysisUtil.getBrightnessWithAlpha(rgba));
                 frequencies[value]++;
             }
         }
@@ -49,7 +49,7 @@ public class BitmapUtil {
         for (int x = 0; x < originalImage.getWidth(); x++) {
             for (int y = 0; y < originalImage.getHeight(); y++) {
                 int oldRgba = originalImage.getPixel(x, y);
-                int value = (int) ((depth - 1) * ColorAnalysisUtil.getBrightness(oldRgba, true));
+                int value = (int) ((depth - 1) * ColorAnalysisUtil.getBrightnessWithAlpha(oldRgba));
                 // use alpha=255 to restore value without rounding error, save alpha in blue
                 result.setPixel(x, y, ColorAnalysisUtil.toRGB(value, value, Color.alpha(oldRgba), 255));
                 frequencies[value]++;

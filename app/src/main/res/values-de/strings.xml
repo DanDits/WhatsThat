@@ -2,4 +2,7 @@
 
 <resources>
     <string name="riddle_make_next">Nächstes Rätsel</string>
+    <string name="init_skip_available_all">Alles durchdacht, los gehts.</string>
+    <string name="init_skip_available">Genug, los gehts!</string>
+    <string name="init_skip_unavailable">Muss. Noch. Denken...</string>
 </resources>

@@ -210,19 +210,21 @@ public final class ColorAnalysisUtil {
 	 * @param rgb The rgb value
 	 * @return The brightness where 1 is very bright and 0 is very dark.
 	 */
-	public static double getBrightness(int rgb, boolean considerAlpha) {
-		if (considerAlpha) {
-			return (255 - fromRGB(rgb, ImageColor.ALPHA)) / 255.0 
-					+ fromRGB(rgb, ImageColor.ALPHA) * (0.299*fromRGB(rgb, ImageColor.RED) 
-					+ 0.587 * fromRGB(rgb, ImageColor.GREEN) 
-					+ 0.114 * fromRGB(rgb, ImageColor.BLUE)) / 65025.0; // 255²=65025
-			// white 255/255/255 is always considered to be very bright(=1), no matter the alpha
-		} else {
-			return (0.299*fromRGB(rgb, ImageColor.RED) 
-					+ 0.587 * fromRGB(rgb, ImageColor.GREEN) 
-					+ 0.114 * fromRGB(rgb, ImageColor.BLUE)) / 255;
-		}
+	public static double getBrightnessWithAlpha(int rgb) {
+        // formula: (255-alpha)/255 + alpha*(0.299*red+0.587*green+0.114*blue)/(255*255)
+        // white 255/255/255 is always considered to be very bright(=1), no matter the alpha
+        return 1. +((rgb >> 24) & 0xFF) * (-1./255. + 0.299/65025.0 * ((rgb >> 16) & 0xFF) + 0.587/65025.0 * ((rgb >> 8) & 0xFF) + 0.114/65025.0 * (rgb & 0xFF));
 	}
+
+    /**
+     * Calculates the brightness of the given rgb value as a human would recognize it.
+     * @param rgb The rgb value.
+     * @return The brightness where 1 is very bright and 0 is very dark.
+     */
+    public static double getBrightnessNoAlpha(int rgb) {
+        // formula: (0.299*red+0.587*green+0.114*blue)/255
+        return 0.299/255. * ((rgb >> 16) & 0xFF) + 0.587/255. * ((rgb >> 8) & 0xFF) + 0.114/255. * (rgb & 0xFF);
+    }
 	
 	/**
 	 * Calculates the "greyness" of the given RGB color, which is a way

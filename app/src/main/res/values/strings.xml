@@ -4,5 +4,8 @@
     <string name="app_name">WhatsThat</string>
     <string name="riddle_make_next">Next riddle</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="init_skip_available_all">Every thought done, let\'s go.</string>
+    <string name="init_skip_available">Enough, let\'s go!</string>
+    <string name="init_skip_unavailable">Need. To. Think...</string>
 
 </resources>

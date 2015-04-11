@@ -116,8 +116,8 @@ public class ImageObfuscator {
 
                 // make the logo by changing pixel brightness accordingly, storing this information in bit3 of alpha
 				raster[y][x]=rgb=ColorAnalysisUtil.toRGB(red, green, blue, alpha);
-				boolean pixelVeryBright = ColorAnalysisUtil.getBrightness(rgb, false) > BRIGHTNESS_THRESHOLD;
-				boolean insideLogo = ColorAnalysisUtil.getBrightness(logoRgb, true) <= logoSource.getThreshold();
+				boolean pixelVeryBright = ColorAnalysisUtil.getBrightnessNoAlpha(rgb) > BRIGHTNESS_THRESHOLD;
+				boolean insideLogo = ColorAnalysisUtil.getBrightnessWithAlpha(logoRgb) <= logoSource.getThreshold();
 				if ((!pixelVeryBright && insideLogo)
 						|| (pixelVeryBright && !insideLogo)) {
 					// It is a pixel of the logo and it currently is too dark or

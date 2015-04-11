@@ -15,11 +15,11 @@
             android:layout_height="match_parent"
             android:id="@+id/home_fragment_container">
 
-            <fragment android:name="dan.dit.whatsthat.SyncingFragment"
+            <fragment android:name="dan.dit.whatsthat.intro.InitializationFragment"
                 android:id="@+id/syncing_base_fragment"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                tools:layout="@layout/syncing_base"/>
+                tools:layout="@layout/initialization_base"/>
             </FrameLayout>
 
 

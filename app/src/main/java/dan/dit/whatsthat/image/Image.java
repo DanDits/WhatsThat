@@ -338,6 +338,7 @@ public class Image {
                 throw new BuildException().setMissingData("Image", "Bitmap image");
             }
             // init timestamp, hash, weak ref, author
+            // calculating hash, loading image, and calculations with the bitmap take quite some time
             mImage.mTimestamp = System.currentTimeMillis();
             mImage.mAuthor = author;
             mImage.mImageData = new WeakReference<>(image);
