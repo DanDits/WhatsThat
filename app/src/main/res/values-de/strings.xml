@@ -5,4 +5,53 @@
     <string name="init_skip_available_all">Alles durchdacht, los gehts.</string>
     <string name="init_skip_available">Genug, los gehts!</string>
     <string name="init_skip_unavailable">Muss. Noch. Denken...</string>
+
+    <string name="intro_test_subject_name">Test Subjekt: </string>
+    <string name="intro_test_subject_estimated_intelligence">Geschätzte Intelligenz: </string>
+
+    <string name="test_subject_0_name">Kind</string>
+    <string name="test_subject_0_int">404</string>
+    <string-array name="test_subject_0_intro_main">
+        <item>--brztq | jsqu ay | h1h2h3h4 | deutsch | yaquhu--</item>
+        <item>--sprache gefunden | willkommen testsubjekt--</item>
+        <item>--sag | planet erde | bis bald--</item>
+        <item>°WOW diese Intelligenz in solch einem kleinen Gehirn°</item>
+        <item>°Und das war nur ein zufälliges Testsubjekt, dieser Planet muss beeindruckend sein°</item>
+        <item>°Ich bin überrascht, dass uns noch niemand begrüßt hat°</item>
+        <item>--fehler | exception | error--</item>
+        <item>--division durch 0--</item>
+        <item>°Das... ist.. wow.°</item>
+        <item>°...nur ein dummes Kind°</item>
+        <item>°Da bin ich ja beruhigt°</item>
+        <item>°Ich dachte schon unser Bordcomputer wird neidisch°</item>
+        <item>°Aber die Tests werden hart, mal sehen, ich stöpsel das Gehirn mal an°</item>
+        <item>°Es zuckt, Lebenszeichen, da bin ich aber beruhigt°</item>
+        <item>°Hallo Gehirn°</item>
+        <item>°Huch, ich könnte schwören es starrt zurück°</item>
+    </string-array>
+    <string-array name="test_subject_0_intro_nuts">
+        <item>°Besser wir starten mit ganz einfachen Tests°</item>
+        <item>°Wenn ich hier drücke, dann.. oh, er lacht°</item>
+        <item>°Hm, bloß nicht überfordern, mal sehen°</item>
+        <item>°Buchstaben, negativ, Zahlen, negativ, was kennt das Subjekt eigentlich°</item>
+        <item>°Mal sehen, wie es auf einfache Bilder reagiert°</item>
+        <item>°Notiz an selbst: Menschen dumm, aber widerstandsfähig gegen Traktorstrahl°</item>
+    </string-array>
+
+    <string name="test_subject_1_name">Kind</string>
+    <string name="test_subject_1_int">Kennt Buchstaben</string>
+    <string-array name="test_subject_1_intro_main">
+        <item>--hallo testsubjekt--</item>
+        <item>°Es tut sich etwas, Marvin hat seine Wette verloren°</item>
+        <item>--war klar--</item>
+        <item>°Wenn das Kind noch dicker wird, brauchen wir mehr Energie°</item>
+        <item>°Vielleicht hätten wir doch kein zufälliges Subjekt nehmen sollen°</item>
+    </string-array>
+    <string-array name="test_subject_1_intro_nuts">
+        <item>°Was seine Eltern wohl denken°</item>
+        <item>°Hat er seinen Grips von seinen Eltern°</item>
+        <item>°Will jemand wetten was passiert?°</item>
+        <item>°Neue Runde, neues Glück°</item>
+    </string-array>
+
 </resources>

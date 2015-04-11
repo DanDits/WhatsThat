@@ -6,6 +6,7 @@ import android.content.CursorLoader;
 import android.content.Loader;
 import android.database.Cursor;
 import android.graphics.drawable.AnimationDrawable;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -37,9 +38,8 @@ import dan.dit.whatsthat.storage.ImagesContentProvider;
 /**
  * Created by daniel on 10.04.15.
  */
-public class RiddleFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
+public class RiddleFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>, ImageManager.SynchronizationListener, RiddleManager.UnsolvedRiddleListener {
 
-    public static final int MINIMUM_IMAGES_COUNT = 30;
     public static final Map<String, Image> ALL_IMAGES = new HashMap<>();
     private RiddleView mRiddleView;
     private Button mBtnNextRiddle;
@@ -47,8 +47,30 @@ public class RiddleFragment extends Fragment implements LoaderManager.LoaderCall
     private ImageButton mBtnUnsolvedRiddles;
     private ProgressBar mRiddleMakeProgress;
 
+    private void updateUnsolvedRiddleUI() {
+        int unsolvedCount = RiddleManager.getUnsolvedRiddleCount();
+        int resId;
+        switch (unsolvedCount) {
+            case 0:
+                resId = R.drawable.shelf0; break;
+            case 1:
+                resId = R.drawable.shelf1; break;
+            case 2:
+                resId = R.drawable.shelf2; break;
+            case 3:
+                resId = R.drawable.shelf3; break;
+            case 4:
+                resId = R.drawable.shelf4; break;
+            case 5:
+                resId = R.drawable.shelf5; break;
+            default:
+                resId = R.drawable.shelf6; break;
+        }
+        mBtnUnsolvedRiddles.setImageResource(resId);
+    }
+
     private boolean canClickNextRiddle() {
-        return !mIsMakingRiddle && ALL_IMAGES.size() >= MINIMUM_IMAGES_COUNT && !RiddleManager.isInitializing();
+        return !mIsMakingRiddle && ImageManager.getCurrentSynchronizationVersion(getActivity().getApplicationContext()) >= 1 && !RiddleManager.isInitializing();
     }
 
     private void updateNextRiddleButton() {
@@ -183,11 +205,6 @@ public class RiddleFragment extends Fragment implements LoaderManager.LoaderCall
         }
     }
 
-    public void onSyncingComplete() {
-        applySyncingStillInProgress(false);
-        nextRiddleIfEmpty();
-    }
-
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
@@ -208,7 +225,6 @@ public class RiddleFragment extends Fragment implements LoaderManager.LoaderCall
                 nextUnsolvedRiddle();
             }
         });
-        mBtnUnsolvedRiddles.setVisibility(View.GONE);
         mRiddleMakeProgress = (ProgressBar) getView().findViewById(R.id.riddle_make_progress);
         mRiddleMakeProgress.setMax(RiddleManager.PROGRESS_COMPLETE);
     }
@@ -216,8 +232,22 @@ public class RiddleFragment extends Fragment implements LoaderManager.LoaderCall
     @Override
     public void onStart() {
         super.onStart();
-        getLoaderManager().initLoader(0, null, this);
-        nextRiddleIfEmpty();
+        if (ImageManager.isSyncing()) {
+            applySyncingStillInProgress(true);
+            ImageManager.registerSynchronizationListener(this);
+            if (ALL_IMAGES.isEmpty()) {
+                for (Image img : ImageManager.getCurrentImagesWhileSyncing()) {
+                    ALL_IMAGES.put(img.getHash(), img);
+                }
+            }
+            updateNextRiddleButton();
+            nextRiddleIfEmpty();
+        } else {
+            applySyncingStillInProgress(false);
+            getLoaderManager().initLoader(0, null, this);
+        }
+        RiddleManager.registerUnsolvedRiddleListener(this);
+        updateUnsolvedRiddleUI();
     }
 
     @Override
@@ -227,6 +257,8 @@ public class RiddleFragment extends Fragment implements LoaderManager.LoaderCall
         if (mRiddleView.hasController()) {
             mRiddleView.removeController();
         }
+        ImageManager.unregisterSynchronizationListener(this);
+        RiddleManager.unregisterUnsolvedRiddleListener(this);
     }
 
     @Override
@@ -240,23 +272,36 @@ public class RiddleFragment extends Fragment implements LoaderManager.LoaderCall
         return new CursorLoader(getActivity(), ImagesContentProvider.CONTENT_URI_IMAGE, ImageTable.ALL_COLUMNS, null, null, ImageTable.COLUMN_TIMESTAMP);
     }
 
-    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+    public void onLoadFinished(Loader<Cursor> loader,final Cursor data) {
         // Swap the new cursor in.  (The framework will take care of closing the
         // old cursor once we return.)
         Log.d("Image", "Loaded images with loader: " + data.getCount());
-        if ((data.getCount() >= MINIMUM_IMAGES_COUNT && ALL_IMAGES.isEmpty()) || !ImageManager.isSyncing()) {
-            // we got no images and loaded at least several or are no longer syncing:
-            ALL_IMAGES.clear();
-            data.moveToFirst();
-            while (!data.isAfterLast()) {
-                Image curr = Image.loadFromCursor(getActivity().getApplicationContext(), data);
-                if (curr != null) {
-                    ALL_IMAGES.put(curr.getHash(), curr);
+        new AsyncTask<Void, Void, Map<String, Image>>() {
+            @Override
+            public Map<String, Image> doInBackground(Void... nothing) {
+                data.moveToFirst();
+                Map<String, Image> map = new HashMap<>(data.getCount());
+                while (!data.isAfterLast()) {
+                    Image curr = Image.loadFromCursor(getActivity().getApplicationContext(), data);
+                    if (curr != null) {
+                        map.put(curr.getHash(), curr);
+                    }
+                    data.moveToNext();
                 }
-                data.moveToNext();
+                return map;
             }
-            updateNextRiddleButton();
-        }
+
+            @Override
+            public void onPostExecute(Map<String, Image> result) {
+                if (result != null) {
+                    ALL_IMAGES.clear();
+                    ALL_IMAGES.putAll(result);
+                }
+                updateNextRiddleButton();
+                nextRiddleIfEmpty();
+            }
+        }.execute();
+
     }
 
     public void onLoaderReset(Loader<Cursor> loader) {
@@ -266,4 +311,23 @@ public class RiddleFragment extends Fragment implements LoaderManager.LoaderCall
 
     }
 
+    @Override
+    public void onSyncProgress(int syncingAtVersion, int imageProgress) {
+
+    }
+
+    @Override
+    public void onSyncComplete(int syncedToVersion) {
+        if (syncedToVersion < ImageManager.SYNC_VERSION) {
+            applySyncingStillInProgress(true);
+        } else {
+            applySyncingStillInProgress(false);
+            getLoaderManager().initLoader(0, null, this);
+        }
+    }
+
+    @Override
+    public void onUnsolvedRiddlesChanged() {
+        updateUnsolvedRiddleUI();
+    }
 }

@@ -360,6 +360,7 @@ public class Image {
 
         private void addOwnContrastAsPreference(Bitmap bitmap) {
             double contrast = BitmapUtil.calculateContrast(bitmap);
+            Log.d("Riddle", "Contrast for " + mImage.mName + ": " + contrast);
             if (BitmapUtil.CONTRAST_STRONG_THRESHOLD > contrast && contrast >= BitmapUtil.CONTRAST_WEAK_THRESHOLD) {
                 addPreferredRiddleType(ContentRiddleType.ContentMediumContrast.INSTANCE);
             } else if (BitmapUtil.CONTRAST_STRONG_THRESHOLD <= contrast) {

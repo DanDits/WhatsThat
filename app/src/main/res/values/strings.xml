@@ -8,4 +8,39 @@
     <string name="init_skip_available">Enough, let\'s go!</string>
     <string name="init_skip_unavailable">Need. To. Think...</string>
 
+    <string name="intro_test_subject_name">Test subject: </string>
+    <string name="intro_test_subject_estimated_intelligence">Estimated intelligence: </string>
+
+    <string name="test_subject_0_name">Kid</string>
+    <string name="test_subject_0_int">404</string>
+    <string-array name="test_subject_0_intro_main">
+        <item>Mercury</item>
+        <item>Venus</item>
+        <item>Earth</item>
+        <item>Mars</item>
+    </string-array>
+    <string-array name="test_subject_0_intro_nuts">
+        <item>Mercury</item>
+        <item>Venus</item>
+        <item>Earth</item>
+        <item>Mars</item>
+    </string-array>
+
+    <string name="test_subject_1_name">Kid</string>
+    <string name="test_subject_1_int">Knows letters</string>
+    <string-array name="test_subject_1_intro_main">
+        <item>Mercury</item>
+        <item>Venus</item>
+        <item>Earth</item>
+        <item>Mars</item>
+    </string-array>
+    <string-array name="test_subject_1_intro_nuts">
+        <item>Mercury</item>
+        <item>Venus</item>
+        <item>Earth</item>
+        <item>Mars</item>
+    </string-array>
+
+
+
 </resources>

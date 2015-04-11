@@ -9,8 +9,8 @@ import java.io.ByteArrayOutputStream;
  * Created by daniel on 08.04.15.
  */
 public class BitmapUtil {
-    public static final double CONTRAST_WEAK_THRESHOLD = 0.06; // everything below is bad
-    public static final double CONTRAST_STRONG_THRESHOLD = 0.09; // everything between this and weak is ok, everything above is great
+    public static final double CONTRAST_WEAK_THRESHOLD = 0.25; // everything below is bad
+    public static final double CONTRAST_STRONG_THRESHOLD = 0.5; // everything between this and weak is ok, everything above is great
 
     public static double calculateContrast(Bitmap image) {
         final int depth = 64;
@@ -30,13 +30,10 @@ public class BitmapUtil {
         final double polyB = -4. / ((double) depth - 1.);
         final double polyC = 1;
         for (int i = 1; i < depth; i++) {
-            double sum = (double) (frequencies[i] + frequencies[i - 1]);
-            if (sum > 0) {
-                sum = Math.abs(frequencies[i] - frequencies[i - 1]) / sum;
-                contrast += sum * (polyA * i * i + polyB * i + polyC);
-            }
+            contrast += frequencies[i] * (polyA * i * i + polyB * i + polyC);
+
         }
-        return contrast / ((double) depth);
+        return contrast / ((double) (image.getWidth() * image.getHeight()));
     }
 
     public static Bitmap improveContrast(Bitmap originalImage) {

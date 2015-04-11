@@ -1,17 +1,33 @@
 package dan.dit.whatsthat.intro;
 
 import android.app.Fragment;
+import android.content.res.Resources;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AccelerateInterpolator;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.view.animation.AnimationSet;
+import android.view.animation.AnimationUtils;
+import android.view.animation.BounceInterpolator;
+import android.view.animation.RotateAnimation;
+import android.view.animation.ScaleAnimation;
+import android.view.animation.TranslateAnimation;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import dan.dit.whatsthat.R;
 import dan.dit.whatsthat.image.ImageManager;
 import dan.dit.whatsthat.riddle.RiddleManager;
+import dan.dit.whatsthat.testsubject.TestSubject;
 
 /**
  * Created by daniel on 10.04.15.
@@ -25,6 +41,94 @@ public class InitializationFragment extends Fragment implements ImageManager.Syn
     private int mImageProgress;
     private int mState = STATE_DATA_NONE;
     private Button mInitSkip;
+    private ImageView mIntroAbduction;
+    private ImageView mIntroKid;
+    private TextView mIntroSubjectDescr;
+    private View mIntroContainer;
+    private View.OnTouchListener mNextTextListener;
+    private TextView mIntroText;
+
+    private void startAnimation() {
+        final long fallDownDuration = 2000;
+        final long fallDownLiftDelta = 500;
+        final long liftDuration = 12000;
+        final long suckInDelta = -500;
+        final long suckInDuration = 600;
+        mIntroKid.setImageResource(TestSubject.getInstance().getImageResId());
+
+        AlphaAnimation alphaAnimation = new AlphaAnimation(0.f, 1.f);
+        alphaAnimation.setInterpolator(new AccelerateInterpolator(3));
+        alphaAnimation.setDuration(liftDuration);
+
+        AnimationSet kidStuff = new AnimationSet(false);
+        RotateAnimation rot = new RotateAnimation(0.f, 100.f, Animation.RELATIVE_TO_SELF, 0.8f, Animation.RELATIVE_TO_SELF, 1.f);
+        rot.setInterpolator(new BounceInterpolator());
+        rot.setDuration(fallDownDuration);
+        TranslateAnimation move = new TranslateAnimation(Animation.RELATIVE_TO_PARENT, 0.2f, Animation.RELATIVE_TO_PARENT, -0.2f, //x
+                Animation.RELATIVE_TO_PARENT,-0.f, Animation.RELATIVE_TO_PARENT, -0.65f); //y
+        move.setStartOffset(fallDownDuration + fallDownLiftDelta);
+        move.setDuration(liftDuration);
+
+        ScaleAnimation s = new ScaleAnimation(1.f, 0, 1f, 0, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+        s.setInterpolator(new AccelerateInterpolator(1.5f));
+        s.setStartOffset(liftDuration + suckInDelta);
+        s.setDuration(suckInDuration);
+        RotateAnimation rotSpinning = new RotateAnimation(0.f, 360.f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+        s.setInterpolator(new AccelerateInterpolator(2.5f));
+        rotSpinning.setStartOffset(liftDuration + suckInDelta);
+        rotSpinning.setDuration(suckInDuration);
+
+        kidStuff.addAnimation(s);
+        kidStuff.addAnimation(rotSpinning);
+        kidStuff.addAnimation(rot);
+        kidStuff.addAnimation(move);
+        kidStuff.setFillAfter(true);
+
+        mIntroAbduction.startAnimation(alphaAnimation);
+        mIntroKid.startAnimation(kidStuff);
+    }
+
+    private void onNextText() {
+        TestSubject ts = TestSubject.getInstance();
+        String nextText;
+        if (ts.hasNextMainText()) {
+            nextText = ts.nextMainText();
+        } else {
+            nextText = ts.nextNutsText();
+        }
+        if (TextUtils.isEmpty(nextText)) {
+            mIntroText.setVisibility(View.INVISIBLE);
+        } else {
+            mIntroText.setVisibility(View.VISIBLE);
+            mIntroText.setText(nextText);
+        }
+    }
+
+    private void startIntro() {
+        onNextText();
+        Resources res = getResources();
+        TestSubject subj = TestSubject.getInstance();
+        StringBuilder builder = new StringBuilder();
+        builder.append(res.getString(R.string.intro_test_subject_name));
+        builder.append(res.getString(subj.getNameResId()));
+        builder.append("\n");
+        builder.append(res.getString(R.string.intro_test_subject_estimated_intelligence));
+        builder.append(res.getString(subj.getIntelligenceResId()));
+        mIntroSubjectDescr.setText(builder.toString());
+        mNextTextListener = new View.OnTouchListener() {
+
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                if (motionEvent.getActionMasked() == MotionEvent.ACTION_DOWN) {
+                    onNextText();
+                    return true;
+                }
+                return false;
+            }
+        };
+        mIntroContainer.setOnTouchListener(mNextTextListener);
+        startAnimation();
+    }
 
     private void checkDataState() {
         if (RiddleManager.isInitialized()) {
@@ -38,6 +142,8 @@ public class InitializationFragment extends Fragment implements ImageManager.Syn
                 mState = STATE_DATA_SUFFICIENT;
                 mInitSkip.setText(R.string.init_skip_available);
                 mInitSkip.setEnabled(true);
+                return;
+            } else if (currSyncVersion >= 1) {
                 return;
             }
         }
@@ -71,7 +177,10 @@ public class InitializationFragment extends Fragment implements ImageManager.Syn
         mImageProgress = (ImageManager.PROGRESS_COMPLETE * syncedToVersion) / ImageManager.SYNC_VERSION;
         updateProgressBar();
         if (syncedToVersion == ImageManager.SYNC_VERSION) {
-            //TODO notify user that everything is ready
+            mInitSkip.setTextColor(Color.GREEN);
+            Animation anim = AnimationUtils.loadAnimation(getActivity(), R.anim.shake);
+            mInitSkip.startAnimation(anim);
+            mIntroKid.setVisibility(View.INVISIBLE);
             Log.d("HomeStuff", "Sync complete");
         }
         checkDataState();
@@ -93,6 +202,7 @@ public class InitializationFragment extends Fragment implements ImageManager.Syn
 
     private void startInit() {
         if (!RiddleManager.isInitialized()) {
+            initProgressBar();
             RiddleManager.init(getActivity().getApplicationContext(), this);
         } else {
             onInitComplete();
@@ -102,8 +212,9 @@ public class InitializationFragment extends Fragment implements ImageManager.Syn
     @Override
     public void onStart() {
         super.onStart();
-        initProgressBar();
+        TestSubject.loadInstance(getActivity());
         checkDataState();
+        startIntro();
         startInit();
         startSyncing();
     }
@@ -114,6 +225,8 @@ public class InitializationFragment extends Fragment implements ImageManager.Syn
         RiddleManager.unregisterInitProgressListener(this);
         Log.d("HomeStuff", "OnStop of SyncingFragment, init running=" + RiddleManager.isInitializing() + " sync running=" + ImageManager.isSyncing());
         RiddleManager.cancelInit();
+        mIntroKid.clearAnimation();
+        mIntroAbduction.clearAnimation();
     }
 
     @Override
@@ -128,5 +241,23 @@ public class InitializationFragment extends Fragment implements ImageManager.Syn
 
         mInitProgress = (ProgressBar) getView().findViewById(R.id.init_progress);
         mInitSkip = (Button) getView().findViewById(R.id.init_skip);
+        mIntroAbduction = (ImageView) getView().findViewById(R.id.init_abduction);
+        mIntroKid = (ImageView) getView().findViewById(R.id.init_kid);
+        mIntroSubjectDescr = (TextView) getView().findViewById(R.id.init_subject_descr);
+        mIntroContainer = getView().findViewById(R.id.init_intro);
+        mIntroText = (TextView) getView().findViewById(R.id.init_text);
+
+        mInitSkip.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (mState >= STATE_DATA_SUFFICIENT) {
+                    ((OnInitClosingCallback) getActivity()).onSkipInit();
+                }
+            }
+        });
+    }
+
+    public interface OnInitClosingCallback {
+        void onSkipInit();
     }
 }

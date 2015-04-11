@@ -15,10 +15,44 @@
         android:text="@string/init_skip_unavailable"
         android:id="@+id/init_skip" />
 
-    <view
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        class="dan.dit.whatsthat.intro.IntroAlienView"
-        android:id="@+id/view" />
+        android:id="@+id/init_intro">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/init_abduction"
+            android:layout_gravity="center"
+            android:src="@drawable/abduction" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/init_kid"
+            android:layout_gravity="center_horizontal|bottom"
+            android:src="@drawable/kid" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:id="@+id/init_subject_descr"
+            android:layout_gravity="bottom|left"
+            android:textStyle="italic" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="New Text"
+            android:id="@+id/init_text"
+            android:layout_gravity="center_horizontal|top"
+            android:background="@drawable/think"
+            android:visibility="invisible"
+            android:paddingTop="5dp"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp" />
+    </FrameLayout>
 
 </LinearLayout>

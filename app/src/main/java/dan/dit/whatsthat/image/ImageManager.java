@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -78,6 +79,13 @@ public class ImageManager {
         return prefs.getInt(PREFERENCES_KEY_IMAGE_MANAGER_VERSION, SYNC_VERSION - 1);
     }
 
+    public static Collection<Image> getCurrentImagesWhileSyncing() {
+        if (ImageManager.isSyncing()) {
+            return SYNCING_TASK.mLastBuildImages; // this list is never touched again, so we don't run into concurrency issues
+        }
+        return null;
+    }
+
     private static class SyncingTask extends AsyncTask<Void, Integer, Void> {
 
         private List<SynchronizationListener> mListener;
@@ -85,6 +93,8 @@ public class ImageManager {
         private int mCurrentVersion;
         private int mCurrImageIndex;
         private int mCurrImageCount;
+        private List<Image> mCurrentBuildImages;
+        private List<Image> mLastBuildImages;
 
         public SyncingTask(Context context, SynchronizationListener listener) {
             mContext = context;
@@ -104,10 +114,12 @@ public class ImageManager {
                     break;
                 }
                 // sync the current version
+                mLastBuildImages = mCurrentBuildImages;
+                mCurrentBuildImages = new LinkedList<>();
                 try {
                     switch (mCurrentVersion) {
                         case 0:
-                            buildVersion1(mContext); break;
+                            buildVersion1(); break;
                         //case 1:
                         //    buildVersion1(context, newImages); break;
                     }
@@ -122,7 +134,7 @@ public class ImageManager {
                     publishProgress(mCurrentVersion + 1);
                 }
                 // make it official that we got this version
-                prefs.edit().putInt(PREFERENCES_KEY_IMAGE_MANAGER_VERSION, SYNC_VERSION).commit();
+                prefs.edit().putInt(PREFERENCES_KEY_IMAGE_MANAGER_VERSION, SYNC_VERSION).apply();
                 Log.d("Image", "Completed syncing images for version " + mCurrentVersion);
             }
             return null;
@@ -149,107 +161,105 @@ public class ImageManager {
             }
         }
 
-        private void buildVersion1(Context context) throws BuildException {
+        private void buildVersion1() throws BuildException {
             mCurrImageCount = 39;
             mCurrImageIndex = 0;
             Log.d("Image", "Building " + mCurrImageCount + " images at version " + mCurrentVersion);
+            Image.Builder builder;
 
             //hash esel 1a25d825c94dd0dae1140562439362d0
             ImageAuthor author = new ImageAuthor("Nemo", "pixabay.com/en/donkey-animal-farm-gray-comic-310798", "CC0 Public Domain", "donkey2", null);
-            easyBuild(context, author,
-                    R.drawable.esel, "ESEL", "DONKEY");
-            if (isCancelled()) {return;}
+            builder=easyBuild(author,R.drawable.esel, "ESEL", "DONKEY");
+            if (isCancelled()) {return;} else {easySave(builder);}
 
             //hash fisch 6085d77d9198d7fa6070873214baead8
             author = new ImageAuthor("?", "pngimg.com/download/1160", "", "fish", null);
-            easyBuild(context, author,
-                    R.drawable.fisch, "FISCH", "FISH");
-            if (isCancelled()) {return;}
+            builder=easyBuild(author,R.drawable.fisch, "FISCH", "FISH");
+            if (isCancelled()) {return;} else {easySave(builder);}
 
             //hash screwdriver
             author = new ImageAuthor("?", "pixabay.com/en/screwdriver-starhead-star-torx-33634", "CC0 Public Domain", "screwdriver", null);
-            easyBuild(context, author,
-                    R.drawable.screwdriver, "SCHRAUBENZIEHER", "SCREWDRIVER");
-            if (isCancelled()) {return;}
+            builder=easyBuild(author, R.drawable.screwdriver, "SCHRAUBENZIEHER", "SCREWDRIVER");
+            if (isCancelled()) {return;} else {easySave(builder);}
 
             //hash bunny
             author = new ImageAuthor("Nemo", "pixabay.com/en/bunny-outline-easter-cutout-cookie-306263/", "CC0 Public Domain", "bunny", null);
-            easyBuild(context, author,
-                    R.drawable.bunny, "HASE", "BUNNY")
+            builder=easyBuild(author,R.drawable.bunny, "HASE", "BUNNY")
                     .addSolution(new Solution(Tongue.ENGLISH, "RABBIT"));
-            if (isCancelled()) {return;}
+            if (isCancelled()) {return;} else {easySave(builder);}
 
 
             //hash scissor
             author = new ImageAuthor("Nemo", "pixabay.com/en/scissors-shears-cut-tool-equipment-24188/", "CC0 Public Domain", "scissor", null);
-            easyBuild(context, author,
-                    R.drawable.scissor, "SCHERE", "SCISSOR");
-            if (isCancelled()) {return;}
+            builder=easyBuild(author,R.drawable.scissor, "SCHERE", "SCISSOR");
+            if (isCancelled()) {return;} else {easySave(builder);}
 
             //hash soccer
             author = new ImageAuthor("OpenClips", "pixabay.com/en/football-ball-sport-soccer-round-157930", "CC0 Public Domain", "soccer", null);
-            easyBuild(context, author,
-                    R.drawable.football, "FUßBALL", "FOOTBALL");
-            if (isCancelled()) {return;}
+            builder=easyBuild(author, R.drawable.football, "FUßBALL", "FOOTBALL");
+            if (isCancelled()) {return;} else {easySave(builder);}
 
             //hash penguin
             author = new ImageAuthor("Nemo", "pixabay.com/en/penguin-aquatic-flightless-birds-41066/", "CC0 Public Domain", "penguin", null);
-            easyBuild(context, author,
-                    R.drawable.penguin, "PINGUIN", "PENGUIN");
-            if (isCancelled()) {return;}
+            builder=easyBuild(author,R.drawable.penguin, "PINGUIN", "PENGUIN");
+            if (isCancelled()) {return;} else {easySave(builder);}
 
 
             //hash castle
             author = new ImageAuthor("stux", "pixabay.com/en/castle-padlock-shut-off-to-378353", "CC0 Public Domain", "castle", null);
-            easyBuild(context, author,
+            builder=easyBuild(author,
                     R.drawable.castle, "SCHLOSS", "LOCK");
-            if (isCancelled()) {return;}
+            if (isCancelled()) {return;} else {easySave(builder);}
 
 
-            author = new ImageAuthor("jrperes","http://pixabay.com/de/mond-himmel-wolken-tag-v%C3%B6gel-323425/", "CC0 Public Domain","moon", null);easyBuild(context, author, R.drawable.moon, "MOND", "MOON");if (isCancelled()) {return;}
-            author = new ImageAuthor("catherinemary","http://pixabay.com/de/bank-rot-himmel-blau-natur-185234/", "CC0 Public Domain","bench", null);easyBuild(context, author, R.drawable.bench, "BANK", "BENCH");if (isCancelled()) {return;}
-            author = new ImageAuthor("MJO","http://pixabay.com/de/rosa-rot-blume-geschenk-143445/", "CC0 Public Domain","pink", null);easyBuild(context, author, R.drawable.pink, "ROSE", "ROSE");if (isCancelled()) {return;}
-            author = new ImageAuthor("rolypolys","http://pixabay.com/de/d%C3%A4nemark-ostsee-k%C3%BCste-meer-wasser-239992/", "CC0 Public Domain","denmark", null);easyBuild(context, author, R.drawable.denmark, "MEER", "SEA");if (isCancelled()) {return;}
-            author = new ImageAuthor("PublicDomainPictures","http://pixabay.com/de/hintergrund-blau-sauber-klar-tag-21717/", "CC0 Public Domain","background1", null);easyBuild(context, author, R.drawable.background1, "WIESE", "GRASSLAND");if (isCancelled()) {return;}
-            author = new ImageAuthor("PublicDomainPictures","http://pixabay.com/de/hintergrund-nahaufnahme-flora-16051/", "CC0 Public Domain","background2", null);easyBuild(context, author, R.drawable.background2, "GRAS", "GRASS");if (isCancelled()) {return;}
-            author = new ImageAuthor("Maddox74","http://pixabay.com/de/nashorn-safaripark-d%C3%A4nemark-tier-433495/", "CC0 Public Domain","rhino4", null);easyBuild(context, author, R.drawable.rhino4, "NASHORN", "RHINO");if (isCancelled()) {return;}
-            author = new ImageAuthor("Kaz","http://pixabay.com/de/nashorn-tier-schwarz-silhouette-220220/", "CC0 Public Domain","rhino3", null);easyBuild(context, author, R.drawable.rhino3, "NASHORN", "RHINO");if (isCancelled()) {return;}
-            author = new ImageAuthor("OpenClips","http://pixabay.com/de/nashorn-afrika-tier-s%C3%BCdafrika-161569/", "CC0 Public Domain","rhino2", null);easyBuild(context, author, R.drawable.rhino2, "NASHORN", "RHINO");if (isCancelled()) {return;}
-            author = new ImageAuthor("OpenClips","http://pixabay.com/de/nashorn-tier-biologie-s%C3%A4ugetier-153558/", "CC0 Public Domain","rhino1", null);easyBuild(context, author, R.drawable.rhino1, "NASHORN", "RHINO");if (isCancelled()) {return;}
-            author = new ImageAuthor("OpenClips","http://pixabay.com/de/drache-eidechse-monster-chinesisch-149393/", "CC0 Public Domain","dragon", null);easyBuild(context, author, R.drawable.dragon, "DRACHE", "DRAGON");if (isCancelled()) {return;}
-            author = new ImageAuthor("OpenClips","http://pixabay.com/de/stier-buffalo-tier-s%C3%A4ugetier-155411/", "CC0 Public Domain","bull", null);easyBuild(context, author, R.drawable.bull, "STIER", "BULL");if (isCancelled()) {return;}
-            author = new ImageAuthor("Hebi65","http://pixabay.com/de/fledermaus-schwarz-dracula-fl%C3%BCgel-151366/", "CC0 Public Domain","bat", null);easyBuild(context, author, R.drawable.bat, "FLEDERMAUS", "BAT");if (isCancelled()) {return;}
-            author = new ImageAuthor("Hebi65","http://pixabay.com/de/blume-rose-kontur-umrisse-schwarz-681009/", "CC0 Public Domain","flower", null);easyBuild(context, author, R.drawable.flower, "BLUME", "FLOWER");if (isCancelled()) {return;}
-            author = new ImageAuthor("Hebi65","http://pixabay.com/de/schmetterling-schwarz-weiss-konturen-658047/", "CC0 Public Domain","butterfly", null);easyBuild(context, author, R.drawable.butterfly, "SCHMETTERLING", "BUTTERFLY");if (isCancelled()) {return;}
-            author = new ImageAuthor("Hebi65","http://pixabay.com/de/baum-scherenschnitt-natur-657481/", "CC0 Public Domain","tree", null);easyBuild(context, author, R.drawable.tree, "BAUM", "TREE");if (isCancelled()) {return;}
-            author = new ImageAuthor("OpenClips","http://pixabay.com/de/karte-umrissen-spielen-schwarz-157404/", "CC0 Public Domain","card", null);easyBuild(context, author, R.drawable.card, "SPIELKARTE", "GAMECARD");if (isCancelled()) {return;}
-            author = new ImageAuthor("traude","http://pixabay.com/de/telefon-handy-telefonieren-558022/", "CC0 Public Domain","phone", null);easyBuild(context, author, R.drawable.phone, "TELEFON", "PHONE");if (isCancelled()) {return;}
-            author = new ImageAuthor("Nemo","http://pixabay.com/de/flasche-ketchup-leere-geschlossen-306549/", "CC0 Public Domain","bottle", null);easyBuild(context, author, R.drawable.bottle, "FLASCHE", "BOTTLE");if (isCancelled()) {return;}
-            author = new ImageAuthor("Nemo","http://pixabay.com/de/elefant-profil-rot-gro%C3%9F-306223/", "CC0 Public Domain","elephant", null);easyBuild(context, author, R.drawable.elephant, "ELEFANT", "ELEPHANT");if (isCancelled()) {return;}
-            author = new ImageAuthor("Nemo","http://pixabay.com/de/brillen-schwarz-silhouette-310516/", "CC0 Public Domain","eyeglasses", null);easyBuild(context, author, R.drawable.eyeglasses, "BRILLE", "GLASSES");if (isCancelled()) {return;}
-            author = new ImageAuthor("Nemo","http://pixabay.com/de/k%C3%A4nguru-s%C3%A4ugetier-australien-295261/", "CC0 Public Domain","kangaroo", null);easyBuild(context, author, R.drawable.kangaroo, "KÄNGURU", "KANGAROO");if (isCancelled()) {return;}
-            author = new ImageAuthor("Nemo","http://pixabay.com/de/amsel-stehen-silhouette-rosa-305542/", "CC0 Public Domain","blackbird", null);easyBuild(context, author, R.drawable.blackbird, "AMSEL", "BLACKBIRD");if (isCancelled()) {return;}
-            author = new ImageAuthor("Nemo","http://pixabay.com/de/au%C3%9Ferirdischer-geste-des-friedens-308429/", "CC0 Public Domain","alien", null);easyBuild(context, author, R.drawable.alien, "ALIEN", "ALIEN");if (isCancelled()) {return;}
-            author = new ImageAuthor("Nemo","http://pixabay.com/de/teddyb%C3%A4r-b%C3%A4r-pl%C3%BCsch-gef%C3%BCllt-anial-303837/", "CC0 Public Domain","teddy-bear", null);easyBuild(context, author, R.drawable.teddy_bear, "TEDDYBÄR", "TEDDY");if (isCancelled()) {return;}
-            author = new ImageAuthor("Nemo","http://pixabay.com/de/fox-blau-silhouette-kunst-tierwelt-310123/", "CC0 Public Domain","fox", null);easyBuild(context, author, R.drawable.fox, "FUCHS", "FOX");if (isCancelled()) {return;}
-            author = new ImageAuthor("Nemo","http://pixabay.com/de/h%C3%A4nde-zwei-offen-silhouette-296850/", "CC0 Public Domain","hands", null);easyBuild(context, author, R.drawable.hands, "FINGER", "FINGER");if (isCancelled()) {return;}
-            author = new ImageAuthor("Nemo","http://pixabay.com/de/monitor-flatscreen-bildschirm-23269/", "CC0 Public Domain","monitor", null);easyBuild(context, author, R.drawable.monitor, "BILDSCHIRM", "MONITOR");if (isCancelled()) {return;}
-            author = new ImageAuthor("KTEditor","http://pixabay.com/de/uhr-zeit-stunden-559963/", "CC0 Public Domain","clock", null);easyBuild(context, author, R.drawable.clock, "UHR", "CLOCK");if (isCancelled()) {return;}
-            author = new ImageAuthor("amandaelizabeth84","http://pixabay.com/de/schnurrbart-lenker-m%C3%A4nnlich-haar-473661/", "CC0 Public Domain","moustache", null);easyBuild(context, author, R.drawable.moustache, "SCHNURRBART", "MOUSTACHE");if (isCancelled()) {return;}
-            author = new ImageAuthor("Hebi65", "http://pixabay.com/en/animal-cat-contour-outlines-675646", "CC0 Public Domain", "animal", null);easyBuild(context, author,R.drawable.cat, "KATZE", "CAT");if (isCancelled()) {return;}
+            author = new ImageAuthor("jrperes","http://pixabay.com/de/mond-himmel-wolken-tag-v%C3%B6gel-323425/", "CC0 Public Domain","moon", null);builder=easyBuild(author, R.drawable.moon, "MOND", "MOON");if (isCancelled()) {return;} else {easySave(builder);}
+            author = new ImageAuthor("catherinemary","http://pixabay.com/de/bank-rot-himmel-blau-natur-185234/", "CC0 Public Domain","bench", null);builder=easyBuild(author, R.drawable.bench, "BANK", "BENCH");if (isCancelled()) {return;} else {easySave(builder);}
+            author = new ImageAuthor("MJO","http://pixabay.com/de/rosa-rot-blume-geschenk-143445/", "CC0 Public Domain","pink", null);builder=easyBuild(author, R.drawable.pink, "ROSE", "ROSE");if (isCancelled()) {return;} else {easySave(builder);}
+            author = new ImageAuthor("rolypolys","http://pixabay.com/de/d%C3%A4nemark-ostsee-k%C3%BCste-meer-wasser-239992/", "CC0 Public Domain","denmark", null);builder=easyBuild(author, R.drawable.denmark, "MEER", "SEA");if (isCancelled()) {return;} else {easySave(builder);}
+            author = new ImageAuthor("PublicDomainPictures","http://pixabay.com/de/hintergrund-blau-sauber-klar-tag-21717/", "CC0 Public Domain","background1", null);builder=easyBuild(author, R.drawable.background1, "WIESE", "GRASSLAND");if (isCancelled()) {return;} else {easySave(builder);}
+            author = new ImageAuthor("PublicDomainPictures","http://pixabay.com/de/hintergrund-nahaufnahme-flora-16051/", "CC0 Public Domain","background2", null);builder=easyBuild(author, R.drawable.background2, "GRAS", "GRASS");if (isCancelled()) {return;} else {easySave(builder);}
+            author = new ImageAuthor("Maddox74","http://pixabay.com/de/nashorn-safaripark-d%C3%A4nemark-tier-433495/", "CC0 Public Domain","rhino4", null);builder=easyBuild(author, R.drawable.rhino4, "NASHORN", "RHINO");if (isCancelled()) {return;} else {easySave(builder);}
+            author = new ImageAuthor("Kaz","http://pixabay.com/de/nashorn-tier-schwarz-silhouette-220220/", "CC0 Public Domain","rhino3", null);builder=easyBuild(author, R.drawable.rhino3, "NASHORN", "RHINO");if (isCancelled()) {return;} else {easySave(builder);}
+            author = new ImageAuthor("OpenClips","http://pixabay.com/de/nashorn-afrika-tier-s%C3%BCdafrika-161569/", "CC0 Public Domain","rhino2", null);builder=easyBuild(author, R.drawable.rhino2, "NASHORN", "RHINO");if (isCancelled()) {return;} else {easySave(builder);}
+            author = new ImageAuthor("OpenClips","http://pixabay.com/de/nashorn-tier-biologie-s%C3%A4ugetier-153558/", "CC0 Public Domain","rhino1", null);builder=easyBuild(author, R.drawable.rhino1, "NASHORN", "RHINO");if (isCancelled()) {return;} else {easySave(builder);}
+            author = new ImageAuthor("OpenClips","http://pixabay.com/de/drache-eidechse-monster-chinesisch-149393/", "CC0 Public Domain","dragon", null);builder=easyBuild(author, R.drawable.dragon, "DRACHE", "DRAGON");if (isCancelled()) {return;} else {easySave(builder);}
+            author = new ImageAuthor("OpenClips","http://pixabay.com/de/stier-buffalo-tier-s%C3%A4ugetier-155411/", "CC0 Public Domain","bull", null);builder=easyBuild(author, R.drawable.bull, "STIER", "BULL");if (isCancelled()) {return;} else {easySave(builder);}
+            author = new ImageAuthor("Hebi65","http://pixabay.com/de/fledermaus-schwarz-dracula-fl%C3%BCgel-151366/", "CC0 Public Domain","bat", null);builder=easyBuild(author, R.drawable.bat, "FLEDERMAUS", "BAT");if (isCancelled()) {return;} else {easySave(builder);}
+            author = new ImageAuthor("Hebi65","http://pixabay.com/de/blume-rose-kontur-umrisse-schwarz-681009/", "CC0 Public Domain","flower", null);builder=easyBuild(author, R.drawable.flower, "BLUME", "FLOWER");if (isCancelled()) {return;} else {easySave(builder);}
+            author = new ImageAuthor("Hebi65","http://pixabay.com/de/schmetterling-schwarz-weiss-konturen-658047/", "CC0 Public Domain","butterfly", null);builder=easyBuild(author, R.drawable.butterfly, "SCHMETTERLING", "BUTTERFLY");if (isCancelled()) {return;} else {easySave(builder);}
+            author = new ImageAuthor("Hebi65","http://pixabay.com/de/baum-scherenschnitt-natur-657481/", "CC0 Public Domain","tree", null);builder=easyBuild(author, R.drawable.tree, "BAUM", "TREE");if (isCancelled()) {return;} else {easySave(builder);}
+            author = new ImageAuthor("OpenClips","http://pixabay.com/de/karte-umrissen-spielen-schwarz-157404/", "CC0 Public Domain","card", null);builder=easyBuild(author, R.drawable.card, "SPIELKARTE", "GAMECARD");if (isCancelled()) {return;} else {easySave(builder);}
+            author = new ImageAuthor("traude","http://pixabay.com/de/telefon-handy-telefonieren-558022/", "CC0 Public Domain","phone", null);builder=easyBuild(author, R.drawable.phone, "TELEFON", "PHONE");if (isCancelled()) {return;} else {easySave(builder);}
+            author = new ImageAuthor("Nemo","http://pixabay.com/de/flasche-ketchup-leere-geschlossen-306549/", "CC0 Public Domain","bottle", null);builder=easyBuild(author, R.drawable.bottle, "FLASCHE", "BOTTLE");if (isCancelled()) {return;} else {easySave(builder);}
+            author = new ImageAuthor("Nemo","http://pixabay.com/de/elefant-profil-rot-gro%C3%9F-306223/", "CC0 Public Domain","elephant", null);builder=easyBuild(author, R.drawable.elephant, "ELEFANT", "ELEPHANT");if (isCancelled()) {return;} else {easySave(builder);}
+            author = new ImageAuthor("Nemo","http://pixabay.com/de/brillen-schwarz-silhouette-310516/", "CC0 Public Domain","eyeglasses", null);builder=easyBuild(author, R.drawable.eyeglasses, "BRILLE", "GLASSES");if (isCancelled()) {return;} else {easySave(builder);}
+            author = new ImageAuthor("Nemo","http://pixabay.com/de/k%C3%A4nguru-s%C3%A4ugetier-australien-295261/", "CC0 Public Domain","kangaroo", null);builder=easyBuild(author, R.drawable.kangaroo, "KÄNGURU", "KANGAROO");if (isCancelled()) {return;} else {easySave(builder);}
+            author = new ImageAuthor("Nemo","http://pixabay.com/de/amsel-stehen-silhouette-rosa-305542/", "CC0 Public Domain","blackbird", null);builder=easyBuild(author, R.drawable.blackbird, "AMSEL", "BLACKBIRD");if (isCancelled()) {return;} else {easySave(builder);}
+            author = new ImageAuthor("Nemo","http://pixabay.com/de/au%C3%9Ferirdischer-geste-des-friedens-308429/", "CC0 Public Domain","alien", null);builder=easyBuild(author, R.drawable.alien, "ALIEN", "ALIEN");if (isCancelled()) {return;} else {easySave(builder);}
+            author = new ImageAuthor("Nemo","http://pixabay.com/de/teddyb%C3%A4r-b%C3%A4r-pl%C3%BCsch-gef%C3%BCllt-anial-303837/", "CC0 Public Domain","teddy-bear", null);builder=easyBuild(author, R.drawable.teddy_bear, "TEDDYBÄR", "TEDDY");if (isCancelled()) {return;} else {easySave(builder);}
+            author = new ImageAuthor("Nemo","http://pixabay.com/de/fox-blau-silhouette-kunst-tierwelt-310123/", "CC0 Public Domain","fox", null);builder=easyBuild(author, R.drawable.fox, "FUCHS", "FOX");if (isCancelled()) {return;} else {easySave(builder);}
+            author = new ImageAuthor("Nemo","http://pixabay.com/de/h%C3%A4nde-zwei-offen-silhouette-296850/", "CC0 Public Domain","hands", null);builder=easyBuild(author, R.drawable.hands, "FINGER", "FINGER");if (isCancelled()) {return;} else {easySave(builder);}
+            author = new ImageAuthor("Nemo","http://pixabay.com/de/monitor-flatscreen-bildschirm-23269/", "CC0 Public Domain","monitor", null);builder=easyBuild(author, R.drawable.monitor, "BILDSCHIRM", "MONITOR");if (isCancelled()) {return;} else {easySave(builder);}
+            author = new ImageAuthor("KTEditor","http://pixabay.com/de/uhr-zeit-stunden-559963/", "CC0 Public Domain","clock", null);builder=easyBuild(author, R.drawable.clock, "UHR", "CLOCK");if (isCancelled()) {return;} else {easySave(builder);}
+            author = new ImageAuthor("amandaelizabeth84","http://pixabay.com/de/schnurrbart-lenker-m%C3%A4nnlich-haar-473661/", "CC0 Public Domain","moustache", null);builder=easyBuild(author, R.drawable.moustache, "SCHNURRBART", "MOUSTACHE");if (isCancelled()) {return;} else {easySave(builder);}
+            author = new ImageAuthor("Hebi65", "http://pixabay.com/en/animal-cat-contour-outlines-675646", "CC0 Public Domain", "animal", null);builder=easyBuild(author,R.drawable.cat, "KATZE", "CAT");if (isCancelled()) {return;} else {easySave(builder);}
 
         }
 
-        private Image.Builder easyBuild(Context context, ImageAuthor author,
+        private Image.Builder easyBuild(ImageAuthor author,
                                                int resId, String german, String english) throws BuildException {
-            Image.Builder builder = new Image.Builder(context, resId, author);
+            Image.Builder builder = new Image.Builder(mContext, resId, author);
             builder.addSolution(new Solution(Tongue.GERMAN, german));
             builder.addSolution(new Solution(Tongue.ENGLISH, english));
+            return builder;
+        }
+        
+        private void easySave(Image.Builder builder) throws BuildException {
             Image image = builder.build();
+            mCurrentBuildImages.add(image);
             image.saveToDatabase(mContext);
             mCurrImageIndex++;
             publishProgress(mCurrentVersion, mCurrImageIndex, mCurrImageCount);
-            return builder;
         }
 
     }
