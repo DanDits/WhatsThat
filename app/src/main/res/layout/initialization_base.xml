@@ -50,9 +50,10 @@
             android:layout_gravity="center_horizontal|top"
             android:background="@drawable/think"
             android:visibility="invisible"
-            android:paddingTop="5dp"
-            android:paddingLeft="5dp"
-            android:paddingRight="5dp" />
+            android:paddingTop="10dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:layout_margin="10dp" />
     </FrameLayout>
 
 </LinearLayout>

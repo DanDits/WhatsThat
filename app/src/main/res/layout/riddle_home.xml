@@ -31,4 +31,10 @@
         android:layout_height="wrap_content"
         class="dan.dit.whatsthat.riddle.RiddleView"
         android:id="@+id/riddle_view" />
+
+    <view
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        class="dan.dit.whatsthat.solution.SolutionInputView"
+        android:id="@+id/solution_input_view" />
 </LinearLayout>

@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -14,6 +15,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import dan.dit.whatsthat.obfuscation.ImageObfuscator;
+import dan.dit.whatsthat.preferences.Tongue;
 import dan.dit.whatsthat.riddle.ContentRiddleType;
 import dan.dit.whatsthat.riddle.FormatRiddleType;
 import dan.dit.whatsthat.riddle.RiddleType;
@@ -284,6 +286,22 @@ public class Image {
         return mName + ":" + mHash;
     }
 
+    public @NonNull
+    Solution getSolution(Tongue tongue) {
+        for (Solution sol : mSolutions) {
+            if (sol.getTongue().equals(tongue)) {
+                return sol;
+            }
+        }
+        if (!tongue.equals(Tongue.ENGLISH)) {
+            Solution lastTry = getSolution(Tongue.ENGLISH);
+            if (lastTry != null) {
+                return lastTry;
+            }
+        }
+        return mSolutions.get(0);
+    }
+
     /**
      * A builder for the Image class that allows recreation from the database or fresh creation
      * of a new image object.
@@ -360,7 +378,6 @@ public class Image {
 
         private void addOwnContrastAsPreference(Bitmap bitmap) {
             double contrast = BitmapUtil.calculateContrast(bitmap);
-            Log.d("Riddle", "Contrast for " + mImage.mName + ": " + contrast);
             if (BitmapUtil.CONTRAST_STRONG_THRESHOLD > contrast && contrast >= BitmapUtil.CONTRAST_WEAK_THRESHOLD) {
                 addPreferredRiddleType(ContentRiddleType.ContentMediumContrast.INSTANCE);
             } else if (BitmapUtil.CONTRAST_STRONG_THRESHOLD <= contrast) {

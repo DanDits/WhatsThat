@@ -8,8 +8,8 @@
     <string name="init_skip_available">Enough, let\'s go!</string>
     <string name="init_skip_unavailable">Need. To. Think...</string>
 
-    <string name="intro_test_subject_name">Test subject: </string>
-    <string name="intro_test_subject_estimated_intelligence">Estimated intelligence: </string>
+    <string name="intro_test_subject_name">-test subject-</string>
+    <string name="intro_test_subject_estimated_intelligence">-intelligence-</string>
 
     <string name="test_subject_0_name">Kid</string>
     <string name="test_subject_0_int">404</string>

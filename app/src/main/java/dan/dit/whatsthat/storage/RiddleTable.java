@@ -16,7 +16,7 @@ public class RiddleTable {
     public static final String TABLE_RIDDLES = "Riddles";
 
     /**
-     * The current or final solution entered for the riddle.
+     * The current SolutionInput or if solved the final solution entered for the riddle.
      */
     public static final String COLUMN_SOLUTION = "solution";
 
@@ -76,7 +76,7 @@ public class RiddleTable {
                     + "("
                     + COLUMN_ID + " integer primary key autoincrement, "
                     + COLUMN_TIMESTAMP + " integer, "
-                    + COLUMN_SOLUTION + " text, "
+                    + COLUMN_SOLUTION + " text, " // not core
                     + COLUMN_SOLVED + " integer, " // not core
                     + COLUMN_ORIGIN + " text, "
                     + COLUMN_IMAGEHASH + " text not null, "

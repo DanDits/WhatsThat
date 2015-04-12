@@ -2,6 +2,7 @@ package dan.dit.whatsthat;
 
 import android.app.Fragment;
 import android.app.LoaderManager;
+import android.content.Context;
 import android.content.CursorLoader;
 import android.content.Loader;
 import android.database.Cursor;
@@ -32,6 +33,7 @@ import dan.dit.whatsthat.riddle.PracticalRiddleType;
 import dan.dit.whatsthat.riddle.Riddle;
 import dan.dit.whatsthat.riddle.RiddleManager;
 import dan.dit.whatsthat.riddle.RiddleView;
+import dan.dit.whatsthat.solution.SolutionInputView;
 import dan.dit.whatsthat.storage.ImageTable;
 import dan.dit.whatsthat.storage.ImagesContentProvider;
 
@@ -39,9 +41,11 @@ import dan.dit.whatsthat.storage.ImagesContentProvider;
  * Created by daniel on 10.04.15.
  */
 public class RiddleFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>, ImageManager.SynchronizationListener, RiddleManager.UnsolvedRiddleListener {
+    public static final String LAST_VISIBLE_UNSOLVED_RIDDLE_ID_KEY = "dan.dit.whatsthat.unsolved_riddle_id_key";
 
     public static final Map<String, Image> ALL_IMAGES = new HashMap<>();
     private RiddleView mRiddleView;
+    private SolutionInputView mSolutionView;
     private Button mBtnNextRiddle;
     private boolean mIsMakingRiddle;
     private ImageButton mBtnUnsolvedRiddles;
@@ -79,7 +83,14 @@ public class RiddleFragment extends Fragment implements LoaderManager.LoaderCall
 
     private void nextRiddleIfEmpty() {
         if (!mRiddleView.hasController()) {
-            nextRiddle();
+            long suggestedId = getActivity().getSharedPreferences(Image.SHAREDPREFERENCES_FILENAME, Context.MODE_PRIVATE).
+                    getLong(LAST_VISIBLE_UNSOLVED_RIDDLE_ID_KEY, Riddle.NO_ID);
+            Log.d("Riddle","No controller, next riddle with suggested id: " + suggestedId);
+            if (suggestedId == Riddle.NO_ID) {
+                nextRiddle();
+            } else {
+                nextUnsolvedRiddle(suggestedId);
+            }
         }
     }
 
@@ -90,6 +101,7 @@ public class RiddleFragment extends Fragment implements LoaderManager.LoaderCall
         }
         if (mRiddleView.hasController()) {
             mRiddleView.removeController();
+            mSolutionView.setSolutionInput(null);
         }
         mIsMakingRiddle = true;
         updateNextRiddleButton();
@@ -110,6 +122,7 @@ public class RiddleFragment extends Fragment implements LoaderManager.LoaderCall
             public void onRiddleReady(Riddle riddle) {
                 Log.d("HomeStuff", "Riddle ready! " + riddle + " image: " + riddle.getImage());
                 mRiddleView.setController(riddle.getController());
+                mSolutionView.setSolutionInput(riddle.getSolutionInput());
                 mIsMakingRiddle = false;
                 updateNextRiddleButton();
             }
@@ -156,17 +169,18 @@ public class RiddleFragment extends Fragment implements LoaderManager.LoaderCall
         mRiddleView.startAnimation(animationSet);
     }
 
-    private void nextUnsolvedRiddle() {
+    private void nextUnsolvedRiddle(long suggestedId) {
         if (RiddleManager.getUnsolvedRiddleCount() > 0 && canClickNextRiddle()) {
             mIsMakingRiddle = true;
             updateNextRiddleButton();
             if (mRiddleView.hasController()) {
                 mRiddleView.removeController();
+                mSolutionView.setSolutionInput(null);
             }
 
             DisplayMetrics displaymetrics = new DisplayMetrics();
             getActivity().getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
-            RiddleManager.remakeUnsolvedRiddle(getActivity().getApplicationContext(), mRiddleView.getWidth(), mRiddleView.getHeight(), displaymetrics.densityDpi,
+            RiddleManager.remakeUnsolvedRiddle(getActivity().getApplicationContext(), suggestedId, mRiddleView.getWidth(), mRiddleView.getHeight(), displaymetrics.densityDpi,
                     new RiddleManager.RiddleMakerListener() {
                         @Override
                         public void onProgressUpdate(int progress) {
@@ -178,6 +192,7 @@ public class RiddleFragment extends Fragment implements LoaderManager.LoaderCall
                         public void onRiddleReady(Riddle riddle) {
                             Log.d("HomeStuff", "Unsolved Riddle ready! " + riddle + " image: " + riddle.getImage());
                             mRiddleView.setController(riddle.getController());
+                            mSolutionView.setSolutionInput(riddle.getSolutionInput());
                             playRiddleViewAnimation();
                             mIsMakingRiddle = false;
                             updateNextRiddleButton();
@@ -222,11 +237,12 @@ public class RiddleFragment extends Fragment implements LoaderManager.LoaderCall
         mBtnUnsolvedRiddles.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                nextUnsolvedRiddle();
+                nextUnsolvedRiddle(Riddle.NO_ID);
             }
         });
         mRiddleMakeProgress = (ProgressBar) getView().findViewById(R.id.riddle_make_progress);
         mRiddleMakeProgress.setMax(RiddleManager.PROGRESS_COMPLETE);
+        mSolutionView = (SolutionInputView) getView().findViewById(R.id.solution_input_view);
     }
 
     @Override
@@ -253,10 +269,15 @@ public class RiddleFragment extends Fragment implements LoaderManager.LoaderCall
     @Override
     public void onStop() {
         super.onStop();
-        Log.d("Riddle", "Stopping riddle fragment.");
+        long currRiddleId = Riddle.NO_ID;
         if (mRiddleView.hasController()) {
+            currRiddleId = mRiddleView.getRiddleId();
             mRiddleView.removeController();
+            mSolutionView.setSolutionInput(null);
         }
+        Log.d("Riddle", "Stopping riddle fragment, current riddle id: " + currRiddleId);
+        getActivity().getSharedPreferences(Image.SHAREDPREFERENCES_FILENAME, Context.MODE_PRIVATE).edit()
+                .putLong(LAST_VISIBLE_UNSOLVED_RIDDLE_ID_KEY, currRiddleId).apply();
         ImageManager.unregisterSynchronizationListener(this);
         RiddleManager.unregisterUnsolvedRiddleListener(this);
     }

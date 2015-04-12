@@ -15,10 +15,18 @@ public class Language {
         return INSTANCE;
     }
 
+    public static Language getInstance() {
+        return INSTANCE;
+    }
+
     private Language(Tongue tongue) {
         mTongue = tongue;
         if (tongue == null) {
             throw new IllegalArgumentException("Null tongue.");
         }
+    }
+
+    public Tongue getTongue() {
+        return mTongue;
     }
 }

@@ -144,7 +144,21 @@ public class Compacter implements Iterable<String> {
         long ldata = getLong(index);
         return Double.longBitsToDouble(ldata);
     }
-    
+
+
+    public Compacter appendData(boolean data) {
+        if (data) {
+            appendData("1");
+        } else {
+            appendData("0");
+        }
+        return this;
+    }
+
+    public boolean getBoolean(int index)  {
+        return data.get(index).equals("1");
+    }
+
 	/**
 	 * Returns the data at the given index. The data order is kept consistent:
 	 * The first data appended is at index 0, the second at index 1,...

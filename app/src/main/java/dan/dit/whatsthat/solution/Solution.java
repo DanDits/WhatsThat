@@ -21,6 +21,19 @@ public class Solution implements Compactable {
         unloadData(compacter);
     }
 
+    /**
+     * Constructs a solution of a language with an empty word. This will not
+     * be an expected solution for an image, don't use it there!
+     * @param tongue The tongue of the solution.
+     */
+    protected Solution(Tongue tongue) {
+        if (tongue == null) {
+            throw new IllegalArgumentException("Null tongue given.");
+        }
+        mTongue = tongue;
+        mSolutionWords.add("");
+    }
+
     public Solution(Tongue tongue, String word) {
         if (tongue == null || TextUtils.isEmpty(word)) {
             throw new IllegalArgumentException("Null tongue or word given.");
@@ -66,10 +79,6 @@ public class Solution implements Compactable {
         }
     }
 
-    public boolean contains(String word) {
-        return mSolutionWords.contains(word);
-    }
-
     @Override
     public String toString() {
         return mTongue.getShortcut() + ": " + mSolutionWords;
@@ -94,5 +103,13 @@ public class Solution implements Compactable {
         for (int i=1;i<compactedData.getSize();i++) {
             mSolutionWords.add(compactedData.getData(i));
         }
+    }
+
+    public String getMainWord() {
+        return mSolutionWords.get(0);
+    }
+
+    public Tongue getTongue() {
+        return mTongue;
     }
 }

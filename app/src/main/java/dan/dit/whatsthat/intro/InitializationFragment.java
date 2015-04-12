@@ -1,9 +1,11 @@
 package dan.dit.whatsthat.intro;
 
 import android.app.Fragment;
+import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -110,9 +112,11 @@ public class InitializationFragment extends Fragment implements ImageManager.Syn
         TestSubject subj = TestSubject.getInstance();
         StringBuilder builder = new StringBuilder();
         builder.append(res.getString(R.string.intro_test_subject_name));
+        builder.append("\n");
         builder.append(res.getString(subj.getNameResId()));
         builder.append("\n");
         builder.append(res.getString(R.string.intro_test_subject_estimated_intelligence));
+        builder.append("\n");
         builder.append(res.getString(subj.getIntelligenceResId()));
         mIntroSubjectDescr.setText(builder.toString());
         mNextTextListener = new View.OnTouchListener() {
@@ -127,7 +131,17 @@ public class InitializationFragment extends Fragment implements ImageManager.Syn
             }
         };
         mIntroContainer.setOnTouchListener(mNextTextListener);
-        startAnimation();
+        if (TestSubject.getInstance().hasNextMainText()) {
+            Log.d("HomeStuff", "starting animation");
+            startAnimation();
+        } else {
+            Log.d("HomeStuff", "not starting animation");
+            mIntroAbduction.setVisibility(View.INVISIBLE);
+            mIntroKid.clearAnimation();
+            mIntroKid.setVisibility(View.VISIBLE);
+            //FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) mIntroKid.getLayoutParams();
+
+        }
     }
 
     private void checkDataState() {
@@ -178,9 +192,17 @@ public class InitializationFragment extends Fragment implements ImageManager.Syn
         updateProgressBar();
         if (syncedToVersion == ImageManager.SYNC_VERSION) {
             mInitSkip.setTextColor(Color.GREEN);
-            Animation anim = AnimationUtils.loadAnimation(getActivity(), R.anim.shake);
-            mInitSkip.startAnimation(anim);
-            mIntroKid.setVisibility(View.INVISIBLE);
+            Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    Context context = getActivity();
+                    if (context != null) {
+                        Animation anim = AnimationUtils.loadAnimation(context, R.anim.shake);
+                        mInitSkip.startAnimation(anim);
+                    }
+                }
+            }, 1500);
             Log.d("HomeStuff", "Sync complete");
         }
         checkDataState();
@@ -251,6 +273,7 @@ public class InitializationFragment extends Fragment implements ImageManager.Syn
             @Override
             public void onClick(View view) {
                 if (mState >= STATE_DATA_SUFFICIENT) {
+                    mInitSkip.clearAnimation();
                     ((OnInitClosingCallback) getActivity()).onSkipInit();
                 }
             }
