@@ -2,9 +2,9 @@
 
 <resources>
     <string name="riddle_make_next">Nächstes Rätsel</string>
-    <string name="init_skip_available_all">Alles durchdacht, los gehts.</string>
-    <string name="init_skip_available">Genug, los gehts!</string>
-    <string name="init_skip_unavailable">Muss. Noch. Denken...</string>
+    <string name="init_skip_available_all">-testsubjekt wartet-</string>
+    <string name="init_skip_available">-testsubjekt bereit-</string>
+    <string name="init_skip_unavailable">-lade testsubjekt-</string>
 
     <string name="intro_test_subject_name">-Test Subjekt-</string>
     <string name="intro_test_subject_estimated_intelligence">-Intelligenz-</string>

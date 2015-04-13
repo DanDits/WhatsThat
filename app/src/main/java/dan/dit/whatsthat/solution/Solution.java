@@ -1,5 +1,6 @@
 package dan.dit.whatsthat.solution;
 
+import android.support.annotation.NonNull;
 import android.text.TextUtils;
 
 import java.util.LinkedList;
@@ -14,8 +15,10 @@ import dan.dit.whatsthat.util.compaction.Compacter;
  * Created by daniel on 24.03.15.
  */
 public class Solution implements Compactable {
+    public static final int SOLVED_NOTHING = 0;
+    public static final int SOLVED_COMPLETELY = 100;
     private Tongue mTongue;
-    private List<String> mSolutionWords = new LinkedList<String>();
+    private List<String> mSolutionWords = new LinkedList<>();
 
     public Solution(Compacter compacter) throws CompactedDataCorruptException {
         unloadData(compacter);
@@ -31,7 +34,7 @@ public class Solution implements Compactable {
             throw new IllegalArgumentException("Null tongue given.");
         }
         mTongue = tongue;
-        mSolutionWords.add("");
+        addWord("");
     }
 
     public Solution(Tongue tongue, String word) {
@@ -39,7 +42,7 @@ public class Solution implements Compactable {
             throw new IllegalArgumentException("Null tongue or word given.");
         }
         mTongue = tongue;
-        mSolutionWords.add(word);
+        addWord(word);
     }
 
     public Solution(Tongue tongue, String word1, String word2) {
@@ -48,10 +51,10 @@ public class Solution implements Compactable {
         }
         mTongue = tongue;
         if (!TextUtils.isEmpty(word1)) {
-            mSolutionWords.add(word1);
+            addWord(word1);
         }
         if (!TextUtils.isEmpty(word2)) {
-            mSolutionWords.add(word2);
+            addWord(word2);
         }
     }
 
@@ -59,7 +62,7 @@ public class Solution implements Compactable {
         mTongue = tongue;
         for (String word : words) {
             if (!TextUtils.isEmpty(word)) {
-                mSolutionWords.add(word);
+                addWord(word);
             }
         }
         if (tongue == null || mSolutionWords.isEmpty()) {
@@ -71,12 +74,16 @@ public class Solution implements Compactable {
         mTongue = tongue;
         for (String word : words) {
             if (!TextUtils.isEmpty(word)) {
-                mSolutionWords.add(word);
+                addWord(word);
             }
         }
         if (tongue == null || mSolutionWords.isEmpty()) {
             throw new IllegalArgumentException("Null tongue or no valid words given.");
         }
+    }
+
+    private void addWord(@NonNull String word) {
+        mSolutionWords.add(word.toUpperCase());
     }
 
     @Override
@@ -111,5 +118,27 @@ public class Solution implements Compactable {
 
     public Tongue getTongue() {
         return mTongue;
+    }
+
+    public int estimateSolvedValue(String userWord) {
+        if (userWord == null) {
+            return SOLVED_NOTHING;
+        }
+        int maxSolved = SOLVED_NOTHING;
+        for (String word : mSolutionWords) {
+            // the empty word will never count as solved
+            int length = Math.min(word.length(), userWord.length());
+            int solvedLettersCount = 0;
+            for (int i = 0; i < length; i++) {
+                if (word.charAt(i) == userWord.charAt(i)) {
+                    solvedLettersCount++;
+                }
+            }
+            int currSolved = length == 0 ? SOLVED_NOTHING : (SOLVED_COMPLETELY * (solvedLettersCount / word.length()));
+            if (currSolved > maxSolved) {
+                maxSolved = currSolved;
+            }
+        }
+        return maxSolved;
     }
 }

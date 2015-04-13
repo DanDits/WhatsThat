@@ -2,7 +2,7 @@ package dan.dit.whatsthat.storage;
 
 import android.database.sqlite.SQLiteDatabase;
 
-import dan.dit.whatsthat.riddle.Riddle;
+import dan.dit.whatsthat.solution.Solution;
 
 /**
  * Table that stores riddles that already done or still in progress by the user.
@@ -66,8 +66,8 @@ public class RiddleTable {
      */
     public static final String COLUMN_SCORE = "score";
 
-    public static final String SELECTION_UNSOLVED = COLUMN_SOLVED + " < " + Riddle.SOLVED_COMPLETELY;
-    public static final String SELECTION_SOLVED = COLUMN_SOLVED + " = " + Riddle.SOLVED_COMPLETELY;
+    public static final String SELECTION_UNSOLVED = COLUMN_SOLVED + " < " + Solution.SOLVED_COMPLETELY;
+    public static final String SELECTION_SOLVED = COLUMN_SOLVED + " = " + Solution.SOLVED_COMPLETELY;
 
     //Database creation SQL statement
     private static final String DATABASE_CREATE =

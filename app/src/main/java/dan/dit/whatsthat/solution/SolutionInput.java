@@ -3,6 +3,7 @@ package dan.dit.whatsthat.solution;
 import android.graphics.Canvas;
 import android.support.annotation.NonNull;
 import android.util.DisplayMetrics;
+import android.view.MotionEvent;
 
 import dan.dit.whatsthat.util.compaction.Compactable;
 import dan.dit.whatsthat.util.compaction.CompactedDataCorruptException;
@@ -13,6 +14,7 @@ import dan.dit.whatsthat.util.compaction.Compacter;
  */
 public abstract class SolutionInput implements Compactable {
     protected Solution mSolution;
+    protected SolutionInputListener mListener;
 
 
 
@@ -27,10 +29,15 @@ public abstract class SolutionInput implements Compactable {
         initSolution(solution);
     }
 
+    protected void setListener(SolutionInputListener listener) {
+        mListener = listener;
+    }
+
     public abstract int estimateSolvedValue();
-    protected abstract void initSolution(Solution solution);
+    protected abstract void initSolution(@NonNull Solution solution);
     public abstract void draw(Canvas canvas);
-    public abstract boolean performClick(float x, float y);
+    public abstract boolean onFling(MotionEvent startEvent, MotionEvent endEvent, float velocityX, float velocityY);
+    public abstract boolean onUserTouchDown(float x, float y);
     public abstract @NonNull Solution getCurrentUserSolution();
 
     public abstract void calculateLayout(float width, float height, DisplayMetrics displayMetrics);
