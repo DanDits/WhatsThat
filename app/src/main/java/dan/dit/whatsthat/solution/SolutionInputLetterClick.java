@@ -7,7 +7,6 @@ import android.graphics.Rect;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
-import android.util.TypedValue;
 import android.view.MotionEvent;
 
 import java.util.ArrayList;
@@ -20,6 +19,7 @@ import java.util.Random;
 
 import dan.dit.whatsthat.util.compaction.CompactedDataCorruptException;
 import dan.dit.whatsthat.util.compaction.Compacter;
+import dan.dit.whatsthat.util.image.ImageUtil;
 
 /**
  * Created by daniel on 12.04.15.
@@ -81,16 +81,6 @@ public class SolutionInputLetterClick extends SolutionInput {
         super(data);
     }
 
-    // convertDpToPixel(25f, metrics) -> (25dp converted to pixels)
-    private static float convertDpToPixel(float dp, DisplayMetrics metrics){
-        return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, metrics);
-    }
-
-    /*public static float convertPixelsToDp(float px, DisplayMetrics metrics){
-        float dp = px / (metrics.densityDpi / 160.f);
-        return dp;
-    }*/
-
     @Override
     // this holy mother of all stupid functions was written by looking at a hand drawn rectangle and thinking about stuff, had fun, never again
     public void calculateLayout(float width, float height, DisplayMetrics metrics) {
@@ -103,11 +93,11 @@ public class SolutionInputLetterClick extends SolutionInput {
         mAllLetterCirclePaint.setColor(Color.WHITE);
         mAllLetterCirclePaint.setAntiAlias(true);
         mUserLetterCircleBorderPaint.setStyle(Paint.Style.STROKE);
-        mUserLetterCircleBorderPaint.setStrokeWidth(convertDpToPixel(CIRCLE_BORDER_WIDTH, metrics));
+        mUserLetterCircleBorderPaint.setStrokeWidth(ImageUtil.convertDpToPixel(CIRCLE_BORDER_WIDTH, metrics));
         mUserLetterCircleBorderPaint.setAntiAlias(true);
         mAllLetterCircleBorderPaint.setColor(Color.BLACK);
         mAllLetterCircleBorderPaint.setStyle(Paint.Style.STROKE);
-        mAllLetterCircleBorderPaint.setStrokeWidth(convertDpToPixel(CIRCLE_BORDER_WIDTH, metrics));
+        mAllLetterCircleBorderPaint.setStrokeWidth(ImageUtil.convertDpToPixel(CIRCLE_BORDER_WIDTH, metrics));
         mAllLetterCircleBorderPaint.setAntiAlias(true);
         mAllLetterPaint.setColor(Color.BLACK);
         calculateUserLetterLayout();
@@ -115,13 +105,13 @@ public class SolutionInputLetterClick extends SolutionInput {
     }
 
     private void calculateAllLetterLayout() {
-        final float letter_base_size = convertDpToPixel(LETTER_BASE_SIZE, mMetrics);
-        final float padding_lr = convertDpToPixel(PADDING_LR, mMetrics);
-        final float padding_tb = convertDpToPixel(PADDING_TB, mMetrics);
-        final float gap_lr = convertDpToPixel(LETTER_MAX_GAP, mMetrics);
-        final float padding_user_all = convertDpToPixel(PADDING_USER_ALL, mMetrics);
-        final float letter_max_radius = convertDpToPixel(LETTER_MAX_RADIUS, mMetrics);
-        final float gapBetweenRows = convertDpToPixel(ALL_LETTERS_ROW_PADDING, mMetrics);
+        final float letter_base_size = ImageUtil.convertDpToPixel(LETTER_BASE_SIZE, mMetrics);
+        final float padding_lr = ImageUtil.convertDpToPixel(PADDING_LR, mMetrics);
+        final float padding_tb = ImageUtil.convertDpToPixel(PADDING_TB, mMetrics);
+        final float gap_lr = ImageUtil.convertDpToPixel(LETTER_MAX_GAP, mMetrics);
+        final float padding_user_all = ImageUtil.convertDpToPixel(PADDING_USER_ALL, mMetrics);
+        final float letter_max_radius = ImageUtil.convertDpToPixel(LETTER_MAX_RADIUS, mMetrics);
+        final float gapBetweenRows = ImageUtil.convertDpToPixel(ALL_LETTERS_ROW_PADDING, mMetrics);
 
         // -------------- all letters ---------------
         mAllLettersX.clear();
@@ -185,12 +175,12 @@ public class SolutionInputLetterClick extends SolutionInput {
     private void calculateUserLetterLayout() {
 
         mUserLetterX.clear();
-        float letter_base_size = convertDpToPixel(LETTER_BASE_SIZE, mMetrics);
-        float padding_lr = convertDpToPixel(PADDING_LR, mMetrics);
-        float padding_tb = convertDpToPixel(PADDING_TB, mMetrics);
-        float gap_lr = convertDpToPixel(LETTER_MAX_GAP, mMetrics);
-        float padding_user_all = convertDpToPixel(PADDING_USER_ALL, mMetrics);
-        float letter_max_radius = convertDpToPixel(LETTER_MAX_RADIUS, mMetrics);
+        float letter_base_size = ImageUtil.convertDpToPixel(LETTER_BASE_SIZE, mMetrics);
+        float padding_lr = ImageUtil.convertDpToPixel(PADDING_LR, mMetrics);
+        float padding_tb = ImageUtil.convertDpToPixel(PADDING_TB, mMetrics);
+        float gap_lr = ImageUtil.convertDpToPixel(LETTER_MAX_GAP, mMetrics);
+        float padding_user_all = ImageUtil.convertDpToPixel(PADDING_USER_ALL, mMetrics);
+        float letter_max_radius = ImageUtil.convertDpToPixel(LETTER_MAX_RADIUS, mMetrics);
 
         // -------user letters ---------------------------------
 
@@ -423,14 +413,14 @@ public class SolutionInputLetterClick extends SolutionInput {
         // apply click tolerance
         if (allLetterMinDistance < userLetterMinDistance) {
             if (allLetterMinDistanceIndex >= 0 && allLetterMinDistanceIndex < mAllLetters.length
-                    && allLetterMinDistance < mAllLettersCircleRadius + convertDpToPixel(CLICK_DISTANCE_MAX_DELTA, mMetrics)) {
+                    && allLetterMinDistance < mAllLettersCircleRadius + ImageUtil.convertDpToPixel(CLICK_DISTANCE_MAX_DELTA, mMetrics)) {
                 if (performAllLettersClicked(allLetterMinDistanceIndex)) {
                     return true;
                 }
             }
         } else {
             if (userLetterMinDistanceIndex >= 0 && userLetterMinDistanceIndex < mUserLetters.size()
-                    && userLetterMinDistance < mUserLetterCircleRadius + convertDpToPixel(CLICK_DISTANCE_MAX_DELTA, mMetrics)) {
+                    && userLetterMinDistance < mUserLetterCircleRadius + ImageUtil.convertDpToPixel(CLICK_DISTANCE_MAX_DELTA, mMetrics)) {
                 return performUserLetterClick(userLetterMinDistanceIndex);
             }
         }

@@ -53,5 +53,7 @@
         <item>°Will jemand wetten was passiert?°</item>
         <item>°Neue Runde, neues Glück°</item>
     </string-array>
+    <string name="dummy_content">DUMMY\nINHALT</string>
+    <string name="app_name">WhatsThat</string>
 
 </resources>

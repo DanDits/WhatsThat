@@ -248,7 +248,9 @@ public class RiddleFragment extends Fragment implements LoaderManager.LoaderCall
 
     @Override
     public boolean onSolutionComplete(String userWord) {
+        int unsolvedRiddlesCount = RiddleManager.getUnsolvedRiddleCount();
         if (mRiddleView.hasController()) {
+            unsolvedRiddlesCount--;
             getActivity().getSharedPreferences(Image.SHAREDPREFERENCES_FILENAME, Context.MODE_PRIVATE).edit()
                     .putLong(LAST_VISIBLE_UNSOLVED_RIDDLE_ID_KEY, Riddle.NO_ID).apply();
             mRiddleView.removeController();
@@ -256,7 +258,7 @@ public class RiddleFragment extends Fragment implements LoaderManager.LoaderCall
         mSolutionView.clearListener();
         Animation anim = AnimationUtils.loadAnimation(getActivity(), R.anim.solution_complete);
         mSolutionView.startAnimation(anim);
-        if (mModeUnsolvedRiddles) {
+        if (mModeUnsolvedRiddles && unsolvedRiddlesCount > 0) {
             nextUnsolvedRiddle(Riddle.NO_ID);
         } else {
             nextRiddle();
@@ -328,6 +330,7 @@ public class RiddleFragment extends Fragment implements LoaderManager.LoaderCall
     @Override
     public void onStop() {
         super.onStop();
+        RiddleManager.cancelMakeRiddle();
         long currRiddleId = Riddle.NO_ID;
         if (mRiddleView.hasController()) {
             currRiddleId = mRiddleView.getRiddleId();

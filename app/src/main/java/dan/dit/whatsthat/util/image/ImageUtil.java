@@ -6,7 +6,9 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Environment;
 import android.text.TextUtils;
+import android.util.DisplayMetrics;
 import android.util.Log;
+import android.util.TypedValue;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -141,6 +143,21 @@ public final class ImageUtil {
         return new BigInteger(1, m.digest()).toString(16); // length 32 in hex format
 
     }
+
+
+    // convertDpToPixel(25f, metrics) -> (25dp converted to pixels)
+    public static float convertDpToPixel(float dp, DisplayMetrics metrics){
+        return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, metrics);
+    }
+
+    public static float convertDpToPixel(float dp, int screenDensity) {
+        return dp * screenDensity / 160.f;
+    }
+
+    /*public static float convertPixelsToDp(float px, DisplayMetrics metrics){
+        float dp = px / (metrics.densityDpi / 160.f);
+        return dp;
+    }*/
 
     // Code from http://developer.android.com/training/displaying-bitmaps/load-bitmap.html
     private static int calculateInSampleSize(
