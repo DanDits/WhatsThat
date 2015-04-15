@@ -16,9 +16,9 @@ import java.util.List;
 
 import dan.dit.whatsthat.obfuscation.ImageObfuscator;
 import dan.dit.whatsthat.preferences.Tongue;
-import dan.dit.whatsthat.riddle.ContentRiddleType;
-import dan.dit.whatsthat.riddle.FormatRiddleType;
-import dan.dit.whatsthat.riddle.RiddleType;
+import dan.dit.whatsthat.riddle.types.ContentRiddleType;
+import dan.dit.whatsthat.riddle.types.FormatRiddleType;
+import dan.dit.whatsthat.riddle.types.RiddleType;
 import dan.dit.whatsthat.solution.Solution;
 import dan.dit.whatsthat.storage.ImageTable;
 import dan.dit.whatsthat.storage.ImagesContentProvider;

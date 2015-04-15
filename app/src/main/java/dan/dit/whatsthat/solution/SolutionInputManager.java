@@ -1,6 +1,6 @@
 package dan.dit.whatsthat.solution;
 
-import dan.dit.whatsthat.riddle.RiddleType;
+import dan.dit.whatsthat.riddle.types.RiddleType;
 import dan.dit.whatsthat.util.compaction.CompactedDataCorruptException;
 import dan.dit.whatsthat.util.compaction.Compacter;
 

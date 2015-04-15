@@ -31,10 +31,10 @@ import java.util.Map;
 
 import dan.dit.whatsthat.image.Image;
 import dan.dit.whatsthat.image.ImageManager;
-import dan.dit.whatsthat.riddle.PracticalRiddleType;
 import dan.dit.whatsthat.riddle.Riddle;
 import dan.dit.whatsthat.riddle.RiddleManager;
 import dan.dit.whatsthat.riddle.RiddleView;
+import dan.dit.whatsthat.riddle.types.PracticalRiddleType;
 import dan.dit.whatsthat.solution.SolutionInputListener;
 import dan.dit.whatsthat.solution.SolutionInputView;
 import dan.dit.whatsthat.storage.ImageTable;
@@ -118,7 +118,7 @@ public class RiddleFragment extends Fragment implements LoaderManager.LoaderCall
         DisplayMetrics displaymetrics = new DisplayMetrics();
         getActivity().getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
 
-        RiddleManager.makeRiddle(getActivity().getApplicationContext(), PracticalRiddleType.Circle.INSTANCE,
+        RiddleManager.makeRiddle(getActivity().getApplicationContext(), PracticalRiddleType.Snow.INSTANCE,
                 mRiddleView.getWidth(), mRiddleView.getHeight(),displaymetrics.densityDpi,
                 new RiddleManager.RiddleMakerListener() {
             @Override

@@ -47,6 +47,7 @@ public class SolutionInputLetterClick extends SolutionInput {
     private static final float PADDING_LR = 30.f; //dp, padding left + right
     private static final float PADDING_USER_ALL = 5.f; //dp, space between user letters and all letters
     private static final float LETTER_MAX_RADIUS = 25.f; //dp, maximum radius for letters
+    private static final float ALL_LETTER_MAX_RADIUS = 55.f; //dp, maximum radius for the all letters
     private static final float LETTER_MAX_GAP = 10.f; //dp, maximum gap between letters
     private static final float LETTER_BASE_SIZE = 0.75f; //dp, base size of letters, will scale on radius
     private static final float CIRCLE_BORDER_WIDTH = 1f; //dp, width of the circle border
@@ -110,7 +111,7 @@ public class SolutionInputLetterClick extends SolutionInput {
         final float padding_tb = ImageUtil.convertDpToPixel(PADDING_TB, mMetrics);
         final float gap_lr = ImageUtil.convertDpToPixel(LETTER_MAX_GAP, mMetrics);
         final float padding_user_all = ImageUtil.convertDpToPixel(PADDING_USER_ALL, mMetrics);
-        final float letter_max_radius = ImageUtil.convertDpToPixel(LETTER_MAX_RADIUS, mMetrics);
+        final float letter_max_radius = ImageUtil.convertDpToPixel(ALL_LETTER_MAX_RADIUS, mMetrics);
         final float gapBetweenRows = ImageUtil.convertDpToPixel(ALL_LETTERS_ROW_PADDING, mMetrics);
 
         // -------------- all letters ---------------
@@ -312,6 +313,7 @@ public class SolutionInputLetterClick extends SolutionInput {
         for (int i = 0; i < mUserLetters.size(); i++) {
             if (mUserLetters.get(i).equals(NO_LETTER)) {
                 mUserLetters.set(i, letter);
+                checkCompleted();
                 return i;
             }
         }
