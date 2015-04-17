@@ -118,7 +118,7 @@ public class RiddleFragment extends Fragment implements LoaderManager.LoaderCall
         DisplayMetrics displaymetrics = new DisplayMetrics();
         getActivity().getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
 
-        RiddleManager.makeRiddle(getActivity().getApplicationContext(), PracticalRiddleType.Snow.INSTANCE,
+        RiddleManager.makeRiddle(getActivity().getApplicationContext(), PracticalRiddleType.Circle.INSTANCE,
                 mRiddleView.getWidth(), mRiddleView.getHeight(),displaymetrics.densityDpi,
                 new RiddleManager.RiddleMakerListener() {
             @Override
@@ -325,6 +325,18 @@ public class RiddleFragment extends Fragment implements LoaderManager.LoaderCall
         }
         RiddleManager.registerUnsolvedRiddleListener(this);
         updateUnsolvedRiddleUI();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        mRiddleView.onPause();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        mRiddleView.onResume();
     }
 
     @Override

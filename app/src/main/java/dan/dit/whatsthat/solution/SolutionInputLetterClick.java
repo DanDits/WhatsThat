@@ -226,6 +226,7 @@ public class SolutionInputLetterClick extends SolutionInput {
         mSolution = solution;
         String mainWord = mSolution.getMainWord();
         mSolutionLetters = new char[mainWord.length()];
+        boolean[] randomlyDrawn = new boolean[mSolutionLetters.length];
         mAllLetters = new char[Math.max(mSolutionLetters.length + LETTER_POOL_MIN_WRONG_LETTERS
                 + new Random().nextInt(LETTER_POOL_MAX_WRONG_LETTERS - LETTER_POOL_MIN_WRONG_LETTERS), LETTER_POOL_MIN_SIZE)];
         mAllLettersSelected = new int[mAllLetters.length];
@@ -237,8 +238,21 @@ public class SolutionInputLetterClick extends SolutionInput {
             mSolutionLetters[i] = mainWord.charAt(i);
             allLetters.add(mSolutionLetters[i]);
         }
-        for (int i = allLetters.size(); i < mAllLetters.length; i++) {
-            allLetters.add(mSolution.getTongue().getRandomLetter());
+
+        // fill allLetters with remaining random letters, approximating the
+        // distribution of letters in the used tongue
+        while (allLetters.size() < mAllLetters.length) {
+            char nextRandom = mSolution.getTongue().getRandomLetter();
+            boolean nextRandomMatchedSolutionLetter = false;
+            for (int j = 0; j < mSolutionLetters.length; j++) {
+                if (mSolutionLetters[j] == nextRandom && !randomlyDrawn[j]) {
+                    randomlyDrawn[j] = true;
+                    nextRandomMatchedSolutionLetter = true;
+                }
+            }
+            if (!nextRandomMatchedSolutionLetter) {
+                allLetters.add(nextRandom);
+            }
         }
         Collections.shuffle(allLetters);
         for (int i = 0; i < allLetters.size(); i++) {
