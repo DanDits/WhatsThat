@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 
 <resources>
     <string name="riddle_make_next">Nächstes Rätsel</string>
@@ -28,6 +28,7 @@
         <item>°Es zuckt, Lebenszeichen, da bin ich aber beruhigt°</item>
         <item>°Hallo Gehirn°</item>
         <item>°Huch, ich könnte schwören es starrt zurück°</item>
+	<item>°Oder doch nicht?°</item>
     </string-array>
     <string-array name="test_subject_0_intro_nuts">
         <item>°Besser wir starten mit ganz einfachen Tests°</item>
