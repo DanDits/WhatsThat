@@ -2,8 +2,8 @@
 
 <resources>
     <string name="riddle_make_next">Nächstes Rätsel</string>
-    <string name="init_skip_available_all">-testsubjekt wartet-</string>
-    <string name="init_skip_available">-testsubjekt bereit-</string>
+    <string name="init_skip_available_all">-testsubjekt bereit-</string>
+    <string name="init_skip_available">-testsubjekt sitzt im Raumschiff und popelt in der Nase-</string>
     <string name="init_skip_unavailable">-lade testsubjekt-</string>
 
     <string name="intro_test_subject_name">-Test Subjekt-</string>

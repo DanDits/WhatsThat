@@ -40,6 +40,10 @@ public class Image {
     public static final String SHAREDPREFERENCES_FILENAME ="dan.dit.whatsthat.imagePrefs";
     public static final String ORIGIN_IS_THE_APP = "WhatsThat";
 
+    //TODO instead of building everytime on every device this app runs we built once for every new release of images all essential data
+    // that takes long time like hash or preference/dislike calculation, save it into a simple text file which we then read on first app
+    // launch, create Image objects and save to database like before. This saves alot of initial loading time and does not require
+    // shipping database files which make collide with different SQL versions or paths for those files or access violations
     private long mTimestamp;
 
     // the md5 hash of the image which identifies it

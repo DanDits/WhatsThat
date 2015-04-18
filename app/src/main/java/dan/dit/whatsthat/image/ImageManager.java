@@ -248,8 +248,8 @@ public class ImageManager {
             author = new ImageAuthor("Nemo", "http://pixabay.com/en/mouse-rodent-animal-small-pet-311207/", "CC0 Public Domain", "mouse", null);builder=easyBuild(author,R.drawable.mouse, "MAUS", "MOUSE");if (isCancelled()) {return;} else {easySave(builder);}
             author = new ImageAuthor("OpenClips", "http://pixabay.com/en/rocket-spaceship-space-shuttle-nasa-147466/", "CC0 Public Domain", "rocket", null);builder=easyBuild(author,R.drawable.rocket, "RAKETE", "ROCKET");if (isCancelled()) {return;} else {easySave(builder);}
             author = new ImageAuthor("Nemo", "http://pixabay.com/en/worm-cartoon-character-cute-funny-309559/", "CC0 Public Domain", "worm", null);builder=easyBuild(author,R.drawable.worm, "WURM", "WORM");if (isCancelled()) {return;} else {easySave(builder);}
-            author = new ImageAuthor("Nemo", "http://pixabay.com/en/turtle-carapace-tortoise-green-303732/", "CC0 Public Domain", "turtle", null);builder=easyBuild(author,R.drawable.bomb, "SCHILDRKÖTE", "TURTLE");if (isCancelled()) {return;} else {easySave(builder);}
-            author = new ImageAuthor("OpenClips", "http://pixabay.com/en/santa-claus-st-nicholas-funny-x-mas-153309/", "CC0 Public Domain", "santa", null);builder=easyBuild(author,R.drawable.bomb, "NIKOLAUS", "SANTA");if (isCancelled()) {return;} else {easySave(builder);}
+            author = new ImageAuthor("Nemo", "http://pixabay.com/en/turtle-carapace-tortoise-green-303732/", "CC0 Public Domain", "turtle", null);builder=easyBuild(author,R.drawable.turtle, "SCHILDKRÖTE", "TURTLE");if (isCancelled()) {return;} else {easySave(builder);}
+            author = new ImageAuthor("OpenClips", "http://pixabay.com/en/santa-claus-st-nicholas-funny-x-mas-153309/", "CC0 Public Domain", "santa", null);builder=easyBuild(author,R.drawable.santa, "NIKOLAUS", "SANTA");if (isCancelled()) {return;} else {easySave(builder);}
 
         }
 
