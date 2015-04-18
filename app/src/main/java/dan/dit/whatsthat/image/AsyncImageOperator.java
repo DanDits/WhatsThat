@@ -116,7 +116,7 @@ public class AsyncImageOperator {
                     if (isCancelled()) {
                         break;
                     }
-                    mBitmaps[mProgressIndex]=image.getOrLoadBitmap(mContext.getResources(), reqWidth, reqHeight);
+                    mBitmaps[mProgressIndex]=image.getOrLoadBitmap(mContext, reqWidth, reqHeight);
                     mProgressIndex++;
                     publishProgress(mProgressIndex * PROGRESS_COMPLETE / mImages.length);
                 }

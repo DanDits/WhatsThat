@@ -229,14 +229,6 @@ public class Image {
         return mAuthor;
     }
 
-    public int getResourceId() {
-        return mResId;
-    }
-
-    public File getResourcePath() {
-        return mResPath;
-    }
-
     public String getHash() {
         return mHash;
     }
@@ -265,7 +257,7 @@ public class Image {
         return mImageData == null ? null : mImageData.get();
     }
 
-    protected Bitmap getOrLoadBitmap(Resources res, int reqWidth, int reqHeight) {
+    protected Bitmap getOrLoadBitmap(Context context, int reqWidth, int reqHeight) {
         Bitmap result = mImageData == null ? null : mImageData.get();
         if (result != null) {
             if (reqWidth <= 0 || reqHeight <= 0 || (result.getWidth() == reqWidth && result.getHeight() == reqHeight)) {
@@ -276,10 +268,17 @@ public class Image {
             // else we are smaller than required, try fresh loading and then scaling
         }
         // we need to reload the image
-        if (mResId != 0) {
-            result = ImageUtil.loadBitmap(res, mResId, reqWidth, reqHeight);
-        } else {
+        if (mResPath != null) {
             result = ImageUtil.loadBitmap(mResPath, reqWidth, reqHeight);
+        } else if (mResId != 0) {
+            result = ImageUtil.loadBitmap(context.getResources(), mResId, reqWidth, reqHeight);
+        } else {
+            // try to use name to get a image resource id
+            Log.d("Image", "No res path and no res id for name " + mName);
+            mResId = ImageUtil.getDrawableResIdFromName(context, mName);
+            if (mResId != 0) {
+                result = ImageUtil.loadBitmap(context.getResources(), mResId, reqWidth, reqHeight);
+            }
         }
         mImageData = new WeakReference<>(result);
         return result;
@@ -310,8 +309,12 @@ public class Image {
      * A builder for the Image class that allows recreation from the database or fresh creation
      * of a new image object.
      */
-    public static class Builder {
+    protected static class Builder {
         private Image mImage = new Image();
+
+        public Builder() {
+            mImage.mTimestamp = System.currentTimeMillis();
+        }
 
         public Builder(int resId, File filePath, String name, ImageAuthor author, long timestamp, String hash) {
             mImage.mResId = resId;
@@ -367,6 +370,19 @@ public class Image {
             mImage.mHash = ImageUtil.getHash(BitmapUtil.extractDataFromBitmap(image));
             addOwnFormatAsPreference(image);
             addOwnContrastAsPreference(image);
+        }
+
+        public void setResourceName(Context context, String resourceName) {
+            mImage.mName = resourceName;
+            mImage.mResId = ImageUtil.getDrawableResIdFromName(context, resourceName);
+        }
+
+        public void setAuthor(ImageAuthor author) {
+            mImage.mAuthor = author;
+        }
+
+        public void setHash(String hash) {
+            mImage.mHash = hash;
         }
 
         private void addOwnFormatAsPreference(Bitmap bitmap) {

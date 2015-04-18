@@ -26,11 +26,16 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
 
+import org.xmlpull.v1.XmlPullParserException;
+
+import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import dan.dit.whatsthat.image.Image;
 import dan.dit.whatsthat.image.ImageManager;
+import dan.dit.whatsthat.image.ImageXmlParser;
 import dan.dit.whatsthat.riddle.Riddle;
 import dan.dit.whatsthat.riddle.RiddleManager;
 import dan.dit.whatsthat.riddle.RiddleView;
@@ -118,7 +123,7 @@ public class RiddleFragment extends Fragment implements LoaderManager.LoaderCall
         DisplayMetrics displaymetrics = new DisplayMetrics();
         getActivity().getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
 
-        RiddleManager.makeRiddle(getActivity().getApplicationContext(), PracticalRiddleType.Plain.INSTANCE,
+        RiddleManager.makeRiddle(getActivity().getApplicationContext(), PracticalRiddleType.Circle.INSTANCE,
                 mRiddleView.getWidth(), mRiddleView.getHeight(),displaymetrics.densityDpi,
                 new RiddleManager.RiddleMakerListener() {
             @Override
@@ -308,6 +313,24 @@ public class RiddleFragment extends Fragment implements LoaderManager.LoaderCall
         super.onStart();
         mModeUnsolvedRiddles = getActivity().getSharedPreferences(Image.SHAREDPREFERENCES_FILENAME, Context.MODE_PRIVATE)
                 .getBoolean(MODE_UNSOLVED_RIDDLES_KEY, MODE_UNSOLVED_RIDDLES_DEFAULT);
+        ImageXmlParser parser = new ImageXmlParser();
+        //TODO testing
+        List<Image> loadedImages = null;
+        try {
+            loadedImages = parser.parseNewBundles(getActivity());
+        } catch (IOException e) {
+            Log.d("Image", "IOEXCEPTION: " + e);
+        } catch (XmlPullParserException e) {
+            Log.d("Image", "XML EXCEPTION " + e);
+        }
+        if (loadedImages != null) {
+            Log.d("Image", "Loaded images from XML: " + loadedImages);
+            Image esel = loadedImages.get(0);
+            Log.d("Image", "Author: " + esel.getAuthor());
+            Log.d("Image", "Prefs: " + esel.getPreferredRiddleTypes());
+            Log.d("Image", "Dislikes: " + esel.getDislikedRiddleTypes());
+            Log.d("Image", "Solutions: " + esel.getSolutions());
+        }
         updateUnsolvedRiddleUI();
         if (ImageManager.isSyncing()) {
             applySyncingStillInProgress(true);

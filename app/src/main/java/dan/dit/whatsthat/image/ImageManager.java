@@ -27,7 +27,7 @@ import dan.dit.whatsthat.util.BuildException;
 public class ImageManager {
     public static final int SYNC_VERSION = 1; // version number needs to be increased each time new images are added to the resources to add them to the database
 
-    private static final String PREFERENCES_KEY_IMAGE_MANAGER_VERSION = "dan.dit.whatsthat.prefkey_imagemanagerversion";
+    protected static final String PREFERENCES_KEY_IMAGE_MANAGER_VERSION = "dan.dit.whatsthat.prefkey_imagemanagerversion";
 
     private static final Set<Image> INVALID_IMAGES = new HashSet<>(); //TODO remove images from database when some async operation is started
     public static final int PROGRESS_COMPLETE = 100;
