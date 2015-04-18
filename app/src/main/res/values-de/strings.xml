@@ -12,30 +12,38 @@
     <string name="test_subject_0_name">Kind</string>
     <string name="test_subject_0_int">404</string>
     <string-array name="test_subject_0_intro_main">
-        <item>-brztq | jsqu ay | h1h2h3h4 | deutsch | yaquhu-</item>
-        <item>-sprache gefunden | willkommen testsubjekt-</item>
-        <item>-sag | planet erde | bis bald-</item>
-        <item>°WOW diese Intelligenz in solch einem kleinen Gehirn°</item>
-        <item>°Und das war nur ein zufälliges Testsubjekt, dieser Planet muss beeindruckend sein°</item>
-        <item>°Ich bin überrascht, dass uns noch niemand begrüßt hat°</item>
-        <item>-fehler | exception | error-</item>
-        <item>-division durch 0-</item>
-        <item>°Das... ist.. wow.°</item>
-        <item>°...nur ein dummes Kind°</item>
-        <item>°Da bin ich ja beruhigt°</item>
+        <item>°Oh! Seine Durchlauchtheitlebt ja doch!°</item>
+        <item>°Kann Er sich erinnern, was vor unserer Ankunft passiert ist? Nein? Ich werde Ihm helfen sich zu erinnern!°</item>
+	<item>°Eure Erlauchtheit hat uns angewiesen, das Wurmloch in der Nähe unserer Heimat zu nehmen°</item>
+	<item>°Wozu? Na um Intelligenz in neuen Arten zu finden°</item>
+	<item>°Ja! Er habe richtig gehört! Wir haben die Reise durch das Wurmloch überstanden..°</item>
+	<item>°..nunja, fast. Seine Erinnerung ist wohl verloren gegangen...°</item>
+	<item>°Aber das beste kommt noch: Wir wurden fündig auf unserer Suche!°</item>
+	<item>°Wenn mich mein Artengedächtnis nicht täuscht, dann handelt es sich hier um einen Menschen°</item>
+	<item>°Diese Spezies hat ein kleines Gehirn aber eine große Intelligenz°</item> 
+	<item>°Nein, keine hyperintelligenz um Präsident zu werden. Zumindest nach unseren Maßstäben. Auf dem Planeten sehen die das anscheinend anders°</item>
+	<item>°Wenn Seine Durchlauchtheit nun erlaube:°</item>
+	<item>°Ich vermute eine größere Intelligenz in diesem Testsubjekt als bei dem Rest. Wozu er ein Hantuch hat? Keine Ahnung°</item>
+	<item>°Ja seine Durchlauchtheit! Dieses Wesen scheint noch in einem frühen Entwicklungsstadium zu stecken°</item>
+        <item>°Wenn Er mich kurz.. an diesen.. Computer lassen.. Danke°</item>
+        <item>°Wow°</item>
         <item>°Ich dachte schon unser Bordcomputer wird neidisch°</item>
-        <item>°Aber die Tests werden hart, mal sehen, ich stöpsel das Gehirn mal an°</item>
-        <item>°Es zuckt, Lebenszeichen, da bin ich aber beruhigt°</item>
+        <item>°Doch zuerst maleinige Prüfungen mit dem Testsubjekt°</item>
+        <item>°Mal sehen. Ich stöpsel nun das Gehirn an°</item>
+        <item>°Hoppla. Falsches Kabel°</item>
+        <item>°Es zuckt. Puh, ein Lebenszeichen. Da bin ich aber beruhigt°</item>
         <item>°Hallo Gehirn°</item>
-        <item>°Huch, ich könnte schwören es starrt zurück°</item>
-	<item>°Oder doch nicht??°</item>
+        <item>°Huch, ich könnte schwören es hat mich angegrinst°</item>
+	<item>°Egal. Seine Erlauchtheitheit, ich starte nun den Test!°</item>
     </string-array>
     <string-array name="test_subject_0_intro_nuts">
-        <item>°Besser wir starten mit ganz einfachen Tests°</item>
-        <item>°Wenn ich hier drücke, dann.. oh, er lacht°</item>
-        <item>°Hm, bloß nicht überfordern, mal sehen°</item>
-        <item>°Buchstaben, negativ, Zahlen, negativ, was kennt das Subjekt eigentlich°</item>
-        <item>°Mal sehen, wie es auf einfache Bilder reagiert°</item>
+        <item>°...°</item>
+        <item>°Drücke ich hier, dann.. oh, es lacht°</item>
+        <item>°Und hier..eine rausgestreckte Zunge? Was hat das zu bedeuten? Hm, ich schreibs ins Protokoll..°</item>
+        <item>°So, bloß nicht überfordern, mal sehen..°</item>
+        <item>°..Buchstaben, nö. Zahlen, negativ, was kennt das Subjekt eigentlich?°</item>
+        <item>°..habs wohl überschätzt..</item>
+        <item>°Mal sehen, wie es auf Bilder reagiert°</item>
         <item>°Notiz an selbst: Menschen dumm, aber widerstandsfähig gegen Traktorstrahl°</item>
     </string-array>
 
