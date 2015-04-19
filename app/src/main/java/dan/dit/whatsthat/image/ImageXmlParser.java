@@ -21,6 +21,7 @@ import dan.dit.whatsthat.solution.Solution;
 import dan.dit.whatsthat.storage.ImageTable;
 import dan.dit.whatsthat.util.BuildException;
 import dan.dit.whatsthat.util.compaction.Compacter;
+import dan.dit.whatsthat.util.image.ImageUtil;
 
 /**
  * XML for easily initializing and loading new images into the app. Format:
@@ -93,12 +94,26 @@ public class ImageXmlParser {
 
     public List<Image> parseNewBundles(Context context) throws XmlPullParserException, IOException {
         mContext = context;
+        InputStream inputStream = context.getResources().openRawResource(R.raw.imagedata_uncompiled);
+        List<Image> images = parse (inputStream, 0);
+        Log.d("Image", "Parsed new bundles: Loaded images from XML with highest read number= " + mHighestReadBundleNumber + ": " + images);
+        return images;
+    }
+
+
+    public List<Image> parseAndSyncBundles(Context context) throws XmlPullParserException, IOException {
+        mContext = context;
         InputStream inputStream = context.getResources().openRawResource(R.raw.imagedata);
 
         SharedPreferences prefs = context.getSharedPreferences(Image.SHAREDPREFERENCES_FILENAME, Context.MODE_PRIVATE);
         int currBundleNumber = prefs.getInt(ImageManager.PREFERENCES_KEY_IMAGE_MANAGER_VERSION, ImageManager.SYNC_VERSION - 1);
         List<Image> images = parse (inputStream, currBundleNumber + 1);
-        Log.d("Image", "Loaded images from XML with highest read number= " + mHighestReadBundleNumber + ": " + images);
+        if (images != null) {
+            for (Image img : images) {
+                img.saveToDatabase(mContext);
+            }
+        }
+        Log.d("Image", "Parsed and synced bundles: Loaded images from XML with highest read number= " + mHighestReadBundleNumber + ": " + images);
         return images;
     }
 
@@ -165,15 +180,22 @@ public class ImageXmlParser {
     private Image readImage(XmlPullParser parser) throws XmlPullParserException, IOException {
         parser.require(XmlPullParser.START_TAG, NAMESPACE, TAG_IMAGE_NAME);
         Image.Builder builder = new Image.Builder();
+        boolean newImage = true;
+        String resName = null;
         while (parser.next() != XmlPullParser.END_TAG) {
             if (parser.getEventType() != XmlPullParser.START_TAG) {
                 continue;
             }
             String name = parser.getName();
             if (name.equals(ImageTable.COLUMN_HASH)) {
-                builder.setHash(readTextChecked(parser, ImageTable.COLUMN_HASH));
+                String hash = readTextChecked(parser, ImageTable.COLUMN_HASH);
+                if (!TextUtils.isEmpty(hash)) {
+                    builder.setHash(hash);
+                    newImage = false;
+                }
             } else if (name.equals(ImageTable.COLUMN_RESNAME)) {
-                builder.setResourceName(mContext, readTextChecked(parser, ImageTable.COLUMN_RESNAME));
+                resName = readTextChecked(parser, ImageTable.COLUMN_RESNAME);
+                builder.setResourceName(mContext, resName);
             } else if (name.equals(ImageTable.COLUMN_SOLUTIONS)) {
                 builder.setSolutions(readSolutions(parser));
             } else if (name.equals(ImageTable.COLUMN_AUTHOR)) {
@@ -185,6 +207,11 @@ public class ImageXmlParser {
             } else {
                 skip(parser);
             }
+        }
+        if (newImage && !TextUtils.isEmpty(resName)) {
+            Log.d("Image", "Calculating for image: " + resName);
+            builder.calculateHashAndPreferences(ImageUtil.loadBitmap(mContext.getResources(),
+                    ImageUtil.getDrawableResIdFromName(mContext, resName), 0, 0));
         }
         try {
             return builder.build();
@@ -342,6 +369,4 @@ public class ImageXmlParser {
             }
         }
     }
-
-
 }

@@ -7,7 +7,6 @@ import android.content.CursorLoader;
 import android.content.Loader;
 import android.database.Cursor;
 import android.graphics.Color;
-import android.graphics.drawable.AnimationDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
@@ -26,17 +25,11 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
 
-import org.xmlpull.v1.XmlPullParserException;
-
-import java.io.IOException;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import dan.dit.whatsthat.image.Image;
 import dan.dit.whatsthat.image.ImageManager;
-import dan.dit.whatsthat.image.ImageXmlParser;
-import dan.dit.whatsthat.image.ImageXmlWriter;
 import dan.dit.whatsthat.riddle.Riddle;
 import dan.dit.whatsthat.riddle.RiddleManager;
 import dan.dit.whatsthat.riddle.RiddleView;
@@ -49,7 +42,7 @@ import dan.dit.whatsthat.storage.ImagesContentProvider;
 /**
  * Created by daniel on 10.04.15.
  */
-public class RiddleFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>, ImageManager.SynchronizationListener, RiddleManager.UnsolvedRiddleListener, SolutionInputListener {
+public class RiddleFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>, RiddleManager.UnsolvedRiddleListener, SolutionInputListener {
     public static final String LAST_VISIBLE_UNSOLVED_RIDDLE_ID_KEY = "dan.dit.whatsthat.unsolved_riddle_id_key";
     public static final String MODE_UNSOLVED_RIDDLES_KEY = "dan.dit.whatsthat.unsolved_riddle_mode_key";
 
@@ -91,7 +84,7 @@ public class RiddleFragment extends Fragment implements LoaderManager.LoaderCall
     }
 
     private boolean canClickNextRiddle() {
-        return !mIsMakingRiddle && ImageManager.getCurrentSynchronizationVersion(getActivity().getApplicationContext()) >= 1 && !RiddleManager.isInitializing();
+        return !mIsMakingRiddle && !ImageManager.isSyncing() && !RiddleManager.isInitializing();
     }
 
     private void updateNextRiddleButton() {
@@ -228,16 +221,6 @@ public class RiddleFragment extends Fragment implements LoaderManager.LoaderCall
 
     }
 
-    private void applySyncingStillInProgress(boolean inProgress) {
-        if (inProgress) {
-            AnimationDrawable progress = (AnimationDrawable) getResources().getDrawable(R.drawable.images_synching);
-            progress.start();
-            mBtnNextRiddle.setCompoundDrawables(progress, null, null, null);
-        } else {
-            mBtnNextRiddle.setCompoundDrawables(null, null, null, null);
-        }
-    }
-
     private void clearRiddle() {
         if (mRiddleView.hasController()) {
             mRiddleView.removeController();
@@ -314,41 +297,8 @@ public class RiddleFragment extends Fragment implements LoaderManager.LoaderCall
         super.onStart();
         mModeUnsolvedRiddles = getActivity().getSharedPreferences(Image.SHAREDPREFERENCES_FILENAME, Context.MODE_PRIVATE)
                 .getBoolean(MODE_UNSOLVED_RIDDLES_KEY, MODE_UNSOLVED_RIDDLES_DEFAULT);
-        ImageXmlParser parser = new ImageXmlParser();
-        //TODO testing
-        List<Image> loadedImages = null;
-        try {
-            loadedImages = parser.parseNewBundles(getActivity());
-        } catch (IOException e) {
-            Log.d("Image", "IOEXCEPTION: " + e);
-        } catch (XmlPullParserException e) {
-            Log.d("Image", "XML EXCEPTION " + e);
-        }
-        if (loadedImages != null) {
-            Log.d("Image", "Loaded images from XML: " + loadedImages);
-            Image esel = loadedImages.get(0);
-            Log.d("Image", "Author: " + esel.getAuthor());
-            Log.d("Image", "Prefs: " + esel.getPreferredRiddleTypes());
-            Log.d("Image", "Dislikes: " + esel.getDislikedRiddleTypes());
-            Log.d("Image", "Solutions: " + esel.getSolutions());
-        }
-        ImageXmlWriter xmlWriter = new ImageXmlWriter();
-        xmlWriter.writeBundle(getActivity(), loadedImages, 3);
         updateUnsolvedRiddleUI();
-        if (ImageManager.isSyncing()) {
-            applySyncingStillInProgress(true);
-            ImageManager.registerSynchronizationListener(this);
-            if (ALL_IMAGES.isEmpty()) {
-                for (Image img : ImageManager.getCurrentImagesWhileSyncing()) {
-                    ALL_IMAGES.put(img.getHash(), img);
-                }
-            }
-            updateNextRiddleButton();
-            nextRiddleIfEmpty();
-        } else {
-            applySyncingStillInProgress(false);
-            getLoaderManager().initLoader(0, null, this);
-        }
+        getLoaderManager().initLoader(0, null, this);
         RiddleManager.registerUnsolvedRiddleListener(this);
         updateUnsolvedRiddleUI();
     }
@@ -377,7 +327,6 @@ public class RiddleFragment extends Fragment implements LoaderManager.LoaderCall
         Log.d("Riddle", "Stopping riddle fragment, current riddle id: " + currRiddleId);
         getActivity().getSharedPreferences(Image.SHAREDPREFERENCES_FILENAME, Context.MODE_PRIVATE).edit()
                 .putLong(LAST_VISIBLE_UNSOLVED_RIDDLE_ID_KEY, currRiddleId).apply();
-        ImageManager.unregisterSynchronizationListener(this);
         RiddleManager.unregisterUnsolvedRiddleListener(this);
     }
 
@@ -429,21 +378,6 @@ public class RiddleFragment extends Fragment implements LoaderManager.LoaderCall
         // above is about to be closed.  We need to make sure we are no
         // longer using it.
 
-    }
-
-    @Override
-    public void onSyncProgress(int syncingAtVersion, int imageProgress) {
-
-    }
-
-    @Override
-    public void onSyncComplete(int syncedToVersion) {
-        if (syncedToVersion < ImageManager.SYNC_VERSION) {
-            applySyncingStillInProgress(true);
-        } else {
-            applySyncingStillInProgress(false);
-            getLoaderManager().initLoader(0, null, this);
-        }
     }
 
     @Override

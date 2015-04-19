@@ -26,8 +26,16 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import org.xmlpull.v1.XmlPullParserException;
+
+import java.io.IOException;
+import java.util.List;
+
 import dan.dit.whatsthat.R;
+import dan.dit.whatsthat.image.Image;
 import dan.dit.whatsthat.image.ImageManager;
+import dan.dit.whatsthat.image.ImageXmlParser;
+import dan.dit.whatsthat.image.ImageXmlWriter;
 import dan.dit.whatsthat.riddle.RiddleManager;
 import dan.dit.whatsthat.testsubject.TestSubject;
 
@@ -36,8 +44,7 @@ import dan.dit.whatsthat.testsubject.TestSubject;
  */
 public class InitializationFragment extends Fragment implements ImageManager.SynchronizationListener, RiddleManager.InitProgressListener {
     private static final int STATE_DATA_NONE = 0;
-    private static final int STATE_DATA_SUFFICIENT = 1;
-    private static final int STATE_DATA_COMPLETE = 2;
+    private static final int STATE_DATA_COMPLETE = 1;
     private ProgressBar mInitProgress;
     private int mRiddleProgress;
     private int mImageProgress;
@@ -145,25 +152,35 @@ public class InitializationFragment extends Fragment implements ImageManager.Syn
     }
 
     private void checkDataState() {
-        if (RiddleManager.isInitialized()) {
-            int currSyncVersion = ImageManager.getCurrentSynchronizationVersion(getActivity());
-            if (currSyncVersion == ImageManager.SYNC_VERSION) {
-                mState = STATE_DATA_COMPLETE;
-                mInitSkip.setText(R.string.init_skip_available_all);
-                mInitSkip.setEnabled(true);
-                return;
-            } else if (currSyncVersion >= 1 && mState == STATE_DATA_NONE) {
-                mState = STATE_DATA_SUFFICIENT;
-                mInitSkip.setText(R.string.init_skip_available);
-                mInitSkip.setEnabled(true);
-                return;
-            } else if (currSyncVersion >= 1) {
-                return;
-            }
+        if (RiddleManager.isInitialized() && ImageManager.isSynced()) {
+            mState = STATE_DATA_COMPLETE;
+            mInitSkip.setText(R.string.init_skip_available_all);
+            mInitSkip.setEnabled(true);
+            return;
         }
         mState = STATE_DATA_NONE;
         mInitSkip.setText(R.string.init_skip_unavailable);
         mInitSkip.setEnabled(false);
+    }
+
+    //TODO probably better in ImageManager
+    private void calculateImagedataDeveloper() {
+        //Step1: Load new images from XML and calculate their hash and preferences
+        ImageXmlParser parser = new ImageXmlParser();
+        List<Image> loadedImages = null;
+        try {
+            loadedImages = parser.parseNewBundles(getActivity());
+            Log.d("Image", "Loaded images: " + loadedImages);
+        } catch (IOException e) {
+            Log.d("Image", "IOEXCEPTION: " + e);
+        } catch (XmlPullParserException e) {
+            Log.d("Image", "XML EXCEPTION " + e);
+        }
+        if (loadedImages != null) {
+            //Step 2: Save the updated images to new xml for future use
+            ImageXmlWriter xmlWriter = new ImageXmlWriter();
+            xmlWriter.writeBundle(getActivity(), loadedImages, parser.getHighestReadBundleNumber());
+        }
     }
 
     private void initProgressBar() {
@@ -239,6 +256,7 @@ public class InitializationFragment extends Fragment implements ImageManager.Syn
         startIntro();
         startInit();
         startSyncing();
+        //calculateImagedataDeveloper();
     }
     @Override
     public void onStop() {
@@ -272,7 +290,7 @@ public class InitializationFragment extends Fragment implements ImageManager.Syn
         mInitSkip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (mState >= STATE_DATA_SUFFICIENT) {
+                if (mState >= STATE_DATA_COMPLETE) {
                     mInitSkip.clearAnimation();
                     ((OnInitClosingCallback) getActivity()).onSkipInit();
                 }

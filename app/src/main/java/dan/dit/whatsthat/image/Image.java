@@ -367,6 +367,10 @@ public class Image {
             mImage.mTimestamp = System.currentTimeMillis();
             mImage.mAuthor = author;
             mImage.mImageData = new WeakReference<>(image);
+            calculateHashAndPreferences(image);
+        }
+
+        public void calculateHashAndPreferences(Bitmap image) {
             mImage.mHash = ImageUtil.getHash(BitmapUtil.extractDataFromBitmap(image));
             addOwnFormatAsPreference(image);
             addOwnContrastAsPreference(image);
