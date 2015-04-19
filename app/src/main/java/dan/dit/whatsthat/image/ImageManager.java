@@ -1,11 +1,12 @@
 package dan.dit.whatsthat.image;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import java.util.Collection;
+import org.xmlpull.v1.XmlPullParserException;
+
+import java.io.IOException;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -66,35 +67,16 @@ public class ImageManager {
         return SYNCING_TASK != null;
     }
 
-    public static int getCurrentSynchronizationVersion(Context context) {
-        if (SYNCING_TASK != null) {
-            return SYNCING_TASK.mCurrentVersion;
-        } else {
-            return readCurrentVersion(context);
-        }
-    }
-
-    private static int readCurrentVersion(Context context) {
-        SharedPreferences prefs = context.getSharedPreferences(Image.SHAREDPREFERENCES_FILENAME, Context.MODE_PRIVATE);
-        return prefs.getInt(PREFERENCES_KEY_IMAGE_MANAGER_VERSION, SYNC_VERSION - 1);
-    }
-
-    public static Collection<Image> getCurrentImagesWhileSyncing() {
-        if (ImageManager.isSyncing()) {
-            return SYNCING_TASK.mLastBuildImages; // this list is never touched again, so we don't run into concurrency issues
-        }
-        return null;
+    public static boolean isSynced() {
+        return !isSyncing(); //TODO keep track of it after sync was called
     }
 
     private static class SyncingTask extends AsyncTask<Void, Integer, Void> {
 
         private List<SynchronizationListener> mListener;
         private Context mContext;
-        private int mCurrentVersion;
         private int mCurrImageIndex;
         private int mCurrImageCount;
-        private List<Image> mCurrentBuildImages;
-        private List<Image> mLastBuildImages;
 
         public SyncingTask(Context context, SynchronizationListener listener) {
             mContext = context;
@@ -106,36 +88,13 @@ public class ImageManager {
 
         @Override
         protected Void doInBackground(Void... voids) {
-            SharedPreferences prefs = mContext.getSharedPreferences(Image.SHAREDPREFERENCES_FILENAME, Context.MODE_PRIVATE);
-            mCurrentVersion = prefs.getInt(PREFERENCES_KEY_IMAGE_MANAGER_VERSION, SYNC_VERSION - 1);
-            for (;mCurrentVersion < SYNC_VERSION; mCurrentVersion++) {
-                // if task cancelled, stop syncing
-                if (isCancelled()) {
-                    break;
-                }
-                // sync the current version
-                mLastBuildImages = mCurrentBuildImages;
-                mCurrentBuildImages = new LinkedList<>();
-                try {
-                    switch (mCurrentVersion) {
-                        case 0:
-                            buildVersion1(); break;
-                        //case 1:
-                        //    buildVersion1(context, newImages); break;
-                    }
-
-                } catch (BuildException be) {
-                    Log.e("Image", "Failed syncing database from version " + mCurrentVersion + " to version " + SYNC_VERSION + " build exception " + be);
-                }
-                if (isCancelled()) {
-                    break;
-                }
-                if (mCurrentVersion + 1 < SYNC_VERSION) {
-                    publishProgress(mCurrentVersion + 1);
-                }
-                // make it official that we got this version
-                prefs.edit().putInt(PREFERENCES_KEY_IMAGE_MANAGER_VERSION, SYNC_VERSION).apply();
-                Log.d("Image", "Completed syncing images for version " + mCurrentVersion);
+            ImageXmlParser parser = new ImageXmlParser();
+            try {
+                parser.parseAndSyncBundles(mContext);
+            } catch (IOException e) {
+                Log.e("Image", "IO Error parsing bundles: " + e);
+            } catch (XmlPullParserException e) {
+                Log.e("Image", "XML Error parsing bundles: " + e);
             }
             return null;
         }
@@ -164,7 +123,7 @@ public class ImageManager {
         private void buildVersion1() throws BuildException {
             mCurrImageCount = 39;
             mCurrImageIndex = 0;
-            Log.d("Image", "Building " + mCurrImageCount + " images at version " + mCurrentVersion);
+            Log.d("Image", "Building " + mCurrImageCount + " images.");
             Image.Builder builder;
 
             //hash esel 1a25d825c94dd0dae1140562439362d0
@@ -236,12 +195,13 @@ public class ImageManager {
             author = new ImageAuthor("Nemo","http://pixabay.com/de/k%C3%A4nguru-s%C3%A4ugetier-australien-295261/", "CC0 Public Domain","kangaroo", null);builder=easyBuild(author, R.drawable.kangaroo, "KÄNGURU", "KANGAROO");if (isCancelled()) {return;} else {easySave(builder);}
             author = new ImageAuthor("Nemo","http://pixabay.com/de/amsel-stehen-silhouette-rosa-305542/", "CC0 Public Domain","blackbird", null);builder=easyBuild(author, R.drawable.blackbird, "AMSEL", "BLACKBIRD");if (isCancelled()) {return;} else {easySave(builder);}
             author = new ImageAuthor("Nemo","http://pixabay.com/de/au%C3%9Ferirdischer-geste-des-friedens-308429/", "CC0 Public Domain","alien", null);builder=easyBuild(author, R.drawable.alien, "ALIEN", "ALIEN");if (isCancelled()) {return;} else {easySave(builder);}
-            author = new ImageAuthor("Nemo","http://pixabay.com/de/teddyb%C3%A4r-b%C3%A4r-pl%C3%BCsch-gef%C3%BCllt-anial-303837/", "CC0 Public Domain","teddy-bear", null);builder=easyBuild(author, R.drawable.teddy_bear, "TEDDYBÄR", "TEDDY");if (isCancelled()) {return;} else {easySave(builder);}
+            author = new ImageAuthor("Nemo","http://pixabay.com/de/teddyb%C3%A4r-b%C3%A4r-pl%C3%BCsch-gef%C3%BCllt-anial-303837/", "CC0 Public Domain","teddy-bear", null);builder=easyBuild(author, R.drawable.teddybear, "TEDDYBÄR", "TEDDY");if (isCancelled()) {return;} else {easySave(builder);}
             author = new ImageAuthor("Nemo","http://pixabay.com/de/fox-blau-silhouette-kunst-tierwelt-310123/", "CC0 Public Domain","fox", null);builder=easyBuild(author, R.drawable.fox, "FUCHS", "FOX");if (isCancelled()) {return;} else {easySave(builder);}
             author = new ImageAuthor("Nemo","http://pixabay.com/de/h%C3%A4nde-zwei-offen-silhouette-296850/", "CC0 Public Domain","hands", null);builder=easyBuild(author, R.drawable.hands, "HÄNDE", "HANDS");if (isCancelled()) {return;} else {easySave(builder);}
             author = new ImageAuthor("Nemo","http://pixabay.com/de/monitor-flatscreen-bildschirm-23269/", "CC0 Public Domain","monitor", null);builder=easyBuild(author, R.drawable.monitor, "BILDSCHIRM", "MONITOR");if (isCancelled()) {return;} else {easySave(builder);}
             author = new ImageAuthor("KTEditor","http://pixabay.com/de/uhr-zeit-stunden-559963/", "CC0 Public Domain","clock", null);builder=easyBuild(author, R.drawable.clock, "UHR", "CLOCK");if (isCancelled()) {return;} else {easySave(builder);}
             author = new ImageAuthor("amandaelizabeth84","http://pixabay.com/de/schnurrbart-lenker-m%C3%A4nnlich-haar-473661/", "CC0 Public Domain","moustache", null);builder=easyBuild(author, R.drawable.moustache, "SCHNURRBART", "MOUSTACHE");if (isCancelled()) {return;} else {easySave(builder);}
+
             author = new ImageAuthor("Hebi65", "http://pixabay.com/en/animal-cat-contour-outlines-675646", "CC0 Public Domain", "animal", null);builder=easyBuild(author,R.drawable.cat, "KATZE", "CAT");if (isCancelled()) {return;} else {easySave(builder);}
             author = new ImageAuthor("OpenClips", "http://pixabay.com/en/bomb-explosive-detonation-fuze-154456", "CC0 Public Domain", "bomb", null);builder=easyBuild(author,R.drawable.bomb, "BOMBE", "BOMB");if (isCancelled()) {return;} else {easySave(builder);}
             author = new ImageAuthor("Nemo", "http://pixabay.com/en/bones-dog-chicken-comic-307870/", "CC0 Public Domain", "bones", null);builder=easyBuild(author,R.drawable.bones, "KNOCHEN", "BONES");if (isCancelled()) {return;} else {easySave(builder);}
@@ -263,10 +223,9 @@ public class ImageManager {
         
         private void easySave(Image.Builder builder) throws BuildException {
             Image image = builder.build();
-            mCurrentBuildImages.add(image);
             image.saveToDatabase(mContext);
             mCurrImageIndex++;
-            publishProgress(mCurrentVersion, mCurrImageIndex, mCurrImageCount);
+            publishProgress(-1, mCurrImageIndex, mCurrImageCount);
         }
 
     }

@@ -4,8 +4,7 @@
     <string name="app_name">WhatsThat</string>
     <string name="riddle_make_next">Next riddle</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
-    <string name="init_skip_available_all">-testsubject waiting-</string>
-    <string name="init_skip_available">-testsubject ready-</string>
+    <string name="init_skip_available_all">-testsubject ready-</string>
     <string name="init_skip_unavailable">-loading testsubject-</string>
 
     <string name="intro_test_subject_name">-test subject-</string>
