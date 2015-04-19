@@ -84,9 +84,12 @@ public class ImageXmlParser {
     public static final String TAG_AUTHOR_TITLE = "title";
     public static final String TAG_AUTHOR_EXTRAS = "extras";
     public static final String TAG_RIDDLE_TYPE_NAME = "type";
+    private static final int PARSE_START_PROGRESS = 10;
+    private static final int PARSE_END_PROGRESS = 60;
 
     private Context mContext;
     private int mHighestReadBundleNumber;
+    private ImageManager.SynchronizationListener mListener;
 
     public int getHighestReadBundleNumber() {
         return mHighestReadBundleNumber;
@@ -101,20 +104,44 @@ public class ImageXmlParser {
     }
 
 
-    public List<Image> parseAndSyncBundles(Context context) throws XmlPullParserException, IOException {
+    public List<Image> parseAndSyncBundles(Context context, ImageManager.SynchronizationListener synchronizationListener) throws XmlPullParserException, IOException {
         mContext = context;
+        mListener = synchronizationListener;
         InputStream inputStream = context.getResources().openRawResource(R.raw.imagedata);
+        postProgress(PARSE_START_PROGRESS);
 
         SharedPreferences prefs = context.getSharedPreferences(Image.SHAREDPREFERENCES_FILENAME, Context.MODE_PRIVATE);
-        int currBundleNumber = prefs.getInt(ImageManager.PREFERENCES_KEY_IMAGE_MANAGER_VERSION, ImageManager.SYNC_VERSION - 1);
+        int currBundleNumber = prefs.getInt(ImageManager.PREFERENCES_KEY_IMAGE_MANAGER_VERSION, 0);
         List<Image> images = parse (inputStream, currBundleNumber + 1);
-        if (images != null) {
+        double progress = PARSE_END_PROGRESS;
+        postProgress((int) progress);
+        if (images != null && images.size() > 0) {
+            double parseProgressPerImage = (ImageManager.PROGRESS_COMPLETE - PARSE_END_PROGRESS) / (double) images.size();
             for (Image img : images) {
+                if (mListener != null && mListener.isSyncCancelled()) {
+                    break;
+                }
                 img.saveToDatabase(mContext);
+                progress += parseProgressPerImage;
+                postProgress((int) progress);
             }
         }
-        Log.d("Image", "Parsed and synced bundles: Loaded images from XML with highest read number= " + mHighestReadBundleNumber + ": " + images);
+        if (!mListener.isSyncCancelled()) {
+            if (mHighestReadBundleNumber > currBundleNumber) {
+                prefs.edit().putInt(ImageManager.PREFERENCES_KEY_IMAGE_MANAGER_VERSION, mHighestReadBundleNumber).apply();
+            }
+            Log.d("Image", "Parsed and synced bundles: Loaded images from XML with highest read number= " + mHighestReadBundleNumber + ": " + images);
+            postProgress(ImageManager.PROGRESS_COMPLETE);
+        } else {
+            Log.d("Image", "Parsing for image sync cancelled.");
+        }
         return images;
+    }
+
+    private void postProgress(int progress) {
+        if (mListener != null) {
+            mListener.onSyncProgress(progress);
+        }
     }
 
     private List<Image> parse(InputStream in, int startBundleNumber) throws XmlPullParserException, IOException {
@@ -149,6 +176,7 @@ public class ImageXmlParser {
                 }
                 if (bundleNumber >= startBundleNumber) {
                     images.addAll(readBundle(parser));
+                    postProgress((int) (PARSE_START_PROGRESS + (PARSE_END_PROGRESS - PARSE_START_PROGRESS) * bundleNumber / (double) ImageManager.ESTIMATED_BUNDLE_COUNT));
                     mHighestReadBundleNumber = Math.max(mHighestReadBundleNumber, bundleNumber); // so the bundles should be in ascending order in case of exceptions
                 } else {
                     skip(parser);

@@ -3,10 +3,13 @@ package dan.dit.whatsthat.crash;
 import android.app.Application;
 import android.content.Intent;
 
+import dan.dit.whatsthat.testsubject.TestSubject;
+
 public class MyApplication extends Application
 {
   public void onCreate ()
   {
+      TestSubject.loadInstance(this);
     // Setup handler for uncaught exceptions.
     Thread.setDefaultUncaughtExceptionHandler (new Thread.UncaughtExceptionHandler()
     {

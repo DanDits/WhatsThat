@@ -2,6 +2,7 @@
 
 <resources>
     <string name="riddle_make_next">Nächstes Rätsel</string>
+    <string name="riddle_next_type">Nächster Typ</string>
     <string name="init_skip_available_all">-testsubjekt bereit-</string>
     <string name="init_skip_unavailable">-lade testsubjekt-</string>
 

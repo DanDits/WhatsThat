@@ -152,7 +152,8 @@ public class InitializationFragment extends Fragment implements ImageManager.Syn
     }
 
     private void checkDataState() {
-        if (RiddleManager.isInitialized() && ImageManager.isSynced()) {
+        if (!RiddleManager.isInitializing() && !ImageManager.isSyncing()) {
+            Log.d("Image", "CheckDataState: is complete!");
             mState = STATE_DATA_COMPLETE;
             mInitSkip.setText(R.string.init_skip_available_all);
             mInitSkip.setEnabled(true);
@@ -194,35 +195,39 @@ public class InitializationFragment extends Fragment implements ImageManager.Syn
     }
 
     private void startSyncing() {
+        //calculateImagedataDeveloper();//TODO for developer
         ImageManager.sync(getActivity().getApplicationContext(), this); // loads all images available
     }
 
     @Override
-    public void onSyncProgress(int syncingAtVersion, int imageProgress) {
-        mImageProgress = (ImageManager.PROGRESS_COMPLETE * syncingAtVersion + imageProgress) / ImageManager.SYNC_VERSION;
+    public void onSyncProgress(int progress) {
+        mImageProgress = progress;
         updateProgressBar();
     }
 
     @Override
-    public void onSyncComplete(int syncedToVersion) {
-        mImageProgress = (ImageManager.PROGRESS_COMPLETE * syncedToVersion) / ImageManager.SYNC_VERSION;
+    public void onSyncComplete() {
+        mImageProgress = ImageManager.PROGRESS_COMPLETE;
         updateProgressBar();
-        if (syncedToVersion == ImageManager.SYNC_VERSION) {
-            mInitSkip.setTextColor(Color.GREEN);
-            Handler handler = new Handler();
-            handler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    Context context = getActivity();
-                    if (context != null) {
-                        Animation anim = AnimationUtils.loadAnimation(context, R.anim.shake);
-                        mInitSkip.startAnimation(anim);
-                    }
+        mInitSkip.setTextColor(Color.GREEN);
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Context context = getActivity();
+                if (context != null) {
+                    Animation anim = AnimationUtils.loadAnimation(context, R.anim.shake);
+                    mInitSkip.startAnimation(anim);
                 }
-            }, 1500);
-            Log.d("HomeStuff", "Sync complete");
-        }
+            }
+        }, 1500);
+        Log.d("HomeStuff", "Sync complete");
         checkDataState();
+    }
+
+    @Override
+    public boolean isSyncCancelled() {
+        return false;
     }
 
     @Override
@@ -251,17 +256,15 @@ public class InitializationFragment extends Fragment implements ImageManager.Syn
     @Override
     public void onStart() {
         super.onStart();
-        TestSubject.loadInstance(getActivity());
-        checkDataState();
         startIntro();
         startInit();
         startSyncing();
-        //calculateImagedataDeveloper();
+        checkDataState();
     }
     @Override
     public void onStop() {
         super.onStop();
-        ImageManager.unregisterSynchronizationListener(this);
+        ImageManager.unregisterSynchronizationListener();
         RiddleManager.unregisterInitProgressListener(this);
         Log.d("HomeStuff", "OnStop of SyncingFragment, init running=" + RiddleManager.isInitializing() + " sync running=" + ImageManager.isSyncing());
         RiddleManager.cancelInit();

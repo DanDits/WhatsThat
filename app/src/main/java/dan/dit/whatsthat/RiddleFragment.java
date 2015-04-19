@@ -24,6 +24,7 @@ import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -55,6 +56,8 @@ public class RiddleFragment extends Fragment implements LoaderManager.LoaderCall
     private ImageButton mBtnUnsolvedRiddles;
     private ProgressBar mRiddleMakeProgress;
     private boolean mModeUnsolvedRiddles;
+    private Button mBtnNextType;
+    private PracticalRiddleType mCurrRiddleType = PracticalRiddleType.Circle.INSTANCE;
 
     private void updateUnsolvedRiddleUI() {
         int unsolvedCount = RiddleManager.getUnsolvedRiddleCount();
@@ -117,7 +120,7 @@ public class RiddleFragment extends Fragment implements LoaderManager.LoaderCall
         DisplayMetrics displaymetrics = new DisplayMetrics();
         getActivity().getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
 
-        RiddleManager.makeRiddle(getActivity().getApplicationContext(), PracticalRiddleType.Circle.INSTANCE,
+        RiddleManager.makeRiddle(getActivity().getApplicationContext(), mCurrRiddleType,
                 mRiddleView.getWidth(), mRiddleView.getHeight(),displaymetrics.densityDpi,
                 new RiddleManager.RiddleMakerListener() {
             @Override
@@ -290,6 +293,20 @@ public class RiddleFragment extends Fragment implements LoaderManager.LoaderCall
         mRiddleMakeProgress = (ProgressBar) getView().findViewById(R.id.riddle_make_progress);
         mRiddleMakeProgress.setMax(RiddleManager.PROGRESS_COMPLETE);
         mSolutionView = (SolutionInputView) getView().findViewById(R.id.solution_input_view);
+        mBtnNextType = (Button) getView().findViewById(R.id.riddle_next_type);
+        mBtnNextType.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (mCurrRiddleType == PracticalRiddleType.Circle.INSTANCE) {
+                    mCurrRiddleType = PracticalRiddleType.Snow.INSTANCE;
+                    Toast.makeText(getActivity(), "'Schnee' gewählt.", Toast.LENGTH_SHORT).show();
+                } else {
+                    mCurrRiddleType = PracticalRiddleType.Circle.INSTANCE;
+                    Toast.makeText(getActivity(), "'Kreis' gewählt.", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
     }
 
     @Override
@@ -341,27 +358,34 @@ public class RiddleFragment extends Fragment implements LoaderManager.LoaderCall
         return new CursorLoader(getActivity(), ImagesContentProvider.CONTENT_URI_IMAGE, ImageTable.ALL_COLUMNS, null, null, ImageTable.COLUMN_TIMESTAMP);
     }
 
-    public void onLoadFinished(Loader<Cursor> loader,final Cursor data) {
+    private Cursor mLoadedImagesCursor;
+    private AsyncTask mLoadedImagesTask;
+    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
         // Swap the new cursor in.  (The framework will take care of closing the
         // old cursor once we return.)
         Log.d("Image", "Loaded images with loader: " + data.getCount());
-        new AsyncTask<Void, Void, Map<String, Image>>() {
+        mLoadedImagesCursor = data;
+        mLoadedImagesTask = new AsyncTask<Void, Void, Map<String, Image>>() {
             @Override
             public Map<String, Image> doInBackground(Void... nothing) {
-                data.moveToFirst();
-                Map<String, Image> map = new HashMap<>(data.getCount());
-                while (!data.isAfterLast()) {
-                    Image curr = Image.loadFromCursor(getActivity().getApplicationContext(), data);
+                mLoadedImagesCursor.moveToFirst();
+                Map<String, Image> map = new HashMap<>(mLoadedImagesCursor.getCount());
+                while (!isCancelled() && !mLoadedImagesCursor.isAfterLast()) {
+                    Image curr = Image.loadFromCursor(getActivity().getApplicationContext(), mLoadedImagesCursor);
                     if (curr != null) {
                         map.put(curr.getHash(), curr);
                     }
-                    data.moveToNext();
+                    mLoadedImagesCursor.moveToNext();
+                }
+                if (isCancelled()) {
+                    mLoadedImagesCursor = null;
                 }
                 return map;
             }
 
             @Override
             public void onPostExecute(Map<String, Image> result) {
+                mLoadedImagesTask = null;
                 if (result != null) {
                     ALL_IMAGES.clear();
                     ALL_IMAGES.putAll(result);
@@ -377,7 +401,9 @@ public class RiddleFragment extends Fragment implements LoaderManager.LoaderCall
         // This is called when the last Cursor provided to onLoadFinished()
         // above is about to be closed.  We need to make sure we are no
         // longer using it.
-
+        if (mLoadedImagesTask != null) {
+            mLoadedImagesTask.cancel(true);
+        }
     }
 
     @Override

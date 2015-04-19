@@ -8,9 +8,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="top">
-        <Button android:id="@+id/riddle_make_next" style="?metaButtonBarButtonStyle"
-            android:layout_width="0dp" android:layout_height="wrap_content"
-            android:layout_weight="1" android:text="@string/riddle_make_next" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/riddle_next_type"
+            android:id="@+id/riddle_next_type" />
+
+        <Button android:id="@+id/riddle_make_next"
+            android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="@string/riddle_make_next" />
 
         <ImageButton
             android:layout_width="wrap_content"
