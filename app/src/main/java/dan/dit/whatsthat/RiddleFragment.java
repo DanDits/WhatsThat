@@ -36,6 +36,7 @@ import java.util.Map;
 import dan.dit.whatsthat.image.Image;
 import dan.dit.whatsthat.image.ImageManager;
 import dan.dit.whatsthat.image.ImageXmlParser;
+import dan.dit.whatsthat.image.ImageXmlWriter;
 import dan.dit.whatsthat.riddle.Riddle;
 import dan.dit.whatsthat.riddle.RiddleManager;
 import dan.dit.whatsthat.riddle.RiddleView;
@@ -331,6 +332,8 @@ public class RiddleFragment extends Fragment implements LoaderManager.LoaderCall
             Log.d("Image", "Dislikes: " + esel.getDislikedRiddleTypes());
             Log.d("Image", "Solutions: " + esel.getSolutions());
         }
+        ImageXmlWriter xmlWriter = new ImageXmlWriter();
+        xmlWriter.writeBundle(getActivity(), loadedImages, 3);
         updateUnsolvedRiddleUI();
         if (ImageManager.isSyncing()) {
             applySyncingStillInProgress(true);

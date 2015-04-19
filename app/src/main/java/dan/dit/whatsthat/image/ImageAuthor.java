@@ -76,4 +76,24 @@ public class ImageAuthor implements Compactable {
         mTitle = compactedData.getData(3);
         mExtras = compactedData.getData(4);
     }
+
+    public String getName() {
+        return mName;
+    }
+
+    public String getSource() {
+        return mSource;
+    }
+
+    public String getLicense() {
+        return mLicense;
+    }
+
+    public String getTitle() {
+        return mTitle;
+    }
+
+    public String getExtras() {
+        return mExtras;
+    }
 }

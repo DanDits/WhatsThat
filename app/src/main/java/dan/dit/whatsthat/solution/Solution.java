@@ -141,4 +141,8 @@ public class Solution implements Compactable {
         }
         return maxSolved;
     }
+
+    public List<String> getWords() {
+        return mSolutionWords;
+    }
 }
