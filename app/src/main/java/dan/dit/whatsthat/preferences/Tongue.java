@@ -11,7 +11,7 @@ public enum Tongue {
     // source https://de.wikipedia.org/wiki/Buchstabenh%C3%A4ufigkeit#Buchstabenh.C3.A4ufigkeiten_in_deutschsprachigen_Texten
     // de (sums up to 99.668%; some modifications for Umlaute)
     // en (without ï; sums up to 99.999%):
-    GERMAN("Deutsch","de","ABCDEFGHIJKLMNOPQRSTUVWXYZÄÖÜß", new double[] {5.58,1.96,3.16,4.98,17.29,1.49,3.02,4.98,8.02,0.24,1.32,3.6,2.55,10.53,2.24,0.67,0.02,7.99,6.92,5.99,3.83,0.84,0.178,0.05,0.05,1.21,0.24,0.20,0.35,0.17}),
+    GERMAN("Deutsch","de","ABCDEFGHIJKLMNOPQRSTUVWXYZÄÖÜ", new double[] {5.58,1.96,3.16,4.98,17.29,1.49,3.02,4.98,8.02,0.24,1.32,3.6,2.55,10.53,2.24,0.67,0.02,7.99,7.19,5.99,3.83,0.84,0.178,0.05,0.05,1.21,0.24,0.20,0.35}),
 
     ENGLISH("English","en","ABCDEFGHIJKLMNOPQRSTUVWXYZ", new double[] {8.167,1.492,2.782,4.253,12.702,2.228,2.015,6.094,6.966,0.153,0.772,4.025,2.406,6.749,7.507,1.929,0.095,5.987,6.327,9.056,2.758,0.978,2.360,0.150,1.974,0.074});
 

@@ -231,6 +231,22 @@ public final class ImageUtil {
         return BitmapUtil.attemptBitmapScaling(result, reqWidth, reqHeight);
     }
 
+    public static Bitmap loadBitmapStrict(Resources res, int resId, int width, int height) {
+        // First decode with inJustDecodeBounds=true to check dimensions
+        final BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inJustDecodeBounds = true;
+        BitmapFactory.decodeResource(res, resId, options);
+
+        // Calculate inSampleSize
+        options.inSampleSize = calculateInSampleSize(options, width, height);
+
+        // Decode bitmap with inSampleSize set
+        options.inJustDecodeBounds = false;
+        options.inPreferredConfig = Bitmap.Config.ARGB_8888;
+        Bitmap result = BitmapFactory.decodeResource(res, resId, options);
+        return Bitmap.createScaledBitmap(result, width, height, true);
+    }
+
     /**
      * Loads the bitmap specified by the given path.
      * @param path The path to the image.

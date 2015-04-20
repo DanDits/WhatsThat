@@ -61,6 +61,7 @@ public class RiddleFragment extends Fragment implements LoaderManager.LoaderCall
 
     private void updateUnsolvedRiddleUI() {
         int unsolvedCount = RiddleManager.getUnsolvedRiddleCount();
+        unsolvedCount = Math.max(0, unsolvedCount - (mRiddleView != null && mRiddleView.hasController() ? 1 : 0)); // subtract the currently displayed one as this counts as unsolved too
         int resId;
         switch (unsolvedCount) {
             case 0:
@@ -106,6 +107,14 @@ public class RiddleFragment extends Fragment implements LoaderManager.LoaderCall
         }
     }
 
+    private void onRiddleMade(Riddle riddle) {
+        mRiddleView.setController(riddle.getController());
+        mSolutionView.setSolutionInput(riddle.getSolutionInput(), RiddleFragment.this);
+        mIsMakingRiddle = false;
+        updateNextRiddleButton();
+        updateUnsolvedRiddleUI();
+    }
+
     private void nextRiddle() {
         if (!canClickNextRiddle()) {
             mBtnNextRiddle.setEnabled(false);
@@ -131,10 +140,7 @@ public class RiddleFragment extends Fragment implements LoaderManager.LoaderCall
             @Override
             public void onRiddleReady(Riddle riddle) {
                 Log.d("HomeStuff", "Riddle ready! " + riddle + " image: " + riddle.getImage());
-                mRiddleView.setController(riddle.getController());
-                mSolutionView.setSolutionInput(riddle.getSolutionInput(), RiddleFragment.this);
-                mIsMakingRiddle = false;
-                updateNextRiddleButton();
+                onRiddleMade(riddle);
             }
 
             @Override
@@ -205,11 +211,8 @@ public class RiddleFragment extends Fragment implements LoaderManager.LoaderCall
                     @Override
                     public void onRiddleReady(Riddle riddle) {
                         Log.d("HomeStuff", "Unsolved Riddle ready! " + riddle + " image: " + riddle.getImage());
-                        mRiddleView.setController(riddle.getController());
-                        mSolutionView.setSolutionInput(riddle.getSolutionInput(), RiddleFragment.this);
+                        onRiddleMade(riddle);
                         playRiddleViewAnimation();
-                        mIsMakingRiddle = false;
-                        updateNextRiddleButton();
                     }
 
                     @Override

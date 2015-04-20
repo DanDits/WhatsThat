@@ -43,6 +43,8 @@ public class HomeActivity extends Activity implements InitializationFragment.OnI
         if (!mStateRiddleFragment) {
             mStateRiddleFragment = true;
             getFragmentManager().beginTransaction().replace(R.id.home_fragment_container, new RiddleFragment()).commit();
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+//to clear: getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         }
     }
 }
