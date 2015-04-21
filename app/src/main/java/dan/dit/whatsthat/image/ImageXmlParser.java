@@ -238,8 +238,11 @@ public class ImageXmlParser {
         }
         if (newImage && !TextUtils.isEmpty(resName)) {
             Log.d("Image", "Calculating for image: " + resName);
-            builder.calculateHashAndPreferences(ImageUtil.loadBitmap(mContext.getResources(),
-                    ImageUtil.getDrawableResIdFromName(mContext, resName), 0, 0));
+            int resId = ImageUtil.getDrawableResIdFromName(mContext, resName);
+            if (resId == 0) {
+                throw new XmlPullParserException("No resource for image with name " + resName + " found. Renamed file?");
+            }
+            builder.calculateHashAndPreferences(ImageUtil.loadBitmap(mContext.getResources(), resId, 0, 0));
         }
         try {
             return builder.build();
