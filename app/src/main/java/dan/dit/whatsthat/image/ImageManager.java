@@ -8,6 +8,7 @@ import org.xmlpull.v1.XmlPullParserException;
 
 import java.io.IOException;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -28,8 +29,29 @@ public class ImageManager {
     private ImageManager() {}
 
     private static SyncingTask SYNCING_TASK;
-    
+
+    private static void calculateImagedataDeveloper(Context context) {
+        //Step1: Load new images from XML and calculate their hash and preferences
+        ImageXmlParser parser = new ImageXmlParser();
+        List<Image> loadedImages = null;
+        try {
+            loadedImages = parser.parseNewBundles(context);
+            Log.d("Image", "Loaded images: " + loadedImages);
+        } catch (IOException e) {
+            Log.d("Image", "IOEXCEPTION: " + e);
+        } catch (XmlPullParserException e) {
+            Log.d("Image", "XML EXCEPTION " + e);
+        }
+        if (loadedImages != null) {
+            //Step 2: Save the updated images to new xml for future use
+            ImageXmlWriter xmlWriter = new ImageXmlWriter();
+            xmlWriter.writeBundle(context, loadedImages, parser.getHighestReadBundleNumber());
+        }
+        throw new UnsupportedOperationException("WE ARE DONE BUILDING IMAGES; GTFO.");
+    }
+
     public static void sync(Context context, SynchronizationListener listener) {
+        //calculateImagedataDeveloper(context);//FOR DEVELOPER BUILDING ONLY!
         cancelSync();
         SYNCING_TASK = new SyncingTask(context, listener);
         SYNCING_TASK.execute();

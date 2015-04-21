@@ -26,16 +26,8 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import org.xmlpull.v1.XmlPullParserException;
-
-import java.io.IOException;
-import java.util.List;
-
 import dan.dit.whatsthat.R;
-import dan.dit.whatsthat.image.Image;
 import dan.dit.whatsthat.image.ImageManager;
-import dan.dit.whatsthat.image.ImageXmlParser;
-import dan.dit.whatsthat.image.ImageXmlWriter;
 import dan.dit.whatsthat.riddle.RiddleManager;
 import dan.dit.whatsthat.testsubject.TestSubject;
 
@@ -164,26 +156,6 @@ public class InitializationFragment extends Fragment implements ImageManager.Syn
         mInitSkip.setEnabled(false);
     }
 
-    //TODO probably better in ImageManager
-    private void calculateImagedataDeveloper() {
-        //Step1: Load new images from XML and calculate their hash and preferences
-        ImageXmlParser parser = new ImageXmlParser();
-        List<Image> loadedImages = null;
-        try {
-            loadedImages = parser.parseNewBundles(getActivity());
-            Log.d("Image", "Loaded images: " + loadedImages);
-        } catch (IOException e) {
-            Log.d("Image", "IOEXCEPTION: " + e);
-        } catch (XmlPullParserException e) {
-            Log.d("Image", "XML EXCEPTION " + e);
-        }
-        if (loadedImages != null) {
-            //Step 2: Save the updated images to new xml for future use
-            ImageXmlWriter xmlWriter = new ImageXmlWriter();
-            xmlWriter.writeBundle(getActivity(), loadedImages, parser.getHighestReadBundleNumber());
-        }
-    }
-
     private void initProgressBar() {
         mInitProgress.setMax(RiddleManager.PROGRESS_COMPLETE + ImageManager.PROGRESS_COMPLETE);
         mRiddleProgress = 0;
@@ -195,7 +167,6 @@ public class InitializationFragment extends Fragment implements ImageManager.Syn
     }
 
     private void startSyncing() {
-        //calculateImagedataDeveloper();//TODO for developer
         ImageManager.sync(getActivity().getApplicationContext(), this); // loads all images available
     }
 
