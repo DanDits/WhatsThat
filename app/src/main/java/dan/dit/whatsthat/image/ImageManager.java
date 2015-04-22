@@ -30,7 +30,7 @@ public class ImageManager {
 
     private static SyncingTask SYNCING_TASK;
 
-    private static void calculateImagedataDeveloper(Context context) {
+    public static void calculateImagedataDeveloper(Context context) {
         //Step1: Load new images from XML and calculate their hash and preferences
         ImageXmlParser parser = new ImageXmlParser();
         List<Image> loadedImages = null;
@@ -51,7 +51,6 @@ public class ImageManager {
     }
 
     public static void sync(Context context, SynchronizationListener listener) {
-        //calculateImagedataDeveloper(context);//FOR DEVELOPER BUILDING ONLY!
         cancelSync();
         SYNCING_TASK = new SyncingTask(context, listener);
         SYNCING_TASK.execute();

@@ -208,7 +208,7 @@ public final class ImageUtil {
      * @param reqHeight The required height of the image to load.
      * @return A bitmap that will approximate the given dimensions at its best or null if no bitmap could be loaded.
      */
-    public static Bitmap loadBitmap(Resources res, int resId, int reqWidth, int reqHeight) {
+    public static Bitmap loadBitmap(Resources res, int resId, int reqWidth, int reqHeight, boolean enforceDimension) {
         if (reqWidth <= 0 || reqHeight <= 0) {
             // load unscaled image
             final BitmapFactory.Options options = new BitmapFactory.Options();
@@ -228,7 +228,7 @@ public final class ImageUtil {
         options.inJustDecodeBounds = false;
         options.inPreferredConfig = Bitmap.Config.ARGB_8888;
         Bitmap result = BitmapFactory.decodeResource(res, resId, options);
-        return BitmapUtil.attemptBitmapScaling(result, reqWidth, reqHeight);
+        return BitmapUtil.attemptBitmapScaling(result, reqWidth, reqHeight, enforceDimension);
     }
 
     public static Bitmap loadBitmapStrict(Resources res, int resId, int width, int height) {
@@ -253,7 +253,7 @@ public final class ImageUtil {
      * @param reqWidth
      *@param reqHeight @return A bitmap or nul lif no bitmap could be loaded or is not found.
      */
-    public static Bitmap loadBitmap(File path, int reqWidth, int reqHeight) {
+    public static Bitmap loadBitmap(File path, int reqWidth, int reqHeight, boolean enforceDimension) {
         if (reqWidth <= 0 || reqHeight <= 0) {
             // load unscaled image
             final BitmapFactory.Options options = new BitmapFactory.Options();
@@ -273,7 +273,7 @@ public final class ImageUtil {
         options.inJustDecodeBounds = false;
         options.inPreferredConfig = Bitmap.Config.ARGB_8888;
         Bitmap result = BitmapFactory.decodeFile(path.getAbsolutePath(), options);
-        return BitmapUtil.attemptBitmapScaling(result, reqWidth, reqHeight);
+        return BitmapUtil.attemptBitmapScaling(result, reqWidth, reqHeight, enforceDimension);
     }
 
     /**

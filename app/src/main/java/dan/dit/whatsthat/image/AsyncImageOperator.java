@@ -4,6 +4,8 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 
+import dan.dit.whatsthat.util.image.Dimension;
+
 /**
  * Created by daniel on 30.03.15.
  */
@@ -98,12 +100,12 @@ public class AsyncImageOperator {
      *     If either reqWidth or reqHeight is smaller than or equal to 0 the required dimension is ignored and
      *     the image loaded as is.
      * @param context The application context.
-     * @param reqWidth The required width of the loaded bitmaps.
-     * @param reqHeight The required height of the loaded bitmaps.
+     * @param reqDimension The required dimension of the loaded bitmaps.
+     * @param enforceDimension If the required dimension is enforced.
      * @param images The images whose bitmaps are needed.
      * @param cb The callback for progress updates and results, invoked on ui thread.
      */
-    public void loadBitmapFromImage(Context context, final int reqWidth, final int reqHeight, Image[] images, Callback cb) {
+    public void loadBitmapFromImage(Context context, final Dimension reqDimension, final boolean enforceDimension, Image[] images, Callback cb) {
         startOperation(OPERATION_LOAD_BITMAP);
         mImages = images;
         mCallback = cb;
@@ -116,7 +118,7 @@ public class AsyncImageOperator {
                     if (isCancelled()) {
                         break;
                     }
-                    mBitmaps[mProgressIndex]=image.getOrLoadBitmap(mContext, reqWidth, reqHeight);
+                    mBitmaps[mProgressIndex]=image.getOrLoadBitmap(mContext, reqDimension, enforceDimension);
                     mProgressIndex++;
                     publishProgress(mProgressIndex * PROGRESS_COMPLETE / mImages.length);
                 }

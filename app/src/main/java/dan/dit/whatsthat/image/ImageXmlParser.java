@@ -242,7 +242,7 @@ public class ImageXmlParser {
             if (resId == 0) {
                 throw new XmlPullParserException("No resource for image with name " + resName + " found. Renamed file?");
             }
-            builder.calculateHashAndPreferences(ImageUtil.loadBitmap(mContext.getResources(), resId, 0, 0));
+            builder.calculateHashAndPreferences(ImageUtil.loadBitmap(mContext.getResources(), resId, 0, 0, true));
         }
         try {
             return builder.build();

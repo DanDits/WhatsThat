@@ -109,7 +109,7 @@ public class BitmapUtil {
         return bitmapBytes;
     }
 
-    public static Bitmap attemptBitmapScaling(Bitmap result, int reqWidth, int reqHeight) {
+    public static Bitmap attemptBitmapScaling(Bitmap result, int reqWidth, int reqHeight, boolean enforceDimension) {
         if (reqWidth <= 0 || reqHeight <= 0) {
             return result;
         }
@@ -117,7 +117,7 @@ public class BitmapUtil {
             return result;
         } else {
             // calculate how bad it is to forced scale the image to desired dimensions
-            if (ImageUtil.areAspectRatiosSimilar(reqWidth, reqHeight, result.getWidth(), result.getHeight())) {
+            if (enforceDimension || ImageUtil.areAspectRatiosSimilar(reqWidth, reqHeight, result.getWidth(), result.getHeight())) {
                 // scale the image exactly to required dimensions, will most likely break the aspect ratio but not too hard
                 result = Bitmap.createScaledBitmap(result, reqWidth, reqHeight, true);
             } else {

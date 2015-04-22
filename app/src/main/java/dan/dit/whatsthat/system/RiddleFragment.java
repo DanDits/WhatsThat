@@ -304,9 +304,12 @@ public class RiddleFragment extends Fragment implements LoaderManager.LoaderCall
                 if (mCurrRiddleType == PracticalRiddleType.Circle.INSTANCE) {
                     mCurrRiddleType = PracticalRiddleType.Snow.INSTANCE;
                     Toast.makeText(getActivity(), "'Schnee' gewählt.", Toast.LENGTH_SHORT).show();
-                } else {
+                } else if (mCurrRiddleType == PracticalRiddleType.Snow.INSTANCE) {
+                    mCurrRiddleType = PracticalRiddleType.Dice.INSTANCE;
+                    Toast.makeText(getActivity(), "'Dice' gewählt.", Toast.LENGTH_SHORT).show();
+                } else if (mCurrRiddleType == PracticalRiddleType.Dice.INSTANCE) {
                     mCurrRiddleType = PracticalRiddleType.Circle.INSTANCE;
-                    Toast.makeText(getActivity(), "'Kreis' gewählt.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "'Circle' gewählt.", Toast.LENGTH_SHORT).show();
                 }
             }
         });

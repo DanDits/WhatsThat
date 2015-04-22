@@ -26,6 +26,7 @@ import dan.dit.whatsthat.util.BuildException;
 import dan.dit.whatsthat.util.compaction.CompactedDataCorruptException;
 import dan.dit.whatsthat.util.compaction.Compacter;
 import dan.dit.whatsthat.util.image.BitmapUtil;
+import dan.dit.whatsthat.util.image.Dimension;
 import dan.dit.whatsthat.util.image.ImageUtil;
 
 /**
@@ -257,27 +258,29 @@ public class Image {
         return mImageData == null ? null : mImageData.get();
     }
 
-    protected Bitmap getOrLoadBitmap(Context context, int reqWidth, int reqHeight) {
+    protected Bitmap getOrLoadBitmap(Context context, Dimension reqDimension, boolean enforceDimension) {
+        int reqWidth = reqDimension.getWidth();
+        int reqHeight = reqDimension.getHeight();
         Bitmap result = mImageData == null ? null : mImageData.get();
         if (result != null) {
             if (reqWidth <= 0 || reqHeight <= 0 || (result.getWidth() == reqWidth && result.getHeight() == reqHeight)) {
                 return result; // we got a valid bitmap with required dimensions
             } else if (result.getWidth() >= reqWidth && result.getHeight() >= reqHeight) {
-                return BitmapUtil.attemptBitmapScaling(result, reqWidth, reqHeight); // we are bigger than required, scale down
+                return BitmapUtil.attemptBitmapScaling(result, reqWidth, reqHeight, enforceDimension); // we are bigger than required, scale down
             }
             // else we are smaller than required, try fresh loading and then scaling
         }
         // we need to reload the image
         if (mResPath != null) {
-            result = ImageUtil.loadBitmap(mResPath, reqWidth, reqHeight);
+            result = ImageUtil.loadBitmap(mResPath, reqWidth, reqHeight, enforceDimension);
         } else if (mResId != 0) {
-            result = ImageUtil.loadBitmap(context.getResources(), mResId, reqWidth, reqHeight);
+            result = ImageUtil.loadBitmap(context.getResources(), mResId, reqWidth, reqHeight, enforceDimension);
         } else {
             // try to use name to get a image resource id
             Log.d("Image", "No res path and no res id for name " + mName);
             mResId = ImageUtil.getDrawableResIdFromName(context, mName);
             if (mResId != 0) {
-                result = ImageUtil.loadBitmap(context.getResources(), mResId, reqWidth, reqHeight);
+                result = ImageUtil.loadBitmap(context.getResources(), mResId, reqWidth, reqHeight, enforceDimension);
             }
         }
         mImageData = new WeakReference<>(result);
@@ -326,14 +329,14 @@ public class Image {
         }
 
         public Builder(Context context, int resId, ImageAuthor author) throws BuildException {
-            Bitmap image = ImageUtil.loadBitmap(context.getResources(), resId, 0, 0);
+            Bitmap image = ImageUtil.loadBitmap(context.getResources(), resId, 0, 0, true);
             mImage.mResId = resId;
             mImage.mName = ImageUtil.getDrawableNameFromResId(context.getResources(), resId);
             buildBasic(image, author);
         }
 
         public Builder(File imagePath, ImageAuthor author) throws BuildException {
-            Bitmap image = ImageUtil.loadBitmap(imagePath, 0, 0);
+            Bitmap image = ImageUtil.loadBitmap(imagePath, 0, 0, true);
             mImage.mResPath = imagePath;
             mImage.mName = imagePath.getName();
             buildBasic(image, author);
