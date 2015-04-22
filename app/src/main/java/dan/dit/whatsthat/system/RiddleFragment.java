@@ -1,4 +1,4 @@
-package dan.dit.whatsthat;
+package dan.dit.whatsthat.system;
 
 import android.app.Fragment;
 import android.app.LoaderManager;
@@ -29,6 +29,7 @@ import android.widget.Toast;
 import java.util.HashMap;
 import java.util.Map;
 
+import dan.dit.whatsthat.R;
 import dan.dit.whatsthat.image.Image;
 import dan.dit.whatsthat.image.ImageManager;
 import dan.dit.whatsthat.riddle.Riddle;
@@ -130,7 +131,7 @@ public class RiddleFragment extends Fragment implements LoaderManager.LoaderCall
         getActivity().getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
 
         RiddleManager.makeRiddle(getActivity().getApplicationContext(), mCurrRiddleType,
-                mRiddleView.getWidth(), mRiddleView.getHeight(),displaymetrics.densityDpi,
+                mRiddleView.getDimension(), displaymetrics.densityDpi,
                 new RiddleManager.RiddleMakerListener() {
             @Override
             public void onProgressUpdate(int progress) {
@@ -201,7 +202,7 @@ public class RiddleFragment extends Fragment implements LoaderManager.LoaderCall
 
         DisplayMetrics displaymetrics = new DisplayMetrics();
         getActivity().getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
-        RiddleManager.remakeUnsolvedRiddle(getActivity().getApplicationContext(), suggestedId, mRiddleView.getWidth(), mRiddleView.getHeight(), displaymetrics.densityDpi,
+        RiddleManager.remakeUnsolvedRiddle(getActivity().getApplicationContext(), suggestedId, mRiddleView.getDimension(), displaymetrics.densityDpi,
                 new RiddleManager.RiddleMakerListener() {
                     @Override
                     public void onProgressUpdate(int progress) {

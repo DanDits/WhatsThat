@@ -1,4 +1,4 @@
-package dan.dit.whatsthat.intro;
+package dan.dit.whatsthat.system;
 
 import android.app.Fragment;
 import android.content.Context;

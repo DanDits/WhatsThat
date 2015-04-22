@@ -1,4 +1,4 @@
-package dan.dit.whatsthat;
+package dan.dit.whatsthat.system;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -6,8 +6,8 @@ import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
 
+import dan.dit.whatsthat.R;
 import dan.dit.whatsthat.image.ImageManager;
-import dan.dit.whatsthat.intro.InitializationFragment;
 import dan.dit.whatsthat.riddle.RiddleManager;
 import dan.dit.whatsthat.util.ui.SystemUiHider;
 
@@ -27,7 +27,14 @@ public class HomeActivity extends Activity implements InitializationFragment.OnI
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_home);
-        getFragmentManager().beginTransaction().add(R.id.home_fragment_container, new InitializationFragment()).commit();
+        if (savedInstanceState == null) {
+            getFragmentManager().beginTransaction().add(R.id.home_fragment_container, new InitializationFragment()).commit();
+        }
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
     }
 
     @Override

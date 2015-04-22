@@ -104,7 +104,7 @@ public class BitmapUtil {
      */
     public static byte[] extractDataFromBitmap(Bitmap image) {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        image.compress(Bitmap.CompressFormat.PNG, 100, baos); //bm is the bitmap object
+        image.compress(Bitmap.CompressFormat.PNG, 100, baos);
         byte[] bitmapBytes = baos.toByteArray();
         return bitmapBytes;
     }

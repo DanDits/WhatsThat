@@ -46,7 +46,7 @@ public class SolutionInputLetterClick extends SolutionInput {
     private static final float PADDING_TB = 5.f; //dp , padding top + bottom
     private static final float PADDING_LR = 30.f; //dp, padding left + right
     private static final float PADDING_USER_ALL = 5.f; //dp, space between user letters and all letters
-    private static final float LETTER_MAX_RADIUS = 25.f; //dp, maximum radius for letters
+    private static final float LETTER_MAX_RADIUS = 35.f; //dp, maximum radius for letters
     private static final float ALL_LETTER_MAX_RADIUS = 55.f; //dp, maximum radius for the all letters
     private static final float LETTER_MAX_GAP = 10.f; //dp, maximum gap between letters
     private static final float LETTER_BASE_SIZE = 0.75f; //dp, base size of letters, will scale on radius
