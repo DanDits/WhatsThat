@@ -8,7 +8,7 @@ import android.view.WindowManager;
 
 import dan.dit.whatsthat.R;
 import dan.dit.whatsthat.image.ImageManager;
-import dan.dit.whatsthat.riddle.RiddleManager;
+import dan.dit.whatsthat.riddle.RiddleInitializer;
 import dan.dit.whatsthat.util.ui.SystemUiHider;
 
 
@@ -41,8 +41,8 @@ public class HomeActivity extends Activity implements InitializationFragment.OnI
     @Override
     public void onDestroy() {
         super.onDestroy();
-        Log.d("HomeStuff", "onDestroy of HomeActivity, cancel all, init running=" + RiddleManager.isInitializing() + " sync running=" + ImageManager.isSyncing());
-        RiddleManager.cancelInit();
+        Log.d("HomeStuff", "onDestroy of HomeActivity, cancel all, init running=" + RiddleInitializer.INSTANCE.isInitializing() + " sync running=" + ImageManager.isSyncing());
+        RiddleInitializer.INSTANCE.cancelInit();
         ImageManager.cancelSync();
     }
 

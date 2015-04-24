@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
+    <string name="riddle_hint_dialog_title">Information</string>
+    <string name="riddle_hint_image_disliked">Bad image for riddle</string>
+    <string name="image_author">Author</string>
+    <string name="image_author_name">Name</string>
+    <string name="image_author_source">Source</string>
+    <string name="image_author_license">License</string>
+    <string name="image_author_title">Title</string>
+    <string name="image_author_extras">Extras</string>
     <string name="app_name">WhatsThat</string>
     <string name="riddle_make_next">Next riddle</string>
     <string name="riddle_next_type">Change type</string>

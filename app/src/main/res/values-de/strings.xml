@@ -1,8 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 
 <resources>
-    <string name="riddle_make_next">Nächstes Rätsel</string>
-    <string name="riddle_next_type">Nächster Typ</string>
+    <string name="riddle_hint_dialog_title">Informationen</string>
+    <string name="riddle_hint_image_disliked">Schlechtes Bild für Rätsel</string>
+    <string name="image_author">Autor</string>
+    <string name="image_author_name">Name</string>
+    <string name="image_author_source">Quelle</string>
+    <string name="image_author_license">Lizenz</string>
+    <string name="image_author_title">Titel</string>
+    <string name="image_author_extras">Extras</string>
+
+    <string name="riddle_make_next">R</string>
+    <string name="riddle_next_type">T</string>
     <string name="init_skip_available_all">-testsubjekt bereit-</string>
     <string name="init_skip_unavailable">-lade testsubjekt-</string>
 

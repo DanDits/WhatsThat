@@ -9,21 +9,31 @@
         android:layout_height="wrap_content"
         android:layout_gravity="top">
 
-        <Button
+        <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/riddle_next_type"
-            android:id="@+id/riddle_next_type" />
+            android:id="@+id/riddle_next_type"
+            android:src="@drawable/next_type" />
 
-        <Button android:id="@+id/riddle_make_next"
+        <ImageButton android:id="@+id/riddle_make_next"
             android:layout_width="wrap_content" android:layout_height="wrap_content"
-            android:text="@string/riddle_make_next" />
+            android:text="@string/riddle_make_next"
+            android:src="@drawable/next_riddle" />
 
         <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:id="@+id/riddle_unsolved"
             android:src="@drawable/shelf1" />
+
+        <view
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            class="dan.dit.whatsthat.riddle.RiddleHintView"
+            android:id="@+id/riddle_hint"
+            android:src="@drawable/questionmark_green"
+            android:layout_gravity="right" />
 
     </LinearLayout>
 

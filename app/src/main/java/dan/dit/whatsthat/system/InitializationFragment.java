@@ -28,13 +28,14 @@ import android.widget.TextView;
 
 import dan.dit.whatsthat.R;
 import dan.dit.whatsthat.image.ImageManager;
+import dan.dit.whatsthat.riddle.RiddleInitializer;
 import dan.dit.whatsthat.riddle.RiddleManager;
 import dan.dit.whatsthat.testsubject.TestSubject;
 
 /**
  * Created by daniel on 10.04.15.
  */
-public class InitializationFragment extends Fragment implements ImageManager.SynchronizationListener, RiddleManager.InitProgressListener {
+public class InitializationFragment extends Fragment implements ImageManager.SynchronizationListener, RiddleInitializer.InitProgressListener {
     private static final int STATE_DATA_NONE = 0;
     private static final int STATE_DATA_COMPLETE = 1;
     private ProgressBar mInitProgress;
@@ -144,7 +145,7 @@ public class InitializationFragment extends Fragment implements ImageManager.Syn
     }
 
     private void checkDataState() {
-        if (!RiddleManager.isInitializing() && !ImageManager.isSyncing()) {
+        if (!RiddleInitializer.INSTANCE.isInitializing() && !ImageManager.isSyncing()) {
             Log.d("Image", "CheckDataState: is complete!");
             mState = STATE_DATA_COMPLETE;
             mInitSkip.setText(R.string.init_skip_available_all);
@@ -216,9 +217,9 @@ public class InitializationFragment extends Fragment implements ImageManager.Syn
     }
 
     private void startInit() {
-        if (!RiddleManager.isInitialized()) {
+        if (!RiddleInitializer.INSTANCE.isInitialized()) {
             initProgressBar();
-            RiddleManager.init(getActivity().getApplicationContext(), this);
+            RiddleInitializer.INSTANCE.init(getActivity().getApplicationContext(), this);
         } else {
             onInitComplete();
         }
@@ -236,9 +237,9 @@ public class InitializationFragment extends Fragment implements ImageManager.Syn
     public void onStop() {
         super.onStop();
         ImageManager.unregisterSynchronizationListener();
-        RiddleManager.unregisterInitProgressListener(this);
-        Log.d("HomeStuff", "OnStop of SyncingFragment, init running=" + RiddleManager.isInitializing() + " sync running=" + ImageManager.isSyncing());
-        RiddleManager.cancelInit();
+        RiddleInitializer.INSTANCE.unregisterInitProgressListener(this);
+        Log.d("HomeStuff", "OnStop of SyncingFragment, init running=" + RiddleInitializer.INSTANCE.isInitializing() + " sync running=" + ImageManager.isSyncing());
+        RiddleInitializer.INSTANCE.cancelInit();
         mIntroKid.clearAnimation();
         mIntroAbduction.clearAnimation();
     }
