@@ -12,6 +12,9 @@ public class BitmapUtil {
     public static final double CONTRAST_WEAK_THRESHOLD = 0.25; // everything below is bad
     public static final double CONTRAST_STRONG_THRESHOLD = 0.5; // everything between this and weak is ok, everything above is great
 
+    public static final double GREYNESS_STRONG_THRESHOLD = 0.15; // everything below is very grey (0 would be black and white)
+    public static final double GREYNESS_MEDIUM_THRESHOLD = 0.3; // everything between this and STRONG is medium grey, everything above is getting very colorful
+
     public static double calculateContrast(Bitmap image) {
         final int depth = 64;
         int[] frequencies = new int[depth];
@@ -24,7 +27,7 @@ public class BitmapUtil {
         }
 
         // use the relative difference between neighbored frequencies scaled with a polynomial ax²+bx+c
-        // the polynomial is one at very bright and very dark values, emphasizing the contrast part
+        // the polynomial is one at very bright and very dark values, emphasizing the contrast part on brightness
         double contrast = 0.;
         final double polyA = 4. / (((double) depth - 1.) * (depth - 1.));
         final double polyB = -4. / ((double) depth - 1.);
@@ -34,6 +37,18 @@ public class BitmapUtil {
 
         }
         return contrast / ((double) (image.getWidth() * image.getHeight()));
+    }
+
+    public static final double calculateGreyness(Bitmap image) {
+        // calculate average greyness of pixels
+        double greyness = 0.;
+        for (int x = 0; x < image.getWidth(); x++) {
+            for (int y = 0; y < image.getHeight(); y++) {
+                int rgb = image.getPixel(x, y);
+                greyness += ColorAnalysisUtil.getGreyness(Color.red(rgb), Color.green(rgb), Color.blue(rgb));
+            }
+        }
+        return greyness / ((double) (image.getWidth() * image.getHeight()));
     }
 
     public static Bitmap improveContrast(Bitmap originalImage) {

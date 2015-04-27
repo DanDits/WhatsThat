@@ -18,6 +18,7 @@ import dan.dit.whatsthat.obfuscation.ImageObfuscator;
 import dan.dit.whatsthat.preferences.Tongue;
 import dan.dit.whatsthat.riddle.types.ContentRiddleType;
 import dan.dit.whatsthat.riddle.types.FormatRiddleType;
+import dan.dit.whatsthat.riddle.types.PracticalRiddleType;
 import dan.dit.whatsthat.riddle.types.RiddleType;
 import dan.dit.whatsthat.solution.Solution;
 import dan.dit.whatsthat.storage.ImageTable;
@@ -41,7 +42,7 @@ public class Image {
     public static final String SHAREDPREFERENCES_FILENAME ="dan.dit.whatsthat.imagePrefs";
     public static final String ORIGIN_IS_THE_APP = "WhatsThat";
 
-    //TODO instead of building everytime on every device this app runs we built once for every new release of images all essential data
+    // instead of building everytime on every device this app runs we built once for every new release of images all essential data
     // that takes long time like hash or preference/dislike calculation, save it into a simple text file which we then read on first app
     // launch, create Image objects and save to database like before. This saves alot of initial loading time and does not require
     // shipping database files which make collide with different SQL versions or paths for those files or access violations
@@ -58,7 +59,7 @@ public class Image {
     private int mIsObfuscated; // is obfuscated if != 0
     private List<Solution> mSolutions; // always at least one solution needed
     private List<RiddleType> mPreferredRiddleTypes; // can be null
-    private List<RiddleType> mDislikedRiddleTypes; // can be null
+    private List<PracticalRiddleType> mDislikedPracticalRiddleTypes; // can be null
 
     private Image() {}
 
@@ -91,6 +92,11 @@ public class Image {
      */
     protected static boolean deleteFromDatabase(Context context, String hash) {
         return context.getContentResolver().delete(ImagesContentProvider.buildImageUri(hash), null, null) > 0;
+    }
+
+    protected boolean deleteFromDatabase(Context context) {
+        Log.d("Image", "Deleting " + toString() + " from database.");
+        return deleteFromDatabase(context, getHash());
     }
 
     /**
@@ -132,9 +138,9 @@ public class Image {
         }
 
         // disliked riddle types
-        if (mDislikedRiddleTypes != null) {
+        if (mDislikedPracticalRiddleTypes != null) {
             cmp = new Compacter();
-            for (RiddleType riddleType : mDislikedRiddleTypes) {
+            for (RiddleType riddleType : mDislikedPracticalRiddleTypes) {
                 cmp.appendData(riddleType.compact());
             }
             cv.put(ImageTable.COLUMN_RIDDLEDISLIKEDTYPES, cmp.compact());
@@ -213,7 +219,7 @@ public class Image {
         riddleData = cursor.getString(cursor.getColumnIndexOrThrow(ImageTable.COLUMN_RIDDLEDISLIKEDTYPES));
         if (!TextUtils.isEmpty(riddleData)) {
             for (String prefRiddleType : new Compacter(riddleData)) {
-                builder.addDislikedRiddleType(RiddleType.reconstruct(new Compacter(prefRiddleType)));
+                builder.addDislikedRiddleType(PracticalRiddleType.reconstructInstance(new Compacter(prefRiddleType), null));
             }
         }
 
@@ -242,8 +248,8 @@ public class Image {
         return mPreferredRiddleTypes;
     }
 
-    public List<RiddleType> getDislikedRiddleTypes() {
-        return mDislikedRiddleTypes;
+    public List<PracticalRiddleType> getDislikedRiddleTypes() {
+        return mDislikedPracticalRiddleTypes;
     }
 
     public String getName() {
@@ -377,6 +383,19 @@ public class Image {
             mImage.mHash = ImageUtil.getHash(BitmapUtil.extractDataFromBitmap(image));
             addOwnFormatAsPreference(image);
             addOwnContrastAsPreference(image);
+            addOwnGreynessAsPreference(image);
+        }
+
+        private void addOwnGreynessAsPreference(Bitmap image) {
+            double greyness = BitmapUtil.calculateGreyness(image);
+            Log.d("Image", "Image greyness : " + greyness + " for image " + mImage.mName);
+            if (greyness <= BitmapUtil.GREYNESS_STRONG_THRESHOLD) {
+                addPreferredRiddleType(ContentRiddleType.ContentVeryGrey.INSTANCE);
+            } else if (greyness > BitmapUtil.GREYNESS_MEDIUM_THRESHOLD) {
+                addPreferredRiddleType(ContentRiddleType.ContentLittleGrey.INSTANCE);
+            } else {
+                addPreferredRiddleType(ContentRiddleType.ContentMediumGrey.INSTANCE);
+            }
         }
 
         public void setResourceName(Context context, String resourceName) {
@@ -410,7 +429,7 @@ public class Image {
             } else if (BitmapUtil.CONTRAST_STRONG_THRESHOLD <= contrast) {
                 addPreferredRiddleType(ContentRiddleType.ContentStrongContrast.INSTANCE);
             } else {
-                addDislikedRiddleType(ContentRiddleType.ContentStrongContrast.INSTANCE);
+                addPreferredRiddleType(ContentRiddleType.ContentWeakContrast.INSTANCE);
             }
         }
 
@@ -460,18 +479,18 @@ public class Image {
             return this;
         }
 
-        public Builder addDislikedRiddleType(RiddleType type) {
-            if (mImage.mDislikedRiddleTypes == null) {
-                mImage.mDislikedRiddleTypes = new LinkedList<>();
+        public Builder addDislikedRiddleType(PracticalRiddleType type) {
+            if (mImage.mDislikedPracticalRiddleTypes == null) {
+                mImage.mDislikedPracticalRiddleTypes = new LinkedList<>();
             }
             if (type != null) {
-                mImage.mDislikedRiddleTypes.add(type);
+                mImage.mDislikedPracticalRiddleTypes.add(type);
             }
             return this;
         }
 
-        public Builder setDislikedRiddleTypes(List<RiddleType> types) {
-            mImage.mDislikedRiddleTypes = types;
+        public Builder setDislikedRiddleTypes(List<PracticalRiddleType> types) {
+            mImage.mDislikedPracticalRiddleTypes = types;
             return this;
         }
 

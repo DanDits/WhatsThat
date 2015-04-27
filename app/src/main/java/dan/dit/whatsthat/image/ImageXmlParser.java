@@ -12,10 +12,14 @@ import org.xmlpull.v1.XmlPullParserException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import dan.dit.whatsthat.R;
 import dan.dit.whatsthat.preferences.Tongue;
+import dan.dit.whatsthat.riddle.types.PracticalRiddleType;
 import dan.dit.whatsthat.riddle.types.RiddleType;
 import dan.dit.whatsthat.solution.Solution;
 import dan.dit.whatsthat.storage.ImageTable;
@@ -90,9 +94,18 @@ public class ImageXmlParser {
     private Context mContext;
     private int mHighestReadBundleNumber;
     private ImageManager.SynchronizationListener mListener;
+    private Map<Integer, List<Image>> mReadBundles = new HashMap<>();
 
     public int getHighestReadBundleNumber() {
         return mHighestReadBundleNumber;
+    }
+
+    public List<Image> getBundle(int bundleNumber) {
+        return mReadBundles.get(bundleNumber);
+    }
+
+    public Set<Integer> getReadBundleNumbers() {
+        return mReadBundles.keySet();
     }
 
     public List<Image> parseNewBundles(Context context) throws XmlPullParserException, IOException {
@@ -175,7 +188,9 @@ public class ImageXmlParser {
                     throw new XmlPullParserException("Bundle version number not a number: " + bundleNumberRaw);
                 }
                 if (bundleNumber >= startBundleNumber) {
-                    images.addAll(readBundle(parser));
+                    List<Image> bundleImages = readBundle(parser);
+                    mReadBundles.put(bundleNumber, bundleImages);
+                    images.addAll(bundleImages);
                     postProgress((int) (PARSE_START_PROGRESS + (PARSE_END_PROGRESS - PARSE_START_PROGRESS) * bundleNumber / (double) ImageManager.ESTIMATED_BUNDLE_COUNT));
                     mHighestReadBundleNumber = Math.max(mHighestReadBundleNumber, bundleNumber); // so the bundles should be in ascending order in case of exceptions
                 } else {
@@ -346,9 +361,9 @@ public class ImageXmlParser {
         return types;
     }
 
-    private List<RiddleType> readDislikedRiddleTypes(XmlPullParser parser) throws IOException, XmlPullParserException {
+    private List<PracticalRiddleType> readDislikedRiddleTypes(XmlPullParser parser) throws IOException, XmlPullParserException {
         parser.require(XmlPullParser.START_TAG, NAMESPACE, ImageTable.COLUMN_RIDDLEDISLIKEDTYPES);
-        List<RiddleType> types = new ArrayList<>();
+        List<PracticalRiddleType> types = new ArrayList<>();
         while (parser.next() != XmlPullParser.END_TAG) {
             if (parser.getEventType() != XmlPullParser.START_TAG) {
                 continue;
@@ -356,7 +371,7 @@ public class ImageXmlParser {
             if (parser.getName().equals(TAG_RIDDLE_TYPE_NAME)) {
                 String data = readTextChecked(parser, TAG_RIDDLE_TYPE_NAME);
                 if (!TextUtils.isEmpty(data)) {
-                    RiddleType type = RiddleType.reconstruct(new Compacter(data));
+                    PracticalRiddleType type = PracticalRiddleType.reconstructInstance(new Compacter(data), null);
                     if (type != null) {
                         types.add(type);
                     }

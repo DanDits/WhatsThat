@@ -7,9 +7,7 @@ import android.util.Log;
 import org.xmlpull.v1.XmlPullParserException;
 
 import java.io.IOException;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 /**
  * Manager class for image related things.
@@ -22,7 +20,6 @@ import java.util.Set;
 public class ImageManager {
     protected static final String PREFERENCES_KEY_IMAGE_MANAGER_VERSION = "dan.dit.whatsthat.prefkey_imagemanagerversion";
 
-    private static final Set<Image> INVALID_IMAGES = new HashSet<>(); //TODO remove images from database when some async operation is started
     public static final int PROGRESS_COMPLETE = 100;
     public static final int ESTIMATED_BUNDLE_COUNT = 5; // some value for the progress bar, not too important, >= 1
 
@@ -44,8 +41,9 @@ public class ImageManager {
         }
         if (loadedImages != null) {
             //Step 2: Save the updated images to new xml for future use
-            ImageXmlWriter xmlWriter = new ImageXmlWriter();
-            xmlWriter.writeBundle(context, loadedImages, parser.getHighestReadBundleNumber());
+            for (Integer bundleNumber : parser.getReadBundleNumbers()) {
+                ImageXmlWriter.writeBundle(context, parser.getBundle(bundleNumber), bundleNumber);
+            }
         }
         throw new UnsupportedOperationException("WE ARE DONE BUILDING IMAGES; GTFO.");
     }
@@ -139,9 +137,9 @@ public class ImageManager {
     }
 
 
-    public static void markInvalidImage(Image image) {
+    public static void removeInvalidImageImmediately(Context context, Image image) {
         if (image != null) {
-            INVALID_IMAGES.add(image);
+            image.deleteFromDatabase(context);
         }
     }
 }

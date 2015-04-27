@@ -10,6 +10,7 @@ public class MyApplication extends Application
   @Override
   public void onCreate ()
   {
+      super.onCreate();
       initSingletons();
 
     // Setup handler for uncaught exceptions.

@@ -232,12 +232,13 @@ public final class ColorAnalysisUtil {
 	 * @param red The red value.
 	 * @param green The green value.
 	 * @param blue The blue value.
-	 * @return Greyness of 0 means that red=green=blue which is the most grey,
-	 * any higher value means less grey.
+	 * @return Greyness of 0 means that red=green=blue which is the most grey and 1 means
+     * the least grey, like (255,0,0).
 	 */
 	public static double getGreyness(int red, int green, int blue) {
 		double mean = (red + green + blue) / 3.0;
-		// square of the euclid distance from the straight line from 0/0/0 to 255/255/255
-		return (mean - red) * (mean - red) + (mean - blue) * (mean - blue) + (mean - green) * (mean - green);
+		// square of the euclid distance from the straight line from 0/0/0 to 255/255/255 divided by the maximum possible distance
+        // which is (255/3-255)²+2*(255/3)² for a color in the corner of the color square
+		return ((mean - red) * (mean - red) + (mean - blue) * (mean - blue) + (mean - green) * (mean - green)) / 43350.;
 	}
 }

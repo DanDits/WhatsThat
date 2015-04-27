@@ -3,6 +3,9 @@ package dan.dit.whatsthat.image;
 import android.content.res.Resources;
 import android.text.TextUtils;
 
+import java.net.MalformedURLException;
+import java.net.URL;
+
 import dan.dit.whatsthat.R;
 import dan.dit.whatsthat.util.compaction.Compactable;
 import dan.dit.whatsthat.util.compaction.CompactedDataCorruptException;
@@ -108,6 +111,20 @@ public class ImageAuthor implements Compactable {
             appendInfoIfAvailable(builder, resources, R.string.image_author_title, mTitle);
             appendInfoIfAvailable(builder, resources, R.string.image_author_extras, mExtras);
             appendInfoIfAvailable(builder, resources, R.string.image_author_source, mSource);
+        } else {
+            appendInfoIfAvailable(builder, resources, R.string.image_author_source, sourceExtractWebsite());
+        }
+    }
+
+    private String sourceExtractWebsite() {
+        if (TextUtils.isEmpty(mSource)) {
+            return null;
+        }
+        try {
+            URL url = new URL(mSource);
+            return url.getHost();
+        } catch (MalformedURLException e) {
+            return null;
         }
     }
 
