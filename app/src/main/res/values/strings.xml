@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="riddle_hint_dialog_title">Information</string>
-    <string name="riddle_hint_image_disliked">Bad image for riddle</string>
+    <string name="riddle_hint_image_refused">Bad image for riddle</string>
     <string name="image_author">Author</string>
     <string name="image_author_name">Name</string>
     <string name="image_author_source">Source</string>

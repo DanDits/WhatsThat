@@ -2,7 +2,7 @@
 
 <resources>
     <string name="riddle_hint_dialog_title">Informationen</string>
-    <string name="riddle_hint_image_disliked">Schlechtes Bild für Rätsel</string>
+    <string name="riddle_hint_image_refused">Schlechtes Bild für Rätsel</string>
     <string name="image_author">Autor</string>
     <string name="image_author_name">Name</string>
     <string name="image_author_source">Quelle</string>

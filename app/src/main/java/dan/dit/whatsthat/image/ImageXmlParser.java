@@ -56,10 +56,10 @@ import dan.dit.whatsthat.util.image.ImageUtil;
  *                  <type></type>
  *                  <type></type>
  *              </riddleprefs>
- *              <riddledisliked>
+ *              <riddlerefused>
  *                  <type></type>
  *                  <type></type>
- *              </riddledisliked>
+ *              </riddlerefused>
  *          </image>
  *          <image>
  *              ...
@@ -245,8 +245,8 @@ public class ImageXmlParser {
                 builder.setAuthor(readAuthor(parser));
             } else if (name.equals(ImageTable.COLUMN_RIDDLEPREFTYPES)) {
                 builder.setPreferredRiddleTypes(readPreferredRiddleTypes(parser));
-            } else if (name.equals(ImageTable.COLUMN_RIDDLEDISLIKEDTYPES)) {
-                builder.setDislikedRiddleTypes(readDislikedRiddleTypes(parser));
+            } else if (name.equals(ImageTable.COLUMN_RIDDLEREFUSEDTYPES)) {
+                builder.setRefusedRiddleTypes(readRefusedRiddleTypes(parser));
             } else {
                 skip(parser);
             }
@@ -361,9 +361,9 @@ public class ImageXmlParser {
         return types;
     }
 
-    private List<PracticalRiddleType> readDislikedRiddleTypes(XmlPullParser parser) throws IOException, XmlPullParserException {
-        parser.require(XmlPullParser.START_TAG, NAMESPACE, ImageTable.COLUMN_RIDDLEDISLIKEDTYPES);
-        List<PracticalRiddleType> types = new ArrayList<>();
+    private List<RiddleType> readRefusedRiddleTypes(XmlPullParser parser) throws IOException, XmlPullParserException {
+        parser.require(XmlPullParser.START_TAG, NAMESPACE, ImageTable.COLUMN_RIDDLEREFUSEDTYPES);
+        List<RiddleType> types = new ArrayList<>();
         while (parser.next() != XmlPullParser.END_TAG) {
             if (parser.getEventType() != XmlPullParser.START_TAG) {
                 continue;

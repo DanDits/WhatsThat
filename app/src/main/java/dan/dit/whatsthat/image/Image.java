@@ -34,7 +34,7 @@ import dan.dit.whatsthat.util.image.ImageUtil;
  * An instance of the Image class references an image which is uniquely identified by its hash.
  * Images are predefined drawables, created by the user or received from other users. Each riddle
  * is created upon an Image object by requesting the corresponding bitmap.
- * Images store metadata like the author, the image name, solution words and preferred and disliked
+ * Images store metadata like the author, the image name, solution words and preferred and refused
  * riddle types.
  * Created by daniel on 24.03.15.
  */
@@ -43,7 +43,7 @@ public class Image {
     public static final String ORIGIN_IS_THE_APP = "WhatsThat";
 
     // instead of building everytime on every device this app runs we built once for every new release of images all essential data
-    // that takes long time like hash or preference/dislike calculation, save it into a simple text file which we then read on first app
+    // that takes long time like hash or preference/refused calculation, save it into a simple text file which we then read on first app
     // launch, create Image objects and save to database like before. This saves alot of initial loading time and does not require
     // shipping database files which make collide with different SQL versions or paths for those files or access violations
     private long mTimestamp;
@@ -59,7 +59,7 @@ public class Image {
     private int mIsObfuscated; // is obfuscated if != 0
     private List<Solution> mSolutions; // always at least one solution needed
     private List<RiddleType> mPreferredRiddleTypes; // can be null
-    private List<PracticalRiddleType> mDislikedPracticalRiddleTypes; // can be null
+    private List<RiddleType> mRefusedRiddleTypes; // can be null
 
     private Image() {}
 
@@ -137,13 +137,13 @@ public class Image {
             cv.put(ImageTable.COLUMN_RIDDLEPREFTYPES, cmp.compact());
         }
 
-        // disliked riddle types
-        if (mDislikedPracticalRiddleTypes != null) {
+        // refused riddle types
+        if (mRefusedRiddleTypes != null) {
             cmp = new Compacter();
-            for (RiddleType riddleType : mDislikedPracticalRiddleTypes) {
+            for (RiddleType riddleType : mRefusedRiddleTypes) {
                 cmp.appendData(riddleType.compact());
             }
-            cv.put(ImageTable.COLUMN_RIDDLEDISLIKEDTYPES, cmp.compact());
+            cv.put(ImageTable.COLUMN_RIDDLEREFUSEDTYPES, cmp.compact());
         }
 
         cv.put(ImagesContentProvider.SQL_INSERT_OR_REPLACE, true);
@@ -215,11 +215,11 @@ public class Image {
             }
         }
 
-        // disliked riddle types
-        riddleData = cursor.getString(cursor.getColumnIndexOrThrow(ImageTable.COLUMN_RIDDLEDISLIKEDTYPES));
+        // refused riddle types
+        riddleData = cursor.getString(cursor.getColumnIndexOrThrow(ImageTable.COLUMN_RIDDLEREFUSEDTYPES));
         if (!TextUtils.isEmpty(riddleData)) {
             for (String prefRiddleType : new Compacter(riddleData)) {
-                builder.addDislikedRiddleType(PracticalRiddleType.reconstructInstance(new Compacter(prefRiddleType), null));
+                builder.addRefusedRiddleType(PracticalRiddleType.reconstructInstance(new Compacter(prefRiddleType), null));
             }
         }
 
@@ -248,8 +248,8 @@ public class Image {
         return mPreferredRiddleTypes;
     }
 
-    public List<PracticalRiddleType> getDislikedRiddleTypes() {
-        return mDislikedPracticalRiddleTypes;
+    public List<RiddleType> getRefusedRiddleTypes() {
+        return mRefusedRiddleTypes;
     }
 
     public String getName() {
@@ -479,18 +479,18 @@ public class Image {
             return this;
         }
 
-        public Builder addDislikedRiddleType(PracticalRiddleType type) {
-            if (mImage.mDislikedPracticalRiddleTypes == null) {
-                mImage.mDislikedPracticalRiddleTypes = new LinkedList<>();
+        public Builder addRefusedRiddleType(PracticalRiddleType type) {
+            if (mImage.mRefusedRiddleTypes == null) {
+                mImage.mRefusedRiddleTypes = new LinkedList<>();
             }
             if (type != null) {
-                mImage.mDislikedPracticalRiddleTypes.add(type);
+                mImage.mRefusedRiddleTypes.add(type);
             }
             return this;
         }
 
-        public Builder setDislikedRiddleTypes(List<PracticalRiddleType> types) {
-            mImage.mDislikedPracticalRiddleTypes = types;
+        public Builder setRefusedRiddleTypes(List<RiddleType> types) {
+            mImage.mRefusedRiddleTypes = types;
             return this;
         }
 

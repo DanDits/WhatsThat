@@ -54,9 +54,9 @@ public class ImageTable {
     public static final String COLUMN_RIDDLEPREFTYPES = "riddleprefs";
 
     /**
-     * Disliked riddle types for this image.
+     * Refused riddle types for this image.
      */
-    public static final String COLUMN_RIDDLEDISLIKEDTYPES = "riddledisliked";
+    public static final String COLUMN_RIDDLEREFUSEDTYPES = "riddlerefused";
 
     /**
      * Legal notices to the author or source of the image including name, source, license, title
@@ -75,7 +75,7 @@ public class ImageTable {
     public static final String COLUMN_OBFUSCATION = "obf";
 
     public static final String[] ALL_COLUMNS = new String[] {COLUMN_HASH, COLUMN_TIMESTAMP, COLUMN_OBFUSCATION, COLUMN_AUTHOR,
-            COLUMN_NAME, COLUMN_ORIGIN, COLUMN_RESNAME, COLUMN_SAVELOC, COLUMN_SOLUTIONS,  COLUMN_RIDDLEPREFTYPES, COLUMN_RIDDLEDISLIKEDTYPES};
+            COLUMN_NAME, COLUMN_ORIGIN, COLUMN_RESNAME, COLUMN_SAVELOC, COLUMN_SOLUTIONS,  COLUMN_RIDDLEPREFTYPES, COLUMN_RIDDLEREFUSEDTYPES};
 
     //Database creation SQL statement
     private static final String DATABASE_CREATE =
@@ -89,7 +89,7 @@ public class ImageTable {
             + COLUMN_SAVELOC + " text, "
             + COLUMN_SOLUTIONS + " text, "
             + COLUMN_RIDDLEPREFTYPES + " text, "
-            + COLUMN_RIDDLEDISLIKEDTYPES + " text, "
+            + COLUMN_RIDDLEREFUSEDTYPES + " text, "
             + COLUMN_AUTHOR + " text, "
             + COLUMN_ORIGIN + " text, "
             + COLUMN_OBFUSCATION + " integer"
