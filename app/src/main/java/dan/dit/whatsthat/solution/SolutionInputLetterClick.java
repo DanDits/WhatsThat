@@ -226,7 +226,6 @@ public class SolutionInputLetterClick extends SolutionInput {
         mSolution = solution;
         String mainWord = mSolution.getMainWord();
         mSolutionLetters = new char[mainWord.length()];
-        boolean[] randomlyDrawn = new boolean[mSolutionLetters.length];
         mAllLetters = new char[Math.max(mSolutionLetters.length + LETTER_POOL_MIN_WRONG_LETTERS
                 + new Random().nextInt(LETTER_POOL_MAX_WRONG_LETTERS - LETTER_POOL_MIN_WRONG_LETTERS), LETTER_POOL_MIN_SIZE)];
         mAllLettersSelected = new int[mAllLetters.length];
@@ -241,6 +240,7 @@ public class SolutionInputLetterClick extends SolutionInput {
 
         // fill allLetters with remaining random letters, approximating the
         // distribution of letters in the used tongue
+        boolean[] randomlyDrawn = new boolean[mSolutionLetters.length];
         while (allLetters.size() < mAllLetters.length) {
             char nextRandom = mSolution.getTongue().getRandomLetter();
             boolean nextRandomMatchedSolutionLetter = false;
@@ -248,6 +248,7 @@ public class SolutionInputLetterClick extends SolutionInput {
                 if (mSolutionLetters[j] == nextRandom && !randomlyDrawn[j]) {
                     randomlyDrawn[j] = true;
                     nextRandomMatchedSolutionLetter = true;
+                    break;
                 }
             }
             if (!nextRandomMatchedSolutionLetter) {
