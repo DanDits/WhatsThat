@@ -264,7 +264,7 @@ public class Image {
         return mImageData == null ? null : mImageData.get();
     }
 
-    protected Bitmap getOrLoadBitmap(Context context, Dimension reqDimension, boolean enforceDimension) {
+    public Bitmap getOrLoadBitmap(Context context, Dimension reqDimension, boolean enforceDimension) {
         int reqWidth = reqDimension.getWidth();
         int reqHeight = reqDimension.getHeight();
         Bitmap result = mImageData == null ? null : mImageData.get();

@@ -34,8 +34,10 @@ import dan.dit.whatsthat.image.ImageManager;
 import dan.dit.whatsthat.riddle.Riddle;
 import dan.dit.whatsthat.riddle.RiddleHintView;
 import dan.dit.whatsthat.riddle.RiddleInitializer;
+import dan.dit.whatsthat.riddle.RiddleMaker;
 import dan.dit.whatsthat.riddle.RiddleManager;
 import dan.dit.whatsthat.riddle.RiddleView;
+import dan.dit.whatsthat.riddle.games.InitializedRiddle;
 import dan.dit.whatsthat.riddle.types.PracticalRiddleType;
 import dan.dit.whatsthat.solution.SolutionInputListener;
 import dan.dit.whatsthat.solution.SolutionInputView;
@@ -46,7 +48,6 @@ import dan.dit.whatsthat.storage.ImagesContentProvider;
  * Created by daniel on 10.04.15.
  */
 public class RiddleFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>, RiddleManager.UnsolvedRiddleListener, SolutionInputListener {
-    public static final String LAST_VISIBLE_UNSOLVED_RIDDLE_ID_KEY = "dan.dit.whatsthat.unsolved_riddle_id_key";
     public static final String MODE_UNSOLVED_RIDDLES_KEY = "dan.dit.whatsthat.unsolved_riddle_mode_key";
 
     public static final Map<String, Image> ALL_IMAGES = new HashMap<>();
@@ -86,7 +87,7 @@ public class RiddleFragment extends Fragment implements LoaderManager.LoaderCall
         if (mModeUnsolvedRiddles) {
             mBtnUnsolvedRiddles.setColorFilter(Color.YELLOW);
         } else {
-            mBtnUnsolvedRiddles.clearColorFilter();;
+            mBtnUnsolvedRiddles.clearColorFilter();
         }
     }
 
@@ -100,20 +101,17 @@ public class RiddleFragment extends Fragment implements LoaderManager.LoaderCall
 
     private void nextRiddleIfEmpty() {
         if (!mRiddleView.hasController()) {
-            long suggestedId = getActivity().getSharedPreferences(Image.SHAREDPREFERENCES_FILENAME, Context.MODE_PRIVATE).
-                    getLong(LAST_VISIBLE_UNSOLVED_RIDDLE_ID_KEY, Riddle.NO_ID);
-            if (!mModeUnsolvedRiddles && suggestedId == Riddle.NO_ID) {
-                nextRiddle();
-            } else {
+            long suggestedId = Riddle.getLastVisibleRiddleId(getActivity().getApplicationContext());
+            if (mModeUnsolvedRiddles && mManager.getUnsolvedRiddleCount() > 0) {
                 nextUnsolvedRiddle(suggestedId);
+            } else {
+                nextRiddle();
             }
         }
     }
 
-    private void onRiddleMade(Riddle riddle) {
-        mRiddleView.setController(riddle.getController());
-        mRiddleHint.setType(riddle.getType(), riddle.getAuthor(), riddle.getConfig());
-        mSolutionView.setSolutionInput(riddle.getSolutionInput(), RiddleFragment.this);
+    private void onRiddleMade(InitializedRiddle riddle) {
+        riddle.initViews(mRiddleView, mRiddleHint, mSolutionView, this);
         updateNextRiddleButton();
         updateUnsolvedRiddleUI();
     }
@@ -123,6 +121,7 @@ public class RiddleFragment extends Fragment implements LoaderManager.LoaderCall
             mBtnNextRiddle.setEnabled(false);
             return;
         }
+        Log.d("HomeStuff", "Could click next riddle, has controller? " + mRiddleView.hasController());
         if (mRiddleView.hasController()) {
             clearRiddle();
         }
@@ -133,15 +132,14 @@ public class RiddleFragment extends Fragment implements LoaderManager.LoaderCall
 
         mManager.makeRiddle(getActivity().getApplicationContext(), mCurrRiddleType,
                 mRiddleView.getDimension(), displaymetrics.densityDpi,
-                new RiddleManager.RiddleMakerListener() {
+                new RiddleMaker.RiddleMakerListener() {
             @Override
             public void onProgressUpdate(int progress) {
                 mRiddleMakeProgress.setProgress(progress);
             }
 
             @Override
-            public void onRiddleReady(Riddle riddle) {
-                Log.d("HomeStuff", "Riddle ready! " + riddle + " image: " + riddle.getImage());
+            public void onRiddleReady(InitializedRiddle riddle) {
                 onRiddleMade(riddle);
             }
 
@@ -201,16 +199,15 @@ public class RiddleFragment extends Fragment implements LoaderManager.LoaderCall
 
         DisplayMetrics displaymetrics = new DisplayMetrics();
         getActivity().getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
-        mManager.remakeUnsolvedRiddle(getActivity().getApplicationContext(), suggestedId, mRiddleView.getDimension(), displaymetrics.densityDpi,
-                new RiddleManager.RiddleMakerListener() {
+        mManager.remakeOld(getActivity().getApplicationContext(), suggestedId, mRiddleView.getDimension(), displaymetrics.densityDpi,
+                new RiddleMaker.RiddleMakerListener() {
                     @Override
                     public void onProgressUpdate(int progress) {
                         mRiddleMakeProgress.setProgress(progress );
                     }
 
                     @Override
-                    public void onRiddleReady(Riddle riddle) {
-                        Log.d("HomeStuff", "Unsolved Riddle ready! " + riddle + " image: " + riddle.getImage());
+                    public void onRiddleReady(InitializedRiddle riddle) {
                         onRiddleMade(riddle);
                         playRiddleViewAnimation();
                     }
@@ -231,6 +228,7 @@ public class RiddleFragment extends Fragment implements LoaderManager.LoaderCall
             mRiddleView.removeController();
         }
         mSolutionView.setSolutionInput(null, null);
+        mSolutionView.clearListener();
     }
 
     private void toggleModeUnsolvedRiddles() {
@@ -245,8 +243,6 @@ public class RiddleFragment extends Fragment implements LoaderManager.LoaderCall
         int unsolvedRiddlesCount = mManager.getUnsolvedRiddleCount();
         if (mRiddleView.hasController()) {
             unsolvedRiddlesCount--;
-            getActivity().getSharedPreferences(Image.SHAREDPREFERENCES_FILENAME, Context.MODE_PRIVATE).edit()
-                    .putLong(LAST_VISIBLE_UNSOLVED_RIDDLE_ID_KEY, Riddle.NO_ID).apply();
             mRiddleView.removeController();
         }
         mSolutionView.clearListener();
@@ -293,7 +289,7 @@ public class RiddleFragment extends Fragment implements LoaderManager.LoaderCall
             }
         });
         mRiddleMakeProgress = (ProgressBar) getView().findViewById(R.id.riddle_make_progress);
-        mRiddleMakeProgress.setMax(RiddleManager.PROGRESS_COMPLETE);
+        mRiddleMakeProgress.setMax(RiddleMaker.PROGRESS_COMPLETE);
         mSolutionView = (SolutionInputView) getView().findViewById(R.id.solution_input_view);
         mBtnNextType = (ImageButton) getView().findViewById(R.id.riddle_next_type);
         mBtnNextType.setOnClickListener(new View.OnClickListener() {
@@ -348,8 +344,8 @@ public class RiddleFragment extends Fragment implements LoaderManager.LoaderCall
             clearRiddle();
         }
         Log.d("Riddle", "Stopping riddle fragment, current riddle id: " + currRiddleId);
-        getActivity().getSharedPreferences(Image.SHAREDPREFERENCES_FILENAME, Context.MODE_PRIVATE).edit()
-                .putLong(LAST_VISIBLE_UNSOLVED_RIDDLE_ID_KEY, currRiddleId).apply();
+
+        Riddle.saveLastVisibleRiddleId(getActivity().getApplicationContext(), currRiddleId);
         mManager.unregisterUnsolvedRiddleListener(this);
     }
 

@@ -29,7 +29,7 @@ import android.widget.TextView;
 import dan.dit.whatsthat.R;
 import dan.dit.whatsthat.image.ImageManager;
 import dan.dit.whatsthat.riddle.RiddleInitializer;
-import dan.dit.whatsthat.riddle.RiddleManager;
+import dan.dit.whatsthat.riddle.RiddleMaker;
 import dan.dit.whatsthat.testsubject.TestSubject;
 
 /**
@@ -158,7 +158,7 @@ public class InitializationFragment extends Fragment implements ImageManager.Syn
     }
 
     private void initProgressBar() {
-        mInitProgress.setMax(RiddleManager.PROGRESS_COMPLETE + ImageManager.PROGRESS_COMPLETE);
+        mInitProgress.setMax(RiddleMaker.PROGRESS_COMPLETE + ImageManager.PROGRESS_COMPLETE);
         mRiddleProgress = 0;
         mImageProgress = 0;
     }
@@ -210,7 +210,7 @@ public class InitializationFragment extends Fragment implements ImageManager.Syn
 
     @Override
     public void onInitComplete() {
-        mRiddleProgress = RiddleManager.PROGRESS_COMPLETE;
+        mRiddleProgress = RiddleMaker.PROGRESS_COMPLETE;
         updateProgressBar();
         checkDataState();
         Log.d("HomeStuff", "Init complete");
