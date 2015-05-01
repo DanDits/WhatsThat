@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="dan.dit.whatsthat" >
-
-    <uses-sdk android:minSdkVersion="12" />
+    package="dan.dit.whatsthat" >/>
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
@@ -34,8 +32,7 @@
             android:name=".system.RiddleActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait"
-            android:label="@string/app_name"
-            android:theme="@style/FullscreenTheme" >
+            android:label="@string/app_name">
         </activity>
 
         <activity android:name=".system.InitActivity"

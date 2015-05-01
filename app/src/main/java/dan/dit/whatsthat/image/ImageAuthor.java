@@ -103,8 +103,6 @@ public class ImageAuthor implements Compactable {
     }
 
     public void makeInformationFormatted(Resources resources, StringBuilder builder, boolean showImageRelatedDetails) {
-        builder.append(resources.getString(R.string.image_author))
-                .append(":\n");
         appendInfoIfAvailable(builder, resources, R.string.image_author_name, mName);
         appendInfoIfAvailable(builder, resources, R.string.image_author_license, mLicense);
         if (showImageRelatedDetails) {

@@ -19,12 +19,10 @@ import java.util.Set;
 
 import dan.dit.whatsthat.R;
 import dan.dit.whatsthat.preferences.Tongue;
-import dan.dit.whatsthat.riddle.types.PracticalRiddleType;
 import dan.dit.whatsthat.riddle.types.RiddleType;
 import dan.dit.whatsthat.solution.Solution;
 import dan.dit.whatsthat.storage.ImageTable;
 import dan.dit.whatsthat.util.BuildException;
-import dan.dit.whatsthat.util.compaction.Compacter;
 import dan.dit.whatsthat.util.image.ImageUtil;
 
 /**
@@ -349,7 +347,7 @@ public class ImageXmlParser {
             if (parser.getName().equals(TAG_RIDDLE_TYPE_NAME)) {
                 String data = readTextChecked(parser, TAG_RIDDLE_TYPE_NAME);
                 if (!TextUtils.isEmpty(data)) {
-                    RiddleType type = RiddleType.reconstruct(new Compacter(data));
+                    RiddleType type = RiddleType.getInstance(data);
                     if (type != null) {
                         types.add(type);
                     }
@@ -371,7 +369,7 @@ public class ImageXmlParser {
             if (parser.getName().equals(TAG_RIDDLE_TYPE_NAME)) {
                 String data = readTextChecked(parser, TAG_RIDDLE_TYPE_NAME);
                 if (!TextUtils.isEmpty(data)) {
-                    PracticalRiddleType type = PracticalRiddleType.reconstructInstance(new Compacter(data), null);
+                    RiddleType type = RiddleType.getInstance(data);
                     if (type != null) {
                         types.add(type);
                     }

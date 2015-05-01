@@ -73,7 +73,7 @@ public class ImageXmlWriter {
                 writeSolutions(serializer, ImageTable.COLUMN_SOLUTIONS, image.getSolutions());
                 writeAuthor(serializer, ImageTable.COLUMN_AUTHOR, image.getAuthor());
                 writeTypes(serializer, ImageTable.COLUMN_RIDDLEPREFTYPES, image.getPreferredRiddleTypes());
-                writePracticalTypes(serializer, ImageTable.COLUMN_RIDDLEREFUSEDTYPES, image.getRefusedRiddleTypes());
+                writeTypes(serializer, ImageTable.COLUMN_RIDDLEREFUSEDTYPES, image.getRefusedRiddleTypes());
                 serializer.endTag(ImageXmlParser.NAMESPACE, ImageXmlParser.TAG_IMAGE_NAME);
             }
             serializer.endTag(ImageXmlParser.NAMESPACE, ImageXmlParser.TAG_BUNDLE_NAME);
@@ -89,17 +89,7 @@ public class ImageXmlWriter {
         if (types != null) {
             serializer.startTag(ImageXmlParser.NAMESPACE, tag);
             for (RiddleType type : types) {
-                writeText(serializer, ImageXmlParser.TAG_RIDDLE_TYPE_NAME, type.compact());
-            }
-            serializer.endTag(ImageXmlParser.NAMESPACE, tag);
-        }
-    }
-
-    private static void writePracticalTypes(XmlSerializer serializer, String tag, List<RiddleType> types) throws IOException{
-        if (types != null) {
-            serializer.startTag(ImageXmlParser.NAMESPACE, tag);
-            for (RiddleType type : types) {
-                writeText(serializer, ImageXmlParser.TAG_RIDDLE_TYPE_NAME, type.compact());
+                writeText(serializer, ImageXmlParser.TAG_RIDDLE_TYPE_NAME, type.getFullName());
             }
             serializer.endTag(ImageXmlParser.NAMESPACE, tag);
         }

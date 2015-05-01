@@ -132,7 +132,7 @@ public class Image {
         if (mPreferredRiddleTypes != null) {
             cmp = new Compacter();
             for (RiddleType riddleType : mPreferredRiddleTypes) {
-                cmp.appendData(riddleType.compact());
+                cmp.appendData(riddleType.getFullName());
             }
             cv.put(ImageTable.COLUMN_RIDDLEPREFTYPES, cmp.compact());
         }
@@ -141,7 +141,7 @@ public class Image {
         if (mRefusedRiddleTypes != null) {
             cmp = new Compacter();
             for (RiddleType riddleType : mRefusedRiddleTypes) {
-                cmp.appendData(riddleType.compact());
+                cmp.appendData(riddleType.getFullName());
             }
             cv.put(ImageTable.COLUMN_RIDDLEREFUSEDTYPES, cmp.compact());
         }
@@ -211,7 +211,7 @@ public class Image {
         String riddleData = cursor.getString(cursor.getColumnIndexOrThrow(ImageTable.COLUMN_RIDDLEPREFTYPES));
         if (!TextUtils.isEmpty(riddleData)) {
             for (String prefRiddleType : new Compacter(riddleData)) {
-                builder.addPreferredRiddleType(RiddleType.reconstruct(new Compacter(prefRiddleType)));
+                builder.addPreferredRiddleType(RiddleType.getInstance(prefRiddleType));
             }
         }
 
@@ -219,7 +219,7 @@ public class Image {
         riddleData = cursor.getString(cursor.getColumnIndexOrThrow(ImageTable.COLUMN_RIDDLEREFUSEDTYPES));
         if (!TextUtils.isEmpty(riddleData)) {
             for (String prefRiddleType : new Compacter(riddleData)) {
-                builder.addRefusedRiddleType(PracticalRiddleType.reconstructInstance(new Compacter(prefRiddleType), null));
+                builder.addRefusedRiddleType(PracticalRiddleType.getInstance(prefRiddleType));
             }
         }
 
@@ -390,11 +390,11 @@ public class Image {
             double greyness = BitmapUtil.calculateGreyness(image);
             Log.d("Image", "Image greyness : " + greyness + " for image " + mImage.mName);
             if (greyness <= BitmapUtil.GREYNESS_STRONG_THRESHOLD) {
-                addPreferredRiddleType(ContentRiddleType.ContentVeryGrey.INSTANCE);
+                addPreferredRiddleType(ContentRiddleType.GREY_VERY_INSTANCE);
             } else if (greyness > BitmapUtil.GREYNESS_MEDIUM_THRESHOLD) {
-                addPreferredRiddleType(ContentRiddleType.ContentLittleGrey.INSTANCE);
+                addPreferredRiddleType(ContentRiddleType.GREY_LITTLE_INSTANCE);
             } else {
-                addPreferredRiddleType(ContentRiddleType.ContentMediumGrey.INSTANCE);
+                addPreferredRiddleType(ContentRiddleType.GREY_MEDIUM_INSTANCE);
             }
         }
 
@@ -414,22 +414,22 @@ public class Image {
         private void addOwnFormatAsPreference(Bitmap bitmap) {
             boolean almostASquare = ImageUtil.isAspectRatioSquareSimilar(bitmap.getWidth(), bitmap.getHeight());
             if (almostASquare) {
-                addPreferredRiddleType(FormatRiddleType.FormatSquare.INSTANCE);
+                addPreferredRiddleType(FormatRiddleType.SQUARE_INSTANCE);
             } else if (bitmap.getWidth() > bitmap.getHeight()) {
-                addPreferredRiddleType(FormatRiddleType.FormatLandscape.INSTANCE);
+                addPreferredRiddleType(FormatRiddleType.LANDSCAPE_INSTANCE);
             } else {
-                addPreferredRiddleType(FormatRiddleType.FormatPortrait.INSTANCE);
+                addPreferredRiddleType(FormatRiddleType.PORTRAIT_INSTANCE);
             }
         }
 
         private void addOwnContrastAsPreference(Bitmap bitmap) {
             double contrast = BitmapUtil.calculateContrast(bitmap);
             if (BitmapUtil.CONTRAST_STRONG_THRESHOLD > contrast && contrast >= BitmapUtil.CONTRAST_WEAK_THRESHOLD) {
-                addPreferredRiddleType(ContentRiddleType.ContentMediumContrast.INSTANCE);
+                addPreferredRiddleType(ContentRiddleType.CONTRAST_MEDIUM_INSTANCE);
             } else if (BitmapUtil.CONTRAST_STRONG_THRESHOLD <= contrast) {
-                addPreferredRiddleType(ContentRiddleType.ContentStrongContrast.INSTANCE);
+                addPreferredRiddleType(ContentRiddleType.CONTRAST_STRONG_INSTANCE);
             } else {
-                addPreferredRiddleType(ContentRiddleType.ContentWeakContrast.INSTANCE);
+                addPreferredRiddleType(ContentRiddleType.CONTRAST_WEAK_INSTANCE);
             }
         }
 

@@ -3,7 +3,6 @@ package dan.dit.whatsthat.system;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.res.Resources;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
@@ -29,8 +28,8 @@ import android.widget.TextView;
 import dan.dit.whatsthat.R;
 import dan.dit.whatsthat.image.ImageManager;
 import dan.dit.whatsthat.riddle.RiddleInitializer;
-import dan.dit.whatsthat.riddle.RiddleMaker;
 import dan.dit.whatsthat.testsubject.TestSubject;
+import dan.dit.whatsthat.util.PercentProgressListener;
 
 /**
  * Created by daniel on 10.04.15.
@@ -158,7 +157,7 @@ public class InitializationFragment extends Fragment implements ImageManager.Syn
     }
 
     private void initProgressBar() {
-        mInitProgress.setMax(RiddleMaker.PROGRESS_COMPLETE + ImageManager.PROGRESS_COMPLETE);
+        mInitProgress.setMax(PercentProgressListener.PROGRESS_COMPLETE + ImageManager.PROGRESS_COMPLETE);
         mRiddleProgress = 0;
         mImageProgress = 0;
     }
@@ -181,7 +180,6 @@ public class InitializationFragment extends Fragment implements ImageManager.Syn
     public void onSyncComplete() {
         mImageProgress = ImageManager.PROGRESS_COMPLETE;
         updateProgressBar();
-        mInitSkip.setTextColor(Color.GREEN);
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
@@ -203,14 +201,14 @@ public class InitializationFragment extends Fragment implements ImageManager.Syn
     }
 
     @Override
-    public void onInitProgress(int progress) {
+    public void onProgressUpdate(int progress) {
         mRiddleProgress = progress;
         updateProgressBar();
     }
 
     @Override
     public void onInitComplete() {
-        mRiddleProgress = RiddleMaker.PROGRESS_COMPLETE;
+        mRiddleProgress = PercentProgressListener.PROGRESS_COMPLETE;
         updateProgressBar();
         checkDataState();
         Log.d("HomeStuff", "Init complete");

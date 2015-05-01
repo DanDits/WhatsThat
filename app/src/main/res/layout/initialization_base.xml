@@ -13,7 +13,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/init_skip_unavailable"
-        android:id="@+id/init_skip" />
+        android:id="@+id/init_skip"
+        style="@style/button_important" />
 
     <FrameLayout
         android:layout_width="match_parent"
