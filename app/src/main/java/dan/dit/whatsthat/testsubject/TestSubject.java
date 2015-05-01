@@ -13,6 +13,7 @@ public class TestSubject {
     private static final String TEST_SUBJECT_PREFERENCES_FILE = "dan.dit.whatsthat.testsubject.preferences";
     private static final String TEST_SUBJECT_PREF_LEVEL_KEY = "testsubject_key_level";
     private static final String TEST_SUBJECT_PREF_MAIN_TEXT_INDEX_KEY = "testsubject_key_maintext_index";
+    private static final String TEST_SUBJECT_PREF_SPENT_SCORE_KEY = "testsubject_key_spent_score";
     private static SharedPreferences PREFERENCES;
 
     private static TestSubject INSTANCE;
@@ -28,8 +29,10 @@ public class TestSubject {
     private String[] mIntroTextMain;
     private int mTextNutsIndex;
     private String[] mIntroTextNuts;
+    private int mSpentScore;
 
     private TestSubject() {
+        mSpentScore = PREFERENCES.getInt(TEST_SUBJECT_PREF_SPENT_SCORE_KEY, 0);
     }
 
     public static TestSubject getInstance() {
@@ -109,5 +112,9 @@ public class TestSubject {
 
     public int getNameResId() {
         return mNameResId;
+    }
+
+    public int getSpentScore() {
+        return mSpentScore;
     }
 }

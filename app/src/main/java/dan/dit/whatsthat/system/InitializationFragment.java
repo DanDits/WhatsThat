@@ -29,6 +29,7 @@ import dan.dit.whatsthat.image.ImageManager;
 import dan.dit.whatsthat.riddle.RiddleInitializer;
 import dan.dit.whatsthat.testsubject.TestSubject;
 import dan.dit.whatsthat.util.PercentProgressListener;
+import dan.dit.whatsthat.util.ui.LinearLayoutProgressBar;
 
 /**
  * Created by daniel on 10.04.15.

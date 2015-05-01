@@ -1,4 +1,4 @@
-package dan.dit.whatsthat.system;
+package dan.dit.whatsthat.util.ui;
 
 import android.content.Context;
 import android.graphics.Canvas;

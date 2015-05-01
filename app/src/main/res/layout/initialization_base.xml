@@ -4,7 +4,7 @@
     android:layout_height="match_parent">
 
     <view
-        class="dan.dit.whatsthat.system.LinearLayoutProgressBar"
+        class="dan.dit.whatsthat.util.ui.LinearLayoutProgressBar"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:id="@+id/progress_bar"

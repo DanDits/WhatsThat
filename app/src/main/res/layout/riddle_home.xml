@@ -3,7 +3,7 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
     <view
-        class="dan.dit.whatsthat.system.LinearLayoutProgressBar"
+        class="dan.dit.whatsthat.util.ui.LinearLayoutProgressBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -12,7 +12,18 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="top">
-
+            <view
+                class="dan.dit.whatsthat.util.ui.ImageViewWithNumber"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/score_board"
+                android:src="@drawable/score_board"
+                android:layout_toLeftOf="@+id/control_container"
+                android:layout_centerVertical="true"
+                android:layout_alignBottom="@+id/control_container"
+                android:layout_alignTop="@+id/control_container"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="wrap_content"
@@ -39,7 +50,7 @@
                     android:layout_marginRight="5dp" />
 
                 <view
-                    class="dan.dit.whatsthat.system.ImageButtonWithNumber"
+                    class="dan.dit.whatsthat.util.ui.ImageButtonWithNumber"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:id="@+id/riddle_unsolved"
@@ -47,6 +58,17 @@
 
             </LinearLayout>
 
+            <view
+                class="dan.dit.whatsthat.util.ui.ImageViewWithNumber"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/riddles_solved"
+                android:src="@drawable/stern"
+                android:layout_toLeftOf="@+id/riddle_hint"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/control_container"
+                android:layout_alignBottom="@+id/control_container"
+                android:layout_alignTop="@+id/control_container" />
             <view
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -61,9 +83,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/riddle_cheat"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentLeft="true"
-                android:src="@drawable/cheat" />
+                android:src="@drawable/cheat"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/riddle_hint"
+                android:layout_alignLeft="@+id/riddle_hint"
+                android:layout_alignBottom="@+id/control_container"/>
 
         </RelativeLayout>
     </view>
