@@ -20,7 +20,6 @@ import java.util.List;
 public class ImageManager {
     protected static final String PREFERENCES_KEY_IMAGE_MANAGER_VERSION = "dan.dit.whatsthat.prefkey_imagemanagerversion";
 
-    public static final int PROGRESS_COMPLETE = 100;
     public static final int ESTIMATED_BUNDLE_COUNT = 5; // some value for the progress bar, not too important, >= 1
 
     private ImageManager() {}

@@ -3,18 +3,21 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ProgressBar
-        style="?android:attr/progressBarStyleHorizontal"
+    <view
+        class="dan.dit.whatsthat.system.LinearLayoutProgressBar"
+        android:orientation="horizontal"
         android:layout_width="match_parent"
+        android:id="@+id/progress_bar"
         android:layout_height="wrap_content"
-        android:id="@+id/init_progress" />
+        android:padding="4dp">
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/init_skip_unavailable"
-        android:id="@+id/init_skip"
-        style="@style/button_important" />
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/init_skip_unavailable"
+            android:id="@+id/init_skip"
+            style="@style/button_important" />
+    </view>
 
     <FrameLayout
         android:layout_width="match_parent"

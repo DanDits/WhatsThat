@@ -22,7 +22,6 @@ import android.view.animation.ScaleAnimation;
 import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import dan.dit.whatsthat.R;
@@ -37,9 +36,9 @@ import dan.dit.whatsthat.util.PercentProgressListener;
 public class InitializationFragment extends Fragment implements ImageManager.SynchronizationListener, RiddleInitializer.InitProgressListener {
     private static final int STATE_DATA_NONE = 0;
     private static final int STATE_DATA_COMPLETE = 1;
-    private ProgressBar mInitProgress;
     private int mRiddleProgress;
     private int mImageProgress;
+    private LinearLayoutProgressBar mProgressBar;
     private int mState = STATE_DATA_NONE;
     private Button mInitSkip;
     private ImageView mIntroAbduction;
@@ -149,6 +148,7 @@ public class InitializationFragment extends Fragment implements ImageManager.Syn
             mState = STATE_DATA_COMPLETE;
             mInitSkip.setText(R.string.init_skip_available_all);
             mInitSkip.setEnabled(true);
+            mProgressBar.onProgressUpdate(0);
             return;
         }
         mState = STATE_DATA_NONE;
@@ -157,13 +157,12 @@ public class InitializationFragment extends Fragment implements ImageManager.Syn
     }
 
     private void initProgressBar() {
-        mInitProgress.setMax(PercentProgressListener.PROGRESS_COMPLETE + ImageManager.PROGRESS_COMPLETE);
         mRiddleProgress = 0;
         mImageProgress = 0;
     }
 
     private void updateProgressBar() {
-        mInitProgress.setProgress(mImageProgress + mRiddleProgress);
+        mProgressBar.onProgressUpdate((mImageProgress + mRiddleProgress ) / 2);
     }
 
     private void startSyncing() {
@@ -178,7 +177,7 @@ public class InitializationFragment extends Fragment implements ImageManager.Syn
 
     @Override
     public void onSyncComplete() {
-        mImageProgress = ImageManager.PROGRESS_COMPLETE;
+        mImageProgress = PercentProgressListener.PROGRESS_COMPLETE;
         updateProgressBar();
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
@@ -187,7 +186,7 @@ public class InitializationFragment extends Fragment implements ImageManager.Syn
                 Context context = getActivity();
                 if (context != null) {
                     Animation anim = AnimationUtils.loadAnimation(context, R.anim.shake);
-                    mInitSkip.startAnimation(anim);
+                    mProgressBar.startAnimation(anim);
                 }
             }
         }, 1500);
@@ -252,13 +251,13 @@ public class InitializationFragment extends Fragment implements ImageManager.Syn
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        mInitProgress = (ProgressBar) getView().findViewById(R.id.init_progress);
         mInitSkip = (Button) getView().findViewById(R.id.init_skip);
         mIntroAbduction = (ImageView) getView().findViewById(R.id.init_abduction);
         mIntroKid = (ImageView) getView().findViewById(R.id.init_kid);
         mIntroSubjectDescr = (TextView) getView().findViewById(R.id.init_subject_descr);
         mIntroContainer = getView().findViewById(R.id.init_intro);
         mIntroText = (TextView) getView().findViewById(R.id.init_text);
+        mProgressBar = (LinearLayoutProgressBar) getView().findViewById(R.id.progress_bar);
 
         mInitSkip.setOnClickListener(new View.OnClickListener() {
             @Override

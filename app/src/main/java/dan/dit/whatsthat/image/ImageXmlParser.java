@@ -23,6 +23,7 @@ import dan.dit.whatsthat.riddle.types.RiddleType;
 import dan.dit.whatsthat.solution.Solution;
 import dan.dit.whatsthat.storage.ImageTable;
 import dan.dit.whatsthat.util.BuildException;
+import dan.dit.whatsthat.util.PercentProgressListener;
 import dan.dit.whatsthat.util.image.ImageUtil;
 
 /**
@@ -127,7 +128,7 @@ public class ImageXmlParser {
         double progress = PARSE_END_PROGRESS;
         postProgress((int) progress);
         if (images != null && images.size() > 0) {
-            double parseProgressPerImage = (ImageManager.PROGRESS_COMPLETE - PARSE_END_PROGRESS) / (double) images.size();
+            double parseProgressPerImage = (PercentProgressListener.PROGRESS_COMPLETE - PARSE_END_PROGRESS) / (double) images.size();
             for (Image img : images) {
                 if (mListener != null && mListener.isSyncCancelled()) {
                     break;
@@ -142,7 +143,7 @@ public class ImageXmlParser {
                 prefs.edit().putInt(ImageManager.PREFERENCES_KEY_IMAGE_MANAGER_VERSION, mHighestReadBundleNumber).apply();
             }
             Log.d("Image", "Parsed and synced bundles: Loaded images from XML with highest read number= " + mHighestReadBundleNumber + ": " + images);
-            postProgress(ImageManager.PROGRESS_COMPLETE);
+            postProgress(PercentProgressListener.PROGRESS_COMPLETE);
         } else {
             Log.d("Image", "Parsing for image sync cancelled.");
         }
