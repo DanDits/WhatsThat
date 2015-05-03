@@ -10,7 +10,6 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import java.io.File;
-import java.lang.ref.WeakReference;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -52,7 +51,6 @@ public class Image {
     private String mHash;
     private int mResId; // either resId or resPath is specified to be valid and link to a valid image
     private File mResPath;
-    private WeakReference<Bitmap> mImageData; // can hold a reference to the image itself, but is not required
     private String mName; // a name identifying the image
     private ImageAuthor mAuthor;
     private String mOrigin;
@@ -260,23 +258,11 @@ public class Image {
         return mOrigin;
     }
 
-    public Bitmap getBitmap() {
-        return mImageData == null ? null : mImageData.get();
-    }
-
     public Bitmap getOrLoadBitmap(Context context, Dimension reqDimension, boolean enforceDimension) {
         int reqWidth = reqDimension.getWidth();
         int reqHeight = reqDimension.getHeight();
-        Bitmap result = mImageData == null ? null : mImageData.get();
-        if (result != null) {
-            if (reqWidth <= 0 || reqHeight <= 0 || (result.getWidth() == reqWidth && result.getHeight() == reqHeight)) {
-                return result; // we got a valid bitmap with required dimensions
-            } else if (result.getWidth() >= reqWidth && result.getHeight() >= reqHeight) {
-                return BitmapUtil.attemptBitmapScaling(result, reqWidth, reqHeight, enforceDimension); // we are bigger than required, scale down
-            }
-            // else we are smaller than required, try fresh loading and then scaling
-        }
         // we need to reload the image
+        Bitmap result = null;
         if (mResPath != null) {
             result = ImageUtil.loadBitmap(mResPath, reqWidth, reqHeight, enforceDimension);
         } else if (mResId != 0) {
@@ -289,7 +275,6 @@ public class Image {
                 result = ImageUtil.loadBitmap(context.getResources(), mResId, reqWidth, reqHeight, enforceDimension);
             }
         }
-        mImageData = new WeakReference<>(result);
         return result;
     }
 
@@ -375,7 +360,6 @@ public class Image {
             // calculating hash, loading image, and calculations with the bitmap take quite some time
             mImage.mTimestamp = System.currentTimeMillis();
             mImage.mAuthor = author;
-            mImage.mImageData = new WeakReference<>(image);
             calculateHashAndPreferences(image);
         }
 
@@ -388,7 +372,6 @@ public class Image {
 
         private void addOwnGreynessAsPreference(Bitmap image) {
             double greyness = BitmapUtil.calculateGreyness(image);
-            Log.d("Image", "Image greyness : " + greyness + " for image " + mImage.mName);
             if (greyness <= BitmapUtil.GREYNESS_STRONG_THRESHOLD) {
                 addPreferredRiddleType(ContentRiddleType.GREY_VERY_INSTANCE);
             } else if (greyness > BitmapUtil.GREYNESS_MEDIUM_THRESHOLD) {

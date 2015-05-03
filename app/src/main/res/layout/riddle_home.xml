@@ -12,18 +12,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="top">
-            <view
-                class="dan.dit.whatsthat.util.ui.ImageViewWithNumber"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/score_board"
-                android:src="@drawable/score_board"
-                android:layout_toLeftOf="@+id/control_container"
-                android:layout_centerVertical="true"
-                android:layout_alignBottom="@+id/control_container"
-                android:layout_alignTop="@+id/control_container"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true" />
+
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="wrap_content"
@@ -64,9 +53,9 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/riddles_solved"
                 android:src="@drawable/stern"
-                android:layout_toLeftOf="@+id/riddle_hint"
+                android:layout_toLeftOf="@+id/control_container"
                 android:layout_centerVertical="true"
-                android:layout_toRightOf="@+id/control_container"
+                android:layout_alignParentLeft="true"
                 android:layout_alignBottom="@+id/control_container"
                 android:layout_alignTop="@+id/control_container" />
             <view

@@ -40,6 +40,7 @@ import dan.dit.whatsthat.riddle.RiddleInitializer;
 import dan.dit.whatsthat.riddle.RiddleMaker;
 import dan.dit.whatsthat.riddle.RiddleManager;
 import dan.dit.whatsthat.riddle.RiddleView;
+import dan.dit.whatsthat.riddle.UnsolvedRiddlesDialog;
 import dan.dit.whatsthat.riddle.games.RiddleGame;
 import dan.dit.whatsthat.riddle.types.PracticalRiddleType;
 import dan.dit.whatsthat.solution.SolutionInputListener;
@@ -53,7 +54,7 @@ import dan.dit.whatsthat.util.ui.ViewWithNumber;
 /**
  * Created by daniel on 10.04.15.
  */
-public class RiddleFragment extends Fragment implements PercentProgressListener, LoaderManager.LoaderCallbacks<Cursor>, RiddleManager.UnsolvedRiddleListener, SolutionInputListener {
+public class RiddleFragment extends Fragment implements PercentProgressListener, LoaderManager.LoaderCallbacks<Cursor>, RiddleManager.UnsolvedRiddleListener, SolutionInputListener, UnsolvedRiddlesDialog.Callback {
     public static final String MODE_UNSOLVED_RIDDLES_KEY = "dan.dit.whatsthat.unsolved_riddle_mode_key";
 
     public static final Map<String, Image> ALL_IMAGES = new HashMap<>();
@@ -70,7 +71,6 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
     private RiddleHintView mRiddleHint;
     private ImageButton mBtnCheat;
     private ViewWithNumber mSolvedRiddlesCounter;
-    private ViewWithNumber mScoreBoard;
 
     public void onProgressUpdate(int progress) {
         mProgressBar.onProgressUpdate(progress);
@@ -86,7 +86,6 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
 
     private void updateRiddleUI() {
         mSolvedRiddlesCounter.setNumber(mManager.getSolvedRiddlesCount());
-        mScoreBoard.setNumber(mManager.getScore());
         int unsolvedCount = mManager.getUnsolvedRiddleCount();
         unsolvedCount = Math.max(0, unsolvedCount - (mRiddleView != null && mRiddleView.hasController() ? 1 : 0)); // subtract the currently displayed one as this counts as unsolved too
         int resId;
@@ -224,7 +223,7 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
         // INPUT VIEW ANIMATION
         mSolutionView.clearAnimation();
         TranslateAnimation moveIn = new TranslateAnimation(Animation.ABSOLUTE, 0.f, Animation.ABSOLUTE, 0.f, Animation.RELATIVE_TO_SELF, 1.f, Animation.RELATIVE_TO_SELF, 0.f);
-        moveIn.setInterpolator(new OvershootInterpolator(4.f));
+        moveIn.setInterpolator(new OvershootInterpolator(2.5f));
         moveIn.setStartOffset(riddleAnimation);
         moveIn.setDuration(inputAnimation);
         mSolutionView.startAnimation(moveIn);
@@ -365,7 +364,6 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
             }
         });
         mSolvedRiddlesCounter = (ViewWithNumber) getView().findViewById(R.id.riddles_solved);
-        mScoreBoard = (ViewWithNumber) getView().findViewById(R.id.score_board);
         mSolutionView = (SolutionInputView) getView().findViewById(R.id.solution_input_view);
         mBtnNextType = (ImageButton) getView().findViewById(R.id.riddle_next_type);
         mBtnNextType.setOnClickListener(new View.OnClickListener() {
@@ -392,17 +390,37 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
             if (mCurrRiddleType == PracticalRiddleType.CIRCLE_INSTANCE) {
                 mCurrRiddleType = PracticalRiddleType.SNOW_INSTANCE;
             } else if (mCurrRiddleType == PracticalRiddleType.SNOW_INSTANCE) {
-                mCurrRiddleType = PracticalRiddleType.DICE_INSTANCE;
-            } else if (mCurrRiddleType == PracticalRiddleType.DICE_INSTANCE) {
+            //    mCurrRiddleType = PracticalRiddleType.DICE_INSTANCE;
+            //} else if (mCurrRiddleType == PracticalRiddleType.DICE_INSTANCE) {
                 mCurrRiddleType = PracticalRiddleType.CIRCLE_INSTANCE;
             }
         }
         Toast.makeText(getActivity(), "'" + mCurrRiddleType.getFullName() + "' gewählt.", Toast.LENGTH_SHORT).show();
     }
 
+    @Override
+    public void openUnsolvedRiddle(Riddle toOpen) {
+        nextUnsolvedRiddle(toOpen.getId());
+    }
+
+    private void showUnsolvedRiddlesDialog() {
+        Bundle args = new Bundle();
+        if (mRiddleView.hasController()) {
+            args.putLong(Riddle.LAST_VISIBLE_UNSOLVED_RIDDLE_ID_KEY, mRiddleView.getRiddleId());
+            if (mManager.getUnsolvedRiddleCount() <= 1) {
+                return; // nothing to show, the only unsolved riddle is already visible
+            }
+        }
+        UnsolvedRiddlesDialog dialog = new UnsolvedRiddlesDialog();
+        dialog.setArguments(args);
+        dialog.show(getFragmentManager(), "UnsolvedRiddlesDialog");
+    }
+
     private void onUnsolvedRiddleClick() {
         if (!mModeUnsolvedRiddles) {
             toggleModeUnsolvedRiddles();
+        } else {
+            showUnsolvedRiddlesDialog();
         }
     }
 

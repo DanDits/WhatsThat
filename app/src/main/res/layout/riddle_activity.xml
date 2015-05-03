@@ -14,7 +14,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:name="dan.dit.whatsthat.system.RiddleFragment"
-            android:id="@+id/fragment"
+            android:id="@+id/riddle_fragment"
             tools:layout="@layout/riddle_home" />
     </FrameLayout>
 

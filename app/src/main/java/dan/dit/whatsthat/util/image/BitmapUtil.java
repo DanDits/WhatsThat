@@ -3,7 +3,7 @@ package dan.dit.whatsthat.util.image;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 
-import java.io.ByteArrayOutputStream;
+import java.nio.ByteBuffer;
 
 /**
  * Created by daniel on 08.04.15.
@@ -118,10 +118,9 @@ public class BitmapUtil {
      * @return Data in bytes that describe the image.
      */
     public static byte[] extractDataFromBitmap(Bitmap image) {
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        image.compress(Bitmap.CompressFormat.PNG, 100, baos);
-        byte[] bitmapBytes = baos.toByteArray();
-        return bitmapBytes;
+        ByteBuffer byteBuffer = ByteBuffer.allocate(image.getByteCount());
+        image.copyPixelsToBuffer(byteBuffer);
+        return byteBuffer.array();
     }
 
     public static Bitmap attemptBitmapScaling(Bitmap result, int reqWidth, int reqHeight, boolean enforceDimension) {

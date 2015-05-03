@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="date_today">Today</string>
+    <string name="date_yesterday">Yesterday</string>
+    <string name="unsolved_riddle_dialog_title">Unsolved riddles</string>
     <string name="riddle_hint_dialog_title">Information</string>
     <string name="riddle_hint_image_refused">Bad image for riddle</string>
     <string name="image_author_name">Author name</string>
@@ -34,6 +37,7 @@
 
     <string name="test_subject_1_name">Kid</string>
     <string name="test_subject_1_int">Knows letters</string>
+    <string name="riddle_open">Open</string>
     <string-array name="test_subject_1_intro_main">
         <item>Mercury</item>
         <item>Venus</item>

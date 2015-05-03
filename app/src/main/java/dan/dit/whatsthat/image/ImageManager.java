@@ -40,6 +40,7 @@ public class ImageManager {
         }
         if (loadedImages != null) {
             //Step 2: Save the updated images to new xml for future use
+            Log.d("Image", "Loaded " + loadedImages.size() + " images, now writing again to compiled file.");
             for (Integer bundleNumber : parser.getReadBundleNumbers()) {
                 ImageXmlWriter.writeBundle(context, parser.getBundle(bundleNumber), bundleNumber);
             }

@@ -8,10 +8,12 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import dan.dit.whatsthat.R;
+import dan.dit.whatsthat.riddle.Riddle;
 import dan.dit.whatsthat.riddle.RiddleInitializer;
+import dan.dit.whatsthat.riddle.UnsolvedRiddlesDialog;
 
 
-public class RiddleActivity extends Activity {
+public class RiddleActivity extends Activity implements UnsolvedRiddlesDialog.Callback {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,5 +37,11 @@ public class RiddleActivity extends Activity {
     protected void onDestroy() {
         super.onDestroy();
         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+    }
+
+    @Override
+    public void openUnsolvedRiddle(Riddle toOpen) {
+        UnsolvedRiddlesDialog.Callback cb = (UnsolvedRiddlesDialog.Callback) getFragmentManager().findFragmentById(R.id.riddle_fragment);
+        cb.openUnsolvedRiddle(toOpen);
     }
 }

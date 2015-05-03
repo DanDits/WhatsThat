@@ -1,6 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 
 <resources>
+    <string name="date_today">Heute</string>
+    <string name="date_yesterday">Gestern</string>
+    <string name="unsolved_riddle_dialog_title">Ungelöste Rätsel</string>
     <string name="riddle_hint_dialog_title">Informationen</string>
     <string name="riddle_hint_image_refused">Schlechtes Bild für Rätsel</string>
     <string name="image_author_name">Autor Name</string>
@@ -72,5 +75,6 @@
     </string-array>
     <string name="dummy_content">DUMMY\nINHALT</string>
     <string name="app_name">WhatsThat</string>
+    <string name="riddle_open">Öffnen</string>
 
 </resources>
