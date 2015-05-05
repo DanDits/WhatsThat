@@ -15,7 +15,6 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Random;
 
 import dan.dit.whatsthat.util.compaction.CompactedDataCorruptException;
 import dan.dit.whatsthat.util.compaction.Compacter;
@@ -28,12 +27,12 @@ public class SolutionInputLetterClick extends SolutionInput {
     private static final char NO_LETTER = 0; // this letter is not expected to be in any alphabet
 
 
-    public static final int LETTER_POOL_MIN_SIZE = 14; // minimum pool size of all displayed letters
+    public static final int LETTER_POOL_MIN_SIZE = 12; // minimum pool size of all displayed letters
     public static final int LETTER_POOL_MIN_WRONG_LETTERS = 2; // minimum amount of wrong letters
-    public static final int LETTER_POOL_MAX_WRONG_LETTERS = 7; // maximum amount of wrong letters
     public static final String IDENTIFIER = "LETTERCLICK";
     private static final int USER_LETTER_COLOR_COMPLETED = Color.GREEN;
     private static final int USER_LETTER_COLOR_INCOMPLETE = Color.RED;
+    private static final int ALL_LETTERS_AMOUNT_DIVISOR = 6; // must be divisible by this number, related to ALL_LETTERS_MAX_ROWS
     private char[] mSolutionLetters; // in order
     private char[] mAllLetters; // permuted randomly including solution letters
     private int[] mAllLettersSelected; // index of letter in user letters if the letter is selected, invisible and one of the user letters
@@ -47,11 +46,10 @@ public class SolutionInputLetterClick extends SolutionInput {
     private static final float PADDING_LR = 30.f; //dp, padding left + right
     private static final float PADDING_USER_ALL = 5.f; //dp, space between user letters and all letters
     private static final float LETTER_MAX_RADIUS = 35.f; //dp, maximum radius for letters
-    private static final float ALL_LETTER_MAX_RADIUS = 55.f; //dp, maximum radius for the all letters
     private static final float LETTER_MAX_GAP = 10.f; //dp, maximum gap between letters
     private static final float LETTER_BASE_SIZE = 0.75f; //dp, base size of letters, will scale on radius
     private static final float CIRCLE_BORDER_WIDTH = 1f; //dp, width of the circle border
-    private static final int ALL_LETTERS_MAX_ROWS = 5;
+    private static final int ALL_LETTERS_MAX_ROWS = 3;
     private static final float ALL_LETTERS_ROW_PADDING = 2.f; //dp, padding between rows
     private static final float USER_LETTER_FRACTION = 1.f/3.f;
     private static final float CLICK_DISTANCE_MAX_DELTA = 25.f; // dp, maximum additional distance so that a click counts
@@ -109,9 +107,7 @@ public class SolutionInputLetterClick extends SolutionInput {
         final float letter_base_size = ImageUtil.convertDpToPixel(LETTER_BASE_SIZE, mMetrics);
         final float padding_lr = ImageUtil.convertDpToPixel(PADDING_LR, mMetrics);
         final float padding_tb = ImageUtil.convertDpToPixel(PADDING_TB, mMetrics);
-        final float gap_lr = ImageUtil.convertDpToPixel(LETTER_MAX_GAP, mMetrics);
         final float padding_user_all = ImageUtil.convertDpToPixel(PADDING_USER_ALL, mMetrics);
-        final float letter_max_radius = ImageUtil.convertDpToPixel(ALL_LETTER_MAX_RADIUS, mMetrics);
         final float gapBetweenRows = ImageUtil.convertDpToPixel(ALL_LETTERS_ROW_PADDING, mMetrics);
 
         // -------------- all letters ---------------
@@ -136,7 +132,6 @@ public class SolutionInputLetterClick extends SolutionInput {
             for (rowCount = 1; rowCount <= ALL_LETTERS_MAX_ROWS; rowCount++) {
                 lettersPerRow = (int) Math.ceil(allLetterCount / ((float) rowCount));
                 mAllLettersCircleRadius = Math.min((heightForAllLetters - (rowCount - 1) * gapBetweenRows) / rowCount, (mWidth - padding_lr) / lettersPerRow ) / 2.f;
-                mAllLettersCircleRadius = Math.min(mAllLettersCircleRadius, letter_max_radius);
                 // maximize the radius
                 if (mAllLettersCircleRadius > maxRadius) {
                     maxRadius = mAllLettersCircleRadius;
@@ -155,7 +150,7 @@ public class SolutionInputLetterClick extends SolutionInput {
         float widthSpaceAvailable = mWidth - padding_lr - lettersPerRow * 2.f * mAllLettersCircleRadius;
         float gapBetweenAllLetters = 0.f;
         if (widthSpaceAvailable > 0 && lettersPerRow > 1) {
-            gapBetweenAllLetters = Math.min(gap_lr, widthSpaceAvailable / (lettersPerRow - 1));
+            gapBetweenAllLetters = widthSpaceAvailable / (lettersPerRow - 1);
         }
 
         // add the values of all letters
@@ -220,14 +215,22 @@ public class SolutionInputLetterClick extends SolutionInput {
         return mSolution.estimateSolvedValue(userLettersToWord());
     }
 
+    private int calculateAllLetterAmount() {
+        // ensure a minimum size and a minimum amount of extra letters added to the solution
+        int amount = Math.max(LETTER_POOL_MIN_SIZE, mSolutionLetters.length + LETTER_POOL_MIN_WRONG_LETTERS);
+        // ensure amount is divisible by 2 and 3
+        if (amount % ALL_LETTERS_AMOUNT_DIVISOR != 0) {
+            amount += ALL_LETTERS_AMOUNT_DIVISOR - (amount % ALL_LETTERS_AMOUNT_DIVISOR);
+        }
+        return amount;
+    }
 
     @Override
     protected void initSolution(@NonNull Solution solution) {
         mSolution = solution;
         String mainWord = mSolution.getMainWord();
         mSolutionLetters = new char[mainWord.length()];
-        mAllLetters = new char[Math.max(mSolutionLetters.length + LETTER_POOL_MIN_WRONG_LETTERS
-                + new Random().nextInt(LETTER_POOL_MAX_WRONG_LETTERS - LETTER_POOL_MIN_WRONG_LETTERS), LETTER_POOL_MIN_SIZE)];
+        mAllLetters = new char[calculateAllLetterAmount()];
         mAllLettersSelected = new int[mAllLetters.length];
         Arrays.fill(mAllLettersSelected, -1);
         mUserLetters = new ArrayList<>(mAllLetters.length);

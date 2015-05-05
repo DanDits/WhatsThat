@@ -10,10 +10,10 @@ import android.view.WindowManager;
 import dan.dit.whatsthat.R;
 import dan.dit.whatsthat.riddle.Riddle;
 import dan.dit.whatsthat.riddle.RiddleInitializer;
-import dan.dit.whatsthat.riddle.UnsolvedRiddlesDialog;
+import dan.dit.whatsthat.riddle.UnsolvedRiddlesChooser;
 
 
-public class RiddleActivity extends Activity implements UnsolvedRiddlesDialog.Callback {
+public class RiddleActivity extends Activity implements UnsolvedRiddlesChooser.Callback {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +41,7 @@ public class RiddleActivity extends Activity implements UnsolvedRiddlesDialog.Ca
 
     @Override
     public void openUnsolvedRiddle(Riddle toOpen) {
-        UnsolvedRiddlesDialog.Callback cb = (UnsolvedRiddlesDialog.Callback) getFragmentManager().findFragmentById(R.id.riddle_fragment);
+        UnsolvedRiddlesChooser.Callback cb = (UnsolvedRiddlesChooser.Callback) getFragmentManager().findFragmentById(R.id.riddle_fragment);
         cb.openUnsolvedRiddle(toOpen);
     }
 }

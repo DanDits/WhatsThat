@@ -3,15 +3,12 @@ package dan.dit.whatsthat.system;
 import android.app.Application;
 import android.content.Intent;
 
-import dan.dit.whatsthat.testsubject.TestSubject;
-
 public class MyApplication extends Application
 {
   @Override
   public void onCreate ()
   {
       super.onCreate();
-      initSingletons();
 
     // Setup handler for uncaught exceptions.
     Thread.setDefaultUncaughtExceptionHandler (new Thread.UncaughtExceptionHandler()
@@ -24,9 +21,6 @@ public class MyApplication extends Application
     });
   }
 
-    private void initSingletons() {
-        TestSubject.loadInstance(this);
-    }
 
     private void handleUncaughtException (Thread thread, Throwable e) {
         e.printStackTrace(); // not all Android versions will print the stack trace automatically

@@ -3,7 +3,6 @@
 <resources>
     <string name="date_today">Heute</string>
     <string name="date_yesterday">Gestern</string>
-    <string name="unsolved_riddle_dialog_title">Ungelöste Rätsel</string>
     <string name="riddle_hint_dialog_title">Informationen</string>
     <string name="riddle_hint_image_refused">Schlechtes Bild für Rätsel</string>
     <string name="image_author_name">Autor Name</string>
@@ -12,16 +11,14 @@
     <string name="image_author_title">Titel</string>
     <string name="image_author_extras">Extras</string>
 
-    <string name="riddle_make_next">R</string>
-    <string name="riddle_next_type">T</string>
     <string name="init_skip_available_all">-testsubjekt bereit-</string>
     <string name="init_skip_unavailable">-lade testsubjekt-</string>
 
     <string name="intro_test_subject_name">-Test Subjekt-</string>
     <string name="intro_test_subject_estimated_intelligence">-Intelligenz-</string>
 
-    <string name="test_subject_0_name">Kind</string>
-    <string name="test_subject_0_int">404</string>
+    <string name="test_subject_0_name">Doofes Kind</string>
+    <string name="test_subject_0_int">Kennt seinen Namen</string>
     <string-array name="test_subject_0_intro_main">
         <item>°Oh! Seine Durchlauchtheit lebt ja doch!°</item>
         <item>°Kann Er sich erinnern, was vor unserer Ankunft passiert ist? Nein? Ich werde Ihm helfen sich zu erinnern!°</item>
@@ -57,6 +54,10 @@
         <item>°Mal sehen, wie es auf Bilder reagiert°</item>
         <item>°Notiz an selbst: Menschen dumm, aber widerstandsfähig gegen Traktorstrahl°</item>
     </string-array>
+    <string-array name="test_subject_0_riddle_solved_candy">
+        <item>Gut gemacht!</item>
+        <item>Geschafft!</item>
+    </string-array>
 
     <string name="test_subject_1_name">Kind</string>
     <string name="test_subject_1_int">Kennt Buchstaben</string>
@@ -73,8 +74,19 @@
         <item>°Will jemand wetten was passiert?°</item>
         <item>°Neue Runde, neues Glück°</item>
     </string-array>
+    <string-array name="test_subject_1_riddle_solved_candy">
+        <item>Kluger Zug!</item>
+        <item>Clever!</item>
+    </string-array>
+
     <string name="dummy_content">DUMMY\nINHALT</string>
     <string name="app_name">WhatsThat</string>
-    <string name="riddle_open">Öffnen</string>
+    <string name="riddles_dialog_positive">Bestätigen</string>
+    <string name="riddle_dialog_tab_types" >Typen</string>
+    <string name="riddle_dialog_tab_unsolved" >Ungelöst</string>
+    <string name="riddle_type_circle">Kreise</string>
+    <string name="riddle_type_snow">Nebel</string>
+    <string name="riddle_type_dice">Tacho</string>
+    <string name="riddle_type_developer">Entwickler</string>
 
 </resources>

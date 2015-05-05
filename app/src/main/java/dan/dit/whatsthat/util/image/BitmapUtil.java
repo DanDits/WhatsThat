@@ -9,8 +9,8 @@ import java.nio.ByteBuffer;
  * Created by daniel on 08.04.15.
  */
 public class BitmapUtil {
-    public static final double CONTRAST_WEAK_THRESHOLD = 0.25; // everything below is bad
-    public static final double CONTRAST_STRONG_THRESHOLD = 0.5; // everything between this and weak is ok, everything above is great
+    public static final double CONTRAST_WEAK_THRESHOLD = 0.3; // everything below is bad
+    public static final double CONTRAST_STRONG_THRESHOLD = 0.6; // everything between this and weak is ok, everything above is great
 
     public static final double GREYNESS_STRONG_THRESHOLD = 0.15; // everything below is very grey (0 would be black and white)
     public static final double GREYNESS_MEDIUM_THRESHOLD = 0.3; // everything between this and STRONG is medium grey, everything above is getting very colorful
@@ -26,14 +26,11 @@ public class BitmapUtil {
             }
         }
 
-        // use the relative difference between neighbored frequencies scaled with a polynomial ax²+bx+c
-        // the polynomial is one at very bright and very dark values, emphasizing the contrast part on brightness
+        //wolfram alpha: interpolating polynomial | {{0, 1}, {11, 0.2}, {32, 0}, {52, 0.2}, {63, 1}}
+        //1 - 0.12162 x + 0.00562105 x^2 - 0.000117161 x^3 + 9.298497201723005*^-7 x^4
         double contrast = 0.;
-        final double polyA = 4. / (((double) depth - 1.) * (depth - 1.));
-        final double polyB = -4. / ((double) depth - 1.);
-        final double polyC = 1;
         for (int i = 1; i < depth; i++) {
-            contrast += frequencies[i] * (polyA * i * i + polyB * i + polyC);
+            contrast += frequencies[i] * (1. + i * (-0.12162 + i * (0.00562105 + i * (-0.000117161 + i * 9.298497201723005E-7))));
 
         }
         return contrast / ((double) (image.getWidth() * image.getHeight()));

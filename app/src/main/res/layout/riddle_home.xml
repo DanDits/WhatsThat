@@ -1,51 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
     <view
         class="dan.dit.whatsthat.util.ui.LinearLayoutProgressBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:id="@+id/progress_bar">
+        android:id="@+id/progress_bar"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true">
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="top">
-
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="top"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentLeft="false"
-                android:id="@+id/control_container"
-                android:layout_centerHorizontal="true">
-
-                <ImageButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/riddle_next_type"
-                    android:id="@+id/riddle_next_type"
-                    android:src="@drawable/gear" />
-
-                <ImageButton android:id="@+id/riddle_make_next"
-                    android:layout_width="wrap_content" android:layout_height="wrap_content"
-                    android:text="@string/riddle_make_next"
-                    android:src="@drawable/next_riddle_right"
-                    style="@style/button_important"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="5dp" />
-
-                <view
-                    class="dan.dit.whatsthat.util.ui.ImageButtonWithNumber"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:id="@+id/riddle_unsolved"
-                    android:src="@drawable/shelf1" />
-
-            </LinearLayout>
 
             <view
                 class="dan.dit.whatsthat.util.ui.ImageViewWithNumber"
@@ -53,17 +22,14 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/riddles_solved"
                 android:src="@drawable/stern"
-                android:layout_toLeftOf="@+id/control_container"
                 android:layout_centerVertical="true"
-                android:layout_alignParentLeft="true"
-                android:layout_alignBottom="@+id/control_container"
-                android:layout_alignTop="@+id/control_container" />
+                android:layout_alignParentLeft="true" />
             <view
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 class="dan.dit.whatsthat.riddle.RiddleHintView"
                 android:id="@+id/riddle_hint"
-                android:src="@drawable/questionmark_green"
+                android:src="@drawable/dontpanic"
                 android:layout_gravity="right"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentRight="true" />
@@ -73,10 +39,17 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/riddle_cheat"
                 android:src="@drawable/cheat"
-                android:layout_alignParentRight="true"
-                android:layout_below="@+id/riddle_hint"
-                android:layout_alignLeft="@+id/riddle_hint"
-                android:layout_alignBottom="@+id/control_container"/>
+                android:layout_alignParentTop="true"
+                android:layout_toLeftOf="@+id/riddle_hint"
+                android:layout_toStartOf="@+id/riddle_hint" />
+
+            <ImageButton android:id="@+id/riddle_make_next"
+                android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:src="@drawable/kid"
+                style="@style/button_important"
+                android:layout_centerHorizontal="true"
+                android:scaleType="centerInside"
+                android:layout_alignBottom="@+id/riddle_hint" />
 
         </RelativeLayout>
     </view>
@@ -84,11 +57,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         class="dan.dit.whatsthat.riddle.RiddleView"
-        android:id="@+id/riddle_view" />
+        android:id="@+id/riddle_view"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/progress_bar" />
 
     <view
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         class="dan.dit.whatsthat.solution.SolutionInputView"
-        android:id="@+id/solution_input_view" />
-</LinearLayout>
+        android:id="@+id/solution_input_view"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        android:layout_below="@+id/riddle_view" />
+</RelativeLayout>

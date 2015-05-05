@@ -85,18 +85,13 @@ public class InitializationFragment extends Fragment implements ImageManager.Syn
         kidStuff.addAnimation(move);
         kidStuff.setFillAfter(true);
 
+        mIntroAbduction.setVisibility(View.VISIBLE);
         mIntroAbduction.startAnimation(alphaAnimation);
         mIntroKid.startAnimation(kidStuff);
     }
 
     private void onNextText() {
-        TestSubject ts = TestSubject.getInstance();
-        String nextText;
-        if (ts.hasNextMainText()) {
-            nextText = ts.nextMainText();
-        } else {
-            nextText = ts.nextNutsText();
-        }
+        String nextText = TestSubject.getInstance().nextText();
         if (TextUtils.isEmpty(nextText)) {
             mIntroText.setVisibility(View.INVISIBLE);
         } else {
@@ -106,6 +101,8 @@ public class InitializationFragment extends Fragment implements ImageManager.Syn
     }
 
     private void startIntro() {
+        TestSubject.initialize(getActivity().getApplicationContext());
+        checkDataState();
         onNextText();
         Resources res = getResources();
         TestSubject subj = TestSubject.getInstance();
@@ -130,13 +127,13 @@ public class InitializationFragment extends Fragment implements ImageManager.Syn
             }
         };
         mIntroContainer.setOnTouchListener(mNextTextListener);
-        if (TestSubject.getInstance().hasNextMainText()) {
+        if (!TestSubject.getInstance().finishedMainTexts()) {
             Log.d("HomeStuff", "starting animation");
             startAnimation();
         } else {
             Log.d("HomeStuff", "not starting animation");
-            mIntroAbduction.setVisibility(View.INVISIBLE);
             mIntroKid.clearAnimation();
+            mIntroKid.setImageResource(TestSubject.getInstance().getImageResId());
             mIntroKid.setVisibility(View.VISIBLE);
             //FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) mIntroKid.getLayoutParams();
 
@@ -144,7 +141,7 @@ public class InitializationFragment extends Fragment implements ImageManager.Syn
     }
 
     private void checkDataState() {
-        if (!RiddleInitializer.INSTANCE.isInitializing() && !ImageManager.isSyncing()) {
+        if (!RiddleInitializer.INSTANCE.isInitializing() && !ImageManager.isSyncing() && TestSubject.isInitialized()) {
             Log.d("Image", "CheckDataState: is complete!");
             mState = STATE_DATA_COMPLETE;
             mInitSkip.setText(R.string.init_skip_available_all);
@@ -226,11 +223,17 @@ public class InitializationFragment extends Fragment implements ImageManager.Syn
     @Override
     public void onStart() {
         super.onStart();
-        startIntro();
         startInit();
         startSyncing();
         checkDataState();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                startIntro();
+            }
+        }, 1000L);
     }
+
     @Override
     public void onStop() {
         super.onStop();

@@ -29,7 +29,8 @@
             android:layout_height="wrap_content"
             android:id="@+id/init_abduction"
             android:layout_gravity="center"
-            android:src="@drawable/abduction" />
+            android:src="@drawable/abduction"
+            android:visibility="invisible" />
 
         <ImageView
             android:layout_width="wrap_content"

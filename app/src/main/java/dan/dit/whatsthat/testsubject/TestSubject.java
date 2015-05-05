@@ -4,7 +4,12 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
 import dan.dit.whatsthat.R;
+import dan.dit.whatsthat.riddle.types.PracticalRiddleType;
 
 /**
  * Created by daniel on 11.04.15.
@@ -12,86 +17,124 @@ import dan.dit.whatsthat.R;
 public class TestSubject {
     private static final String TEST_SUBJECT_PREFERENCES_FILE = "dan.dit.whatsthat.testsubject.preferences";
     private static final String TEST_SUBJECT_PREF_LEVEL_KEY = "testsubject_key_level";
-    private static final String TEST_SUBJECT_PREF_MAIN_TEXT_INDEX_KEY = "testsubject_key_maintext_index";
     private static final String TEST_SUBJECT_PREF_SPENT_SCORE_KEY = "testsubject_key_spent_score";
-    private static SharedPreferences PREFERENCES;
+    private static final String TEST_SUBJECT_PREF_FINISHED_MAIN_TEXTS = "testsubject_key_finished_main_texts";
 
-    private static TestSubject INSTANCE;
-    public static final int LEVEL_KID_STUPID= 0;
-    public static final int LEVEL_KID_NORMAL = 1;
+    private static final TestSubject INSTANCE = new TestSubject();
+    public static final int LEVEL_0_KID_STUPID= 0;
+    public static final int LEVEL_1_KID_NORMAL = 1;
 
 
+    private boolean mInitialized;
+    private int mSpentScore;
     private int mLevel;
+
+
+    private SharedPreferences mPreferences;
     private int mNameResId;
     private int mIntelligenceResId;
     private int mImageResId;
     private int mTextMainIndex;
-    private String[] mIntroTextMain;
     private int mTextNutsIndex;
+    private String[] mIntroTextMain;
+    private boolean mFinishedMainTexts;
     private String[] mIntroTextNuts;
-    private int mSpentScore;
+    private String[] mRiddleSolvedCandy;
+    private Random mRand = new Random();
+    private List<TestSubjectRiddleType> mTypes;
 
     private TestSubject() {
-        mSpentScore = PREFERENCES.getInt(TEST_SUBJECT_PREF_SPENT_SCORE_KEY, 0);
+    }
+
+    public static TestSubject initialize(Context context) {
+        INSTANCE.mPreferences = context.getSharedPreferences(TEST_SUBJECT_PREFERENCES_FILE, Context.MODE_PRIVATE);
+        INSTANCE.init(context.getResources());
+        INSTANCE.mInitialized = true;
+        INSTANCE.initTypes();
+        return INSTANCE;
+    }
+
+    private void initTypes() {
+        //TODO implement
+        mTypes = new ArrayList<>();
+        mTypes.add(new TestSubjectRiddleType(PracticalRiddleType.CIRCLE_INSTANCE));
+        mTypes.add(new TestSubjectRiddleType(PracticalRiddleType.SNOW_INSTANCE));
+        mTypes.add(new TestSubjectRiddleType(PracticalRiddleType.DICE_INSTANCE));
+    }
+
+    public static boolean isInitialized() {
+        return INSTANCE.mInitialized;
+    }
+
+    private void init(Resources res) {
+        mLevel = mPreferences.getInt(TEST_SUBJECT_PREF_LEVEL_KEY, LEVEL_0_KID_STUPID);
+        mFinishedMainTexts = mPreferences.getBoolean(TEST_SUBJECT_PREF_FINISHED_MAIN_TEXTS, false);
+        applyLevel(res);
+        mSpentScore = mPreferences.getInt(TEST_SUBJECT_PREF_SPENT_SCORE_KEY, 0);
     }
 
     public static TestSubject getInstance() {
-        return INSTANCE;
-    }
-
-    public static TestSubject loadInstance(Context context) {
-        if (INSTANCE != null) {
-            return INSTANCE;
+        if (!INSTANCE.mInitialized) {
+            throw new IllegalStateException("Subject not initialized!");
         }
-        PREFERENCES = context.getSharedPreferences(TEST_SUBJECT_PREFERENCES_FILE, Context.MODE_PRIVATE);
-        int level = PREFERENCES.getInt(TEST_SUBJECT_PREF_LEVEL_KEY, LEVEL_KID_STUPID);
-        int mainIndex = PREFERENCES.getInt(TEST_SUBJECT_PREF_MAIN_TEXT_INDEX_KEY, 0);
-        INSTANCE = new TestSubject();
-        INSTANCE.setLevel(context.getResources(), level, mainIndex);
         return INSTANCE;
     }
 
-    private void setLevel(Resources res, int level, int mainTextIndex) {
-        mLevel = level;
-        mTextMainIndex = mainTextIndex;
+    private void applyLevel(Resources res) {
+        mTextMainIndex = 0;
         mTextNutsIndex = 0;
-        PREFERENCES.edit().putInt(TEST_SUBJECT_PREF_LEVEL_KEY, mLevel)
-                .putInt(TEST_SUBJECT_PREF_MAIN_TEXT_INDEX_KEY, mTextMainIndex).apply();
         switch (mLevel) {
-            case LEVEL_KID_STUPID:
+            case LEVEL_0_KID_STUPID:
                 mNameResId = R.string.test_subject_0_name;
                 mIntelligenceResId = R.string.test_subject_0_int;
-                mImageResId = R.drawable.kid;
+                mImageResId = R.drawable.kid0;
                 mIntroTextMain = res.getStringArray(R.array.test_subject_0_intro_main);
                 mIntroTextNuts = res.getStringArray(R.array.test_subject_0_intro_nuts);
+                mRiddleSolvedCandy = res.getStringArray(R.array.test_subject_0_riddle_solved_candy);
                 break;
-            case LEVEL_KID_NORMAL:
+            case LEVEL_1_KID_NORMAL:
                 mNameResId = R.string.test_subject_1_name;
                 mIntelligenceResId = R.string.test_subject_1_int;
                 mImageResId = R.drawable.kid;
                 mIntroTextMain = res.getStringArray(R.array.test_subject_1_intro_main);
                 mIntroTextNuts = res.getStringArray(R.array.test_subject_1_intro_nuts);
+                mRiddleSolvedCandy = res.getStringArray(R.array.test_subject_1_riddle_solved_candy);
                 break;
             default:
-                throw new IllegalArgumentException("Not a valid level for testsubject: " + level);
+                throw new IllegalArgumentException("Not a valid level " + mLevel);
         }
     }
 
-    public boolean hasNextMainText() {
+    public String nextText() {
+        if (!hasNextMainText() || mFinishedMainTexts) {
+            return nextNutsText();
+        } else {
+            String text = nextMainText();
+            if (!hasNextMainText()) {
+                mPreferences.edit().putBoolean(TEST_SUBJECT_PREF_FINISHED_MAIN_TEXTS, true).apply();
+            }
+            return text;
+        }
+    }
+
+    public boolean finishedMainTexts() {
+        return mFinishedMainTexts;
+    }
+
+    private boolean hasNextMainText() {
         return mIntroTextMain.length > mTextMainIndex;
     }
 
-    public String nextMainText() {
-        if (!hasNextMainText()) {
-            return null;
+    private String nextMainText() {
+        if (!hasNextMainText() || mIntroTextMain.length == 0) {
+            return "";
         }
         String text = mIntroTextMain[mTextMainIndex];
         mTextMainIndex++;
-        PREFERENCES.edit().putInt(TEST_SUBJECT_PREF_MAIN_TEXT_INDEX_KEY, mTextMainIndex).apply();
         return text;
     }
 
-    public String nextNutsText() {
+    private String nextNutsText() {
         if (mIntroTextNuts != null && mIntroTextNuts.length > 0) {
             String text = mIntroTextNuts[mTextNutsIndex];
             mTextNutsIndex++;
@@ -100,6 +143,13 @@ public class TestSubject {
         } else {
             return "";
         }
+    }
+
+    public String nextRiddleSolvedCandy() {
+        if (mRiddleSolvedCandy.length > 0) {
+            return mRiddleSolvedCandy[mRand.nextInt(mRiddleSolvedCandy.length)];
+        }
+        return "";
     }
 
     public int getIntelligenceResId() {
@@ -116,5 +166,9 @@ public class TestSubject {
 
     public int getSpentScore() {
         return mSpentScore;
+    }
+
+    public List<TestSubjectRiddleType> getTypes() {
+        return mTypes;
     }
 }

@@ -408,10 +408,13 @@ public class Image {
         private void addOwnContrastAsPreference(Bitmap bitmap) {
             double contrast = BitmapUtil.calculateContrast(bitmap);
             if (BitmapUtil.CONTRAST_STRONG_THRESHOLD > contrast && contrast >= BitmapUtil.CONTRAST_WEAK_THRESHOLD) {
+                Log.d("Image", "MEDIUM contrast!" + contrast);
                 addPreferredRiddleType(ContentRiddleType.CONTRAST_MEDIUM_INSTANCE);
             } else if (BitmapUtil.CONTRAST_STRONG_THRESHOLD <= contrast) {
+                Log.d("Image", "STRONG CONTRAST!" + contrast);
                 addPreferredRiddleType(ContentRiddleType.CONTRAST_STRONG_INSTANCE);
             } else {
+                Log.d("Image", "weak contrast!" + contrast);
                 addPreferredRiddleType(ContentRiddleType.CONTRAST_WEAK_INSTANCE);
             }
         }
