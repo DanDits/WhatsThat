@@ -37,7 +37,8 @@ public class ImageTable {
 
 
     /**
-     * The savelocation if it is an extern image.
+     * The savelocation if it is an extern image. A relative path relative to Image.EXTERN_IMAGES_PATH,
+     * inside a directory named after the origin.
      */
     public static final String COLUMN_SAVELOC = "saveloc";
 
@@ -66,6 +67,7 @@ public class ImageTable {
 
     /**
      * The origin like who sent this, did the user add this himself or by the app itself.
+     * Has to be a file system compatible name that suits a directory name.
      */
     public static final String COLUMN_ORIGIN = "origin";
 

@@ -2,9 +2,9 @@ package dan.dit.whatsthat.image;
 
 import android.content.ContentValues;
 import android.content.Context;
-import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.util.Log;
@@ -40,6 +40,7 @@ import dan.dit.whatsthat.util.image.ImageUtil;
 public class Image {
     public static final String SHAREDPREFERENCES_FILENAME ="dan.dit.whatsthat.imagePrefs";
     public static final String ORIGIN_IS_THE_APP = "WhatsThat";
+    public static final String EXTERN_IMAGES_PATH = Environment.getExternalStorageDirectory() + "/" + "WhatsThat/images/";
 
     // instead of building everytime on every device this app runs we built once for every new release of images all essential data
     // that takes long time like hash or preference/refused calculation, save it into a simple text file which we then read on first app
@@ -50,7 +51,7 @@ public class Image {
     // the md5 hash of the image which identifies it
     private String mHash;
     private int mResId; // either resId or resPath is specified to be valid and link to a valid image
-    private File mResPath;
+    private String mRelativePath;
     private String mName; // a name identifying the image
     private ImageAuthor mAuthor;
     private String mOrigin;
@@ -116,7 +117,7 @@ public class Image {
             cv.put(ImageTable.COLUMN_RESNAME, ImageUtil.getDrawableNameFromResId(context.getResources(), mResId));
         } else {
             cv.put(ImageTable.COLUMN_RESNAME, 0);
-            cv.put(ImageTable.COLUMN_SAVELOC, mResPath.getAbsolutePath());
+            cv.put(ImageTable.COLUMN_SAVELOC, mRelativePath);
         }
 
         // solutions
@@ -180,7 +181,7 @@ public class Image {
         String resName = cursor.getString(cursor.getColumnIndexOrThrow(ImageTable.COLUMN_RESNAME));
         int resId = TextUtils.isEmpty(resName) ? 0 : ImageUtil.getDrawableResIdFromName(context, resName);
         String resPathRaw = cursor.getString(cursor.getColumnIndexOrThrow(ImageTable.COLUMN_SAVELOC));
-        File resPath = TextUtils.isEmpty(resPathRaw) ? null : new File(resPathRaw);
+        String resPath = TextUtils.isEmpty(resPathRaw) ? null : resPathRaw;
         String hash = cursor.getString(cursor.getColumnIndexOrThrow(ImageTable.COLUMN_HASH));
         ImageAuthor author;
         try {
@@ -223,7 +224,7 @@ public class Image {
 
         Image result = null;
         try {
-            result = builder.build();
+            result = builder.build(context);
         } catch (BuildException be) {
             Log.e("Image", "Failed loading image with hash "  + hash + " from database. Building failed.");
         }
@@ -258,13 +259,11 @@ public class Image {
         return mOrigin;
     }
 
-    public Bitmap getOrLoadBitmap(Context context, Dimension reqDimension, boolean enforceDimension) {
-        int reqWidth = reqDimension.getWidth();
-        int reqHeight = reqDimension.getHeight();
-        // we need to reload the image
+    private Bitmap loadBitmapExecute(Context context, int reqWidth, int reqHeight, boolean enforceDimension) {
         Bitmap result = null;
-        if (mResPath != null) {
-            result = ImageUtil.loadBitmap(mResPath, reqWidth, reqHeight, enforceDimension);
+        if (mRelativePath != null) {
+            File imagePath = new File(EXTERN_IMAGES_PATH + mOrigin + "/" + mRelativePath);
+            result = ImageUtil.loadBitmap(imagePath, reqWidth, reqHeight, enforceDimension);
         } else if (mResId != 0) {
             result = ImageUtil.loadBitmap(context.getResources(), mResId, reqWidth, reqHeight, enforceDimension);
         } else {
@@ -273,6 +272,26 @@ public class Image {
             mResId = ImageUtil.getDrawableResIdFromName(context, mName);
             if (mResId != 0) {
                 result = ImageUtil.loadBitmap(context.getResources(), mResId, reqWidth, reqHeight, enforceDimension);
+            }
+        }
+        return result;
+    }
+
+    public Bitmap loadBitmap(Context context, Dimension reqDimension, boolean enforceDimension) {
+        int reqWidth = reqDimension.getWidth();
+        int reqHeight = reqDimension.getHeight();
+        Bitmap result = null;
+        if (mIsObfuscated == 0) {
+            // not obfuscated, we can optimize the loading
+            return loadBitmapExecute(context, reqWidth, reqHeight, enforceDimension);
+        } else {
+            // we first need to deobfuscate the image
+            result = loadBitmapExecute(context, 0, 0, false);
+            if (result != null) {
+                result = ImageObfuscator.restoreImage(result);
+                if (result != null) {
+                    result = BitmapUtil.attemptBitmapScaling(result, reqWidth, reqHeight, enforceDimension);
+                }
             }
         }
         return result;
@@ -299,6 +318,14 @@ public class Image {
         return mSolutions.get(0);
     }
 
+    public String getRelativePath() {
+        return mRelativePath;
+    }
+
+    public int getObfuscation() {
+        return mIsObfuscated;
+    }
+
     /**
      * A builder for the Image class that allows recreation from the database or fresh creation
      * of a new image object.
@@ -310,64 +337,24 @@ public class Image {
             mImage.mTimestamp = System.currentTimeMillis();
         }
 
-        public Builder(int resId, File filePath, String name, ImageAuthor author, long timestamp, String hash) {
+        public Builder(int resId, String relativePath, String name, ImageAuthor author, long timestamp, String hash) {
             mImage.mResId = resId;
-            mImage.mResPath = filePath;
+            mImage.mRelativePath = relativePath;
             mImage.mName = name;
             mImage.mAuthor = author;
             mImage.mTimestamp = timestamp;
             mImage.mHash = hash;
         }
 
-        public Builder(Context context, int resId, ImageAuthor author) throws BuildException {
-            Bitmap image = ImageUtil.loadBitmap(context.getResources(), resId, 0, 0, true);
-            mImage.mResId = resId;
-            mImage.mName = ImageUtil.getDrawableNameFromResId(context.getResources(), resId);
-            buildBasic(image, author);
-        }
-
-        public Builder(File imagePath, ImageAuthor author) throws BuildException {
-            Bitmap image = ImageUtil.loadBitmap(imagePath, 0, 0, true);
-            mImage.mResPath = imagePath;
-            mImage.mName = imagePath.getName();
-            buildBasic(image, author);
-        }
-
-        public Builder(Resources res, int resId, Bitmap image, ImageAuthor author) throws BuildException {
-            mImage.mResId = resId;
-            if (resId == 0) {
-                throw new BuildException().setMissingData("Image", "Valid resource id.");
+        private static final Dimension EMPTY_DIMENSION = new Dimension(0, 0);
+        private void calculateHashAndPreferences(Context context) {
+            Bitmap image = mImage.loadBitmap(context, EMPTY_DIMENSION, false);
+            if (image != null) {
+                mImage.mHash = ImageUtil.getHash(BitmapUtil.extractDataFromBitmap(image));
+                addOwnFormatAsPreference(image);
+                addOwnContrastAsPreference(image);
+                addOwnGreynessAsPreference(image);
             }
-            mImage.mName = ImageUtil.getDrawableNameFromResId(res, resId);
-
-            buildBasic(image, author);
-        }
-
-        public Builder(File imagePath, Bitmap image, ImageAuthor author) throws BuildException {
-            mImage.mResPath = imagePath;
-            if (imagePath == null) {
-                throw new BuildException().setMissingData("Image", "Path to image.");
-            }
-            mImage.mName = imagePath.getName();
-            buildBasic(image, author);
-        }
-
-        private void buildBasic(Bitmap image, ImageAuthor author) throws BuildException {
-            if (image == null) {
-                throw new BuildException().setMissingData("Image", "Bitmap image");
-            }
-            // init timestamp, hash, weak ref, author
-            // calculating hash, loading image, and calculations with the bitmap take quite some time
-            mImage.mTimestamp = System.currentTimeMillis();
-            mImage.mAuthor = author;
-            calculateHashAndPreferences(image);
-        }
-
-        public void calculateHashAndPreferences(Bitmap image) {
-            mImage.mHash = ImageUtil.getHash(BitmapUtil.extractDataFromBitmap(image));
-            addOwnFormatAsPreference(image);
-            addOwnContrastAsPreference(image);
-            addOwnGreynessAsPreference(image);
         }
 
         private void addOwnGreynessAsPreference(Bitmap image) {
@@ -386,12 +373,25 @@ public class Image {
             mImage.mResId = ImageUtil.getDrawableResIdFromName(context, resourceName);
         }
 
+        public Builder setRelativeImagePath(String relativePath) {
+            if (TextUtils.isEmpty(relativePath)) {
+                return this;
+            }
+            mImage.mName = relativePath;
+            mImage.mRelativePath = relativePath;
+            return this;
+        }
+
         public void setAuthor(ImageAuthor author) {
             mImage.mAuthor = author;
         }
 
-        public void setHash(String hash) {
+        public Builder setHash(String hash) {
+            if (TextUtils.isEmpty(hash)) {
+                return this;
+            }
             mImage.mHash = hash;
+            return this;
         }
 
         private void addOwnFormatAsPreference(Bitmap bitmap) {
@@ -425,13 +425,19 @@ public class Image {
             return this;
         }
 
-        public Builder setIsObfuscated() {
-            mImage.mIsObfuscated = ImageObfuscator.IS_OBFUSCATED_HINT;
+        public Builder setObfuscation(int obfuscation) {
+            mImage.mIsObfuscated = obfuscation;
             return this;
         }
 
-        public Builder setObfuscation(int obfuscation) {
-            mImage.mIsObfuscated = obfuscation;
+        public Builder setObfuscation(String obfuscation) {
+            if (!TextUtils.isEmpty(obfuscation)) {
+                try {
+                    mImage.mIsObfuscated = Integer.parseInt(obfuscation);
+                } catch (NumberFormatException nfe) {
+                    mImage.mIsObfuscated = ImageObfuscator.IS_OBFUSCATED_HINT;
+                }
+            }
             return this;
         }
 
@@ -480,18 +486,24 @@ public class Image {
             return this;
         }
 
-        public Image build() throws BuildException {
+        public Image build(Context context) throws BuildException {
             if (mImage.mAuthor == null) {
                 throw new BuildException().setMissingData("Image", "Author");
             }
-            if (mImage.mOrigin == null) {
+            if (TextUtils.isEmpty(mImage.mOrigin)) {
                 mImage.mOrigin = ORIGIN_IS_THE_APP;
+            }
+            if (TextUtils.isEmpty(mImage.mRelativePath) && mImage.mResId == 0) {
+                throw new BuildException().setMissingData("Image","ResPath or resId");
+            }
+            if (TextUtils.isEmpty(mImage.mHash)) {
+                calculateHashAndPreferences(context);
             }
             if (mImage.mSolutions == null || mImage.mSolutions.isEmpty()) {
                 throw new BuildException().setMissingData("Image", "Solutions");
             }
             if (TextUtils.isEmpty(mImage.mHash)) {
-                throw new BuildException().setMissingData("Image", "Hash");
+                throw new BuildException("Source: " + mImage.mName).setMissingData("Image", "Hash");
             }
             return mImage;
         }

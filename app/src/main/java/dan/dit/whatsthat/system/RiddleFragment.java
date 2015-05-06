@@ -375,7 +375,7 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
                         String value = input.getText().toString().toLowerCase().trim();
                         Image selected = null;
                         for (Image image : ALL_IMAGES.values()) {
-                            if (image.getName().equals(value)) {
+                            if (image.getName().equalsIgnoreCase(value)) {
                                 selected = image;
                                 break;
                             }

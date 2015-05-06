@@ -12,6 +12,7 @@ import org.xmlpull.v1.XmlPullParserException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,7 +25,6 @@ import dan.dit.whatsthat.solution.Solution;
 import dan.dit.whatsthat.storage.ImageTable;
 import dan.dit.whatsthat.util.BuildException;
 import dan.dit.whatsthat.util.PercentProgressListener;
-import dan.dit.whatsthat.util.image.ImageUtil;
 
 /**
  * XML for easily initializing and loading new images into the app. Format:
@@ -88,16 +88,12 @@ public class ImageXmlParser {
     public static final String TAG_AUTHOR_EXTRAS = "extras";
     public static final String TAG_RIDDLE_TYPE_NAME = "type";
     private static final int PARSE_START_PROGRESS = 10;
-    private static final int PARSE_END_PROGRESS = 60;
+    private static final int PARSE_END_PROGRESS = 20;
 
     private Context mContext;
     private int mHighestReadBundleNumber;
     private ImageManager.SynchronizationListener mListener;
     private Map<Integer, List<Image>> mReadBundles = new HashMap<>();
-
-    public int getHighestReadBundleNumber() {
-        return mHighestReadBundleNumber;
-    }
 
     public List<Image> getBundle(int bundleNumber) {
         return mReadBundles.get(bundleNumber);
@@ -107,7 +103,14 @@ public class ImageXmlParser {
         return mReadBundles.keySet();
     }
 
-    public List<Image> parseNewBundles(Context context) throws XmlPullParserException, IOException {
+    /**
+     * Parses all new bundles found in imagedata_uncompiled.xml.
+     * @param context A context.
+     * @return A list of all red images.
+     * @throws XmlPullParserException There was an XML error parsing the data.
+     * @throws IOException There was an IO error reading the data.
+     */
+    public List<Image> parseNewBundlesDeveloper(Context context) throws XmlPullParserException, IOException {
         mContext = context;
         InputStream inputStream = context.getResources().openRawResource(R.raw.imagedata_uncompiled);
         List<Image> images = parse (inputStream, 0);
@@ -115,7 +118,15 @@ public class ImageXmlParser {
         return images;
     }
 
-
+    /**
+     * Syncs the default images supplied by the app and specified by imagedata.xml to the database. Ignores
+     * bundles with version number lower than or equal to the last read highest bundle number.
+     * @param context A context.
+     * @param synchronizationListener The listener that is informed about progress.
+     * @return A list of all images parsed and saved.
+     * @throws XmlPullParserException There was an XML error parsing the data.
+     * @throws IOException There was an IO error reading the data.
+     */
     public List<Image> parseAndSyncBundles(Context context, ImageManager.SynchronizationListener synchronizationListener) throws XmlPullParserException, IOException {
         mContext = context;
         mListener = synchronizationListener;
@@ -127,17 +138,7 @@ public class ImageXmlParser {
         List<Image> images = parse (inputStream, currBundleNumber + 1);
         double progress = PARSE_END_PROGRESS;
         postProgress((int) progress);
-        if (images != null && images.size() > 0) {
-            double parseProgressPerImage = (PercentProgressListener.PROGRESS_COMPLETE - PARSE_END_PROGRESS) / (double) images.size();
-            for (Image img : images) {
-                if (mListener != null && mListener.isSyncCancelled()) {
-                    break;
-                }
-                img.saveToDatabase(mContext);
-                progress += parseProgressPerImage;
-                postProgress((int) progress);
-            }
-        }
+        syncToDatabase(progress);
         if (!mListener.isSyncCancelled()) {
             if (mHighestReadBundleNumber > currBundleNumber) {
                 prefs.edit().putInt(ImageManager.PREFERENCES_KEY_IMAGE_MANAGER_VERSION, mHighestReadBundleNumber).apply();
@@ -148,6 +149,26 @@ public class ImageXmlParser {
             Log.d("Image", "Parsing for image sync cancelled.");
         }
         return images;
+    }
+
+    protected void syncToDatabase(double startProgress) {
+        List<Integer> keyList = new ArrayList<>(mReadBundles.keySet());
+        Collections.sort(keyList); // ascending order so that higher version bundles can overwrite older images
+        int imageCount = 0;
+        for (Integer k : keyList) {
+            imageCount += mReadBundles.get(k).size();
+        }
+        double parseProgressPerImage = (PercentProgressListener.PROGRESS_COMPLETE - PARSE_END_PROGRESS) / (double) imageCount;
+        for (Integer version : keyList) {
+            for (Image img : mReadBundles.get(version)) {
+                if (mListener != null && mListener.isSyncCancelled()) {
+                    break;
+                }
+                img.saveToDatabase(mContext);
+                startProgress += parseProgressPerImage;
+                postProgress((int) startProgress);
+            }
+        }
     }
 
     private void postProgress(int progress) {
@@ -222,22 +243,15 @@ public class ImageXmlParser {
     private Image readImage(XmlPullParser parser) throws XmlPullParserException, IOException {
         parser.require(XmlPullParser.START_TAG, NAMESPACE, TAG_IMAGE_NAME);
         Image.Builder builder = new Image.Builder();
-        boolean newImage = true;
-        String resName = null;
         while (parser.next() != XmlPullParser.END_TAG) {
             if (parser.getEventType() != XmlPullParser.START_TAG) {
                 continue;
             }
             String name = parser.getName();
             if (name.equals(ImageTable.COLUMN_HASH)) {
-                String hash = readTextChecked(parser, ImageTable.COLUMN_HASH);
-                if (!TextUtils.isEmpty(hash)) {
-                    builder.setHash(hash);
-                    newImage = false;
-                }
+                builder.setHash(readTextChecked(parser, ImageTable.COLUMN_HASH));
             } else if (name.equals(ImageTable.COLUMN_RESNAME)) {
-                resName = readTextChecked(parser, ImageTable.COLUMN_RESNAME);
-                builder.setResourceName(mContext, resName);
+                builder.setResourceName(mContext, readTextChecked(parser, ImageTable.COLUMN_RESNAME));
             } else if (name.equals(ImageTable.COLUMN_SOLUTIONS)) {
                 builder.setSolutions(readSolutions(parser));
             } else if (name.equals(ImageTable.COLUMN_AUTHOR)) {
@@ -246,20 +260,18 @@ public class ImageXmlParser {
                 builder.setPreferredRiddleTypes(readPreferredRiddleTypes(parser));
             } else if (name.equals(ImageTable.COLUMN_RIDDLEREFUSEDTYPES)) {
                 builder.setRefusedRiddleTypes(readRefusedRiddleTypes(parser));
+            } else if (name.equals(ImageTable.COLUMN_ORIGIN)) {
+                builder.setOrigin(readTextChecked(parser, ImageTable.COLUMN_ORIGIN));
+            } else if (name.equals(ImageTable.COLUMN_SAVELOC)) {
+                builder.setRelativeImagePath(readTextChecked(parser, ImageTable.COLUMN_SAVELOC));
+            } else if (name.equals(ImageTable.COLUMN_OBFUSCATION)) {
+                builder.setObfuscation(readTextChecked(parser, ImageTable.COLUMN_OBFUSCATION));
             } else {
                 skip(parser);
             }
         }
-        if (newImage && !TextUtils.isEmpty(resName)) {
-            Log.d("Image", "Calculating for image: " + resName);
-            int resId = ImageUtil.getDrawableResIdFromName(mContext, resName);
-            if (resId == 0) {
-                throw new XmlPullParserException("No resource for image with name " + resName + " found. Renamed file?");
-            }
-            builder.calculateHashAndPreferences(ImageUtil.loadBitmap(mContext.getResources(), resId, 0, 0, true));
-        }
         try {
-            return builder.build();
+            return builder.build(mContext);
         } catch (BuildException be) {
             throw new XmlPullParserException("Could not parse image: " + be.getMessage());
         }

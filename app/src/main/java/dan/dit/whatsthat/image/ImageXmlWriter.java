@@ -2,6 +2,7 @@ package dan.dit.whatsthat.image;
 
 import android.content.Context;
 import android.os.Environment;
+import android.text.TextUtils;
 import android.util.Log;
 import android.util.Xml;
 
@@ -30,32 +31,36 @@ public class ImageXmlWriter {
         }
         String path = Environment.getExternalStorageDirectory() + "/" + "WhatsThat/build/";
         File dir = new File(path);
-        dir.mkdirs();
-        String fullName = path + "imagedata" + bundleNumber + ".xml";
+        if (dir.mkdirs() || dir.isDirectory()) {
+            String fullName = path + "imagedata" + bundleNumber + ".xml";
 
-        // Write to file.
-        File file = new File (fullName);
-        FileOutputStream output = null;
-        boolean success = false;
-        try {
-            output = new FileOutputStream(file);
-            success = writeXml(output, imageBundle, bundleNumber);
-        } catch (IOException ioe) {
-            Log.e("Image", "XMLWRITE: Could not create file or save to file: " + ioe);
-        } catch (IllegalStateException state) {
-            Log.e("Image", "XMLWRITE: Illegal state for serializer: " + state);
-        } catch (IllegalArgumentException arg) {
-            Log.e("Image", "XMLWRITE: Illegal argument for serializer: " + arg);
-        } finally {
-            if (output != null) {
-                try {
-                    output.close();
-                } catch (IOException ioe) {}
+            // Write to file.
+            File file = new File(fullName);
+            FileOutputStream output = null;
+            boolean success = false;
+            try {
+                output = new FileOutputStream(file);
+                success = writeXml(output, imageBundle, bundleNumber);
+            } catch (IOException ioe) {
+                Log.e("Image", "XMLWRITE: Could not create file or save to file: " + ioe);
+            } catch (IllegalStateException state) {
+                Log.e("Image", "XMLWRITE: Illegal state for serializer: " + state);
+            } catch (IllegalArgumentException arg) {
+                Log.e("Image", "XMLWRITE: Illegal argument for serializer: " + arg);
+            } finally {
+                if (output != null) {
+                    try {
+                        output.close();
+                    } catch (IOException ioe) {
+                    }
+                }
             }
-        }
-        if (success) {
-            Log.d("Image", "Bundle created for " + imageBundle.size() + " images, number " + bundleNumber
-                    + " at " + file.getAbsolutePath());
+            if (success) {
+                Log.d("Image", "Bundle created for " + imageBundle.size() + " images, number " + bundleNumber
+                        + " at " + file.getAbsolutePath());
+            }
+        } else {
+            Log.e("Image", "Failed writing bundle " + bundleNumber + " dir not available: " + dir);
         }
     }
 
@@ -68,8 +73,11 @@ public class ImageXmlWriter {
             serializer.attribute(ImageXmlParser.NAMESPACE, ImageXmlParser.BUNDLE_ATTRIBUTE_VERSION_NAME, String.valueOf(bundleNumber));
             for (Image image: imageBundle){
                 serializer.startTag(ImageXmlParser.NAMESPACE, ImageXmlParser.TAG_IMAGE_NAME);
-                writeText(serializer, ImageTable.COLUMN_HASH, image.getHash());
                 writeText(serializer, ImageTable.COLUMN_RESNAME, image.getName());
+                writeText(serializer, ImageTable.COLUMN_ORIGIN, image.getOrigin());
+                writeText(serializer, ImageTable.COLUMN_HASH, image.getHash());
+                writeText(serializer, ImageTable.COLUMN_OBFUSCATION, String.valueOf(image.getObfuscation()));
+                writeText(serializer, ImageTable.COLUMN_SAVELOC, image.getRelativePath());
                 writeSolutions(serializer, ImageTable.COLUMN_SOLUTIONS, image.getSolutions());
                 writeAuthor(serializer, ImageTable.COLUMN_AUTHOR, image.getAuthor());
                 writeTypes(serializer, ImageTable.COLUMN_RIDDLEPREFTYPES, image.getPreferredRiddleTypes());
@@ -123,7 +131,7 @@ public class ImageXmlWriter {
     }
 
     private static void writeText(XmlSerializer serializer, String tag, String text) throws IOException {
-        if (text == null) {
+        if (TextUtils.isEmpty(text)) {
             return;
         }
         serializer.startTag(ImageXmlParser.NAMESPACE, tag);

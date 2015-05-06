@@ -31,7 +31,7 @@ public class ImageManager {
         ImageXmlParser parser = new ImageXmlParser();
         List<Image> loadedImages = null;
         try {
-            loadedImages = parser.parseNewBundles(context);
+            loadedImages = parser.parseNewBundlesDeveloper(context);
             Log.d("Image", "Loaded images: " + loadedImages);
         } catch (IOException e) {
             Log.d("Image", "IOEXCEPTION: " + e);
