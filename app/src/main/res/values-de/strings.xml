@@ -5,11 +5,10 @@
     <string name="date_yesterday">Gestern</string>
     <string name="riddle_hint_dialog_title">Informationen</string>
     <string name="riddle_hint_image_refused">Schlechtes Bild für Rätsel</string>
-    <string name="image_author_name">Autor Name</string>
-    <string name="image_author_source">Quelle</string>
-    <string name="image_author_license">Lizenz</string>
-    <string name="image_author_title">Titel</string>
-    <string name="image_author_extras">Extras</string>
+    <string name="image_author_name">Autor Name: %1$s</string>
+    <string name="image_author_source">Quelle: %1$s</string>
+    <string name="image_author_license">Lizenz: %1$s</string>
+    <string name="image_author_details">%1$s</string>
 
     <string name="init_skip_available_all">-testsubjekt bereit-</string>
     <string name="init_skip_unavailable">-lade testsubjekt-</string>
@@ -85,8 +84,18 @@
     <string name="riddle_dialog_tab_types" >Typen</string>
     <string name="riddle_dialog_tab_unsolved" >Ungelöst</string>
     <string name="riddle_type_circle">Kreise</string>
+    <string name="riddle_type_circle_explanation">Ein Kreis wird zu vier kleineren Kreisen. Berühre die Kreise um sie platzen zu lassen, bis du etwas erkennst. Lass ab und zu los um auch die neuen Kreise zu erwischen.</string>
     <string name="riddle_type_snow">Nebel</string>
+    <string name="riddle_type_snow_explanation">Bewege die Zelle durch Kippen des Gerätes in alle Richtungen. Sammle Sachen, berühre keine Wand, werde größer und EXPLODIERE.</string>
     <string name="riddle_type_dice">Tacho</string>
+    <string name="riddle_type_dice_explanation">This is empty.</string>
     <string name="riddle_type_developer">Entwickler</string>
+    <string name="riddle_type_developer_explanation">Hallo ich oder Bruder.</string>
+    <string name="panic_dialog_positive">Alles ok</string>
+    <string name="panic_ask_type">Wie funktioniert das</string>
+    <string name="panic_skip">Auslassen.. bis später</string>
+    <string name="panic_complain">Ich will mich beschweren</string>
+    <string name="panic_author_credit_title">Bewundere den Künstler des Bildes</string>
+    <string name="no_panic_title">Keine Panik!</string>
 
 </resources>

@@ -48,11 +48,15 @@ public class LinearLayoutProgressBar extends LinearLayout implements PercentProg
     @Override
     public void onDraw(Canvas canvas) {
         mPath.reset();
-        mPath.moveTo(0, 0);
-        mPath.addRect(0f, 0f, mProgress * canvas.getWidth() / ((float) PercentProgressListener.PROGRESS_COMPLETE), (float) canvas.getHeight(), Path.Direction.CW);
-        mGradientPaint.setShader(new LinearGradient(0, 0, mProgress * canvas.getWidth() / ((float) PercentProgressListener.PROGRESS_COMPLETE), canvas.getHeight(), Color.TRANSPARENT, PROGRESS_COLOR, Shader.TileMode.CLAMP));
+        if (getOrientation() == LinearLayout.HORIZONTAL) {
+            mPath.addRect(0f, 0f, mProgress * canvas.getWidth() / ((float) PercentProgressListener.PROGRESS_COMPLETE), (float) canvas.getHeight(), Path.Direction.CW);
+            mGradientPaint.setShader(new LinearGradient(0, 0, mProgress * canvas.getWidth() / ((float) PercentProgressListener.PROGRESS_COMPLETE), canvas.getHeight(), Color.TRANSPARENT, PROGRESS_COLOR, Shader.TileMode.CLAMP));
+        } else {
+            float relH = (PercentProgressListener.PROGRESS_COMPLETE - mProgress) * canvas.getHeight() / ((float) PercentProgressListener.PROGRESS_COMPLETE);
+            mPath.addRect(0f, relH, canvas.getWidth(), canvas.getHeight(), Path.Direction.CW);
+            mGradientPaint.setShader(new LinearGradient(0, relH, 0, canvas.getHeight(), PROGRESS_COLOR, Color.TRANSPARENT, Shader.TileMode.CLAMP));
+        }
         canvas.drawPath(mPath, mGradientPaint);
-
         super.onDraw(canvas);
     }
 }

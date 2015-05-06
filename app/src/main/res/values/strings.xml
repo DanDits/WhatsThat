@@ -5,11 +5,10 @@
     <string name="date_yesterday">Yesterday</string>
     <string name="riddle_hint_dialog_title">Information</string>
     <string name="riddle_hint_image_refused">Bad image for riddle</string>
-    <string name="image_author_name">Author name</string>
-    <string name="image_author_source">Source</string>
-    <string name="image_author_license">License</string>
-    <string name="image_author_title">Title</string>
-    <string name="image_author_extras">Extras</string>
+    <string name="image_author_name">Author name: %1$s</string>
+    <string name="image_author_source">Source: %1$s</string>
+    <string name="image_author_license">License: %1$s</string>
+    <string name="image_author_details">%1$s</string>
     <string name="app_name">WhatsThat</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
     <string name="init_skip_available_all">-testsubject ready-</string>
@@ -43,8 +42,19 @@
     <string name="riddle_dialog_tab_types" >Types</string>
     <string name="riddle_dialog_tab_unsolved" >Unsolved</string>
     <string name="riddle_type_circle">Circle</string>
+    <string name="riddle_type_circle_explanation">One circle pops into 4 smaller circles until the image is visible. Touch the circles to pop them. Release the touch to pop the new smaller circles.</string>
+    <string name="riddle_type_snow">Nebel</string>
+    <string name="riddle_type_snow_explanation">Tilt the device and thus move the cell. Collect stuff, grow bigger, don\'t touch walls and EXPLODE.</string>
     <string name="riddle_type_dice">Dice</string>
+    <string name="riddle_type_dice_explanation">Do stuff.</string>
     <string name="riddle_type_developer">Developer</string>
+    <string name="riddle_type_developer_explanation">Hi self or brother.</string>
+    <string name="panic_dialog_positive">All right</string>
+    <string name="panic_ask_type">How does this work</string>
+    <string name="panic_skip">Skip .. come back later</string>
+    <string name="panic_complain">I want to complain</string>
+    <string name="panic_author_credit_title">Admire the image artist</string>
+    <string name="no_panic_title">Don\'t panic!</string>
     <string-array name="test_subject_1_intro_main">
         <item>Mercury</item>
         <item>Venus</item>

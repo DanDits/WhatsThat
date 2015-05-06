@@ -7,13 +7,16 @@ import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
 
+import java.util.Collection;
+
 import dan.dit.whatsthat.R;
-import dan.dit.whatsthat.riddle.Riddle;
 import dan.dit.whatsthat.riddle.RiddleInitializer;
 import dan.dit.whatsthat.riddle.UnsolvedRiddlesChooser;
 
 
-public class RiddleActivity extends Activity implements UnsolvedRiddlesChooser.Callback {
+public class RiddleActivity extends Activity implements UnsolvedRiddlesChooser.Callback, NoPanicDialog.Callback {
+
+    private RiddleFragment mFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,14 +37,34 @@ public class RiddleActivity extends Activity implements UnsolvedRiddlesChooser.C
     }
 
     @Override
+    public void onStart() {
+        super.onStart();
+        mFragment = (RiddleFragment) getFragmentManager().findFragmentById(R.id.riddle_fragment);
+    }
+
+    @Override
     protected void onDestroy() {
         super.onDestroy();
         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
     }
 
     @Override
-    public void openUnsolvedRiddle(Riddle toOpen) {
-        UnsolvedRiddlesChooser.Callback cb = (UnsolvedRiddlesChooser.Callback) getFragmentManager().findFragmentById(R.id.riddle_fragment);
-        cb.openUnsolvedRiddle(toOpen);
+    public void openUnsolvedRiddle(Collection<Long> toOpen) {
+        mFragment.openUnsolvedRiddle(toOpen);
+    }
+
+    @Override
+    public boolean canSkip() {
+        return mFragment.canSkip();
+    }
+
+    @Override
+    public void onSkip() {
+        mFragment.onSkip();
+    }
+
+    @Override
+    public void onComplain() {
+        mFragment.onComplain();
     }
 }

@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.content.res.Resources;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
@@ -59,7 +60,9 @@ public class TestSubject {
         mTypes = new ArrayList<>();
         mTypes.add(new TestSubjectRiddleType(PracticalRiddleType.CIRCLE_INSTANCE));
         mTypes.add(new TestSubjectRiddleType(PracticalRiddleType.SNOW_INSTANCE));
-        mTypes.add(new TestSubjectRiddleType(PracticalRiddleType.DICE_INSTANCE));
+        TestSubjectRiddleType dice = new TestSubjectRiddleType(PracticalRiddleType.DICE_INSTANCE);
+        dice.setSelected(false);
+        mTypes.add(dice);
     }
 
     public static boolean isInitialized() {
@@ -168,7 +171,27 @@ public class TestSubject {
         return mSpentScore;
     }
 
-    public List<TestSubjectRiddleType> getTypes() {
+    public List<TestSubjectRiddleType> getAvailableTypes() {
         return mTypes;
+    }
+
+    public boolean canSkip() {
+        return true; // TODO make it a listener of unsolved riddles changed, only allow if less than some number defined by subject level and stuff
+    }
+
+    public PracticalRiddleType findNextRiddleType() {
+        List<TestSubjectRiddleType> types = new ArrayList<>(mTypes);
+        Iterator<TestSubjectRiddleType> it = types.iterator();
+        while (it.hasNext()) {
+            TestSubjectRiddleType next = it.next();
+            if (!next.isSelected()) {
+                it.remove();
+            }
+        }
+        if (types.size() > 0) {
+            return types.get(mRand.nextInt(types.size())).getType();
+        } else {
+            return mTypes.get(mRand.nextInt(mTypes.size())).getType();
+        }
     }
 }

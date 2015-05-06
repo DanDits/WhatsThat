@@ -273,6 +273,9 @@ public final class ImageUtil {
         options.inJustDecodeBounds = false;
         options.inPreferredConfig = Bitmap.Config.ARGB_8888;
         Bitmap result = BitmapFactory.decodeFile(path.getAbsolutePath(), options);
+        if (result == null) {
+            return null;
+        }
         return BitmapUtil.attemptBitmapScaling(result, reqWidth, reqHeight, enforceDimension);
     }
 

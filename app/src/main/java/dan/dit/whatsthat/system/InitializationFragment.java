@@ -16,7 +16,6 @@ import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.AnimationSet;
 import android.view.animation.AnimationUtils;
-import android.view.animation.BounceInterpolator;
 import android.view.animation.RotateAnimation;
 import android.view.animation.ScaleAnimation;
 import android.view.animation.TranslateAnimation;
@@ -50,7 +49,7 @@ public class InitializationFragment extends Fragment implements ImageManager.Syn
     private TextView mIntroText;
 
     private void startAnimation() {
-        final long fallDownDuration = 2000;
+        final long fallDownDuration = 4000;
         final long fallDownLiftDelta = 500;
         final long liftDuration = 12000;
         final long suckInDelta = -500;
@@ -63,11 +62,11 @@ public class InitializationFragment extends Fragment implements ImageManager.Syn
 
         AnimationSet kidStuff = new AnimationSet(false);
         RotateAnimation rot = new RotateAnimation(0.f, 100.f, Animation.RELATIVE_TO_SELF, 0.8f, Animation.RELATIVE_TO_SELF, 1.f);
-        rot.setInterpolator(new BounceInterpolator());
+        //rot.setInterpolator(new BounceInterpolator());
         rot.setDuration(fallDownDuration);
         TranslateAnimation move = new TranslateAnimation(Animation.RELATIVE_TO_PARENT, 0.2f, Animation.RELATIVE_TO_PARENT, -0.2f, //x
                 Animation.RELATIVE_TO_PARENT,-0.f, Animation.RELATIVE_TO_PARENT, -0.65f); //y
-        move.setStartOffset(fallDownDuration + fallDownLiftDelta);
+        move.setStartOffset(fallDownLiftDelta);
         move.setDuration(liftDuration);
 
         ScaleAnimation s = new ScaleAnimation(1.f, 0, 1f, 0, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);

@@ -1,12 +1,10 @@
 package dan.dit.whatsthat.image;
 
-import android.content.res.Resources;
 import android.text.TextUtils;
 
 import java.net.MalformedURLException;
 import java.net.URL;
 
-import dan.dit.whatsthat.R;
 import dan.dit.whatsthat.util.compaction.Compactable;
 import dan.dit.whatsthat.util.compaction.CompactedDataCorruptException;
 import dan.dit.whatsthat.util.compaction.Compacter;
@@ -102,19 +100,7 @@ public class ImageAuthor implements Compactable {
         return mExtras;
     }
 
-    public void makeInformationFormatted(Resources resources, StringBuilder builder, boolean showImageRelatedDetails) {
-        appendInfoIfAvailable(builder, resources, R.string.image_author_name, mName);
-        appendInfoIfAvailable(builder, resources, R.string.image_author_license, mLicense);
-        if (showImageRelatedDetails) {
-            appendInfoIfAvailable(builder, resources, R.string.image_author_title, mTitle);
-            appendInfoIfAvailable(builder, resources, R.string.image_author_extras, mExtras);
-            appendInfoIfAvailable(builder, resources, R.string.image_author_source, mSource);
-        } else {
-            appendInfoIfAvailable(builder, resources, R.string.image_author_source, sourceExtractWebsite());
-        }
-    }
-
-    private String sourceExtractWebsite() {
+    public String sourceExtractWebsite() {
         if (TextUtils.isEmpty(mSource)) {
             return null;
         }
@@ -123,15 +109,6 @@ public class ImageAuthor implements Compactable {
             return url.getHost();
         } catch (MalformedURLException e) {
             return null;
-        }
-    }
-
-    public void appendInfoIfAvailable(StringBuilder builder, Resources resources, int descrResId, String text) {
-        if (!TextUtils.isEmpty(text)) {
-            builder.append(resources.getString(descrResId))
-                    .append(": ")
-                    .append(text)
-                    .append('\n');
         }
     }
 }

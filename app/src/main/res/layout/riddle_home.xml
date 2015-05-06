@@ -22,12 +22,13 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/riddles_solved"
                 android:src="@drawable/stern"
-                android:layout_centerVertical="true"
-                android:layout_alignParentLeft="true" />
-            <view
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentBottom="false"
+                android:layout_alignParentTop="true"
+                android:layout_alignBottom="@+id/riddle_make_next" />
+            <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                class="dan.dit.whatsthat.riddle.RiddleHintView"
                 android:id="@+id/riddle_hint"
                 android:src="@drawable/dontpanic"
                 android:layout_gravity="right"

@@ -31,14 +31,15 @@ import android.widget.Toast;
 
 import com.github.johnpersano.supertoasts.SuperToast;
 
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 import dan.dit.whatsthat.R;
 import dan.dit.whatsthat.image.Image;
 import dan.dit.whatsthat.image.ImageManager;
 import dan.dit.whatsthat.riddle.Riddle;
-import dan.dit.whatsthat.riddle.RiddleHintView;
 import dan.dit.whatsthat.riddle.RiddleInitializer;
 import dan.dit.whatsthat.riddle.RiddleMaker;
 import dan.dit.whatsthat.riddle.RiddleManager;
@@ -57,7 +58,7 @@ import dan.dit.whatsthat.util.ui.ViewWithNumber;
 /**
  * Created by daniel on 10.04.15.
  */
-public class RiddleFragment extends Fragment implements PercentProgressListener, LoaderManager.LoaderCallbacks<Cursor>, RiddleManager.UnsolvedRiddleListener, SolutionInputListener, UnsolvedRiddlesChooser.Callback {
+public class RiddleFragment extends Fragment implements PercentProgressListener, LoaderManager.LoaderCallbacks<Cursor>, RiddleManager.UnsolvedRiddleListener, SolutionInputListener, UnsolvedRiddlesChooser.Callback, NoPanicDialog.Callback {
 
     public static final Map<String, Image> ALL_IMAGES = new HashMap<>();
     private RiddleManager mManager;
@@ -65,11 +66,10 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
     private SolutionInputView mSolutionView;
     private PercentProgressListener mProgressBar;
     private ImageButton mBtnRiddles;
-    private PracticalRiddleType mCurrRiddleType = PracticalRiddleType.CIRCLE_INSTANCE;
-    private RiddleHintView mRiddleHint;
+    private ImageButton mRiddleHint;
     private ImageButton mBtnCheat;
     private ViewWithNumber mSolvedRiddlesCounter;
-    private boolean mRecentlyOpenedUnsolvedRiddle;
+    private Iterator<Long> mOpenUnsolvedRiddlesId;
 
     public void onProgressUpdate(int progress) {
         mProgressBar.onProgressUpdate(progress);
@@ -100,9 +100,22 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
 
     private void onRiddleMade(RiddleGame riddle) {
         mProgressBar.onProgressUpdate(0);
-        riddle.initViews(mRiddleView, mRiddleHint, mSolutionView, this);
+        riddle.initViews(mRiddleView, mSolutionView, this);
         updateNextRiddleButton();
         updateRiddleUI();
+    }
+
+    private void handleError(Image image, Riddle riddle) {
+        if (image != null) {
+            Log.e("Riddle", "No bitmap for image " + image + " -> removing from database.");
+            ImageManager.removeInvalidImageImmediately(getActivity(), image);
+        }
+        if (riddle != null) {
+            Log.e("Riddle", "Riddle on error. " + riddle + " removing from unsolved and database.");
+            mManager.onRiddleInvalidated(riddle);
+            Riddle.deleteFromDatabase(getActivity(), riddle.getId());
+        }
+        findSomeRiddle();
     }
 
     private void nextRiddle() {
@@ -117,8 +130,8 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
         DisplayMetrics displaymetrics = new DisplayMetrics();
         getActivity().getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
 
-        mRecentlyOpenedUnsolvedRiddle = false;
-        mManager.makeRiddle(getActivity().getApplicationContext(), mCurrRiddleType,
+        mOpenUnsolvedRiddlesId = null;
+        mManager.makeRiddle(getActivity().getApplicationContext(), findNextRiddleType(),
                 mRiddleView.getDimension(), displaymetrics.densityDpi,
                 new RiddleMaker.RiddleMakerListener() {
             @Override
@@ -133,8 +146,9 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
             }
 
             @Override
-            public void onError() {
+            public void onError(Image image, Riddle riddle) {
                 Log.e("HomeStuff", "Riddle maker on error.");
+                handleError(image, riddle);
                 RiddleFragment.this.onProgressUpdate(0);
                 updateNextRiddleButton();
             }
@@ -205,7 +219,7 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
 
         DisplayMetrics displaymetrics = new DisplayMetrics();
         getActivity().getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
-        mManager.makeSpecific(getActivity().getApplicationContext(), image, mCurrRiddleType, mRiddleView.getDimension(), displaymetrics.densityDpi,
+        mManager.makeSpecific(getActivity().getApplicationContext(), image, findNextRiddleType(), mRiddleView.getDimension(), displaymetrics.densityDpi,
                 new RiddleMaker.RiddleMakerListener() {
                     @Override
                     public void onProgressUpdate(int progress) {
@@ -219,8 +233,9 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
                     }
 
                     @Override
-                    public void onError() {
+                    public void onError(Image image, Riddle riddle) {
                         Log.e("HomeStuff", "Unsolved Riddle maker on error.");
+                        handleError(image, riddle);
                         RiddleFragment.this.onProgressUpdate(0);
                         updateNextRiddleButton();
                     }
@@ -258,8 +273,9 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
                     }
 
                     @Override
-                    public void onError() {
+                    public void onError(Image image, Riddle riddle) {
                         Log.e("HomeStuff", "Unsolved Riddle maker on error.");
+                        handleError(image, riddle);
                         RiddleFragment.this.onProgressUpdate(0);
                         updateNextRiddleButton();
                     }
@@ -277,7 +293,7 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
         mSolutionView.clearListener();
     }
 
-    private void giveCandy() {
+    private void giveCandy(PracticalRiddleType solvedType) {
         Animation anim = AnimationUtils.loadAnimation(getActivity(), R.anim.solution_complete);
         mSolutionView.startAnimation(anim);
         SuperToast toast = new SuperToast(getActivity());
@@ -287,27 +303,41 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
         toast.setText(TestSubject.getInstance().nextRiddleSolvedCandy());
         toast.setTextSize(40);
         toast.setDuration(SuperToast.Duration.SHORT);
-        toast.setIcon(mCurrRiddleType.getIconResId(), SuperToast.IconPosition.LEFT);
+        if (solvedType != null) {
+            toast.setIcon(solvedType.getIconResId(), SuperToast.IconPosition.LEFT);
+        }
         toast.show();
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                if (mRecentlyOpenedUnsolvedRiddle) {
-                    nextUnsolvedRiddle(Riddle.NO_ID);
-                } else {
-                    nextRiddle();
-                }
+                findSomeRiddle();
             }
         }, toast.getDuration() / 2);
     }
 
+    private PracticalRiddleType findNextRiddleType() {
+        return TestSubject.getInstance().findNextRiddleType();
+    }
+
+    private void findSomeRiddle() {
+        if (mOpenUnsolvedRiddlesId != null && mOpenUnsolvedRiddlesId.hasNext()) {
+            long nextId = mOpenUnsolvedRiddlesId.next();
+            mOpenUnsolvedRiddlesId.remove();
+            nextUnsolvedRiddle(nextId);
+        } else {
+            nextRiddle();
+        }
+    }
+
     @Override
     public boolean onSolutionComplete(String userWord) {
+        PracticalRiddleType solvedType = null;
         if (mRiddleView.hasController()) {
+            solvedType = mRiddleView.getRiddleType();
             mRiddleView.removeController();
         }
         mSolutionView.clearListener();
-        giveCandy();
+        giveCandy(solvedType);
         return true;
     }
 
@@ -334,7 +364,13 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
             }
         });
 
-        mRiddleHint = (RiddleHintView) getView().findViewById(R.id.riddle_hint);
+        mRiddleHint = (ImageButton) getView().findViewById(R.id.riddle_hint);
+        mRiddleHint.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onPanic();
+            }
+        });
         mBtnCheat = (ImageButton) getView().findViewById(R.id.riddle_cheat);
         mBtnCheat.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -346,10 +382,38 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
         mManager = RiddleInitializer.INSTANCE.getRiddleManager();
     }
 
+    private void onPanic() {
+        // AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHHHHHHHHHHHHHH
+        Bundle args = new Bundle();
+        if (mRiddleView.hasController()) {
+            args.putString(NoPanicDialog.KEY_TYPE, mRiddleView.getRiddleType().getFullName());
+            args.putString(NoPanicDialog.KEY_IMAGE, mRiddleView.getImageHash());
+        }
+        NoPanicDialog dialog = new NoPanicDialog();
+        dialog.setArguments(args);
+        dialog.show(getFragmentManager(), "PanicDialog");
+    }
+
     @Override
-    public void openUnsolvedRiddle(Riddle toOpen) {
-        mRecentlyOpenedUnsolvedRiddle = true;
-        nextUnsolvedRiddle(toOpen.getId());
+    public void openUnsolvedRiddle(Collection<Long> toOpen) {
+        if (toOpen != null && toOpen.size() > 0) {
+            mOpenUnsolvedRiddlesId = toOpen.iterator();
+            findSomeRiddle();
+        }
+    }
+    @Override
+    public boolean canSkip() {
+        return mRiddleView != null && mRiddleView.hasController() && TestSubject.getInstance().canSkip();
+    }
+
+    @Override
+    public void onSkip() {
+        findSomeRiddle();
+    }
+
+    @Override
+    public void onComplain() {
+        Toast.makeText(getActivity(), "Hättest du wohl gerne.", Toast.LENGTH_SHORT).show();
     }
 
     private void showRiddlesDialog() {
