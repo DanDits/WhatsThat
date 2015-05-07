@@ -53,6 +53,7 @@ import dan.dit.whatsthat.storage.ImageTable;
 import dan.dit.whatsthat.storage.ImagesContentProvider;
 import dan.dit.whatsthat.testsubject.TestSubject;
 import dan.dit.whatsthat.util.PercentProgressListener;
+import dan.dit.whatsthat.util.image.Dimension;
 import dan.dit.whatsthat.util.ui.ViewWithNumber;
 
 /**
@@ -118,6 +119,10 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
         findSomeRiddle();
     }
 
+    private Dimension makeRiddleDimension() {
+        return new Dimension(mRiddleView.getWidth(), mRiddleView.getHeight());
+    }
+
     private void nextRiddle() {
         if (!canClickNextRiddle()) {
             mBtnRiddles.setEnabled(false);
@@ -132,7 +137,7 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
 
         mOpenUnsolvedRiddlesId = null;
         mManager.makeRiddle(getActivity().getApplicationContext(), findNextRiddleType(),
-                mRiddleView.getDimension(), displaymetrics.densityDpi,
+                makeRiddleDimension(), displaymetrics.densityDpi,
                 new RiddleMaker.RiddleMakerListener() {
             @Override
             public void onProgressUpdate(int progress) {
@@ -219,7 +224,7 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
 
         DisplayMetrics displaymetrics = new DisplayMetrics();
         getActivity().getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
-        mManager.makeSpecific(getActivity().getApplicationContext(), image, findNextRiddleType(), mRiddleView.getDimension(), displaymetrics.densityDpi,
+        mManager.makeSpecific(getActivity().getApplicationContext(), image, findNextRiddleType(), makeRiddleDimension(), displaymetrics.densityDpi,
                 new RiddleMaker.RiddleMakerListener() {
                     @Override
                     public void onProgressUpdate(int progress) {
@@ -259,7 +264,7 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
 
         DisplayMetrics displaymetrics = new DisplayMetrics();
         getActivity().getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
-        mManager.remakeOld(getActivity().getApplicationContext(), suggestedId, mRiddleView.getDimension(), displaymetrics.densityDpi,
+        mManager.remakeOld(getActivity().getApplicationContext(), suggestedId, makeRiddleDimension(), displaymetrics.densityDpi,
                 new RiddleMaker.RiddleMakerListener() {
                     @Override
                     public void onProgressUpdate(int progress) {
@@ -385,10 +390,7 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
     private void onPanic() {
         // AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHHHHHHHHHHHHHH
         Bundle args = new Bundle();
-        if (mRiddleView.hasController()) {
-            args.putString(NoPanicDialog.KEY_TYPE, mRiddleView.getRiddleType().getFullName());
-            args.putString(NoPanicDialog.KEY_IMAGE, mRiddleView.getImageHash());
-        }
+        mRiddleView.supplyNoPanicParams(args);
         NoPanicDialog dialog = new NoPanicDialog();
         dialog.setArguments(args);
         dialog.show(getFragmentManager(), "PanicDialog");

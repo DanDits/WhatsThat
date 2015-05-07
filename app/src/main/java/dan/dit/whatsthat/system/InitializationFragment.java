@@ -3,6 +3,7 @@ package dan.dit.whatsthat.system;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.res.Resources;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
@@ -90,17 +91,18 @@ public class InitializationFragment extends Fragment implements ImageManager.Syn
     }
 
     private void onNextText() {
-        String nextText = TestSubject.getInstance().nextText();
-        if (TextUtils.isEmpty(nextText)) {
-            mIntroText.setVisibility(View.INVISIBLE);
-        } else {
-            mIntroText.setVisibility(View.VISIBLE);
-            mIntroText.setText(nextText);
+        if (TestSubject.isInitialized()) {
+            String nextText = TestSubject.getInstance().nextText();
+            if (TextUtils.isEmpty(nextText)) {
+                mIntroText.setVisibility(View.INVISIBLE);
+            } else {
+                mIntroText.setVisibility(View.VISIBLE);
+                mIntroText.setText(nextText);
+            }
         }
     }
 
     private void startIntro() {
-        TestSubject.initialize(getActivity().getApplicationContext());
         checkDataState();
         onNextText();
         Resources res = getResources();
@@ -225,12 +227,23 @@ public class InitializationFragment extends Fragment implements ImageManager.Syn
         startInit();
         startSyncing();
         checkDataState();
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                startIntro();
-            }
-        }, 1000L);
+        if (!TestSubject.isInitialized()) {
+            new AsyncTask<Void, Void, Void>() {
+                @Override
+                public Void doInBackground(Void... nothing) {
+                    TestSubject.initialize(getActivity().getApplicationContext());
+                    return null;
+                }
+
+                @Override
+                public void onPostExecute(Void nothing) {
+                    startIntro();
+                }
+
+            }.execute();
+        } else {
+            startIntro();
+        }
     }
 
     @Override
@@ -267,6 +280,10 @@ public class InitializationFragment extends Fragment implements ImageManager.Syn
             public void onClick(View view) {
                 if (mState >= STATE_DATA_COMPLETE) {
                     mInitSkip.clearAnimation();
+                    mIntroKid.setVisibility(View.GONE);
+                    mIntroKid.clearAnimation();
+                    mIntroAbduction.setVisibility(View.GONE);
+                    mIntroAbduction.clearAnimation();
                     ((OnInitClosingCallback) getActivity()).onSkipInit();
                 }
             }
