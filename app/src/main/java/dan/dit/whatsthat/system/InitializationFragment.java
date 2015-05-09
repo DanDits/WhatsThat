@@ -224,9 +224,6 @@ public class InitializationFragment extends Fragment implements ImageManager.Syn
     @Override
     public void onStart() {
         super.onStart();
-        startInit();
-        startSyncing();
-        checkDataState();
         if (!TestSubject.isInitialized()) {
             new AsyncTask<Void, Void, Void>() {
                 @Override
@@ -244,6 +241,9 @@ public class InitializationFragment extends Fragment implements ImageManager.Syn
         } else {
             startIntro();
         }
+        startInit();
+        startSyncing();
+        checkDataState();
     }
 
     @Override

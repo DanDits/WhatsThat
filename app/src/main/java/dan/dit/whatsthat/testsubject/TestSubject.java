@@ -61,7 +61,7 @@ public class TestSubject {
         mTypes.add(new TestSubjectRiddleType(PracticalRiddleType.CIRCLE_INSTANCE));
         mTypes.add(new TestSubjectRiddleType(PracticalRiddleType.SNOW_INSTANCE));
         TestSubjectRiddleType dice = new TestSubjectRiddleType(PracticalRiddleType.DICE_INSTANCE);
-        dice.setSelected(false);
+        //dice.setSelected(false);
         mTypes.add(dice);
     }
 

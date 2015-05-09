@@ -81,14 +81,14 @@
     <string name="dummy_content">DUMMY\nINHALT</string>
     <string name="app_name">WhatsThat</string>
     <string name="riddles_dialog_positive">Bestätigen</string>
-    <string name="riddle_dialog_tab_types" >Typen</string>
-    <string name="riddle_dialog_tab_unsolved" >Ungelöst</string>
+    <string name="riddle_dialog_tab_types" >Was kann ich rätseln?</string>
+    <string name="riddle_dialog_tab_unsolved" >Ausgelassen und vergessen...</string>
     <string name="riddle_type_circle">Kreise</string>
     <string name="riddle_type_circle_explanation">Ein Kreis wird zu vier kleineren Kreisen. Berühre die Kreise um sie platzen zu lassen, bis du etwas erkennst. Lass ab und zu los um auch die neuen Kreise zu erwischen.</string>
     <string name="riddle_type_snow">Nebel</string>
     <string name="riddle_type_snow_explanation">Bewege die Zelle durch Kippen des Gerätes in alle Richtungen. Sammle Sachen, berühre keine Wand, werde größer und EXPLODIERE.</string>
     <string name="riddle_type_dice">Tacho</string>
-    <string name="riddle_type_dice_explanation">This is empty.</string>
+    <string name="riddle_type_dice_explanation">Berühre ein leeres Feld um einen neuen Würfel darauf zu werfen. Bewege und kombiniere Würfel gleicher Augenzahl um das Bild aufzudecken.</string>
     <string name="riddle_type_developer">Entwickler</string>
     <string name="riddle_type_developer_explanation">Hallo ich oder Bruder.</string>
     <string name="panic_dialog_positive">Alles ok</string>

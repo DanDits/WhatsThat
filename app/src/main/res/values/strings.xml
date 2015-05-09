@@ -46,7 +46,7 @@
     <string name="riddle_type_snow">Nebel</string>
     <string name="riddle_type_snow_explanation">Tilt the device and thus move the cell. Collect stuff, grow bigger, don\'t touch walls and EXPLODE.</string>
     <string name="riddle_type_dice">Dice</string>
-    <string name="riddle_type_dice_explanation">Do stuff.</string>
+    <string name="riddle_type_dice_explanation">Touch an empty field to create a dice. Move dices and combine ones with equal numbers to discover the hidden image.</string>
     <string name="riddle_type_developer">Developer</string>
     <string name="riddle_type_developer_explanation">Hi self or brother.</string>
     <string name="panic_dialog_positive">All right</string>
