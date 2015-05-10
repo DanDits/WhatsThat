@@ -67,7 +67,6 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
     private SolutionInputView mSolutionView;
     private PercentProgressListener mProgressBar;
     private ImageButton mBtnRiddles;
-    private ImageButton mRiddleHint;
     private ImageButton mBtnCheat;
     private ViewWithNumber mSolvedRiddlesCounter;
     private Iterator<Long> mOpenUnsolvedRiddlesId;
@@ -369,7 +368,7 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
             }
         });
 
-        mRiddleHint = (ImageButton) getView().findViewById(R.id.riddle_hint);
+        ImageButton mRiddleHint = (ImageButton) getView().findViewById(R.id.riddle_hint);
         mRiddleHint.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

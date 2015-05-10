@@ -87,8 +87,8 @@
     <string name="riddle_type_circle_explanation">Ein Kreis wird zu vier kleineren Kreisen. Berühre die Kreise um sie platzen zu lassen, bis du etwas erkennst. Lass ab und zu los um auch die neuen Kreise zu erwischen.</string>
     <string name="riddle_type_snow">Nebel</string>
     <string name="riddle_type_snow_explanation">Bewege die Zelle durch Kippen des Gerätes in alle Richtungen. Sammle Sachen, berühre keine Wand, werde größer und EXPLODIERE.</string>
-    <string name="riddle_type_dice">Tacho</string>
-    <string name="riddle_type_dice_explanation">Berühre ein leeres Feld um einen neuen Würfel darauf zu werfen. Bewege und kombiniere Würfel gleicher Augenzahl um das Bild aufzudecken.</string>
+    <string name="riddle_type_dice">Würfel</string>
+    <string name="riddle_type_dice_explanation">Berühre ein leeres Feld, damit ein neuer Würfel erscheint. Bewege und kombiniere Würfel gleicher Augenzahl und Farbe, um das Bild aufzudecken.</string>
     <string name="riddle_type_developer">Entwickler</string>
     <string name="riddle_type_developer_explanation">Hallo ich oder Bruder.</string>
     <string name="panic_dialog_positive">Alles ok</string>
@@ -97,5 +97,9 @@
     <string name="panic_complain">Ich will mich beschweren</string>
     <string name="panic_author_credit_title">Bewundere den Künstler des Bildes</string>
     <string name="no_panic_title">Keine Panik!</string>
+    <string name="riddle_type_triangle">Dreieck</string>
+    <string name="riddle_type_triangle_explanation">Berühre einen Punkt in einem Dreieck um neue kleinere Dreiecke zu erzeugen, die die Farben genauer darstellen.</string>
+    <string name="riddle_type_jumper">Jump\'n\'run</string>
+    <string name="riddle_type_jumper_explanation">Berühre das Feld um über Hindernisse zu springen. Erreiche Checkpoints um das Bild im Hintergrund zu entdecken.</string>
 
 </resources>

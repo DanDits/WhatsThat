@@ -65,8 +65,8 @@ public class InitializationFragment extends Fragment implements ImageManager.Syn
         RotateAnimation rot = new RotateAnimation(0.f, 100.f, Animation.RELATIVE_TO_SELF, 0.8f, Animation.RELATIVE_TO_SELF, 1.f);
         //rot.setInterpolator(new BounceInterpolator());
         rot.setDuration(fallDownDuration);
-        TranslateAnimation move = new TranslateAnimation(Animation.RELATIVE_TO_PARENT, 0.2f, Animation.RELATIVE_TO_PARENT, -0.2f, //x
-                Animation.RELATIVE_TO_PARENT,-0.f, Animation.RELATIVE_TO_PARENT, -0.65f); //y
+        TranslateAnimation move = new TranslateAnimation(Animation.RELATIVE_TO_PARENT, 0.2f, Animation.RELATIVE_TO_PARENT, -0.15f, //x
+                Animation.RELATIVE_TO_PARENT,-0.f, Animation.RELATIVE_TO_PARENT, -0.7f); //y
         move.setStartOffset(fallDownLiftDelta);
         move.setDuration(liftDuration);
 
@@ -107,15 +107,15 @@ public class InitializationFragment extends Fragment implements ImageManager.Syn
         onNextText();
         Resources res = getResources();
         TestSubject subj = TestSubject.getInstance();
-        StringBuilder builder = new StringBuilder();
-        builder.append(res.getString(R.string.intro_test_subject_name));
-        builder.append("\n");
-        builder.append(res.getString(subj.getNameResId()));
-        builder.append("\n");
-        builder.append(res.getString(R.string.intro_test_subject_estimated_intelligence));
-        builder.append("\n");
-        builder.append(res.getString(subj.getIntelligenceResId()));
-        mIntroSubjectDescr.setText(builder.toString());
+        String testSubjDescr =
+                res.getString(R.string.intro_test_subject_name)
+                +"\n"
+                + res.getString(subj.getNameResId())
+                + "\n"
+                + res.getString(R.string.intro_test_subject_estimated_intelligence)
+                +"\n"
+                + res.getString(subj.getIntelligenceResId());
+        mIntroSubjectDescr.setText(testSubjDescr);
         mNextTextListener = new View.OnTouchListener() {
 
             @Override
@@ -259,8 +259,7 @@ public class InitializationFragment extends Fragment implements ImageManager.Syn
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View baseView = inflater.inflate(R.layout.initialization_base, null);
-        return baseView;
+        return inflater.inflate(R.layout.initialization_base, null);
     }
 
     @Override

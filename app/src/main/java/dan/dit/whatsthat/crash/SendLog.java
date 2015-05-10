@@ -19,6 +19,8 @@ import java.io.InputStreamReader;
 import dan.dit.whatsthat.R;
 
 /**
+ * Emergency activity when there was an uncaught exception that shut down the app.
+ * Enables the user to send me an email containing an attached log extract.
  * Source:
  * http://stackoverflow.com/questions/19897628/need-to-handle-uncaught-exception-and-send-log-file
  */
@@ -47,18 +49,21 @@ public class SendLog extends Activity implements View.OnClickListener {
     }
 
     private void sendLogFile () {
-        String fullName = extractLogToFile();
-        if (fullName == null) {
-            return;
+        try {
+            String fullName = extractLogToFile();
+            if (fullName == null) {
+                return;
+            }
+            Intent intent = new Intent(Intent.ACTION_SEND);
+            intent.setType("plain/text");
+            intent.putExtra(Intent.EXTRA_EMAIL, new String[]{"dans.ditt@gmail.com"});
+            intent.putExtra(Intent.EXTRA_SUBJECT, "WhatsThat log file");
+            intent.putExtra(Intent.EXTRA_STREAM, Uri.parse("file://" + fullName));
+            intent.putExtra(Intent.EXTRA_TEXT, "Log file attached."); // do this so some email clients don't complain about empty body.
+            startActivity(intent);
+        } finally {
+            finish(); // no more worries, you are out
         }
-        Intent intent = new Intent (Intent.ACTION_SEND);
-        intent.setType ("plain/text");
-        intent.putExtra (Intent.EXTRA_EMAIL, new String[] {"dans.ditt@gmail.com"});
-        intent.putExtra (Intent.EXTRA_SUBJECT, "WhatsThat log file");
-        intent.putExtra (Intent.EXTRA_STREAM, Uri.parse("file://" + fullName));
-        intent.putExtra (Intent.EXTRA_TEXT, "Log file attached."); // do this so some email clients don't complain about empty body.
-        startActivity (intent);
-        finish();
     }
 
     private String extractLogToFile()

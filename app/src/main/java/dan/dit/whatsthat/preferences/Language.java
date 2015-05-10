@@ -1,5 +1,7 @@
 package dan.dit.whatsthat.preferences;
 
+import android.support.annotation.NonNull;
+
 import java.util.Locale;
 
 /**
@@ -10,11 +12,20 @@ public class Language {
     private Tongue mTongue;
     private static Language INSTANCE = makeInstance(Tongue.getByShortcut(Locale.getDefault().getLanguage()));
 
-    public static Language makeInstance(Tongue tongue) {
+    /**
+     * Initializes the singleton to use the given tongue.
+     * @param tongue The tongue. Must not be null.
+     * @return The singleton.
+     */
+    public static Language makeInstance(@NonNull Tongue tongue) {
         INSTANCE = new Language(tongue);
         return INSTANCE;
     }
 
+    /**
+     * Returns the singleton instance of the language.
+     * @return The language singleton.
+     */
     public static Language getInstance() {
         return INSTANCE;
     }
@@ -26,6 +37,10 @@ public class Language {
         }
     }
 
+    /**
+     * Returns the language's tongue.
+     * @return The tongue.
+     */
     public Tongue getTongue() {
         return mTongue;
     }

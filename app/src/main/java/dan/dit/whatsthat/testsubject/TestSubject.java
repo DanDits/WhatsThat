@@ -60,9 +60,10 @@ public class TestSubject {
         mTypes = new ArrayList<>();
         mTypes.add(new TestSubjectRiddleType(PracticalRiddleType.CIRCLE_INSTANCE));
         mTypes.add(new TestSubjectRiddleType(PracticalRiddleType.SNOW_INSTANCE));
-        TestSubjectRiddleType dice = new TestSubjectRiddleType(PracticalRiddleType.DICE_INSTANCE);
-        //dice.setSelected(false);
-        mTypes.add(dice);
+        mTypes.add(new TestSubjectRiddleType(PracticalRiddleType.TRIANGLE_INSTANCE));
+        mTypes.add(new TestSubjectRiddleType(PracticalRiddleType.DICE_INSTANCE));
+        mTypes.add(new TestSubjectRiddleType(PracticalRiddleType.JUMPER_INSTANCE));
+        mTypes.get(4).setSelected(false);
     }
 
     public static boolean isInitialized() {

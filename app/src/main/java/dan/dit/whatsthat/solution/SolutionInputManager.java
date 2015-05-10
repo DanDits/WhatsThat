@@ -11,7 +11,7 @@ public class SolutionInputManager {
 
     private SolutionInputManager() {}
 
-    public static final SolutionInput getSolutionInput(RiddleType type, Solution solution) {
+    public static SolutionInput getSolutionInput(RiddleType type, Solution solution) {
         return new SolutionInputLetterClick(solution);
     }
 

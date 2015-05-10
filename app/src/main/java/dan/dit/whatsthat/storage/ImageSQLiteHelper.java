@@ -6,8 +6,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 /**
  * SQLiteOpenHelper that can be used to get a writable database object for the imageData database.
- * The database holds a table for the images {@ImageTable} and a table for already solved or
- * current riddles {@RiddleTable}.
+ * The database holds a table for the images {@see ImageTable} and a table for already solved or
+ * current riddles {@see RiddleTable}.
  * Created by daniel on 24.03.15.
  */
 public class ImageSQLiteHelper extends SQLiteOpenHelper{

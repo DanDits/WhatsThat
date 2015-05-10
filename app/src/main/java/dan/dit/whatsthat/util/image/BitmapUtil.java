@@ -36,7 +36,7 @@ public class BitmapUtil {
         return contrast / ((double) (image.getWidth() * image.getHeight()));
     }
 
-    public static final double calculateGreyness(Bitmap image) {
+    public static double calculateGreyness(Bitmap image) {
         // calculate average greyness of pixels
         double greyness = 0.;
         for (int x = 0; x < image.getWidth(); x++) {
@@ -104,8 +104,7 @@ public class BitmapUtil {
             return originalImage;
         }
         // Create new Image
-        Bitmap resizedImage = Bitmap.createScaledBitmap(originalImage, wantedWidth, wantedHeight, true);
-        return resizedImage;
+        return Bitmap.createScaledBitmap(originalImage, wantedWidth, wantedHeight, true);
     }
 
     /**

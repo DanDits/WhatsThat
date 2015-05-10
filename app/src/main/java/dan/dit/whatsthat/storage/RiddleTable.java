@@ -85,8 +85,6 @@ public class RiddleTable {
                     + COLUMN_CURRENTSTATE + " text, " // not core
                     + COLUMN_SCORE + " integer"
                     + ");";
-    public static final String[] CORE_COLUMNS = new String[] {COLUMN_ID, COLUMN_TIMESTAMP, COLUMN_SOLUTION, COLUMN_ORIGIN,
-            COLUMN_IMAGEHASH, COLUMN_RIDDLETYPE, COLUMN_METADATA, COLUMN_SCORE};
 
     public static final String[] ALL_COLUMNS = new String[] {COLUMN_ID, COLUMN_TIMESTAMP, COLUMN_SOLUTION, COLUMN_ORIGIN,
             COLUMN_IMAGEHASH, COLUMN_RIDDLETYPE, COLUMN_METADATA, COLUMN_SCORE, COLUMN_SOLVED, COLUMN_CURRENTSTATE};

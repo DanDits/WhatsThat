@@ -5,6 +5,9 @@ import android.text.TextUtils;
 import java.util.Random;
 
 /**
+ * A tongue is something a language uses to express stuff. A tongue consists
+ * of an alphabet which is a set of characters. Each character has a given probabilty
+ * to appear in a random text of that tongue.
  * Created by daniel on 24.03.15.
  */
 public enum Tongue {
@@ -21,7 +24,7 @@ public enum Tongue {
     private double[] mLetterDistribution; // frequency distribution of letters of the alphabet
     private Random mRandom;
 
-    private Tongue(String localizedName, String shortName, String alphabet, double[] frequencies) {
+    Tongue(String localizedName, String shortName, String alphabet, double[] frequencies) {
         mLocalizedName = localizedName;
         mShortName = shortName;
         mAlphabet = alphabet;
@@ -35,6 +38,11 @@ public enum Tongue {
         }
     }
 
+    /**
+     * Returns a random letter of this tongue distributed by the average character
+     * distribution of this tongue.
+     * @return A random letter of this tongue's alphabet.
+     */
     public char getRandomLetter() {
         // inversion method to map uniform distribution to alphabet distribution
         double rolledValue = mRandom.nextDouble();
@@ -47,10 +55,20 @@ public enum Tongue {
         return mAlphabet.charAt(0);
     }
 
+    /**
+     * Returns the shortcut of this tongue.
+     * @return The tongue's shortcut.
+     */
     public String getShortcut() {
         return mShortName;
     }
 
+    /**
+     * Searches a tongue with the given shortcut. Not case sensitive.
+     * @param shortcut The tongue shortcut.
+     * @return The tongue whose shortcut equals the given shortcut
+     * or ENGLISH if the given shortcut was empty or not found.
+     */
     public static Tongue getByShortcut(String shortcut) {
         if (TextUtils.isEmpty(shortcut)) {
             return ENGLISH; // default

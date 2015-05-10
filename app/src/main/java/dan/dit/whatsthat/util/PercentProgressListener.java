@@ -9,7 +9,7 @@ public interface PercentProgressListener {
     /**
      * The constant for completion, 100%.
      */
-    public static final int PROGRESS_COMPLETE = 100;
+    int PROGRESS_COMPLETE = 100;
 
     /**
      * Hint that progress was done.

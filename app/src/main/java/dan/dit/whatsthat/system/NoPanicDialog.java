@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -29,9 +30,9 @@ public class NoPanicDialog extends DialogFragment {
     private TextView mAskTypeAnswer;
 
     public interface Callback {
-        public boolean canSkip();
-        public void onSkip();
-        public void onComplain();
+        boolean canSkip();
+        void onSkip();
+        void onComplain();
     }
 
     @Override
@@ -143,7 +144,7 @@ public class NoPanicDialog extends DialogFragment {
     }
 
     @Override
-    public void onSaveInstanceState(Bundle outState) {
+    public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         if (mType != null) {
             outState.putString(KEY_TYPE, mType.getFullName());

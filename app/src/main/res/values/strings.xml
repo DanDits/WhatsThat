@@ -55,6 +55,10 @@
     <string name="panic_complain">I want to complain</string>
     <string name="panic_author_credit_title">Admire the image artist</string>
     <string name="no_panic_title">Don\'t panic!</string>
+    <string name="riddle_type_triangle">Triangle</string>
+    <string name="riddle_type_triangle_explanation">Press inside a triangle to create smaller ones and discover the image.</string>
+    <string name="riddle_type_jumper">Jumper</string>
+    <string name="riddle_type_jumper_explanation">Touch to jump over obstacles. Reach checkpoints to discover the image in the background.</string>
     <string-array name="test_subject_1_intro_main">
         <item>Mercury</item>
         <item>Venus</item>

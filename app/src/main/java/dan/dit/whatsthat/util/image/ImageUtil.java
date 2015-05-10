@@ -42,19 +42,18 @@ public final class ImageUtil {
 
 	/**
 	 * Saves the given image to the given file in png format.
-     * @param context Any application context.
 	 * @param image The image to be saved.
 	 * @param fileName null-ok; The basic part of the output file name.
 	 * @return <code>true</code> if the image was successfully saved,
 	 * if context or image parameter is <code>null</code> or there was an error accessing the external storage
      * or saving the file this returns <code>false</code>.
 	 */
-	public static boolean saveToFile(Context context, Bitmap image, String fileName) {
+	public static boolean saveToFile(Bitmap image, String fileName) {
 		// create new File for the new Image
-        if (image == null || context == null) {
+        if (image == null) {
             return false;
         }
-        File pictureFile = getOutputMediaFile(context, fileName);
+        File pictureFile = getOutputMediaFile(fileName);
         if (pictureFile == null) {
             Log.e(TAG,
                     "Error creating media file, check storage permissions: ");// e.getMessage());
@@ -73,22 +72,19 @@ public final class ImageUtil {
         return success;
     }
 
-    public static File getMediaDir(Context context) {
+    public static File getMediaDir() {
         // To be safe, you should check that the SDCard is mounted
         // using Environment.getExternalStorageState() before doing this.
         if (!Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
             return null;
         }
-        File mediaStorageDir = new File(Environment.getExternalStorageDirectory()
-                + "/Android/data/"
-                + context.getApplicationContext().getPackageName()
-                + "/Files");
-        return mediaStorageDir;
+        return new File(Environment.getExternalStorageDirectory()
+                + "/WhatsThat/Media");
     }
 
     /** Create a File for saving an image or video */
-    private static File getOutputMediaFile(Context context, String pImageName){
-        File mediaStorageDir = getMediaDir(context);
+    private static File getOutputMediaFile(String pImageName){
+        File mediaStorageDir = getMediaDir();
         if (mediaStorageDir == null) {
             return null; // external storage not available
         }
@@ -102,19 +98,18 @@ public final class ImageUtil {
             }
         }
         // Create a media file name
-        File mediaFile = null;
-        String imageName = pImageName;
+        File mediaFile;
         String suffix = "";
-        if (!TextUtils.isEmpty(imageName) && !imageName.toLowerCase().endsWith(".png")) {
+        if (!TextUtils.isEmpty(pImageName) && !pImageName.toLowerCase().endsWith(".png")) {
             suffix = IMAGE_FILE_EXTENSION; // a 'valid' name, only missing the extension
-        } else if (TextUtils.isEmpty(imageName)) {
-            String timeStamp = new SimpleDateFormat("ddMMyyyy_HHmm").format(new Date());
+        } else if (TextUtils.isEmpty(pImageName)) {
+            String timeStamp = SimpleDateFormat.getDateTimeInstance().format(new Date());
             suffix = timeStamp + IMAGE_FILE_EXTENSION; // empty name given
         } // imageName=".png" still possible at this point if given image name was ".png"
         int counter = 0;
         do {
             mediaFile = new File(mediaStorageDir.getPath() + File.separator
-                    + IMAGE_FILE_PREFIX + (counter == 0 ? "" : (counter + "_")) + imageName + suffix);
+                    + IMAGE_FILE_PREFIX + (counter == 0 ? "" : (counter + "_")) + pImageName + suffix);
             counter++;
         } while (mediaFile.exists() && counter < Integer.MAX_VALUE);
         return mediaFile;
@@ -130,7 +125,7 @@ public final class ImageUtil {
         if (data == null) {
             return null;
         }
-        MessageDigest m = null;
+        MessageDigest m;
 
         try {
             m = MessageDigest.getInstance("MD5");
@@ -250,8 +245,9 @@ public final class ImageUtil {
     /**
      * Loads the bitmap specified by the given path.
      * @param path The path to the image.
-     * @param reqWidth
-     *@param reqHeight @return A bitmap or nul lif no bitmap could be loaded or is not found.
+     * @param reqWidth The maximum width.
+     * @param reqHeight THe maximum height.
+     * @return A bitmap or nul lif no bitmap could be loaded or is not found.
      */
     public static Bitmap loadBitmap(File path, int reqWidth, int reqHeight, boolean enforceDimension) {
         if (reqWidth <= 0 || reqHeight <= 0) {
@@ -326,5 +322,114 @@ public final class ImageUtil {
 	iioImage.setMetadata( metadata ); // Attach the metadata
 	imagewriter.write( null, iioImage, null );
 	 writer.dispose();*/
+
+    /* private static class Triangle {
+        private static final RectF BOUND = new RectF();
+        private static final Path LINES = new Path();
+        float x1, x2, x3, y1, y2, y3;
+        private int rgb;
+        private int childrenStartIndex = -1;
+
+        public Triangle(float x1, float y1, float x2, float y2, float x3, float y3, Bitmap forColor) {
+            this.x1 = x1;
+            this.x2 = x2;
+            this.x3 = x3;
+            this.y1 = y1;
+            this.y2 = y2;
+            this.y3 = y3;
+            calculateColor(forColor);
+        }
+
+        private void calculateColor(Bitmap forColor) {
+            initPath();
+            LINES.computeBounds(BOUND, true);
+            int red = 0;
+            int green = 0;
+            int blue = 0;
+            int alpha = 0;
+            int pixelInTriangle = 0;
+            for (int x = (int) BOUND.left; x < BOUND.right; x++) {
+                for (int y = (int) BOUND.top; y < BOUND.bottom; y++) {
+                    if (x < forColor.getWidth() && y < forColor.getHeight() && isInside(x, y)) {
+                        int bitmapRgb = forColor.getPixel(x, y);
+                        red += Color.red(bitmapRgb);
+                        green += Color.green(bitmapRgb);
+                        blue += Color.blue(bitmapRgb);
+                        alpha += Color.alpha(bitmapRgb);
+                        pixelInTriangle++;
+                    }
+                }
+            }
+            if (pixelInTriangle > 0) {
+                red /= pixelInTriangle;
+                green /= pixelInTriangle;
+                blue /= pixelInTriangle;
+                alpha /= pixelInTriangle;
+                rgb = Color.argb(alpha, red, green, blue);
+            } else {
+                Log.d("Riddle", "NO pixels in " + BOUND.left + " " + BOUND.right + " " + BOUND.top + " " + BOUND.bottom + " and path " + LINES);
+                rgb = Color.BLUE;
+            }
+        }
+
+        private void initPath() {
+            LINES.rewind();
+            LINES.moveTo(x1, y1);
+            LINES.lineTo(x2, y2);
+            LINES.lineTo(x3, y3);
+            LINES.close();
+        }
+
+        private static float sign(float x1, float y1, float x2, float y2, float x3, float y3) {
+            return (x1 - x3) * (y2 - y3) - (x2 - x3) * (y1 - y3);
+        }
+
+        private boolean isInside (float x, float y) {
+            boolean b1, b2, b3;
+            b1 = sign(x, y, x1, y1, x2, y2) < 0.0f;
+            b2 = sign(x, y, x2, y2, x3, y3) < 0.0f;
+            b3 = sign(x, y, x3, y3, x1, y1) < 0.0f;
+
+            return ((b1 == b2) && (b2 == b3));
+        }
+
+        public void draw(Canvas canvas, Paint paint) {
+            paint.setColor(rgb);
+            initPath();
+            canvas.drawPath(LINES, paint);
+        }
+
+
+
+        private static float calculateDistanceToLine(float x1, float y1, float x2, float y2, float x, float y, float[] coords) {
+            float alpha = x2 - x1;
+            float beta = y2 - y1;
+            float n1, n2;
+            if (Math.abs(alpha) >= 1E-4) {
+                n2 = 1;
+                n1 = -beta*n2 / alpha;
+            } else if (Math.abs(beta) >= 1E-4) {
+                n1 = 1;
+                n2 = -alpha*n1 / beta;
+            } else {
+                return 0;
+            }
+            float nNorm = (float) Math.sqrt(n1*n1 + n2*n2);
+            if (x1 * n1 + y1 * n2 >= 0) {
+                n1 /= nNorm;
+                n2 /= nNorm;
+            } else {
+                n1 /= -nNorm;
+                n2 /= -nNorm;
+            }
+            float d = x1 * n1 + y1 * n2;
+            float dist =  x * n1 + y * n2 - d;
+            coords[0] = x - n1 * dist;
+            coords[1] = y - n2 * dist;
+            Log.d("Riddle", "Dist: " + dist + " x/y: " + x + "/" + y + " coords: " + coords[0] + "/" + coords[1]);
+            return Math.abs(dist);
+        }
+    }
+    */
 	
 }

@@ -37,7 +37,7 @@ public class Compacter implements Iterable<String> {
 	    if (compactedData == null) {
 	        throw new IllegalArgumentException("Given compacted data is null, consider using an empty String for empty data.");
 	    }
-		data = new ArrayList<String>();
+		data = new ArrayList<>();
 		// search for SEPERATORS and extract data in between
 		int startIndex = 0;
 		final int dataLength = compactedData.length();
@@ -67,7 +67,7 @@ public class Compacter implements Iterable<String> {
 	 * Creates a new empty Compacter with default capacity.
 	 */
 	public Compacter() {
-		data = new ArrayList<String>();
+		data = new ArrayList<>();
 	}
 	
 	/**
@@ -75,7 +75,7 @@ public class Compacter implements Iterable<String> {
 	 * @param capacity The capacity for the Compacter, must be positive.
 	 */
 	public Compacter(int capacity) {
-		data = new ArrayList<String>(capacity);
+		data = new ArrayList<>(capacity);
 	}
 
 	/**

@@ -31,6 +31,7 @@ public class Logo {
         ImageMultiCache.INSTANCE.remove(IMAGE_CACHE_KEY_LOGO); // a new logo means we need to remove the old one(s)
     }
 
+    //TODO do not use this cache..
     public Bitmap getSized(int wantedWidth, int wantedHeight) {
         Bitmap logo = null;
         logo= ImageMultiCache.INSTANCE.get(IMAGE_CACHE_KEY_LOGO, wantedWidth, wantedHeight);

@@ -19,12 +19,22 @@ import dan.dit.whatsthat.solution.Solution;
 import dan.dit.whatsthat.storage.ImageTable;
 
 /**
+ * I contrast to the {@see ImageXmlParser} this is the counter part class
+ * that writes a list of images to a bundle that can be read the parser.
  * Created by daniel on 18.04.15.
  */
 public class ImageXmlWriter {
 
     private ImageXmlWriter() {}
 
+    /**
+     * Writes a list of images to an xml file contained in the external storage directory under
+     * WhatsThat/build, suffixed with the given bundle number. Does nothing if given bundle number is null
+     * or empty or if there is no context given.
+     * @param context The context.
+     * @param imageBundle The list of images to write to xml.
+     * @param bundleNumber The number of the bundle, suffix of the file name.
+     */
     public static void writeBundle(Context context, List<Image> imageBundle, int bundleNumber) {
         if (context == null || imageBundle == null || imageBundle.isEmpty()) {
             return;

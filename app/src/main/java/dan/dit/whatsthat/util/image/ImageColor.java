@@ -38,7 +38,4 @@ public enum ImageColor {
 	 * Contains the constants RED, GREEN, BLUE, ALPHA
 	 */
 	public static final ImageColor[] RGBA = {RED, GREEN, BLUE, ALPHA};
-	
-	private ImageColor() {
-	}
 }
