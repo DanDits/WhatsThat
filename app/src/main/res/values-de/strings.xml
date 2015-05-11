@@ -19,43 +19,37 @@
     <string name="test_subject_0_name">Doofes Kind</string>
     <string name="test_subject_0_int">Kennt seinen Namen</string>
     <string-array name="test_subject_0_intro_main">
-        <item>°Oh! Seine Durchlauchtheit lebt ja doch!°</item>
-        <item>°Kann Er sich erinnern, was vor unserer Ankunft passiert ist? Nein? Ich werde Ihm helfen sich zu erinnern!°</item>
-	<item>°Eure Erlauchtheit hat uns angewiesen, das Wurmloch in der Nähe unserer Heimat zu nehmen°</item>
-	<item>°Wozu? Na um Intelligenz in neuen Arten zu finden°</item>
-	<item>°Ja! Er habe richtig gehört! Wir haben die Reise durch das Wurmloch überstanden..°</item>
-	<item>°..nunja, fast. Seine Erinnerung ist wohl verloren gegangen...°</item>
-	<item>°Aber das beste kommt noch: Wir wurden fündig auf unserer Suche!°</item>
-	<item>°Wenn mich mein Artengedächtnis nicht täuscht, dann handelt es sich hier um einen Menschen°</item>
-	<item>°Diese Spezies hat ein kleines Gehirn aber eine große Intelligenz°</item> 
-	<item>°Nein, keine Hyperintelligenz um Präsident zu werden. Zumindest nach unseren Maßstäben. Auf dem Planeten sehen die das anscheinend anders°</item>
-	<item>°Wenn Seine Durchlauchtheit nun erlaube:°</item>
-	<item>°Ich vermute eine größere Intelligenz in diesem Testsubjekt als bei dem Rest. Wozu er ein Handtuch hat? Keine Ahnung°</item>
-	<item>°Ja seine Durchlauchtheit! Dieses Wesen scheint noch in einem frühen Entwicklungsstadium zu stecken°</item>
-        <item>°Wenn Er mich kurz.. an diesen.. Computer lassen.. Danke°</item>
-        <item>°Wow°</item>
-        <item>°Ich dachte schon unser Bordcomputer wird neidisch°</item>
-        <item>°Doch zuerst maleinige Prüfungen mit dem Testsubjekt°</item>
-        <item>°Mal sehen. Ich stöpsel nun das Gehirn an°</item>
-        <item>°Hoppla. Falsches Kabel°</item>
-        <item>°Es zuckt. Puh, ein Lebenszeichen. Da bin ich aber beruhigt°</item>
-        <item>°Hallo Gehirn°</item>
-        <item>°Huch, ich könnte schwören es hat mich angegrinst°</item>
-	<item>°Egal. Seine Erlauchtheitheit, ich starte nun den Test!°</item>
+        <item>°Willkommen Erdling!°</item>
+        <item>°Willkommen auf einer Reise in die Untiefen deines Geistes!°</item>
+	<item>°Unsere Wahl fiel auf dich.°</item>
+	<item>°Du wirst unser Testobjekt sein.°</item>
+	<item>°Wir werden dich beobachten.°</item>
+	<item>°Wir hoffen du hast das Potential, das wir in dir sehen.°</item>
+	<item>°Zumindest aus der Entfernung sahst du vielversprechend aus…°</item>
+	<item>°…aber von nahem betrachtet…°</item>
+	<item>°Enttäusche deinen Planeten besser nicht.°</item>
+	<item>°Darf ich dir unseren Bordcomputer vorstellen…°</item>
+	<item>°…mit ihm haben wir gerade dein Gehirn verbunden°</item>
+	<item>°Denk einfach: Hallo°</item>
+	<item>°Ein Gehirn von der Größe einer Galaxie und…nunja, deines…°</item>
+        <item>°Ich hoffe mal ihr werdet euch verstehen°</item>
     </string-array>
     <string-array name="test_subject_0_intro_nuts">
-        <item>°...°</item>
-        <item>°Drücke ich hier, dann.. oh, es lacht°</item>
-        <item>°Und hier..eine rausgestreckte Zunge? Was hat das zu bedeuten? Hm, ich schreibs ins Protokoll..°</item>
+        <item>°Übermütige Kommentare und Beleidigungen sind keine Fehlfunktion, sondern nur ein Versuch menschlich zu kommunizieren.°</item>
+        <item>°Wenn ich hier drücke, dann…oh…°</item>
+        <item>°…alpha Stimulation bewirkt Allergiereaktion der Neuronen. Wäre hätte gedacht, dass sich Gehirne dagegen wehren würden.°</item>
+        <item>°Eine rausgestreckte Zunge? Was hat das zu bedeuten? Hm, ich schreibs ins Protokoll..°</item>
         <item>°So, bloß nicht überfordern, mal sehen..°</item>
-        <item>°..Buchstaben, nö. Zahlen, negativ, was kennt das Subjekt eigentlich?°</item>
-        <item>°..habs wohl überschätzt..</item>
+        <item>°…Buchstaben, nö. Zahlen, negativ, was kennst du eigentlich?°</item>
+        <item>°…habs wohl überschätzt…</item>
         <item>°Mal sehen, wie es auf Bilder reagiert°</item>
         <item>°Notiz an selbst: Menschen dumm, aber widerstandsfähig gegen Traktorstrahl°</item>
     </string-array>
     <string-array name="test_subject_0_riddle_solved_candy">
         <item>Gut gemacht!</item>
         <item>Geschafft!</item>
+        <item>Großes Lob!</item>
+        <item>Bin stolz auf dich!</item>
     </string-array>
 
     <string name="test_subject_1_name">Kind</string>
@@ -82,7 +76,7 @@
     <string name="app_name">WhatsThat</string>
     <string name="riddles_dialog_positive">Bestätigen</string>
     <string name="riddle_dialog_tab_types" >Was kann ich rätseln?</string>
-    <string name="riddle_dialog_tab_unsolved" >Ausgelassen und vergessen...</string>
+    <string name="riddle_dialog_tab_unsolved" >Ausgelassen und vergessen…</string>
     <string name="riddle_type_circle">Kreise</string>
     <string name="riddle_type_circle_explanation">Ein Kreis wird zu vier kleineren Kreisen. Berühre die Kreise um sie platzen zu lassen, bis du etwas erkennst. Lass ab und zu los um auch die neuen Kreise zu erwischen.</string>
     <string name="riddle_type_snow">Nebel</string>
@@ -98,7 +92,7 @@
     <string name="panic_author_credit_title">Bewundere den Künstler des Bildes</string>
     <string name="no_panic_title">Keine Panik!</string>
     <string name="riddle_type_triangle">Dreieck</string>
-    <string name="riddle_type_triangle_explanation">Berühre einen Punkt in einem Dreieck um neue kleinere Dreiecke zu erzeugen, die die Farben genauer darstellen.</string>
+    <string name="riddle_type_triangle_explanation">Berühre einen Punkt in einem Dreieck um neue kleinere Dreiecke zu erzeugen, welche die Farben genauer darstellen.</string>
     <string name="riddle_type_jumper">Jump\'n\'run</string>
     <string name="riddle_type_jumper_explanation">Berühre das Feld um über Hindernisse zu springen. Erreiche Checkpoints um das Bild im Hintergrund zu entdecken.</string>
 
