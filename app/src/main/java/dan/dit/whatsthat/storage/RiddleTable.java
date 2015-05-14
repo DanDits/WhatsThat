@@ -46,10 +46,9 @@ public class RiddleTable {
     public static final String COLUMN_RIDDLETYPE = "riddletype";
 
     /**
-     * Metadata to this riddle that could be valuable for statistics or achievements like used input
-     * type, time passed, ... information can be empty
+     * Metadata of this riddle that is used by achievements. Information can be empty
      */
-    public static final String COLUMN_METADATA = "metadata";
+    public static final String COLUMN_ACHIEVEMENTDATA = "achievementdata";
 
     /**
      * Is this riddle created by the app, sent by another user or a riddle of the user himself.
@@ -81,13 +80,13 @@ public class RiddleTable {
                     + COLUMN_ORIGIN + " text, "
                     + COLUMN_IMAGEHASH + " text not null, "
                     + COLUMN_RIDDLETYPE + " text, "
-                    + COLUMN_METADATA + " text, "
+                    + COLUMN_ACHIEVEMENTDATA + " text, " // not core
                     + COLUMN_CURRENTSTATE + " text, " // not core
                     + COLUMN_SCORE + " integer"
                     + ");";
 
     public static final String[] ALL_COLUMNS = new String[] {COLUMN_ID, COLUMN_TIMESTAMP, COLUMN_SOLUTION, COLUMN_ORIGIN,
-            COLUMN_IMAGEHASH, COLUMN_RIDDLETYPE, COLUMN_METADATA, COLUMN_SCORE, COLUMN_SOLVED, COLUMN_CURRENTSTATE};
+            COLUMN_IMAGEHASH, COLUMN_RIDDLETYPE, COLUMN_ACHIEVEMENTDATA, COLUMN_SCORE, COLUMN_SOLVED, COLUMN_CURRENTSTATE};
 
     //private constructor to make sure it is never instantiated
     private RiddleTable() {}

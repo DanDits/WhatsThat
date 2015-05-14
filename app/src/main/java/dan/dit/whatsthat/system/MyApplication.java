@@ -2,6 +2,7 @@ package dan.dit.whatsthat.system;
 
 import android.app.Application;
 import android.content.Intent;
+import android.util.Log;
 
 public class MyApplication extends Application
 {
@@ -9,7 +10,7 @@ public class MyApplication extends Application
   public void onCreate ()
   {
       super.onCreate();
-
+    Log.d("HomeStuff", "Created application.");
     // Setup handler for uncaught exceptions.
     Thread.setDefaultUncaughtExceptionHandler (new Thread.UncaughtExceptionHandler()
     {

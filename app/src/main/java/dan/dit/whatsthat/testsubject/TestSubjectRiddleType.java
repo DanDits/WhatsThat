@@ -9,14 +9,10 @@ import dan.dit.whatsthat.util.compaction.Compacter;
  * Created by daniel on 06.05.15.
  */
 public class TestSubjectRiddleType implements Compactable {
-    private static final int DEFAULT_STOCK = 5;
-    private static final int DEFAULT_CAPACITY = 10;
 
     private PracticalRiddleType mType;
     private boolean mSelected = true;
     private boolean mAvailable = false;
-    private int mStock = DEFAULT_STOCK;
-    private int mCapacity = DEFAULT_CAPACITY;
 
     protected TestSubjectRiddleType(PracticalRiddleType toDecorate) {
         if (toDecorate == null) {
@@ -54,14 +50,6 @@ public class TestSubjectRiddleType implements Compactable {
 
     public int getIconResId() {
         return mType.getIconResId();
-    }
-
-    public int getStock() {
-        return mStock;
-    }
-
-    public int getCapacity() {
-        return mCapacity;
     }
 
     public int getNameResId() {

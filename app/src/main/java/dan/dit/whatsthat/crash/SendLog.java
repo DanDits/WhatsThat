@@ -61,6 +61,8 @@ public class SendLog extends Activity implements View.OnClickListener {
             intent.putExtra(Intent.EXTRA_STREAM, Uri.parse("file://" + fullName));
             intent.putExtra(Intent.EXTRA_TEXT, "Log file attached."); // do this so some email clients don't complain about empty body.
             startActivity(intent);
+        } catch (Exception e) {
+            // something even worse happened, just finish
         } finally {
             finish(); // no more worries, you are out
         }

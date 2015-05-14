@@ -43,7 +43,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:background="@drawable/heart_background"
-        android:id="@+id/author_container">
+        android:id="@+id/author_container"
+        android:layout_marginTop="10dp">
 
         <TextView
             android:layout_width="wrap_content"

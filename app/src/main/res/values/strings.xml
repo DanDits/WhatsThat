@@ -59,6 +59,9 @@
     <string name="riddle_type_triangle_explanation">Press inside a triangle to create smaller ones and discover the image.</string>
     <string name="riddle_type_jumper">Jumper</string>
     <string name="riddle_type_jumper_explanation">Touch to jump over obstacles. Reach checkpoints to discover the image in the background.</string>
+    <string name="riddle_type_circle_firstrun">Berühre die Kreise!</string>
+    <string name="riddle_type_triangle_firstrun">Berühre die Dreiecke!</string>
+    <string name="riddle_type_dice_firstrun">Erzeuge Würfel durch Berühren.\\nBewege und kombiniere Würfel gleicher Farbe.</string>
     <string-array name="test_subject_1_intro_main">
         <item>Mercury</item>
         <item>Venus</item>
@@ -75,6 +78,7 @@
         <item>You\'re smart!</item>
         <item>Nice job!</item>
     </string-array>
+    <string name="riddle_type_snow_firstrun">Grow bigger and explode to see the image!</string>
 
 
 </resources>

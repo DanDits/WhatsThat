@@ -95,5 +95,9 @@
     <string name="riddle_type_triangle_explanation">Berühre einen Punkt in einem Dreieck um neue kleinere Dreiecke zu erzeugen, welche die Farben genauer darstellen.</string>
     <string name="riddle_type_jumper">Jump\'n\'run</string>
     <string name="riddle_type_jumper_explanation">Berühre das Feld um über Hindernisse zu springen. Erreiche Checkpoints um das Bild im Hintergrund zu entdecken.</string>
+    <string name="riddle_type_circle_firstrun">Verkleinere die Kreise!</string>
+    <string name="riddle_type_triangle_firstrun">Verkleinere die Dreiecke!</string>
+    <string name="riddle_type_dice_firstrun">Erschaffe grüne Würfel. Bewege und kombiniere gleichfarbige Augenzahlen!</string>
+    <string name="riddle_type_snow_firstrun">Wachse und explodiere das Bild frei!</string>
 
 </resources>

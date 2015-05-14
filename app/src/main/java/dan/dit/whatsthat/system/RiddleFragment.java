@@ -60,8 +60,7 @@ import dan.dit.whatsthat.util.ui.ViewWithNumber;
  * Created by daniel on 10.04.15.
  */
 public class RiddleFragment extends Fragment implements PercentProgressListener, LoaderManager.LoaderCallbacks<Cursor>, RiddleManager.UnsolvedRiddleListener, SolutionInputListener, UnsolvedRiddlesChooser.Callback, NoPanicDialog.Callback {
-
-    public static final Map<String, Image> ALL_IMAGES = new HashMap<>();
+   public static final Map<String, Image> ALL_IMAGES = new HashMap<>();
     private RiddleManager mManager;
     private RiddleView mRiddleView;
     private SolutionInputView mSolutionView;
@@ -70,6 +69,7 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
     private ImageButton mBtnCheat;
     private ViewWithNumber mSolvedRiddlesCounter;
     private Iterator<Long> mOpenUnsolvedRiddlesId;
+    private RiddlePickerDialog mRiddlePickerDialog;
 
     public void onProgressUpdate(int progress) {
         mProgressBar.onProgressUpdate(progress);
@@ -103,6 +103,15 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
         riddle.initViews(mRiddleView, mSolutionView, this);
         updateNextRiddleButton();
         updateRiddleUI();
+        if (mRiddleView != null && mRiddleView.hasController()) {
+            PracticalRiddleType type = mRiddleView.getRiddleType();
+            int alreadyRun = Riddle.getRiddleTypeAlreadyRunCount(getActivity(), type);
+            if (alreadyRun < Riddle.DISPLAY_INITIAL_RUN_HINT_COUNT) {
+                mBtnRiddles.getLocationOnScreen(mLocation1);
+                TestSubject.getInstance().postToast(type.getInitialRunToast(Gravity.TOP | Gravity.CENTER_HORIZONTAL, 0, mLocation1[1] + mBtnRiddles.getHeight() + 50), 500L);
+                Riddle.saveRiddleTypeAlreadyRun(getActivity(), type, alreadyRun + 1);
+            }
+        }
     }
 
     private void handleError(Image image, Riddle riddle) {
@@ -284,7 +293,7 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
                         updateNextRiddleButton();
                     }
                 }
-                );
+        );
         updateNextRiddleButton();
 
     }
@@ -422,9 +431,12 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
         if (mRiddleView.hasController()) {
             args.putLong(Riddle.LAST_VISIBLE_UNSOLVED_RIDDLE_ID_KEY, mRiddleView.getRiddleId());
         }
-        RiddlePickerDialog dialog = new RiddlePickerDialog();
-        dialog.setArguments(args);
-        dialog.show(getFragmentManager(), "RiddlePickerDialog");
+        if (mRiddlePickerDialog != null) {
+            mRiddlePickerDialog.dismiss();
+        }
+        mRiddlePickerDialog = new RiddlePickerDialog();
+        mRiddlePickerDialog.setArguments(args);
+        mRiddlePickerDialog.show(getFragmentManager(), "RiddlePickerDialog");
     }
 
     private void onCheat() {

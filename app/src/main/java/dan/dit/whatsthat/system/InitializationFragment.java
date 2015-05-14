@@ -234,6 +234,7 @@ public class InitializationFragment extends Fragment implements ImageManager.Syn
 
                 @Override
                 public void onPostExecute(Void nothing) {
+                    TestSubject.getInstance().initToasts(); // has to run on ui thread since toasts will be displayed there
                     startIntro();
                 }
 

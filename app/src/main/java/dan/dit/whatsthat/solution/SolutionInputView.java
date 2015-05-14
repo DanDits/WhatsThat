@@ -13,7 +13,7 @@ import android.view.View;
  */
 public class SolutionInputView extends View {
 
-    private static final float SWIPE_MAX_OFF_PATH = 50;
+    private static final float SWIPE_MAX_OFF_PATH = 60;
     private static final float SWIPE_MIN_DISTANCE = 10;
     private static final float SWIPE_THRESHOLD_VELOCITY = 100;
     private SolutionInput mInput;

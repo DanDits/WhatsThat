@@ -45,7 +45,6 @@ public class NoPanicDialog extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         View baseView = getActivity().getLayoutInflater().inflate(R.layout.panic_dialog, null);
         this.getActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL, WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL);
-
         String imageHash = null;
         String typeName = null;
         boolean noSecrets = false;

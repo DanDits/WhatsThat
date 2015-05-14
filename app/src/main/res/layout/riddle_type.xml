@@ -10,20 +10,13 @@
         android:src="@drawable/icon_circle"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
-    <view
-        class="dan.dit.whatsthat.util.ui.LinearLayoutProgressBar"
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
+        android:textAppearance="?android:attr/textAppearanceMedium"
         android:layout_gravity="center_horizontal"
         android:layout_below="@+id/imageView"
         android:layout_centerHorizontal="true"
-        android:id="@+id/stock_capacity">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Small Text"
-            android:id="@+id/type_name"/>
-    </view>
+        android:id="@+id/type_name">
+    </TextView>
 </RelativeLayout>
