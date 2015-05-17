@@ -70,14 +70,13 @@ public class TestSubject implements Runnable {
     }
 
     private void initTypes() {
-        //TODO implement
+        //TODO implement save and load
         mTypes = new ArrayList<>();
         mTypes.add(new TestSubjectRiddleType(PracticalRiddleType.CIRCLE_INSTANCE));
         mTypes.add(new TestSubjectRiddleType(PracticalRiddleType.SNOW_INSTANCE));
         mTypes.add(new TestSubjectRiddleType(PracticalRiddleType.TRIANGLE_INSTANCE));
         mTypes.add(new TestSubjectRiddleType(PracticalRiddleType.DICE_INSTANCE));
         mTypes.add(new TestSubjectRiddleType(PracticalRiddleType.JUMPER_INSTANCE));
-        mTypes.get(4).setSelected(false);
     }
 
     public static boolean isInitialized() {

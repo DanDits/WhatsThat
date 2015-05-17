@@ -88,10 +88,18 @@
     <string name="panic_dialog_positive">Alles ok</string>
     <string name="panic_ask_type">Wie funktioniert das</string>
     <string name="panic_skip">Auslassen.. bis später</string>
-    <string name="panic_complain">Ich will mich beschweren</string>
-    <string name="panic_author_credit_title">Bewundere den Künstler des Bildes</string>
+    <string name="panic_complain">Ich will mich beschweren .. oder nett sein</string>
+
+    <string-array name="panic_author_credit_title">
+        <item>Bewundere den Künstler des Bildes!</item>
+        <item>Wessen Meistwerk ist das?</item>
+        <item>Staune über die Kreativität!</item>
+        <item>Virtuos mit Pinsel und Maus:</item>
+        <item>Kunst kommt von Können:</item>
+        <item>Wahnsinnig toller Mensch:</item>
+    </string-array>
     <string name="no_panic_title">Keine Panik!</string>
-    <string name="riddle_type_triangle">Dreieck</string>
+    <string name="riddle_type_triangle">Dreiecke</string>
     <string name="riddle_type_triangle_explanation">Berühre einen Punkt in einem Dreieck um neue kleinere Dreiecke zu erzeugen, welche die Farben genauer darstellen.</string>
     <string name="riddle_type_jumper">Jump\'n\'run</string>
     <string name="riddle_type_jumper_explanation">Berühre das Feld um über Hindernisse zu springen. Erreiche Checkpoints um das Bild im Hintergrund zu entdecken.</string>

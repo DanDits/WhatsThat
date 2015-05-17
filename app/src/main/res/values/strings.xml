@@ -53,7 +53,13 @@
     <string name="panic_ask_type">How does this work</string>
     <string name="panic_skip">Skip .. come back later</string>
     <string name="panic_complain">I want to complain</string>
-    <string name="panic_author_credit_title">Admire the image artist</string>
+    <string-array name="panic_author_credit_title">
+        <item>Admire the artist!</item>
+        <item>Whose masterpiece is this?</item>
+        <item>Marvel the creativity!</item>
+        <item>Virtuosic  with brush and mouse:</item>
+        <item>Super great human being:</item>
+    </string-array>
     <string name="no_panic_title">Don\'t panic!</string>
     <string name="riddle_type_triangle">Triangle</string>
     <string name="riddle_type_triangle_explanation">Press inside a triangle to create smaller ones and discover the image.</string>

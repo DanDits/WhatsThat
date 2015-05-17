@@ -1,5 +1,6 @@
 <resources>
     <color name="important">#ff05f700</color> <!--for the important button-->
+    <color name="positive_text">#ff42c700</color> <!--for important text-->
     <color name="button_pressed">#ffedf7ae</color> <!--for the standard button-->
     <color name="main_background">#0099cc</color><!--background; appears everywhere-->
 

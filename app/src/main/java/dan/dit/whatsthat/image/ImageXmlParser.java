@@ -273,7 +273,7 @@ public class ImageXmlParser {
         try {
             return builder.build(mContext);
         } catch (BuildException be) {
-            throw new XmlPullParserException("Could not parse image: " + be.getMessage());
+            throw new XmlPullParserException("Could not parse image: " + be);
         }
     }
 

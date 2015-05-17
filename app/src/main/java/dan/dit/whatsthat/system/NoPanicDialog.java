@@ -66,7 +66,10 @@ public class NoPanicDialog extends DialogFragment {
         }
 
         if (mImage != null) {
+            String[] headings = getResources().getStringArray(R.array.panic_author_credit_title);
             baseView.findViewById(R.id.author_container).setVisibility(View.VISIBLE);
+            ((TextView) baseView.findViewById(R.id.credits_heading)).setText(headings[(int) (Math.random() * headings.length)]);
+
             ImageAuthor author = mImage.getAuthor();
             setTextIfAvailable(((TextView) baseView.findViewById(R.id.author_name)), R.string.image_author_name, author.getName());
             setTextIfAvailable(((TextView) baseView.findViewById(R.id.author_license)), R.string.image_author_license, author.getLicense());

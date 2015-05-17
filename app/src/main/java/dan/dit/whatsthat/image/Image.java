@@ -488,19 +488,19 @@ public class Image {
 
         public Image build(Context context) throws BuildException {
             if (mImage.mAuthor == null) {
-                throw new BuildException().setMissingData("Image", "Author");
+                throw new BuildException("Source: " + mImage.mName).setMissingData("Image", "Author");
             }
             if (TextUtils.isEmpty(mImage.mOrigin)) {
                 mImage.mOrigin = ORIGIN_IS_THE_APP;
             }
             if (TextUtils.isEmpty(mImage.mRelativePath) && mImage.mResId == 0) {
-                throw new BuildException().setMissingData("Image","ResPath or resId");
+                throw new BuildException("Source: " + mImage.mName).setMissingData("Image","ResPath or resId");
             }
             if (TextUtils.isEmpty(mImage.mHash)) {
                 calculateHashAndPreferences(context);
             }
             if (mImage.mSolutions == null || mImage.mSolutions.isEmpty()) {
-                throw new BuildException().setMissingData("Image", "Solutions");
+                throw new BuildException("Source: " + mImage.mName).setMissingData("Image", "Solutions");
             }
             if (TextUtils.isEmpty(mImage.mHash)) {
                 throw new BuildException("Source: " + mImage.mName).setMissingData("Image", "Hash");
