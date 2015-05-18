@@ -47,6 +47,14 @@ public class RiddleActivity extends Activity implements UnsolvedRiddlesChooser.C
         super.onDestroy();
         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
     }
+    
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        if (mFragment != null) {
+            mFragment.onWindowFocusChange(hasFocus);
+        }
+    }
 
     @Override
     public void openUnsolvedRiddle(Collection<Long> toOpen) {

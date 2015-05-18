@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.Random;
 
 import dan.dit.whatsthat.R;
+import dan.dit.whatsthat.achievement.AchievementManager;
 import dan.dit.whatsthat.riddle.types.PracticalRiddleType;
 
 /**
@@ -57,6 +58,7 @@ public class TestSubject implements Runnable {
 
     public static TestSubject initialize(Context context) {
         INSTANCE.mApplicationContext = context.getApplicationContext();
+        AchievementManager.initialize(INSTANCE.mApplicationContext);
         INSTANCE.mPreferences = context.getSharedPreferences(TEST_SUBJECT_PREFERENCES_FILE, Context.MODE_PRIVATE);
         INSTANCE.init(context.getResources());
         INSTANCE.mInitialized = true;
@@ -99,7 +101,9 @@ public class TestSubject implements Runnable {
 
     public void postToast(TestSubjectToast toast, long delay) {
         if (mHandler == null || toast == null) {
-            Log.e("HomeStuff","Trying to post toast. No handler initialized for test subject.");
+            if (mHandler == null) {
+                Log.e("HomeStuff", "Trying to post toast. No handler initialized for test subject.");
+            }
             return;
         }
         mToasts.add(toast);

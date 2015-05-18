@@ -12,7 +12,7 @@ import dan.dit.whatsthat.util.compaction.Compactable;
  */
 public abstract class AchievementData implements Compactable {
     protected final List<AchievementDataEventListener> mListeners = new LinkedList<>();
-    private final String mName;
+    protected final String mName;
 
     public AchievementData(String dataName) {
         mName = dataName;

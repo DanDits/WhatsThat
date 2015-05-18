@@ -7,10 +7,11 @@ import android.text.TextUtils;
  * Created by daniel on 12.05.15.
  */
 public abstract class Achievement implements AchievementDataEventListener {
-    private static final String KEY_DISCOVERED = "_discovered";
-    private static final String KEY_ACHIEVED = "_achieved";
-    private static final String KEY_VALUE = "_value";
-    private static final String KEY_MAX_VALUE = "_max_value";
+    public static final String SEPARATOR = "_"; // not allowed in id or keys
+    private static final String KEY_DISCOVERED = "discovered";
+    private static final String KEY_ACHIEVED = "achieved";
+    private static final String KEY_VALUE = "value";
+    private static final String KEY_MAX_VALUE = "maxvalue";
 
     protected final String mId;
     protected boolean mDiscovered;
@@ -24,6 +25,9 @@ public abstract class Achievement implements AchievementDataEventListener {
         mManager = manager;
         if (TextUtils.isEmpty(mId)) {
             throw new IllegalArgumentException("Null id given.");
+        }
+        if (mId.contains(SEPARATOR)) {
+            throw new IllegalArgumentException("Separator contained in id " + id);
         }
         if (manager == null) {
             throw new IllegalArgumentException("Null managet given.");
@@ -56,10 +60,10 @@ public abstract class Achievement implements AchievementDataEventListener {
 
     public void save(SharedPreferences prefs) {
         prefs.edit()
-                .putBoolean(mId + KEY_DISCOVERED, mDiscovered)
-                .putBoolean(mId + KEY_ACHIEVED, mAchieved)
-                .putInt(mId + KEY_VALUE, mValue)
-                .putInt(mId + KEY_MAX_VALUE, mMaxValue).apply();
+                .putBoolean(mId + SEPARATOR + KEY_DISCOVERED, mDiscovered)
+                .putBoolean(mId + SEPARATOR + KEY_ACHIEVED, mAchieved)
+                .putInt(mId + SEPARATOR + KEY_VALUE, mValue)
+                .putInt(mId + SEPARATOR + KEY_MAX_VALUE, mMaxValue).apply();
 
     }
 }

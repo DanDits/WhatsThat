@@ -17,13 +17,9 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.AccelerateInterpolator;
 import android.view.animation.Animation;
-import android.view.animation.AnimationSet;
 import android.view.animation.AnimationUtils;
-import android.view.animation.AnticipateOvershootInterpolator;
 import android.view.animation.OvershootInterpolator;
-import android.view.animation.ScaleAnimation;
 import android.view.animation.TranslateAnimation;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -37,6 +33,7 @@ import java.util.Iterator;
 import java.util.Map;
 
 import dan.dit.whatsthat.R;
+import dan.dit.whatsthat.achievement.AchievementManager;
 import dan.dit.whatsthat.image.Image;
 import dan.dit.whatsthat.image.ImageManager;
 import dan.dit.whatsthat.riddle.Riddle;
@@ -98,6 +95,8 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
         }
     }
 
+    private int[] mLocation = new int[2];
+
     private void onRiddleMade(RiddleGame riddle) {
         mProgressBar.onProgressUpdate(0);
         riddle.initViews(mRiddleView, mSolutionView, this);
@@ -107,8 +106,8 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
             PracticalRiddleType type = mRiddleView.getRiddleType();
             int alreadyRun = Riddle.getRiddleTypeAlreadyRunCount(getActivity(), type);
             if (alreadyRun < Riddle.DISPLAY_INITIAL_RUN_HINT_COUNT) {
-                mBtnRiddles.getLocationOnScreen(mLocation1);
-                TestSubject.getInstance().postToast(type.getInitialRunToast(Gravity.TOP | Gravity.CENTER_HORIZONTAL, 0, mLocation1[1] + mBtnRiddles.getHeight() + 50), 500L);
+                mBtnRiddles.getLocationOnScreen(mLocation);
+                TestSubject.getInstance().postToast(type.getInitialRunToast(Gravity.TOP | Gravity.CENTER_HORIZONTAL, 0, mLocation[1] + mBtnRiddles.getHeight() + 50), 500L);
                 Riddle.saveRiddleTypeAlreadyRun(getActivity(), type, alreadyRun + 1);
             }
         }
@@ -155,7 +154,8 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
             @Override
             public void onRiddleReady(RiddleGame riddle) {
                 onRiddleMade(riddle);
-                playStartRiddleAnimation(mBtnRiddles);
+                mRiddleView.getRiddleType().getAchievementData(AchievementManager.getInstance()).onNewGame();
+                playStartRiddleAnimation();
             }
 
             @Override
@@ -169,43 +169,20 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
         updateNextRiddleButton();
     }
 
-    private int[] mLocation1 = new int[2];
-    private int[] mLocation2 = new int[2];
-
-
-    private void playStartRiddleAnimation(View fromView) {
-        final long riddleAnimation = 400;
-        final long inputAnimation = 500;
-        mRiddleView.clearAnimation();
-        fromView.getLocationOnScreen(mLocation1);
-        mRiddleView.getLocationOnScreen(mLocation2);
-         AnimationSet animationSet = new AnimationSet(false);
-        float startX = mLocation1[0] + fromView.getWidth() / 2.f - mLocation2[0];
-        float startY = mLocation1[1] + fromView.getHeight() / 2.f - mLocation2[1] ;
-        TranslateAnimation a = new TranslateAnimation(
-                Animation.ABSOLUTE, startX , Animation.ABSOLUTE, 0.f,
-                Animation.ABSOLUTE, startY , Animation.ABSOLUTE, 0.f);
-        a.setDuration(riddleAnimation);
-        a.setInterpolator(new AnticipateOvershootInterpolator(15));
-
-        ScaleAnimation s = new ScaleAnimation(0.05f, 1, 0.05f, 1, Animation.ABSOLUTE, startX, Animation.ABSOLUTE, startY);
-        s.setInterpolator(new AccelerateInterpolator(1.5f));
-        s.setDuration(riddleAnimation);
-        animationSet.addAnimation(a);
-
-        animationSet.addAnimation(s);
-
-        mRiddleView.startAnimation(animationSet);
+    private void playStartRiddleAnimation() {
+        final long inputAnimationDelay = 500L;
+        final long inputAnimation = 500L;
         mSolutionView.setVisibility(View.INVISIBLE);
-        animationSet.setAnimationListener(new Animation.AnimationListener() {
+        mSolutionView.clearAnimation();
+        TranslateAnimation moveIn = new TranslateAnimation(Animation.ABSOLUTE, 0.f, Animation.ABSOLUTE, 0.f, Animation.RELATIVE_TO_SELF, 1.f, Animation.RELATIVE_TO_SELF, 0.f);
+        moveIn.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
-
+                mSolutionView.setVisibility(View.VISIBLE);
             }
 
             @Override
             public void onAnimationEnd(Animation animation) {
-                mSolutionView.setVisibility(View.VISIBLE);
             }
 
             @Override
@@ -213,11 +190,8 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
 
             }
         });
-        // INPUT VIEW ANIMATION
-        mSolutionView.clearAnimation();
-        TranslateAnimation moveIn = new TranslateAnimation(Animation.ABSOLUTE, 0.f, Animation.ABSOLUTE, 0.f, Animation.RELATIVE_TO_SELF, 1.f, Animation.RELATIVE_TO_SELF, 0.f);
         moveIn.setInterpolator(new OvershootInterpolator(2.5f));
-        moveIn.setStartOffset(riddleAnimation);
+        moveIn.setStartOffset(inputAnimationDelay);
         moveIn.setDuration(inputAnimation);
         mSolutionView.startAnimation(moveIn);
     }
@@ -242,7 +216,7 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
                     @Override
                     public void onRiddleReady(RiddleGame riddle) {
                         onRiddleMade(riddle);
-                        playStartRiddleAnimation(mBtnCheat);
+                        playStartRiddleAnimation();
                     }
 
                     @Override
@@ -502,6 +476,7 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
     @Override
     public void onDestroy() {
         super.onDestroy();
+        AchievementManager.close();
     }
 
     @Override
@@ -581,5 +556,15 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
     @Override
     public void onUnsolvedRiddlesChanged() {
         updateRiddleUI();
+    }
+
+    public void onWindowFocusChange(boolean hasFocus) {
+        if (mRiddleView != null) {
+            if (hasFocus) {
+                mRiddleView.onResume();
+            } else {
+                mRiddleView.onPause();
+            }
+        }
     }
 }

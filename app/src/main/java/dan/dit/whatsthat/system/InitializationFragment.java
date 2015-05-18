@@ -46,7 +46,6 @@ public class InitializationFragment extends Fragment implements ImageManager.Syn
     private ImageView mIntroKid;
     private TextView mIntroSubjectDescr;
     private View mIntroContainer;
-    private View.OnTouchListener mNextTextListener;
     private TextView mIntroText;
 
     private void startAnimation() {
@@ -116,7 +115,7 @@ public class InitializationFragment extends Fragment implements ImageManager.Syn
                 +"\n"
                 + res.getString(subj.getIntelligenceResId());
         mIntroSubjectDescr.setText(testSubjDescr);
-        mNextTextListener = new View.OnTouchListener() {
+        View.OnTouchListener mNextTextListener = new View.OnTouchListener() {
 
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {

@@ -94,6 +94,7 @@ public class ImageXmlParser {
     private int mHighestReadBundleNumber;
     private ImageManager.SynchronizationListener mListener;
     private Map<Integer, List<Image>> mReadBundles = new HashMap<>();
+    private boolean mModeAbortOnImageBuildFailure;
 
     public List<Image> getBundle(int bundleNumber) {
         return mReadBundles.get(bundleNumber);
@@ -112,6 +113,7 @@ public class ImageXmlParser {
      */
     public List<Image> parseNewBundlesDeveloper(Context context) throws XmlPullParserException, IOException {
         mContext = context;
+        mModeAbortOnImageBuildFailure = true;
         InputStream inputStream = context.getResources().openRawResource(R.raw.imagedata_uncompiled);
         List<Image> images = parse (inputStream, 0);
         Log.d("Image", "Parsed new bundles: Loaded images from XML with highest read number= " + mHighestReadBundleNumber + ": " + images);
@@ -135,7 +137,7 @@ public class ImageXmlParser {
 
         SharedPreferences prefs = context.getSharedPreferences(Image.SHAREDPREFERENCES_FILENAME, Context.MODE_PRIVATE);
         int currBundleNumber = prefs.getInt(ImageManager.PREFERENCES_KEY_IMAGE_MANAGER_VERSION, 0);
-        List<Image> images = parse (inputStream, currBundleNumber + 1);
+        List<Image> images = parse(inputStream, currBundleNumber + 1);
         double progress = PARSE_END_PROGRESS;
         postProgress((int) progress);
         syncToDatabase(progress);
@@ -232,7 +234,10 @@ public class ImageXmlParser {
             }
             String name = parser.getName();
             if (name.equals(TAG_IMAGE_NAME)) {
-                bundleImages.add(readImage(parser));
+                Image readImage = readImage(parser);
+                if (readImage != null) {
+                    bundleImages.add(readImage);
+                }
             } else {
                 skip(parser);
             }
@@ -273,7 +278,11 @@ public class ImageXmlParser {
         try {
             return builder.build(mContext);
         } catch (BuildException be) {
-            throw new XmlPullParserException("Could not parse image: " + be);
+            if (mModeAbortOnImageBuildFailure) {
+                throw new XmlPullParserException("Could not parse image: " + be);
+            }
+            Log.e("Image", "Failed parsing image, but not aborting: " + be);
+            return null; // failure but do not abort
         }
     }
 

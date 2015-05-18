@@ -3,13 +3,11 @@ package dan.dit.whatsthat.obfuscation;
 import android.graphics.Bitmap;
 
 import dan.dit.whatsthat.util.image.BitmapUtil;
-import dan.dit.whatsthat.util.image.ImageMultiCache;
 
 /**
  * Created by daniel on 21.01.15.
  */
 public class Logo {
-    private static final String IMAGE_CACHE_KEY_LOGO = "LOGO"; // Key for ImageMultiCache
     public static final double BRIGHTNESS_IS_LOGO_THRESHOLD_DEFAULT = 0.5; // threshold when a pixel is considered to be in the logo
 
     private Bitmap mLogo;
@@ -28,18 +26,10 @@ public class Logo {
         if (brightnessThreshold < 0 || brightnessThreshold > 1) {
             mBrightnessThreshold = BRIGHTNESS_IS_LOGO_THRESHOLD_DEFAULT;
         }
-        ImageMultiCache.INSTANCE.remove(IMAGE_CACHE_KEY_LOGO); // a new logo means we need to remove the old one(s)
     }
 
-    //TODO do not use this cache..
     public Bitmap getSized(int wantedWidth, int wantedHeight) {
-        Bitmap logo = null;
-        logo= ImageMultiCache.INSTANCE.get(IMAGE_CACHE_KEY_LOGO, wantedWidth, wantedHeight);
-        if (logo == null || logo.getHeight() != wantedHeight || logo.getWidth() != wantedWidth) {
-            logo= BitmapUtil.resize(mLogo, wantedHeight, wantedWidth);
-            ImageMultiCache.INSTANCE.add(IMAGE_CACHE_KEY_LOGO, logo);
-        }
-        return logo;
+        return BitmapUtil.resize(mLogo, wantedHeight, wantedWidth);
     }
 
     public double getThreshold() {

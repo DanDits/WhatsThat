@@ -42,17 +42,19 @@ public class AchievementProperties extends AchievementData {
         }
     }
 
-    public void increment(String key, long delta, long baseValue) {
+    public Long increment(String key, long delta, long baseValue) {
         if (key == null) {
-            return;
+            return null;
         }
-        Long old = mValues.get(key);
-        if (old == null) {
-            old = baseValue;
+        Long value = mValues.get(key);
+        if (value == null) {
+            value = baseValue + delta;
         } else {
-            old += delta;
+            value += delta;
         }
-        mValues.put(key, old);
+        mValues.put(key, value);
+        notifyListeners();
+        return value;
     }
 
     public Long getValue(String key, long defaultValue) {
