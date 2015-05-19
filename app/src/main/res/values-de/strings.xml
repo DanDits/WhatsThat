@@ -107,5 +107,6 @@
     <string name="riddle_type_triangle_firstrun">Verkleinere die Dreiecke!</string>
     <string name="riddle_type_dice_firstrun">Erschaffe grüne Würfel. Bewege und kombiniere gleichfarbige Augenzahlen!</string>
     <string name="riddle_type_snow_firstrun">Wachse und explodiere das Bild frei!</string>
+    <string name="handle_error_attempted">Bild nicht vorhanden?! Externen Speicher prüfen!</string>
 
 </resources>

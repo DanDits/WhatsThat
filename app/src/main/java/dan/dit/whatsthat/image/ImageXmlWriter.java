@@ -1,7 +1,6 @@
 package dan.dit.whatsthat.image;
 
 import android.content.Context;
-import android.os.Environment;
 import android.text.TextUtils;
 import android.util.Log;
 import android.util.Xml;
@@ -17,6 +16,7 @@ import java.util.List;
 import dan.dit.whatsthat.riddle.types.RiddleType;
 import dan.dit.whatsthat.solution.Solution;
 import dan.dit.whatsthat.storage.ImageTable;
+import dan.dit.whatsthat.util.image.ExternalStorage;
 
 /**
  * I contrast to the {@see ImageXmlParser} this is the counter part class
@@ -24,6 +24,8 @@ import dan.dit.whatsthat.storage.ImageTable;
  * Created by daniel on 18.04.15.
  */
 public class ImageXmlWriter {
+
+    private static final String BUILD_DIRECTORY_NAME = "build";
 
     private ImageXmlWriter() {}
 
@@ -39,10 +41,13 @@ public class ImageXmlWriter {
         if (context == null || imageBundle == null || imageBundle.isEmpty()) {
             return;
         }
-        String path = Environment.getExternalStorageDirectory() + "/" + "WhatsThat/build/";
+        String path = ExternalStorage.getExternalStoragePathIfMounted(BUILD_DIRECTORY_NAME);
+        if (path == null) {
+            return;
+        }
         File dir = new File(path);
         if (dir.mkdirs() || dir.isDirectory()) {
-            String fullName = path + "imagedata" + bundleNumber + ".xml";
+            String fullName = path + "/imagedata" + bundleNumber + ".xml";
 
             // Write to file.
             File file = new File(fullName);
@@ -62,6 +67,7 @@ public class ImageXmlWriter {
                     try {
                         output.close();
                     } catch (IOException ioe) {
+                        // final failure, ignore
                     }
                 }
             }

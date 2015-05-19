@@ -112,21 +112,17 @@ public class Solution implements Compactable {
         }
     }
 
-    public String getMainWord() {
-        return mSolutionWords.get(0);
-    }
-
     public Tongue getTongue() {
         return mTongue;
     }
 
     public int estimateSolvedValue(String userWord) {
-        if (userWord == null) {
+        // the empty word will never count as solved
+        if (TextUtils.isEmpty(userWord)) {
             return SOLVED_NOTHING;
         }
         int maxSolved = SOLVED_NOTHING;
         for (String word : mSolutionWords) {
-            // the empty word will never count as solved
             int length = Math.min(word.length(), userWord.length());
             int solvedLettersCount = 0;
             for (int i = 0; i < length; i++) {
@@ -134,14 +130,18 @@ public class Solution implements Compactable {
                     solvedLettersCount++;
                 }
             }
-            int currSolved = length == 0 ? SOLVED_NOTHING : (SOLVED_COMPLETELY * (solvedLettersCount / word.length()));
+            int currSolved = length == 0 ? SOLVED_NOTHING : (int) (SOLVED_COMPLETELY * (solvedLettersCount / ((double) word.length())));
             if (currSolved > maxSolved) {
                 maxSolved = currSolved;
             }
         }
-        return maxSolved;
+        return Math.min(Math.max(SOLVED_NOTHING, maxSolved), SOLVED_COMPLETELY);
     }
 
+    /**
+     * Returns the list of solution words. Do not change the list as it is backed by this solution.
+     * @return The list of words, length >= 1.
+     */
     public List<String> getWords() {
         return mSolutionWords;
     }

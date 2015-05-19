@@ -85,6 +85,7 @@
         <item>Nice job!</item>
     </string-array>
     <string name="riddle_type_snow_firstrun">Grow bigger and explode to see the image!</string>
+    <string name="handle_error_attempted">Bild nicht vorhanden?! Externen Speicher prüfen!</string>
 
 
 </resources>

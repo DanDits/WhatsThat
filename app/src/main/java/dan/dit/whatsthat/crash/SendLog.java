@@ -7,7 +7,6 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
 import android.view.View;
 import android.view.Window;
 
@@ -17,6 +16,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 import dan.dit.whatsthat.R;
+import dan.dit.whatsthat.util.image.ExternalStorage;
 
 /**
  * Emergency activity when there was an uncaught exception that shut down the app.
@@ -26,7 +26,9 @@ import dan.dit.whatsthat.R;
  */
 public class SendLog extends Activity implements View.OnClickListener {
 
-        @Override
+    private static final String LOGS_DIRECTORY_NAME = "logs";
+
+    @Override
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
@@ -82,10 +84,16 @@ public class SendLog extends Activity implements View.OnClickListener {
 
         // Make file name - file must be saved to external storage or it wont be readable by
         // the email app.
-        String path = Environment.getExternalStorageDirectory() + "/" + "WhatsThat/logs/";
+        String path = ExternalStorage.getExternalStoragePathIfMounted(LOGS_DIRECTORY_NAME);
+        if (path == null) {
+            return null;
+        }
         File dir = new File(path);
-        dir.mkdirs();
-        String fullName = path + "error";
+        if (!dir.mkdirs() && !dir.isDirectory()) {
+            // not created and not a directory
+            return null;
+        }
+        String fullName = path + "/error";
 
         // Extract to file.
         File file = new File (fullName);

@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.os.Environment;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -30,8 +29,8 @@ import java.util.Date;
 public final class ImageUtil {
     private static final String IMAGE_FILE_PREFIX = "WTH_";
     private static final String IMAGE_FILE_EXTENSION = ".png";
-	private static final String TAG = "ImageUtil";
     private static final double SIMILARITY_SCALING_THRESHOLD = 0.5; // 0 would mean only exactly the same aspect ratio
+    private static final String MEDIA_DIRECTORY_NAME = "Media";
 
     private ImageUtil() {
 	}
@@ -55,7 +54,7 @@ public final class ImageUtil {
         }
         File pictureFile = getOutputMediaFile(fileName);
         if (pictureFile == null) {
-            Log.e(TAG,
+            Log.e("Image",
                     "Error creating media file, check storage permissions: ");// e.getMessage());
             return false;
         }
@@ -65,37 +64,27 @@ public final class ImageUtil {
             success=image.compress(Bitmap.CompressFormat.PNG, 100, fos);
             fos.close();
         } catch (FileNotFoundException e) {
-            Log.e(TAG, "File not found: " + e.getMessage());
+            Log.e("Image", "File not found: " + e.getMessage());
         } catch (IOException e) {
-            Log.e(TAG, "Error accessing file: " + e.getMessage());
+            Log.e("Image", "Error accessing file: " + e.getMessage());
         }
         return success;
     }
 
-    public static File getMediaDir() {
-        // To be safe, you should check that the SDCard is mounted
-        // using Environment.getExternalStorageState() before doing this.
-        if (!Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
-            return null;
-        }
-        return new File(Environment.getExternalStorageDirectory()
-                + "/WhatsThat/Media");
-    }
-
-    /** Create a File for saving an image or video */
+    /* Create a File for saving an image */
     private static File getOutputMediaFile(String pImageName){
-        File mediaStorageDir = getMediaDir();
-        if (mediaStorageDir == null) {
+        String path = ExternalStorage.getExternalStoragePathIfMounted(MEDIA_DIRECTORY_NAME);
+        if (path == null) {
             return null; // external storage not available
         }
+        File mediaStorageDir = new File(path);
+
         // This location works best if you want the created images to be shared
         // between applications and persist after your app has been uninstalled.
 
         // Create the storage directory if it does not exist
-        if (! mediaStorageDir.exists()){
-            if (! mediaStorageDir.mkdirs()){
-                return null;
-            }
+        if (!mediaStorageDir.mkdirs() && !mediaStorageDir.isDirectory()){
+            return null;
         }
         // Create a media file name
         File mediaFile;

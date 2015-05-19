@@ -34,6 +34,20 @@ public abstract class Achievement implements AchievementDataEventListener {
         }
     }
 
+    @Override
+    public int hashCode() {
+        return mId.hashCode();
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other instanceof Achievement) {
+            return mId.equals(((Achievement) other).mId);
+        } else {
+            return super.equals(other);
+        }
+    }
+
     public abstract void initEvents();
 
     protected final void discover() {
@@ -58,12 +72,12 @@ public abstract class Achievement implements AchievementDataEventListener {
 
     protected abstract void onAchieved();
 
-    public void save(SharedPreferences prefs) {
-        prefs.edit()
+    public void addData(SharedPreferences.Editor editor) {
+        editor
                 .putBoolean(mId + SEPARATOR + KEY_DISCOVERED, mDiscovered)
                 .putBoolean(mId + SEPARATOR + KEY_ACHIEVED, mAchieved)
                 .putInt(mId + SEPARATOR + KEY_VALUE, mValue)
-                .putInt(mId + SEPARATOR + KEY_MAX_VALUE, mMaxValue).apply();
+                .putInt(mId + SEPARATOR + KEY_MAX_VALUE, mMaxValue);
 
     }
 }

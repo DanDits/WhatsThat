@@ -4,7 +4,6 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.graphics.Bitmap;
-import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.util.Log;
@@ -27,6 +26,7 @@ import dan.dit.whatsthat.util.compaction.CompactedDataCorruptException;
 import dan.dit.whatsthat.util.compaction.Compacter;
 import dan.dit.whatsthat.util.image.BitmapUtil;
 import dan.dit.whatsthat.util.image.Dimension;
+import dan.dit.whatsthat.util.image.ExternalStorage;
 import dan.dit.whatsthat.util.image.ImageUtil;
 
 /**
@@ -40,7 +40,7 @@ import dan.dit.whatsthat.util.image.ImageUtil;
 public class Image {
     public static final String SHAREDPREFERENCES_FILENAME ="dan.dit.whatsthat.imagePrefs";
     public static final String ORIGIN_IS_THE_APP = "WhatsThat";
-    public static final String EXTERN_IMAGES_PATH = Environment.getExternalStorageDirectory() + "/" + "WhatsThat/images/";
+    public static final String IMAGES_DIRECTORY_NAME = "images";
 
     // instead of building everytime on every device this app runs we built once for every new release of images all essential data
     // that takes long time like hash or preference/refused calculation, save it into a simple text file which we then read on first app
@@ -262,8 +262,11 @@ public class Image {
     private Bitmap loadBitmapExecute(Context context, int reqWidth, int reqHeight, boolean enforceDimension) {
         Bitmap result = null;
         if (mRelativePath != null) {
-            File imagePath = new File(EXTERN_IMAGES_PATH + mOrigin + "/" + mRelativePath);
-            result = ImageUtil.loadBitmap(imagePath, reqWidth, reqHeight, enforceDimension);
+            String path = ExternalStorage.getExternalStoragePathIfMounted(IMAGES_DIRECTORY_NAME);
+            if (path != null) {
+                File imagePath = new File(path + "/" + mOrigin + "/" + mRelativePath);
+                result = ImageUtil.loadBitmap(imagePath, reqWidth, reqHeight, enforceDimension);
+            }
         } else if (mResId != 0) {
             result = ImageUtil.loadBitmap(context.getResources(), mResId, reqWidth, reqHeight, enforceDimension);
         } else {
@@ -280,7 +283,7 @@ public class Image {
     public Bitmap loadBitmap(Context context, Dimension reqDimension, boolean enforceDimension) {
         int reqWidth = reqDimension.getWidth();
         int reqHeight = reqDimension.getHeight();
-        Bitmap result = null;
+        Bitmap result;
         if (mIsObfuscated == 0) {
             // not obfuscated, we can optimize the loading
             return loadBitmapExecute(context, reqWidth, reqHeight, enforceDimension);

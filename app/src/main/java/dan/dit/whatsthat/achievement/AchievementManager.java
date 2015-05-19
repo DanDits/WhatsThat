@@ -3,7 +3,9 @@ package dan.dit.whatsthat.achievement;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.text.TextUtils;
-import android.util.Log;
+
+import java.util.HashSet;
+import java.util.Set;
 
 import dan.dit.whatsthat.util.compaction.Compacter;
 
@@ -15,7 +17,8 @@ public class AchievementManager implements AchievementDataEventListener {
     private static final String ACHIEVEMENT_PREFERENCES_FILE = "dan.dit.whatsthat.achievement_data";
     private static AchievementManager INSTANCE = null;
     private final SharedPreferences mPrefs;
-    private final SharedPreferences.Editor mDataEditor;
+    private Set<AchievementData> mManagedChangedData;
+    private Set<Achievement> mChangedAchievements;
 
     private AchievementManager(Context applicationContext) {
         if (applicationContext == null) {
@@ -23,7 +26,8 @@ public class AchievementManager implements AchievementDataEventListener {
         }
         applicationContext = applicationContext.getApplicationContext();
         mPrefs = applicationContext.getSharedPreferences(ACHIEVEMENT_PREFERENCES_FILE, Context.MODE_PRIVATE);
-        mDataEditor = mPrefs.edit();
+        mManagedChangedData = new HashSet<>();
+        mChangedAchievements = new HashSet<>();
     }
 
     public static void initialize(Context applicationContext) {
@@ -37,16 +41,23 @@ public class AchievementManager implements AchievementDataEventListener {
         return INSTANCE;
     }
 
-    //close manager at the end to commit changes to data
+    //close manager at the end to commit changes to data and achievements
     public static void close() {
         if (INSTANCE != null) {
-            INSTANCE.mDataEditor.apply();
+            SharedPreferences.Editor editor = INSTANCE.mPrefs.edit();
+            for (AchievementData data : INSTANCE.mManagedChangedData) {
+                editor.putString(data.mName, data.compact());
+            }
+            for (Achievement achievement : INSTANCE.mChangedAchievements) {
+                achievement.addData(editor);
+            }
+            editor.apply();
         }
     }
 
     protected void onChanged(Achievement achievement) {
         if (achievement != null) {
-            achievement.save(mPrefs);
+            mChangedAchievements.add(achievement);
             // TODO display if achieved or updated progress
         }
     }
@@ -60,8 +71,7 @@ public class AchievementManager implements AchievementDataEventListener {
     @Override
     public void onDataEvent(AchievementData changedData) {
         if (changedData != null) {
-            Log.d("Achievement", "OnDataEvent in manager. Saving data of " + changedData.mName + " to xml (expensive compacting).");
-            mDataEditor.putString(changedData.mName, changedData.compact());
+            mManagedChangedData.add(changedData);
         }
     }
 

@@ -21,6 +21,20 @@ public abstract class AchievementData implements Compactable {
         }
     }
 
+    @Override
+    public int hashCode() {
+        return mName.hashCode();
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other instanceof AchievementData) {
+            return mName.equals(((AchievementData) other).mName);
+        } else {
+            return super.equals(other);
+        }
+    }
+
     protected abstract void resetData();
 
     public void addListener(AchievementDataEventListener listener) {

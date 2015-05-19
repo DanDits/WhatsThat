@@ -5,9 +5,9 @@ import android.text.TextUtils;
 import java.util.Random;
 
 /**
- * A tongue is something a language uses to express stuff. A tongue consists
+ * A tongue is something a language uses to express words. A tongue consists
  * of an alphabet which is a set of characters. Each character has a given probabilty
- * to appear in a random text of that tongue.
+ * to appear in a random text of that language.
  * Created by daniel on 24.03.15.
  */
 public enum Tongue {
@@ -61,6 +61,14 @@ public enum Tongue {
      */
     public String getShortcut() {
         return mShortName;
+    }
+
+    /**
+     * Returns the localized name describing the tongue in its own tongue.
+     * @return The localized name.
+     */
+    public String getLocalizedName() {
+        return mLocalizedName;
     }
 
     /**

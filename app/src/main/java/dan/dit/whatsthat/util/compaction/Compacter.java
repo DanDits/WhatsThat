@@ -12,7 +12,7 @@ import java.util.List;
  * with the compacted string in the same order. Strings must not be null, but can contain any data! So there is no special character excluded.
  * <br> Nesting of
  * Compacters is easily possible, so strings compacted by a Compacter can be appended and later
- * read by another Compacter.<br><br>
+ * read by another Compacter. Though this is not encouraged since output data will grow in length exponentially for every nesting depth.<br><br>
  * Example:<br>
  * <code>Compacter cmp = new Compacter().appendData("a").appendData("b").appendData(2);<br>
  * String compacted = cmp.compact();<br>

@@ -33,7 +33,6 @@ public class SolutionInputLetterClick extends SolutionInput {
     private static final int USER_LETTER_COLOR_COMPLETED = Color.GREEN;
     private static final int USER_LETTER_COLOR_INCOMPLETE = Color.RED;
     private static final int ALL_LETTERS_AMOUNT_DIVISOR = 6; // must be divisible by this number, related to ALL_LETTERS_MAX_ROWS
-    private char[] mSolutionLetters; // in order
     private char[] mAllLetters; // permuted randomly including solution letters
     private int[] mAllLettersSelected; // index of letter in user letters if the letter is selected, invisible and one of the user letters
 
@@ -215,9 +214,9 @@ public class SolutionInputLetterClick extends SolutionInput {
         return mSolution.estimateSolvedValue(userLettersToWord());
     }
 
-    private int calculateAllLetterAmount() {
+    private int calculateAllLetterAmount(int minLength) {
         // ensure a minimum size and a minimum amount of extra letters added to the solution
-        int amount = Math.max(LETTER_POOL_MIN_SIZE, mSolutionLetters.length + LETTER_POOL_MIN_WRONG_LETTERS);
+        int amount = Math.max(LETTER_POOL_MIN_SIZE, minLength + LETTER_POOL_MIN_WRONG_LETTERS);
         // ensure amount is divisible by 2 and 3
         if (amount % ALL_LETTERS_AMOUNT_DIVISOR != 0) {
             amount += ALL_LETTERS_AMOUNT_DIVISOR - (amount % ALL_LETTERS_AMOUNT_DIVISOR);
@@ -228,27 +227,37 @@ public class SolutionInputLetterClick extends SolutionInput {
     @Override
     protected void initSolution(@NonNull Solution solution) {
         mSolution = solution;
-        String mainWord = mSolution.getMainWord();
-        mSolutionLetters = new char[mainWord.length()];
-        mAllLetters = new char[calculateAllLetterAmount()];
+        List<String> solutionWords = mSolution.getWords();
+        String mainWord = solutionWords.get(0);
+        String alternativeWord = solutionWords.size() > 1 ? solutionWords.get(1) : null;
+        int minLetterCount = mainWord.length();
+        mAllLetters = new char[calculateAllLetterAmount(minLetterCount)];
         mAllLettersSelected = new int[mAllLetters.length];
         Arrays.fill(mAllLettersSelected, -1);
         mUserLetters = new ArrayList<>(mAllLetters.length);
 
+        // first init the main word
         List<Character> allLetters = new ArrayList<>(mAllLetters.length);
-        for (int i = 0; i < mainWord.length(); i++) {
-            mSolutionLetters[i] = mainWord.charAt(i);
-            allLetters.add(mSolutionLetters[i]);
+        for (int i = 0; i < minLetterCount; i++) {
+            allLetters.add(mainWord.charAt(i));
+        }
+
+        // then init the alternative word as far as possible
+        if (!TextUtils.isEmpty(alternativeWord)) {
+            for (int i = 0; i < alternativeWord.length() && allLetters.size() < mAllLetters.length; i++) {
+                minLetterCount++;
+                allLetters.add(alternativeWord.charAt(i));
+            }
         }
 
         // fill allLetters with remaining random letters, approximating the
         // distribution of letters in the used tongue
-        boolean[] randomlyDrawn = new boolean[mSolutionLetters.length];
+        boolean[] randomlyDrawn = new boolean[minLetterCount];
         while (allLetters.size() < mAllLetters.length) {
             char nextRandom = mSolution.getTongue().getRandomLetter();
             boolean nextRandomMatchedSolutionLetter = false;
-            for (int j = 0; j < mSolutionLetters.length; j++) {
-                if (mSolutionLetters[j] == nextRandom && !randomlyDrawn[j]) {
+            for (int j = 0; j < minLetterCount; j++) {
+                if (allLetters.get(j) == nextRandom && !randomlyDrawn[j]) {
                     randomlyDrawn[j] = true;
                     nextRandomMatchedSolutionLetter = true;
                     break;
@@ -304,7 +313,7 @@ public class SolutionInputLetterClick extends SolutionInput {
     }
 
     private boolean isSolved(String userWord) {
-        return mSolution.getMainWord().equals(userWord);
+        return mSolution.estimateSolvedValue(userWord) == Solution.SOLVED_COMPLETELY;
     }
 
     private void checkCompleted() {
@@ -517,7 +526,6 @@ public class SolutionInputLetterClick extends SolutionInput {
         cmp.appendData(mSolution.compact());
         cmp.appendData(userLettersToWord());
         cmp.appendData(String.valueOf(mAllLetters));
-        cmp.appendData(String.valueOf(mSolutionLetters));
         Compacter cmp2 = new Compacter(mAllLettersSelected.length);
         for (int i = 0; i < mAllLettersSelected.length; i++) {
             cmp2.appendData(mAllLettersSelected[i]);
@@ -528,17 +536,15 @@ public class SolutionInputLetterClick extends SolutionInput {
 
     @Override
     public void unloadData(Compacter compactedData) throws CompactedDataCorruptException {
-        if (compactedData == null || compactedData.getSize() < 6) {
+        if (compactedData == null || compactedData.getSize() < 5) {
             throw new CompactedDataCorruptException("Too little data given to build letter click.");
         }
         mSolution = new Solution(new Compacter(compactedData.getData(1)));
         wordToUserLetters(compactedData.getData(2));
         String word = compactedData.getData(3);
         mAllLetters = word.toCharArray();
-        word = compactedData.getData(4);
-        mSolutionLetters = word.toCharArray();
         mAllLettersSelected = new int[mAllLetters.length];
-        Compacter inner = new Compacter(compactedData.getData(5));
+        Compacter inner = new Compacter(compactedData.getData(4));
         for (int i = 0; i < inner.getSize(); i++) {
             mAllLettersSelected[i] = inner.getInt(i);
         }

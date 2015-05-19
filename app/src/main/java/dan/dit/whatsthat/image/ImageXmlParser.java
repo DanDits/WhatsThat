@@ -1,7 +1,6 @@
 package dan.dit.whatsthat.image;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.text.TextUtils;
 import android.util.Log;
 import android.util.Xml;
@@ -18,7 +17,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import dan.dit.whatsthat.R;
 import dan.dit.whatsthat.preferences.Tongue;
 import dan.dit.whatsthat.riddle.types.RiddleType;
 import dan.dit.whatsthat.solution.Solution;
@@ -87,12 +85,9 @@ public class ImageXmlParser {
     public static final String TAG_AUTHOR_TITLE = "title";
     public static final String TAG_AUTHOR_EXTRAS = "extras";
     public static final String TAG_RIDDLE_TYPE_NAME = "type";
-    private static final int PARSE_START_PROGRESS = 10;
-    private static final int PARSE_END_PROGRESS = 20;
 
     private Context mContext;
     private int mHighestReadBundleNumber;
-    private ImageManager.SynchronizationListener mListener;
     private Map<Integer, List<Image>> mReadBundles = new HashMap<>();
     private boolean mModeAbortOnImageBuildFailure;
 
@@ -105,96 +100,76 @@ public class ImageXmlParser {
     }
 
     /**
-     * Parses all new bundles found in imagedata_uncompiled.xml.
-     * @param context A context.
-     * @return A list of all red images.
+     * Parses all new bundles found in the given stream (xml file).
+     * @param context The context.
+     * @param inputStream The input to parse.
+     * @param startBundleNumber The bundle version number to start parsing (useful to skip old bundles when updating).
+     * @param abortOnFailure If true the parser will stop and abort with an Exception if there was an error building an image.
+     * @return The parser or null if the inputStream or context was null.
      * @throws XmlPullParserException There was an XML error parsing the data.
      * @throws IOException There was an IO error reading the data.
      */
-    public List<Image> parseNewBundlesDeveloper(Context context) throws XmlPullParserException, IOException {
-        mContext = context;
-        mModeAbortOnImageBuildFailure = true;
-        InputStream inputStream = context.getResources().openRawResource(R.raw.imagedata_uncompiled);
-        List<Image> images = parse (inputStream, 0);
-        Log.d("Image", "Parsed new bundles: Loaded images from XML with highest read number= " + mHighestReadBundleNumber + ": " + images);
-        return images;
-    }
-
-    /**
-     * Syncs the default images supplied by the app and specified by imagedata.xml to the database. Ignores
-     * bundles with version number lower than or equal to the last read highest bundle number.
-     * @param context A context.
-     * @param synchronizationListener The listener that is informed about progress.
-     * @return A list of all images parsed and saved.
-     * @throws XmlPullParserException There was an XML error parsing the data.
-     * @throws IOException There was an IO error reading the data.
-     */
-    public List<Image> parseAndSyncBundles(Context context, ImageManager.SynchronizationListener synchronizationListener) throws XmlPullParserException, IOException {
-        mContext = context;
-        mListener = synchronizationListener;
-        InputStream inputStream = context.getResources().openRawResource(R.raw.imagedata);
-        postProgress(PARSE_START_PROGRESS);
-
-        SharedPreferences prefs = context.getSharedPreferences(Image.SHAREDPREFERENCES_FILENAME, Context.MODE_PRIVATE);
-        int currBundleNumber = prefs.getInt(ImageManager.PREFERENCES_KEY_IMAGE_MANAGER_VERSION, 0);
-        List<Image> images = parse(inputStream, currBundleNumber + 1);
-        double progress = PARSE_END_PROGRESS;
-        postProgress((int) progress);
-        syncToDatabase(progress);
-        if (!mListener.isSyncCancelled()) {
-            if (mHighestReadBundleNumber > currBundleNumber) {
-                prefs.edit().putInt(ImageManager.PREFERENCES_KEY_IMAGE_MANAGER_VERSION, mHighestReadBundleNumber).apply();
-            }
-            Log.d("Image", "Parsed and synced bundles: Loaded images from XML with highest read number= " + mHighestReadBundleNumber + ": " + images);
-            postProgress(PercentProgressListener.PROGRESS_COMPLETE);
-        } else {
-            Log.d("Image", "Parsing for image sync cancelled.");
+    public static ImageXmlParser parseInput(Context context, InputStream inputStream, int startBundleNumber, boolean abortOnFailure) throws XmlPullParserException, IOException {
+        if (inputStream == null || context == null) {
+            return null;
         }
-        return images;
+        ImageXmlParser parser = new ImageXmlParser();
+        parser.mContext = context;
+        parser.mModeAbortOnImageBuildFailure = abortOnFailure;
+        parser.parse(inputStream, startBundleNumber);
+        Log.d("Image", "Parsed new bundles: Loaded images from XML with highest read number= " + parser.mHighestReadBundleNumber);
+        return parser;
     }
 
-    protected void syncToDatabase(double startProgress) {
+    public boolean syncToDatabase(ImageManager.SynchronizationListener listener) {
+        if (mReadBundles == null || mReadBundles.size() == 0) {
+            return false;
+        }
         List<Integer> keyList = new ArrayList<>(mReadBundles.keySet());
         Collections.sort(keyList); // ascending order so that higher version bundles can overwrite older images
         int imageCount = 0;
         for (Integer k : keyList) {
             imageCount += mReadBundles.get(k).size();
         }
-        double parseProgressPerImage = (PercentProgressListener.PROGRESS_COMPLETE - PARSE_END_PROGRESS) / (double) imageCount;
-        for (Integer version : keyList) {
-            for (Image img : mReadBundles.get(version)) {
-                if (mListener != null && mListener.isSyncCancelled()) {
-                    break;
+        if (imageCount > 0) {
+            double progress = 0;
+            double parseProgressPerImage = PercentProgressListener.PROGRESS_COMPLETE / (double) imageCount;
+            for (Integer version : keyList) {
+                for (Image img : mReadBundles.get(version)) {
+                    if (listener != null && listener.isSyncCancelled()) {
+                        return false;
+                    }
+                    img.saveToDatabase(mContext);
+                    progress += parseProgressPerImage;
+                    postProgress((int) progress, listener);
                 }
-                img.saveToDatabase(mContext);
-                startProgress += parseProgressPerImage;
-                postProgress((int) startProgress);
             }
+            Log.d("Image", "Synced " + imageCount + " images to database from " + getReadBundlesCount() + " read bundles.");
+            return true;
+        }
+        return false;
+    }
+
+    private void postProgress(int progress, ImageManager.SynchronizationListener listener) {
+        if (listener != null) {
+            listener.onSyncProgress(progress);
         }
     }
 
-    private void postProgress(int progress) {
-        if (mListener != null) {
-            mListener.onSyncProgress(progress);
-        }
-    }
-
-    private List<Image> parse(InputStream in, int startBundleNumber) throws XmlPullParserException, IOException {
+    private void parse(InputStream in, int startBundleNumber) throws XmlPullParserException, IOException {
         try {
             XmlPullParser parser = Xml.newPullParser();
             parser.setFeature(XmlPullParser.FEATURE_PROCESS_NAMESPACES, false);
             parser.setInput(in, null);
             parser.nextTag();
-            return readImageBundles(parser, startBundleNumber);
+            readImageBundles(parser, startBundleNumber);
         } finally {
             in.close();
         }
     }
 
 
-    private List<Image> readImageBundles(XmlPullParser parser, int startBundleNumber)  throws XmlPullParserException, IOException {
-        List<Image> images = new ArrayList<>();
-
+    private void readImageBundles(XmlPullParser parser, int startBundleNumber)  throws XmlPullParserException, IOException {
         parser.require(XmlPullParser.START_TAG, NAMESPACE, TAG_ALL_BUNDLES_NAME);
         while (parser.next() != XmlPullParser.END_TAG) {
             if (parser.getEventType() != XmlPullParser.START_TAG) {
@@ -212,8 +187,6 @@ public class ImageXmlParser {
                 if (bundleNumber >= startBundleNumber) {
                     List<Image> bundleImages = readBundle(parser);
                     mReadBundles.put(bundleNumber, bundleImages);
-                    images.addAll(bundleImages);
-                    postProgress((int) (PARSE_START_PROGRESS + (PARSE_END_PROGRESS - PARSE_START_PROGRESS) * bundleNumber / (double) ImageManager.ESTIMATED_BUNDLE_COUNT));
                     mHighestReadBundleNumber = Math.max(mHighestReadBundleNumber, bundleNumber); // so the bundles should be in ascending order in case of exceptions
                 } else {
                     skip(parser);
@@ -222,7 +195,6 @@ public class ImageXmlParser {
                 skip(parser);
             }
         }
-        return images;
     }
 
     private List<Image> readBundle(XmlPullParser parser) throws XmlPullParserException, IOException {
@@ -253,26 +225,37 @@ public class ImageXmlParser {
                 continue;
             }
             String name = parser.getName();
-            if (name.equals(ImageTable.COLUMN_HASH)) {
-                builder.setHash(readTextChecked(parser, ImageTable.COLUMN_HASH));
-            } else if (name.equals(ImageTable.COLUMN_RESNAME)) {
-                builder.setResourceName(mContext, readTextChecked(parser, ImageTable.COLUMN_RESNAME));
-            } else if (name.equals(ImageTable.COLUMN_SOLUTIONS)) {
-                builder.setSolutions(readSolutions(parser));
-            } else if (name.equals(ImageTable.COLUMN_AUTHOR)) {
-                builder.setAuthor(readAuthor(parser));
-            } else if (name.equals(ImageTable.COLUMN_RIDDLEPREFTYPES)) {
-                builder.setPreferredRiddleTypes(readPreferredRiddleTypes(parser));
-            } else if (name.equals(ImageTable.COLUMN_RIDDLEREFUSEDTYPES)) {
-                builder.setRefusedRiddleTypes(readRefusedRiddleTypes(parser));
-            } else if (name.equals(ImageTable.COLUMN_ORIGIN)) {
-                builder.setOrigin(readTextChecked(parser, ImageTable.COLUMN_ORIGIN));
-            } else if (name.equals(ImageTable.COLUMN_SAVELOC)) {
-                builder.setRelativeImagePath(readTextChecked(parser, ImageTable.COLUMN_SAVELOC));
-            } else if (name.equals(ImageTable.COLUMN_OBFUSCATION)) {
-                builder.setObfuscation(readTextChecked(parser, ImageTable.COLUMN_OBFUSCATION));
-            } else {
-                skip(parser);
+            switch (name) {
+                case ImageTable.COLUMN_HASH:
+                    builder.setHash(readTextChecked(parser, ImageTable.COLUMN_HASH));
+                    break;
+                case ImageTable.COLUMN_RESNAME:
+                    builder.setResourceName(mContext, readTextChecked(parser, ImageTable.COLUMN_RESNAME));
+                    break;
+                case ImageTable.COLUMN_SOLUTIONS:
+                    builder.setSolutions(readSolutions(parser));
+                    break;
+                case ImageTable.COLUMN_AUTHOR:
+                    builder.setAuthor(readAuthor(parser));
+                    break;
+                case ImageTable.COLUMN_RIDDLEPREFTYPES:
+                    builder.setPreferredRiddleTypes(readPreferredRiddleTypes(parser));
+                    break;
+                case ImageTable.COLUMN_RIDDLEREFUSEDTYPES:
+                    builder.setRefusedRiddleTypes(readRefusedRiddleTypes(parser));
+                    break;
+                case ImageTable.COLUMN_ORIGIN:
+                    builder.setOrigin(readTextChecked(parser, ImageTable.COLUMN_ORIGIN));
+                    break;
+                case ImageTable.COLUMN_SAVELOC:
+                    builder.setRelativeImagePath(readTextChecked(parser, ImageTable.COLUMN_SAVELOC));
+                    break;
+                case ImageTable.COLUMN_OBFUSCATION:
+                    builder.setObfuscation(readTextChecked(parser, ImageTable.COLUMN_OBFUSCATION));
+                    break;
+                default:
+                    skip(parser);
+                    break;
             }
         }
         try {
@@ -434,5 +417,13 @@ public class ImageXmlParser {
                     break;
             }
         }
+    }
+
+    public int getReadBundlesCount() {
+        return mReadBundles == null ? 0 : mReadBundles.size();
+    }
+
+    public int getHighestReadBundleNumber() {
+        return mHighestReadBundleNumber;
     }
 }

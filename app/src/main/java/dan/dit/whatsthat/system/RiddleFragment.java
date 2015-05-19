@@ -11,6 +11,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.InputType;
+import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Gravity;
@@ -51,6 +52,7 @@ import dan.dit.whatsthat.storage.ImagesContentProvider;
 import dan.dit.whatsthat.testsubject.TestSubject;
 import dan.dit.whatsthat.util.PercentProgressListener;
 import dan.dit.whatsthat.util.image.Dimension;
+import dan.dit.whatsthat.util.image.ExternalStorage;
 import dan.dit.whatsthat.util.ui.ViewWithNumber;
 
 /**
@@ -67,6 +69,7 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
     private ViewWithNumber mSolvedRiddlesCounter;
     private Iterator<Long> mOpenUnsolvedRiddlesId;
     private RiddlePickerDialog mRiddlePickerDialog;
+    private boolean mErrorHandlingAttempted;
 
     public void onProgressUpdate(int progress) {
         mProgressBar.onProgressUpdate(progress);
@@ -115,15 +118,22 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
 
     private void handleError(Image image, Riddle riddle) {
         if (image != null) {
-            Log.e("Riddle", "No bitmap for image " + image + " -> removing from database.");
-            ImageManager.removeInvalidImageImmediately(getActivity(), image);
+            if (TextUtils.isEmpty(image.getRelativePath()) || ExternalStorage.isMounted()) {
+                Log.e("Riddle", "No bitmap for image " + image + " has no relative image path or has one but storage is mounted -> removing from database.");
+                ImageManager.removeInvalidImageImmediately(getActivity(), image); // will update cursor and therefore list of images
+            } else if (mErrorHandlingAttempted) {
+                Toast.makeText(getActivity(), R.string.handle_error_attempted, Toast.LENGTH_SHORT).show();
+            }
         }
         if (riddle != null) {
             Log.e("Riddle", "Riddle on error. " + riddle + " removing from unsolved and database.");
             mManager.onRiddleInvalidated(riddle);
             Riddle.deleteFromDatabase(getActivity(), riddle.getId());
         }
-        findSomeRiddle();
+        if (!mErrorHandlingAttempted) {
+            mErrorHandlingAttempted = true;
+            findSomeRiddle();
+        }
     }
 
     private Dimension makeRiddleDimension() {
@@ -455,6 +465,7 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
     @Override
     public void onStart() {
         super.onStart();
+        mErrorHandlingAttempted = false;
         updateRiddleUI();
         getLoaderManager().initLoader(0, null, this);
         mManager.registerUnsolvedRiddleListener(this);

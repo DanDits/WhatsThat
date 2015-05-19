@@ -1,13 +1,15 @@
 package dan.dit.whatsthat.image;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.util.Log;
 
 import org.xmlpull.v1.XmlPullParserException;
 
 import java.io.IOException;
-import java.util.List;
+
+import dan.dit.whatsthat.R;
 
 /**
  * Manager class for image related things.
@@ -20,27 +22,24 @@ import java.util.List;
 public class ImageManager {
     protected static final String PREFERENCES_KEY_IMAGE_MANAGER_VERSION = "dan.dit.whatsthat.prefkey_imagemanagerversion";
 
-    public static final int ESTIMATED_BUNDLE_COUNT = 3; // some value for the progress bar, not too important, >= 1
-
     private ImageManager() {}
 
     private static SyncingTask SYNCING_TASK;
 
     public static void calculateImagedataDeveloper(Context context) {
         //Step1: Load new images from XML and calculate their hash and preferences
-        ImageXmlParser parser = new ImageXmlParser();
-        List<Image> loadedImages = null;
+        ImageXmlParser parser = null;
         try {
-            loadedImages = parser.parseNewBundlesDeveloper(context);
-            Log.d("Image", "Loaded images: " + loadedImages);
+            parser = ImageXmlParser.parseInput(context, context.getResources().openRawResource(R.raw.imagedata_uncompiled), 0, true);
+            Log.d("Image", "Loaded bundles: " + parser.getReadBundlesCount());
         } catch (IOException e) {
             Log.d("Image", "IOEXCEPTION: " + e);
         } catch (XmlPullParserException e) {
             Log.d("Image", "XML EXCEPTION " + e);
         }
-        if (loadedImages != null) {
+        if (parser != null && parser.getReadBundlesCount() > 0) {
             //Step 2: Save the updated images to new xml for future use
-            Log.d("Image", "Loaded " + loadedImages.size() + " images, now writing again to compiled file.");
+            Log.d("Image", "Loaded " + parser.getReadBundlesCount() + " bundles, now writing again to compiled file.");
             for (Integer bundleNumber : parser.getReadBundleNumbers()) {
                 ImageXmlWriter.writeBundle(context, parser.getBundle(bundleNumber), bundleNumber);
             }
@@ -87,9 +86,20 @@ public class ImageManager {
 
         @Override
         protected Void doInBackground(Void... voids) {
-            ImageXmlParser parser = new ImageXmlParser();
+            SharedPreferences prefs = mContext.getSharedPreferences(Image.SHAREDPREFERENCES_FILENAME, Context.MODE_PRIVATE);
+            int currBundleNumber = prefs.getInt(ImageManager.PREFERENCES_KEY_IMAGE_MANAGER_VERSION, 0);
+
+            ImageXmlParser parser = null;
             try {
-                parser.parseAndSyncBundles(mContext, new SynchronizationListener() {
+                parser = ImageXmlParser.parseInput(mContext, mContext.getResources().openRawResource(R.raw.imagedata), currBundleNumber + 1, false);
+            } catch (IOException e) {
+                Log.e("Image", "IO Error parsing bundles: " + e);
+            } catch (XmlPullParserException e) {
+                Log.e("Image", "XML Error parsing bundles: " + e);
+            }
+            if (parser != null) {
+
+                SynchronizationListener listener = new SynchronizationListener() {
 
                     @Override
                     public void onSyncProgress(int progress) {
@@ -102,12 +112,17 @@ public class ImageManager {
                     @Override
                     public boolean isSyncCancelled() {
                         return isCancelled();
+                    }};
+
+                if (parser.syncToDatabase(listener)) {
+                    int highestNumber = parser.getHighestReadBundleNumber();
+                    if (highestNumber > currBundleNumber) {
+                        prefs.edit().putInt(ImageManager.PREFERENCES_KEY_IMAGE_MANAGER_VERSION, highestNumber).apply();
                     }
-                });
-            } catch (IOException e) {
-                Log.e("Image", "IO Error parsing bundles: " + e);
-            } catch (XmlPullParserException e) {
-                Log.e("Image", "XML Error parsing bundles: " + e);
+                    Log.d("Image", "Parsed and synced bundles: Loaded images from XML with highest read number= " + highestNumber);
+                } else {
+                    Log.d("Image", "Parsing for image sync cancelled or failed.");
+                }
             }
             return null;
         }
