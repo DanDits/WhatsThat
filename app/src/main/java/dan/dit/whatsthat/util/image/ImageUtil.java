@@ -31,6 +31,7 @@ public final class ImageUtil {
     private static final String IMAGE_FILE_EXTENSION = ".png";
     private static final double SIMILARITY_SCALING_THRESHOLD = 0.5; // 0 would mean only exactly the same aspect ratio
     private static final String MEDIA_DIRECTORY_NAME = "Media";
+    private static MessageDigest DIGEST;
 
     private ImageUtil() {
 	}
@@ -114,17 +115,18 @@ public final class ImageUtil {
         if (data == null) {
             return null;
         }
-        MessageDigest m;
 
-        try {
-            m = MessageDigest.getInstance("MD5");
-        } catch (NoSuchAlgorithmException e) {
-            Log.e("Util", "NoSuchAlgorithm HD5!");
-            return null;
+        if (DIGEST == null) {
+            try {
+                DIGEST = MessageDigest.getInstance("MD5");
+            } catch (NoSuchAlgorithmException e) {
+                Log.e("Util", "NoSuchAlgorithm HD5!");
+                return null;
+            }
         }
-        m.reset();
-        m.update(data, 0, data.length);
-        return new BigInteger(1, m.digest()).toString(16); // length 32 in hex format
+        DIGEST.reset();
+        DIGEST.update(data, 0, data.length);
+        return new BigInteger(1, DIGEST.digest()).toString(16); // length 32 in hex format
 
     }
 

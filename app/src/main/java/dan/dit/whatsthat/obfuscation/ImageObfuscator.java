@@ -6,7 +6,6 @@ import dan.dit.whatsthat.util.image.ColorAnalysisUtil;
 import dan.dit.whatsthat.util.image.FixedRandom;
 import dan.dit.whatsthat.util.image.ImageColor;
 
-
 public class ImageObfuscator {
     public static final int IS_OBFUSCATED_HINT = 0x00000001; // not stored in pixel, do not start with FF
 	private static final double BRIGHTNESS_THRESHOLD = 0.5; // threshold when a pixel is considered to be bright

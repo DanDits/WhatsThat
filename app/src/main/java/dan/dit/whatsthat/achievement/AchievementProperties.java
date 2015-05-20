@@ -11,10 +11,24 @@ import dan.dit.whatsthat.util.compaction.Compacter;
  */
 public class AchievementProperties extends AchievementData {
     protected final Map<String, Long> mValues = new HashMap<>();
+    private boolean mSilentChangeMode;
 
     public AchievementProperties(String name, Compacter data) throws CompactedDataCorruptException {
         super(name);
         unloadData(data);
+    }
+
+    /**
+     * Enables or disables the silent change mode. This should be used when many changes that belong together
+     * are done and if listeners should not be notified about every small change.
+     * @param silentChanges True to enable silent changes. False to return to default mode that notifies
+     *                      listeners about all future changes and potential changes during silent mode (so this will notify listeners).
+     */
+    protected void setSilentChangeMode(boolean silentChanges) {
+        mSilentChangeMode = silentChanges;
+        if (!silentChanges) {
+            notifyListeners();
+        }
     }
 
     public AchievementProperties(String name) {
@@ -22,11 +36,11 @@ public class AchievementProperties extends AchievementData {
     }
 
     @Override
-    protected void resetData() {
+    protected synchronized void resetData() {
         mValues.clear();
     }
 
-    public void putValue(String key, Long value) {
+    public synchronized void putValue(String key, Long value) {
         if (key == null) {
             return;
         }
@@ -37,12 +51,12 @@ public class AchievementProperties extends AchievementData {
             old = mValues.put(key, value);
         }
         // if there previously was no value or the value changed, notify listeners
-        if ((value != null && old == null) || (old != null && !old.equals(value))) {
+        if (!mSilentChangeMode && ((value != null && old == null) || (old != null && !old.equals(value)))) {
             notifyListeners();
         }
     }
 
-    public Long increment(String key, long delta, long baseValue) {
+    public synchronized Long increment(String key, long delta, long baseValue) {
         if (key == null) {
             return null;
         }
@@ -53,11 +67,13 @@ public class AchievementProperties extends AchievementData {
             value += delta;
         }
         mValues.put(key, value);
-        notifyListeners();
+        if (!mSilentChangeMode) {
+            notifyListeners();
+        }
         return value;
     }
 
-    public Long getValue(String key, long defaultValue) {
+    public synchronized Long getValue(String key, long defaultValue) {
         Long value = mValues.get(key);
         if (value == null) {
             return defaultValue;

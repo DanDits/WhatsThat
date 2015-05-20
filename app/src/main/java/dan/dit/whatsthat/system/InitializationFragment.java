@@ -2,6 +2,7 @@ package dan.dit.whatsthat.system;
 
 import android.app.Fragment;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -21,11 +22,16 @@ import android.view.animation.RotateAnimation;
 import android.view.animation.ScaleAnimation;
 import android.view.animation.TranslateAnimation;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import dan.dit.whatsthat.R;
+import dan.dit.whatsthat.image.Image;
 import dan.dit.whatsthat.image.ImageManager;
+import dan.dit.whatsthat.preferences.Language;
+import dan.dit.whatsthat.preferences.Tongue;
 import dan.dit.whatsthat.riddle.RiddleInitializer;
 import dan.dit.whatsthat.testsubject.TestSubject;
 import dan.dit.whatsthat.util.PercentProgressListener;
@@ -47,6 +53,7 @@ public class InitializationFragment extends Fragment implements ImageManager.Syn
     private TextView mIntroSubjectDescr;
     private View mIntroContainer;
     private TextView mIntroText;
+    private ImageButton mTongueSelect;
 
     private void startAnimation() {
         final long fallDownDuration = 4000;
@@ -160,7 +167,7 @@ public class InitializationFragment extends Fragment implements ImageManager.Syn
     }
 
     private void updateProgressBar() {
-        mProgressBar.onProgressUpdate((mImageProgress + mRiddleProgress ) / 2);
+        mProgressBar.onProgressUpdate((mImageProgress + mRiddleProgress) / 2);
     }
 
     private void startSyncing() {
@@ -223,6 +230,12 @@ public class InitializationFragment extends Fragment implements ImageManager.Syn
     @Override
     public void onStart() {
         super.onStart();
+        SharedPreferences prefs = getActivity().getSharedPreferences(Image.SHAREDPREFERENCES_FILENAME, Context.MODE_PRIVATE);
+        Tongue preferredTongue = Language.getTonguePreference(prefs);
+        if (preferredTongue != null) {
+            Language.makeInstance(preferredTongue);
+        }
+        updateTongueButton();
         if (!TestSubject.isInitialized()) {
             new AsyncTask<Void, Void, Void>() {
                 @Override
@@ -262,6 +275,10 @@ public class InitializationFragment extends Fragment implements ImageManager.Syn
         return inflater.inflate(R.layout.initialization_base, null);
     }
 
+    private void updateTongueButton() {
+        mTongueSelect.setImageResource(Language.getInstance().getTongueIcon());
+    }
+
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
@@ -273,7 +290,29 @@ public class InitializationFragment extends Fragment implements ImageManager.Syn
         mIntroContainer = getView().findViewById(R.id.init_intro);
         mIntroText = (TextView) getView().findViewById(R.id.init_text);
         mProgressBar = (LinearLayoutProgressBar) getView().findViewById(R.id.progress_bar);
-
+        mTongueSelect = (ImageButton) getView().findViewById(R.id.tongue_select);
+        mTongueSelect.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Tongue nextTongue = Tongue.nextTongue(Language.getInstance().getTongue());
+                if (nextTongue != null) {
+                    Language.makeInstance(nextTongue);
+                    SharedPreferences prefs = getActivity().getSharedPreferences(Image.SHAREDPREFERENCES_FILENAME, Context.MODE_PRIVATE);
+                    Language.getInstance().saveAsPreference(prefs);
+                    updateTongueButton();
+                }
+            }
+        });
+        mTongueSelect.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                Toast.makeText(getActivity(),
+                        getResources().getString(R.string.tongue_select_explanation, Language.getInstance().getTongue().getLocalizedName()),
+                        Toast.LENGTH_SHORT
+                ).show();
+                return true;
+            }
+        });
         mInitSkip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

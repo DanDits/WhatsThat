@@ -13,17 +13,17 @@ import dan.dit.whatsthat.util.compaction.Compacter;
 public class AchievementDataTimer extends AchievementData {
     private Map<String, long[]> mTimedData = new HashMap<>();
 
-    public AchievementDataTimer(String dataName) {
-        super(dataName);
-    }
-
     public AchievementDataTimer(String dataName, Compacter compactedData) throws CompactedDataCorruptException {
         super(dataName);
         unloadData(compactedData);
     }
 
+    public AchievementDataTimer(String dataName) {
+        super(dataName);
+    }
+
     @Override
-    protected void resetData() {
+    protected synchronized void resetData() {
         mTimedData.clear();;
     }
 
@@ -68,14 +68,14 @@ public class AchievementDataTimer extends AchievementData {
         }
     }
 
-    public void newTimedData(String key, int amount) {
+    public synchronized void newTimedData(String key, int amount) {
         if (key == null || amount <= 0) {
             return;
         }
         mTimedData.put(key, new long[amount]);
     }
 
-    public void onTimedData(String key, long timestamp) {
+    public synchronized void onTimedData(String key, long timestamp) {
         if (key == null || timestamp <= 0) {
             return;
         }

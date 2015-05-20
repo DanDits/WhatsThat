@@ -76,9 +76,6 @@ public class Image {
         return mHash.hashCode();
     }
 
-    public boolean isObfuscated() {
-        return mIsObfuscated != 0;
-    }
 
     /**
      * Deletes the given image from the database. This should not commonly be used! It is required
@@ -147,34 +144,6 @@ public class Image {
 
         cv.put(ImagesContentProvider.SQL_INSERT_OR_REPLACE, true);
         return context.getContentResolver().insert(ImagesContentProvider.CONTENT_URI_IMAGE, cv) != null;
-    }
-
-    protected static String[] loadAvailableHashes(Context context) {
-        Cursor cursor = context.getContentResolver().query(ImagesContentProvider.CONTENT_URI_IMAGE,
-                new String[] {ImageTable.COLUMN_HASH}, null, null, ImageTable.COLUMN_TIMESTAMP + " ASC");
-
-        String[] hashes = new String[cursor.getCount()];
-        cursor.moveToFirst();
-
-        int index = 0;
-        while (!cursor.isAfterLast()) {
-            hashes[index++]=cursor.getString(cursor.getColumnIndexOrThrow(ImageTable.COLUMN_HASH));
-            cursor.moveToNext();
-        }
-        cursor.close();
-        return hashes;
-    }
-
-    protected static Image loadFromDatabase(Context context, String hash) {
-        Cursor cursor = context.getContentResolver().query(ImagesContentProvider.buildImageUri(hash), ImageTable.ALL_COLUMNS, null, null, null);
-        cursor.moveToFirst();
-        if (cursor.isAfterLast()) {
-            Log.e("Image", "Failed loading image with hash "  + hash + " from database. Cursor empty.");
-            return null;
-        }
-        Image curr = loadFromCursor(context, cursor);
-        cursor.close();
-        return curr;
     }
 
     public static Image loadFromCursor(Context context, Cursor cursor) {
@@ -312,11 +281,18 @@ public class Image {
                 return sol;
             }
         }
-        if (!tongue.equals(Tongue.ENGLISH)) {
-            Solution lastTry = getSolution(Tongue.ENGLISH);
-            if (lastTry != null) {
-                return lastTry;
+        // didn't find a solution in the wanted tongue, check the tongue's parent
+        Tongue parent = tongue.getParentTongue();
+        if (parent != null) {
+            for (Solution sol : mSolutions) {
+                if (sol.getTongue().equals(parent)) {
+                    return sol;
+                }
             }
+        }
+        // still didn't find a solution, if we wanted something else than english lets try to get the english language else just take any solution
+        if (!Tongue.ENGLISH.equals(tongue)) {
+            return getSolution(Tongue.ENGLISH); // will either be the english solution or the first solution in the list
         }
         return mSolutions.get(0);
     }
@@ -497,6 +473,7 @@ public class Image {
                 throw new BuildException("Source: " + mImage.mName).setMissingData("Image","ResPath or resId");
             }
             if (TextUtils.isEmpty(mImage.mHash)) {
+                Log.d("Image", "Building image with no hash yet: " + mImage.mName);
                 calculateHashAndPreferences(context);
             }
             if (mImage.mSolutions == null || mImage.mSolutions.isEmpty()) {

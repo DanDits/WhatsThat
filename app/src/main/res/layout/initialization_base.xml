@@ -12,11 +12,17 @@
         android:padding="4dp">
 
         <Button
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
             android:text="@string/init_skip_unavailable"
             android:id="@+id/init_skip"
             style="@style/button_important" />
+        <ImageButton android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/flag_en"
+            android:id="@+id/tongue_select"></ImageButton>
     </view>
 
     <FrameLayout

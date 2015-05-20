@@ -1,4 +1,4 @@
-package dan.dit.whatsthat.crash;
+package dan.dit.whatsthat.system;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -7,6 +7,7 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 
@@ -29,8 +30,7 @@ public class SendLog extends Activity implements View.OnClickListener {
     private static final String LOGS_DIRECTORY_NAME = "logs";
 
     @Override
-    public void onCreate(Bundle savedInstanceState)
-    {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature (Window.FEATURE_NO_TITLE); // make a dialog without a titlebar
         setFinishOnTouchOutside (false); // prevent users from dismissing the dialog by tapping outside
@@ -40,9 +40,7 @@ public class SendLog extends Activity implements View.OnClickListener {
     }
 
     @Override
-    public void onClick (View v)
-    {
-        // respond to button clicks in your UI
+    public void onClick (View v) {
         if (v.getId() == R.id.send) {
             sendLogFile();
         } else {
@@ -70,13 +68,13 @@ public class SendLog extends Activity implements View.OnClickListener {
         }
     }
 
-    private String extractLogToFile()
-    {
+    private String extractLogToFile() {
         PackageManager manager = this.getPackageManager();
         PackageInfo info = null;
         try {
             info = manager.getPackageInfo (this.getPackageName(), 0);
         } catch (PackageManager.NameNotFoundException e2) {
+            // we got no package name, whatever
         }
         String model = Build.MODEL;
         if (!model.startsWith(Build.MANUFACTURER))
@@ -136,14 +134,16 @@ public class SendLog extends Activity implements View.OnClickListener {
                 try {
                     writer.close();
                 } catch (IOException e1) {
+                    // failed closing after exception, ignore
                 }
             if (reader != null)
                 try {
                     reader.close();
                 } catch (IOException e1) {
+                    // failed closing after exception, ignore
                 }
 
-            // You might want to write a failure message to the log here.
+            Log.e("HomeStuff", "Failed failing. Literally .. could not write log file: " + e);
             return null;
         }
 

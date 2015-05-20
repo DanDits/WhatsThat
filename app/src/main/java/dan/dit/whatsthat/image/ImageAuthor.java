@@ -21,10 +21,6 @@ public class ImageAuthor implements Compactable {
     private String mTitle; // title of the image if any
     private String mExtras; // like modifications or any additions and remarks if any
 
-    public ImageAuthor(String name, String source) {
-        this(name, source, null, null, null);
-    }
-
     public ImageAuthor(String name, String source, String license, String title, String extras) {
         mName = name;
         mSource = source == null ? "" : source;

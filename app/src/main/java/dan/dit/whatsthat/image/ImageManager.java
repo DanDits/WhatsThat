@@ -9,6 +9,7 @@ import org.xmlpull.v1.XmlPullParserException;
 
 import java.io.IOException;
 
+import dan.dit.whatsthat.BuildConfig;
 import dan.dit.whatsthat.R;
 
 /**
@@ -26,10 +27,21 @@ public class ImageManager {
 
     private static SyncingTask SYNCING_TASK;
 
+    /**
+     * DEVELOPER METHOD; NOT FOR RELEASE.
+     * <br>Parses the imagedata_uncompiled xml file, calculates hashs and preferences if required
+     * and writes each read bundle to its own file. Will terminate the program with an Exception.
+     * @param context A context.
+     */
     public static void calculateImagedataDeveloper(Context context) {
+        if (!BuildConfig.DEBUG) {
+            Log.e("HomeStuff", "Using developer method in non debug build:  calculateImagedataDeveloper");
+            return; // do nothing, but better this should never be called
+        }
         //Step1: Load new images from XML and calculate their hash and preferences
         ImageXmlParser parser = null;
         try {
+            Log.d("Image", "Starting parsing uncompiled images and compiling them.");
             parser = ImageXmlParser.parseInput(context, context.getResources().openRawResource(R.raw.imagedata_uncompiled), 0, true);
             Log.d("Image", "Loaded bundles: " + parser.getReadBundlesCount());
         } catch (IOException e) {
@@ -121,7 +133,7 @@ public class ImageManager {
                     }
                     Log.d("Image", "Parsed and synced bundles: Loaded images from XML with highest read number= " + highestNumber);
                 } else {
-                    Log.d("Image", "Parsing for image sync cancelled or failed.");
+                    Log.d("Image", "Parsing for image sync: no new bundles, cancelled or failed.");
                 }
             }
             return null;

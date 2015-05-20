@@ -17,14 +17,15 @@ public class InitActivity extends Activity implements InitializationFragment.OnI
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.d("HomeStuff", "onCreate of InitActivity.");
         //ImageManager.calculateImagedataDeveloper(this);
         setContentView(R.layout.init_activity);
     }
 
     @Override
-    public void onDestroy() {
-        super.onDestroy();
-        Log.d("HomeStuff", "onDestroy of InitActivity, cancel all, init running=" + RiddleInitializer.INSTANCE.isInitializing() + " sync running=" + ImageManager.isSyncing());
+    public void onStop() {
+        super.onStop();
+        Log.d("HomeStuff", "onStop of InitActivity, cancel all, init running=" + RiddleInitializer.INSTANCE.isInitializing() + " sync running=" + ImageManager.isSyncing());
         RiddleInitializer.INSTANCE.cancelInit();
         ImageManager.cancelSync();
     }

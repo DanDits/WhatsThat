@@ -2,15 +2,12 @@ package dan.dit.whatsthat.system;
 
 import android.app.Application;
 import android.content.Intent;
-import android.util.Log;
 
 public class MyApplication extends Application
 {
   @Override
   public void onCreate ()
   {
-      super.onCreate();
-    Log.d("HomeStuff", "Created application.");
     // Setup handler for uncaught exceptions.
     Thread.setDefaultUncaughtExceptionHandler (new Thread.UncaughtExceptionHandler()
     {
@@ -20,6 +17,7 @@ public class MyApplication extends Application
         handleUncaughtException (thread, e);
       }
     });
+      super.onCreate();
   }
 
 
@@ -27,7 +25,7 @@ public class MyApplication extends Application
         e.printStackTrace(); // not all Android versions will print the stack trace automatically
 
         Intent intent = new Intent ();
-        intent.setAction ("com.mydomain.SEND_LOG"); // see step 5.
+        intent.setAction ("dan.dit.whatsthat.SEND_LOG"); // see step 5.
         intent.setFlags (Intent.FLAG_ACTIVITY_NEW_TASK); // required when starting from Application
         startActivity (intent);
 

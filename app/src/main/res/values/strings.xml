@@ -86,6 +86,7 @@
     </string-array>
     <string name="riddle_type_snow_firstrun">Grow bigger and explode to see the image!</string>
     <string name="handle_error_attempted">Bild nicht vorhanden?! Externen Speicher prüfen!</string>
+    <string name="tongue_select_explanation">Sprache für Lösungswörter: %1$s</string>
 
 
 </resources>
