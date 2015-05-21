@@ -47,9 +47,9 @@ public abstract class AchievementData implements Compactable {
         return mListeners.remove(listener);
     }
 
-    protected void notifyListeners() {
+    protected void notifyListeners(AchievementDataEvent event) {
         for (AchievementDataEventListener listener : mListeners) {
-            listener.onDataEvent(this);
+            listener.onDataEvent(event);
         }
     }
 }

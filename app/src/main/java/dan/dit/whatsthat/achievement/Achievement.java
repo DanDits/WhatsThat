@@ -7,7 +7,7 @@ import android.text.TextUtils;
  * Created by daniel on 12.05.15.
  */
 public abstract class Achievement implements AchievementDataEventListener {
-    public static final String SEPARATOR = "_"; // not allowed in id or keys
+    public static final String SEPARATOR = "_"; // not allowed in achievement id or keys
     private static final String KEY_DISCOVERED = "discovered";
     private static final String KEY_ACHIEVED = "achieved";
     private static final String KEY_VALUE = "value";
@@ -16,7 +16,7 @@ public abstract class Achievement implements AchievementDataEventListener {
     protected final String mId;
     protected boolean mDiscovered;
     protected boolean mAchieved;
-    private AchievementManager mManager;
+    protected final AchievementManager mManager;
     protected int mValue;
     protected int mMaxValue;
 
@@ -30,8 +30,9 @@ public abstract class Achievement implements AchievementDataEventListener {
             throw new IllegalArgumentException("Separator contained in id " + id);
         }
         if (manager == null) {
-            throw new IllegalArgumentException("Null managet given.");
+            throw new IllegalArgumentException("Null manager given.");
         }
+        //TODO load achievement data from manager
     }
 
     @Override
@@ -50,7 +51,7 @@ public abstract class Achievement implements AchievementDataEventListener {
 
     public abstract void initEvents();
 
-    protected final void discover() {
+    protected synchronized final void discover() {
         if (mDiscovered) {
             return; // already discovered
         }
@@ -61,9 +62,12 @@ public abstract class Achievement implements AchievementDataEventListener {
 
     protected abstract void onDiscovered();
 
-    protected final void achieve() {
+    protected synchronized final void achieve() {
         if (mAchieved) {
             return; // already achieved
+        }
+        if (!mDiscovered) {
+            discover();
         }
         mAchieved = true;
         onAchieved();

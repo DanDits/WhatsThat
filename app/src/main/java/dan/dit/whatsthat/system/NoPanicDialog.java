@@ -7,7 +7,6 @@ import android.app.DialogFragment;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.TextView;
@@ -119,7 +118,6 @@ public class NoPanicDialog extends DialogFragment {
                 mCallback.onComplain();
             }
         });
-        Log.d("Riddle", "No panic dialog with type " + mType + " and image " + mImage);
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle(R.string.no_panic_title).setIcon(R.drawable.dontpanic)
                 .setView(baseView)

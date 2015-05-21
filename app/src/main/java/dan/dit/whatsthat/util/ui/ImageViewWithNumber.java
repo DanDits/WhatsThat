@@ -18,6 +18,7 @@ public class ImageViewWithNumber extends ImageView implements ViewWithNumber{
     private float mRelX = 0.5f;
     private float mRelY = 0.5f;
 
+    //TODO add the numer size to the attribute set and read the attribute
     public ImageViewWithNumber(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
@@ -46,6 +47,7 @@ public class ImageViewWithNumber extends ImageView implements ViewWithNumber{
     private void drawTextCentered(Canvas canvas, String text, float x, float y) {
         float numberOffsetY = -((mPaint.descent() + mPaint.ascent()) / 2);
         mPaint.getTextBounds(text, 0, text.length(), mDummyRect);
+        mPaint.setTextSize(20.f);
         canvas.drawText(text, x - mDummyRect.exactCenterX(), y + numberOffsetY, mPaint);
     }
 }

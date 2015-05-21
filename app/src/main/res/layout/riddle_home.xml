@@ -21,10 +21,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/riddles_solved"
-                android:src="@drawable/solved_board"
+                android:src="@drawable/currency"
                 android:layout_alignParentLeft="true"
-                android:layout_alignParentBottom="false"
                 android:layout_alignParentTop="true"
+                android:layout_toLeftOf="@+id/riddle_make_next"
                 android:layout_alignBottom="@+id/riddle_make_next" />
             <ImageButton
                 android:layout_width="wrap_content"

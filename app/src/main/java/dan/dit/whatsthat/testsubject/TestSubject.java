@@ -16,6 +16,7 @@ import java.util.Random;
 
 import dan.dit.whatsthat.R;
 import dan.dit.whatsthat.achievement.AchievementManager;
+import dan.dit.whatsthat.riddle.achievement.AchievementHolder;
 import dan.dit.whatsthat.riddle.types.PracticalRiddleType;
 
 /**
@@ -30,6 +31,7 @@ public class TestSubject implements Runnable {
     private static final TestSubject INSTANCE = new TestSubject();
     public static final int LEVEL_0_KID_STUPID= 0;
     public static final int LEVEL_1_KID_NORMAL = 1;
+    public static final String EMAIL_ON_ERROR = "whatsthat.feedback@gmail.com";
 
 
     private boolean mInitialized;
@@ -52,6 +54,7 @@ public class TestSubject implements Runnable {
     private Handler mHandler;
     private List<TestSubjectToast> mToasts;
     private Context mApplicationContext;
+    private AchievementHolder mAchievementHolder;
 
     private TestSubject() {
     }
@@ -63,6 +66,7 @@ public class TestSubject implements Runnable {
         INSTANCE.init(context.getResources());
         INSTANCE.mInitialized = true;
         INSTANCE.initTypes();
+        INSTANCE.mAchievementHolder = AchievementHolder.getInstance(AchievementManager.getInstance());
         return INSTANCE;
     }
 

@@ -57,7 +57,7 @@ public class AchievementManager implements AchievementDataEventListener {
 
     protected void onChanged(Achievement achievement) {
         if (achievement != null) {
-            mChangedAchievements.add(achievement);
+            //mChangedAchievements.add(achievement); //TODO uncomment
             // TODO display if achieved or updated progress
         }
     }
@@ -69,10 +69,8 @@ public class AchievementManager implements AchievementDataEventListener {
     }
 
     @Override
-    public void onDataEvent(AchievementData changedData) {
-        if (changedData != null) {
-            mManagedChangedData.add(changedData);
-        }
+    public void onDataEvent(AchievementDataEvent event) {
+        mManagedChangedData.add(event.getChangedData());
     }
 
     public Compacter loadDataEvent(String name) {
