@@ -24,7 +24,7 @@
 	<item>°Unsere Wahl fiel auf dich.°</item>
 	<item>°Du wirst unser Testobjekt sein.°</item>
 	<item>°Wir werden dich beobachten.°</item>
-	<item>°Wir hoffen du hast das Potential, das wir in dir sehen.°</item>
+	<item>°Wir hoffen, du hast das Potential, das wir in dir sehen.°</item>
 	<item>°Zumindest aus der Entfernung sahst du vielversprechend aus…°</item>
 	<item>°…aber von nahem betrachtet…°</item>
 	<item>°Enttäusche deinen Planeten besser nicht.°</item>
@@ -78,9 +78,9 @@
     <string name="riddle_dialog_tab_types" >Was kann ich rätseln?</string>
     <string name="riddle_dialog_tab_unsolved" >Ausgelassen und vergessen…</string>
     <string name="riddle_type_circle">Kreise</string>
-    <string name="riddle_type_circle_explanation">Ein Kreis wird zu vier kleineren Kreisen. Berühre die Kreise um sie platzen zu lassen, bis du etwas erkennst. Lass ab und zu los um auch die neuen Kreise zu erwischen.</string>
+    <string name="riddle_type_circle_explanation">Berühre einen Kreis, damit sich dieser in vier kleinere aufteilt. Verbesser die Kontur, bis du das Bild erkennst.</string>
     <string name="riddle_type_snow">Nebel</string>
-    <string name="riddle_type_snow_explanation">Bewege die Zelle durch Kippen des Gerätes in alle Richtungen. Sammle Sachen, berühre keine Wand, werde größer und EXPLODIERE.</string>
+    <string name="riddle_type_snow_explanation">Bewege die Zelle durch Kippen des Gerätes. Sammle Biohazards, werde größer und EXPLODIERE, ohne eine Wand zu berühren!</string>
     <string name="riddle_type_dice">Würfel</string>
     <string name="riddle_type_dice_explanation">Berühre ein leeres Feld, damit ein neuer Würfel erscheint. Bewege und kombiniere Würfel gleicher Augenzahl und Farbe, um das Bild aufzudecken.</string>
     <string name="riddle_type_developer">Entwickler</string>
@@ -95,17 +95,18 @@
         <item>Wessen Meistwerk ist das?</item>
         <item>Staune über die Kreativität!</item>
         <item>Virtuos mit Pinsel und Maus:</item>
+        <item>Ist das Kunst oder kann ich weitermachen?:</item>
         <item>Kunst kommt von Können:</item>
         <item>Wahnsinnig toller Mensch:</item>
     </string-array>
     <string name="no_panic_title">Keine Panik!</string>
     <string name="riddle_type_triangle">Dreiecke</string>
-    <string name="riddle_type_triangle_explanation">Berühre einen Punkt in einem Dreieck um neue kleinere Dreiecke zu erzeugen, welche die Farben genauer darstellen.</string>
+    <string name="riddle_type_triangle_explanation">Berühre einen Punkt in einem Dreieck, um kleinere Dreiecke mit schärferem Kontrast zu erzeugen.</string>
     <string name="riddle_type_jumper">Jump\'n\'run</string>
-    <string name="riddle_type_jumper_explanation">Berühre das Feld um über Hindernisse zu springen. Erreiche Checkpoints um das Bild im Hintergrund zu entdecken.</string>
+    <string name="riddle_type_jumper_explanation">Berühre das Feld, um über Hindernisse zu springen und das Bild zu vergrößern! Halte im Sprung das Feld gedrückt, um einen Double-Jump auszuführen.</string>
     <string name="riddle_type_circle_firstrun">Verkleinere die Kreise!</string>
     <string name="riddle_type_triangle_firstrun">Verkleinere die Dreiecke!</string>
-    <string name="riddle_type_dice_firstrun">Erschaffe grüne Würfel. Bewege und kombiniere gleichfarbige Augenzahlen!</string>
+    <string name="riddle_type_dice_firstrun">Kombiniere gleichfarbige Augenzahlen und erschaffe grüne Würfel!</string>
     <string name="riddle_type_snow_firstrun">Wachse und explodiere das Bild frei!</string>
     <string name="handle_error_attempted">Bild nicht vorhanden?! Externen Speicher prüfen!</string>
     <string name="tongue_select_explanation">Sprache für Lösungswörter: %1$s</string>
