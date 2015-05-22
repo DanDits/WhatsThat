@@ -57,7 +57,7 @@ public class AchievementManager implements AchievementDataEventListener {
 
     protected void onChanged(Achievement achievement) {
         if (achievement != null) {
-            //mChangedAchievements.add(achievement); //TODO uncomment
+            mChangedAchievements.add(achievement);
             // TODO display if achieved or updated progress
         }
     }
@@ -82,5 +82,9 @@ public class AchievementManager implements AchievementDataEventListener {
             return null;
         }
         return new Compacter(data);
+    }
+
+    protected SharedPreferences getSharedPreferences() {
+        return mPrefs;
     }
 }

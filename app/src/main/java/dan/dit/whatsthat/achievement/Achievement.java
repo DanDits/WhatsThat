@@ -12,6 +12,9 @@ public abstract class Achievement implements AchievementDataEventListener {
     private static final String KEY_ACHIEVED = "achieved";
     private static final String KEY_VALUE = "value";
     private static final String KEY_MAX_VALUE = "maxvalue";
+    public static final boolean DEFAULT_IS_DISCOVERED = true;
+    private static final int DEFAULT_VALUE = 0;
+    private static final int DEFAULT_MAX_VALUE = 0;
 
     protected final String mId;
     protected boolean mDiscovered;
@@ -32,7 +35,8 @@ public abstract class Achievement implements AchievementDataEventListener {
         if (manager == null) {
             throw new IllegalArgumentException("Null manager given.");
         }
-        //TODO load achievement data from manager
+        loadData(manager.getSharedPreferences());
+        onCreated();
     }
 
     @Override
@@ -49,7 +53,9 @@ public abstract class Achievement implements AchievementDataEventListener {
         }
     }
 
-    public abstract void initEvents();
+    protected abstract void onCreated();
+
+    protected abstract void onInit();
 
     protected synchronized final void discover() {
         if (mDiscovered) {
@@ -76,12 +82,19 @@ public abstract class Achievement implements AchievementDataEventListener {
 
     protected abstract void onAchieved();
 
-    public void addData(SharedPreferences.Editor editor) {
+    protected final void addData(SharedPreferences.Editor editor) {
         editor
                 .putBoolean(mId + SEPARATOR + KEY_DISCOVERED, mDiscovered)
                 .putBoolean(mId + SEPARATOR + KEY_ACHIEVED, mAchieved)
                 .putInt(mId + SEPARATOR + KEY_VALUE, mValue)
                 .putInt(mId + SEPARATOR + KEY_MAX_VALUE, mMaxValue);
 
+    }
+
+    private void loadData(SharedPreferences prefs) {
+        mDiscovered = prefs.getBoolean(mId + SEPARATOR + KEY_DISCOVERED, DEFAULT_IS_DISCOVERED);
+        mAchieved = prefs.getBoolean(mId + SEPARATOR + KEY_ACHIEVED, false); // any other default value would be kinda.. stupid
+        mValue = prefs.getInt(mId + SEPARATOR + KEY_VALUE, DEFAULT_VALUE);
+        mMaxValue = prefs.getInt(mId + SEPARATOR + KEY_VALUE, DEFAULT_MAX_VALUE);
     }
 }
