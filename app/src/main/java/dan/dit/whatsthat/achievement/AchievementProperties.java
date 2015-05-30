@@ -10,18 +10,19 @@ import dan.dit.whatsthat.util.compaction.Compacter;
  * Created by daniel on 12.05.15.
  */
 public class AchievementProperties extends AchievementData {
+    public static final long UPDATE_POLICY_ALWAYS = 0L;
+
     protected final Map<String, Long> mValues = new HashMap<>();
     private boolean mSilentChangeMode;
     protected AchievementDataEvent mEvent = new AchievementDataEvent();
 
-
-    public enum UpdatePolicy {
-        ALWAYS, GREATER, SMALLER
-    }
-
     public AchievementProperties(String name, Compacter data) throws CompactedDataCorruptException {
         super(name);
         unloadData(data);
+    }
+
+    protected boolean isSilentChangeMode() {
+        return mSilentChangeMode;
     }
 
     protected void enableSilentChanges(int eventType) {
@@ -47,20 +48,27 @@ public class AchievementProperties extends AchievementData {
         mValues.clear();
     }
 
-    public synchronized void putValue(String key, Long value, UpdatePolicy policy) {
+    public synchronized void putValue(String key, Long value, long requiredValueToOldDelta) {
         if (key == null) {
             return;
         }
         Long old;
         if (value == null) {
-            old = mValues.remove(value);
+            old = mValues.remove(key);
         } else {
             old = mValues.put(key, value);
-            if (policy != null && old != null &&
-                    ((policy == UpdatePolicy.GREATER && old > value) || (policy == UpdatePolicy.SMALLER && old < value))) {
-                // value against update policy, revert change
-                value = old;
-                mValues.put(key, value);
+            if (old != null) {
+                if (requiredValueToOldDelta > 0L) {
+                    if (value - old < requiredValueToOldDelta) {
+                        value = old;
+                        mValues.put(key, value);
+                    }
+                } else if (requiredValueToOldDelta < 0L) {
+                    if (value - old > requiredValueToOldDelta) {
+                        value = old;
+                        mValues.put(key, value);
+                    }
+                }
             }
         }
         mEvent.addChangedKey(key);

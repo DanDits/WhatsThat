@@ -7,7 +7,7 @@ import android.text.TextUtils;
  * Created by daniel on 12.05.15.
  */
 public abstract class Achievement implements AchievementDataEventListener {
-    public static final String SEPARATOR = "_"; // not allowed in achievement id or keys
+    private static final String SEPARATOR = "_";
     private static final String KEY_DISCOVERED = "discovered";
     private static final String KEY_ACHIEVED = "achieved";
     private static final String KEY_VALUE = "value";
@@ -28,9 +28,6 @@ public abstract class Achievement implements AchievementDataEventListener {
         mManager = manager;
         if (TextUtils.isEmpty(mId)) {
             throw new IllegalArgumentException("Null id given.");
-        }
-        if (mId.contains(SEPARATOR)) {
-            throw new IllegalArgumentException("Separator contained in id " + id);
         }
         if (manager == null) {
             throw new IllegalArgumentException("Null manager given.");

@@ -147,9 +147,21 @@ public class InitializationFragment extends Fragment implements ImageManager.Syn
         }
     }
 
-    private void checkDataState() {
+    private synchronized void checkDataState() {
         if (!RiddleInitializer.INSTANCE.isInitializing() && !ImageManager.isSyncing() && TestSubject.isInitialized()) {
-            Log.d("Image", "CheckDataState: is complete!");
+            if (mState != STATE_DATA_COMPLETE) {
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        Context context = getActivity();
+                        if (context != null) {
+                            Animation anim = AnimationUtils.loadAnimation(context, R.anim.shake);
+                            mProgressBar.startAnimation(anim);
+                        }
+                    }
+                }, 1500);
+            }
             mState = STATE_DATA_COMPLETE;
             mInitSkip.setText(R.string.init_skip_available_all);
             mInitSkip.setEnabled(true);
@@ -171,7 +183,11 @@ public class InitializationFragment extends Fragment implements ImageManager.Syn
     }
 
     private void startSyncing() {
-        ImageManager.sync(getActivity().getApplicationContext(), this); // loads all images available
+        if (!ImageManager.syncedThisRun()) {
+            ImageManager.sync(getActivity().getApplicationContext(), this); // loads all images available
+        } else {
+            onSyncComplete();
+        }
     }
 
     @Override
@@ -184,17 +200,6 @@ public class InitializationFragment extends Fragment implements ImageManager.Syn
     public void onSyncComplete() {
         mImageProgress = PercentProgressListener.PROGRESS_COMPLETE;
         updateProgressBar();
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                Context context = getActivity();
-                if (context != null) {
-                    Animation anim = AnimationUtils.loadAnimation(context, R.anim.shake);
-                    mProgressBar.startAnimation(anim);
-                }
-            }
-        }, 1500);
         Log.d("HomeStuff", "Sync complete");
         checkDataState();
     }
@@ -218,24 +223,24 @@ public class InitializationFragment extends Fragment implements ImageManager.Syn
         Log.d("HomeStuff", "Init complete");
     }
 
-    private void startInit() {
+    private void startRiddleInit() {
         if (!RiddleInitializer.INSTANCE.isInitialized()) {
-            initProgressBar();
             RiddleInitializer.INSTANCE.init(getActivity().getApplicationContext(), this);
         } else {
             onInitComplete();
         }
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
+    private void initLanguage() {
         SharedPreferences prefs = getActivity().getSharedPreferences(Image.SHAREDPREFERENCES_FILENAME, Context.MODE_PRIVATE);
         Tongue preferredTongue = Language.getTonguePreference(prefs);
         if (preferredTongue != null) {
             Language.makeInstance(preferredTongue);
         }
         updateTongueButton();
+    }
+
+    private void initTestSubject() {
         if (!TestSubject.isInitialized()) {
             new AsyncTask<Void, Void, Void>() {
                 @Override
@@ -254,7 +259,14 @@ public class InitializationFragment extends Fragment implements ImageManager.Syn
         } else {
             startIntro();
         }
-        startInit();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        initProgressBar();
+        initTestSubject();
+        startRiddleInit();
         startSyncing();
         checkDataState();
     }
@@ -326,6 +338,7 @@ public class InitializationFragment extends Fragment implements ImageManager.Syn
                 }
             }
         });
+        initLanguage();
     }
 
     public interface OnInitClosingCallback {

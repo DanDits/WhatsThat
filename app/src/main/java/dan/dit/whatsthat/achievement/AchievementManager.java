@@ -58,7 +58,7 @@ public class AchievementManager implements AchievementDataEventListener {
     protected void onChanged(Achievement achievement) {
         if (achievement != null) {
             mChangedAchievements.add(achievement);
-            // TODO display if achieved or updated progress
+            // TODO display if achieved or updated progress, what data is required, do we want this manager to be abstract and have a game achievement maanger talk with TestSubject (achievements still lack a reward =score field which needs to be saved/loaded and displayed)
         }
     }
 

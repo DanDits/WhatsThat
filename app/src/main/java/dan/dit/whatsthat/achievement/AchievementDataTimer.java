@@ -91,6 +91,24 @@ public class AchievementDataTimer extends AchievementData {
     }
 
     /**
+     * Ensures that there is a TimeKeeper for the given key with the given amount. Will not create a
+     * new TimeKeeper if there is one already with the same amount.
+     * @param key The key for the TimeKeeper.
+     * @param amount The positive amount of timestamps to hold.
+     * @return True only if a new TimeKeeper was created.
+     */
+    public synchronized boolean ensureTimeKeeper(String key, int amount) {
+        if (key == null || amount <= 0) {
+            return false;
+        }
+        if (!mTimeKeepers.containsKey(key) || mTimeKeepers.get(key).mTimestamps.length != amount) {
+            newTimeKeeper(key, amount);
+            return true;
+        }
+        return false;
+    }
+
+    /**
      * Removes the TimeKeeper for a key. Does nothing if key illegal or no TimeKeeper with
      * this key available.
      * @param key The key to remove the TimeKeeper for.

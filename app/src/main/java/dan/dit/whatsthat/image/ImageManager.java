@@ -26,6 +26,7 @@ public class ImageManager {
     private ImageManager() {}
 
     private static SyncingTask SYNCING_TASK;
+    private static boolean SYNCED_THIS_RUN;
 
     /**
      * DEVELOPER METHOD; NOT FOR RELEASE.
@@ -132,6 +133,7 @@ public class ImageManager {
                         prefs.edit().putInt(ImageManager.PREFERENCES_KEY_IMAGE_MANAGER_VERSION, highestNumber).apply();
                     }
                     Log.d("Image", "Parsed and synced bundles: Loaded images from XML with highest read number= " + highestNumber);
+                    SYNCED_THIS_RUN = true;
                 } else {
                     Log.d("Image", "Parsing for image sync: no new bundles, cancelled or failed.");
                 }
@@ -155,6 +157,10 @@ public class ImageManager {
                 mListener = null;
             }
         }
+    }
+
+    public static boolean syncedThisRun() {
+        return SYNCED_THIS_RUN;
     }
 
     public interface SynchronizationListener {
