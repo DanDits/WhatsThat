@@ -1,11 +1,15 @@
 package dan.dit.whatsthat.util.ui;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.util.AttributeSet;
 import android.widget.ImageButton;
+
+import dan.dit.whatsthat.R;
 
 /**
  * Created by daniel on 01.05.15.
@@ -19,6 +23,18 @@ public class ImageButtonWithNumber extends ImageButton implements ViewWithNumber
 
     public ImageButtonWithNumber(Context context, AttributeSet attrs) {
         super(context, attrs);
+        mPaint.setAntiAlias(true);
+        TypedArray a = context.getTheme().obtainStyledAttributes(
+                attrs,
+                R.styleable.ImageButtonWithNumber,
+                0, 0);
+        try {
+            mPaint.setColor(a.getColor(R.styleable.ImageButtonWithNumber_numberColor, Color.BLACK));
+            mPaint.setTextSize(a.getDimension(R.styleable.ImageButtonWithNumber_numberSize, 20.f));
+            mPaint.setFakeBoldText(a.getBoolean(R.styleable.ImageButtonWithNumber_numberBold, false));
+        } finally {
+            a.recycle();
+        }
     }
 
     @Override

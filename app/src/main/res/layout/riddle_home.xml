@@ -18,7 +18,7 @@
             android:layout_gravity="top">
 
             <view
-                class="dan.dit.whatsthat.util.ui.ImageViewWithNumber"
+                class="dan.dit.whatsthat.util.ui.ImageButtonWithNumber"
                 custom:numberColor="@color/black"
                 custom:numberSize="25dp"
                 custom:numberBold="true"
@@ -28,7 +28,9 @@
                 android:src="@drawable/currency"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentTop="true"
-                android:layout_toLeftOf="@+id/riddle_make_next"
+                android:adjustViewBounds="false"
+                android:layout_gravity="left"
+                android:scaleType="fitCenter"
                 android:layout_alignBottom="@+id/riddle_make_next" />
             <ImageButton
                 android:layout_width="wrap_content"

@@ -70,17 +70,6 @@ public class Field2D<FE extends FieldElement> implements Iterable<FE> {
         }
     }
 
-    public static boolean areNeighbors(FieldElement field1, FieldElement field2, FieldElement.Neighbor[] neighborTypes) {
-        int xDelta = field2.mX - field1.mX;
-        int yDelta = field2.mY - field1.mY;
-        for (FieldElement.Neighbor n : neighborTypes) {
-            if (xDelta == n.mXDelta && yDelta == n.mYDelta) {
-                return true;
-            }
-        }
-        return false;
-    }
-
     public FE travelDirection(FieldElement field1, FieldElement field2) {
         int x = 2 * field2.mX - field1.mX;
         int y = 2 * field2.mY - field1.mY;
@@ -153,14 +142,6 @@ public class Field2D<FE extends FieldElement> implements Iterable<FE> {
                 && field.mY + neighbor.mYDelta >= 0 && field.mY + neighbor.mYDelta < mYCount;
     }
 
-    public float getFieldHeight() {
-        return mFieldHeight;
-    }
-
-    public float getFieldWidth() {
-        return mFieldWidth;
-    }
-
     public boolean isValidPosition(int x, int y) {
         return x >= 0 && x < mXCount && y >= 0 && y < mYCount;
     }
@@ -178,7 +159,7 @@ public class Field2D<FE extends FieldElement> implements Iterable<FE> {
         private int mCurrRow = -1;
 
         public final void nextElement(FE element) throws BuildException {
-            if (element == null || mCurrRow >= mRows.size()) {
+            if (element == null || mCurrRow < 0 || mCurrRow >= mRows.size()) {
                 throw new BuildException().setMissingData("Field2D", "NextElement null or no row yet");
             }
             List<FE> row = mRows.get(mCurrRow);
@@ -203,8 +184,12 @@ public class Field2D<FE extends FieldElement> implements Iterable<FE> {
             for (List<FE> row : mRows) {
                 int x = 0;
                 for (FE element : row) {
-                    elements[y][x] = element;
-                    x++;
+                    if (elements[y].length > x) {
+                        elements[y][x] = element;
+                        x++;
+                    } else {
+                        throw new BuildException().setMissingData("Field2D", "Too many elements in row " + y + ": " + elements[y].length);
+                    }
                 }
                 y++;
             }

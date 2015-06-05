@@ -1,10 +1,17 @@
 <resources>
+    <attr name="numberColor" format="color" />
+    <attr name="numberSize" format="dimension" />
+    <attr name="numberBold" format="boolean" />
 
     <declare-styleable name="ImageViewWithNumber">
-        <attr name="numberColor" format="color" />
-        <attr name="numberSize" format="dimension" />
-        <attr name="numberBold" format="boolean" />
+        <attr name="numberColor" />
+        <attr name="numberSize" />
+        <attr name="numberBold" />
     </declare-styleable>
 
-
+    <declare-styleable name="ImageButtonWithNumber">
+        <attr name="numberColor" />
+        <attr name="numberSize" />
+        <attr name="numberBold" />
+    </declare-styleable>
 </resources>

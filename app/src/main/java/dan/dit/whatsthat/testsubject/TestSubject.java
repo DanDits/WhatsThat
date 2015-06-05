@@ -66,7 +66,7 @@ public class TestSubject implements Runnable {
         INSTANCE.init(context.getResources());
         INSTANCE.mInitialized = true;
         INSTANCE.initTypes();
-        INSTANCE.mAchievementHolder = AchievementHolder.getInstance(AchievementManager.getInstance());
+        INSTANCE.mAchievementHolder = AchievementHolder.getInstance(AchievementManager.getInstance(), INSTANCE.mLevel, INSTANCE.mTypes);
         return INSTANCE;
     }
 

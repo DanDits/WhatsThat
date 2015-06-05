@@ -21,6 +21,14 @@ public class FieldElement {
             mXDelta = xDelta;
             mYDelta = yDelta;
         }
+
+        public float getXDelta() {
+            return mXDelta;
+        }
+
+        public float getYDelta() {
+            return mYDelta;
+        }
     }
 
     public static final Neighbor[] DIRECT_NEIGHBORS = new Neighbor[] {Neighbor.LEFT, Neighbor.TOP, Neighbor.RIGHT, Neighbor.BOTTOM};
@@ -34,6 +42,17 @@ public class FieldElement {
     }
 
     public void draw(Canvas canvas, Rect fieldRect) {
+    }
+
+    public static boolean areNeighbors(FieldElement field1, FieldElement field2, Neighbor[] neighborTypes) {
+        int xDelta = field2.mX - field1.mX;
+        int yDelta = field2.mY - field1.mY;
+        for (Neighbor n : neighborTypes) {
+            if (xDelta == n.mXDelta && yDelta == n.mYDelta) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override

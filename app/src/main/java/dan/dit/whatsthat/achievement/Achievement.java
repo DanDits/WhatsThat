@@ -22,10 +22,14 @@ public abstract class Achievement implements AchievementDataEventListener {
     protected final AchievementManager mManager;
     protected int mValue;
     protected int mMaxValue;
+    protected int mLevel;
+    protected int mScoreReward;
 
-    public Achievement(String id, AchievementManager manager) {
+    public Achievement(String id, AchievementManager manager, int level, int scoreReward) {
         mId = id;
         mManager = manager;
+        mLevel = level;
+        mScoreReward = Math.max(scoreReward, 0);
         if (TextUtils.isEmpty(mId)) {
             throw new IllegalArgumentException("Null id given.");
         }
@@ -34,6 +38,14 @@ public abstract class Achievement implements AchievementDataEventListener {
         }
         loadData(manager.getSharedPreferences());
         onCreated();
+    }
+
+    public int getLevel() {
+        return mLevel;
+    }
+
+    public int getScoreReward() {
+        return mScoreReward;
     }
 
     @Override
