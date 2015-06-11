@@ -183,7 +183,9 @@ public class InitializationFragment extends Fragment implements ImageManager.Syn
     }
 
     private void startSyncing() {
-        ImageManager.sync(getActivity().getApplicationContext(), this); // loads all images available
+        if (!ImageManager.isSynced()) {
+            ImageManager.sync(getActivity().getApplicationContext(), this); // loads all images available
+        }
     }
 
     @Override

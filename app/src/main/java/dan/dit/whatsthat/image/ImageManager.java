@@ -22,6 +22,7 @@ import dan.dit.whatsthat.R;
  */
 public class ImageManager {
     protected static final String PREFERENCES_KEY_IMAGE_MANAGER_VERSION = "dan.dit.whatsthat.prefkey_imagemanagerversion";
+    private static boolean SYNCING_TASK_HAS_FINISHED_THIS_RUN;
 
     private ImageManager() {}
 
@@ -83,6 +84,10 @@ public class ImageManager {
         return SYNCING_TASK != null;
     }
 
+    public static boolean isSynced() {
+        return SYNCING_TASK_HAS_FINISHED_THIS_RUN;
+    }
+
     private static class SyncingTask extends AsyncTask<Void, Integer, Void> {
 
         private SynchronizationListener mListener;
@@ -135,6 +140,7 @@ public class ImageManager {
                 } else {
                     Log.d("Image", "Parsing for image sync: no new bundles, cancelled or failed.");
                 }
+                SYNCING_TASK_HAS_FINISHED_THIS_RUN = true;
             }
             return null;
         }

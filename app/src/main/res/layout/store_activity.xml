@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/btn_category_title_back"
+        android:text="Back"
+        android:drawableLeft="@drawable/alien_shop_title_back"
+        style="@style/button_menu_big"/>
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/menu_buttons"
+        android:background="@drawable/alien_shop_background"
+        android:layout_gravity="center">
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/btn_open_shop"
+            android:id="@+id/btn_shop"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:layout_margin="20dp"
+            style="@style/button_menu_big" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/achievement_button"
+            android:id="@+id/btn_achievements"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:layout_margin="20dp"
+            style="@style/button_menu_big" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/btn_about"
+            android:id="@+id/btn_about"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:layout_margin="20dp"
+            style="@style/button_menu_big" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/btn_donate"
+            android:id="@+id/btn_donate"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:layout_margin="20dp"
+            style="@style/button_menu_big" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/btn_credits"
+            android:id="@+id/btn_credits"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:layout_margin="20dp"
+            style="@style/button_menu_big" />
+        </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/category_container">
+    </LinearLayout>
+</LinearLayout>

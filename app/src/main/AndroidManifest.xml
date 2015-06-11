@@ -36,6 +36,13 @@
             android:label="@string/app_name">
         </activity>
 
+        <activity
+            android:name=".system.store.StoreActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize|smallestScreenSize"
+            android:screenOrientation="portrait"
+            android:label="@string/app_name">
+        </activity>
+
         <activity android:name=".system.InitActivity"
             android:configChanges="orientation|keyboardHidden|screenSize|smallestScreenSize"
             android:screenOrientation="portrait"

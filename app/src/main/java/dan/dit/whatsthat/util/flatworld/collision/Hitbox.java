@@ -7,7 +7,7 @@ import java.util.Random;
 /**
  * Created by daniel on 31.05.15.
  */
-public abstract class Hitbox<W> implements  Collidable<W> {
+public abstract class Hitbox<W extends Collidable<? extends W>> implements  Collidable<W> {
     protected RectF mBoundingRect = new RectF();
 
     public abstract RectF getBoundingRect();
@@ -30,6 +30,10 @@ public abstract class Hitbox<W> implements  Collidable<W> {
      */
     public abstract void setLeft(float left);
 
+    public abstract void setRight(float right);
+
+    public abstract void setBottom(float bottom);
+
     /**
      * Sets the center point of the hitbox to the given value.
      * @param centerX The center x value.
@@ -40,4 +44,7 @@ public abstract class Hitbox<W> implements  Collidable<W> {
     protected static float getRandomFloatInRange(float min, float max, Random random) {
         return min + random.nextFloat() * (max - min);
     }
+
+    public abstract float getCenterX();
+    public abstract float getCenterY();
 }

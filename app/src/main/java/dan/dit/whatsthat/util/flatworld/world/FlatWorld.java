@@ -7,23 +7,21 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Random;
 
-import dan.dit.whatsthat.util.flatworld.Actor;
 import dan.dit.whatsthat.util.flatworld.collision.Collider;
 import dan.dit.whatsthat.util.flatworld.collision.Hitbox;
 
 /**
  * Created by daniel on 03.06.15.
  */
-public abstract class FlatWorld<W extends Hitbox> {
+public abstract class FlatWorld<W extends Hitbox<? extends W>> {
     protected final List<Actor<W>> mActors = new ArrayList<>();
-    protected final Collider<W> mCollider;
+    protected final Collider<? super W> mCollider;
     protected final FlatWorldCallback<Actor<W>> mCallback;
     protected List<Actor<W>> mActiveActors = new LinkedList<>();
-    protected List<W> mCollisionHitboxList = new LinkedList<>();
-    protected List<Actor<W>> mCollisionList = new LinkedList<>();
 
-    public FlatWorld(Collider<W> collider, FlatWorldCallback<Actor<W>> callback) {
+    public FlatWorld(Collider<? super W> collider, FlatWorldCallback<Actor<W>> callback) {
         mCollider = collider;
         if (collider == null) {
             throw new IllegalArgumentException("No collider given (use NoCollider for no collision).");
@@ -76,4 +74,6 @@ public abstract class FlatWorld<W extends Hitbox> {
     public void addActor(Actor<W> actor) {
         mActors.add(actor);
     }
+
+    public abstract void setRandomPositionInside(Actor<W> actor, Random rand);
 }

@@ -79,6 +79,14 @@ public class Field2D<FE extends FieldElement> implements Iterable<FE> {
         return null;
     }
 
+    public float getFieldWidth() {
+        return mFieldWidth;
+    }
+
+    public float getFieldHeight() {
+        return mFieldHeight;
+    }
+
     public FE getFieldByCoordinates(float xCoord, float yCoord) {
         int x = (int) (xCoord / mFieldWidth);
         int y = (int) (yCoord / mFieldHeight);

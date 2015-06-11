@@ -8,7 +8,6 @@
     </style>
 
     <style name="button" parent="@android:style/Widget.Button">
-        <item name="android:gravity">center_vertical|center_horizontal</item>
         <item name="android:textColor">#000000</item>
         <item name="android:shadowColor">#ff4e5700</item>
         <item name="android:shadowDx">0</item>
@@ -19,6 +18,10 @@
         <item name="android:background">@drawable/button_background</item>
         <item name="android:focusable">true</item>
         <item name="android:clickable">true</item>
+    </style>
+
+    <style name="button_menu_big" parent="button">
+        <item name="android:textSize">30sp</item>
     </style>
 
     <style name="button_important" parent="@android:style/Widget.ImageButton">

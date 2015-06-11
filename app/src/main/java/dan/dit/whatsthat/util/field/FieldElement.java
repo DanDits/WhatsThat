@@ -32,6 +32,8 @@ public class FieldElement {
     }
 
     public static final Neighbor[] DIRECT_NEIGHBORS = new Neighbor[] {Neighbor.LEFT, Neighbor.TOP, Neighbor.RIGHT, Neighbor.BOTTOM};
+    public static final Neighbor[] DIRECT_AND_DIAGONAL_NEIGHBORS = new Neighbor[] {Neighbor.LEFT, Neighbor.TOP, Neighbor.RIGHT, Neighbor.BOTTOM,
+        Neighbor.TOP_LEFT, Neighbor.TOP_RIGHT, Neighbor.BOTTOM_LEFT, Neighbor.BOTTOM_RIGHT};
 
     protected int mPathfindingValue;
     protected int mX;

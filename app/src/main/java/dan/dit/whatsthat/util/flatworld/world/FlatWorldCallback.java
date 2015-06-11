@@ -1,7 +1,5 @@
 package dan.dit.whatsthat.util.flatworld.world;
 
-import dan.dit.whatsthat.util.flatworld.Actor;
-
 /**
  * Created by daniel on 05.06.15.
  */

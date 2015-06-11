@@ -1,4 +1,4 @@
-package dan.dit.whatsthat.util.flatworld;
+package dan.dit.whatsthat.util.flatworld.world;
 
 import android.graphics.Canvas;
 import android.graphics.Paint;
@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import dan.dit.whatsthat.util.flatworld.collision.Hitbox;
+import dan.dit.whatsthat.util.flatworld.frames.HitboxFrames;
 import dan.dit.whatsthat.util.flatworld.mover.HitboxMover;
 
 /**
@@ -91,5 +92,9 @@ public class Actor<HB extends Hitbox> {
             RectF bound = mHitbox.getBoundingRect();
             mCurrentFrames.draw(canvas, bound.left, bound.top, paint);
         }
+    }
+
+    public void resetCurrentFrames() {
+        mCurrentFrames.reset();
     }
 }

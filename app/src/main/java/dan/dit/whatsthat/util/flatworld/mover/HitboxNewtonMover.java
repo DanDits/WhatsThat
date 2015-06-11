@@ -9,10 +9,10 @@ public class HitboxNewtonMover extends HitboxMover {
     public static final int STATE_NOT_MOVING = 0;
     public static final int STATE_MOVING = 1;
     public static final int STATE_MOVING_ACCELERATING = 2;
-    private float mSpeedX;
-    private float mSpeedY;
-    private float mAccelX;
-    private float mAccelY;
+    protected float mSpeedX;
+    protected float mSpeedY;
+    protected float mAccelX;
+    protected float mAccelY;
 
     public void setSpeed(float speedX, float speedY) {
         mSpeedX = speedX;
@@ -22,6 +22,11 @@ public class HitboxNewtonMover extends HitboxMover {
     public void setAcceleration(float accelX, float accelY) {
         mAccelX = accelX;
         mAccelY = accelY;
+    }
+
+    public void multiplySpeed(float multiX, float multiY) {
+        mSpeedX *= multiX;
+        mSpeedY *= multiY;
     }
 
     @Override

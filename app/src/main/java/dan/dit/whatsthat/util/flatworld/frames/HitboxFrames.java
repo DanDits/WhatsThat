@@ -1,4 +1,4 @@
-package dan.dit.whatsthat.util.flatworld;
+package dan.dit.whatsthat.util.flatworld.frames;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -9,12 +9,12 @@ import android.graphics.Paint;
  */
 public class HitboxFrames {
     private Bitmap[] mFrames;
-    private int mFrameIndex;
+    protected int mFrameIndex;
     private long mFrameCounter;
     private long mFrameDuration;
-    private boolean mVisible;
-    private float mOffsetX;
-    private float mOffsetY;
+    protected boolean mVisible;
+    protected float mOffsetX;
+    protected float mOffsetY;
 
     public HitboxFrames(Bitmap[] frames, long frameDuration) {
         mFrames = frames;
@@ -59,7 +59,8 @@ public class HitboxFrames {
 
     public void draw(Canvas canvas, float x, float y, Paint paint) {
         if (mVisible) {
-            canvas.drawBitmap(mFrames[mFrameIndex], x + mOffsetX, y + mOffsetY, paint);
+            Bitmap currFrame = mFrames[mFrameIndex];
+            canvas.drawBitmap(currFrame, x - currFrame.getWidth() + getWidth() + mOffsetX, y - currFrame.getHeight() + getHeight() + mOffsetY, paint);
         }
     }
 
@@ -78,5 +79,9 @@ public class HitboxFrames {
 
     public float getOffsetY() {
         return mOffsetY;
+    }
+
+    public Bitmap[] getFrames() {
+        return mFrames;
     }
 }

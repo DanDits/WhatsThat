@@ -21,8 +21,7 @@ public class HitboxCircle extends Hitbox<HitboxCircle> {
     }
 
     private void updateBoundingRect() {
-        float halfRadius = mRadius / 2.f;
-        mBoundingRect.set(mCenterX - halfRadius, mCenterY - halfRadius, mCenterX + halfRadius, mCenterY + halfRadius);
+        mBoundingRect.set(mCenterX - mRadius, mCenterY - mRadius, mCenterX + mRadius, mCenterY + mRadius);
     }
 
     public void setRadius(float radius) {
@@ -65,13 +64,25 @@ public class HitboxCircle extends Hitbox<HitboxCircle> {
 
     @Override
     public void setTop(float top) {
-        mCenterY = top + mRadius / 2.f;
+        mCenterY = top + mRadius;
         updateBoundingRect();
     }
 
     @Override
     public void setLeft(float left) {
-        mCenterX = left + mRadius / 2.f;
+        mCenterX = left + mRadius;
+        updateBoundingRect();
+    }
+
+    @Override
+    public void setRight(float right) {
+        mCenterX = right - mRadius;
+        updateBoundingRect();
+    }
+
+    @Override
+    public void setBottom(float bottom) {
+        mCenterY = bottom - mRadius;
         updateBoundingRect();
     }
 
@@ -83,10 +94,24 @@ public class HitboxCircle extends Hitbox<HitboxCircle> {
     }
 
     @Override
+    public float getCenterX() {
+        return mCenterX;
+    }
+
+    @Override
+    public float getCenterY() {
+        return mCenterY;
+    }
+
+    @Override
     public boolean checkCollision(HitboxCircle with) {
         float dx = mCenterX - with.mCenterX;
         float dy = mCenterY - with.mCenterY;
         float r = mRadius + with.mRadius;
         return dx * dx + dy * dy <= r * r;
+    }
+
+    public float getRadius() {
+        return mRadius;
     }
 }

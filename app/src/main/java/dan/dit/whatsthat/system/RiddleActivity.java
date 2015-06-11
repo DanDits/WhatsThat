@@ -63,7 +63,7 @@ public class RiddleActivity extends Activity implements UnsolvedRiddlesChooser.C
 
     @Override
     public boolean canSkip() {
-        return mFragment.canSkip();
+        return mFragment != null && mFragment.canSkip();
     }
 
     @Override

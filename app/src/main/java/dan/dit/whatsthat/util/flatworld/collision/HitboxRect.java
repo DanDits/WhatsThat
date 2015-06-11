@@ -4,7 +4,7 @@ import android.graphics.RectF;
 
 import java.util.Random;
 
-import dan.dit.whatsthat.util.flatworld.HitboxFrames;
+import dan.dit.whatsthat.util.flatworld.frames.HitboxFrames;
 
 /**
  * Created by daniel on 30.05.15.
@@ -71,6 +71,22 @@ public class HitboxRect extends Hitbox<HitboxRect> {
     }
 
     @Override
+    public void setRight(float right) {
+        mLeft = right - (mRight - mLeft);
+        mRight = right;
+        mBoundingRect.right = mRight;
+        mBoundingRect.left = mLeft;
+    }
+
+    @Override
+    public void setBottom(float bottom) {
+        mTop = bottom - (mBottom - mTop);
+        mBottom = bottom;
+        mBoundingRect.top = mTop;
+        mBoundingRect.bottom = mBottom;
+    }
+
+    @Override
     public void setCenter(float centerX, float centerY) {
         float width = mRight - mLeft;
         float height = mBottom - mTop;
@@ -79,6 +95,16 @@ public class HitboxRect extends Hitbox<HitboxRect> {
         mRight = mLeft + width;
         mBottom = mTop + height;
         mBoundingRect.set(mLeft, mTop, mRight, mBottom);
+    }
+
+    @Override
+    public float getCenterX() {
+        return mLeft + (mTop - mLeft) / 2.f;
+    }
+
+    @Override
+    public float getCenterY() {
+        return mTop + (mBottom - mTop) / 2.f;
     }
 
     public static HitboxRect makeHitbox(HitboxFrames frames, float hitboxWidthFraction, float hitboxHeightFraction, float frameLeft, float frameTop) {

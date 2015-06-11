@@ -1,6 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="credits_text"><![CDATA[
+            <p>Many people contributed to this project and we did not have to apply force to any of them, this makes us happy. Also those people and their brilliant minds make us happy for</p>
+            <ul>
+            <li>being awesome</li>
+            <li>testing and elimination of bugs</li>
+            <li>giving hints and suggestions</li>
+            <li>supplying images and ideas</li>
+            </ul>
+            <p>The best way of saying thank you is by thanking them: thanks.</p>
+            <p style="text-align: center;"><u>First but not least, thanks to my bro and brother Fabian! Without you, this would not exist.</u></p>
+            <p><strong>Looking for the author of an individual image? Don&#39;t panic! This dialog is made for this case.. and some other cases.</strong></p>
+            <ol>
+            <li>&nbsp; Non riddle image authors<ul>
+            <li>&nbsp;</li>
+            </ul>
+            </li>
+            <li>&nbsp;Testers and contributers<ul>
+            <li>&nbsp;</li>
+            </ul>
+            </li>
+            </ol>
 
+        ]]></string>
+    <string name="store_category_menu">Important things</string>
+    <string name="store_category_shop">Shop</string>
+    <string name="store_category_achievement">Achievements</string>
+    <string name="store_category_about">About</string>
+    <string name="store_category_donate">Donate</string>
+    <string name="store_category_credit">Credits</string>
     <string name="date_today">Today</string>
     <string name="date_yesterday">Yesterday</string>
     <string name="riddle_hint_dialog_title">Information</string>
@@ -87,6 +115,11 @@
     <string name="riddle_type_snow_firstrun">Grow bigger and explode to see the image!</string>
     <string name="handle_error_attempted">Bild nicht vorhanden?! Externen Speicher prüfen!</string>
     <string name="tongue_select_explanation">Sprache für Lösungswörter: %1$s</string>
+    <string name="btn_open_shop">Shop</string>
+    <string name="achievement_button">Achievements</string>
+    <string name="btn_about">About</string>
+    <string name="btn_donate">Donate</string>
+    <string name="btn_credits">Credits</string>
 
 
 </resources>

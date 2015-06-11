@@ -1,7 +1,5 @@
 package dan.dit.whatsthat.util.flatworld.mover;
 
-import android.util.Log;
-
 import dan.dit.whatsthat.util.flatworld.collision.Hitbox;
 
 /**
@@ -46,9 +44,8 @@ public class HitboxJumpMover extends HitboxMover {
         mRemainingAscend = ascendY;
         mRemainingDescend = descendY;
         mAscendDuration = (long) (Math.abs(ascendY / distance) * duration);
-        mSpeedY = -2 * ascendY * ONE_SECOND / mAscendDuration;
+        mSpeedY = -2 * ascendY * ONE_SECOND / mAscendDuration; // ensure that speed is zero at peak
         mAccelY = Math.signum(ascendY) * Math.abs(mSpeedY) * ONE_SECOND / mAscendDuration;
-        Log.d("Riddle", "Ascend duration " + mAscendDuration + " speedY " + mSpeedY + " total duration " + mTotalDuration + " accelY " + mAccelY + " distance " + ascendY + "+" + descendY);
         mState = STATE_JUMP_ASCENDING;
     }
 
