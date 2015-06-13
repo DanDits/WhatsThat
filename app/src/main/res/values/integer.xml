@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer name="store_in_out_anim_time">650</integer>
+</resources>

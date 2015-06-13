@@ -32,6 +32,7 @@ public class TestSubject implements Runnable {
     public static final int LEVEL_0_KID_STUPID= 0;
     public static final int LEVEL_1_KID_NORMAL = 1;
     public static final String EMAIL_ON_ERROR = "whatsthat.feedback@gmail.com";
+    public static final String EMAIL_FEEDBACK = "whatsthat.feedback@gmail.com";
 
 
     private boolean mInitialized;

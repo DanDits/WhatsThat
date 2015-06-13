@@ -7,8 +7,8 @@
         android:layout_height="wrap_content"
         android:id="@+id/btn_category_title_back"
         android:text="Back"
-        android:drawableLeft="@drawable/alien_shop_title_back"
-        style="@style/button_menu_big"/>
+        android:drawableLeft="@drawable/alien_menu_title_back"
+        android:drawableRight="@drawable/shop_title_back" />
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"

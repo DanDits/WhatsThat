@@ -23,10 +23,18 @@
             </ol>
 
         ]]></string>
+    <string-array name="donation_google_catalog_values">
+        <item>1 Euro</item>
+        <item>2 Euros</item>
+        <item>3 Euros</item>
+        <item>5 Euros</item>
+        <item>8 Euros</item>
+        <item>13 Euros</item>
+    </string-array>
     <string name="store_category_menu">Important things</string>
     <string name="store_category_shop">Shop</string>
     <string name="store_category_achievement">Achievements</string>
-    <string name="store_category_about">About</string>
+    <string name="store_category_about">About &amp; Contact</string>
     <string name="store_category_donate">Donate</string>
     <string name="store_category_credit">Credits</string>
     <string name="date_today">Today</string>
@@ -117,9 +125,33 @@
     <string name="tongue_select_explanation">Sprache für Lösungswörter: %1$s</string>
     <string name="btn_open_shop">Shop</string>
     <string name="achievement_button">Achievements</string>
-    <string name="btn_about">About</string>
+    <string name="btn_about">About &amp; Contact</string>
     <string name="btn_donate">Donate</string>
     <string name="btn_credits">Credits</string>
-
+    <string name="about_contact_descr">Die App ist ein Freizeit Project von den Brüdern Fabian und Daniel. Wir hassen das Werbemodell, mit uns werdet ihr nicht zugemüllt. Über Unterstützung oder Feedback würden wir uns trotzdem sehr freuen!\nSchreibt uns einfach, schaut euch das Projekt auf Github an: https://github.com/DanDits/WhatsThat oder setzt eine anonyme Spende ab.\n\nStay awesome! :)</string>
+    <string-array name="contact_headings">
+        <item>Bild vorschlagen</item>
+        <item>Rätsel vorschlagen</item>
+        <item>Bug melden</item>
+        <item>Feedback</item>
+        <item>Nur mal hallo sagen</item>
+        <item>Area 51</item>
+    </string-array>
+    <string-array name="contact_mail_subject">
+        <item>Bild Vorschlag</item>
+        <item>Rätsel Vorschlag</item>
+        <item>Bug gefunden</item>
+        <item>Feedback</item>
+        <item>Hallo</item>
+        <item>\?!?</item>
+    </string-array>
+    <string-array name="contact_mail_body">
+        <item>TODO: Bild in Anhang!\nWir benutzen nur Bilder mit freier Lizenz und bekannten Autor, gebe daher die Quelle (z.B. eine Website oder falls das Bild von dir ist ein Pseudonym von dir an).\n\nAutor:\nQuelle:\nFür welche Rätseltypen am liebsten?</item>
+        <item>Sei präzise mit deiner Beschreibung, insbesondere: Was ist die Idee? Wie kann man was verändern? Wie wird das Bild sichtbar?\nUmsetzbare und gute Ideen werde ich gerne einbauen. Bei Unklarheiten frage ich nochmal genauer nach.</item>
+        <item>Glückwunsch, ich dachte ich hätte die meisten Käfer vernichtet :(\nIst die App abgestürzt:\nWas hast du getan:\nWas ist (nicht) passiert:\nWas sollte passieren:</item>
+        <item>Feedback oder sonstige Verbesserungsvorschläge aller Art</item>
+        <item>Oh du große und erhabene Erlauchtheit, ich traue mich kaum diese Worte auszusprechen, doch trotzdem erhebe ich mein unwürdiges Haupt und blicke allen Mut fassend in eure allwissenden Augen und stammle ein kleinlautes .. "Hallo"</item>
+        <item>Frank, someone found it. Call the elimination service, this must not get public.</item>
+    </string-array>
 
 </resources>

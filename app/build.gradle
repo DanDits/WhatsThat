@@ -26,4 +26,5 @@ dependencies {
     compile 'com.android.support:appcompat-v7:22.1.1'
     compile 'com.android.support:support-v4:22.1.1'
     compile project(':supertoasts')
+    compile 'org.sufficientlysecure:donations:2.3'
 }

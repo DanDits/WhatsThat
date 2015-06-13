@@ -387,7 +387,7 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
             mOpenStore.setEnabled(false);
             Intent i = new Intent(getActivity(), StoreActivity.class);
             getActivity().startActivity(i);
-            getActivity().overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
+            getActivity().overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
         }
     }
 

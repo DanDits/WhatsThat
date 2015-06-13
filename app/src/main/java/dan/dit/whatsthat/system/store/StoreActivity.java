@@ -1,9 +1,12 @@
 package dan.dit.whatsthat.system.store;
 
-import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,19 +22,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 import dan.dit.whatsthat.R;
+import dan.dit.whatsthat.testsubject.TestSubject;
 
 /**
  * Created by daniel on 10.06.15.
  */
-public class StoreActivity extends Activity {
+public class StoreActivity extends FragmentActivity {
     private static final int CATEGORY_MENU = 0;
     private static final int CATEGORY_SHOP = 1;
     private static final int CATEGORY_ACHIEVEMENTS = 2;
     private static final int CATEGORY_ABOUT = 3;
     private static final int CATEGORY_DONATE = 4;
     private static final int CATEGORY_CREDITS = 5;
+    //TODO for about: Contact, Github adress, app background, spinning wheel for selecting feedback type (+ Im feeling lucky)
     private static final int[] CATEGORY_NAME_RES_ID = new int[] {R.string.store_category_menu, R.string.store_category_shop, R.string.store_category_achievement, R.string.store_category_about, R.string.store_category_donate, R.string.store_category_credit};
-    private static final int[] mCategoryLayoutId = new int[] {0, 0, 0, 0, 0, R.layout.credits_base};
+    private static final int[] mCategoryLayoutId = new int[] {0, R.layout.shop_base, 0, R.layout.about_base, R.layout.donations_base, R.layout.credits_base};
     private static final String KEY_CURR_CATEGORY = "dan.dit.whatsthat.STORE_MENU_CURR_CATEGORY";
 
     private boolean mStateOpening;
@@ -71,15 +76,17 @@ public class StoreActivity extends Activity {
         }
         if (container != null) {
             mCategoriesContainer.addView(container.getView());
-            container.refresh();
+            container.refresh(this);
         }
     }
 
     private void showCurrCategory() {
         mCategoryTitleBackButton.setText(CATEGORY_NAME_RES_ID[mCurrCategory]);
         if (mCurrCategory == CATEGORY_MENU) {
+            mCategoryTitleBackButton.setCompoundDrawablesWithIntrinsicBounds(TestSubject.getInstance().getImageResId(), 0, R.drawable.shop_title_back, 0);
             showMenu();
         } else {
+            mCategoryTitleBackButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.alien_menu_title_back, 0, 0, R.drawable.shop_title_back_bottom);
             prepareCategory();
         }
         mStateOpening = false;
@@ -133,6 +140,7 @@ public class StoreActivity extends Activity {
             showCurrCategory();
         } else {
             super.onBackPressed();
+            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
         }
     }
 
@@ -212,5 +220,20 @@ public class StoreActivity extends Activity {
             mCurrCategory = savedInstanceState.getInt(KEY_CURR_CATEGORY, CATEGORY_MENU);
         }
         showCurrCategory();
+    }
+
+    /**
+     * Needed for Google Play In-app Billing. It uses startIntentSenderForResult(). The result is not propagated to
+     * the Fragment like in startActivityForResult(). Thus we need to propagate manually to our Fragment.
+     */
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        Fragment fragment = fragmentManager.findFragmentByTag(DonationsView.FRAGMENT_TAG);
+        if (fragment != null) {
+            fragment.onActivityResult(requestCode, resultCode, data);
+        }
     }
 }

@@ -2,6 +2,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="dan.dit.whatsthat" >/>
 
+    <!-- Required for donations by Flattr.com -->
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <!-- Required for donations (and in app purchases) over the PlayStore -->
+    <uses-permission android:name="com.android.vending.BILLING" />
+
     <!-- Required by the uncaught exception handler -->
     <uses-permission android:name="android.permission.READ_LOGS" />
 

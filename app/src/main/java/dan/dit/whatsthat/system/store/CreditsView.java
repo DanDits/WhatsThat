@@ -1,8 +1,8 @@
 package dan.dit.whatsthat.system.store;
 
 import android.content.Context;
+import android.support.v4.app.FragmentActivity;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 import android.webkit.WebView;
 
@@ -17,8 +17,7 @@ public class CreditsView extends WebView implements StoreContainer {
         super(context, attributes);
     }
 
-    public void refresh() {
-        Log.d("HomeStuff", "Refreshing category view.");
+    public void refresh(FragmentActivity activity) {
         loadData(getContext().getString(R.string.credits_text), "text/html", "UTF-8");
     }
 
