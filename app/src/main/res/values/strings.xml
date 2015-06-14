@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="credits_text"><![CDATA[
             <p>Many people contributed to this project and we did not have to apply force to any of them, this makes us happy. Also those people and their brilliant minds make us happy for</p>
@@ -128,12 +128,12 @@
     <string name="btn_about">About &amp; Contact</string>
     <string name="btn_donate">Donate</string>
     <string name="btn_credits">Credits</string>
-    <string name="about_contact_descr">Die App ist ein Freizeit Project von den Brüdern Fabian und Daniel. Wir hassen das Werbemodell, mit uns werdet ihr nicht zugemüllt. Über Unterstützung oder Feedback würden wir uns trotzdem sehr freuen!\nSchreibt uns einfach, schaut euch das Projekt auf Github an: https://github.com/DanDits/WhatsThat oder setzt eine anonyme Spende ab.\n\nStay awesome! :)</string>
+    <string name="about_contact_descr">Die App ist ein Freizeitprojekt von den Brüdern Fabian und Daniel, die ich stolz meine Meister nennen darf. Sie haben ein Anti-Werbungs-Wurmloch installiert, der dich vor Pop-ups und Müll schützt. Über Unterstützung freuen sie sich trotzdem!\nSchreibt ihnen, schaut euch das Projekt auf Github an: https://github.com/DanDits/WhatsThat oder setzt eine anonyme Spende ab.\n\nStay awesome! :)</string>
     <string-array name="contact_headings">
         <item>Bild vorschlagen</item>
         <item>Rätsel vorschlagen</item>
         <item>Bug melden</item>
-        <item>Feedback</item>
+        <item>Feedback geben</item>
         <item>Nur mal hallo sagen</item>
         <item>Area 51</item>
     </string-array>
@@ -142,15 +142,15 @@
         <item>Rätsel Vorschlag</item>
         <item>Bug gefunden</item>
         <item>Feedback</item>
-        <item>Hallo</item>
+        <item>Nur mal Hallo sagen</item>
         <item>\?!?</item>
     </string-array>
     <string-array name="contact_mail_body">
-        <item>TODO: Bild in Anhang!\nWir benutzen nur Bilder mit freier Lizenz und bekannten Autor, gebe daher die Quelle (z.B. eine Website oder falls das Bild von dir ist ein Pseudonym von dir an).\n\nAutor:\nQuelle:\nFür welche Rätseltypen am liebsten?</item>
-        <item>Sei präzise mit deiner Beschreibung, insbesondere: Was ist die Idee? Wie kann man was verändern? Wie wird das Bild sichtbar?\nUmsetzbare und gute Ideen werde ich gerne einbauen. Bei Unklarheiten frage ich nochmal genauer nach.</item>
-        <item>Glückwunsch, ich dachte ich hätte die meisten Käfer vernichtet :(\nIst die App abgestürzt:\nWas hast du getan:\nWas ist (nicht) passiert:\nWas sollte passieren:</item>
-        <item>Feedback oder sonstige Verbesserungsvorschläge aller Art</item>
-        <item>Oh du große und erhabene Erlauchtheit, ich traue mich kaum diese Worte auszusprechen, doch trotzdem erhebe ich mein unwürdiges Haupt und blicke allen Mut fassend in eure allwissenden Augen und stammle ein kleinlautes .. "Hallo"</item>
+        <item>Erdlinge und Urheberrechte: eine Katastrophe\nMeine Meister benutzen daher nur Bilder mit freier Lizenz.Gib für das angehängte Bild folgende Punkte an:\n\nAuthorname oder Psyeudonym:\nEvtl. Bildtitel:\nQuelle (z.B. Website:)\nLösungswort:\nBevorzugtes Rätsel:</item>
+        <item>Das hier ist nur für Hyperintelligente und bescheidene Wesen wie beispielsweise mich!\nBevor du meinen Meister einen Vorschlag schickst, präzisiere deine Beschreibung, insbesondere:\nWas ist die Idee? Wie ist das Feld aufgebaut? Wie kann ich etwas verändern? Wie wird das Bild sichtbar?\nHilfreich ist eine Skizze, die du meinem Meister im Anhang mitsenden kannst\nNoch ein Zitat von ihm: "Umsetzbare und gute Ideen werden wir gerne weiter verfolgen. Bei Unklarheiten frage ich gegebenenfalls nochmal nach."</item>
+        <item>Glückwunsch, ich dachte ich hätte die meisten Käfer vernichtet :(\nWo ist der Fehler aufgetreten?\nIst die App abgestürzt:\nWas hast du getan:\nWas ist (nicht) passiert:\nWas sollte passieren:</item>
+        <item>Meine Meister freuen sich über positives Feedback oder sonstige Verbesserungsvorschläge aller Art.\nNegatives Feedback wird höchstwahrscheinlich vom Wurmloch verschlungen werden</item>
+        <item>Oh große und erhabene Erlauchtheit, ich traue mich kaum diese Worte auszusprechen, doch trotzdem erhebe ich mein unwürdiges Haupt und blicke allen Mut fassend in eure allwissenden Augen und stammle ein kleinlautes .. "Hallo"</item>
         <item>Frank, someone found it. Call the elimination service, this must not get public.</item>
     </string-array>
 
