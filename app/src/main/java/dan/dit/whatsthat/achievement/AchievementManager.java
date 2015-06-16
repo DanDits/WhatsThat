@@ -3,6 +3,7 @@ package dan.dit.whatsthat.achievement;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.text.TextUtils;
+import android.util.Log;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -52,13 +53,18 @@ public class AchievementManager implements AchievementDataEventListener {
                 achievement.addData(editor);
             }
             editor.apply();
+            Log.d("Achievement", "Closed achievement manager, saving " + INSTANCE.mChangedAchievements.size() + " changed achievements.");
+            INSTANCE.mManagedChangedData.clear();
+            INSTANCE.mChangedAchievements.clear();
         }
     }
 
     protected void onChanged(Achievement achievement) {
         if (achievement != null) {
             mChangedAchievements.add(achievement);
-            // TODO display if achieved or updated progress, what data is required, do we want this manager to be abstract and have a game achievement maanger talk with TestSubject (achievements still lack a reward =score field which needs to be saved/loaded and displayed)
+            Log.d("Achievement", "Achievemenet on changed: " + achievement);
+
+            // TODO display if achieved or updated progress, can change multiple times in a short time so update display or just display one update per achievement
         }
     }
 

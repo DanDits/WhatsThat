@@ -11,7 +11,8 @@ import dan.dit.whatsthat.util.compaction.Compactable;
  * Created by daniel on 12.05.15.
  */
 public abstract class AchievementData implements Compactable {
-    protected final List<AchievementDataEventListener> mListeners = new LinkedList<>();
+    private final List<AchievementDataEventListener> mListeners = new LinkedList<>();
+    private List<AchievementDataEventListener> mRemovedListeners = new LinkedList<>();
     protected final String mName;
 
     public AchievementData(String dataName) {
@@ -44,10 +45,18 @@ public abstract class AchievementData implements Compactable {
     }
 
     public boolean removeListener(AchievementDataEventListener listener) {
-        return mListeners.remove(listener);
+        if (mListeners.contains(listener) && !mRemovedListeners.contains(listener)) {
+            mRemovedListeners.add(listener);
+            return true;
+        }
+        return false;
     }
 
     protected void notifyListeners(AchievementDataEvent event) {
+        for (AchievementDataEventListener removed : mRemovedListeners) {
+            mListeners.remove(removed);
+        }
+        mRemovedListeners.clear();
         for (AchievementDataEventListener listener : mListeners) {
             listener.onDataEvent(event);
         }

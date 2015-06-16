@@ -14,4 +14,9 @@
         <attr name="numberSize" />
         <attr name="numberBold" />
     </declare-styleable>
+
+    <declare-styleable name="LinearLayoutProgressBar">
+        <attr name="startColor" format="color"/>
+        <attr name="endColor" format="color"/>
+    </declare-styleable>
 </resources>

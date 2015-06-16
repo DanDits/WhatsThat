@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<view xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
+    class="dan.dit.whatsthat.util.ui.LinearLayoutProgressBar"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    custom:startColor="#FF00FF00"
+    android:id="@+id/progress_bar">
+    <ImageView android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:id="@+id/achievement_image"
+        android:src="@drawable/icon_circle" />
+    <TextView android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="2"
+        android:layout_gravity="center"
+        android:text="Name"
+        android:id="@+id/achievement_name" />
+    <TextView android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="3"
+        android:text="Hier könnte ihre Werbung stehen."
+        android:id="@+id/achievement_descr"
+        android:textAppearance="@android:style/TextAppearance.Holo.Small"
+        android:textIsSelectable="false"
+        android:textSize="10dp" />
+    <TextView android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_gravity="center"
+        android:text="Rewardz"
+        android:id="@+id/achievement_reward" />
+</view>

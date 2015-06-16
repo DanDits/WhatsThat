@@ -37,7 +37,7 @@ public class StoreActivity extends FragmentActivity {
     private static final int CATEGORY_CREDITS = 5;
     //TODO for about: Contact, Github adress, app background, spinning wheel for selecting feedback type (+ Im feeling lucky)
     private static final int[] CATEGORY_NAME_RES_ID = new int[] {R.string.store_category_menu, R.string.store_category_shop, R.string.store_category_achievement, R.string.store_category_about, R.string.store_category_donate, R.string.store_category_credit};
-    private static final int[] mCategoryLayoutId = new int[] {0, R.layout.shop_base, 0, R.layout.about_base, R.layout.donations_base, R.layout.credits_base};
+    private static final int[] mCategoryLayoutId = new int[] {0, R.layout.shop_base, R.layout.achievements_base, R.layout.about_base, R.layout.donations_base, R.layout.credits_base};
     private static final String KEY_CURR_CATEGORY = "dan.dit.whatsthat.STORE_MENU_CURR_CATEGORY";
 
     private boolean mStateOpening;
@@ -159,11 +159,24 @@ public class StoreActivity extends FragmentActivity {
     @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {
         outState.putInt(KEY_CURR_CATEGORY, mCurrCategory);
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
         if (mCategoriesContainer != null) {
             closeVisibleCategory();
             mCategoriesContainer.removeAllViews();
         }
-        super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (mVisibleCategory == null) {
+            showCurrCategory();
+        }
     }
 
     @Override
@@ -244,7 +257,6 @@ public class StoreActivity extends FragmentActivity {
         if (savedInstanceState != null) {
             mCurrCategory = savedInstanceState.getInt(KEY_CURR_CATEGORY, CATEGORY_MENU);
         }
-        showCurrCategory();
     }
 
     /**

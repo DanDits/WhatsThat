@@ -16,4 +16,9 @@ public class MinValueDependency extends Dependency{
     public boolean isFulfilled() {
         return mDependency.getValue() >= mMinValue;
     }
+
+    @Override
+    public String toString() {
+        return "DEP: value (" + mDependency.getValue() + ") >= " + mMinValue;
+    }
 }

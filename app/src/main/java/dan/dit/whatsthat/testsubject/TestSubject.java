@@ -15,6 +15,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
+import dan.dit.whatsthat.BuildConfig;
 import dan.dit.whatsthat.R;
 import dan.dit.whatsthat.achievement.AchievementManager;
 import dan.dit.whatsthat.riddle.RiddleInitializer;
@@ -35,11 +36,8 @@ public class TestSubject implements Runnable {
     public static final int LEVEL_1_KID_NORMAL = 1;
     public static final String EMAIL_ON_ERROR = "whatsthat.contact@gmail.com";
     public static final String EMAIL_FEEDBACK = "whatsthat.feedback@gmail.com";
-    private static final String RW_KEY_TESTSUBJECT_LEVEL = "testsubject_level";
-    private static final String RW_KEY_SKIPABLE_GAMES = "skipable_games";
     private static final String TEST_SUBJECT_PREFERENCES_FILE = "dan.dit.whatsthat.testsubject_preferences";
     private static final String TEST_SUBJECT_PREF_FINISHED_MAIN_TEXTS = "key_finished_main_texts";
-    private static final java.lang.String SW_KEY_SPENT_SCORE = "testsubject_spent_score";
     private static final String TEST_SUBJECT_PREF_RIDDLE_TYPES = "key_testsubject_riddletypes";
     private static final int DEFAULT_SKIPABLE_GAMES = 5;
 
@@ -79,7 +77,7 @@ public class TestSubject implements Runnable {
     }
 
     public Dependable getLevelDependency() {
-        return mPurse.mRewardWallet.assureEntry(RW_KEY_TESTSUBJECT_LEVEL, LEVEL_0_KID_STUPID);
+        return mPurse.mRewardWallet.assureEntry(Purse.RW_KEY_TESTSUBJECT_LEVEL, LEVEL_0_KID_STUPID);
     }
 
     public void initToasts() {
@@ -122,10 +120,10 @@ public class TestSubject implements Runnable {
     }
 
     private void initLevel() {
-        WalletEntry levelEntry = mPurse.mRewardWallet.assureEntry(RW_KEY_TESTSUBJECT_LEVEL, LEVEL_NONE);
+        WalletEntry levelEntry = mPurse.mRewardWallet.assureEntry(Purse.RW_KEY_TESTSUBJECT_LEVEL, LEVEL_NONE);
         int oldLevel = levelEntry.getValue();
         if (oldLevel == LEVEL_NONE) {
-            mPurse.mRewardWallet.editEntry(RW_KEY_TESTSUBJECT_LEVEL).set(LEVEL_0_KID_STUPID);
+            mPurse.mRewardWallet.editEntry(Purse.RW_KEY_TESTSUBJECT_LEVEL).set(LEVEL_0_KID_STUPID);
         }
         int newLevel = levelEntry.getValue();
         if (newLevel > oldLevel) {
@@ -267,7 +265,7 @@ public class TestSubject implements Runnable {
     }
 
     public int getSpentScore() {
-        return mPurse.mScoreWallet.assureEntry(SW_KEY_SPENT_SCORE).getValue();
+        return mPurse.mScoreWallet.assureEntry(Purse.SW_KEY_SPENT_SCORE).getValue();
     }
 
     public List<TestSubjectRiddleType> getAvailableTypes() {
@@ -275,7 +273,7 @@ public class TestSubject implements Runnable {
     }
 
     public boolean canSkip() {
-        return mPurse.mRewardWallet.assureEntry(RW_KEY_SKIPABLE_GAMES, DEFAULT_SKIPABLE_GAMES).getValue()
+        return mPurse.mRewardWallet.assureEntry(Purse.RW_KEY_SKIPABLE_GAMES, DEFAULT_SKIPABLE_GAMES).getValue()
                 > RiddleInitializer.INSTANCE.getRiddleManager().getUnsolvedRiddleCount();
     }
 
@@ -299,4 +297,25 @@ public class TestSubject implements Runnable {
         }
     }
 
+    public void addSolvedRiddleScore(int score) {
+        mPurse.mScoreWallet.editEntry(Purse.SW_KEY_SOLVED_RIDDLE_SCORE).add(score);
+        if (BuildConfig.DEBUG) {
+            WalletEntry entry = mPurse.mScoreWallet.assureEntry(Purse.SW_KEY_SOLVED_RIDDLE_SCORE);
+            Log.d("HomeStuff", "Adding " + score + " to wallet, new riddle score: " + entry.getValue() + " (loaded " + RiddleInitializer.INSTANCE.getRiddleManager().getLoadedScore() + ")");
+        }
+    }
+
+    public void addAchievementScore(int score) {
+        mPurse.mScoreWallet.editEntry(Purse.SW_KEY_ACHIEVEMENT_SCORE).add(score);
+        Log.d("HomeStuff", "Adding " + score + " to wallet, new achievement score: " + mPurse.mScoreWallet.assureEntry(Purse.SW_KEY_ACHIEVEMENT_SCORE).getValue() + " (loaded " + RiddleInitializer.INSTANCE.getRiddleManager().getLoadedScore() + ")");
+
+    }
+
+    public TestSubjectAchievementHolder getAchievementHolder() {
+        return mAchievementHolder;
+    }
+
+    public int getCurrentScore() {
+        return mPurse.getCurrentScore();
+    }
 }

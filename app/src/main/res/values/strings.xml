@@ -151,4 +151,9 @@
         <item>Frank, someone found it. Call the assassinator, this must not get public.</item>
     </string-array>
 
+
+    <string name="achievement_snow_1_name">Hurry up</string>
+    <string name="achievement_snow_1_descr">Complete %1$d games within %2$d seconds.</string>
+    <string name="achievement_snow_2_name">Need for speed</string>
+    <string name="achievement_snow_2_descr">Because going slow is boring (speedometer: %1$d/%2$d).</string>
 </resources>

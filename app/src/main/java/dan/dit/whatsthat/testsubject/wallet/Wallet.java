@@ -42,10 +42,28 @@ public class Wallet {
         return entry;
     }
 
-    public Editor editEntry(String key) {
-        return mEditor.init(mEntries.get(key));
+    public int getEntryValue(String key) {
+        return assureEntry(key).getValue();
     }
 
+    public int getEntryValue(String key, int defaultValue) {
+        return assureEntry(key, defaultValue).getValue();
+    }
+
+    public Editor editEntry(String key) {
+        return mEditor.init(assureEntry(key));
+    }
+
+    public Editor editEntry(String key, int defaultValue) {
+        return mEditor.init(assureEntry(key, defaultValue));
+    }
+
+    /**
+     * Editor of wallet entries. Each edit only accepts inputs that will
+     * increase the WalletEntry value, so setting to a smaller value, setting a true
+     * entry to false or negative deltas will do nothing.
+     * Depts can be implemented by a separate entry.
+     */
     public class Editor {
         private WalletEntry mEntry;
         private int mValue;

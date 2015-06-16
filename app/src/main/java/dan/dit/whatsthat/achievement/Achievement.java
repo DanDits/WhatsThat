@@ -1,7 +1,15 @@
 package dan.dit.whatsthat.achievement;
 
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.text.TextUtils;
+import android.util.Log;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import dan.dit.whatsthat.testsubject.dependencies.Dependency;
+import dan.dit.whatsthat.util.PercentProgressListener;
 
 /**
  * Created by daniel on 12.05.15.
@@ -20,11 +28,20 @@ public abstract class Achievement implements AchievementDataEventListener {
     protected final AchievementManager mManager;
     protected int mValue;
     protected int mMaxValue;
-    protected int mLevel;
-    protected int mScoreReward;
+    protected final int mLevel;
+    protected final int mScoreReward;
+    protected final int mNameResId;
+    protected final int mDescrResId;
+    protected final int mRewardResId;
+    protected final List<Dependency> mDependencies;
 
-    public Achievement(String id, AchievementManager manager, int level, int scoreReward) {
+    public Achievement(String id, int nameResId, int descrResId, int rewardResId, AchievementManager manager, int level, int scoreReward, int maxValue) {
         mId = id;
+        mMaxValue = Math.max(DEFAULT_MAX_VALUE, maxValue);
+        mNameResId = nameResId;
+        mDescrResId = descrResId;
+        mRewardResId = rewardResId;
+        mDependencies = new ArrayList<>();
         mManager = manager;
         mLevel = level;
         mScoreReward = Math.max(scoreReward, 0);
@@ -34,8 +51,59 @@ public abstract class Achievement implements AchievementDataEventListener {
         if (manager == null) {
             throw new IllegalArgumentException("Null manager given.");
         }
-        loadData(manager.getSharedPreferences());
+        loadData(manager.getSharedPreferences(), mMaxValue);
         onCreated();
+    }
+
+    public abstract int getIconResId();
+
+    public CharSequence getName(Resources res) {
+        return mNameResId == 0 ? mId : res.getString(mNameResId);
+    }
+
+    public String getDescription(Resources res) {
+        return mDescrResId == 0 ? "": res.getString(mDescrResId);
+    }
+
+    public String getRewardDescription(Resources res) {
+        return mRewardResId == 0 ? ("+" + getScoreReward()) : res.getString(mRewardResId, getScoreReward());
+    }
+
+    public boolean areDependenciesFulfilled() {
+        for (Dependency d : mDependencies) {
+            if (!d.isFulfilled()) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    protected  boolean achieveAfterDependencyCheck() {
+        if (areDependenciesFulfilled()) {
+            achieve();
+            return true;
+        }
+        Log.d("Achievement", "Trying to achieve " + mId + ", but depencies are not fulfilled: " + mDependencies);
+        return false;
+    }
+
+    protected void achieveProgressPercent(int progress) {
+        if (isAchieved()) {
+            return;
+        }
+        if (progress > 100) {
+            progress = 100;
+        } else if (progress < 0) {
+            progress = 0;
+        }
+        int oldValue = mValue;
+        mValue = (int) (progress * mMaxValue / 100.);
+        Log.d("Achievement", "Achieving " + progress + " percent of " + mMaxValue + ": " + oldValue + "->" + mValue);
+        if (mValue >= mMaxValue || progress == 100) {
+            achieve();
+        } else if (mValue != oldValue) {
+            mManager.onChanged(this);
+        }
     }
 
     public int getLevel() {
@@ -99,9 +167,18 @@ public abstract class Achievement implements AchievementDataEventListener {
 
     }
 
-    private void loadData(SharedPreferences prefs) {
+    private void loadData(SharedPreferences prefs, int defaultMaxValue) {
         mDiscovered = prefs.getBoolean(mId + SEPARATOR + KEY_DISCOVERED, DEFAULT_IS_DISCOVERED);
         mValue = prefs.getInt(mId + SEPARATOR + KEY_VALUE, DEFAULT_VALUE);
-        mMaxValue = prefs.getInt(mId + SEPARATOR + KEY_VALUE, DEFAULT_MAX_VALUE);
+        mMaxValue = prefs.getInt(mId + SEPARATOR + KEY_MAX_VALUE, defaultMaxValue);
+        Log.d("Achievement", "Loaded achievement data : " + mDiscovered + " " + mValue + " " + mMaxValue);
+    }
+
+    public boolean isDiscovered() {
+        return mDiscovered;
+    }
+
+    public int getProgress() {
+        return (int) (PercentProgressListener.PROGRESS_COMPLETE * mValue / (double) mMaxValue);
     }
 }
