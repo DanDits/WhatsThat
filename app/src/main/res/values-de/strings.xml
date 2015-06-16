@@ -81,8 +81,12 @@
     <string name="riddle_type_circle_explanation">Berühre einen Kreis, damit sich dieser in vier kleinere aufteilt. Verbesser die Kontur, bis du das Bild erkennst.</string>
     <string name="riddle_type_snow">Nebel</string>
     <string name="riddle_type_snow_explanation">Bewege die Zelle durch Kippen des Gerätes. Sammle Biohazards, werde größer und EXPLODIERE, ohne eine Wand zu berühren!</string>
+    <string name="riddle_type_triangle">Dreiecke</string>
+    <string name="riddle_type_triangle_explanation">Berühre einen Punkt in einem Dreieck, um kleinere Dreiecke mit schärferem Kontrast zu erzeugen.</string>
     <string name="riddle_type_dice">Würfel</string>
     <string name="riddle_type_dice_explanation">Berühre ein leeres Feld, damit ein neuer Würfel erscheint. Bewege und kombiniere Würfel gleicher Augenzahl und Farbe, um das Bild aufzudecken.</string>
+    <string name="riddle_type_jumper">Jump\'n\'run</string>
+    <string name="riddle_type_jumper_explanation">Berühre das Feld, um über Hindernisse zu springen und das Bild zu vergrößern! Halte im Sprung das Feld gedrückt, um einen Double-Jump auszuführen.</string>
     <string name="riddle_type_developer">Entwickler</string>
     <string name="riddle_type_developer_explanation">Hallo ich oder Bruder.</string>
     <string name="panic_dialog_positive">Alles ok</string>
@@ -99,14 +103,11 @@
         <item>Wahnsinnig toller Mensch:</item>
     </string-array>
     <string name="no_panic_title">Keine Panik!</string>
-    <string name="riddle_type_triangle">Dreiecke</string>
-    <string name="riddle_type_triangle_explanation">Berühre einen Punkt in einem Dreieck, um kleinere Dreiecke mit schärferem Kontrast zu erzeugen.</string>
-    <string name="riddle_type_jumper">Jump\'n\'run</string>
-    <string name="riddle_type_jumper_explanation">Berühre das Feld, um über Hindernisse zu springen und das Bild zu vergrößern! Halte im Sprung das Feld gedrückt, um einen Double-Jump auszuführen.</string>
-    <string name="riddle_type_circle_firstrun">Verkleinere die Kreise!</string>
-    <string name="riddle_type_triangle_firstrun">Verkleinere die Dreiecke!</string>
-    <string name="riddle_type_dice_firstrun">Kombiniere gleichfarbige Augenzahlen und erschaffe grüne Würfel!</string>
+    <string name="riddle_type_circle_firstrun">Berühre und verkleinere die Kreise!</string>
     <string name="riddle_type_snow_firstrun">Wachse und explodiere das Bild frei!</string>
+    <string name="riddle_type_triangle_firstrun">Berühre und teile die Dreiecke!</string>
+    <string name="riddle_type_dice_firstrun">Erzeuge Würfel durch Berühren leerer Felder.\\nBewege und kombiniere Würfel gleicher Farbe.</string>
+    <string name="riddle_type_jumper_firstrun">Einmal drücken = Jump.\\nGedrückt halten = Double Jump.</string>
     <string name="handle_error_attempted">Bild nicht vorhanden?! Externen Speicher prüfen!</string>
     <string name="tongue_select_explanation">Sprache für Lösungswörter: %1$s</string>
 
