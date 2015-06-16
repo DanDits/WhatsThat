@@ -19,6 +19,13 @@ public class CreditsView extends WebView implements StoreContainer {
 
     public void refresh(FragmentActivity activity) {
         loadData(getContext().getString(R.string.credits_text), "text/html", "UTF-8");
+        requestLayout();
+        invalidate();
+    }
+
+    @Override
+    public void stop(FragmentActivity activity) {
+
     }
 
     @Override

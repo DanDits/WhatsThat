@@ -54,6 +54,15 @@ public class DonationsView extends FrameLayout implements StoreContainer {
         FragmentTransaction t = activity.getSupportFragmentManager().beginTransaction();
         t.replace(R.id.store_container, mFragment, FRAGMENT_TAG);
         t.commit();
+        requestLayout();
+        invalidate();
+    }
+
+    @Override
+    public void stop(FragmentActivity activity) {
+        FragmentTransaction t = activity.getSupportFragmentManager().beginTransaction();
+        t.remove(mFragment);
+        t.commit();
     }
 
     @Override

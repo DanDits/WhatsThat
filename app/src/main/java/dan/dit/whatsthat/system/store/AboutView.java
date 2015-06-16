@@ -156,6 +156,11 @@ public class AboutView extends View implements StoreContainer {
     }
 
     @Override
+    public void stop(FragmentActivity activity) {
+
+    }
+
+    @Override
     public View getView() {
         return getRootView();
     }

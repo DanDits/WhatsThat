@@ -134,17 +134,7 @@ public class InitializationFragment extends Fragment implements ImageManager.Syn
             }
         };
         mIntroContainer.setOnTouchListener(mNextTextListener);
-        if (!TestSubject.getInstance().finishedMainTexts()) {
-            Log.d("HomeStuff", "starting animation");
-            startAnimation();
-        } else {
-            Log.d("HomeStuff", "not starting animation");
-            mIntroKid.clearAnimation();
-            mIntroKid.setImageResource(TestSubject.getInstance().getImageResId());
-            mIntroKid.setVisibility(View.VISIBLE);
-            //FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) mIntroKid.getLayoutParams();
-
-        }
+        startAnimation();
     }
 
     private synchronized void checkDataState() {

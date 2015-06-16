@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import dan.dit.whatsthat.R;
+import dan.dit.whatsthat.system.InitActivity;
 import dan.dit.whatsthat.testsubject.TestSubject;
 
 /**
@@ -40,6 +41,7 @@ public class StoreActivity extends FragmentActivity {
     private static final String KEY_CURR_CATEGORY = "dan.dit.whatsthat.STORE_MENU_CURR_CATEGORY";
 
     private boolean mStateOpening;
+    private StoreContainer mVisibleCategory;
     private int mCurrCategory;
     private StoreContainer[] mCategory;
     private ViewGroup mCategoriesContainer;
@@ -50,6 +52,7 @@ public class StoreActivity extends FragmentActivity {
 
     private void showMenu() {
         mCurrCategory = CATEGORY_MENU;
+        closeVisibleCategory();
         mCategoriesContainer.setVisibility(View.GONE);
         for (Button view : mMenuButtons) {
             view.clearAnimation();
@@ -57,11 +60,19 @@ public class StoreActivity extends FragmentActivity {
         mMenuContainer.setVisibility(View.VISIBLE);
     }
 
+    private void closeVisibleCategory() {
+        if (mVisibleCategory != null) {
+            mVisibleCategory.stop(this);
+            mVisibleCategory = null;
+        }
+    }
+
     private void prepareCategory() {
         if (mCurrCategory == CATEGORY_MENU) {
             Log.e("HomeStuff", "Trying to prepare menu category!");
             return;
         }
+        closeVisibleCategory();
         mMenuContainer.setVisibility(View.GONE);
         mCategoriesContainer.removeAllViews();
         mCategoriesContainer.setVisibility(View.VISIBLE);
@@ -77,6 +88,7 @@ public class StoreActivity extends FragmentActivity {
         if (container != null) {
             mCategoriesContainer.addView(container.getView());
             container.refresh(this);
+            mVisibleCategory = container;
         }
     }
 
@@ -146,13 +158,26 @@ public class StoreActivity extends FragmentActivity {
 
     @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {
-        super.onSaveInstanceState(outState);
         outState.putInt(KEY_CURR_CATEGORY, mCurrCategory);
+        if (mCategoriesContainer != null) {
+            closeVisibleCategory();
+            mCategoriesContainer.removeAllViews();
+        }
+        super.onSaveInstanceState(outState);
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (!TestSubject.isInitialized()) {
+            // app got killed by android and is trying to reconstruct this activity when not initialized
+            Log.d("HomeStuff", "App killed and trying to reconstruct non initialized into StoreActivity.");
+            Intent reInit = new Intent(getApplicationContext(), InitActivity.class);
+            reInit.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(reInit);
+            finish();
+            return;
+        }
         setContentView(R.layout.store_activity);
         mCategory = new StoreContainer[CATEGORY_NAME_RES_ID.length];
         mCategoriesContainer = (ViewGroup) findViewById(R.id.category_container);

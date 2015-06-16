@@ -8,5 +8,6 @@ import android.view.View;
  */
 public interface StoreContainer {
     void refresh(FragmentActivity activity);
+    void stop(FragmentActivity activity);
     View getView();
 }

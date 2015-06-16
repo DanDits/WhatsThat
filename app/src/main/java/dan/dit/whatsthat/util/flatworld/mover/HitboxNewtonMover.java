@@ -57,4 +57,12 @@ public class HitboxNewtonMover extends HitboxMover {
     public boolean isMoving() {
         return mSpeedX != 0 || mSpeedY != 0 || mAccelX != 0 || mAccelY != 0;
     }
+
+    public float getSpeedX() {
+        return mSpeedX;
+    }
+
+    public float getSpeedY() {
+        return mSpeedY;
+    }
 }

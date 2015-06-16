@@ -21,6 +21,11 @@ public class ShopView extends ListView implements  StoreContainer {
     }
 
     @Override
+    public void stop(FragmentActivity activity) {
+
+    }
+
+    @Override
     public View getView() {
         return this;
     }

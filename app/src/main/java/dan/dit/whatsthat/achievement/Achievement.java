@@ -1,18 +1,14 @@
 package dan.dit.whatsthat.achievement;
 
 import android.content.SharedPreferences;
-import android.content.res.Resources;
 import android.text.TextUtils;
-
-import dan.dit.whatsthat.testsubject.dependencies.Dependable;
 
 /**
  * Created by daniel on 12.05.15.
  */
-public abstract class Achievement implements AchievementDataEventListener, Dependable {
+public abstract class Achievement implements AchievementDataEventListener {
     private static final String SEPARATOR = "_";
     private static final String KEY_DISCOVERED = "discovered";
-    private static final String KEY_ACHIEVED = "achieved";
     private static final String KEY_VALUE = "value";
     private static final String KEY_MAX_VALUE = "maxvalue";
     public static final boolean DEFAULT_IS_DISCOVERED = true;
@@ -20,9 +16,6 @@ public abstract class Achievement implements AchievementDataEventListener, Depen
     private static final int DEFAULT_MAX_VALUE = 1;
 
     protected final String mId;
-    protected final int mNameResId;
-    protected final int mDescrResId;
-    protected final int mRewardResId;
     protected boolean mDiscovered;
     protected final AchievementManager mManager;
     protected int mValue;
@@ -30,11 +23,8 @@ public abstract class Achievement implements AchievementDataEventListener, Depen
     protected int mLevel;
     protected int mScoreReward;
 
-    public Achievement(String id, int nameResId, int descrResId, int rewardResId, AchievementManager manager, int level, int scoreReward) {
+    public Achievement(String id, AchievementManager manager, int level, int scoreReward) {
         mId = id;
-        mNameResId = nameResId;
-        mDescrResId = descrResId;
-        mRewardResId = rewardResId;
         mManager = manager;
         mLevel = level;
         mScoreReward = Math.max(scoreReward, 0);
@@ -46,24 +36,6 @@ public abstract class Achievement implements AchievementDataEventListener, Depen
         }
         loadData(manager.getSharedPreferences());
         onCreated();
-    }
-
-    @Override
-    public CharSequence getName(Resources res) {
-        return mNameResId == 0 ? mId : res.getString(mNameResId);
-    }
-
-    public String getDescription(Resources res) {
-        return mDescrResId == 0 ? "": res.getString(mDescrResId);
-    }
-
-    public String getRewardDescription(Resources res) {
-        return mRewardResId == 0 ? ("+" + getScoreReward()) : res.getString(mRewardResId, getScoreReward());
-    }
-
-    @Override
-    public int getValue() {
-        return mValue;
     }
 
     public int getLevel() {
@@ -89,8 +61,6 @@ public abstract class Achievement implements AchievementDataEventListener, Depen
     }
 
     protected abstract void onCreated();
-
-    protected abstract void onInit();
 
     protected synchronized final void discover() {
         if (mDiscovered) {

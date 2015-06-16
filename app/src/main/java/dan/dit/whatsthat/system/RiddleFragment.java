@@ -477,7 +477,6 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
     @Override
     public void onStart() {
         super.onStart();
-        mOpenStore.setEnabled(true);
         mErrorHandlingAttempted = false;
         getLoaderManager().initLoader(0, null, this);
     }
@@ -491,6 +490,7 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
     @Override
     public void onResume() {
         super.onResume();
+        mOpenStore.setEnabled(true);
         mRiddleView.onResume();
     }
 
@@ -545,6 +545,7 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
                     mLoadedImagesCursor.moveToNext();
                 }
                 if (isCancelled()) {
+                    Log.e("Riddle", "Cancelled loaded images task, currently in map: " + map.size());
                     mLoadedImagesCursor = null;
                 }
                 return map;
@@ -569,6 +570,7 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
         // above is about to be closed.  We need to make sure we are no
         // longer using it.
         if (mLoadedImagesTask != null) {
+            Log.d("Riddle", "On loader reset cancels loaded images task.");
             mLoadedImagesTask.cancel(true);
         }
     }

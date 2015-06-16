@@ -235,7 +235,7 @@ public class Compacter implements Iterable<String> {
 	
 	@Override
 	public String toString() {
-		return data.toString();
+		return compact();
 	}
 	
 	@Override

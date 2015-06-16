@@ -140,7 +140,9 @@ public class ImageManager {
                 } else {
                     Log.d("Image", "Parsing for image sync: no new bundles, cancelled or failed.");
                 }
-                SYNCING_TASK_HAS_FINISHED_THIS_RUN = true;
+                if (!isCancelled()) {
+                    SYNCING_TASK_HAS_FINISHED_THIS_RUN = true;
+                }
             }
             return null;
         }

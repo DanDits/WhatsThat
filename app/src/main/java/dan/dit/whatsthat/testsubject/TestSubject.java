@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.os.Handler;
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.github.johnpersano.supertoasts.SuperToast;
@@ -16,28 +17,34 @@ import java.util.Random;
 
 import dan.dit.whatsthat.R;
 import dan.dit.whatsthat.achievement.AchievementManager;
-import dan.dit.whatsthat.riddle.achievement.AchievementHolder;
+import dan.dit.whatsthat.riddle.RiddleInitializer;
+import dan.dit.whatsthat.riddle.achievement.holders.TestSubjectAchievementHolder;
 import dan.dit.whatsthat.riddle.types.PracticalRiddleType;
+import dan.dit.whatsthat.testsubject.dependencies.Dependable;
+import dan.dit.whatsthat.testsubject.wallet.WalletEntry;
+import dan.dit.whatsthat.util.compaction.CompactedDataCorruptException;
+import dan.dit.whatsthat.util.compaction.Compacter;
 
 /**
  * Created by daniel on 11.04.15.
  */
 public class TestSubject implements Runnable {
-    private static final String TEST_SUBJECT_PREFERENCES_FILE = "dan.dit.whatsthat.testsubject.preferences";
-    private static final String TEST_SUBJECT_PREF_LEVEL_KEY = "testsubject_key_level";
-    private static final String TEST_SUBJECT_PREF_SPENT_SCORE_KEY = "testsubject_key_spent_score";
-    private static final String TEST_SUBJECT_PREF_FINISHED_MAIN_TEXTS = "testsubject_key_finished_main_texts";
-
     private static final TestSubject INSTANCE = new TestSubject();
-    public static final int LEVEL_0_KID_STUPID= 0;
+    public static final int LEVEL_NONE = -1;
+    public static final int LEVEL_0_KID_STUPID = 0;
     public static final int LEVEL_1_KID_NORMAL = 1;
-    public static final String EMAIL_ON_ERROR = "whatsthat.feedback@gmail.com";
+    public static final String EMAIL_ON_ERROR = "whatsthat.contact@gmail.com";
     public static final String EMAIL_FEEDBACK = "whatsthat.feedback@gmail.com";
+    private static final String RW_KEY_TESTSUBJECT_LEVEL = "testsubject_level";
+    private static final String RW_KEY_SKIPABLE_GAMES = "skipable_games";
+    private static final String TEST_SUBJECT_PREFERENCES_FILE = "dan.dit.whatsthat.testsubject_preferences";
+    private static final String TEST_SUBJECT_PREF_FINISHED_MAIN_TEXTS = "key_finished_main_texts";
+    private static final java.lang.String SW_KEY_SPENT_SCORE = "testsubject_spent_score";
+    private static final String TEST_SUBJECT_PREF_RIDDLE_TYPES = "key_testsubject_riddletypes";
+    private static final int DEFAULT_SKIPABLE_GAMES = 5;
 
 
     private boolean mInitialized;
-    private int mSpentScore;
-    private int mLevel;
 
 
     private SharedPreferences mPreferences;
@@ -51,11 +58,12 @@ public class TestSubject implements Runnable {
     private String[] mIntroTextNuts;
     private String[] mRiddleSolvedCandy;
     private Random mRand = new Random();
-    private List<TestSubjectRiddleType> mTypes;
+    private List<TestSubjectRiddleType> mTypes = new ArrayList<>();
     private Handler mHandler;
     private List<TestSubjectToast> mToasts;
     private Context mApplicationContext;
-    private AchievementHolder mAchievementHolder;
+    private TestSubjectAchievementHolder mAchievementHolder;
+    private Purse mPurse;
 
     private TestSubject() {
     }
@@ -63,12 +71,15 @@ public class TestSubject implements Runnable {
     public static TestSubject initialize(Context context) {
         INSTANCE.mApplicationContext = context.getApplicationContext();
         AchievementManager.initialize(INSTANCE.mApplicationContext);
-        INSTANCE.mPreferences = context.getSharedPreferences(TEST_SUBJECT_PREFERENCES_FILE, Context.MODE_PRIVATE);
-        INSTANCE.init(context.getResources());
+        INSTANCE.initPreferences();
+        INSTANCE.initLevel();
         INSTANCE.mInitialized = true;
-        INSTANCE.initTypes();
-        INSTANCE.mAchievementHolder = AchievementHolder.getInstance(AchievementManager.getInstance(), INSTANCE.mLevel, INSTANCE.mTypes);
+        INSTANCE.mAchievementHolder = TestSubjectAchievementHolder.makeInstance(AchievementManager.getInstance());
         return INSTANCE;
+    }
+
+    public Dependable getLevelDependency() {
+        return mPurse.mRewardWallet.assureEntry(RW_KEY_TESTSUBJECT_LEVEL, LEVEL_0_KID_STUPID);
     }
 
     public void initToasts() {
@@ -76,25 +87,53 @@ public class TestSubject implements Runnable {
         mToasts = new LinkedList<>();
     }
 
-    private void initTypes() {
-        //TODO implement save and load
-        mTypes = new ArrayList<>();
-        mTypes.add(new TestSubjectRiddleType(PracticalRiddleType.CIRCLE_INSTANCE));
-        mTypes.add(new TestSubjectRiddleType(PracticalRiddleType.SNOW_INSTANCE));
-        mTypes.add(new TestSubjectRiddleType(PracticalRiddleType.TRIANGLE_INSTANCE));
-        mTypes.add(new TestSubjectRiddleType(PracticalRiddleType.DICE_INSTANCE));
-        mTypes.add(new TestSubjectRiddleType(PracticalRiddleType.JUMPER_INSTANCE));
-    }
-
     public static boolean isInitialized() {
         return INSTANCE.mInitialized;
     }
 
-    private void init(Resources res) {
-        mLevel = mPreferences.getInt(TEST_SUBJECT_PREF_LEVEL_KEY, LEVEL_0_KID_STUPID);
+    private void initPreferences() {
+        mPreferences = mApplicationContext.getSharedPreferences(TEST_SUBJECT_PREFERENCES_FILE, Context.MODE_PRIVATE);
+        mPurse = new Purse(mApplicationContext);
         mFinishedMainTexts = mPreferences.getBoolean(TEST_SUBJECT_PREF_FINISHED_MAIN_TEXTS, false);
-        applyLevel(res);
-        mSpentScore = mPreferences.getInt(TEST_SUBJECT_PREF_SPENT_SCORE_KEY, 0);
+
+        // TestSubjectRiddleTypes
+        String typesDataRaw = mPreferences.getString(TEST_SUBJECT_PREF_RIDDLE_TYPES, null);
+        Compacter typesData = TextUtils.isEmpty(typesDataRaw) ? null : new Compacter(typesDataRaw);
+        if (typesData != null) {
+            for (String typeRaw : typesData) {
+                try {
+                    mTypes.add(new TestSubjectRiddleType(new Compacter(typeRaw)));
+                } catch (CompactedDataCorruptException e) {
+                    Log.e("HomeStuff", "Could not load testsubject riddle type: " + e);
+                }
+            }
+        }
+
+    }
+
+    public void saveTypes() {
+        if (mTypes != null) {
+            Compacter typesData = new Compacter(mTypes.size());
+            for (TestSubjectRiddleType type : mTypes) {
+                typesData.appendData(type.compact());
+            }
+            mPreferences.edit().putString(TEST_SUBJECT_PREF_RIDDLE_TYPES, typesData.compact()).apply();
+        }
+    }
+
+    private void initLevel() {
+        WalletEntry levelEntry = mPurse.mRewardWallet.assureEntry(RW_KEY_TESTSUBJECT_LEVEL, LEVEL_NONE);
+        int oldLevel = levelEntry.getValue();
+        if (oldLevel == LEVEL_NONE) {
+            mPurse.mRewardWallet.editEntry(RW_KEY_TESTSUBJECT_LEVEL).set(LEVEL_0_KID_STUPID);
+        }
+        int newLevel = levelEntry.getValue();
+        if (newLevel > oldLevel) {
+            onLevelUp(newLevel);
+            saveTypes();
+        }
+
+        applyLevel(mApplicationContext.getResources(), newLevel);
     }
 
     public static TestSubject getInstance() {
@@ -137,10 +176,20 @@ public class TestSubject implements Runnable {
         superToast.show();
     }
 
-    private void applyLevel(Resources res) {
+    private void onLevelUp(int newLevel) {
+        if (newLevel == LEVEL_0_KID_STUPID) {
+            mTypes.add(new TestSubjectRiddleType(PracticalRiddleType.CIRCLE_INSTANCE));
+            mTypes.add(new TestSubjectRiddleType(PracticalRiddleType.SNOW_INSTANCE));
+            mTypes.add(new TestSubjectRiddleType(PracticalRiddleType.TRIANGLE_INSTANCE));
+            mTypes.add(new TestSubjectRiddleType(PracticalRiddleType.DICE_INSTANCE));
+            mTypes.add(new TestSubjectRiddleType(PracticalRiddleType.JUMPER_INSTANCE));
+        }
+    }
+
+    private void applyLevel(Resources res, int level) {
         mTextMainIndex = 0;
         mTextNutsIndex = 0;
-        switch (mLevel) {
+        switch (level) {
             case LEVEL_0_KID_STUPID:
                 mNameResId = R.string.test_subject_0_name;
                 mIntelligenceResId = R.string.test_subject_0_int;
@@ -158,7 +207,7 @@ public class TestSubject implements Runnable {
                 mRiddleSolvedCandy = res.getStringArray(R.array.test_subject_1_riddle_solved_candy);
                 break;
             default:
-                throw new IllegalArgumentException("Not a valid level " + mLevel);
+                throw new IllegalArgumentException("Not a valid level " + level);
         }
     }
 
@@ -172,10 +221,6 @@ public class TestSubject implements Runnable {
             }
             return text;
         }
-    }
-
-    public boolean finishedMainTexts() {
-        return mFinishedMainTexts;
     }
 
     private boolean hasNextMainText() {
@@ -222,7 +267,7 @@ public class TestSubject implements Runnable {
     }
 
     public int getSpentScore() {
-        return mSpentScore;
+        return mPurse.mScoreWallet.assureEntry(SW_KEY_SPENT_SCORE).getValue();
     }
 
     public List<TestSubjectRiddleType> getAvailableTypes() {
@@ -230,7 +275,8 @@ public class TestSubject implements Runnable {
     }
 
     public boolean canSkip() {
-        return true; // TODO make it a listener of unsolved riddles changed, only allow if less than some number defined by subject level and stuff
+        return mPurse.mRewardWallet.assureEntry(RW_KEY_SKIPABLE_GAMES, DEFAULT_SKIPABLE_GAMES).getValue()
+                > RiddleInitializer.INSTANCE.getRiddleManager().getUnsolvedRiddleCount();
     }
 
     public PracticalRiddleType findNextRiddleType() {
@@ -245,6 +291,10 @@ public class TestSubject implements Runnable {
         if (types.size() > 0) {
             return types.get(mRand.nextInt(types.size())).getType();
         } else {
+            if (mTypes.size() == 0) {
+                Log.e("HomeStuff", "No types initialized when trying to find a riddle type!");
+                return PracticalRiddleType.SNOW_INSTANCE; // just a dummy, so there is a riddle
+            }
             return mTypes.get(mRand.nextInt(mTypes.size())).getType();
         }
     }

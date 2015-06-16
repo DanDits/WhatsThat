@@ -31,7 +31,7 @@ public class CompactedDataCorruptException extends Exception {
 	}
 
 	public CompactedDataCorruptException setCorruptData(Compacter dataCompressor) {
-		return setCorruptData(dataCompressor.compact());
+		return setCorruptData(dataCompressor == null ? null : dataCompressor.compact());
 	}
 	
 	public String toString() {

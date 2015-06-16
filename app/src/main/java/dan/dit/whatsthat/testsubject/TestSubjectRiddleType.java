@@ -12,13 +12,16 @@ public class TestSubjectRiddleType implements Compactable {
 
     private PracticalRiddleType mType;
     private boolean mSelected = true;
-    private boolean mAvailable = false;
 
     protected TestSubjectRiddleType(PracticalRiddleType toDecorate) {
         if (toDecorate == null) {
             throw new NullPointerException();
         }
         mType = toDecorate;
+    }
+
+    protected TestSubjectRiddleType(Compacter compactedData) throws CompactedDataCorruptException {
+        unloadData(compactedData);
     }
 
 
@@ -36,16 +39,24 @@ public class TestSubjectRiddleType implements Compactable {
         return mType.hashCode();
     }
 
-
-    //TODO implement, save and restore, init and hold by TestSubject INSTANCE
     @Override
     public String compact() {
-        return null;
+        Compacter cmp = new Compacter();
+        cmp.appendData(mType.getFullName());
+        cmp.appendData(mSelected);
+        return cmp.compact();
     }
 
     @Override
     public void unloadData(Compacter compactedData) throws CompactedDataCorruptException {
-
+        if (compactedData == null || compactedData.getSize() < 2) {
+            throw new CompactedDataCorruptException("Data missing for TestSubjectRiddleType.");
+        }
+        mType = PracticalRiddleType.getInstance(compactedData.getData(0));
+        mSelected = compactedData.getBoolean(1);
+        if (mType == null) {
+            throw new CompactedDataCorruptException("No type!").setCorruptData(compactedData);
+        }
     }
 
     public int getIconResId() {
@@ -61,7 +72,10 @@ public class TestSubjectRiddleType implements Compactable {
     }
 
     public void setSelected(boolean selected) {
-        this.mSelected = selected;
+        if (selected != mSelected) {
+            mSelected = selected;
+        }
+        TestSubject.getInstance().saveTypes();
     }
 
     public PracticalRiddleType getType() {

@@ -3,6 +3,7 @@ package dan.dit.whatsthat.testsubject.wallet;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -22,12 +23,18 @@ public class Wallet {
     public Wallet(Context context, String name) {
         mName = name;
         mPrefs = context.getSharedPreferences(WALLET_FILE_NAME, Context.MODE_PRIVATE);
+        mEntries = new HashMap<>();
+        mEditor = new Editor();
     }
 
     public WalletEntry assureEntry(String key) {
+        return assureEntry(key, WalletEntry.FALSE);
+    }
+
+    public WalletEntry assureEntry(String key, int defaultValue) {
         WalletEntry entry = mEntries.get(key);
         if (entry == null) {
-            int loaded = mPrefs.getInt(mName + key, WalletEntry.FALSE);
+            int loaded = mPrefs.getInt(mName + key, defaultValue);
             entry = new WalletEntry(key, 0, loaded);
             mEntries.put(key, entry);
             mEditor.init(entry).apply();
@@ -43,29 +50,36 @@ public class Wallet {
         private WalletEntry mEntry;
         private int mValue;
 
-        public Editor init(WalletEntry entry) {
+        private Editor init(WalletEntry entry) {
             mEntry = entry;
-            mValue = 0;
+            mValue = entry.getValue();
             return this;
         }
 
         public void add(int delta) {
-            if (delta >= 0) {
+            if (delta > 0) {
                 mValue = mEntry.getValue() + delta;
+                apply();
+            }
+        }
+
+        public void set(int value) {
+            if (value > mValue) {
+                mValue = value;
+                apply();
             }
         }
 
         public void setTrue() {
-            if (mEntry.getValue() == WalletEntry.FALSE) {
+            if (mValue != WalletEntry.TRUE && mValue < WalletEntry.TRUE) {
                 mValue = WalletEntry.TRUE;
+                apply();
             }
         }
 
-        public void apply() {
+        private void apply() {
             SharedPreferences.Editor editor = mPrefs.edit();
-            if (mValue > 0) {
-                mEntry.setValue(mValue);
-            }
+            mEntry.setValue(mValue);
             editor.putInt(mName + mEntry.getKey(), mValue).apply();
         }
     }
