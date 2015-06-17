@@ -143,10 +143,10 @@
         <item>\?!?</item>
     </string-array>
     <string-array name="contact_mail_body">
-        <item>Erdlinge und Urheberrechte: eine Katastrophe.\nMeine Meister benutzen daher nur Bilder mit freier Lizenz. Gib für das angehängte Bild folgende Punkte an:\n\nAutorname oder Psyeudonym:\nEvtl. Bildtitel:\nQuelle (z.B. Website:)\nLösungswort:\nBevorzugtes Rätsel:</item>
-        <item>Das hier ist nur für hyperintelligente und bescheidene Wesen wie beispielsweise mich!\nBevor du meinen Meister einen Vorschlag schickst, präzisiere deine Beschreibung, insbesondere:\nWas ist die Idee? Wie ist das Feld aufgebaut? Wie kann ich etwas verändern? Wie wird das Bild sichtbar?\nHilfreich ist eine Skizze, die du meinem Meister im Anhang mitsenden kannst\nNoch ein Zitat von ihm: &quot;Umsetzbare und gute Ideen werden wir gerne weiter verfolgen. Bei Unklarheiten frage ich gegebenenfalls nochmal nach.&quot;</item>
+        <item>Erdlinge und Urheberrechte: eine Katastrophe.\nMeine Meister benutzen daher nur Bilder mit freier Lizenz. Gib für das angehängte Bild folgende Punkte an:\n\nAutorname oder Psyeudonym:\nEvtl. Bildtitel:\nQuelle (z.B. Website):\nLösungswort:\nBevorzugtes Rätsel:</item>
+        <item>Das hier ist nur für hyperintelligente und bescheidene Wesen wie beispielsweise mich!\nBevor du meinen Meister einen Vorschlag schickst, präzisiere deine Beschreibung, insbesondere:\nWas ist die Idee? Wie ist das Feld aufgebaut? Wie kann ich etwas verändern? Wie wird das Bild sichtbar?\nHilfreich ist eine Skizze, die du meinem Meister im Anhang mitsenden kannst\nNoch ein Zitat von ihm: &quot;>Umsetzbare und gute Ideen werden wir gerne weiter verfolgen. Bei Unklarheiten frage ich gegebenenfalls nochmal nach.<&quot;</item>
         <item>Glückwunsch, ich dachte ich hätte die meisten Käfer vernichtet :(\n\nWo ist der Fehler aufgetreten?\nIst die App abgestürzt?\nWas hast du getan?\nWas ist (nicht) passiert?\nWas sollte passieren?</item>
-        <item>Meine Meister freuen sich über positives Feedback oder sonstige Verbesserungsvorschläge aller Art.\nNegatives Feedback wird höchstwahrscheinlich vom Wurmloch verschlungen werden</item>
+        <item>Meine Meister freuen sich über positives Feedback oder sonstige Verbesserungsvorschläge aller Art.\nNegatives Feedback wird höchstwahrscheinlich vom Wurmloch verschlungen werden.</item>
         <item>Oh große und erhabene Erlauchtheit, ich traue mich kaum diese Worte auszusprechen, doch trotzdem erhebe ich mein unwürdiges Haupt und blicke allen Mut fassend in eure allwissenden Augen und stammle ein kleinlautes ...Hallo</item>
         <item>Frank, someone found it. Call the assassinator, this must not get public.</item>
     </string-array>

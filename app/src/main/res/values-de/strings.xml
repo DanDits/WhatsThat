@@ -106,8 +106,8 @@
     <string name="riddle_type_circle_firstrun">Berühre und verkleinere die Kreise!</string>
     <string name="riddle_type_snow_firstrun">Wachse und explodiere das Bild frei!</string>
     <string name="riddle_type_triangle_firstrun">Berühre und teile die Dreiecke!</string>
-    <string name="riddle_type_dice_firstrun">Erzeuge Würfel durch Berühren leerer Felder.\\nBewege und kombiniere Würfel gleicher Farbe.</string>
-    <string name="riddle_type_jumper_firstrun">Einmal drücken = Jump.\\nGedrückt halten = Double Jump.</string>
+    <string name="riddle_type_dice_firstrun">Erzeuge Würfel durch Berühren leerer Felder.\nBewege und kombiniere Würfel gleicher Farbe.</string>
+    <string name="riddle_type_jumper_firstrun">Einmal drücken = Jump.\nGedrückt halten = Double Jump.</string>
     <string name="handle_error_attempted">Bild nicht vorhanden?! Externen Speicher prüfen!</string>
     <string name="tongue_select_explanation">Sprache für Lösungswörter: %1$s</string>
 
