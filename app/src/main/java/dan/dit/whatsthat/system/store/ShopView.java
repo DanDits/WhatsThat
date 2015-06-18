@@ -5,7 +5,10 @@ import android.support.v4.app.FragmentActivity;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ListView;
+
+import dan.dit.whatsthat.R;
 
 /**
  * Created by daniel on 12.06.15.
@@ -16,7 +19,8 @@ public class ShopView extends ListView implements  StoreContainer {
     }
 
     @Override
-    public void refresh(FragmentActivity activity) {
+    public void refresh(FragmentActivity activity, Button titleBackButton) {
+        titleBackButton.setText(R.string.store_category_shop);
         Log.d("HomeStuff", "Refreshing shop view.");
     }
 

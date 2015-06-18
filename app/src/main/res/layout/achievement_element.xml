@@ -5,6 +5,7 @@
     android:orientation="horizontal" android:layout_width="match_parent"
     android:layout_height="match_parent"
     custom:startColor="#FF00FF00"
+    custom:endColor="@color/white"
     android:id="@+id/progress_bar">
     <ImageView android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -24,11 +25,12 @@
         android:id="@+id/achievement_descr"
         android:textAppearance="@android:style/TextAppearance.Holo.Small"
         android:textIsSelectable="false"
-        android:textSize="10dp" />
+        android:textSize="10sp" />
     <TextView android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:layout_gravity="center"
         android:text="Rewardz"
-        android:id="@+id/achievement_reward" />
+        android:id="@+id/achievement_reward"
+        android:gravity="center" />
 </view>

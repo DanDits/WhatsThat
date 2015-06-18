@@ -38,4 +38,7 @@ public class Purse {
         return score;
     }
 
+    public int getAchievementScore() {
+        return mScoreWallet.getEntryValue(SW_KEY_ACHIEVEMENT_SCORE);
+    }
 }

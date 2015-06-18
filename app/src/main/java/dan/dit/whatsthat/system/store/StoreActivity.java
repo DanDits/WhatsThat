@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import dan.dit.whatsthat.R;
+import dan.dit.whatsthat.achievement.AchievementManager;
 import dan.dit.whatsthat.system.InitActivity;
 import dan.dit.whatsthat.testsubject.TestSubject;
 
@@ -35,8 +36,8 @@ public class StoreActivity extends FragmentActivity {
     private static final int CATEGORY_ABOUT = 3;
     private static final int CATEGORY_DONATE = 4;
     private static final int CATEGORY_CREDITS = 5;
+    private static final int CATEGORIES_COUNT = 6;
     //TODO for about: Contact, Github adress, app background, spinning wheel for selecting feedback type (+ Im feeling lucky)
-    private static final int[] CATEGORY_NAME_RES_ID = new int[] {R.string.store_category_menu, R.string.store_category_shop, R.string.store_category_achievement, R.string.store_category_about, R.string.store_category_donate, R.string.store_category_credit};
     private static final int[] mCategoryLayoutId = new int[] {0, R.layout.shop_base, R.layout.achievements_base, R.layout.about_base, R.layout.donations_base, R.layout.credits_base};
     private static final String KEY_CURR_CATEGORY = "dan.dit.whatsthat.STORE_MENU_CURR_CATEGORY";
 
@@ -87,14 +88,14 @@ public class StoreActivity extends FragmentActivity {
         }
         if (container != null) {
             mCategoriesContainer.addView(container.getView());
-            container.refresh(this);
+            container.refresh(this, mCategoryTitleBackButton);
             mVisibleCategory = container;
         }
     }
 
     private void showCurrCategory() {
-        mCategoryTitleBackButton.setText(CATEGORY_NAME_RES_ID[mCurrCategory]);
         if (mCurrCategory == CATEGORY_MENU) {
+            mCategoryTitleBackButton.setText(R.string.store_category_menu);
             mCategoryTitleBackButton.setCompoundDrawablesWithIntrinsicBounds(TestSubject.getInstance().getImageResId(), 0, R.drawable.shop_title_back, 0);
             showMenu();
         } else {
@@ -180,6 +181,12 @@ public class StoreActivity extends FragmentActivity {
     }
 
     @Override
+    public void onStop() {
+        super.onStop();
+        AchievementManager.commit();
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (!TestSubject.isInitialized()) {
@@ -192,7 +199,6 @@ public class StoreActivity extends FragmentActivity {
             return;
         }
         setContentView(R.layout.store_activity);
-        mCategory = new StoreContainer[CATEGORY_NAME_RES_ID.length];
         mCategoriesContainer = (ViewGroup) findViewById(R.id.category_container);
         mCategoryTitleBackButton = (Button) findViewById(R.id.btn_category_title_back);
         mCategoryTitleBackButton.setOnClickListener(new View.OnClickListener() {
@@ -253,6 +259,7 @@ public class StoreActivity extends FragmentActivity {
         mMenuButtons.add(aboutButton);
         mMenuButtons.add(donateButton);
         mMenuButtons.add(creditsButton);
+        mCategory = new StoreContainer[CATEGORIES_COUNT];
         mCurrCategory = CATEGORY_MENU;
         if (savedInstanceState != null) {
             mCurrCategory = savedInstanceState.getInt(KEY_CURR_CATEGORY, CATEGORY_MENU);

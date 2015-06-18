@@ -43,8 +43,8 @@ public class AchievementManager implements AchievementDataEventListener {
     }
 
     //close manager at the end to commit changes to data and achievements
-    public static void close() {
-        if (INSTANCE != null) {
+    public static synchronized void commit() {
+        if (INSTANCE != null && (!INSTANCE.mManagedChangedData.isEmpty() || !INSTANCE.mChangedAchievements.isEmpty())) {
             SharedPreferences.Editor editor = INSTANCE.mPrefs.edit();
             for (AchievementData data : INSTANCE.mManagedChangedData) {
                 editor.putString(data.mName, data.compact());
@@ -53,7 +53,7 @@ public class AchievementManager implements AchievementDataEventListener {
                 achievement.addData(editor);
             }
             editor.apply();
-            Log.d("Achievement", "Closed achievement manager, saving " + INSTANCE.mChangedAchievements.size() + " changed achievements.");
+            Log.d("Achievement", "Commiting achievement manager, saving " + INSTANCE.mChangedAchievements.size() + " changed achievements.");
             INSTANCE.mManagedChangedData.clear();
             INSTANCE.mChangedAchievements.clear();
         }
@@ -92,5 +92,9 @@ public class AchievementManager implements AchievementDataEventListener {
 
     protected SharedPreferences getSharedPreferences() {
         return mPrefs;
+    }
+
+    public static boolean hasInstance() {
+        return INSTANCE != null;
     }
 }

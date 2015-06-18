@@ -495,12 +495,6 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
     }
 
     @Override
-    public void onDestroy() {
-        super.onDestroy();
-        AchievementManager.close();
-    }
-
-    @Override
     public void onStop() {
         super.onStop();
         mManager.cancelMakeRiddle();
@@ -512,6 +506,7 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
         Log.d("Riddle", "Stopping riddle fragment, current riddle id: " + currRiddleId);
 
         Riddle.saveLastVisibleRiddleId(getActivity().getApplicationContext(), currRiddleId);
+        AchievementManager.commit();
     }
 
     @Override

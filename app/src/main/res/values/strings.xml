@@ -33,7 +33,7 @@
     </string-array>
     <string name="store_category_menu">Important things</string>
     <string name="store_category_shop">Shop</string>
-    <string name="store_category_achievement">Achievements</string>
+    <string name="store_category_achievement">Achievements (+%1$d)</string>
     <string name="store_category_about">About &amp; Contact</string>
     <string name="store_category_donate">Donate</string>
     <string name="store_category_credit">Credits</string>
@@ -144,7 +144,7 @@
     </string-array>
     <string-array name="contact_mail_body">
         <item>Erdlinge und Urheberrechte: eine Katastrophe.\nMeine Meister benutzen daher nur Bilder mit freier Lizenz. Gib für das angehängte Bild folgende Punkte an:\n\nAutorname oder Psyeudonym:\nEvtl. Bildtitel:\nQuelle (z.B. Website):\nLösungswort:\nBevorzugtes Rätsel:</item>
-        <item>Das hier ist nur für hyperintelligente und bescheidene Wesen wie beispielsweise mich!\nBevor du meinen Meister einen Vorschlag schickst, präzisiere deine Beschreibung, insbesondere:\nWas ist die Idee? Wie ist das Feld aufgebaut? Wie kann ich etwas verändern? Wie wird das Bild sichtbar?\nHilfreich ist eine Skizze, die du meinem Meister im Anhang mitsenden kannst\nNoch ein Zitat von ihm: &quot;>Umsetzbare und gute Ideen werden wir gerne weiter verfolgen. Bei Unklarheiten frage ich gegebenenfalls nochmal nach.<&quot;</item>
+        <item>Das hier ist nur für hyperintelligente und bescheidene Wesen wie beispielsweise mich!\nBevor du meinen Meister einen Vorschlag schickst, präzisiere deine Beschreibung, insbesondere:\nWas ist die Idee? Wie ist das Feld aufgebaut? Wie kann ich etwas verändern? Wie wird das Bild sichtbar?\nHilfreich ist eine Skizze, die du meinem Meister im Anhang mitsenden kannst\nNoch ein Zitat von ihm: &quot;>Umsetzbare und gute Ideen werden wir gerne weiter verfolgen. Bei Unklarheiten frage ich gegebenenfalls nochmal nach.&quot;</item>
         <item>Glückwunsch, ich dachte ich hätte die meisten Käfer vernichtet :(\n\nWo ist der Fehler aufgetreten?\nIst die App abgestürzt?\nWas hast du getan?\nWas ist (nicht) passiert?\nWas sollte passieren?</item>
         <item>Meine Meister freuen sich über positives Feedback oder sonstige Verbesserungsvorschläge aller Art.\nNegatives Feedback wird höchstwahrscheinlich vom Wurmloch verschlungen werden.</item>
         <item>Oh große und erhabene Erlauchtheit, ich traue mich kaum diese Worte auszusprechen, doch trotzdem erhebe ich mein unwürdiges Haupt und blicke allen Mut fassend in eure allwissenden Augen und stammle ein kleinlautes ...Hallo</item>
@@ -155,5 +155,9 @@
     <string name="achievement_snow_1_name">Hurry up</string>
     <string name="achievement_snow_1_descr">Complete %1$d games within %2$d seconds.</string>
     <string name="achievement_snow_2_name">Need for speed</string>
-    <string name="achievement_snow_2_descr">Because going slow is boring (speedometer: %1$d/%2$d).</string>
+    <string name="achievement_snow_2_descr">Because going slow is boring (speedometer maximum: %1$d/%2$d).</string>
+    <string name="achievement_snow_3_name">Glückstreffer...</string>
+    <string name="achievement_snow_3_descr">Errate das Bild nach nur einer Explosion.</string>
+    <string name="achievement_name_undiscovered">\?</string>
+    <string name="achievement_descr_undiscovered" />
 </resources>

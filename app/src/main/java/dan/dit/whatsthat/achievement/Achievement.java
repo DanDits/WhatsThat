@@ -19,6 +19,8 @@ public abstract class Achievement implements AchievementDataEventListener {
     private static final String KEY_DISCOVERED = "discovered";
     private static final String KEY_VALUE = "value";
     private static final String KEY_MAX_VALUE = "maxvalue";
+    private static final String KEY_ACHIEVED_TIMESTAMP = "achievedtime";
+    private static final String KEY_REWARD_CLAIMED = "rewardclaimed";
     public static final boolean DEFAULT_IS_DISCOVERED = true;
     private static final int DEFAULT_VALUE = 0;
     private static final int DEFAULT_MAX_VALUE = 1;
@@ -29,11 +31,13 @@ public abstract class Achievement implements AchievementDataEventListener {
     protected int mValue;
     protected int mMaxValue;
     protected final int mLevel;
-    protected final int mScoreReward;
+    private final int mScoreReward;
+    private boolean mRewardClaimed;
     protected final int mNameResId;
     protected final int mDescrResId;
     protected final int mRewardResId;
     protected final List<Dependency> mDependencies;
+    protected long mAchievedTimestamp;
 
     public Achievement(String id, int nameResId, int descrResId, int rewardResId, AchievementManager manager, int level, int scoreReward, int maxValue) {
         mId = id;
@@ -114,6 +118,19 @@ public abstract class Achievement implements AchievementDataEventListener {
         return mScoreReward;
     }
 
+    public boolean isRewardClaimable() {
+        return !mRewardClaimed && isAchieved();
+    }
+
+    public int claimReward() {
+        if (isRewardClaimable()) {
+            mRewardClaimed = true;
+            mManager.onChanged(this);
+            return mScoreReward;
+        }
+        return 0;
+    }
+
     @Override
     public int hashCode() {
         return mId.hashCode();
@@ -153,6 +170,7 @@ public abstract class Achievement implements AchievementDataEventListener {
             discover();
         }
         mValue = mMaxValue;
+        mAchievedTimestamp = System.currentTimeMillis();
         onAchieved();
         mManager.onChanged(this);
     }
@@ -163,7 +181,10 @@ public abstract class Achievement implements AchievementDataEventListener {
         editor
                 .putBoolean(mId + SEPARATOR + KEY_DISCOVERED, mDiscovered)
                 .putInt(mId + SEPARATOR + KEY_VALUE, mValue)
-                .putInt(mId + SEPARATOR + KEY_MAX_VALUE, mMaxValue);
+                .putInt(mId + SEPARATOR + KEY_MAX_VALUE, mMaxValue)
+                .putLong(mId + SEPARATOR + KEY_ACHIEVED_TIMESTAMP, mAchievedTimestamp)
+                .putBoolean(mId + SEPARATOR + KEY_REWARD_CLAIMED, mRewardClaimed);
+        Log.d("Achievement", "Adding achievement data : " + mDiscovered + " " + mValue + " " + mMaxValue + " " + mAchievedTimestamp + " " + mRewardClaimed);
 
     }
 
@@ -171,7 +192,9 @@ public abstract class Achievement implements AchievementDataEventListener {
         mDiscovered = prefs.getBoolean(mId + SEPARATOR + KEY_DISCOVERED, DEFAULT_IS_DISCOVERED);
         mValue = prefs.getInt(mId + SEPARATOR + KEY_VALUE, DEFAULT_VALUE);
         mMaxValue = prefs.getInt(mId + SEPARATOR + KEY_MAX_VALUE, defaultMaxValue);
-        Log.d("Achievement", "Loaded achievement data : " + mDiscovered + " " + mValue + " " + mMaxValue);
+        mAchievedTimestamp = prefs.getLong(mId + SEPARATOR + KEY_ACHIEVED_TIMESTAMP, 0L);
+        mRewardClaimed = prefs.getBoolean(mId + SEPARATOR + KEY_REWARD_CLAIMED, false);
+        Log.d("Achievement", "Loaded achievement data : " + mDiscovered + " " + mValue + " " + mMaxValue + " " + mAchievedTimestamp + " " + mRewardClaimed);
     }
 
     public boolean isDiscovered() {
@@ -181,4 +204,5 @@ public abstract class Achievement implements AchievementDataEventListener {
     public int getProgress() {
         return (int) (PercentProgressListener.PROGRESS_COMPLETE * mValue / (double) mMaxValue);
     }
+
 }

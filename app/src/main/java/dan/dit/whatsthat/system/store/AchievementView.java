@@ -8,7 +8,10 @@ import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.BaseExpandableListAdapter;
+import android.widget.Button;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -29,12 +32,70 @@ import dan.dit.whatsthat.util.ui.LinearLayoutProgressBar;
 public class AchievementView extends ExpandableListView implements StoreContainer {
 
     private BaseExpandableListAdapter mAdapter;
+    private List<List<Achievement>> mAllAchievements;
+    private List<String> mCategoryNames;
+    private List<Integer> mCategoryImage;
+    private Button mTitleBackButton;
+
     public AchievementView(Context context, AttributeSet attrs) {
         super(context, attrs);
+        mAllAchievements = new ArrayList<>();
+        mCategoryNames = new ArrayList<>();
+        mCategoryImage = new ArrayList<>();
+        TestSubjectAchievementHolder holder = TestSubject.getInstance().getAchievementHolder();
+        for (TestSubjectRiddleType type : TestSubject.getInstance().getAvailableTypes()) {
+            List<Achievement> achievements = holder.getTypeAchievements(type.getType());
+            if (achievements != null) {
+                mAllAchievements.add(achievements);
+                mCategoryNames.add(context.getResources().getString(type.getNameResId()));
+                mCategoryImage.add(type.getIconResId());
+            }
+        }
+
+        setOnChildClickListener(new OnChildClickListener() {
+            @Override
+            public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
+                return claimReward(mAllAchievements.get(groupPosition).get(childPosition), v.findViewById(R.id.achievement_reward));
+            }
+        });
+    }
+
+    private void updateTitleBackButton() {
+        mTitleBackButton.setText(getContext().getString(R.string.store_category_achievement, TestSubject.getInstance().getAchievementScore()));
+    }
+
+    private boolean claimReward(Achievement achievement, View toAnimate) {
+        if (achievement.isRewardClaimable()) {
+            int claimedScore = achievement.claimReward();
+            TestSubject.getInstance().addAchievementScore(claimedScore);
+            Animation anim = AnimationUtils.loadAnimation(getContext(), R.anim.reward_claimed);
+            toAnimate.startAnimation(anim);
+            anim.setAnimationListener(new Animation.AnimationListener() {
+                @Override
+                public void onAnimationStart(Animation animation) {
+
+                }
+
+                @Override
+                public void onAnimationEnd(Animation animation) {
+                    updateTitleBackButton();
+                    mAdapter.notifyDataSetChanged();
+                }
+
+                @Override
+                public void onAnimationRepeat(Animation animation) {
+
+                }
+            });
+            return true;
+        }
+        return false;
     }
 
     @Override
-    public void refresh(FragmentActivity activity) {
+    public void refresh(FragmentActivity activity, Button titleBackButton) {
+        mTitleBackButton = titleBackButton;
+        updateTitleBackButton();
         if (mAdapter == null) {
             mAdapter = new AchievementsAdapter(activity);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
@@ -57,28 +118,14 @@ public class AchievementView extends ExpandableListView implements StoreContaine
         return this;
     }
 
-    private static class AchievementsAdapter extends BaseExpandableListAdapter {
+    private class AchievementsAdapter extends BaseExpandableListAdapter {
         private final LayoutInflater mInflater;
-        private List<List<Achievement>> mAllAchievements;
-        private List<String> mCategoryNames;
-        private List<Integer> mCategoryImage;
         private Context mContext;
 
         public AchievementsAdapter(Context context) {
             mContext = context;
             mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            mAllAchievements = new ArrayList<>();
-            mCategoryNames = new ArrayList<>();
-            mCategoryImage = new ArrayList<>();
-            TestSubjectAchievementHolder holder = TestSubject.getInstance().getAchievementHolder();
-            for (TestSubjectRiddleType type : TestSubject.getInstance().getAvailableTypes()) {
-                List<Achievement> achievements = holder.getTypeAchievements(type.getType());
-                if (achievements != null) {
-                    mAllAchievements.add(achievements);
-                    mCategoryNames.add(mContext.getResources().getString(type.getNameResId()));
-                    mCategoryImage.add(type.getIconResId());
-                }
-            }
+
         }
 
         @Override
@@ -144,7 +191,7 @@ public class AchievementView extends ExpandableListView implements StoreContaine
                 progressListener.onProgressUpdate(0);
                 convertView.setBackgroundColor(progressListener.getStartColor());
             } else {
-                convertView.setBackgroundColor(Color.TRANSPARENT);
+                convertView.setBackgroundColor(progressListener.getEndColor());
                 progressListener.onProgressUpdate(achievement.getProgress());
             }
 
@@ -155,13 +202,17 @@ public class AchievementView extends ExpandableListView implements StoreContaine
             if (achievement.isDiscovered()) {
                 name.setText(achievement.getName(mContext.getResources()));
             } else {
-                name.setText("");
+                name.setText(R.string.achievement_name_undiscovered);
             }
 
             TextView descr = (TextView) convertView.findViewById(R.id.achievement_descr);
             if (dependenciesFulfilled) {
                 descr.setTextColor(Color.BLACK);
-                descr.setText(achievement.getDescription(mContext.getResources()));
+                if (achievement.isDiscovered()) {
+                    descr.setText(achievement.getDescription(mContext.getResources()));
+                } else {
+                    descr.setText(R.string.achievement_descr_undiscovered);
+                }
             } else {
                 descr.setTextColor(Color.RED);
                 descr.setText("Depends on things."); //TODO some better text here
@@ -169,13 +220,19 @@ public class AchievementView extends ExpandableListView implements StoreContaine
 
             TextView reward = (TextView) convertView.findViewById(R.id.achievement_reward);
             reward.setText(achievement.getRewardDescription(mContext.getResources()));
+            if (achievement.isRewardClaimable()) {
+                reward.setBackgroundResource(R.drawable.star_background);
+            } else {
+                reward.setBackgroundResource(0);
+            }
 
             return convertView;
         }
 
         @Override
-        public boolean isChildSelectable(int i, int i1) {
-            return false;
+        public boolean isChildSelectable(int i, int childPosition) {
+            Achievement achievement = mAllAchievements.get(i).get(childPosition);
+            return achievement.isRewardClaimable();
         }
     }
 }

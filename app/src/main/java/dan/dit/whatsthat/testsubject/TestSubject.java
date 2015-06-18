@@ -318,4 +318,8 @@ public class TestSubject implements Runnable {
     public int getCurrentScore() {
         return mPurse.getCurrentScore();
     }
+
+    public int getAchievementScore() {
+        return mPurse.getAchievementScore();
+    }
 }

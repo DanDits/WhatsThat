@@ -5,6 +5,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.util.AttributeSet;
 import android.view.View;
+import android.widget.Button;
 import android.widget.FrameLayout;
 
 import org.sufficientlysecure.donations.DonationsFragment;
@@ -45,7 +46,8 @@ public class DonationsView extends FrameLayout implements StoreContainer {
 
 
     @Override
-    public void refresh(FragmentActivity activity) {
+    public void refresh(FragmentActivity activity, Button titleBackButton) {
+        titleBackButton.setText(R.string.store_category_donate);
         if (mFragment == null) {
             mFragment = DonationsFragment.newInstance(false, true, GOOGLE_PUBKEY, GOOGLE_CATALOG,
                     getResources().getStringArray(R.array.donation_google_catalog_values), false, null, null,
