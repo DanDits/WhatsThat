@@ -37,6 +37,7 @@
     <string name="store_category_about">About &amp; Contact</string>
     <string name="store_category_donate">Donate</string>
     <string name="store_category_credit">Credits</string>
+    <string name="store_category_credit">Backgrounds</string>
     <string name="date_today">Today</string>
     <string name="date_yesterday">Yesterday</string>
     <string name="riddle_hint_dialog_title">Information</string>
@@ -79,9 +80,9 @@
     <string name="riddle_dialog_tab_unsolved" >Unsolved</string>
     <string name="riddle_type_circle">Circle</string>
     <string name="riddle_type_circle_explanation">Touch one circle to pop them into 4 smaller ones until the image is visible.</string>
-    <string name="riddle_type_snow">Nebel</string>
+    <string name="riddle_type_snow">Angry Cell</string>
     <string name="riddle_type_snow_explanation">Tilt the device and thus move the cell. Collect stuff, grow bigger, don\'t touch walls and EXPLODE.</string>
-    <string name="riddle_type_dice">Dice</string>
+    <string name="riddle_type_dice">Alien-Cube</string>
     <string name="riddle_type_dice_explanation">Create dices by touching an empty field. Move and combine dices with equal numbers to reveal the image.</string>
     <string name="riddle_type_triangle">Triangle</string>
     <string name="riddle_type_triangle_explanation">Press inside a triangle to create smaller ones.</string>
@@ -125,7 +126,7 @@
     <string name="btn_about">About &amp; Contact</string>
     <string name="btn_donate">Donate</string>
     <string name="btn_credits">Credits</string>
-    <string name="about_contact_descr">Die App ist ein Freizeitprojekt von den Brüdern Fabian und Daniel, die ich stolz meine Meister nennen darf. Sie haben ein Anti-Werbungs-Wurmloch installiert, das dich vor Pop-ups und Müll schützt. Über Unterstützung freuen sie sich trotzdem!\nSchreibt ihnen, schaut euch das Projekt an unter &quot;https://github.com/DanDits/WhatsThat&quot; oder setzt eine anonyme Spende ab.\n\nStay awesome! :)</string>
+    <string name="about_contact_descr">Die App ist ein Freizeitprojekt von den Brüdern Fabian und Daniel, die ich stolz meine Schöpfer nennen darf. Daniel, mein Professor, und Fabian, mein Meister, haben ein Anti-Werbungs-Wurmloch installiert, das dich vor Pop-ups und Müll schützt. Über anderweitige Unterstützung freuen sie sich trotzdem!\nSchreibt ihnen, schaut euch das Projekt an unter &quot;https://github.com/DanDits/WhatsThat&quot; oder setzt eine anonyme Spende ab.\n\nStay awesome! :)</string>
     <string-array name="contact_headings">
         <item>Bild vorschlagen</item>
         <item>Rätsel vorschlagen</item>
@@ -143,8 +144,8 @@
         <item>\?!?</item>
     </string-array>
     <string-array name="contact_mail_body">
-        <item>Erdlinge und Urheberrechte: eine Katastrophe.\nMeine Meister benutzen daher nur Bilder mit freier Lizenz. Gib für das angehängte Bild folgende Punkte an:\n\nAutorname oder Psyeudonym:\nEvtl. Bildtitel:\nQuelle (z.B. Website):\nLösungswort:\nBevorzugtes Rätsel:</item>
-        <item>Das hier ist nur für hyperintelligente und bescheidene Wesen wie beispielsweise mich!\nBevor du meinen Meister einen Vorschlag schickst, präzisiere deine Beschreibung, insbesondere:\nWas ist die Idee? Wie ist das Feld aufgebaut? Wie kann ich etwas verändern? Wie wird das Bild sichtbar?\nHilfreich ist eine Skizze, die du meinem Meister im Anhang mitsenden kannst\nNoch ein Zitat von ihm: &quot;>Umsetzbare und gute Ideen werden wir gerne weiter verfolgen. Bei Unklarheiten frage ich gegebenenfalls nochmal nach.&quot;</item>
+        <item>Erdlinge und Urheberrechte: eine Katastrophe.\nMeine Schöpfer benutzen daher nur Bilder mit freier Lizenz. Gib für das angehängte Bild folgende Punkte an:\n\nAutorname oder Psyeudonym:\nEvtl. Bildtitel:\nQuelle (z.B. Website):\nLösungswort:\nBevorzugtes Rätsel:</item>
+        <item>Das hier ist nur für hyperintelligente und bescheidene Wesen wie beispielsweise mich!\nSolltest du meinen Meister einen Vorschlag schicken, präzisiere deine Beschreibung, insbesondere:\nWas ist die Idee? Wie ist das Feld aufgebaut? Wie kann ich etwas verändern? Wie wird das Bild sichtbar? Usw.\nEine Skizze im Anhang hilft meinem Meister, deine wirren Gedanken zu verstehen.\nVielleicht nimmt er sogar Kontakt mit dir auf, wenn dein Vorschlag gut ist und noch Fragen im Detail aufwirft.</item>
         <item>Glückwunsch, ich dachte ich hätte die meisten Käfer vernichtet :(\n\nWo ist der Fehler aufgetreten?\nIst die App abgestürzt?\nWas hast du getan?\nWas ist (nicht) passiert?\nWas sollte passieren?</item>
         <item>Meine Meister freuen sich über positives Feedback oder sonstige Verbesserungsvorschläge aller Art.\nNegatives Feedback wird höchstwahrscheinlich vom Wurmloch verschlungen werden.</item>
         <item>Oh große und erhabene Erlauchtheit, ich traue mich kaum diese Worte auszusprechen, doch trotzdem erhebe ich mein unwürdiges Haupt und blicke allen Mut fassend in eure allwissenden Augen und stammle ein kleinlautes ...Hallo</item>

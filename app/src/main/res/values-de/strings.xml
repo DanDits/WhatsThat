@@ -79,11 +79,11 @@
     <string name="riddle_dialog_tab_unsolved" >Ausgelassen und vergessen…</string>
     <string name="riddle_type_circle">Kreise</string>
     <string name="riddle_type_circle_explanation">Berühre einen Kreis, damit sich dieser in vier kleinere aufteilt. Verbesser die Kontur, bis du das Bild erkennst.</string>
-    <string name="riddle_type_snow">Nebel</string>
+    <string name="riddle_type_snow">Angry Cell</string>
     <string name="riddle_type_snow_explanation">Bewege die Zelle durch Kippen des Gerätes. Sammle Biohazards, werde größer und EXPLODIERE, ohne eine Wand zu berühren!</string>
     <string name="riddle_type_triangle">Dreiecke</string>
     <string name="riddle_type_triangle_explanation">Berühre einen Punkt in einem Dreieck, um kleinere Dreiecke mit schärferem Kontrast zu erzeugen.</string>
-    <string name="riddle_type_dice">Würfel</string>
+    <string name="riddle_type_dice">Alien-Cube</string>
     <string name="riddle_type_dice_explanation">Berühre ein leeres Feld, damit ein neuer Würfel erscheint. Bewege und kombiniere Würfel gleicher Augenzahl und Farbe, um das Bild aufzudecken.</string>
     <string name="riddle_type_jumper">Jump\'n\'run</string>
     <string name="riddle_type_jumper_explanation">Berühre das Feld, um über Hindernisse zu springen und das Bild zu vergrößern! Halte im Sprung das Feld gedrückt, um einen Double-Jump auszuführen.</string>
@@ -92,7 +92,7 @@
     <string name="panic_dialog_positive">Alles ok</string>
     <string name="panic_ask_type">Wie funktioniert das Rätsel</string>
     <string name="panic_skip">Bild auslassen.. später weitermachen</string>
-    <string name="panic_complain">Ich will mich über das Bild beschweren</string>
+    <string name="panic_complain">Bildbeschwerde, wenn verzerrt oder unkenntlich</string>
 
     <string-array name="panic_author_credit_title">
         <item>Bewundere den Künstler des Bildes!</item>
