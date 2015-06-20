@@ -37,7 +37,6 @@ public class StoreActivity extends FragmentActivity {
     private static final int CATEGORY_DONATE = 4;
     private static final int CATEGORY_CREDITS = 5;
     private static final int CATEGORIES_COUNT = 6;
-    //TODO for about: Contact, Github adress, app background, spinning wheel for selecting feedback type (+ Im feeling lucky)
     private static final int[] mCategoryLayoutId = new int[] {0, R.layout.shop_base, R.layout.achievements_base, R.layout.about_base, R.layout.donations_base, R.layout.credits_base};
     private static final String KEY_CURR_CATEGORY = "dan.dit.whatsthat.STORE_MENU_CURR_CATEGORY";
 

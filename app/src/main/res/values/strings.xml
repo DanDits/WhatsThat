@@ -37,7 +37,6 @@
     <string name="store_category_about">About &amp; Contact</string>
     <string name="store_category_donate">Donate</string>
     <string name="store_category_credit">Credits</string>
-    <string name="store_category_credit">Backgrounds</string>
     <string name="date_today">Today</string>
     <string name="date_yesterday">Yesterday</string>
     <string name="riddle_hint_dialog_title">Information</string>
@@ -93,6 +92,7 @@
     <string name="panic_dialog_positive">All right</string>
     <string name="panic_ask_type">How does this work</string>
     <string name="panic_skip">Skip .. come back later</string>
+    <string name="panic_cannot_skip">Brain .. full ... cannot .. remember more . riddles ...</string>
     <string name="panic_complain">I want to complain</string>
     <string-array name="panic_author_credit_title">
         <item>Admire the artist!</item>
@@ -126,7 +126,7 @@
     <string name="btn_about">About &amp; Contact</string>
     <string name="btn_donate">Donate</string>
     <string name="btn_credits">Credits</string>
-    <string name="about_contact_descr">Die App ist ein Freizeitprojekt von den Brüdern Fabian und Daniel, die ich stolz meine Schöpfer nennen darf. Daniel, mein Professor, und Fabian, mein Meister, haben ein Anti-Werbungs-Wurmloch installiert, das dich vor Pop-ups und Müll schützt. Über anderweitige Unterstützung freuen sie sich trotzdem!\nSchreibt ihnen, schaut euch das Projekt an unter &quot;https://github.com/DanDits/WhatsThat&quot; oder setzt eine anonyme Spende ab.\n\nStay awesome! :)</string>
+    <string name="about_contact_descr">Die App ist ein Freizeitprojekt von den Brüdern Fabian und Daniel, die ich stolz meine Schöpfer nennen darf. Daniel, mein Professor, und Fabian, mein Meister, haben ein Anti-Werbungs-Wurmloch installiert, das dich vor Pop-ups und Müll schützt. Über anderweitige Unterstützung freuen sie sich trotzdem!\nSchreibt ihnen, schaut euch das Projekt an unter \"https://github.com/DanDits/WhatsThat\" oder setzt eine anonyme Spende ab.\n\nStay awesome! :)</string>
     <string-array name="contact_headings">
         <item>Bild vorschlagen</item>
         <item>Rätsel vorschlagen</item>
@@ -152,13 +152,34 @@
         <item>Frank, someone found it. Call the assassinator, this must not get public.</item>
     </string-array>
 
+    <string name="achievement_name_undiscovered">\?</string>
+    <string name="achievement_descr_undiscovered" />
 
     <string name="achievement_snow_1_name">Hurry up</string>
     <string name="achievement_snow_1_descr">Complete %1$d games within %2$d seconds.</string>
     <string name="achievement_snow_2_name">Need for speed</string>
     <string name="achievement_snow_2_descr">Because going slow is boring (speedometer maximum: %1$d/%2$d).</string>
-    <string name="achievement_snow_3_name">Glückstreffer...</string>
-    <string name="achievement_snow_3_descr">Errate das Bild nach nur einer Explosion.</string>
-    <string name="achievement_name_undiscovered">\?</string>
-    <string name="achievement_descr_undiscovered" />
+    <string name="achievement_snow_3_name">Luck…</string>
+    <string name="achievement_snow_3_descr">One explosion should be enough.</string>
+    <string name="achievement_snow_4_name">Mission impossible</string>
+    <string name="achievement_snow_4_descr">Collect %1$d bio hazards in %2$d seconds.</string>
+    <string name="achievement_snow_5_name">Bombastic</string>
+    <string name="achievement_snow_5_descr">Explode %1$d times in a game without kissing the wall.</string>
+    <string name="achievement_snow_6_name">Not today!</string>
+    <string name="achievement_snow_6_descr">Touch the wall as Angry Cell. Again and again.</string>
+    <string name="achievement_snow_7_name">They see me rollin\'</string>
+    <string name="achievement_snow_7_descr">Levitate … a bit. No biohazards, walls or candies!</string>
+    <string name="achievement_snow_8_name">Bouncing cell</string>
+    <string name="achievement_snow_8_descr">Hit the walls %1$d times using the explosion pressure.</string>
+    <string name="achievement_snow_9_name">As hard as possible</string>
+    <string name="achievement_snow_9_descr">Hit the wall with %1$d.</string>
+    <string name="achievement_snow_10_name">Obstinate mule</string>
+    <string name="achievement_snow_10_descr">You know that the wall will not help you?</string>
+    <string name="achievement_snow_11_name">…or maybe skill?</string>
+    <string name="achievement_snow_11_descr">Solve %1$d riddles with only one explosion.</string>
+    <string name="achievement_snow_12_name">Overkill</string>
+    <string name="achievement_snow_12_descr">Collect %1$d biohazards before exploding. Yes it\'s stupid</string>
+    <string name="dependency_required">Requires:</string>
+    <string name="starttime_dependency">Started after %1$s</string>
+    <string name="level_dependency">Level %1$s</string>
 </resources>

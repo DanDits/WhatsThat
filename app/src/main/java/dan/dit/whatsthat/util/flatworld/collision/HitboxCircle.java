@@ -8,7 +8,6 @@ import java.util.Random;
  * Created by daniel on 01.06.15.
  */
 public class HitboxCircle extends Hitbox<HitboxCircle> {
-    private static final float PI2 = (float) (Math.PI * 2.);
     private float mRadius;
     private float mCenterX;
     private float mCenterY;

@@ -43,6 +43,13 @@ public class AchievementProperties extends AchievementData {
         super(name);
     }
 
+    public boolean removeKey(String key) {
+        if (key == null) {
+            return false;
+        }
+        return mValues.remove(key) != null;
+    }
+
     @Override
     protected synchronized void resetData() {
         mValues.clear();

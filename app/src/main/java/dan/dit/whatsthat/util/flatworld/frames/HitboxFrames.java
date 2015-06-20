@@ -3,6 +3,7 @@ package dan.dit.whatsthat.util.flatworld.frames;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.util.Log;
 
 /**
  * Created by daniel on 30.05.15.
@@ -23,6 +24,10 @@ public class HitboxFrames {
         mFrameDuration = frameDuration;
         if (mFrames == null || mFrames.length == 0) {
             throw new IllegalArgumentException("No frames given.");
+        }
+        if (frames.length > 1 && mFrameDuration <= 0L) {
+            Log.e("Riddle", "Illegal frame duration set to 1000ms " + mFrameDuration);
+            mFrameDuration = 1000L;
         }
         mVisible = true;
     }

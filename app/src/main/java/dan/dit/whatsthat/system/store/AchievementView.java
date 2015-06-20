@@ -21,9 +21,12 @@ import java.util.List;
 
 import dan.dit.whatsthat.R;
 import dan.dit.whatsthat.achievement.Achievement;
+import dan.dit.whatsthat.riddle.Riddle;
 import dan.dit.whatsthat.riddle.achievement.holders.TestSubjectAchievementHolder;
+import dan.dit.whatsthat.riddle.types.PracticalRiddleType;
 import dan.dit.whatsthat.testsubject.TestSubject;
 import dan.dit.whatsthat.testsubject.TestSubjectRiddleType;
+import dan.dit.whatsthat.testsubject.dependencies.Dependency;
 import dan.dit.whatsthat.util.ui.LinearLayoutProgressBar;
 
 /**
@@ -31,6 +34,7 @@ import dan.dit.whatsthat.util.ui.LinearLayoutProgressBar;
  */
 public class AchievementView extends ExpandableListView implements StoreContainer {
 
+    private int mVisibleCategoryIndex;
     private BaseExpandableListAdapter mAdapter;
     private List<List<Achievement>> mAllAchievements;
     private List<String> mCategoryNames;
@@ -42,13 +46,18 @@ public class AchievementView extends ExpandableListView implements StoreContaine
         mAllAchievements = new ArrayList<>();
         mCategoryNames = new ArrayList<>();
         mCategoryImage = new ArrayList<>();
+        PracticalRiddleType lastVisibleType = Riddle.getLastVisibleRiddleType(getContext());
         TestSubjectAchievementHolder holder = TestSubject.getInstance().getAchievementHolder();
+        mVisibleCategoryIndex = -1;
         for (TestSubjectRiddleType type : TestSubject.getInstance().getAvailableTypes()) {
             List<Achievement> achievements = holder.getTypeAchievements(type.getType());
             if (achievements != null) {
                 mAllAchievements.add(achievements);
                 mCategoryNames.add(context.getResources().getString(type.getNameResId()));
                 mCategoryImage.add(type.getIconResId());
+                if (lastVisibleType != null && type.getType().equals(lastVisibleType)) {
+                    mVisibleCategoryIndex = mCategoryNames.size() - 1;
+                }
             }
         }
 
@@ -58,6 +67,7 @@ public class AchievementView extends ExpandableListView implements StoreContaine
                 return claimReward(mAllAchievements.get(groupPosition).get(childPosition), v.findViewById(R.id.achievement_reward));
             }
         });
+
     }
 
     private void updateTitleBackButton() {
@@ -98,12 +108,16 @@ public class AchievementView extends ExpandableListView implements StoreContaine
         updateTitleBackButton();
         if (mAdapter == null) {
             mAdapter = new AchievementsAdapter(activity);
+            setGroupIndicator(getResources().getDrawable(R.drawable.achievement_list_group_indicator));
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
                 setIndicatorBoundsRelative(100, 150);
             } else {
                 setIndicatorBounds(100, 150);
             }
             setAdapter(mAdapter);
+            if (mVisibleCategoryIndex >= 0 && mVisibleCategoryIndex < mAdapter.getGroupCount()) {
+                expandGroup(mVisibleCategoryIndex);
+            }
         } else {
             mAdapter.notifyDataSetChanged();
         }
@@ -215,7 +229,22 @@ public class AchievementView extends ExpandableListView implements StoreContaine
                 }
             } else {
                 descr.setTextColor(Color.RED);
-                descr.setText("Depends on things."); //TODO some better text here
+                StringBuilder builder = new StringBuilder();
+                builder.append(getResources().getString(R.string.dependency_required));
+                builder.append(' ');
+                List<Dependency> deps = achievement.getDependencies();
+                boolean addSeparator = false;
+                for (int i = 0; i < deps.size(); i++) {
+                    Dependency dep = deps.get(i);
+                    if (!dep.isFulfilled()) {
+                        if (addSeparator) {
+                            builder.append(", ");
+                        }
+                        builder.append(deps.get(i).getName(getResources()));
+                        addSeparator = true;
+                    }
+                }
+                descr.setText(builder.toString());
             }
 
             TextView reward = (TextView) convertView.findViewById(R.id.achievement_reward);

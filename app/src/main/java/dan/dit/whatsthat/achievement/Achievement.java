@@ -8,13 +8,14 @@ import android.util.Log;
 import java.util.ArrayList;
 import java.util.List;
 
+import dan.dit.whatsthat.testsubject.dependencies.Dependable;
 import dan.dit.whatsthat.testsubject.dependencies.Dependency;
 import dan.dit.whatsthat.util.PercentProgressListener;
 
 /**
  * Created by daniel on 12.05.15.
  */
-public abstract class Achievement implements AchievementDataEventListener {
+public abstract class Achievement implements AchievementDataEventListener, Dependable {
     private static final String SEPARATOR = "_";
     private static final String KEY_DISCOVERED = "discovered";
     private static final String KEY_VALUE = "value";
@@ -59,17 +60,23 @@ public abstract class Achievement implements AchievementDataEventListener {
         onCreated();
     }
 
+
+    @Override
+    public int getValue() {
+        return mValue;
+    }
+
     public abstract int getIconResId();
 
     public CharSequence getName(Resources res) {
         return mNameResId == 0 ? mId : res.getString(mNameResId);
     }
 
-    public String getDescription(Resources res) {
+    public CharSequence getDescription(Resources res) {
         return mDescrResId == 0 ? "": res.getString(mDescrResId);
     }
 
-    public String getRewardDescription(Resources res) {
+    public CharSequence getRewardDescription(Resources res) {
         return mRewardResId == 0 ? ("+" + getScoreReward()) : res.getString(mRewardResId, getScoreReward());
     }
 
@@ -108,6 +115,25 @@ public abstract class Achievement implements AchievementDataEventListener {
         } else if (mValue != oldValue) {
             mManager.onChanged(this);
         }
+    }
+
+    protected void achieveDelta(int delta) {
+        if (isAchieved()) {
+            return;
+        }
+        mValue += delta;
+        if (mValue >= mMaxValue) {
+            achieve();
+        } else if (delta != 0) {
+            mManager.onChanged(this);
+        }
+    }
+
+    protected void addDeltaIfNotAchieved(int delta) {
+        if (isAchieved() || mValue + delta >= mMaxValue) {
+            return;
+        }
+        achieveDelta(delta);
     }
 
     public int getLevel() {
@@ -205,4 +231,11 @@ public abstract class Achievement implements AchievementDataEventListener {
         return (int) (PercentProgressListener.PROGRESS_COMPLETE * mValue / (double) mMaxValue);
     }
 
+    public int getMaxValue() {
+        return mMaxValue;
+    }
+
+    public List<Dependency> getDependencies() {
+        return mDependencies;
+    }
 }

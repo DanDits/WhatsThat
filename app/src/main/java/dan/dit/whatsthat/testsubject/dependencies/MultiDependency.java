@@ -1,5 +1,7 @@
 package dan.dit.whatsthat.testsubject.dependencies;
 
+import android.content.res.Resources;
+
 import java.util.List;
 
 /**
@@ -24,5 +26,14 @@ public class MultiDependency extends Dependency{
             }
         }
         return fulfilled;
+    }
+
+    @Override
+    public CharSequence getName(Resources res) {
+        String sequence = "";
+        for (Dependency dep : mDependencies) {
+            sequence += dep.getName(res);
+        }
+        return sequence;
     }
 }

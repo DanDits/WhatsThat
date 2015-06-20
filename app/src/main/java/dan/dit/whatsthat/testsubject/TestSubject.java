@@ -17,11 +17,15 @@ import java.util.Random;
 
 import dan.dit.whatsthat.BuildConfig;
 import dan.dit.whatsthat.R;
+import dan.dit.whatsthat.achievement.Achievement;
 import dan.dit.whatsthat.achievement.AchievementManager;
 import dan.dit.whatsthat.riddle.RiddleInitializer;
 import dan.dit.whatsthat.riddle.achievement.holders.TestSubjectAchievementHolder;
+import dan.dit.whatsthat.riddle.achievement.holders.TypeAchievementHolder;
 import dan.dit.whatsthat.riddle.types.PracticalRiddleType;
 import dan.dit.whatsthat.testsubject.dependencies.Dependable;
+import dan.dit.whatsthat.testsubject.dependencies.Dependency;
+import dan.dit.whatsthat.testsubject.dependencies.MinValueDependency;
 import dan.dit.whatsthat.testsubject.wallet.WalletEntry;
 import dan.dit.whatsthat.util.compaction.CompactedDataCorruptException;
 import dan.dit.whatsthat.util.compaction.Compacter;
@@ -72,7 +76,9 @@ public class TestSubject implements Runnable {
         INSTANCE.initPreferences();
         INSTANCE.initLevel();
         INSTANCE.mInitialized = true;
-        INSTANCE.mAchievementHolder = TestSubjectAchievementHolder.makeInstance(AchievementManager.getInstance());
+        INSTANCE.mAchievementHolder = new TestSubjectAchievementHolder(AchievementManager.getInstance());
+        INSTANCE.mAchievementHolder.addDependencies();
+        INSTANCE.mAchievementHolder.initAchievements();
         return INSTANCE;
     }
 
@@ -321,5 +327,16 @@ public class TestSubject implements Runnable {
 
     public int getAchievementScore() {
         return mPurse.getAchievementScore();
+    }
+
+    public Dependency makeAchievementDependency(PracticalRiddleType type, int number) {
+        TypeAchievementHolder typeAchievements = mAchievementHolder.getTypeAchievementHolder(type);
+        if (typeAchievements != null) {
+            Achievement dep = typeAchievements.getByNumber(number);
+            if (dep != null) {
+                return new MinValueDependency(dep, dep.getMaxValue());
+            }
+        }
+        return null;
     }
 }

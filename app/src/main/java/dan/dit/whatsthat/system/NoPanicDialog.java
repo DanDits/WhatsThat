@@ -9,6 +9,7 @@ import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.TextView;
 
 import dan.dit.whatsthat.R;
@@ -82,11 +83,13 @@ public class NoPanicDialog extends DialogFragment {
         } else {
             baseView.findViewById(R.id.author_container).setVisibility(View.GONE);
         }
-        View skip = baseView.findViewById(R.id.panic_skip);
+        Button skip = (Button) baseView.findViewById(R.id.panic_skip);
         if (!mCallback.canSkip()) {
-            skip.setVisibility(View.GONE);
+            skip.setEnabled(false);
+            skip.setText(R.string.panic_cannot_skip);
         } else {
-            skip.setVisibility(View.VISIBLE);
+            skip.setEnabled(true);
+            skip.setText(R.string.panic_skip);
             skip.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

@@ -65,18 +65,16 @@ public class Actor<HB extends Hitbox> {
 
 
     public void setStateFramesByMoverState() {
-        HitboxFrames oldFrames = mCurrentFrames;
-        mCurrentFrames = mStateFrames.get(mMover.getState());
-        if (mCurrentFrames == null) {
-            mCurrentFrames = oldFrames;
+        HitboxFrames newFrames = mStateFrames.get(mMover.getState());
+        if (newFrames != null) {
+            mCurrentFrames = newFrames;
         }
     }
 
     public void setStateFrames(int state) {
-        HitboxFrames oldFrames = mCurrentFrames;
-        mCurrentFrames = mStateFrames.get(state);
-        if (mCurrentFrames == null) {
-            mCurrentFrames = oldFrames;
+        HitboxFrames newFrames = mStateFrames.get(state);
+        if (newFrames != null) {
+            mCurrentFrames = newFrames;
         }
     }
 

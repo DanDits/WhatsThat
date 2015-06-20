@@ -499,13 +499,20 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
         super.onStop();
         mManager.cancelMakeRiddle();
         long currRiddleId = Riddle.NO_ID;
+        PracticalRiddleType currRiddleType = null;
         if (mRiddleView.hasController()) {
             currRiddleId = mRiddleView.getRiddleId();
+            currRiddleType = mRiddleView.getRiddleType();
             clearRiddle();
         }
-        Log.d("Riddle", "Stopping riddle fragment, current riddle id: " + currRiddleId);
+        Log.d("Riddle", "Stopping riddle fragment, current riddle id: " + currRiddleId + " current type " + currRiddleType);
 
-        Riddle.saveLastVisibleRiddleId(getActivity().getApplicationContext(), currRiddleId);
+        if (currRiddleId != Riddle.NO_ID) {
+            Riddle.saveLastVisibleRiddleId(getActivity().getApplicationContext(), currRiddleId);
+        }
+        if (currRiddleType != null) {
+            Riddle.saveLastVisibleRiddleType(getActivity().getApplicationContext(), currRiddleType);
+        }
         AchievementManager.commit();
     }
 
