@@ -21,7 +21,7 @@
     </style>
 
     <style name="button_menu_big" parent="button">
-        <item name="android:textSize">30sp</item>
+        <item name="android:textSize">27sp</item>
     </style>
 
     <style name="button_important" parent="@android:style/Widget.ImageButton">

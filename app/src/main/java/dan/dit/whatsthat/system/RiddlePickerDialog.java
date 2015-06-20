@@ -101,9 +101,8 @@ public class RiddlePickerDialog extends DialogFragment implements TabHost.OnTabC
         addTab(getActivity(), this.mTabHost, this.mTabHost.newTabSpec(TAB_TYPES).setIndicator(getResources().getString(R.string.riddle_dialog_tab_types)));
         if (RiddleInitializer.INSTANCE.getRiddleManager().getUnsolvedRiddleCount() > 1) {
             addTab(getActivity(), this.mTabHost, this.mTabHost.newTabSpec(TAB_UNSOLVED).setIndicator(getResources().getString(R.string.riddle_dialog_tab_unsolved)));
-        } else {
-            mTabWidget.setVisibility(View.GONE);
         }
+        
 
         // Default to first tab
         //this.onTabChanged("Tab1");

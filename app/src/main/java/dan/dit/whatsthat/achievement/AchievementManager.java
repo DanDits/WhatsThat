@@ -8,6 +8,7 @@ import android.util.Log;
 import java.util.HashSet;
 import java.util.Set;
 
+import dan.dit.whatsthat.testsubject.TestSubject;
 import dan.dit.whatsthat.util.compaction.Compacter;
 
 /**
@@ -63,8 +64,9 @@ public class AchievementManager implements AchievementDataEventListener {
         if (achievement != null) {
             mChangedAchievements.add(achievement);
             Log.d("Achievement", "Achievemenet on changed: " + achievement);
-
-            // TODO display if achieved or updated progress, can change multiple times in a short time so update display or just display one update per achievement
+            if (achievement.isAchieved() && achievement.isRewardClaimable()) {
+                TestSubject.getInstance().postAchievementAchieved(achievement);
+            }
         }
     }
 

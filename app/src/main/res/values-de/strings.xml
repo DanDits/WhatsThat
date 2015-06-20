@@ -112,4 +112,8 @@
     <string name="handle_error_attempted">Bild nicht vorhanden?! Externen Speicher prüfen!</string>
     <string name="tongue_select_explanation">Sprache für Lösungswörter: %1$s</string>
 
+    <string name="dependency_required">Benötigt:</string>
+    <string name="starttime_dependency">Angefangen nach %1$s</string>
+    <string name="level_dependency">Level %1$s</string>
+    <string name="achievement_achieved">Abgeschlossen</string>
 </resources>

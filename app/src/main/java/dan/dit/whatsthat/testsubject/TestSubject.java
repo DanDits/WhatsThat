@@ -3,15 +3,15 @@ package dan.dit.whatsthat.testsubject;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
-import android.os.Handler;
+import android.graphics.Color;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.Gravity;
 
 import com.github.johnpersano.supertoasts.SuperToast;
 
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
@@ -27,13 +27,14 @@ import dan.dit.whatsthat.testsubject.dependencies.Dependable;
 import dan.dit.whatsthat.testsubject.dependencies.Dependency;
 import dan.dit.whatsthat.testsubject.dependencies.MinValueDependency;
 import dan.dit.whatsthat.testsubject.wallet.WalletEntry;
+import dan.dit.whatsthat.util.DelayedQueueProcessor;
 import dan.dit.whatsthat.util.compaction.CompactedDataCorruptException;
 import dan.dit.whatsthat.util.compaction.Compacter;
 
 /**
  * Created by daniel on 11.04.15.
  */
-public class TestSubject implements Runnable {
+public class TestSubject {
     private static final TestSubject INSTANCE = new TestSubject();
     public static final int LEVEL_NONE = -1;
     public static final int LEVEL_0_KID_STUPID = 0;
@@ -43,7 +44,7 @@ public class TestSubject implements Runnable {
     private static final String TEST_SUBJECT_PREFERENCES_FILE = "dan.dit.whatsthat.testsubject_preferences";
     private static final String TEST_SUBJECT_PREF_FINISHED_MAIN_TEXTS = "key_finished_main_texts";
     private static final String TEST_SUBJECT_PREF_RIDDLE_TYPES = "key_testsubject_riddletypes";
-    private static final int DEFAULT_SKIPABLE_GAMES = 5;
+    private static final int DEFAULT_SKIPABLE_GAMES = 15;
 
 
     private boolean mInitialized;
@@ -61,11 +62,12 @@ public class TestSubject implements Runnable {
     private String[] mRiddleSolvedCandy;
     private Random mRand = new Random();
     private List<TestSubjectRiddleType> mTypes = new ArrayList<>();
-    private Handler mHandler;
-    private List<TestSubjectToast> mToasts;
+
     private Context mApplicationContext;
     private TestSubjectAchievementHolder mAchievementHolder;
     private Purse mPurse;
+    private DelayedQueueProcessor<TestSubjectToast> mGeneralToastProcessor;
+    private DelayedQueueProcessor<Achievement> mAchievementToastProcessor;
 
     private TestSubject() {
     }
@@ -87,8 +89,44 @@ public class TestSubject implements Runnable {
     }
 
     public void initToasts() {
-        mHandler = new Handler();
-        mToasts = new LinkedList<>();
+        mGeneralToastProcessor = new DelayedQueueProcessor<>(new DelayedQueueProcessor.Callback<TestSubjectToast>() {
+            @Override
+            public long process(TestSubjectToast toProcess) {
+                showToast(toProcess);
+                return toProcess.mDuration;
+            }
+        });
+        mAchievementToastProcessor = new DelayedQueueProcessor<>(new DelayedQueueProcessor.Callback<Achievement>() {
+            @Override
+            public long process(Achievement toProcess) {
+                TestSubjectToast achievementToast = makeAchievementToast(toProcess);
+                showToast(achievementToast);
+                return achievementToast == null ? 0L : achievementToast.mDuration;
+            }
+        });
+    }
+
+    private void showToast(TestSubjectToast toast) {
+        if (toast != null) {
+            SuperToast superToast = toast.makeSuperToast(mApplicationContext);
+            if (superToast != null) {
+                superToast.show();
+            }
+        }
+    }
+
+    private TestSubjectToast makeAchievementToast(Achievement achievement) {
+        if (mApplicationContext == null) {
+            return null;
+        }
+        TestSubjectToast toast = new TestSubjectToast(Gravity.CENTER_HORIZONTAL | Gravity.TOP, 0, 5, achievement.getIconResId(), 0, SuperToast.Duration.LONG);
+        toast.mIconPosition = SuperToast.IconPosition.LEFT;
+        toast.mAnimations = SuperToast.Animations.FLYIN;
+        toast.mBackground = R.drawable.achieved_background;
+        toast.mTextColor = Color.BLACK;
+        Resources res = mApplicationContext.getResources();
+        toast.mText = res.getString(R.string.achievement_achieved) + " " + achievement.getName(res);
+        return toast;
     }
 
     public static boolean isInitialized() {
@@ -148,36 +186,19 @@ public class TestSubject implements Runnable {
     }
 
     public void postToast(TestSubjectToast toast, long delay) {
-        if (mHandler == null || toast == null) {
-            if (mHandler == null) {
+        if (mGeneralToastProcessor == null || toast == null) {
+            if (mGeneralToastProcessor == null) {
                 Log.e("HomeStuff", "Trying to post toast. No handler initialized for test subject.");
             }
             return;
         }
-        mToasts.add(toast);
-        if (delay > 0) {
-            mHandler.postDelayed(this, delay);
-        } else {
-            mHandler.post(this);
-        }
+        mGeneralToastProcessor.append(toast, delay);
+        mGeneralToastProcessor.start();
     }
 
-    @Override
-    public void run() {
-        if (mToasts.isEmpty()) {
-            return;
-        }
-        TestSubjectToast toast = mToasts.remove(0);
-        SuperToast superToast = new SuperToast(mApplicationContext);
-        if (toast.mTextResId != 0) {
-            superToast.setText(mApplicationContext.getResources().getText(toast.mTextResId));
-        }
-        if (toast.mIconResId != 0) {
-            superToast.setIcon(toast.mIconResId, toast.mIconPosition == null ? SuperToast.IconPosition.LEFT : toast.mIconPosition);
-        }
-        superToast.setGravity(toast.mGravity, toast.mOffsetX, toast.mOffsetY);
-        superToast.setDuration(toast.mDuration);
-        superToast.show();
+    public void postAchievementAchieved(Achievement achievement) {
+        mAchievementToastProcessor.append(achievement, 200L);
+        mAchievementToastProcessor.start();
     }
 
     private void onLevelUp(int newLevel) {
@@ -338,5 +359,37 @@ public class TestSubject implements Runnable {
             }
         }
         return null;
+    }
+
+    public Dependency makeClaimedAchievementDependency(PracticalRiddleType type, int number) {
+        TypeAchievementHolder typeAchievementHolder = mAchievementHolder.getTypeAchievementHolder(type);
+        if (typeAchievementHolder != null) {
+            Achievement dep = typeAchievementHolder.getByNumber(number);
+            if (dep != null) {
+                return new ClaimedAchievementDependency(dep);
+            }
+        }
+        return null;
+    }
+
+    private static class ClaimedAchievementDependency extends Dependency {
+        private Achievement mAchievement;
+
+        public ClaimedAchievementDependency(Achievement achievement) {
+            mAchievement = achievement;
+            if (mAchievement == null) {
+                throw new IllegalArgumentException("No achievement given.");
+            }
+        }
+
+        @Override
+        public boolean isFulfilled() {
+            return mAchievement.isAchieved() && !mAchievement.isRewardClaimable();
+        }
+
+        @Override
+        public CharSequence getName(Resources res) {
+            return mAchievement.getName(res);
+        }
     }
 }

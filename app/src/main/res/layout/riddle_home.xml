@@ -25,7 +25,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/open_store"
-                android:src="@drawable/currency"
+                android:src="@drawable/alien_menu_enter"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentTop="true"
                 android:adjustViewBounds="false"

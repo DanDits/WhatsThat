@@ -210,14 +210,10 @@ public class AchievementView extends ExpandableListView implements StoreContaine
             }
 
             ImageView image = (ImageView) convertView.findViewById(R.id.achievement_image);
-            image.setImageResource(achievement.getIconResId());
+            image.setImageResource(achievement.getIconResIdByState());
 
             TextView name = (TextView) convertView.findViewById(R.id.achievement_name);
-            if (achievement.isDiscovered()) {
-                name.setText(achievement.getName(mContext.getResources()));
-            } else {
-                name.setText(R.string.achievement_name_undiscovered);
-            }
+            name.setText(achievement.getName(mContext.getResources()));
 
             TextView descr = (TextView) convertView.findViewById(R.id.achievement_descr);
             if (dependenciesFulfilled) {

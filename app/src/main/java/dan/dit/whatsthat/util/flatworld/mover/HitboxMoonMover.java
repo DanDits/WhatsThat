@@ -9,13 +9,17 @@ import dan.dit.whatsthat.util.flatworld.collision.Hitbox;
  */
 public class HitboxMoonMover extends  HitboxMover {
     private static final float TWOPI = (float) Math.PI * 2.f;
+    public static final float ANGLE_RIGHT = 0.f;
+    public static final float ANGLE_TOP = (float) Math.PI / 2.f;
+    public static final float ANGLE_LEFT = (float) Math.PI;
+    public static final float ANGLE_BOTTOM = (float) Math.PI * 3.f / 2.f;
     public static final int STATE_NOT_MOVING = 0;
     public static final int STATE_MOVING = 1;
 
     private Hitbox mPlanet;
     private long mMoonYear;
     private float mAngleSpeed;
-    private float mCurrAngle;
+    private float mCurrAngle; // 0 is right, mathematically positive direction (CCW)
     private float mDistanceFromCenter;
     private boolean mClockwise;
     private float mOffset;
@@ -77,5 +81,9 @@ public class HitboxMoonMover extends  HitboxMover {
 
     public void invertDirection() {
         mClockwise = !mClockwise;
+    }
+
+    public void setAngle(float angle) {
+        this.mCurrAngle = angle;
     }
 }

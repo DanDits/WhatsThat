@@ -152,34 +152,37 @@
         <item>Frank, someone found it. Call the assassinator, this must not get public.</item>
     </string-array>
 
-    <string name="achievement_name_undiscovered">\?</string>
-    <string name="achievement_descr_undiscovered" />
+    <string name="achievement_descr_undiscovered">\?\?\?</string>
 
     <string name="achievement_snow_1_name">Hurry up</string>
     <string name="achievement_snow_1_descr">Complete %1$d games within %2$d seconds.</string>
     <string name="achievement_snow_2_name">Need for speed</string>
-    <string name="achievement_snow_2_descr">Because going slow is boring (speedometer maximum: %1$d/%2$d).</string>
+    <string name="achievement_snow_2_descr">Because going slow is boring: max speed %1$d/%2$d.</string>
     <string name="achievement_snow_3_name">Luck…</string>
     <string name="achievement_snow_3_descr">One explosion should be enough.</string>
     <string name="achievement_snow_4_name">Mission impossible</string>
-    <string name="achievement_snow_4_descr">Collect %1$d bio hazards in %2$d seconds.</string>
+    <string name="achievement_snow_4_descr">Collect %1$d candies in %2$d seconds.</string>
     <string name="achievement_snow_5_name">Bombastic</string>
     <string name="achievement_snow_5_descr">Explode %1$d times in a game without kissing the wall.</string>
     <string name="achievement_snow_6_name">Not today!</string>
     <string name="achievement_snow_6_descr">Touch the wall as Angry Cell. Again and again.</string>
     <string name="achievement_snow_7_name">They see me rollin\'</string>
-    <string name="achievement_snow_7_descr">Levitate … a bit. No biohazards, walls or candies!</string>
+    <string name="achievement_snow_7_descr">Relax and stay healthy. No candy.</string>
     <string name="achievement_snow_8_name">Bouncing cell</string>
     <string name="achievement_snow_8_descr">Hit the walls %1$d times using the explosion pressure.</string>
-    <string name="achievement_snow_9_name">As hard as possible</string>
-    <string name="achievement_snow_9_descr">Hit the wall with %1$d.</string>
-    <string name="achievement_snow_10_name">Obstinate mule</string>
+    <string name="achievement_snow_9_name"></string>
+    <string name="achievement_snow_9_descr"></string>
+    <string name="achievement_snow_10_name">Stubborn donkey</string>
     <string name="achievement_snow_10_descr">You know that the wall will not help you?</string>
     <string name="achievement_snow_11_name">…or maybe skill?</string>
     <string name="achievement_snow_11_descr">Solve %1$d riddles with only one explosion.</string>
     <string name="achievement_snow_12_name">Overkill</string>
-    <string name="achievement_snow_12_descr">Collect %1$d biohazards before exploding. Yes it\'s stupid</string>
+    <string name="achievement_snow_12_descr">Collect %1$d more tasty candies as Angry Cell.</string>
+    <string name="achievement_snow_13_name">Gotta catch \'em all</string>
+    <string name="achievement_snow_13_descr">Catch %1$d/%2$d poke…Sorry I meant candies..</string>
+
     <string name="dependency_required">Requires:</string>
     <string name="starttime_dependency">Started after %1$s</string>
     <string name="level_dependency">Level %1$s</string>
+    <string name="achievement_achieved">Achieved</string>
 </resources>

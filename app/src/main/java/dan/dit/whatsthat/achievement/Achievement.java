@@ -68,6 +68,8 @@ public abstract class Achievement implements AchievementDataEventListener, Depen
 
     public abstract int getIconResId();
 
+    public abstract int getIconResIdByState();
+
     public CharSequence getName(Resources res) {
         return mNameResId == 0 ? mId : res.getString(mNameResId);
     }
@@ -179,6 +181,14 @@ public abstract class Achievement implements AchievementDataEventListener, Depen
         }
         mDiscovered = true;
         onDiscovered();
+        mManager.onChanged(this);
+    }
+
+    protected synchronized final void cover() {
+        if (!mDiscovered) {
+            return;
+        }
+        mDiscovered = false;
         mManager.onChanged(this);
     }
 
