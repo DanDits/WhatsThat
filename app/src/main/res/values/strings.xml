@@ -80,7 +80,7 @@
     <string name="riddle_type_circle">Circle</string>
     <string name="riddle_type_circle_explanation">Touch one circle to pop them into 4 smaller ones until the image is visible.</string>
     <string name="riddle_type_snow">Angry Cell</string>
-    <string name="riddle_type_snow_explanation">Tilt the device and thus move the cell. Collect stuff, grow bigger, don\'t touch walls and EXPLODE.</string>
+    <string name="riddle_type_snow_explanation">Tilt the device and thus move the cell. Collect toxic candies, grow bigger, don\'t touch walls and EXPLODE.</string>
     <string name="riddle_type_dice">Alien-Cube</string>
     <string name="riddle_type_dice_explanation">Create dices by touching an empty field. Move and combine dices with equal numbers to reveal the image.</string>
     <string name="riddle_type_triangle">Triangle</string>

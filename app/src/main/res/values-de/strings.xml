@@ -80,7 +80,7 @@
     <string name="riddle_type_circle">Kreise</string>
     <string name="riddle_type_circle_explanation">Berühre einen Kreis, damit sich dieser in vier kleinere aufteilt. Verbesser die Kontur, bis du das Bild erkennst.</string>
     <string name="riddle_type_snow">Angry Cell</string>
-    <string name="riddle_type_snow_explanation">Bewege die Zelle durch Kippen des Gerätes. Sammle Biohazards, werde größer und EXPLODIERE, ohne eine Wand zu berühren!</string>
+    <string name="riddle_type_snow_explanation">Bewege die Zelle durch Kippen des Gerätes. Sammle giftige Süßigkeiten, werde größer und EXPLODIERE, ohne eine Wand zu berühren!</string>
     <string name="riddle_type_triangle">Dreiecke</string>
     <string name="riddle_type_triangle_explanation">Berühre einen Punkt in einem Dreieck, um kleinere Dreiecke mit schärferem Kontrast zu erzeugen.</string>
     <string name="riddle_type_dice">Alien-Cube</string>
