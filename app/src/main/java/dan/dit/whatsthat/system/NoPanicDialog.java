@@ -7,15 +7,19 @@ import android.app.DialogFragment;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 
 import dan.dit.whatsthat.R;
+import dan.dit.whatsthat.achievement.AchievementProperties;
 import dan.dit.whatsthat.image.Image;
 import dan.dit.whatsthat.image.ImageAuthor;
+import dan.dit.whatsthat.riddle.achievement.holders.MiscAchievementHolder;
 import dan.dit.whatsthat.riddle.types.PracticalRiddleType;
+import dan.dit.whatsthat.testsubject.TestSubject;
 
 /**
  * Created by daniel on 06.05.15.
@@ -67,11 +71,25 @@ public class NoPanicDialog extends DialogFragment {
 
         if (mImage != null) {
             String[] headings = getResources().getStringArray(R.array.panic_author_credit_title);
-            baseView.findViewById(R.id.author_container).setVisibility(View.VISIBLE);
+            View authorContainer = baseView.findViewById(R.id.author_container);
+            authorContainer.setVisibility(View.VISIBLE);
             ((TextView) baseView.findViewById(R.id.credits_heading)).setText(headings[(int) (Math.random() * headings.length)]);
 
             ImageAuthor author = mImage.getAuthor();
-            setTextIfAvailable(((TextView) baseView.findViewById(R.id.author_name)), R.string.image_author_name, author.getName());
+            TextView nameView = (TextView) baseView.findViewById(R.id.author_name);
+            setTextIfAvailable(nameView, R.string.image_author_name, author.getName());
+            nameView.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View view, MotionEvent motionEvent) {
+                    if (motionEvent.getActionMasked() == MotionEvent.ACTION_DOWN) {
+                        AchievementProperties data = TestSubject.getInstance().getAchievementHolder().getMiscData();
+                        if (data != null) {
+                            data.increment(MiscAchievementHolder.KEY_ADMIRED_IMAGE_AUTHOR, 1L, 0L);
+                        }
+                    }
+                    return false;
+                }
+            });
             setTextIfAvailable(((TextView) baseView.findViewById(R.id.author_license)), R.string.image_author_license, author.getLicense());
             if (noSecrets) {
                 setTextIfAvailable(((TextView) baseView.findViewById(R.id.author_source)), R.string.image_author_source, author.getSource());

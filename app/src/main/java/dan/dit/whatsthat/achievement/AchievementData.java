@@ -14,6 +14,7 @@ public abstract class AchievementData implements Compactable {
     private final List<AchievementDataEventListener> mListeners = new LinkedList<>();
     private List<AchievementDataEventListener> mRemovedListeners = new LinkedList<>();
     protected final String mName;
+    private boolean mIsProcessingEvent;
 
     public AchievementData(String dataName) {
         mName = dataName;
@@ -53,12 +54,16 @@ public abstract class AchievementData implements Compactable {
     }
 
     protected void notifyListeners(AchievementDataEvent event) {
-        for (AchievementDataEventListener removed : mRemovedListeners) {
-            mListeners.remove(removed);
+        if (!mIsProcessingEvent) {
+            for (AchievementDataEventListener removed : mRemovedListeners) {
+                mListeners.remove(removed);
+            }
+            mRemovedListeners.clear();
         }
-        mRemovedListeners.clear();
+        mIsProcessingEvent = true;
         for (AchievementDataEventListener listener : mListeners) {
             listener.onDataEvent(event);
         }
+        mIsProcessingEvent = false;
     }
 }

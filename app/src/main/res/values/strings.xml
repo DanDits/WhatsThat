@@ -157,25 +157,25 @@
     <string name="achievement_circel_1_name">The beginning</string>
     <string name="achievement_circel_1_descr">Finish %1$d/%2$d games.</string>
     <string name="achievement_circel_2_name">I know something</string>
-    <string name="achievement_circel_2_descr">You know nothing. Or do you know the picture with only %2$d circles?</string>
+    <string name="achievement_circel_2_descr">You know nothing. Or do you recognize the picture with only %2$d circles?</string>
     <string name="achievement_circel_3_name">So beautiful</string>
     <string name="achievement_circel_3_descr">Count all circles in a game and admire the artist.</string>
     <string name="achievement_circel_4_name">I\'m loving this</string>
-    <string name="achievement_circel_4_descr">Well then do this job again for %1$d more picktures.</string>
+    <string name="achievement_circel_4_descr">Well then do this job again for %1$d more pictures.</string>
     <string name="achievement_circel_5_name">Mission possible</string>
-    <string name="achievement_circel_5_descr">Finish a game within %2$d seconds but more clicks than wipes.</string>
+    <string name="achievement_circel_5_descr">Finish a game within %1$d seconds but more clicks than wipes.</string>
     <string name="achievement_circel_6_name">Click domination</string>
     <string name="achievement_circel_6_descr">Clicks > wipes for a few more games.</string>
-    <string name="achievement_circel_7_name">I\'m in hurry..</string>
-    <string name="achievement_circel_7_descr">Finish two..ok let\'s say one riddle in less than %2$d seconds.</string>
-    <string name="achievement_circel_8_name">...still in hurry</string>
-    <string name="achievement_circel_8_descr">sorry..Don\'t wanna bother ya. %1$d games within %2$d seconds.</string>
+    <string name="achievement_circel_7_name">I\'m in a hurry…</string>
+    <string name="achievement_circel_7_descr">Finish two…ok let\'s say one riddle in less than %1$d seconds.</string>
+    <string name="achievement_circel_8_name">…still in hurry</string>
+    <string name="achievement_circel_8_descr">sorry…Don\'t wanna bother ya. %1$d games within %2$d seconds.</string>
     <string name="achievement_circel_9_name">All we need is love</string>
-    <string name="achievement_circel_9_descr">The first circle needs some attention.  Talk with it.</string>
+    <string name="achievement_circel_9_descr">The first circle needs some attention. Talk with it.</string>
     <string name="achievement_circel_10_name">All you get is work</string>
     <string name="achievement_circel_10_descr">Thank you for completing my useless tasks :).</string>
     <string name="achievement_circel_11_name">It\'s over 9000</string>
-    <string name="achievement_circel_11_descr">Create %1$d circles. Don\'t look at me like this. My prof is studying maths. he knows what he\'s doing..%2$d is inadequate. %2$d is of course absurd.Progress:%1$d</string>
+    <string name="achievement_circel_11_descr">Create %2$d circles. Don\'t look at me like this. My prof is studying maths. He knows what he\'s doing …%3$d is inadequate. %4$d is of course absurd. You got %1$d.</string>
 
     <string name="achievement_snow_1_name">Hurry up</string>
     <string name="achievement_snow_1_descr">Complete %1$d games within %2$d seconds.</string>
@@ -205,10 +205,10 @@
     <string name="achievement_snow_13_descr">Catch %1$d/%2$d poke…Sorry I meant candies..</string>
 
     <string name="achievement_dice_1_name">Unpleasent beginning</string>
-    <string name="achievement_dice_1_descr">Combine the Alien-Cube on each colour in a game. Let the games begin!.</string>
+    <string name="achievement_dice_1_descr">Combine the Alien-Cube on each colour in a game. Let the games begin!</string>
     <string name="achievement_dice_2_name">Colour diversity</string>
     <string name="achievement_dice_2_descr">Gather geen, yellow and red 1-6 and purple 7-9. Reset=0.</string>
-    <string name="achievement_dice_3_name">That's complicated</string>
+    <string name="achievement_dice_3_name">That\'s complicated</string>
     <string name="achievement_dice_3_descr">Get all hints for this riddle.</string>
     <string name="achievement_dice_4_name">Powerful corner</string>
     <string name="achievement_dice_4_descr">Combine 3 green dices in each corner.</string>
