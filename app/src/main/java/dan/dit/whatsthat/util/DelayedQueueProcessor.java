@@ -1,6 +1,7 @@
 package dan.dit.whatsthat.util;
 
 import android.os.Handler;
+import android.util.Log;
 
 import java.util.LinkedList;
 import java.util.Queue;
@@ -62,6 +63,7 @@ public class DelayedQueueProcessor<T> implements Runnable {
     @Override
     public void run() {
         if (mObjects.isEmpty()) {
+            Log.e("HomeStuff", "Run delayed queue with no objects: " + mDelays + " and " + mObjects);
             stop();
             return;
         }

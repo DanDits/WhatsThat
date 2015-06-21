@@ -17,6 +17,11 @@ import dan.dit.whatsthat.util.compaction.Compacter;
 public class AchievementManager implements AchievementDataEventListener {
 
     private static final String ACHIEVEMENT_PREFERENCES_FILE = "dan.dit.whatsthat.achievement_data";
+    public static final int CHANGED_PROGRESS = 0;
+    public static final int CHANGED_TO_COVERED = 1;
+    public static final int CHANGED_TO_DISCOVERED = 2;
+    public static final int CHANGED_TO_ACHIEVED = 3;
+    public static final int CHANGED_GOT_CLAIMED = 4;
     private static AchievementManager INSTANCE = null;
     private final SharedPreferences mPrefs;
     private Set<AchievementData> mManagedChangedData;
@@ -60,11 +65,11 @@ public class AchievementManager implements AchievementDataEventListener {
         }
     }
 
-    protected void onChanged(Achievement achievement) {
+    protected void onChanged(Achievement achievement, int changedHint) {
         if (achievement != null) {
             mChangedAchievements.add(achievement);
-            Log.d("Achievement", "Achievemenet on changed: " + achievement);
-            if (achievement.isAchieved() && achievement.isRewardClaimable()) {
+            Log.d("Achievement", "Achievemenet on changed: " + changedHint + ": " + achievement);
+            if (changedHint == CHANGED_TO_ACHIEVED) {
                 TestSubject.getInstance().postAchievementAchieved(achievement);
             }
         }

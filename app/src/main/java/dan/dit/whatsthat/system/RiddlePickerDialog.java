@@ -24,7 +24,7 @@ import dan.dit.whatsthat.riddle.UnsolvedRiddlesChooser;
 /**
  * Created by daniel on 05.05.15.
  */
-public class RiddlePickerDialog extends DialogFragment implements TabHost.OnTabChangeListener {
+public class RiddlePickerDialog extends DialogFragment {
     private static final String TAB_UNSOLVED = "TAB_UNSOLVED";
     private static final String TAB_TYPES = "TAB_TYPES";
 
@@ -33,7 +33,6 @@ public class RiddlePickerDialog extends DialogFragment implements TabHost.OnTabC
     private TypeChooser mTypeChooser;
     private long mIdToHide;
     private UnsolvedRiddlesChooser.Callback mCallback;
-    private View mTabWidget;
 
     private class TabFactory implements TabHost.TabContentFactory {
 
@@ -66,10 +65,11 @@ public class RiddlePickerDialog extends DialogFragment implements TabHost.OnTabC
         this.getActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL, WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL);
 
         mIdToHide = getArguments().getLong(Riddle.LAST_VISIBLE_UNSOLVED_RIDDLE_ID_KEY, Riddle.NO_ID);
+        Log.d("Riddle", "Showing riddle picker dialog, hiding id: " + mIdToHide);
+
         mChooser = new UnsolvedRiddlesChooser();
         mTypeChooser = new TypeChooser();
         mTabHost = (TabHost) baseView.findViewById(android.R.id.tabhost);
-        mTabWidget = mTabHost.findViewById(android.R.id.tabs);
         initializeTabHost();
         if (savedInstanceState != null) {
             mTabHost.setCurrentTabByTag(savedInstanceState.getString("tab")); //set the tab as per the saved state
@@ -102,12 +102,7 @@ public class RiddlePickerDialog extends DialogFragment implements TabHost.OnTabC
         if (RiddleInitializer.INSTANCE.getRiddleManager().getUnsolvedRiddleCount() > 1) {
             addTab(getActivity(), this.mTabHost, this.mTabHost.newTabSpec(TAB_UNSOLVED).setIndicator(getResources().getString(R.string.riddle_dialog_tab_unsolved)));
         }
-        
 
-        // Default to first tab
-        //this.onTabChanged("Tab1");
-        //
-        mTabHost.setOnTabChangedListener(this);
     }
 
     private void addTab(Context context, TabHost tabHost, TabHost.TabSpec tabSpec) {
@@ -129,10 +124,6 @@ public class RiddlePickerDialog extends DialogFragment implements TabHost.OnTabC
         if (dialog != null) {
             dialog.setCanceledOnTouchOutside(true);
         }
-    }
-
-    public void onTabChanged(String tag) {
-        Log.d("Riddle","On tab changed: " + tag);
     }
 
     @Override

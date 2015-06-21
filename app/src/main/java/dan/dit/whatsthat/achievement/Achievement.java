@@ -113,9 +113,9 @@ public abstract class Achievement implements AchievementDataEventListener, Depen
         mValue = (int) (progress * mMaxValue / 100.);
         Log.d("Achievement", "Achieving " + progress + " percent of " + mMaxValue + ": " + oldValue + "->" + mValue);
         if (mValue >= mMaxValue || progress == 100) {
-            achieve();
+            achieveUnchecked();
         } else if (mValue != oldValue) {
-            mManager.onChanged(this);
+            mManager.onChanged(this, AchievementManager.CHANGED_PROGRESS);
         }
     }
 
@@ -125,9 +125,9 @@ public abstract class Achievement implements AchievementDataEventListener, Depen
         }
         mValue += delta;
         if (mValue >= mMaxValue) {
-            achieve();
+            achieveUnchecked();
         } else if (delta != 0) {
-            mManager.onChanged(this);
+            mManager.onChanged(this, AchievementManager.CHANGED_PROGRESS);
         }
     }
 
@@ -153,7 +153,7 @@ public abstract class Achievement implements AchievementDataEventListener, Depen
     public int claimReward() {
         if (isRewardClaimable()) {
             mRewardClaimed = true;
-            mManager.onChanged(this);
+            mManager.onChanged(this, AchievementManager.CHANGED_GOT_CLAIMED);
             return mScoreReward;
         }
         return 0;
@@ -181,7 +181,7 @@ public abstract class Achievement implements AchievementDataEventListener, Depen
         }
         mDiscovered = true;
         onDiscovered();
-        mManager.onChanged(this);
+        mManager.onChanged(this, AchievementManager.CHANGED_TO_DISCOVERED);
     }
 
     protected synchronized final void cover() {
@@ -189,7 +189,7 @@ public abstract class Achievement implements AchievementDataEventListener, Depen
             return;
         }
         mDiscovered = false;
-        mManager.onChanged(this);
+        mManager.onChanged(this, AchievementManager.CHANGED_TO_COVERED);
     }
 
     protected abstract void onDiscovered();
@@ -198,17 +198,21 @@ public abstract class Achievement implements AchievementDataEventListener, Depen
         return mValue >= mMaxValue;
     }
 
-    protected synchronized final void achieve() {
-        if (isAchieved()) {
-            return;
-        }
+    private void achieveUnchecked() {
         if (!mDiscovered) {
             discover();
         }
         mValue = mMaxValue;
         mAchievedTimestamp = System.currentTimeMillis();
         onAchieved();
-        mManager.onChanged(this);
+        mManager.onChanged(this, AchievementManager.CHANGED_TO_ACHIEVED);
+    }
+
+    protected synchronized final void achieve() {
+        if (isAchieved()) {
+            return;
+        }
+        achieveUnchecked();
     }
 
     protected abstract void onAchieved();

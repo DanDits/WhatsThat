@@ -99,10 +99,19 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
     private int[] mLocation = new int[2];
 
     private void onRiddleMade(RiddleGame riddle) {
+        //TODO if no id, save raw riddle to database to get a valid id
         mProgressBar.onProgressUpdate(0);
         riddle.initViews(mRiddleView, mSolutionView, this);
         updateNextRiddleButton();
         if (mRiddleView != null && mRiddleView.hasController()) {
+
+            long currRiddleId = mRiddleView.getRiddleId();
+            if (currRiddleId <= Riddle.NO_ID) {
+                currRiddleId = riddle.saveRaw(getActivity());
+            }
+            PracticalRiddleType currRiddleType = mRiddleView.getRiddleType();
+            Riddle.saveLastVisibleRiddleId(getActivity().getApplicationContext(), currRiddleId);
+            Riddle.saveLastVisibleRiddleType(getActivity().getApplicationContext(), currRiddleType);
             PracticalRiddleType type = mRiddleView.getRiddleType();
             int alreadyRun = Riddle.getRiddleTypeAlreadyRunCount(getActivity(), type);
             if (alreadyRun < Riddle.DISPLAY_INITIAL_RUN_HINT_COUNT) {
@@ -407,6 +416,7 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
             findSomeRiddle();
         }
     }
+
     @Override
     public boolean canSkip() {
         return mRiddleView != null && mRiddleView.hasController() && TestSubject.getInstance().canSkip();
@@ -414,7 +424,8 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
 
     @Override
     public void onSkip() {
-        findSomeRiddle();
+        mOpenUnsolvedRiddlesId = null;
+        nextRiddle();
     }
 
     @Override
@@ -498,21 +509,10 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
     public void onStop() {
         super.onStop();
         mManager.cancelMakeRiddle();
-        long currRiddleId = Riddle.NO_ID;
-        PracticalRiddleType currRiddleType = null;
         if (mRiddleView.hasController()) {
-            currRiddleId = mRiddleView.getRiddleId();
-            currRiddleType = mRiddleView.getRiddleType();
             clearRiddle();
         }
-        Log.d("Riddle", "Stopping riddle fragment, current riddle id: " + currRiddleId + " current type " + currRiddleType);
-
-        if (currRiddleId != Riddle.NO_ID) {
-            Riddle.saveLastVisibleRiddleId(getActivity().getApplicationContext(), currRiddleId);
-        }
-        if (currRiddleType != null) {
-            Riddle.saveLastVisibleRiddleType(getActivity().getApplicationContext(), currRiddleType);
-        }
+        Log.d("Riddle", "Stopping riddle fragment");
         AchievementManager.commit();
     }
 

@@ -155,7 +155,7 @@
     <string name="achievement_descr_undiscovered">\?\?\?</string>
 
     <string name="achievement_circel_1_name">The beginning</string>
-    <string name="achievement_circel_1_descr">Finish %1$d games.</string>
+    <string name="achievement_circel_1_descr">Finish %1$d/%2$d games.</string>
     <string name="achievement_circel_2_name">I know something</string>
     <string name="achievement_circel_2_descr">You know nothing. Or do you know the picture with only %2$d circles?</string>
     <string name="achievement_circel_3_name">So beautiful</string>
@@ -207,7 +207,6 @@
 
 
     <string name="dependency_required">Requires:</string>
-    <string name="starttime_dependency">Started after %1$s</string>
     <string name="level_dependency">Level %1$s</string>
     <string name="achievement_achieved">Achieved</string>
 </resources>

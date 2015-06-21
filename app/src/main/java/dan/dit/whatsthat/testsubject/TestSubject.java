@@ -100,6 +100,7 @@ public class TestSubject {
             @Override
             public long process(Achievement toProcess) {
                 TestSubjectToast achievementToast = makeAchievementToast(toProcess);
+                Log.d("Achievement", "Showing achievement toast: " + achievementToast);
                 showToast(achievementToast);
                 return achievementToast == null ? 0L : achievementToast.mDuration;
             }

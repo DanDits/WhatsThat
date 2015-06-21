@@ -55,4 +55,9 @@ public class TestSubjectToast {
         superToast.setDuration((int) mDuration);
         return superToast;
     }
+
+    @Override
+    public String toString() {
+        return "Text: " + mText + " text id " + mTextResId;
+    }
 }
