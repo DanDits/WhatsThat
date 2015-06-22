@@ -209,7 +209,7 @@
     <string name="achievement_dice_2_name">Colour diversity</string>
     <string name="achievement_dice_2_descr">Gather geen, yellow and red 1-6 and purple 7-9. Reset=0.</string>
     <string name="achievement_dice_3_name">That\'s complicated</string>
-    <string name="achievement_dice_3_descr">Get all hints for this riddle.</string>
+    <string name="achievement_dice_3_descr">Get all hints for this riddle. Why? Because this is very complicated and it took my master enough effort, so you gotta read it!</string>
     <string name="achievement_dice_4_name">Powerful corner</string>
     <string name="achievement_dice_4_descr">Combine 3 green dices in each corner.</string>
     <string name="achievement_dice_5_name">Translation error</string>
@@ -234,6 +234,27 @@
     <string name="achievement_dice_14_descr">Progress Alien-Cube: xx/50.</string>
     <string name="achievement_dice_15_name">NO THIS IS PATRICK</string>
     <string name="achievement_dice_15_descr">Combine Alien-Cubes. Number=Patricks name in numbers. Progress xx/78.</string>
+
+    <string name="achievement_jumper_1_name">The answer to life</string>
+    <string name="achievement_jumper_1_descr">You know the answer? If not, google it right now!</string>
+    <string name="achievement_jumper_2_name">Lack of talent</string>
+    <string name="achievement_jumper_2_descr">You failed 30 times in easy. Are you sure you wanna continue playing this game?</string>
+    <string name="achievement_jumper_3_name">Super Mario</string>
+    <string name="achievement_jumper_3_descr">Perform xxx Double Jumps in a game before reaching \"hard\".</string>
+    <string name="achievement_jumper_4_name">Multitasking</string>
+    <string name="achievement_jumper_4_descr">Finish a game after reaching \"hard\" without colliding.</string>
+    <string name="achievement_jumper_5_name">Avoiding manoeuvres</string>
+    <string name="achievement_jumper_5_descr">Congratulations. You dodged more than xxx obstacles.</string>
+    <string name="achievement_jumper_6_name">Beating the creators</string>
+    <string name="achievement_jumper_6_descr">Wow. You beat my creators records. Write an email and tell your record by writing "Skyline record" in the subject line.</string>
+    <string name="achievement_jumper_7_name">Knuffbum\'s story</string>
+    <string name="achievement_jumper_7_descr">Find the truth about Knuffbum.</string>
+    <string name="achievement_jumper_8_name">Still a better lovestory than twighlight</string>
+    <string name="achievement_jumper_8_descr">Cuddle Knuffbum at \"ultra hard\" half a dozen.</string>
+    <string name="achievement_jumper_9_name">Marathon</string>
+    <string name="achievement_jumper_9_descr">Going for a short walk of 42195 meters.</string>
+    <string name="achievement_jumper_10_name">Boring beginning</string>
+    <string name="achievement_jumper_10_descr">Enough of the easy beginning? Well...get the right upgrades my friend.</string>
 
     <string name="dependency_required">Requires:</string>
     <string name="level_dependency">Level %1$s</string>
