@@ -25,14 +25,14 @@ public class AchievementProperties extends AchievementData {
         return mSilentChangeMode;
     }
 
-    protected void enableSilentChanges(int eventType) {
+    public void enableSilentChanges(int eventType) {
         if (!mSilentChangeMode) {
             mSilentChangeMode = true;
             mEvent.init(this, eventType, null);
         }
     }
 
-    protected void disableSilentChanges() {
+    public void disableSilentChanges() {
         if (mSilentChangeMode) {
             mSilentChangeMode = false;
             notifyListeners(mEvent);

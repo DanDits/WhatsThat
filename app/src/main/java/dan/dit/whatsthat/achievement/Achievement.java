@@ -19,7 +19,6 @@ public abstract class Achievement implements AchievementDataEventListener, Depen
     private static final String SEPARATOR = "_";
     private static final String KEY_DISCOVERED = "discovered";
     private static final String KEY_VALUE = "value";
-    private static final String KEY_MAX_VALUE = "maxvalue";
     private static final String KEY_ACHIEVED_TIMESTAMP = "achievedtime";
     private static final String KEY_REWARD_CLAIMED = "rewardclaimed";
     public static final boolean DEFAULT_IS_DISCOVERED = true;
@@ -40,8 +39,10 @@ public abstract class Achievement implements AchievementDataEventListener, Depen
     protected final List<Dependency> mDependencies;
     protected long mAchievedTimestamp;
 
-    public Achievement(String id, int nameResId, int descrResId, int rewardResId, AchievementManager manager, int level, int scoreReward, int maxValue) {
+    public Achievement(String id, int nameResId, int descrResId, int rewardResId, AchievementManager manager, int level, int scoreReward, int maxValue, boolean discovered) {
         mId = id;
+        mValue = DEFAULT_VALUE;
+        mDiscovered = discovered;
         mMaxValue = Math.max(DEFAULT_MAX_VALUE, maxValue);
         mNameResId = nameResId;
         mDescrResId = descrResId;
@@ -56,8 +57,7 @@ public abstract class Achievement implements AchievementDataEventListener, Depen
         if (manager == null) {
             throw new IllegalArgumentException("Null manager given.");
         }
-        loadData(manager.getSharedPreferences(), mMaxValue);
-        onCreated();
+        loadData(manager.getSharedPreferences());
     }
 
 
@@ -173,8 +173,6 @@ public abstract class Achievement implements AchievementDataEventListener, Depen
         }
     }
 
-    protected abstract void onCreated();
-
     protected synchronized final void discover() {
         if (mDiscovered) {
             return; // already discovered
@@ -221,20 +219,18 @@ public abstract class Achievement implements AchievementDataEventListener, Depen
         editor
                 .putBoolean(mId + SEPARATOR + KEY_DISCOVERED, mDiscovered)
                 .putInt(mId + SEPARATOR + KEY_VALUE, mValue)
-                .putInt(mId + SEPARATOR + KEY_MAX_VALUE, mMaxValue)
                 .putLong(mId + SEPARATOR + KEY_ACHIEVED_TIMESTAMP, mAchievedTimestamp)
                 .putBoolean(mId + SEPARATOR + KEY_REWARD_CLAIMED, mRewardClaimed);
         Log.d("Achievement", "Adding achievement data : " + mDiscovered + " " + mValue + " " + mMaxValue + " " + mAchievedTimestamp + " " + mRewardClaimed);
 
     }
 
-    private void loadData(SharedPreferences prefs, int defaultMaxValue) {
-        mDiscovered = prefs.getBoolean(mId + SEPARATOR + KEY_DISCOVERED, DEFAULT_IS_DISCOVERED);
-        mValue = prefs.getInt(mId + SEPARATOR + KEY_VALUE, DEFAULT_VALUE);
-        mMaxValue = prefs.getInt(mId + SEPARATOR + KEY_MAX_VALUE, defaultMaxValue);
+    private void loadData(SharedPreferences prefs) {
+        mDiscovered = prefs.getBoolean(mId + SEPARATOR + KEY_DISCOVERED, mDiscovered);
+        mValue = prefs.getInt(mId + SEPARATOR + KEY_VALUE, mValue);
         mAchievedTimestamp = prefs.getLong(mId + SEPARATOR + KEY_ACHIEVED_TIMESTAMP, 0L);
         mRewardClaimed = prefs.getBoolean(mId + SEPARATOR + KEY_REWARD_CLAIMED, false);
-        Log.d("Achievement", "Loaded achievement data : " + mDiscovered + " " + mValue + " " + mMaxValue + " " + mAchievedTimestamp + " " + mRewardClaimed);
+        //Log.d("Achievement", "Loaded achievement data : " + mDiscovered + " " + mValue + " " + mMaxValue + " " + mAchievedTimestamp + " " + mRewardClaimed);
     }
 
     public boolean isDiscovered() {

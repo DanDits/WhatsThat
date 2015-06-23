@@ -152,30 +152,33 @@
         <item>Frank, someone found it. Call the assassinator, this must not get public.</item>
     </string-array>
 
+    <string name="achievement_name_hidden">\?\?\?</string>
     <string name="achievement_descr_undiscovered">\?\?\?</string>
 
-    <string name="achievement_circel_1_name">The beginning</string>
-    <string name="achievement_circel_1_descr">Finish %1$d/%2$d games.</string>
-    <string name="achievement_circel_2_name">I know something</string>
-    <string name="achievement_circel_2_descr">You know nothing. Or do you recognize the picture with only %2$d circles?</string>
-    <string name="achievement_circel_3_name">So beautiful</string>
-    <string name="achievement_circel_3_descr">Count all circles in a game and admire the artist.</string>
-    <string name="achievement_circel_4_name">I\'m loving this</string>
-    <string name="achievement_circel_4_descr">Well then do this job again for %1$d more pictures.</string>
-    <string name="achievement_circel_5_name">Mission possible</string>
-    <string name="achievement_circel_5_descr">Finish a game within %1$d seconds but more clicks than wipes.</string>
-    <string name="achievement_circel_6_name">Click domination</string>
-    <string name="achievement_circel_6_descr">Clicks > wipes for a few more games.</string>
-    <string name="achievement_circel_7_name">I\'m in a hurry…</string>
-    <string name="achievement_circel_7_descr">Finish two…ok let\'s say one riddle in less than %1$d seconds.</string>
-    <string name="achievement_circel_8_name">…still in hurry</string>
-    <string name="achievement_circel_8_descr">sorry…Don\'t wanna bother ya. %1$d games within %2$d seconds.</string>
-    <string name="achievement_circel_9_name">All we need is love</string>
-    <string name="achievement_circel_9_descr">The first circle needs some attention. Talk with it.</string>
-    <string name="achievement_circel_10_name">All you get is work</string>
-    <string name="achievement_circel_10_descr">Thank you for completing my useless tasks :).</string>
-    <string name="achievement_circel_11_name">It\'s over 9000</string>
-    <string name="achievement_circel_11_descr">Create %2$d circles. Don\'t look at me like this. My prof is studying maths. He knows what he\'s doing …%3$d is inadequate. %4$d is of course absurd. You got %1$d.</string>
+    <string name="achievement_circle_1_name">The beginning</string>
+    <string name="achievement_circle_1_descr">Finish %1$d/%2$d games.</string>
+    <string name="achievement_circle_2_name">I know something</string>
+    <string name="achievement_circle_2_descr">You know nothing. Or do you recognize the picture with only %2$d circles?</string>
+    <string name="achievement_circle_3_name">So beautiful</string>
+    <string name="achievement_circle_3_descr">Count all circles in a game and admire the artist.</string>
+    <string name="achievement_circle_4_name">I\'m loving this</string>
+    <string name="achievement_circle_4_descr">Well then do this job again for %1$d more pictures.</string>
+    <string name="achievement_circle_5_name">Mission possible</string>
+    <string name="achievement_circle_5_descr">Finish a game within %1$d seconds but more clicks than wipes.</string>
+    <string name="achievement_circle_6_name">Click domination</string>
+    <string name="achievement_circle_6_descr">Clicks > wipes for a few more games.</string>
+    <string name="achievement_circle_7_name">I\'m in a hurry…</string>
+    <string name="achievement_circle_7_descr">Finish two…ok let\'s say one riddle in less than %1$d seconds.</string>
+    <string name="achievement_circle_8_name">…still in hurry</string>
+    <string name="achievement_circle_8_descr">sorry…Don\'t wanna bother ya. %1$d games within %2$d seconds.</string>
+    <string name="achievement_circle_9_name">All we need is love</string>
+    <string name="achievement_circle_9_descr">The first circle needs some attention. Talk with it.</string>
+    <string name="achievement_circle_10_name">All you get is work</string>
+    <string name="achievement_circle_10_descr">Thank you for completing my useless tasks :).</string>
+    <string name="achievement_circle_11_name">It\'s over 9000</string>
+    <string name="achievement_circle_11_descr">Create %2$d circles. Don\'t look at me like this. The prof is a math guy. He knows what he\'s doing …%3$d is inadequate. %4$d is of course absurd. You got %1$d.</string>
+    <string name="achievement_circle_12_name">Big brother is watching you</string>
+    <string name="achievement_circle_12_descr">Be fast or he will look into your soul.</string>
 
     <string name="achievement_snow_1_name">Hurry up</string>
     <string name="achievement_snow_1_descr">Complete %1$d games within %2$d seconds.</string>
@@ -202,38 +205,47 @@
     <string name="achievement_snow_12_name">Overkill</string>
     <string name="achievement_snow_12_descr">Collect %1$d more tasty candies as Angry Cell.</string>
     <string name="achievement_snow_13_name">Gotta catch \'em all</string>
-    <string name="achievement_snow_13_descr">Catch %1$d/%2$d poke…Sorry I meant candies..</string>
+    <string name="achievement_snow_13_descr">Catch %1$d/%2$d poke…Sorry I meant candies.</string>
 
-    <string name="achievement_dice_1_name">Unpleasent beginning</string>
+    <string name="achievement_dice_1_name">Unpleasant beginning</string>
     <string name="achievement_dice_1_descr">Combine the Alien-Cube on each colour in a game. Let the games begin!</string>
     <string name="achievement_dice_2_name">Colour diversity</string>
-    <string name="achievement_dice_2_descr">Gather geen, yellow and red 1-6 and purple 7-9. Reset=0.</string>
+    <string name="achievement_dice_2_descr">Gather geen, yellow and red 1–6 and purple 7–9. No resets!</string>
     <string name="achievement_dice_3_name">That\'s complicated</string>
     <string name="achievement_dice_3_descr">Get all hints for this riddle. Why? Because this is very complicated and it took my master enough effort, so you gotta read it!</string>
-    <string name="achievement_dice_4_name">Powerful corner</string>
-    <string name="achievement_dice_4_descr">Combine 3 green dices in each corner.</string>
+    <string name="achievement_dice_4_name">Monotony</string>
+    <string name="achievement_dice_4_descr">Combine %1$d yellow dices in each corner.</string>
     <string name="achievement_dice_5_name">Translation error</string>
-    <string name="achievement_dice_5_descr">owefhufeymwen fof f3 ouhosbl 1. Could.Not.Translate.</string>
-    <string name="achievement_dice_6_name">Green enough</string>
-    <string name="achievement_dice_6_descr">Gather 20 green dices on the field. Just kidding. 33. Reset=0</string>
+    <string name="achievement_dice_5_descr">owefhufeymwen fof f%1$d ouhosbl 1. Could.Not.Translate.</string>
+    <string name="achievement_dice_6_name">Green peace</string>
+    <string name="achievement_dice_6_descr">Gather %1$d green dices on the field. Just kidding. %2$d.</string>
     <string name="achievement_dice_7_name">Ludo</string>
-    <string name="achievement_dice_7_descr">Collect a purple, green, yellow and red 6 in a game without any reset. Progress: 0/4</string>
-    <string name="achievement_dice_8_name">Paparazi</string>
-    <string name="achievement_dice_8_descr">Reveal 5 fields completly in one game, i don\'t care how.</string>
+    <string name="achievement_dice_7_descr">Collect a purple, green, yellow and red %3$d in a game without any reset. Progress: %1$d/%2$d</string>
+    <string name="achievement_dice_8_name">Curious onlooker</string>
+    <string name="achievement_dice_8_descr">Reveal %1$d fields completely in one game, i don\'t care how.</string>
     <string name="achievement_dice_9_name">Logistic master</string>
-    <string name="achievement_dice_9_descr">3x Alien, 5x purple, 10x green, 15x yellow on the field :).</string>
+    <string name="achievement_dice_9_descr">%1$dxAlien, %2$dx purple, %3$dxgreen, %4$dxyellow on the field :).</string>
     <string name="achievement_dice_10_name">X-ray vision</string>
-    <string name="achievement_dice_10_descr">.Ecid neerg yna gninibmoc tuohtiw erutcip a hsinif</string>
+    <string name="achievement_dice_10_descr">.Ecid wolley yna gninibmoc tuohtiw erutcip a hsinif</string>
     <string name="achievement_dice_11_name">Going for a walk</string>
-    <string name="achievement_dice_11_descr">Take a yellow 4 and a green 2 for a walk.</string>
-    <string name="achievement_dice_12_name">This...</string>
-    <string name="achievement_dice_12_descr">Progress yellow: xxx/700.</string>
-    <string name="achievement_dice_13_name">...is...</string>
-    <string name="achievement_dice_13_descr">Progress green: xxx/200.</string>
-    <string name="achievement_dice_14_name">...SPARTA</string>
-    <string name="achievement_dice_14_descr">Progress Alien-Cube: xx/50.</string>
+    <string name="achievement_dice_11_descr">Take an alien %1$d and a yellow %2$d for a walk.</string>
+    <string name="achievement_dice_12_name">This…</string>
+    <string name="achievement_dice_12_descr">Combined red: %1$d/%2$d.</string>
+    <string name="achievement_dice_13_name">…is…</string>
+    <string name="achievement_dice_13_descr">Combined yellow: %1$d/%2$d.</string>
+    <string name="achievement_dice_14_name">…SPARTA</string>
+    <string name="achievement_dice_14_descr">Combined green: %1$d/%2$d.</string>
     <string name="achievement_dice_15_name">NO THIS IS PATRICK</string>
-    <string name="achievement_dice_15_descr">Combine Alien-Cubes. Number=Patricks name in numbers. Progress xx/78.</string>
+    <string name="achievement_dice_15_descr">Combine Alien-Cubes.</string>
+    <string name="achievement_dice_16_name">Warp jump</string>
+    <string name="achievement_dice_16_descr">To infinity and beyond!</string>
+    <string name="achievement_dice_17_name">Invasion</string>
+    <string name="achievement_dice_17_descr">Psst… tell them we come in peace.</string>
+    <string name="achievement_dice_18_name">Paparazzi</string>
+    <string name="achievement_dice_18_descr">Reveal one field completely in %1$d seconds and then get off.</string>
+    <string name="achievement_dice_18_descr_claimed">It\'s a bad job, but someone has to do it, right?</string>
+    <string name="achievement_dice_19_name">Perfectionist</string>
+    <string name="achievement_dice_19_descr">Something tells you to perfectly uncover the mystery.</string>
 
     <string name="achievement_jumper_1_name">The answer to life</string>
     <string name="achievement_jumper_1_descr">You know the answer? If not, google it right now!</string>

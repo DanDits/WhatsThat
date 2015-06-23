@@ -99,7 +99,6 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
     private int[] mLocation = new int[2];
 
     private void onRiddleMade(RiddleGame riddle) {
-        //TODO if no id, save raw riddle to database to get a valid id
         mProgressBar.onProgressUpdate(0);
         riddle.initViews(mRiddleView, mSolutionView, this);
         updateNextRiddleButton();
@@ -108,6 +107,9 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
             long currRiddleId = mRiddleView.getRiddleId();
             if (currRiddleId <= Riddle.NO_ID) {
                 currRiddleId = riddle.saveRaw(getActivity());
+            }
+            if (currRiddleId <= Riddle.NO_ID) {
+                Log.e("Riddle", "Saved riddle with no id and still no id: " + currRiddleId + " riddle " + riddle);
             }
             PracticalRiddleType currRiddleType = mRiddleView.getRiddleType();
             Riddle.saveLastVisibleRiddleId(getActivity().getApplicationContext(), currRiddleId);

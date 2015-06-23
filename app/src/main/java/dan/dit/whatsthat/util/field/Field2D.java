@@ -100,12 +100,12 @@ public class Field2D<FE extends FieldElement> implements Iterable<FE> {
         return mFieldElements[y][x];
     }
 
-    public boolean isReachable(FieldElement fromField, FieldElement target, FieldElement.Neighbor[] neighborTypes) {
+    public int isReachable(FieldElement fromField, FieldElement target, FieldElement.Neighbor[] neighborTypes) {
         if (fromField.equals(target)) {
-            return true;
+            return 0;
         }
         if (neighborTypes == null || neighborTypes.length == 0) {
-            return false;
+            return -1;
         }
         //clear pathfinding data
         for (FE e : this) {
@@ -123,13 +123,13 @@ public class Field2D<FE extends FieldElement> implements Iterable<FE> {
                 if (hasNeighbor(currField, n)) {
                     FieldElement nextField = getNeighbor(currField, n);
                     if (nextField.equals(target)) {
-                        return true;
+                        return currField.mPathfindingValue;
                     }
                     reachNextField(nextField, currField.mPathfindingValue + 1);
                 }
             }
         } while (!mPathfindingNodes.isEmpty());
-        return false;
+        return -1;
     }
 
     private void reachNextField(FieldElement nextField, int pathfindingValue) {
