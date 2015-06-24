@@ -214,29 +214,31 @@
     <string name="achievement_dice_3_name">That\'s complicated</string>
     <string name="achievement_dice_3_descr">Get all hints for this riddle. Why? Because this is very complicated and it took my master enough effort, so you gotta read it!</string>
     <string name="achievement_dice_4_name">Monotony</string>
-    <string name="achievement_dice_4_descr">Combine %1$d yellow dices in each corner.</string>
+    <string name="achievement_dice_4_descr">Collect any number of a green dice 15 times without any resets.</string>
     <string name="achievement_dice_5_name">Translation error</string>
     <string name="achievement_dice_5_descr">owefhufeymwen fof f%1$d ouhosbl 1. Could.Not.Translate.</string>
     <string name="achievement_dice_6_name">Green peace</string>
     <string name="achievement_dice_6_descr">Gather %1$d green dices on the field. Just kidding. %2$d.</string>
+
     <string name="achievement_dice_7_name">Ludo</string>
     <string name="achievement_dice_7_descr">Collect a purple, green, yellow and red %3$d in a game without any reset. Progress: %1$d/%2$d</string>
     <string name="achievement_dice_8_name">Curious onlooker</string>
-    <string name="achievement_dice_8_descr">Reveal %1$d fields completely in one game, i don\'t care how.</string>
+    <string name="achievement_dice_8_descr">Reveal some fields completely in one game.</string>
     <string name="achievement_dice_9_name">Logistic master</string>
-    <string name="achievement_dice_9_descr">%1$dxAlien, %2$dx purple, %3$dxgreen, %4$dxyellow on the field :).</string>
+    <string name="achievement_dice_9_descr">%1$dx Alien, %2$dx purple, %3$dx green, %4$dx yellow on the field :).</string>
     <string name="achievement_dice_10_name">X-ray vision</string>
     <string name="achievement_dice_10_descr">.Ecid wolley yna gninibmoc tuohtiw erutcip a hsinif</string>
     <string name="achievement_dice_11_name">Going for a walk</string>
     <string name="achievement_dice_11_descr">Take an alien %1$d and a yellow %2$d for a walk.</string>
     <string name="achievement_dice_12_name">This…</string>
-    <string name="achievement_dice_12_descr">Combined red: %1$d/%2$d.</string>
+    <string name="achievement_dice_12_descr">Combined red dices: %1$d/%2$d.</string>
+
     <string name="achievement_dice_13_name">…is…</string>
-    <string name="achievement_dice_13_descr">Combined yellow: %1$d/%2$d.</string>
+    <string name="achievement_dice_13_descr">Combined yellow dices: %1$d/%2$d.</string>
     <string name="achievement_dice_14_name">…SPARTA</string>
-    <string name="achievement_dice_14_descr">Combined green: %1$d/%2$d.</string>
+    <string name="achievement_dice_14_descr">Combined green dices: %1$d/%2$d.</string>
     <string name="achievement_dice_15_name">NO THIS IS PATRICK</string>
-    <string name="achievement_dice_15_descr">Combine Alien-Cubes.</string>
+    <string name="achievement_dice_15_descr">Combined Alien-Cubes.</string>
     <string name="achievement_dice_16_name">Warp jump</string>
     <string name="achievement_dice_16_descr">To infinity and beyond!</string>
     <string name="achievement_dice_17_name">Invasion</string>
@@ -244,15 +246,23 @@
     <string name="achievement_dice_18_name">Paparazzi</string>
     <string name="achievement_dice_18_descr">Reveal one field completely in %1$d seconds and then get off.</string>
     <string name="achievement_dice_18_descr_claimed">It\'s a bad job, but someone has to do it, right?</string>
+
     <string name="achievement_dice_19_name">Perfectionist</string>
     <string name="achievement_dice_19_descr">Something tells you to perfectly uncover the mystery.</string>
+    <string name="achievement_dice_20_name">Focus</string>
+    <string name="achievement_dice_20_descr">Choose one of the four inner fields by combining any dices. Perform 75 more combinations on this field without any resets (requires X-ray-vision).</string>
+    <string name="achievement_dice_21_name">Minimalist</string>
+    <string name="achievement_dice_21_descr">I know, this is the last one. But there must be an opposing side of perfectionists (required). So finish this with only 30 combinations. Good luck.</string>
+    <string name="achievement_dice_21_descr_claimed">It\'s like Ying&Yang. Ever heared of it?</string>
 
     <string name="achievement_jumper_1_name">The answer to life</string>
-    <string name="achievement_jumper_1_descr">You know the answer? If not, google it right now!</string>
+    <string name="achievement_jumper_1_descr">The answer, to life, to universe and everything. Plus the number of horns of a unicorn </string>
+    <string name="achievement_jumper_1_descr_claimed">43</string>
     <string name="achievement_jumper_2_name">Lack of talent</string>
     <string name="achievement_jumper_2_descr">You failed 30 times in easy. Are you sure you wanna continue playing this game?</string>
     <string name="achievement_jumper_3_name">Super Mario</string>
     <string name="achievement_jumper_3_descr">Perform xxx Double Jumps in a game before reaching \"hard\".</string>
+    <string name="achievement_jumper_3_descr_claimed">So much for the laws of physics...</string>
     <string name="achievement_jumper_4_name">Multitasking</string>
     <string name="achievement_jumper_4_descr">Finish a game after reaching \"hard\" without colliding.</string>
     <string name="achievement_jumper_5_name">Avoiding manoeuvres</string>
