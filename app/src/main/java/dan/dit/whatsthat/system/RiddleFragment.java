@@ -106,10 +106,7 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
 
             long currRiddleId = mRiddleView.getRiddleId();
             if (currRiddleId <= Riddle.NO_ID) {
-                currRiddleId = riddle.saveRaw(getActivity());
-            }
-            if (currRiddleId <= Riddle.NO_ID) {
-                Log.e("Riddle", "Saved riddle with no id and still no id: " + currRiddleId + " riddle " + riddle);
+                Log.e("Riddle", "Got riddle with no id and still no id: " + currRiddleId + " riddle " + riddle);
             }
             PracticalRiddleType currRiddleType = mRiddleView.getRiddleType();
             Riddle.saveLastVisibleRiddleId(getActivity().getApplicationContext(), currRiddleId);
@@ -153,9 +150,7 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
             mBtnRiddles.setEnabled(false);
             return;
         }
-        if (mRiddleView.hasController()) {
-            clearRiddle();
-        }
+        clearRiddle();
 
         DisplayMetrics displaymetrics = new DisplayMetrics();
         getActivity().getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
@@ -258,9 +253,7 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
             nextRiddle();
             return;
         }
-        if (mRiddleView.hasController()) {
-            clearRiddle();
-        }
+        clearRiddle();
 
         DisplayMetrics displaymetrics = new DisplayMetrics();
         getActivity().getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
@@ -511,7 +504,7 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
     public void onStop() {
         super.onStop();
         mManager.cancelMakeRiddle();
-        if (mRiddleView.hasController()) {
+        if (mRiddleView != null) {
             clearRiddle();
         }
         Log.d("Riddle", "Stopping riddle fragment");

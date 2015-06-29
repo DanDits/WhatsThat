@@ -1,4 +1,4 @@
-package dan.dit.whatsthat.util.flatworld.frames;
+package dan.dit.whatsthat.util.flatworld.look;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -6,18 +6,15 @@ import android.graphics.Paint;
 import android.util.Log;
 
 /**
- * Created by daniel on 30.05.15.
+ * Created by daniel on 26.06.15.
  */
-public class HitboxFrames {
+public class Frames extends Look {
     private Bitmap[] mFrames;
     protected int mFrameIndex;
     private long mFrameCounter;
     private long mFrameDuration;
-    protected boolean mVisible;
-    protected float mOffsetX;
-    protected float mOffsetY;
 
-    public HitboxFrames(Bitmap[] frames, long frameDuration) {
+    public Frames(Bitmap[] frames, long frameDuration) {
         mFrames = frames;
         mFrameCounter = 0;
         mFrameIndex = 0;
@@ -29,12 +26,6 @@ public class HitboxFrames {
             Log.e("Riddle", "Illegal frame duration set to 1000ms " + mFrameDuration);
             mFrameDuration = 1000L;
         }
-        mVisible = true;
-    }
-
-    public void setOffset(float offsetX, float offsetY) {
-        mOffsetX = offsetX;
-        mOffsetY = offsetY;
     }
 
     public int getWidth() {
@@ -49,6 +40,7 @@ public class HitboxFrames {
         return mFrames.length;
     }
 
+    @Override
     public boolean update(long updatePeriod) {
         if (mFrames.length > 1) {
             mFrameCounter += updatePeriod;
@@ -62,6 +54,7 @@ public class HitboxFrames {
         return false;
     }
 
+    @Override
     public void draw(Canvas canvas, float x, float y, Paint paint) {
         if (mVisible) {
             Bitmap currFrame = mFrames[mFrameIndex];
@@ -69,21 +62,10 @@ public class HitboxFrames {
         }
     }
 
-    public void setVisible(boolean visible) {
-        mVisible = visible;
-    }
-
+    @Override
     public void reset() {
         mFrameIndex = 0;
         mFrameCounter = 0L;
-    }
-
-    public float getOffsetX() {
-        return mOffsetX;
-    }
-
-    public float getOffsetY() {
-        return mOffsetY;
     }
 
     public Bitmap[] getFrames() {

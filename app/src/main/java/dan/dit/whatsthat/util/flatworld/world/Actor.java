@@ -8,27 +8,27 @@ import java.util.HashMap;
 import java.util.Map;
 
 import dan.dit.whatsthat.util.flatworld.collision.Hitbox;
-import dan.dit.whatsthat.util.flatworld.frames.HitboxFrames;
+import dan.dit.whatsthat.util.flatworld.look.Look;
 import dan.dit.whatsthat.util.flatworld.mover.HitboxMover;
 
 /**
  * Created by daniel on 31.05.15.
  */
-public class Actor<HB extends Hitbox> {
-    protected HB mHitbox;
+public class Actor {
+    protected Hitbox mHitbox;
     protected HitboxMover mMover;
-    protected final Map<Integer, HitboxFrames> mStateFrames = new HashMap<>();
-    protected HitboxFrames mCurrentFrames;
+    protected final Map<Integer, Look> mStateFrames = new HashMap<>();
+    protected Look mCurrentLook;
     private boolean mActive;
 
-    public Actor(HB hitbox, HitboxMover mover, HitboxFrames defaultFrames) {
+    public Actor(Hitbox hitbox, HitboxMover mover, Look defaultLook) {
         mHitbox = hitbox;
         if (hitbox == null) {
             throw new IllegalArgumentException("No hitbox for actor!");
         }
         setMover(mover);
-        mCurrentFrames = defaultFrames;
-        if (defaultFrames == null) {
+        mCurrentLook = defaultLook;
+        if (defaultLook == null) {
             throw new IllegalArgumentException("No frames given.");
         }
     }
@@ -43,13 +43,16 @@ public class Actor<HB extends Hitbox> {
     public boolean update(long updatePeriod) {
         boolean stateChange = mMover.update(mHitbox, updatePeriod);
         if (stateChange) {
-            setStateFramesByMoverState();
+            onUpdateChangedMoverState();
         }
-        mCurrentFrames.update(updatePeriod);
+        mCurrentLook.update(updatePeriod);
         return stateChange;
     }
 
-    public HB getHitbox() {
+    protected void onUpdateChangedMoverState() {
+    }
+
+    public Hitbox getHitbox() {
         return mHitbox;
     }
 
@@ -64,35 +67,36 @@ public class Actor<HB extends Hitbox> {
     }
 
 
-    public void setStateFramesByMoverState() {
-        HitboxFrames newFrames = mStateFrames.get(mMover.getState());
-        if (newFrames != null) {
-            mCurrentFrames = newFrames;
+    public final void setStateFramesByMoverState() {
+        Look newLook = mStateFrames.get(mMover.getState());
+        if (newLook != null) {
+            mCurrentLook = newLook;
         }
     }
 
     public void setStateFrames(int state) {
-        HitboxFrames newFrames = mStateFrames.get(state);
-        if (newFrames != null) {
-            mCurrentFrames = newFrames;
+        Look newLook = mStateFrames.get(state);
+        if (newLook != null) {
+            mCurrentLook = newLook;
         }
     }
 
-    public void putStateFrames(int state, HitboxFrames frames) {
-        if (frames == null) {
+    public void putStateFrames(int state, Look look) {
+        if (look == null) {
             return;
         }
-        mStateFrames.put(state, frames);
+        mStateFrames.put(state, look);
     }
 
     public void draw(Canvas canvas, Paint paint) {
-        if (mCurrentFrames != null && mActive) {
+        if (mCurrentLook != null && mActive) {
             RectF bound = mHitbox.getBoundingRect();
-            mCurrentFrames.draw(canvas, bound.left, bound.top, paint);
+            mCurrentLook.draw(canvas, bound.left, bound.top, paint);
         }
     }
 
     public void resetCurrentFrames() {
-        mCurrentFrames.reset();
+        mCurrentLook.reset();
     }
+
 }

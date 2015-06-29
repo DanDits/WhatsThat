@@ -1,16 +1,15 @@
-package dan.dit.whatsthat.util.flatworld.frames;
+package dan.dit.whatsthat.util.flatworld.look;
 
 import android.graphics.Bitmap;
-import android.util.Log;
 
 /**
  * Created by daniel on 18.06.15.
  */
-public class HitboxFramesOneshot extends HitboxFrames {
+public class FramesOneshot extends Frames {
     private boolean mAnimationDone;
     private int mEndFrameIndex;
 
-    public HitboxFramesOneshot(Bitmap[] frames, long animationDuration) {
+    public FramesOneshot(Bitmap[] frames, long animationDuration) {
         super(frames, animationDuration / (frames.length > 1 ? frames.length - 1 : 1));
     }
 
@@ -23,7 +22,6 @@ public class HitboxFramesOneshot extends HitboxFrames {
         if (!mAnimationDone) {
             boolean updated = super.update(updatePeriod);
             if (updated && mFrameIndex == 0) {
-                Log.d("Riddle", "Animation done.");
                 mAnimationDone = true;
                 mFrameIndex = mEndFrameIndex;
             }

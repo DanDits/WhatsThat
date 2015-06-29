@@ -1,28 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="credits_text"><![CDATA[
-            <p>Many people contributed to this project and we did not have to apply force to any of them, this makes us happy. Also those people and their brilliant minds make us happy for</p>
-            <ul>
-            <li>being awesome</li>
-            <li>testing and elimination of bugs</li>
-            <li>giving hints and suggestions</li>
-            <li>supplying images and ideas</li>
-            </ul>
-            <p>The best way of saying thank you is by thanking them: thanks.</p>
-            <p style="text-align: center;"><u>First but not least, thanks to my bro and brother Fabian! Without you, this would not exist.</u></p>
-            <p><strong>Looking for the author of an individual image? Don&#39;t panic! This dialog is made for this case.. and some other cases.</strong></p>
-            <ol>
-            <li>&nbsp; Non riddle image authors<ul>
-            <li>&nbsp;</li>
-            </ul>
-            </li>
-            <li>&nbsp;Testers and contributers<ul>
-            <li>&nbsp;</li>
-            </ul>
-            </li>
-            </ol>
-
-        ]]></string>
+    <string name="credits_text"><![CDATA[contributors]]></string>
     <string-array name="donation_google_catalog_values">
         <item>1 Euro</item>
         <item>2 Euros</item>
@@ -172,9 +150,10 @@
     <string name="achievement_circle_8_name">…still in hurry</string>
     <string name="achievement_circle_8_descr">sorry…Don\'t wanna bother ya. %1$d games within %2$d seconds.</string>
     <string name="achievement_circle_9_name">All we need is love</string>
-    <string name="achievement_circle_9_descr">The first circle needs some attention. Talk with it.</string>
+    <string name="achievement_circle_9_descr">The first circle needs some attention. Talk with it for some time.</string>
     <string name="achievement_circle_10_name">All you get is work</string>
     <string name="achievement_circle_10_descr">Thank you for completing my useless tasks :).</string>
+    <string name="achievement_circle_10_descr_unachieved">How dare you say that to my face? Say sorry.</string>
     <string name="achievement_circle_11_name">It\'s over 9000</string>
     <string name="achievement_circle_11_descr">Create %2$d circles. Don\'t look at me like this. The prof is a math guy. He knows what he\'s doing …%3$d is inadequate. %4$d is of course absurd. You got %1$d.</string>
     <string name="achievement_circle_12_name">Big brother is watching you</string>
@@ -219,7 +198,6 @@
     <string name="achievement_dice_5_descr">owefhufeymwen fof f%1$d ouhosbl 1. Could.Not.Translate.</string>
     <string name="achievement_dice_6_name">Green peace</string>
     <string name="achievement_dice_6_descr">Gather %1$d green dices on the field. Just kidding. %2$d.</string>
-
     <string name="achievement_dice_7_name">Ludo</string>
     <string name="achievement_dice_7_descr">Collect a purple, green, yellow and red %3$d in a game without any reset. Progress: %1$d/%2$d</string>
     <string name="achievement_dice_8_name">Curious onlooker</string>
@@ -232,7 +210,6 @@
     <string name="achievement_dice_11_descr">Take an alien %1$d and a yellow %2$d for a walk.</string>
     <string name="achievement_dice_12_name">This…</string>
     <string name="achievement_dice_12_descr">Combined red dices: %1$d/%2$d.</string>
-
     <string name="achievement_dice_13_name">…is…</string>
     <string name="achievement_dice_13_descr">Combined yellow dices: %1$d/%2$d.</string>
     <string name="achievement_dice_14_name">…SPARTA</string>
@@ -246,14 +223,13 @@
     <string name="achievement_dice_18_name">Paparazzi</string>
     <string name="achievement_dice_18_descr">Reveal one field completely in %1$d seconds and then get off.</string>
     <string name="achievement_dice_18_descr_claimed">It\'s a bad job, but someone has to do it, right?</string>
-
     <string name="achievement_dice_19_name">Perfectionist</string>
     <string name="achievement_dice_19_descr">Something tells you to perfectly uncover the mystery.</string>
     <string name="achievement_dice_20_name">Focus</string>
-    <string name="achievement_dice_20_descr">Choose one of the four inner fields by combining any dices. Perform 75 more combinations on this field without any resets (requires X-ray-vision).</string>
+    <string name="achievement_dice_20_descr">Choose one of the four inner fields by combining any dices. Perform a maximum of %1$d combinations but only on this field without any resets.</string>
     <string name="achievement_dice_21_name">Minimalist</string>
-    <string name="achievement_dice_21_descr">I know, this is the last one. But there must be an opposing side of perfectionists (required). So finish this with only 30 combinations. Good luck.</string>
-    <string name="achievement_dice_21_descr_claimed">It\'s like Ying&Yang. Ever heared of it?</string>
+    <string name="achievement_dice_21_descr">I know, this is the last one. But there must be an opposing side of perfectionists. So finish this with only %1$d combinations. Good luck.</string>
+    <string name="achievement_dice_21_descr_claimed">It\'s like Yin-Yang. Ever heared of it?</string>
 
     <string name="achievement_jumper_1_name">The answer to life</string>
     <string name="achievement_jumper_1_descr">The answer, to life, to universe and everything. Plus the number of horns of a unicorn </string>
@@ -281,4 +257,45 @@
     <string name="dependency_required">Requires:</string>
     <string name="level_dependency">Level %1$s</string>
     <string name="achievement_achieved">Achieved</string>
+
+    <string-array name="devil_talk_killed">
+        <item>I\'ll be back.</item>
+        <item>Noooooooo</item>
+        <item>What are you doing?</item>
+        <item>Staaap!</item>
+        <item>Let me love youuu</item>
+        <item>You need me</item>
+        <item>The candy is a lie!</item>
+    </string-array>
+    <string-array name="devil_talk_fastest">
+        <item>WUEEEE</item>
+        <item>Fast, faster, MEEEE</item>
+        <item>Spin it BABY</item>
+    </string-array>
+    <string-array name="devil_talk_slowest">
+        <item>That\'s good, take it slowly, old people can\'t handle speed.</item>
+        <item>Ouch, my head hurts</item>
+        <item>My halo is all messed up now</item>
+        <item>Stay away from candy my kid</item>
+    </string-array>
+    <string-array name="devil_talk_cell_eat_candy">
+        <item>Nooooo, that\'s poison</item>
+        <item>Don\'t you see it\'s not candy?!</item>
+        <item>Why you do this, stap</item>
+        <item>Stop…eating candy.</item>
+        <item>Sigh</item>
+        <item>Stop or you will get fat!</item>
+        <item>No toothbrush, no candy</item>
+    </string-array>
+    <string-array name="devil_talk_cell_eat_candy_explosive">
+        <item>Wooo, keep calm, keeeeeep calm</item>
+        <item>Remember the last time you were happy?</item>
+        <item>Fast, kiss the wall</item>
+    </string-array>
+    <string-array name="devil_talk_mock">
+        <item>Nevermind me, I\'m just spinning around</item>
+        <item>Why don\'t you love me back?</item>
+        <item>I just want to help</item>
+        <item>Tickling me won\'t do anything</item>
+    </string-array>
 </resources>

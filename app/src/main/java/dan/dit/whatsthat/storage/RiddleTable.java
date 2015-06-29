@@ -73,7 +73,7 @@ public class RiddleTable {
             "create table "
                     + TABLE_RIDDLES
                     + "("
-                    + COLUMN_ID + " integer primary key autoincrement, "
+                    + COLUMN_ID + " integer primary key, "
                     + COLUMN_TIMESTAMP + " integer, "
                     + COLUMN_SOLUTION + " text, " // not core
                     + COLUMN_SOLVED + " integer, " // not core

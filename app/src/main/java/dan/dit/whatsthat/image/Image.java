@@ -59,6 +59,7 @@ public class Image {
     private List<Solution> mSolutions; // always at least one solution needed
     private List<RiddleType> mPreferredRiddleTypes; // can be null
     private List<RiddleType> mRefusedRiddleTypes; // can be null
+    private int mAverageColor; // average color of the bitmap
 
     private Image() {}
 
@@ -108,6 +109,7 @@ public class Image {
         cv.put(ImageTable.COLUMN_NAME, mName);
         cv.put(ImageTable.COLUMN_OBFUSCATION, mIsObfuscated);
         cv.put(ImageTable.COLUMN_ORIGIN, mOrigin);
+        cv.put(ImageTable.COLUMN_AVERAGE_COLOR, mAverageColor);
 
         // one of mResId or mResPath is valid
         if (mResId != 0) {
@@ -164,6 +166,7 @@ public class Image {
         Image.Builder builder = new Image.Builder(resId, resPath, name, author, timestamp, hash);
         builder.setOrigin(cursor.getString(cursor.getColumnIndexOrThrow(ImageTable.COLUMN_ORIGIN)));
         builder.setObfuscation(cursor.getInt(cursor.getColumnIndexOrThrow(ImageTable.COLUMN_OBFUSCATION)));
+        builder.setAverageColor(cursor.getInt(cursor.getColumnIndexOrThrow(ImageTable.COLUMN_AVERAGE_COLOR)));
 
         // solutions
         for (String sol : new Compacter(cursor.getString(cursor.getColumnIndexOrThrow(ImageTable.COLUMN_SOLUTIONS)))) {
@@ -483,6 +486,10 @@ public class Image {
                 throw new BuildException("Source: " + mImage.mName).setMissingData("Image", "Hash");
             }
             return mImage;
+        }
+
+        public void setAverageColor(int averageColor) {
+            mImage.mAverageColor = averageColor;
         }
     }
 }

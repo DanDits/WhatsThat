@@ -76,8 +76,13 @@ public class ImageTable {
      */
     public static final String COLUMN_OBFUSCATION = "obf";
 
+    /**
+     * The average (a)rgb color of the image's bitmap.
+     */
+    public static final String COLUMN_AVERAGE_COLOR = "avcolor";
+
     public static final String[] ALL_COLUMNS = new String[] {COLUMN_HASH, COLUMN_TIMESTAMP, COLUMN_OBFUSCATION, COLUMN_AUTHOR,
-            COLUMN_NAME, COLUMN_ORIGIN, COLUMN_RESNAME, COLUMN_SAVELOC, COLUMN_SOLUTIONS,  COLUMN_RIDDLEPREFTYPES, COLUMN_RIDDLEREFUSEDTYPES};
+            COLUMN_NAME, COLUMN_ORIGIN, COLUMN_RESNAME, COLUMN_SAVELOC, COLUMN_SOLUTIONS,  COLUMN_RIDDLEPREFTYPES, COLUMN_RIDDLEREFUSEDTYPES, COLUMN_AVERAGE_COLOR};
 
     //Database creation SQL statement
     private static final String DATABASE_CREATE =
@@ -94,7 +99,8 @@ public class ImageTable {
             + COLUMN_RIDDLEREFUSEDTYPES + " text, "
             + COLUMN_AUTHOR + " text, "
             + COLUMN_ORIGIN + " text, "
-            + COLUMN_OBFUSCATION + " integer"
+            + COLUMN_OBFUSCATION + " integer, "
+            + COLUMN_AVERAGE_COLOR + " integer"
             + ");";
 
     //private constructor to make sure it is never instantiated

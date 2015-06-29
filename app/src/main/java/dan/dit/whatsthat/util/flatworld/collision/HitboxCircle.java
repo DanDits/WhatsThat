@@ -7,10 +7,11 @@ import java.util.Random;
 /**
  * Created by daniel on 01.06.15.
  */
-public class HitboxCircle extends Hitbox<HitboxCircle> {
+public class HitboxCircle extends Hitbox {
     private float mRadius;
     private float mCenterX;
     private float mCenterY;
+    private Tester mTester = new Tester();
 
     public HitboxCircle(float centerX, float centerY, float radius) {
         mRadius = radius;
@@ -103,6 +104,15 @@ public class HitboxCircle extends Hitbox<HitboxCircle> {
     }
 
     @Override
+    public CollisionTester getCollisionTester() {
+        return mTester;
+    }
+
+    @Override
+    public int accept(CollisionTester collisionTester) {
+        return collisionTester.collisionTest(this);
+    }
+
     public boolean checkCollision(HitboxCircle with) {
         float dx = mCenterX - with.mCenterX;
         float dy = mCenterY - with.mCenterY;
@@ -113,4 +123,13 @@ public class HitboxCircle extends Hitbox<HitboxCircle> {
     public float getRadius() {
         return mRadius;
     }
+
+    private class Tester extends CollisionTester {
+
+        @Override
+        public int collisionTest(HitboxCircle toCheck) {
+            return checkCollision(toCheck) ? RESULT_COLLISION : RESULT_NO_COLLISION;
+        }
+    }
+
 }

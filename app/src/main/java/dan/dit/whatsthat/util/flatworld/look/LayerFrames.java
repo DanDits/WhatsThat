@@ -1,4 +1,4 @@
-package dan.dit.whatsthat.util.flatworld.frames;
+package dan.dit.whatsthat.util.flatworld.look;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -7,12 +7,12 @@ import android.graphics.Paint;
 /**
  * Created by daniel on 06.06.15.
  */
-public class HitboxLayerFrames extends HitboxFrames {
+public class LayerFrames extends Frames {
 
     private int mLayers;
     private Bitmap[][] mFrameLayers;
 
-    public HitboxLayerFrames(Bitmap[] frames, long frameDuration, int backgroundLayers) {
+    public LayerFrames(Bitmap[] frames, long frameDuration, int backgroundLayers) {
         super(frames, frameDuration);
         mLayers = backgroundLayers;
         if (backgroundLayers < 1) {

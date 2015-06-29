@@ -14,6 +14,13 @@ public class HitboxNewtonMover extends HitboxMover {
     protected float mAccelX;
     protected float mAccelY;
 
+    public HitboxNewtonMover() {
+    }
+
+    public HitboxNewtonMover(float speedX, float speedY) {
+        setSpeed(speedX, speedY);
+    }
+
     public void setSpeed(float speedX, float speedY) {
         mSpeedX = speedX;
         mSpeedY = speedY;

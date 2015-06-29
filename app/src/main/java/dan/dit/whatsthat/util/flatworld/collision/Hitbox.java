@@ -7,7 +7,7 @@ import java.util.Random;
 /**
  * Created by daniel on 31.05.15.
  */
-public abstract class Hitbox<W extends Collidable<? extends W>> implements  Collidable<W> {
+public abstract class Hitbox {
     protected RectF mBoundingRect = new RectF();
 
     public abstract RectF getBoundingRect();
@@ -47,4 +47,8 @@ public abstract class Hitbox<W extends Collidable<? extends W>> implements  Coll
 
     public abstract float getCenterX();
     public abstract float getCenterY();
+
+    public abstract CollisionTester getCollisionTester();
+
+    public abstract int accept(CollisionTester collisionTester);
 }

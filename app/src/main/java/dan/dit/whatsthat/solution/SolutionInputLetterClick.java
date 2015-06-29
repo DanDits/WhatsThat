@@ -16,6 +16,9 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
+import dan.dit.whatsthat.riddle.achievement.AchievementPropertiesMapped;
+import dan.dit.whatsthat.riddle.achievement.holders.MiscAchievementHolder;
+import dan.dit.whatsthat.testsubject.TestSubject;
 import dan.dit.whatsthat.util.compaction.CompactedDataCorruptException;
 import dan.dit.whatsthat.util.compaction.Compacter;
 import dan.dit.whatsthat.util.image.ImageUtil;
@@ -499,7 +502,14 @@ public class SolutionInputLetterClick extends SolutionInput {
         for (Character c : mUserLetters) {
             builder.append(c);
         }
-        return builder.toString();
+        String userWord = builder.toString();
+        if (TestSubject.isInitialized()) {
+            AchievementPropertiesMapped<String> data = TestSubject.getInstance().getAchievementHolder().getMiscData();
+            if (data != null) {
+                data.updateMappedValue(MiscAchievementHolder.KEY_SOLUTION_INPUT_CURRENT_TEXT, userWord);
+            }
+        }
+        return userWord;
     }
 
     private void wordToUserLetters(String word) {

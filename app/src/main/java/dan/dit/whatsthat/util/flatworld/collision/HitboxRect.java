@@ -4,16 +4,17 @@ import android.graphics.RectF;
 
 import java.util.Random;
 
-import dan.dit.whatsthat.util.flatworld.frames.HitboxFrames;
+import dan.dit.whatsthat.util.flatworld.look.Look;
 
 /**
  * Created by daniel on 30.05.15.
  */
-public class HitboxRect extends Hitbox<HitboxRect> {
+public class HitboxRect extends Hitbox {
     private float mLeft;
     private float mTop;
     private float mBottom;
     private float mRight;
+    private Tester mTester = new Tester();
 
     public HitboxRect(final float left, final float top, final float width, final float height) {
         mLeft = left;
@@ -23,7 +24,6 @@ public class HitboxRect extends Hitbox<HitboxRect> {
         mBoundingRect.set(mLeft, mTop, mRight, mBottom);
     }
 
-    @Override
     public boolean checkCollision(HitboxRect other) {
         return mRight >= other.mLeft && mLeft <= other.mRight && mBottom >= other.mTop && mTop <= other.mBottom;
     }
@@ -107,10 +107,27 @@ public class HitboxRect extends Hitbox<HitboxRect> {
         return mTop + (mBottom - mTop) / 2.f;
     }
 
-    public static HitboxRect makeHitbox(HitboxFrames frames, float hitboxWidthFraction, float hitboxHeightFraction, float frameLeft, float frameTop) {
-        float offsetX = -frames.getWidth() * (1 - hitboxWidthFraction) / 2.f;
-        float offsetY = -frames.getHeight() * (1 - hitboxHeightFraction) / 2.f;
-        frames.setOffset(offsetX, offsetY);
-        return new HitboxRect(frameLeft -  offsetX, frameTop - offsetY, frames.getWidth() * hitboxWidthFraction, frames.getHeight() * hitboxHeightFraction);
+    @Override
+    public CollisionTester getCollisionTester() {
+        return mTester;
+    }
+
+    @Override
+    public int accept(CollisionTester collisionTester) {
+        return collisionTester.collisionTest(this);
+    }
+
+    private class Tester extends CollisionTester {
+        @Override
+        public int collisionTest(HitboxRect toCheck) {
+            return checkCollision(toCheck) ? RESULT_COLLISION : RESULT_NO_COLLISION;
+        }
+    }
+
+    public static HitboxRect makeHitbox(Look look, float hitboxWidthFraction, float hitboxHeightFraction, float frameLeft, float frameTop) {
+        float offsetX = -look.getWidth() * (1 - hitboxWidthFraction) / 2.f;
+        float offsetY = -look.getHeight() * (1 - hitboxHeightFraction) / 2.f;
+        look.setOffset(offsetX, offsetY);
+        return new HitboxRect(frameLeft -  offsetX, frameTop - offsetY, look.getWidth() * hitboxWidthFraction, look.getHeight() * hitboxHeightFraction);
     }
 }

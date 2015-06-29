@@ -1,13 +1,14 @@
 package dan.dit.whatsthat.util.flatworld.collision;
 
 import android.graphics.RectF;
+import android.util.Log;
 
 import java.util.Random;
 
 /**
  * Created by daniel on 05.06.15.
  */
-public class GeneralHitboxCollider extends Collider<Hitbox> {
+public class GeneralHitboxCollider extends CollisionController {
     private static final int DEFAULT_CHECKS_COUNT = 1;
 
     private final int mChecksCount = DEFAULT_CHECKS_COUNT;
@@ -25,17 +26,22 @@ public class GeneralHitboxCollider extends Collider<Hitbox> {
     }
 
     @Override
-    public <W1 extends Hitbox, W2 extends Hitbox> boolean checkCollision(W1 box1, W2 box2) {
+    public boolean checkCollision(Hitbox box1, Hitbox box2) {
+        // first try direct collision
+        int result = box2.accept(box1.getCollisionTester());
+        if (result != CollisionTester.RESULT_INDEFINITE) {
+            return result == CollisionTester.RESULT_COLLISION;
+        }
         boolean hasIntersection = getIntersection(box1, box2, mBoundIntersection);
         if (hasIntersection) {
             for (int i = 0; i < mChecksCount; i++) {
                 if (box1.checkRandomPointCollision(box2, mRand, mBoundIntersection)
                         || box2.checkRandomPointCollision(box1, mRand, mBoundIntersection)) {
+                    Log.e("HomeStuff", "Collision not found with visitor!!");
                     return true;
                 }
             }
         }
         return false;
     }
-
 }

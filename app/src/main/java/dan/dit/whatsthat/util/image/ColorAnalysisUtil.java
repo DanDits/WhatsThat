@@ -1,5 +1,7 @@
 package dan.dit.whatsthat.util.image;
 
+import android.graphics.Color;
+
 /**
  * This class is an utility class. It offers RGB convertion
  * methods and helping methods to compare and store the rgb data.
@@ -43,6 +45,21 @@ public final class ColorAnalysisUtil {
 		default:
 			return -1;
 		}
+	}
+
+	public static int interpolateColorLinear(int fromColor, int toColor, float fraction) {
+		float antiFraction = 1.f - fraction;
+		return Color.argb((int) ((Color.alpha(toColor) * fraction + Color.alpha(fromColor) * antiFraction)),
+				(int) ((Color.red(toColor) * fraction + Color.red(fromColor) * antiFraction)),
+				(int) ((Color.green(toColor) * fraction + Color.green(fromColor) * antiFraction)),
+				(int) ((Color.blue(toColor) * fraction + Color.blue(fromColor) * antiFraction)));
+	}
+
+	public static int colorMultiples(int color, float multiple) {
+		return Color.argb((int) (Color.alpha(color) * multiple),
+				(int) (Color.red(color) * multiple),
+				(int) (Color.green(color) * multiple),
+				(int) (Color.blue(color) * multiple));
 	}
 	
 	/**
