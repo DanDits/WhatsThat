@@ -196,6 +196,7 @@
     <string name="achievement_dice_4_descr">Collect any number of a green dice 15 times without any resets.</string>
     <string name="achievement_dice_5_name">Translation error</string>
     <string name="achievement_dice_5_descr">owefhufeymwen fof f%1$d ouhosbl 1. Could.Not.Translate.</string>
+    <string name="achievement_dice_5_descr_claimed">Sorry. I meant 3 resets</string>
     <string name="achievement_dice_6_name">Green peace</string>
     <string name="achievement_dice_6_descr">Gather %1$d green dices on the field. Just kidding. %2$d.</string>
     <string name="achievement_dice_7_name">Ludo</string>
