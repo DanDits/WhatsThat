@@ -1,5 +1,6 @@
 package dan.dit.whatsthat.util.image;
 
+import android.graphics.Bitmap;
 import android.graphics.Color;
 
 /**
@@ -9,31 +10,12 @@ import android.graphics.Color;
  *
  */
 public final class ColorAnalysisUtil {
-	/**
-	 * This value indicates the worst similarity possible for a similarity
-	 * comparison of two rgb values if alpha is not used. Equal to 3*255*255.
-	 */
-	public static final int WORST_SIMILARITY = 3 * 255 * 255;
-	
-	/**
-	 * This value indicates the worst similarity possible for a similarity
-	 * comparision of two rgb values if alpha is used. Equal to 4*255*255.
-	 */
-	public static final int WORST_SIMILARITY_ALPHA = 4 * 255 * 255;
+
 	
 	private ColorAnalysisUtil() {	
 	}
-	
-	/**
-	 * Extracts from the given integer the given image color RED, GREEN, BLUE or ALPHA.
-	 * The returned value is in range (inclusive) 0 to 255.
-	 * @param rgb The rgb values are stored in this integer. BLUE in the rightmost 8 bits,
-	 * GREEN in the next 8 bits, RED in the next 8 bits and ALPHA in the next 8 bits.
-	 * @param color The color data to be extracted. Must be a valid enum constant.
-	 * @return The requested color data from the rgb, a value in range of 0 to 255.
-	 */
-	public static int fromRGB(int rgb, ImageColor color) {
-		switch (color) {
+
+		/* To extract colors from ARGB int:
 		case RED:
 			return (rgb >> 16) & 0xFF;
 		case GREEN:
@@ -41,11 +23,7 @@ public final class ColorAnalysisUtil {
 		case BLUE:
 			return rgb & 0xFF;
 		case ALPHA:
-			return (rgb >> 24) & 0xFF;
-		default:
-			return -1;
-		}
-	}
+			return (rgb >> 24) & 0xFF;*/
 
 	public static int interpolateColorLinear(int fromColor, int toColor, float fraction) {
 		float antiFraction = 1.f - fraction;
@@ -77,21 +55,7 @@ public final class ColorAnalysisUtil {
 	public static int toRGB(int red, int green, int blue, int alpha) {
 		return blue | (green << 8) | (red << 16) | (alpha << 24);
 	}
-	
-	/**
-	 * Changes the given Color to the given value, keeping the rest of the values.
-	 * @param rgb The base RGBA color.
-	 * @param value The new value for the given image color.
-	 * @param col The image color to change.
-	 * @return The new RGBA color.
-	 */
-	public static int toRGB(int rgb, int value, ImageColor col) {
-		int red = col == ImageColor.RED ? value : (rgb >> 16) & 0xFF;
-		int green = col == ImageColor.GREEN ? value : (rgb >> 8) & 0xFF;
-		int blue = col == ImageColor.BLUE ? value : rgb & 0xFF;
-		int alpha = col == ImageColor.ALPHA ? value : (rgb >> 24) & 0xFF;
-		return blue | (green << 8) | (red << 16) | (alpha << 24);
-	}
+
 	
 	/**
 	 * Returns the standard norm of the given color in the 3 or 4 dimensional
@@ -105,35 +69,32 @@ public final class ColorAnalysisUtil {
 	public static double norm(int rgb, boolean useAlpha) {
 		double result = 0;
 		int currColValue;
-		for (ImageColor col : (useAlpha) ? ImageColor.RGBA : ImageColor.RGB) {
-			currColValue = ColorAnalysisUtil.fromRGB(rgb, col);
-			result += currColValue * currColValue;
-		}
+
+        currColValue = Color.red(rgb);
+        result += currColValue * currColValue;
+
+        currColValue = Color.green(rgb);
+        result += currColValue * currColValue;
+
+        currColValue = Color.blue(rgb);
+        result += currColValue * currColValue;
+
+        if (useAlpha) {
+            currColValue = Color.red(rgb);
+            result += currColValue * currColValue;
+        }
 		return Math.sqrt(result);
 	}
-	
-	/**
-	 * Returns the similarity of the two rgb colors, optionally taking the alpha
-	 * into account.
-	 * @param rgb1 The first RGBA value.
-	 * @param rgb2 The second RGBA value.
-	 * @param useAlpha If alpha should be used for measuring.
-	 * @return A measure for the similarity of the rgb colors with 0 indicating that
-	 * the two colors are equal and a higher result indicating a lower similarity. Upper
-	 * bounds are the constants WORST_SIMILARITY if useAlpha is <code>false</code> or
-	 * WORST_SIMILARITY_ALPHA if alpha is used.
-	 */
-	public static int similarity(int rgb1, int rgb2, boolean useAlpha) {
-		int result = 0;
-		int currColValue1;
-		int currColValue2;
-		for (ImageColor col : (useAlpha) ? ImageColor.RGBA : ImageColor.RGB) {
-			currColValue1 = ColorAnalysisUtil.fromRGB(rgb1, col);
-			currColValue2 = ColorAnalysisUtil.fromRGB(rgb2, col);
-			result += (currColValue1 - currColValue2) * (currColValue1 - currColValue2);
-		}
-		return result;
-	}
+
+    public static double factorToSimilarityBound(double factor) {
+        // makes the factor in range [0,1]
+        double inBoundFactor = Math.max(0.0, Math.min(1.0, factor));
+        // uses a function to transform the given value to a more fitting result.
+        // For the in bound merge factor x it evaluates to : f(x)= e^(a*x^b)-1
+        // with a=Log(13/10) and b = Log(a/Log(101/100))/Log(2) (makes a maximum for f(1)=0.3
+        // , it is f(0.5)=0.01 and the strictly monotonic ascending behavior of the e-function
+        return Math.pow(Math.E, 0.26236 * Math.pow(inBoundFactor, 4.72068)) - 1.0;
+    }
 	
 	/**
 	 * Mixes the given rgb values. To take the size of the underlying
@@ -157,39 +118,78 @@ public final class ColorAnalysisUtil {
 		}
 		long newCol;
 		//red
-		currColValue1 = ColorAnalysisUtil.fromRGB(rgb1, ImageColor.RED);
-		currColValue2 = ColorAnalysisUtil.fromRGB(rgb2, ImageColor.RED);
+		currColValue1 = Color.red(rgb1);
+		currColValue2 = Color.red(rgb2);
 		newCol = (currColValue1 * pixels1 + currColValue2 * pixels2) / totalPixels;
 		red = (int) newCol;
 		//green
-		currColValue1 = ColorAnalysisUtil.fromRGB(rgb1, ImageColor.GREEN);
-		currColValue2 = ColorAnalysisUtil.fromRGB(rgb2, ImageColor.GREEN);
+		currColValue1 = Color.green(rgb1);
+		currColValue2 = Color.green(rgb2);
 		newCol = (currColValue1 * pixels1 + currColValue2 * pixels2) / totalPixels;
 		green = (int) newCol;
 		//blue
-		currColValue1 = ColorAnalysisUtil.fromRGB(rgb1, ImageColor.BLUE);
-		currColValue2 = ColorAnalysisUtil.fromRGB(rgb2, ImageColor.BLUE);
+		currColValue1 = Color.blue(rgb1);
+		currColValue2 = Color.blue(rgb2);
 		newCol = (currColValue1 * pixels1 + currColValue2 * pixels2) / totalPixels;
 		blue = (int) newCol;
 		//alpha
-		currColValue1 = ColorAnalysisUtil.fromRGB(rgb1, ImageColor.ALPHA);
-		currColValue2 = ColorAnalysisUtil.fromRGB(rgb2, ImageColor.ALPHA);
+		currColValue1 = Color.alpha(rgb1);
+		currColValue2 = Color.alpha(rgb2);
 		newCol = (currColValue1 * pixels1 + currColValue2 * pixels2) / totalPixels;
 		alpha = (int) newCol;
 		return ColorAnalysisUtil.toRGB(red, green, blue, alpha);
 	}
 
+	public static int getAverageColor(Bitmap image) {
+		int width = image.getWidth();
+		int height = image.getHeight();
+		long averageRed = 0, averageGreen = 0, averageBlue = 0, averageAlpha = 0;
+		for (int x = 0; x < width; x++) {
+			for (int y = 0; y < height; y++) {
+				int rgba = image.getPixel(x, y);
+				averageRed += Color.red(rgba);
+				averageGreen += Color.green(rgba);
+				averageBlue += Color.blue(rgba);
+				averageAlpha += Color.alpha(rgba);
+			}
+		}
+		long pixels = width * height;
+		return Color.argb((int) (averageAlpha / pixels), (int) (averageRed / pixels), (int) (averageGreen / pixels), (int) (averageBlue / pixels));
+	}
+
+	public static int getAverageColor(Bitmap image, int fromX, int toX, int fromY, int toY) {
+		long averageRed = 0, averageGreen = 0, averageBlue = 0, averageAlpha = 0;
+        fromX = Math.max(0, fromX);
+        fromY = Math.max(0, fromY);
+        toX = Math.min(image.getWidth() - 1, toX);
+        toY = Math.min(image.getHeight() - 1, toY);
+		for (int x = fromX; x < toX; x++) {
+			for (int y = fromY; y < toY; y++) {
+				int rgba = image.getPixel(x, y);
+				averageRed += Color.red(rgba);
+				averageGreen += Color.green(rgba);
+				averageBlue += Color.blue(rgba);
+				averageAlpha += Color.alpha(rgba);
+			}
+		}
+		long pixels = (toX - fromX) * (toY - fromY);
+		if (pixels <= 0L) {
+			pixels = 1L;
+		}
+        return Color.argb((int) (averageAlpha / pixels), (int) (averageRed / pixels), (int) (averageGreen / pixels), (int) (averageBlue / pixels));
+	}
+
 	/**
 	 * Returns a String representation of the given average color in HEX format, optionally with the alpha.
-	 * @param rgb The rgb to visualiize.
-	 * @param useAlpha If alpha value should be visulized.
+	 * @param rgb The rgb to visualize.
+	 * @param useAlpha If alpha value should be visualized.
 	 * @return A formatted HEX String visualizing the given rgb.
 	 */
 	public static String visualizeRGB(int rgb, boolean useAlpha) {
 		String output = "";
 		String curr;
 		if (useAlpha) {
-			curr = Integer.toHexString(ColorAnalysisUtil.fromRGB(rgb, ImageColor.ALPHA)).toUpperCase();
+			curr = Integer.toHexString(Color.alpha(rgb)).toUpperCase();
 			if (curr.length() == 1) {
 				output += "0" + curr;
 			} else {
@@ -197,21 +197,21 @@ public final class ColorAnalysisUtil {
 			}	
 			output += " ";
 		}
-		curr = Integer.toHexString(ColorAnalysisUtil.fromRGB(rgb, ImageColor.RED)).toUpperCase();
+		curr = Integer.toHexString(Color.red(rgb)).toUpperCase();
 		if (curr.length() == 1) {
 			output += "0" + curr;
 		} else {
 			output += curr;
 		}
 		output += " ";
-		curr = Integer.toHexString(ColorAnalysisUtil.fromRGB(rgb, ImageColor.GREEN)).toUpperCase();
+		curr = Integer.toHexString(Color.green(rgb)).toUpperCase();
 		if (curr.length() == 1) {
 			output += "0" + curr;
 		} else {
 			output += curr;
 		}
 		output += " ";
-		curr = Integer.toHexString(ColorAnalysisUtil.fromRGB(rgb, ImageColor.BLUE)).toUpperCase();
+		curr = Integer.toHexString(Color.blue(rgb)).toUpperCase();
 		if (curr.length() == 1) {
 			output += "0" + curr;
 		} else {

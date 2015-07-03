@@ -3,6 +3,7 @@
     <words>
       <w>collider</w>
       <w>hitbox</w>
+      <w>reconstructor</w>
     </words>
   </dictionary>
 </component>

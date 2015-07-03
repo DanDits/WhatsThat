@@ -2,8 +2,10 @@ package dan.dit.whatsthat.image;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.util.Log;
@@ -25,9 +27,11 @@ import dan.dit.whatsthat.util.BuildException;
 import dan.dit.whatsthat.util.compaction.CompactedDataCorruptException;
 import dan.dit.whatsthat.util.compaction.Compacter;
 import dan.dit.whatsthat.util.image.BitmapUtil;
+import dan.dit.whatsthat.util.image.ColorAnalysisUtil;
 import dan.dit.whatsthat.util.image.Dimension;
 import dan.dit.whatsthat.util.image.ExternalStorage;
 import dan.dit.whatsthat.util.image.ImageUtil;
+import dan.dit.whatsthat.util.mosaic.data.MosaicTile;
 
 /**
  * An instance of the Image class references an image which is uniquely identified by its hash.
@@ -37,10 +41,11 @@ import dan.dit.whatsthat.util.image.ImageUtil;
  * riddle types.
  * Created by daniel on 24.03.15.
  */
-public class Image {
+public class Image implements MosaicTile<String> {
     public static final String SHAREDPREFERENCES_FILENAME ="dan.dit.whatsthat.imagePrefs";
     public static final String ORIGIN_IS_THE_APP = "WhatsThat";
     public static final String IMAGES_DIRECTORY_NAME = "images";
+    public static final int NO_AVERAGE_COLOR = 0;
 
     // instead of building everytime on every device this app runs we built once for every new release of images all essential data
     // that takes long time like hash or preference/refused calculation, save it into a simple text file which we then read on first app
@@ -59,7 +64,7 @@ public class Image {
     private List<Solution> mSolutions; // always at least one solution needed
     private List<RiddleType> mPreferredRiddleTypes; // can be null
     private List<RiddleType> mRefusedRiddleTypes; // can be null
-    private int mAverageColor; // average color of the bitmap
+    private int mAverageColor = NO_AVERAGE_COLOR; // average color of the bitmap
 
     private Image() {}
 
@@ -231,7 +236,7 @@ public class Image {
         return mOrigin;
     }
 
-    private Bitmap loadBitmapExecute(Context context, int reqWidth, int reqHeight, boolean enforceDimension) {
+    private Bitmap loadBitmapExecute(Resources res, int reqWidth, int reqHeight, boolean enforceDimension) {
         Bitmap result = null;
         if (mRelativePath != null) {
             String path = ExternalStorage.getExternalStoragePathIfMounted(IMAGES_DIRECTORY_NAME);
@@ -240,28 +245,24 @@ public class Image {
                 result = ImageUtil.loadBitmap(imagePath, reqWidth, reqHeight, enforceDimension);
             }
         } else if (mResId != 0) {
-            result = ImageUtil.loadBitmap(context.getResources(), mResId, reqWidth, reqHeight, enforceDimension);
+            result = ImageUtil.loadBitmap(res, mResId, reqWidth, reqHeight, enforceDimension);
         } else {
-            // try to use name to get a image resource id
-            Log.d("Image", "No res path and no res id for name " + mName);
-            mResId = ImageUtil.getDrawableResIdFromName(context, mName);
-            if (mResId != 0) {
-                result = ImageUtil.loadBitmap(context.getResources(), mResId, reqWidth, reqHeight, enforceDimension);
-            }
+            Log.e("Image", "Trying to load bitmap without relative path or res id! Use other method!");
         }
         return result;
     }
 
-    public Bitmap loadBitmap(Context context, Dimension reqDimension, boolean enforceDimension) {
+    // will fail when loading images only built by being parsed as they don't have a valid resource id or name
+    public Bitmap loadBitmap(Resources res, Dimension reqDimension, boolean enforceDimension) {
         int reqWidth = reqDimension.getWidth();
         int reqHeight = reqDimension.getHeight();
         Bitmap result;
         if (mIsObfuscated == 0) {
             // not obfuscated, we can optimize the loading
-            return loadBitmapExecute(context, reqWidth, reqHeight, enforceDimension);
+            return loadBitmapExecute(res, reqWidth, reqHeight, enforceDimension);
         } else {
             // we first need to deobfuscate the image
-            result = loadBitmapExecute(context, 0, 0, false);
+            result = loadBitmapExecute(res, 0, 0, false);
             if (result != null) {
                 result = ImageObfuscator.restoreImage(result);
                 if (result != null) {
@@ -270,6 +271,22 @@ public class Image {
             }
         }
         return result;
+    }
+
+    public Bitmap loadBitmap(Context context, Dimension reqDimension, boolean enforceDimension) {
+        if (mResId == 0 && mRelativePath == null) {
+            // try to use name to get a image resource id
+            Log.d("Image", "No res path and no res id for name " + mName);
+            mResId = ImageUtil.getDrawableResIdFromName(context, mName);
+            if (mResId != 0) {
+                return ImageUtil.loadBitmap(context.getResources(), mResId, reqDimension.getWidth(), reqDimension.getHeight(), enforceDimension);
+            } else {
+                Log.e("Image", "Failed retrieving res id for image " + mName + ": did not load bitmap.");
+                return null;
+            }
+        } else {
+            return loadBitmap(context.getResources(), reqDimension, enforceDimension);
+        }
     }
 
     @Override
@@ -308,6 +325,36 @@ public class Image {
         return mIsObfuscated;
     }
 
+    public int getAverageColor() {
+        return mAverageColor;
+    }
+
+    @Override
+    @NonNull
+    public String getSource() {
+        return mHash;
+    }
+
+    @Override
+    public int getAverageRed() {
+        return Color.red(mAverageColor);
+    }
+
+    @Override
+    public int getAverageGreen() {
+        return Color.green(mAverageColor);
+    }
+
+    @Override
+    public int getAverageBlue() {
+        return Color.alpha(mAverageColor);
+    }
+
+    @Override
+    public int getAverageARGB() {
+        return mAverageColor;
+    }
+
     /**
      * A builder for the Image class that allows recreation from the database or fresh creation
      * of a new image object.
@@ -333,10 +380,15 @@ public class Image {
             Bitmap image = mImage.loadBitmap(context, EMPTY_DIMENSION, false);
             if (image != null) {
                 mImage.mHash = ImageUtil.getHash(BitmapUtil.extractDataFromBitmap(image));
+                calculateAverageColor(image);
                 addOwnFormatAsPreference(image);
                 addOwnContrastAsPreference(image);
                 addOwnGreynessAsPreference(image);
             }
+        }
+
+        private void calculateAverageColor(Bitmap image) {
+            mImage.mAverageColor = ColorAnalysisUtil.getAverageColor(image);
         }
 
         private void addOwnGreynessAsPreference(Bitmap image) {
@@ -415,6 +467,17 @@ public class Image {
                     mImage.mIsObfuscated = Integer.parseInt(obfuscation);
                 } catch (NumberFormatException nfe) {
                     mImage.mIsObfuscated = ImageObfuscator.IS_OBFUSCATED_HINT;
+                }
+            }
+            return this;
+        }
+
+        public Builder setAverageColor(String averageColor) {
+            if (!TextUtils.isEmpty(averageColor)) {
+                try {
+                    setAverageColor(Integer.parseInt(averageColor));
+                } catch (NumberFormatException nfe) {
+                    setAverageColor(NO_AVERAGE_COLOR);
                 }
             }
             return this;

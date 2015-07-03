@@ -93,6 +93,7 @@ public class ImageXmlWriter {
                 writeText(serializer, ImageTable.COLUMN_ORIGIN, image.getOrigin());
                 writeText(serializer, ImageTable.COLUMN_HASH, image.getHash());
                 writeText(serializer, ImageTable.COLUMN_OBFUSCATION, String.valueOf(image.getObfuscation()));
+                writeText(serializer, ImageTable.COLUMN_AVERAGE_COLOR, String.valueOf(image.getAverageColor()));
                 writeText(serializer, ImageTable.COLUMN_SAVELOC, image.getRelativePath());
                 writeSolutions(serializer, ImageTable.COLUMN_SOLUTIONS, image.getSolutions());
                 writeAuthor(serializer, ImageTable.COLUMN_AUTHOR, image.getAuthor());

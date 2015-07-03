@@ -29,7 +29,7 @@ public class Logo {
     }
 
     public Bitmap getSized(int wantedWidth, int wantedHeight) {
-        return BitmapUtil.resize(mLogo, wantedHeight, wantedWidth);
+        return BitmapUtil.resize(mLogo, wantedWidth, wantedHeight);
     }
 
     public double getThreshold() {

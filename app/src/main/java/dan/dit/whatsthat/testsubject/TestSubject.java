@@ -209,6 +209,7 @@ public class TestSubject {
             mTypes.add(new TestSubjectRiddleType(PracticalRiddleType.TRIANGLE_INSTANCE));
             mTypes.add(new TestSubjectRiddleType(PracticalRiddleType.DICE_INSTANCE));
             mTypes.add(new TestSubjectRiddleType(PracticalRiddleType.JUMPER_INSTANCE));
+            mTypes.add(new TestSubjectRiddleType(PracticalRiddleType.DEVELOPER_INSTANCE));
         }
     }
 

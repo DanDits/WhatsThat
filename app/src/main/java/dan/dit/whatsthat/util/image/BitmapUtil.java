@@ -90,13 +90,13 @@ public class BitmapUtil {
      * using the specified render options.
      *
      * @param originalImage The image that will be resized.
-     * @param wantedHeight  The new height of the resized image.
      * @param wantedWidth   The new width of the resized image.
+     * @param wantedHeight  The new height of the resized image.
      * @return A new Bitmap with the given height and width, rendered
      * with the given options. <code>null</code> if given image is <code>null</code>.
      */
     public static Bitmap resize(Bitmap originalImage,
-                                int wantedHeight, int wantedWidth) {
+                                int wantedWidth, int wantedHeight) {
         if (originalImage == null) {
             return null;
         }

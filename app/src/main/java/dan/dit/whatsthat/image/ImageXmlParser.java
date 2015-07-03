@@ -253,6 +253,9 @@ public class ImageXmlParser {
                 case ImageTable.COLUMN_OBFUSCATION:
                     builder.setObfuscation(readTextChecked(parser, ImageTable.COLUMN_OBFUSCATION));
                     break;
+                case ImageTable.COLUMN_AVERAGE_COLOR:
+                    builder.setAverageColor(readTextChecked(parser, ImageTable.COLUMN_AVERAGE_COLOR));
+                    break;
                 default:
                     skip(parser);
                     break;

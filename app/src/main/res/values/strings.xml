@@ -132,6 +132,7 @@
 
     <string name="achievement_name_hidden">\?\?\?</string>
     <string name="achievement_descr_undiscovered">\?\?\?</string>
+    <string name="achievement_reward_hidden">\?</string>
 
     <string name="achievement_circle_1_name">The beginning</string>
     <string name="achievement_circle_1_descr">Finish %1$d/%2$d games.</string>

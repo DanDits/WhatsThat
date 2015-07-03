@@ -1,10 +1,10 @@
 package dan.dit.whatsthat.obfuscation;
 
 import android.graphics.Bitmap;
+import android.graphics.Color;
 
 import dan.dit.whatsthat.util.image.ColorAnalysisUtil;
 import dan.dit.whatsthat.util.image.FixedRandom;
-import dan.dit.whatsthat.util.image.ImageColor;
 
 public class ImageObfuscator {
     public static final int IS_OBFUSCATED_HINT = 0x00000001; // not stored in pixel, do not start with FF
@@ -79,10 +79,10 @@ public class ImageObfuscator {
 			for (int x=1;x<raster[y].length - 1;x++) {
 				int rgb = raster[y][x];
 				int logoRgb=logo.getPixel(x - 1, y - 1);
-				int red = ColorAnalysisUtil.fromRGB(rgb, ImageColor.RED);
-				int green = ColorAnalysisUtil.fromRGB(rgb, ImageColor.GREEN);
-				int blue = ColorAnalysisUtil.fromRGB(rgb, ImageColor.BLUE);
-				int alpha = ColorAnalysisUtil.fromRGB(rgb, ImageColor.ALPHA);
+				int red = Color.red(rgb);
+				int green = Color.green(rgb);
+				int blue = Color.blue(rgb);
+				int alpha = Color.alpha(rgb);
 				
 				//Make some assumptions to improve and allow us to manipulate the image without needing much extra memory.
 				// We will lose the 4 least significant bits for alpha, we cannot use other colors since Bitmaps store these values
@@ -180,10 +180,10 @@ public class ImageObfuscator {
 		for (int y=1;y<raster.length - 1;y++) {
 			for (int x=1;x<raster[y].length - 1;x++) {
 				int rgb = raster[y][x];
-				int red = ColorAnalysisUtil.fromRGB(rgb, ImageColor.RED);
-				int green = ColorAnalysisUtil.fromRGB(rgb, ImageColor.GREEN);
-				int blue = ColorAnalysisUtil.fromRGB(rgb, ImageColor.BLUE);
-				int alpha = ColorAnalysisUtil.fromRGB(rgb, ImageColor.ALPHA);
+				int red = Color.red(rgb);
+				int green = Color.green(rgb);
+				int blue = Color.blue(rgb);
+				int alpha = Color.alpha(rgb);
 				
 				if ((alpha&4)==0) {
 					red = 255 - red;
