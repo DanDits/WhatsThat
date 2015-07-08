@@ -186,6 +186,10 @@
     <string name="achievement_snow_12_descr">Collect %1$d more tasty candies as Angry Cell.</string>
     <string name="achievement_snow_13_name">Gotta catch \'em all</string>
     <string name="achievement_snow_13_descr">Catch %1$d/%2$d poke…Sorry I meant candies.</string>
+    <string name="achievement_snow_14_name">Allergy</string>
+    <string name="achievement_snow_14_descr">Grow and explode without hitting more than 10 gloves/spores.</string>
+    <string name="achievement_snow_15_name">Lovely lie</string>
+    <string name="achievement_snow_15_descr">The truth may hurt but in the end it\'s always the better way (Verdränge Engelchen 3x in einem Spiel).</string>
 
     <string name="achievement_dice_1_name">Unpleasant beginning</string>
     <string name="achievement_dice_1_descr">Combine the Alien-Cube on each colour in a game. Let the games begin!</string>
@@ -207,7 +211,7 @@
     <string name="achievement_dice_9_name">Logistic master</string>
     <string name="achievement_dice_9_descr">%1$dx Alien, %2$dx purple, %3$dx green, %4$dx yellow on the field :).</string>
     <string name="achievement_dice_10_name">X-ray vision</string>
-    <string name="achievement_dice_10_descr">.Ecid wolley yna gninibmoc tuohtiw erutcip a hsinif</string>
+    <string name="achievement_dice_10_descr">.Ecid neerg yna gninibmoc tuohtiw erutcip a hsinif</string>
     <string name="achievement_dice_11_name">Going for a walk</string>
     <string name="achievement_dice_11_descr">Take an alien %1$d and a yellow %2$d for a walk.</string>
     <string name="achievement_dice_12_name">This…</string>
