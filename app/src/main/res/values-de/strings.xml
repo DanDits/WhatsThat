@@ -115,4 +115,68 @@
     <string name="dependency_required">Benötigt:</string>
     <string name="level_dependency">Level %1$s</string>
     <string name="achievement_achieved">Abgeschlossen</string>
+
+    <string name="achievement_name_hidden">\?\?\?</string>
+    <string name="achievement_descr_undiscovered">\?\?\?</string>
+    <string name="achievement_reward_hidden">\?</string>
+
+    <string name="achievement_circle_1_name">Der Anfang</string>
+    <string name="achievement_circle_1_descr">Löse %1$d/%2$d Bilder.</string>
+    <string name="achievement_circle_2_name">Ich weiß was</string>
+    <string name="achievement_circle_2_descr">Achja? Erkennst du das Bild mit nur %2$d Kreisen?</string>
+    <string name="achievement_circle_3_name">Och wie schee</string>
+    <string name="achievement_circle_3_descr">Zähle alle Kreise eines Spieles und bewundere den KÜnstler.</string>
+    <string name="achievement_circle_4_name">Ich liebe es</string>
+    <string name="achievement_circle_4_descr">Nun, dann mach das halt für %1$d weitere Bilder.</string>
+    <string name="achievement_circle_5_name">Mission possible</string>
+    <string name="achievement_circle_5_descr">Beende ein Spiel innerhalb von %1$d Sekunden, wobei du häufiger geklickt als gewischt hast.</string>
+
+    <string name="achievement_circle_6_name">Klick Dominanz</string>
+    <string name="achievement_circle_6_descr">Mehr klicken als wischen für ein paar weitere Spiele.</string>
+    <string name="achievement_circle_7_name">Ich habs eilig…</string>
+    <string name="achievement_circle_7_descr">Beende zwei..na gut ein Spiel in weniger als %1$d Sekunden.</string>
+    <string name="achievement_circle_8_name">…habs immer noch eilig</string>
+    <string name="achievement_circle_8_descr">Tschuldige. Wollte dich nicht störe. %1$d Spiele in weniger als %2$d Sekunden.</string>
+    <string name="achievement_circle_9_name">All we need is love</string>
+    <string name="achievement_circle_9_descr">Die Anfangskugel braucht etwas Aufmerksamkeit. Rede mit ihr!</string>
+    <string name="achievement_circle_10_name">All you get is work</string>
+    <string name="achievement_circle_10_descr">Danke, dass du meinen sinnlosen Anweisungen folgst :).</string>
+    <string name="achievement_circle_10_descr_unachieved">Du wagst es, mir das ins Gesicht zu sagen!? Entschuldige dich auf der Stelle!</string>
+    <string name="achievement_circle_11_name">It\'s over 9000</string>
+    <string name="achievement_circle_11_descr">Create %2$d circles. Don\'t look at me like this. The prof is a math guy. He knows what he\'s doing …%3$d is inadequate. %4$d is of course absurd. You got %1$d.</string>
+    <string name="achievement_circle_12_name">Big brother verfolgt dich auf Schritt und  Tritt</string>
+    <string name="achievement_circle_12_descr">Schnell oder er wird in deine nicht existierende Seele schauen!</string>
+
+    <string name="achievement_snow_1_name">Beeilung</string>
+    <string name="achievement_snow_1_descr">Beende %1$d Spiele in weniger als %2$d Sekunden.</string>
+    <string name="achievement_snow_2_name">Need for speed</string>
+    <string name="achievement_snow_2_descr">Wer bremst verliert: Max. Geschwindigkeit %1$d/%2$d.</string>
+    <string name="achievement_snow_3_name">Glückstreffer…</string>
+    <string name="achievement_snow_3_descr">One explosion should be enough.</string>
+    <string name="achievement_snow_4_name">Mission impossible</string>
+    <string name="achievement_snow_4_descr">Sammle %1$d Süßigkeiten in %2$d Sekunden.</string>
+    <string name="achievement_snow_5_name">Bombastisch</string>
+    <string name="achievement_snow_5_descr">Explodiere %1$d mal in einem Spiel ohne dabei die Wand zu küssen.</string>
+    <string name="achievement_snow_6_name">Heute nicht!</string>
+    <string name="achievement_snow_6_descr">Bekuschel die Wand als Angry Cell. Wieder und wieder.</string>
+    <string name="achievement_snow_7_name">They see me rollin\'</string>
+    <string name="achievement_snow_7_descr">Entspann dich und sei artig. Nichts Süßes!</string>
+    <string name="achievement_snow_8_name">Sprungfeder</string>
+    <string name="achievement_snow_8_descr">Küsse %1$d Wände durch den Explosionsdruck.</string>
+    <string name="achievement_snow_9_name">Liebliche Lüge</string>
+    <string name="achievement_snow_9_descr">Die Wahrheit mag wehtun, aber sie ist besser als jede Lüge</string>
+    <string name="achievement_snow_10_name">Sturer Esel</string>
+    <string name="achievement_snow_10_descr">Falls du es nicht wusstest: Die Wand ist keine Hilfe</string>
+    <string name="achievement_snow_11_name">…oder doch kein Glück?</string>
+    <string name="achievement_snow_11_descr">Löse %1$d Rätsel mit nur einer Explosion.</string>
+    <string name="achievement_snow_12_name">Overkill</string>
+    <string name="achievement_snow_12_descr">Verputze %1$d weitere leckere Süßigkeiten als Angry Cell.</string>
+    <string name="achievement_snow_13_name">Schnapp sie dir alle!</string>
+    <string name="achievement_snow_13_descr">Fange %1$d/%2$d Poke…tschuldige, ich meinte Süßkrams.</string>
+    <string name="achievement_snow_14_name">Allergie</string>
+    <string name="achievement_snow_14_descr">Wachse und explodiere, ohne dabei mehr als 10 Sporen einzusammeln.</string>
+
+
+
+
 </resources>
