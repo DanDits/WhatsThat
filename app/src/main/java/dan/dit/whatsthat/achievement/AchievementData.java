@@ -12,6 +12,7 @@ import dan.dit.whatsthat.util.compaction.Compactable;
  */
 public abstract class AchievementData implements Compactable {
     private final List<AchievementDataEventListener> mListeners = new LinkedList<>();
+    private List<AchievementDataEventListener> mAddedListeners = new LinkedList<>();
     private List<AchievementDataEventListener> mRemovedListeners = new LinkedList<>();
     protected final String mName;
     private boolean mIsProcessingEvent;
@@ -40,8 +41,8 @@ public abstract class AchievementData implements Compactable {
     protected abstract void resetData();
 
     public void addListener(AchievementDataEventListener listener) {
-        if (!mListeners.contains(listener)) {
-            mListeners.add(listener);
+        if (!mListeners.contains(listener) && !mAddedListeners.contains(listener)) {
+            mAddedListeners.add(listener);
         }
     }
 
@@ -53,11 +54,15 @@ public abstract class AchievementData implements Compactable {
         return false;
     }
 
-    protected void notifyListeners(AchievementDataEvent event) {
+    protected synchronized void notifyListeners(AchievementDataEvent event) {
         if (!mIsProcessingEvent) {
+            for (AchievementDataEventListener added : mAddedListeners) {
+                mListeners.add(added);
+            }
             for (AchievementDataEventListener removed : mRemovedListeners) {
                 mListeners.remove(removed);
             }
+            mAddedListeners.clear();
             mRemovedListeners.clear();
         }
         mIsProcessingEvent = true;

@@ -3,6 +3,7 @@ package dan.dit.whatsthat.testsubject;
 import android.content.Context;
 import android.util.Log;
 
+import dan.dit.whatsthat.riddle.types.PracticalRiddleType;
 import dan.dit.whatsthat.testsubject.wallet.Wallet;
 
 /**
@@ -17,6 +18,8 @@ public class Purse {
     protected static final String SW_KEY_SPENT_SCORE = "testsubject_spent_score";
     protected static final String SW_KEY_SOLVED_RIDDLE_SCORE = "solved_riddle_score";
     protected static final String SW_KEY_ACHIEVEMENT_SCORE = "achievement_score";
+    private static final String SHW_KEY_CURRENT_RIDDLE_HINT = "current_riddle_hint_";
+    private static final String SHW_KEY_AVAILABLE_RIDDLE_HINT_COUNT = "available_riddle_hint_";
 
 
     public final Wallet mScoreWallet;
@@ -40,5 +43,21 @@ public class Purse {
 
     public int getAchievementScore() {
         return mScoreWallet.getEntryValue(SW_KEY_ACHIEVEMENT_SCORE);
+    }
+
+    public int getCurrentRiddleHintNumber(PracticalRiddleType type) {
+        return mShopWallet.getEntryValue(SHW_KEY_CURRENT_RIDDLE_HINT + type.getFullName());
+    }
+
+    public void increaseCurrentRiddleHintNumber(PracticalRiddleType type) {
+        mShopWallet.editEntry(SHW_KEY_CURRENT_RIDDLE_HINT + type.getFullName()).add(1);
+    }
+
+    public int getAvailableRiddleHintsCount(PracticalRiddleType type) {
+        return mShopWallet.getEntryValue(SHW_KEY_AVAILABLE_RIDDLE_HINT_COUNT + type.getFullName());
+    }
+
+    public void setAvailableRiddleHintsAtStartCount(PracticalRiddleType type) {
+        mShopWallet.editEntry(SHW_KEY_AVAILABLE_RIDDLE_HINT_COUNT + type.getFullName()).set(type.getAvailableHintsAtStartCount());
     }
 }

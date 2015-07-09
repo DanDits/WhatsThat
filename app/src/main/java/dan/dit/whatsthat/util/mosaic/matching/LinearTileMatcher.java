@@ -85,6 +85,11 @@ public class LinearTileMatcher<S> extends TileMatcher<S> {
 	}
 
 	@Override
+	public boolean setAccuracy(double accuracy) {
+		return false;
+	}
+
+	@Override
 	public boolean removeTile(MosaicTile toRemove) {
 		double norm = ColorAnalysisUtil.norm(toRemove.getAverageARGB(), this.useAlpha);
 		if (this.allTiles.containsKey(norm)) {

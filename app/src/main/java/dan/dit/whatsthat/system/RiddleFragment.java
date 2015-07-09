@@ -44,6 +44,7 @@ import dan.dit.whatsthat.riddle.RiddleMaker;
 import dan.dit.whatsthat.riddle.RiddleManager;
 import dan.dit.whatsthat.riddle.RiddleView;
 import dan.dit.whatsthat.riddle.UnsolvedRiddlesChooser;
+import dan.dit.whatsthat.riddle.games.GameWelcomeDialog;
 import dan.dit.whatsthat.riddle.games.RiddleGame;
 import dan.dit.whatsthat.riddle.types.PracticalRiddleType;
 import dan.dit.whatsthat.solution.SolutionInputListener;
@@ -96,9 +97,7 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
         }
     }
 
-    private int[] mLocation = new int[2];
-
-    private void onRiddleMade(RiddleGame riddle) {
+    private void onRiddleMade(RiddleGame riddle, boolean newRiddle) {
         mProgressBar.onProgressUpdate(0);
         riddle.initViews(mRiddleView, mSolutionView, this);
         updateNextRiddleButton();
@@ -111,13 +110,19 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
             PracticalRiddleType currRiddleType = mRiddleView.getRiddleType();
             Riddle.saveLastVisibleRiddleId(getActivity().getApplicationContext(), currRiddleId);
             Riddle.saveLastVisibleRiddleType(getActivity().getApplicationContext(), currRiddleType);
-            PracticalRiddleType type = mRiddleView.getRiddleType();
-            int alreadyRun = Riddle.getRiddleTypeAlreadyRunCount(getActivity(), type);
-            if (alreadyRun < Riddle.DISPLAY_INITIAL_RUN_HINT_COUNT) {
-                mBtnRiddles.getLocationOnScreen(mLocation);
-                TestSubject.getInstance().postToast(type.getInitialRunToast(Gravity.TOP | Gravity.CENTER_HORIZONTAL, 0, mLocation[1] + mBtnRiddles.getHeight() + 50), 500L);
-                Riddle.saveRiddleTypeAlreadyRun(getActivity(), type, alreadyRun + 1);
+            if (newRiddle) {
+                checkedShowHintDialog(mRiddleView.getRiddleType());
             }
+        }
+    }
+
+    private void checkedShowHintDialog(PracticalRiddleType type) {
+        if (type == null) {
+            return;
+        }
+        if (TestSubject.getInstance().hasAvailableHint(type)) {
+            GameWelcomeDialog dialog = GameWelcomeDialog.makeInstance(type);
+            dialog.show(getFragmentManager(), "GameWelcomeDialog");
         }
     }
 
@@ -166,7 +171,7 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
 
                     @Override
                     public void onRiddleReady(RiddleGame riddle) {
-                        onRiddleMade(riddle);
+                        onRiddleMade(riddle, true);
                         mRiddleView.getRiddleType().getAchievementData(AchievementManager.getInstance()).onNewGame();
                         playStartRiddleAnimation();
                     }
@@ -228,13 +233,13 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
 
                     @Override
                     public void onRiddleReady(RiddleGame riddle) {
-                        onRiddleMade(riddle);
+                        onRiddleMade(riddle, true);
                         playStartRiddleAnimation();
                     }
 
                     @Override
                     public void onError(Image image, Riddle riddle) {
-                        Log.e("HomeStuff", "Unsolved Riddle maker on error.");
+                        Log.e("HomeStuff", "Cheated Riddle maker on error.");
                         handleError(image, riddle);
                         RiddleFragment.this.onProgressUpdate(0);
                         updateNextRiddleButton();
@@ -266,7 +271,7 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
 
                     @Override
                     public void onRiddleReady(RiddleGame riddle) {
-                        onRiddleMade(riddle);
+                        onRiddleMade(riddle, false);
                         //playStartRiddleAnimation(mBtnUnsolvedRiddles);
                     }
 
@@ -524,7 +529,7 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
 
     private Cursor mLoadedImagesCursor;
     private AsyncTask mLoadedImagesTask;
-    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+    public synchronized void onLoadFinished(Loader<Cursor> loader, Cursor data) {
         // Swap the new cursor in.  (The framework will take care of closing the
         // old cursor once we return.)
         Log.d("Image", "Loaded images with loader: " + data.getCount());
@@ -535,11 +540,16 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
                 mLoadedImagesCursor.moveToFirst();
                 Map<String, Image> map = new HashMap<>(mLoadedImagesCursor.getCount());
                 while (!isCancelled() && !mLoadedImagesCursor.isAfterLast()) {
-                    Image curr = Image.loadFromCursor(getActivity().getApplicationContext(), mLoadedImagesCursor);
-                    if (curr != null) {
-                        map.put(curr.getHash(), curr);
+                    Image curr;
+                    synchronized (RiddleFragment.this) {
+                        curr = Image.loadFromCursor(getActivity().getApplicationContext(), mLoadedImagesCursor);
                     }
-                    mLoadedImagesCursor.moveToNext();
+                    if (!isCancelled()) {
+                        if (curr != null) {
+                            map.put(curr.getHash(), curr);
+                        }
+                        mLoadedImagesCursor.moveToNext();
+                    }
                 }
                 if (isCancelled()) {
                     Log.e("Riddle", "Cancelled loaded images task, currently in map: " + map.size());
@@ -562,7 +572,7 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
 
     }
 
-    public void onLoaderReset(Loader<Cursor> loader) {
+    public synchronized void onLoaderReset(Loader<Cursor> loader) {
         // This is called when the last Cursor provided to onLoadFinished()
         // above is about to be closed.  We need to make sure we are no
         // longer using it.

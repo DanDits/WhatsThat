@@ -17,6 +17,9 @@
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
+    <!-- Required for the download task for image data. Maybe this will be changed to use a system service sometime -->
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+
     <application
         android:name=".system.MyApplication"
         android:allowBackup="true"

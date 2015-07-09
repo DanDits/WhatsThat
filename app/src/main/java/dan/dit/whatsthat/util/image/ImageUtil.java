@@ -90,7 +90,7 @@ public final class ImageUtil {
         // Create a media file name
         File mediaFile;
         String suffix = "";
-        if (!TextUtils.isEmpty(pImageName) && !pImageName.toLowerCase().endsWith(".png")) {
+        if (!TextUtils.isEmpty(pImageName) && !pImageName.toLowerCase().endsWith(IMAGE_FILE_EXTENSION)) {
             suffix = IMAGE_FILE_EXTENSION; // a 'valid' name, only missing the extension
         } else if (TextUtils.isEmpty(pImageName)) {
             String timeStamp = SimpleDateFormat.getDateTimeInstance().format(new Date());
@@ -99,7 +99,7 @@ public final class ImageUtil {
         int counter = 0;
         do {
             mediaFile = new File(mediaStorageDir.getPath() + File.separator
-                    + IMAGE_FILE_PREFIX + (counter == 0 ? "" : (counter + "_")) + pImageName + suffix);
+                    + (counter == 0 ? "" : (counter + "_")) + pImageName + suffix);
             counter++;
         } while (mediaFile.exists() && counter < Integer.MAX_VALUE);
         return mediaFile;

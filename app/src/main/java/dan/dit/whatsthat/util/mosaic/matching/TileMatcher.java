@@ -26,6 +26,13 @@ public abstract class TileMatcher<S> {
         }
     }
 
+    protected void resetHashMatches() {
+        if (mBestMatches != null) {
+            setHashMatches(false);
+            setHashMatches(true);
+        }
+    }
+
     protected MosaicTile<S> getBestMatchHashed(int color) {
         if (mBestMatches == null) {
             throw new IllegalStateException("Hash not used!");
@@ -79,6 +86,7 @@ public abstract class TileMatcher<S> {
 	 * <code>1</code> (best result).
 	 */
 	public abstract double getAccuracy();
+    public abstract boolean setAccuracy(double accuracy);
 	
 	/**
 	 * Removes one occurance of the given MosaicTile from the TileMatcher. This operation can
@@ -105,4 +113,5 @@ public abstract class TileMatcher<S> {
 	public boolean usesAlpha() {
 		return this.useAlpha;
 	}
+
 }

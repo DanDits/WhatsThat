@@ -55,9 +55,8 @@ public class ImageBitmapSource implements BitmapSource<String> {
                 if (bitmap.getWidth() == requiredWidth &&
                          bitmap.getHeight() == requiredHeight) {
                     return bitmap; // found exact match, yeah!
-                } else if (bitmap.getWidth() >= requiredWidth && bitmap.getHeight() >= requiredHeight) {
-                    bigger = bitmap;
-                } else if (bigger == null) {
+                } else if (bitmap.getWidth() >= requiredWidth && bitmap.getHeight() >= requiredHeight ) {
+                    //Log.d("HomeStuff", "Found bigger bitmap: " + bitmap.getWidth() + "x" + bitmap.getHeight() + " instead of " + requiredWidth + "x" + requiredHeight);
                     bigger = bitmap;
                 }
             }

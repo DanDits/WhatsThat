@@ -15,7 +15,7 @@ import dan.dit.whatsthat.util.image.ColorMetric;
 /**
  * Created by daniel on 01.07.15.
  */
-public class DominantLayerReconstructor extends Reconstructor {
+public class AutoLayerReconstructor extends Reconstructor {
     private Bitmap mResult;
     private MosaicFragment mFragment;
     private MosaicFragment mNext;
@@ -27,7 +27,7 @@ public class DominantLayerReconstructor extends Reconstructor {
     private int[] mPositionDeltas;
     private ColorMetric mColorMetric;
 
-    public DominantLayerReconstructor(Bitmap source, double factor, boolean useAlpha, ColorMetric metric, PercentProgressListener progress) {
+    public AutoLayerReconstructor(Bitmap source, double factor, boolean useAlpha, ColorMetric metric, PercentProgressListener progress) {
         mUseAlpha = useAlpha;
         mColorMetric = metric;
         init(source, factor, progress);
@@ -78,7 +78,7 @@ public class DominantLayerReconstructor extends Reconstructor {
 
         Log.d("HomeStuff", "DominantLayerReconstructor finished main work (hopefully) in " + (System.currentTimeMillis() - tic) + " has colors " + usedColors.size());
 
-        // now create actual color circles around the filtered used colors
+        // now create actual color circles around the filtered used colors, only required if too many colors matched above that are similar but didnt know it
         mUsedColorsStartPosition = new LinkedList<>();
         mUsedColors = new LinkedList<>();
         for (int i = 0; i < usedColors.size(); i++) {

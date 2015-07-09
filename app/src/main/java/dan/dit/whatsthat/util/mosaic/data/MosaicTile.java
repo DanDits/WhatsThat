@@ -22,24 +22,6 @@ public interface MosaicTile<S> {
     S getSource();
 	
 	/**
-	 * The average red amount of all pixels.
-	 * @return The average red amount.
-	 */
-	int getAverageRed();
-
-	/**
-	 * The average green amount of all pixels.
-	 * @return The average green amount.
-	 */
-	int getAverageGreen();
-
-	/**
-	 * The average blue amount of all pixels.
-	 * @return The average blue amount.
-	 */
-	int getAverageBlue();
-	
-	/**
 	 * Returns the average ARGB color of the images references
 	 * by this mosaic tile.
 	 * @return The average ARGB color.

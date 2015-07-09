@@ -5,6 +5,8 @@ import android.graphics.Color;
 
 import java.nio.ByteBuffer;
 
+import dan.dit.whatsthat.util.jama.Matrix;
+
 /**
  * Created by daniel on 08.04.15.
  */
@@ -80,6 +82,27 @@ public class BitmapUtil {
                 value = (int) (value * Math.pow(frequencies[value] / ((double) (result.getWidth() * result.getHeight())), power));
                 value = Math.max(Math.min(depth - 1, value), 0);
                 result.setPixel(x, y, ColorAnalysisUtil.toRGB(value, value, value, Color.blue(rgba)));
+            }
+        }
+        return result;
+    }
+
+    public static final Matrix toMatrix(Bitmap source) {
+        Matrix matrix = new Matrix(source.getHeight(), source.getWidth());
+
+        for (int y = 0; y < source.getHeight(); y++) {
+            for (int x = 0; x < source.getWidth(); x++) {
+                matrix.set(y, x, source.getPixel(x, y));
+            }
+        }
+        return matrix;
+    }
+
+    public static final Bitmap toBitmap(Matrix matrix) {
+        Bitmap result = Bitmap.createBitmap(matrix.getColumnDimension(), matrix.getRowDimension(), Bitmap.Config.ARGB_8888);
+        for (int y = 0; y < result.getHeight(); y++) {
+            for (int x = 0; x < result.getWidth(); x++) {
+                result.setPixel(x, y, (int) matrix.get(y, x));
             }
         }
         return result;

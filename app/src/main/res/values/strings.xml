@@ -1,6 +1,28 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="credits_text"><![CDATA[contributors]]></string>
+    <string name="credits_text"><![CDATA[
+            <p>Many people contributed to this project and we did not have to apply force to any of them, this makes us happy. Also those people and their brilliant minds make us happy for</p>
+            <ul>
+            <li>being awesome</li>
+            <li>testing and elimination of bugs</li>
+            <li>giving hints and suggestions</li>
+            <li>supplying images and ideas</li>
+            </ul>
+            <p>The best way of saying thank you is by thanking them: thanks.</p>
+            <p style="text-align: center;"><u>First but not least, thanks to my bro and brother Fabian! Without you, this would not exist.</u></p>
+            <p><strong>Looking for the author of an individual image? Don&#39;t panic! This dialog is made for this case.. and some other cases.</strong></p>
+            <ol>
+            <li>&nbsp; Non riddle image authors<ul>
+            <li>&nbsp;</li>
+            </ul>
+            </li>
+            <li>&nbsp;Testers and contributers<ul>
+            <li>&nbsp;</li>
+            </ul>
+            </li>
+            </ol>
+
+        ]]></string>
     <string-array name="donation_google_catalog_values">
         <item>1 Euro</item>
         <item>2 Euros</item>
@@ -53,10 +75,13 @@
     <string name="test_subject_1_name">Kid</string>
     <string name="test_subject_1_int">Knows letters</string>
     <string name="riddles_dialog_positive">Confirm</string>
-    <string name="riddle_dialog_tab_types" >Types</string>
-    <string name="riddle_dialog_tab_unsolved" >Unsolved</string>
+    <string name="riddle_dialog_tab_types">Types</string>
+    <string name="riddle_dialog_tab_unsolved">Unsolved</string>
     <string name="riddle_type_circle">Circle</string>
     <string name="riddle_type_circle_explanation">Touch one circle to pop them into 4 smaller ones until the image is visible.</string>
+    <string-array name="riddle_type_circle_hints">
+        <item>Touch circles to divide them.</item>
+    </string-array>
     <string name="riddle_type_snow">Angry Cell</string>
     <string name="riddle_type_snow_explanation">Tilt the device and thus move the cell. Collect toxic candies, grow bigger, don\'t touch walls and EXPLODE.</string>
     <string name="riddle_type_dice">Alien-Cube</string>
@@ -80,6 +105,11 @@
         <item>Super great human being:</item>
     </string-array>
     <string name="no_panic_title">Don\'t panic!</string>
+
+    <string name="game_welcome_positive_confirm">Got it!</string>
+    <string name="game_welcome_postpone">Not now…</string>
+    <string name="game_welcome_default_title">Tips and tricks</string>
+
     <string-array name="test_subject_1_intro_main">
         <item>Mercury</item>
         <item>Venus</item>
@@ -96,7 +126,6 @@
         <item>You\'re smart!</item>
         <item>Nice job!</item>
     </string-array>
-    <string name="riddle_type_snow_firstrun">Grow bigger and explode to see the image!</string>
     <string name="handle_error_attempted">Bild nicht vorhanden?! Externen Speicher prüfen!</string>
     <string name="tongue_select_explanation">Sprache für Lösungswörter: %1$s</string>
     <string name="btn_open_shop">Shop</string>
@@ -195,8 +224,8 @@
     <string name="achievement_dice_2_descr">Gather geen, yellow and red 1–6 and purple 7–9. No resets!</string>
     <string name="achievement_dice_3_name">That\'s complicated</string>
     <string name="achievement_dice_3_descr">Get all hints for this riddle. Why? Because this is very complicated and it took my master enough effort, so you gotta read it!</string>
-    <string name="achievement_dice_4_name">Monotony</string>
-    <string name="achievement_dice_4_descr">Collect any number of a green dice 15 times without any resets.</string>
+    <string name="achievement_dice_4_name">Powerful corner</string>
+    <string name="achievement_dice_4_descr">Combine %1$d yellow dices in each corner.</string>
     <string name="achievement_dice_5_name">Translation error</string>
     <string name="achievement_dice_5_descr">owefhufeymwen fof f%1$d ouhosbl 1. Could.Not.Translate.</string>
     <string name="achievement_dice_5_descr_claimed">Sorry. I meant 3 resets</string>
@@ -209,7 +238,7 @@
     <string name="achievement_dice_9_name">Logistic master</string>
     <string name="achievement_dice_9_descr">%1$dx Alien, %2$dx purple, %3$dx green, %4$dx yellow on the field :).</string>
     <string name="achievement_dice_10_name">X-ray vision</string>
-    <string name="achievement_dice_10_descr">.Ecid neerg yna gninibmoc tuohtiw erutcip a hsinif</string>
+    <string name="achievement_dice_10_descr">.Ecid wolley yna gninibmoc tuohtiw erutcip a hsinif</string>
     <string name="achievement_dice_11_name">Going for a walk</string>
     <string name="achievement_dice_11_descr">Take an alien %1$d and a yellow %2$d for a walk.</string>
     <string name="achievement_dice_12_name">This…</string>
@@ -262,6 +291,14 @@
     <string name="level_dependency">Level %1$s</string>
     <string name="achievement_achieved">Achieved</string>
 
+    <string-array name="devil_talk_return">
+        <item>I\'m back!</item>
+        <item>Did you miss me?</item>
+        <item>I will never leave you.</item>
+        <item>My friiiiend</item>
+        <item>Overly attached? I call it passion.</item>
+        <item>Like the moon will not leave the earth, I will not leave you!</item>
+    </string-array>
     <string-array name="devil_talk_killed">
         <item>I\'ll be back.</item>
         <item>Noooooooo</item>

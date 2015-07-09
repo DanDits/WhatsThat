@@ -85,11 +85,13 @@ public class ImageXmlParser {
     public static final String TAG_AUTHOR_TITLE = "title";
     public static final String TAG_AUTHOR_EXTRAS = "extras";
     public static final String TAG_RIDDLE_TYPE_NAME = "type";
+    private static final String BUNDLE_ATTRIBUTE_ORIGIN = "origin";
 
     private Context mContext;
-    private int mHighestReadBundleNumber;
+    private int mHighestReadBundleNumber = Integer.MIN_VALUE;
     private Map<Integer, List<Image>> mReadBundles = new HashMap<>();
     private boolean mModeAbortOnImageBuildFailure;
+    private String mBundleOrigin;
 
     public List<Image> getBundle(int bundleNumber) {
         return mReadBundles.get(bundleNumber);
@@ -98,6 +100,8 @@ public class ImageXmlParser {
     public Set<Integer> getReadBundleNumbers() {
         return mReadBundles.keySet();
     }
+
+    private ImageXmlParser() {}
 
     /**
      * Parses all new bundles found in the given stream (xml file).
@@ -177,13 +181,14 @@ public class ImageXmlParser {
             }
             String name = parser.getName();
             if (name.equals(TAG_BUNDLE_NAME)) {
-                String bundleNumberRaw = parser.getAttributeValue(null, BUNDLE_ATTRIBUTE_VERSION_NAME);
+                String bundleNumberRaw = parser.getAttributeValue(NAMESPACE, BUNDLE_ATTRIBUTE_VERSION_NAME);
                 int bundleNumber;
                 try {
                     bundleNumber = Integer.parseInt(bundleNumberRaw);
                 } catch (NumberFormatException nfe) {
                     throw new XmlPullParserException("Bundle version number not a number: " + bundleNumberRaw);
                 }
+                mBundleOrigin = parser.getAttributeValue(NAMESPACE, BUNDLE_ATTRIBUTE_ORIGIN);
                 if (bundleNumber >= startBundleNumber) {
                     List<Image> bundleImages = readBundle(parser);
                     mReadBundles.put(bundleNumber, bundleImages);
@@ -220,6 +225,7 @@ public class ImageXmlParser {
     private Image readImage(XmlPullParser parser) throws XmlPullParserException, IOException {
         parser.require(XmlPullParser.START_TAG, NAMESPACE, TAG_IMAGE_NAME);
         Image.Builder builder = new Image.Builder();
+        builder.setOrigin(mBundleOrigin);
         while (parser.next() != XmlPullParser.END_TAG) {
             if (parser.getEventType() != XmlPullParser.START_TAG) {
                 continue;

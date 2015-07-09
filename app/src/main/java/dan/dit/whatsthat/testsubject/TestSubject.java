@@ -44,13 +44,20 @@ public class TestSubject {
     private static final String TEST_SUBJECT_PREFERENCES_FILE = "dan.dit.whatsthat.testsubject_preferences";
     private static final String TEST_SUBJECT_PREF_FINISHED_MAIN_TEXTS = "key_finished_main_texts";
     private static final String TEST_SUBJECT_PREF_RIDDLE_TYPES = "key_testsubject_riddletypes";
+    private static final String TEST_SUBJECT_PREF_GENDER = "key_testsubject_gender";
     private static final int DEFAULT_SKIPABLE_GAMES = 15;
+
+    private static final int GENDER_NOT_CHOSEN = -1;
+    private static final int GENDER_MALE = 0; // genders as int, not boolean .. you never know, male = 0 chosen by fair dice role, take that feminists
+    private static final int GENDER_FEMALE = 1;
+    private static final int GENDER_ALIEN = 2; // :o
 
 
     private boolean mInitialized;
 
 
     private SharedPreferences mPreferences;
+    private int mGender = GENDER_NOT_CHOSEN;
     private int mNameResId;
     private int mIntelligenceResId;
     private int mImageResId;
@@ -82,6 +89,15 @@ public class TestSubject {
         INSTANCE.mAchievementHolder.addDependencies();
         INSTANCE.mAchievementHolder.initAchievements();
         return INSTANCE;
+    }
+
+    public int getGender() {
+        return mGender;
+    }
+
+    public void setGender(int gender) {
+        mGender = gender;
+        mPreferences.edit().putInt(TEST_SUBJECT_PREF_GENDER, mGender).apply();
     }
 
     public Dependable getLevelDependency() {
@@ -137,6 +153,7 @@ public class TestSubject {
     private void initPreferences() {
         mPreferences = mApplicationContext.getSharedPreferences(TEST_SUBJECT_PREFERENCES_FILE, Context.MODE_PRIVATE);
         mPurse = new Purse(mApplicationContext);
+        mGender = mPreferences.getInt(TEST_SUBJECT_PREF_GENDER, GENDER_NOT_CHOSEN);
         mFinishedMainTexts = mPreferences.getBoolean(TEST_SUBJECT_PREF_FINISHED_MAIN_TEXTS, false);
 
         // TestSubjectRiddleTypes
@@ -204,13 +221,21 @@ public class TestSubject {
 
     private void onLevelUp(int newLevel) {
         if (newLevel == LEVEL_0_KID_STUPID) {
-            mTypes.add(new TestSubjectRiddleType(PracticalRiddleType.CIRCLE_INSTANCE));
-            mTypes.add(new TestSubjectRiddleType(PracticalRiddleType.SNOW_INSTANCE));
-            mTypes.add(new TestSubjectRiddleType(PracticalRiddleType.TRIANGLE_INSTANCE));
-            mTypes.add(new TestSubjectRiddleType(PracticalRiddleType.DICE_INSTANCE));
-            mTypes.add(new TestSubjectRiddleType(PracticalRiddleType.JUMPER_INSTANCE));
-            mTypes.add(new TestSubjectRiddleType(PracticalRiddleType.DEVELOPER_INSTANCE));
+            addNewType(PracticalRiddleType.CIRCLE_INSTANCE);
+            addNewType(PracticalRiddleType.SNOW_INSTANCE);
+            addNewType(PracticalRiddleType.TRIANGLE_INSTANCE);
+            addNewType(PracticalRiddleType.DICE_INSTANCE);
+            addNewType(PracticalRiddleType.JUMPER_INSTANCE);
+            addNewType(PracticalRiddleType.DEVELOPER_INSTANCE);
         }
+    }
+
+    private void addNewType(PracticalRiddleType type) {
+        if (mTypes.contains(type)) {
+            return;
+        }
+        mTypes.add(new TestSubjectRiddleType(type));
+        mPurse.setAvailableRiddleHintsAtStartCount(type);
     }
 
     private void applyLevel(Resources res, int level) {
@@ -298,7 +323,7 @@ public class TestSubject {
     }
 
     public List<TestSubjectRiddleType> getAvailableTypes() {
-        return mTypes;
+        return new ArrayList<>(mTypes);
     }
 
     public boolean canSkip() {
@@ -322,7 +347,8 @@ public class TestSubject {
                 Log.e("HomeStuff", "No types initialized when trying to find a riddle type!");
                 return PracticalRiddleType.SNOW_INSTANCE; // just a dummy, so there is a riddle
             }
-            return mTypes.get(mRand.nextInt(mTypes.size())).getType();
+            types = new ArrayList<>(mTypes);
+            return types.get(mRand.nextInt(types.size())).getType();
         }
     }
 
@@ -372,6 +398,18 @@ public class TestSubject {
             }
         }
         return null;
+    }
+
+    public int getCurrentRiddleHintNumber(PracticalRiddleType type) {
+        return mPurse.getCurrentRiddleHintNumber(type);
+    }
+
+    public void increaseRiddleHintsDisplayed(PracticalRiddleType type) {
+        mPurse.increaseCurrentRiddleHintNumber(type);
+    }
+
+    public boolean hasAvailableHint(PracticalRiddleType type) {
+        return mPurse.getCurrentRiddleHintNumber(type) < mPurse.getAvailableRiddleHintsCount(type);
     }
 
     private static class ClaimedAchievementDependency extends Dependency {

@@ -3,11 +3,12 @@ package dan.dit.whatsthat.util.mosaic.data;
 import android.graphics.Bitmap;
 import android.util.Log;
 
+import dan.dit.whatsthat.util.MultistepPercentProgressListener;
 import dan.dit.whatsthat.util.PercentProgressListener;
 import dan.dit.whatsthat.util.image.ColorMetric;
 import dan.dit.whatsthat.util.mosaic.matching.TileMatcher;
-import dan.dit.whatsthat.util.mosaic.reconstruction.ClusteredLayerReconstructor;
-import dan.dit.whatsthat.util.mosaic.reconstruction.DominantLayerReconstructor;
+import dan.dit.whatsthat.util.mosaic.reconstruction.AutoLayerReconstructor;
+import dan.dit.whatsthat.util.mosaic.reconstruction.FixedLayerReconstructor;
 import dan.dit.whatsthat.util.mosaic.reconstruction.MosaicFragment;
 import dan.dit.whatsthat.util.mosaic.reconstruction.MultiRectReconstructor;
 import dan.dit.whatsthat.util.mosaic.reconstruction.Reconstructor;
@@ -37,42 +38,34 @@ public class MosaicMaker<S> {
     public Bitmap makeMultiRect(Bitmap source, int wantedRows, int wantedColumns, double mergeFactor, PercentProgressListener progress) {
         Reconstructor reconstructor = new MultiRectReconstructor(source,
                 wantedRows, wantedColumns, mergeFactor, mUseAlpha, mColorMetric);
-        return make(reconstructor, progress, 0);
+        return make(reconstructor, progress);
     }
 
     public Bitmap makeRect(Bitmap source, int wantedRows, int wantedColumns, PercentProgressListener progress) {
         Reconstructor reconstructor = new RectReconstructor(source,
                 wantedRows, wantedColumns);
-        return make(reconstructor, progress, 0);
+        return make(reconstructor, progress);
     }
 
-    public Bitmap makeDominantLayer(Bitmap source, double mergeFactor, final PercentProgressListener progress) {
-        final int progressForInit = 50;
-        Reconstructor reconstructor = new DominantLayerReconstructor(source, mergeFactor, mUseAlpha, mColorMetric,
-                new PercentProgressListener() {
-
-                    @Override
-                    public void onProgressUpdate(int p) {
-                        progress.onProgressUpdate((int) (progressForInit * p / 100.));
-                    }
-                });
-        return make(reconstructor, progress, progressForInit);
+    public Bitmap makeAutoLayer(Bitmap source, double mergeFactor, PercentProgressListener progress) {
+		MultistepPercentProgressListener multiProgress = new MultistepPercentProgressListener(progress, 2);
+        Reconstructor reconstructor = new AutoLayerReconstructor(source, mergeFactor, mUseAlpha, mColorMetric, progress);
+		multiProgress.nextStep();
+        Bitmap result = make(reconstructor, progress);
+		multiProgress.nextStep();
+        return result;
     }
 
-    public Bitmap makeClusteredLayer(Bitmap source, int clusterCount, final PercentProgressListener progress) {
-        final int progressForInit = 50;
-        Reconstructor reconstructor = new ClusteredLayerReconstructor(source, clusterCount, mUseAlpha, mColorMetric,
-                new PercentProgressListener() {
-
-                    @Override
-                    public void onProgressUpdate(int p) {
-                        progress.onProgressUpdate((int) (progressForInit * p / 100.));
-                    }
-                });
-        return make(reconstructor, progress, progressForInit);
+    public Bitmap makeFixedLayer(Bitmap source, int clusterCount, PercentProgressListener progress) {
+        MultistepPercentProgressListener multiProgress = new MultistepPercentProgressListener(progress, 2);
+        Reconstructor reconstructor = new FixedLayerReconstructor(source, clusterCount, mUseAlpha, mColorMetric, progress);
+        multiProgress.nextStep();
+        Bitmap result = make(reconstructor, progress);
+        multiProgress.nextStep();
+        return result;
     }
 
-	private Bitmap make(Reconstructor reconstructor, PercentProgressListener progress, int startProgress) {
+	private Bitmap make(Reconstructor reconstructor, PercentProgressListener progress) {
 		if (reconstructor == null) {
 			throw new IllegalArgumentException("No reconstructor given to make mosaic.");
 		}
@@ -108,10 +101,12 @@ public class MosaicMaker<S> {
 				return null;
 			}
             if (progress != null) {
-                progress.onProgressUpdate((int) (startProgress + reconstructor.estimatedProgressPercent() * (100 - startProgress) / 100.));
+                progress.onProgressUpdate(reconstructor.estimatedProgressPercent());
             }
 		}
-
+		if (progress != null) {
+			progress.onProgressUpdate(PercentProgressListener.PROGRESS_COMPLETE);
+		}
 		return reconstructor.getReconstructed();
 	}
 }

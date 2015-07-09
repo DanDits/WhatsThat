@@ -55,7 +55,7 @@ public abstract class ColorMetric {
     }
 
     public static class Absolute extends ColorMetric {
-        private static final Absolute INSTANCE = new Absolute();
+        public static final Absolute INSTANCE = new Absolute();
         private static final double GREATEST_VALUE_NO_ALPHA = 3 * 255;
         private static final double GREATEST_VALUE_ALPHA = 4 * 255;
         private Absolute() {}
@@ -75,7 +75,7 @@ public abstract class ColorMetric {
     }
 
     public static class Greyness extends ColorMetric {
-        private static final Greyness INSTANCE = new Greyness();
+        public static final Greyness INSTANCE = new Greyness();
         private Greyness() {}
         @Override
         public double getDistance(int color1, int color2, boolean useAlpha) {
@@ -89,8 +89,22 @@ public abstract class ColorMetric {
         }
     }
 
+    public static class AbsoluteRed extends ColorMetric {
+        public static final AbsoluteRed INSTANCE = new AbsoluteRed();
+        private AbsoluteRed() {}
+        @Override
+        public double getDistance(int color1, int color2, boolean useAlpha) {
+            return Math.abs(Color.red(color1) - Color.red(color2)) + (useAlpha ? Math.abs(Color.alpha(color1) - Color.alpha(color2)) : 0);
+        }
+
+        @Override
+        public double maxValue(boolean useAlpha) {
+            return useAlpha ? 255 * 2 : 255;
+        }
+    }
+
     public static class Brightness extends  ColorMetric {
-        private static final Brightness INSTANCE = new Brightness();
+        public static final Brightness INSTANCE = new Brightness();
         private Brightness() {}
         @Override
         public double getDistance(int color1, int color2, boolean useAlpha) {

@@ -51,6 +51,11 @@ public class SimpleLinearTileMatcher<S> extends TileMatcher<S> {
 	}
 
 	@Override
+	public boolean setAccuracy(double accuracy) {
+		return false;
+	}
+
+	@Override
 	public boolean removeTile(MosaicTile toRemove) {
 		return this.tiles.remove(toRemove);
 	}

@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.Bitmap;
-import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.util.Log;
@@ -333,21 +332,6 @@ public class Image implements MosaicTile<String> {
     @NonNull
     public String getSource() {
         return mHash;
-    }
-
-    @Override
-    public int getAverageRed() {
-        return Color.red(mAverageColor);
-    }
-
-    @Override
-    public int getAverageGreen() {
-        return Color.green(mAverageColor);
-    }
-
-    @Override
-    public int getAverageBlue() {
-        return Color.alpha(mAverageColor);
     }
 
     @Override

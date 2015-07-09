@@ -1,5 +1,7 @@
 package dan.dit.whatsthat.util;
 
+import android.util.Log;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -50,7 +52,7 @@ public final class IOUtil {
 			try {
 				zipentry = zipinputstream.getNextEntry();
 			} catch (IOException ioe) {
-				// critical, especially if next would be a directory which containns files
+				// critical, especially if next would be a directory which contains files
 				return false; 
 			}
 			if (zipentry != null) {
@@ -59,7 +61,7 @@ public final class IOUtil {
 				
 	            File tempExtracted = new File(target, entryName);
 	            if (zipentry.isDirectory()) {
-	            	if (!tempExtracted.mkdir()) {
+	            	if (!tempExtracted.mkdirs()) {
                         result = false;
                     }
 	            } else {
@@ -68,12 +70,18 @@ public final class IOUtil {
 		            	// unzip the current entry to the specified directory
 		            	int n;
 		            	FileOutputStream fileoutputstream = new FileOutputStream(tempExtracted);             
-						while ((n = zipinputstream.read(buf, 0, bufferSize)) > -1) {
+						while ((n = zipinputstream.read(buf, 0, bufferSize)) > 0) {
 						    fileoutputstream.write(buf, 0, n);
 						}
+                        if (n == 0) {
+                            // this can happen when zip archive is corrupt, closeEntry will never return
+                            fileoutputstream.close();
+                            return false;
+                        }
 						fileoutputstream.close();
 						zipinputstream.closeEntry();
 					} catch (IOException e) {
+                        Log.e("Image", "Exception during write of unzip: " + e);
 						result = false;
 					}
 	            }

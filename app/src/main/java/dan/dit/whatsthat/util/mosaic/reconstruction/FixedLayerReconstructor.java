@@ -11,15 +11,16 @@ import dan.dit.whatsthat.util.PercentProgressListener;
 import dan.dit.whatsthat.util.image.ColorMetric;
 
 /**
- * 'Better' version of DominantLayerReconstructor using the k-means algorithm
+ * 'Better' version of AutoLayerReconstructor using the k-means algorithm
  * with the given ColorMetric. In contrast to the other layer reconstructor
  * the amount of layers needs to be fixed and given though. Results are cleaner for the same run speed
  * and similar parameter settings, though the parameter needs to be determined by the user('s preference)
  * and cannot be set to an arbitrary constant.
  * Created by daniel on 03.07.15.
  */
-public class ClusteredLayerReconstructor extends Reconstructor {
-    private static final int MAX_RECALCULATIONS = 100;
+public class FixedLayerReconstructor extends Reconstructor {
+    private static final int MAX_RECALCULATIONS_BASE = 20;
+    private static final int MAX_RECALCULATIONS_LINEAR_GROWTH = 2;
     private final boolean mUseAlpha;
     private final ColorMetric mColorMetric;
     private MosaicFragment mFragment;
@@ -29,7 +30,7 @@ public class ClusteredLayerReconstructor extends Reconstructor {
     private int[] mClusterColors;
     private int mCurrCluster;
 
-    public ClusteredLayerReconstructor(Bitmap source, int clusterCount, boolean useAlpha, ColorMetric metric, PercentProgressListener progress) {
+    public FixedLayerReconstructor(Bitmap source, int clusterCount, boolean useAlpha, ColorMetric metric, PercentProgressListener progress) {
         mUseAlpha = useAlpha;
         mColorMetric = metric;
         init(source, clusterCount, progress);
@@ -89,6 +90,7 @@ public class ClusteredLayerReconstructor extends Reconstructor {
         int[] clusterCenterAlpha = mUseAlpha ? new int[clusterCount] : null;
         int[] clusterSize = new int[clusterCount];
         int redistributionCount = 0;
+        int maxRedistributions = MAX_RECALCULATIONS_BASE + MAX_RECALCULATIONS_LINEAR_GROWTH * clusterCount;
         do {
             changed = false;
             // redistribute into clusters
@@ -140,9 +142,11 @@ public class ClusteredLayerReconstructor extends Reconstructor {
                     clusterCenters[cluster] = Color.argb(alpha, red, green, blue);
                 }
             }
-        } while (changed && redistributionCount < MAX_RECALCULATIONS);
+            progress.onProgressUpdate((int) (PercentProgressListener.PROGRESS_COMPLETE * redistributionCount / (double) maxRedistributions));
+        } while (changed && redistributionCount < maxRedistributions);
         Log.d("HomeStuff", "Finished ClusteredLayerReconstructor with " + redistributionCount + " recalculations for " + clusterCount + " clusters.");
         mClusterColors = clusterCenters;
+        progress.onProgressUpdate(PercentProgressListener.PROGRESS_COMPLETE);
     }
 
     @Override
