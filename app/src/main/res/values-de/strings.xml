@@ -80,6 +80,7 @@
     <string name="riddle_type_circle">Kreise</string>
     <string name="riddle_type_circle_explanation">Berühre einen Kreis, damit sich dieser in vier kleinere aufteilt. Verbesser die Kontur, bis du das Bild erkennst.</string>
     <string-array name="riddle_type_circle_hints">
+	<item>Test Intro- Bei unserem ersten Experiment musst du die Kreise teilen, so wie Mose das Wasser, nur mit wesentlich mehr Stil. Benutze unseren intergalaktischen Hydro-Kreislaser-Turbo-Schneider AC825, oder deinen Finger, der komischerweise dieselbe Funktion hat, und teile jeden Kreis in vier neue. Durch die feineren Konturen erkennst du irgendwann hoffentlich ein Bild. Falls nicht, führe ich die Versuchsreihe mit Pantoffeltierchen weiter, die diese Tests mit Bravour bestanden haben.
         <item>Berühre Kreise um sie zu teilen.</item>
         <item>Teilst du einen Kreis entstehen immer vier neue.</item>
         <item>Jeder Kreis zeigt die Helligkeit des dahinter versteckten Bildes.</item>
@@ -148,16 +149,16 @@
     <string name="achievement_circle_10_descr">Danke, dass du meinen sinnlosen Anweisungen folgst :).</string>
     <string name="achievement_circle_10_descr_unachieved">Du wagst es, mir das ins Gesicht zu sagen!? Entschuldige dich auf der Stelle!</string>
     <string name="achievement_circle_11_name">It\'s over 9000</string>
-    <string name="achievement_circle_11_descr">Create %2$d circles. Don\'t look at me like this. The prof is a math guy. He knows what he\'s doing …%3$d is inadequate. %4$d is of course absurd. You got %1$d.</string>
+    <string name="achievement_circle_11_descr">Erschaffe %2$d Kreise. Schau mich nicht so an. Mein Schöpfer ist Mathematiker. Er weiß was er tut…%3$d sind unangemessen. %4$d sind natürlich völlig absurd. Du hast %1$d.</string>
     <string name="achievement_circle_12_name">Big brother verfolgt dich auf Schritt und  Tritt</string>
-    <string name="achievement_circle_12_descr">Schnell oder er wird in deine nicht existierende Seele schauen!</string>
+    <string name="achievement_circle_12_descr">Schnell, bevor er einen Blick in deine nicht existierende Seele wirft!</string>
 
     <string name="achievement_snow_1_name">Beeilung</string>
     <string name="achievement_snow_1_descr">Beende %1$d Spiele in weniger als %2$d Sekunden.</string>
     <string name="achievement_snow_2_name">Need for speed</string>
     <string name="achievement_snow_2_descr">Wer bremst verliert: Max. Geschwindigkeit %1$d/%2$d.</string>
     <string name="achievement_snow_3_name">Glückstreffer…</string>
-    <string name="achievement_snow_3_descr">One explosion should be enough.</string>
+    <string name="achievement_snow_3_descr">Eine Explosion muss genügen.</string>
     <string name="achievement_snow_4_name">Mission impossible</string>
     <string name="achievement_snow_4_descr">Sammle %1$d Süßigkeiten in %2$d Sekunden.</string>
     <string name="achievement_snow_5_name">Bombastisch</string>
@@ -181,7 +182,116 @@
     <string name="achievement_snow_14_name">Allergie</string>
     <string name="achievement_snow_14_descr">Wachse und explodiere, ohne dabei mehr als 10 Sporen einzusammeln.</string>
 
+    <string name="achievement_triangle_1_name">In nur einem Wimpernschlag</string>
+    <string name="achievement_triangle_1_descr">Hier gibt es nur Antiwitze. Zum Beispiel solche: Wie viele Erdlinge braucht es zum Bau eines Raumschiffs?(5 Spiele in 90 Sekunden)</string>
+    <string name="achievement_triangle_1_descr_unachieved">Wie viele Erdlinge braucht es zum Bau eines Schiffs? 5, weil das Meer zu salzig ist.</string>
+    <string name="achievement_triangle_2_name">Zwei Fliegen mit einer Klappe</string>
+    <string name="achievement_triangle_2_descr">Was macht ein Erdling auf dem Mond?(Teile x Kreise auf einmal bzw. Teile x Kreise in y Sekunden)</string>
+    <string name="achievement_triangle_2_descr_unachieved">Was macht ein Erdling auf dem Mond? Einen Moonwalk.</string>
+    <string name="achievement_triangle_3_name">Effizienzklicker</string>
+    <string name="achievement_triangle_3_descr">Wie kommt ein Preister auf die Sonne? (Rätsel mit nur xxx Dreiecken lösen/x klicks)</string>
+    <string name="achievement_triangle_3_descr_unachieved">Wie kommt ein Priester auf die Sonne? Durch Aberglaube.</string>
+    <string name="achievement_triangle_4_name">Superauge</string>
+    <string name="achievement_triangle_4_descr">Wie verlässt ein Priester die Sonne?(Alle Dreiecke in einem Rätsel)</string>
+    <string name="achievement_triangle_4_descr_unachieved">Wie verlässt ein Priester die Sonne? Als Brandfleck.</string>
+    <string name="achievement_triangle_5_name">Fortschreitender Fortschritt</string>
+    <string name="achievement_triangle_5_descr">Wie nennt man einen Poitiker auf dem Mars? (30 Rätsel gelöst)</string>
+    <string name="achievement_triangle_5_descr_unachieved">Wie nennt man einen Poitiker auf dem Mars? Noch immer einen Lügner.</string>
 
+    <string name="achievement_dice_1_name">Ein harter Anfang</string>
+    <string name="achievement_dice_1_descr">Fusioniere den Alien-Cube auf jede Farbe in einem Spiel. Lasst die Spiele beginnen!</string>
+    <string name="achievement_dice_2_name">Bunte Vielfalt</string>
+    <string name="achievement_dice_2_descr">Horte grüne, gelbe und rote 1–6 und lila 7–9. Keine Resets!</string>
+    <string name="achievement_dice_3_name">Mensch ist das kompliziert</string>
+    <string name="achievement_dice_3_descr">Kauf dir alle Tipps für das Rätsel. Warum? Weil das Rätsel kompliziert ist und wenn sich meine Schöpfer schon die Mühe machen, dann musst du das irgendwie auch mal lesen</string>
+    <string name="achievement_dice_4_name">Los Ecke! Entdecke!</string>
+    <string name="achievement_dice_4_descr">Kombiniere in jeder Ecke %1$d gelbe Würfel.</string>
+    <string name="achievement_dice_5_name">Übersetzungsfehler</string>
+    <string name="achievement_dice_5_descr">owefhufeymwen fof f%1$d ouhosbl 1. Konnte.Nicht.Übersetzen.</string>
+    <string name="achievement_dice_5_descr_claimed">Verzeihung. Ich meinte 3 resets</string>
+    <string name="achievement_dice_6_name">Green peace</string>
+    <string name="achievement_dice_6_descr">Sammle %1$d grüne Würfel auf dem Spielfeld. Spaß. %2$d.</string>
+    <string name="achievement_dice_7_name">Mensch ärger dich nicht</string>
+    <string name="achievement_dice_7_descr">Sammle eine lila, grüne, gelbe und rote %3$d in einem Spiel ohne Reset. Fortschritt: %1$d/%2$d</string>
+    <string name="achievement_dice_8_name">Schaulustiger</string>
+    <string name="achievement_dice_8_descr">Decke ein paar Felder in einem Spiel vollständig auf.</string>
+    <string name="achievement_dice_9_name">Logistik Meister</string>
+    <string name="achievement_dice_9_descr">Bitte %1$dx Alien, %2$dx lila, %3$dx grün, %4$dx gelb auf dem Feld :).</string>
+    <string name="achievement_dice_10_name">Röntgenblick</string>
+    <string name="achievement_dice_10_descr">.Lefrüw nenürg nenie enho Dilb sad Esöl</string>
+    <string name="achievement_dice_11_name">Spaziergang</string>
+    <string name="achievement_dice_11_descr">Führe ein Alien %1$d und eine gelbe %2$d etwas spazieren.</string>
+    <string name="achievement_dice_12_name">Hier…</string>
+    <string name="achievement_dice_12_descr">Kombinierte rote Würfel: %1$d/%2$d.</string>
+    <string name="achievement_dice_13_name">…ist…</string>
+    <string name="achievement_dice_13_descr">Kombinierte gelbe Würfel: %1$d/%2$d.</string>
+    <string name="achievement_dice_14_name">…SPARTA</string>
+    <string name="achievement_dice_14_descr">Kombinierte grüne Würfel: %1$d/%2$d.</string>
+    <string name="achievement_dice_15_name">NEIN HIER IST PATRICK</string>
+    <string name="achievement_dice_15_descr">Kombinierte Alien-Cubes.</string>
+    <string name="achievement_dice_16_name">Zeitkrümmung</string>
+    <string name="achievement_dice_16_descr">Bis zur Unendlichkeit und noch viiiiiieeeel weiter!</string>
+    <string name="achievement_dice_17_name">Invasion</string>
+    <string name="achievement_dice_17_descr">Oh je, ich hoffe die kommen in Frieden.</string>
+    <string name="achievement_dice_18_name">Paparazzi</string>
+    <string name="achievement_dice_18_descr">Decke ein Field innerhalb von %1$d Sekunden auf und dann verschwinde auf der Stelle.</string>
+    <string name="achievement_dice_18_descr_claimed">Ja, es ist ein doofer Job. Aber irgendjemand muss die Drecksarbeit ja tun.</string>
+    <string name="achievement_dice_19_name">Perfektionist</string>
+    <string name="achievement_dice_19_descr">Eine innere Stimme sagt dir, du sollst das Mysterium vollständig lösen.</string>
+    <string name="achievement_dice_20_name">Fokus</string>
+    <string name="achievement_dice_20_descr">Wähle eines der vier inneren Felder, indem du zwei Würfel darauf kombinierst. Führe maximal %1$d Kombinationen durch, aber nur auf diesem Feld und ohne Resets.</string>
+    <string name="achievement_dice_21_name">Minimalist</string>
+    <string name="achievement_dice_21_descr">Jetzt ist genug, das ist der letzte Erfolg. Unser Perfektionist muss ins Gleichgewicht kommen, beende daher das Spiel mit nur %1$d Kombinationen. Viel Glück.</string>
+    <string name="achievement_dice_21_descr_claimed">Eine Gegenseite zum Perfektionist. Das ist wie beim Yin-Yang. Schonmal davon gehört?</string>
 
+    <string-array name="devil_talk_return">
+        <item>Deine Anziehungskraft hat mich wieder her geholt.</item>
+        <item>Hast du mich vermisst?</item>
+        <item>Ich werde dich nicht nochmals verlassen.</item>
+        <item>Mein Schatz, ich bin wieder da!</item>
+	<item>Wiederauferstehung erfolgreich abgeschlossen!</item>
+        <item>Ich bin zu anhänglich? Ich würde das Leidenschaft nennen.</item>
+        <item>So wie der Mond bei der Erde bleibt, so bleibe ich bei dir!</item>
+    </string-array>
+    <string-array name="devil_talk_killed">
+        <item>Ich komme wieder.</item>
+        <item>Neeeeeeiiiiiinnnnnn.</item>
+        <item>Was zur Hölle tust du da?</item>
+        <item>Haaaalt!</item>
+        <item>Liebst du mich denn nicht?</item>
+        <item>Tu das nicht, du brauchst mich!</item>
+        <item>Das Bonbon ist eine Lüge!</item>
+        <item>Ach, diese unerwiderte Liebe tut so weh...</item>
+    </string-array>
+    <string-array name="devil_talk_fastest">
+        <item>WUEEEE.</item>
+        <item>Schneller als die Polizei erlaubt!</item>
+        <item>Schneeelllllleeerrrrr.</item>
+    </string-array>
+    <string-array name="devil_talk_slowest">
+        <item>Gut so, lass dir Zeit. Alte Menschen vertragen diese Geschwindigkeit nicht.</item>
+        <item>Ouch, das war mein Kopf.</item>
+        <item>My halo is all messed up now</item>
+        <item>Stay away from candy my kid</item>
+    </string-array>
+    <string-array name="devil_talk_cell_eat_candy">
+        <item>NEIN! Das ist doch giftig!</item>
+        <item>Bist du so blind, dass ist kein Bonbon?!</item>
+        <item>Warum tust du das, hör auf damit!</item>
+        <item>Seufz...</item>
+        <item>Stop! Du wirst sonst noch dick!</item>
+        <item>Wer hat dir eigentlich deine Manieren beigebracht?</item>
+    </string-array>
+    <string-array name="devil_talk_cell_eat_candy_explosive">
+        <item>Wooah, bleib ruhig, schön ruhig.</item>
+        <item>Wann warst du dsa letzte Mal so richtig glücklich?</item>
+        <item>Schnell, küss die Wand!</item>
+        <item>Das wird gleich wehtun.</item>
+    </string-array>
+    <string-array name="devil_talk_mock">
+        <item>Vergiss es, ich dreh einfach weiter meine Kreise</item>
+        <item>Ich will dir doch nur helfen.</item>
+        <item>Wieso behandelst du mich so grob, du machst mich ganz traurig.</item>
+    </string-array>
 
 </resources>
