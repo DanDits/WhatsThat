@@ -1,6 +1,20 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 
 <resources>
+
+    <string name="store_category_menu">Wichtige Dinge</string>
+    <string name="store_category_shop">Laden</string>
+    <string name="store_category_achievement">Errungenschaften (+%1$d)</string>
+    <string name="store_category_about">Über &amp; Kontakt</string>
+    <string name="store_category_donate">Spenden</string>
+    <string name="store_category_credit">Danksagungen</string>
+
+    <string name="btn_open_shop">Laden</string>
+    <string name="achievement_button">Errungenschaften</string>
+    <string name="btn_about">Über &amp; Kontakt</string>
+    <string name="btn_donate">Spenden</string>
+    <string name="btn_credits">Danksagungen</string>
+
     <string name="date_today">Heute</string>
     <string name="date_yesterday">Gestern</string>
     <string name="riddle_hint_dialog_title">Informationen</string>
@@ -80,7 +94,7 @@
     <string name="riddle_type_circle">Kreise</string>
     <string name="riddle_type_circle_explanation">Berühre einen Kreis, damit sich dieser in vier kleinere aufteilt. Verbesser die Kontur, bis du das Bild erkennst.</string>
     <string-array name="riddle_type_circle_hints">
-	<item>Test Intro- Bei unserem ersten Experiment musst du die Kreise teilen, so wie Mose das Wasser, nur mit wesentlich mehr Stil. Benutze unseren intergalaktischen Hydro-Kreislaser-Turbo-Schneider AC825, oder deinen Finger, der komischerweise dieselbe Funktion hat, und teile jeden Kreis in vier neue. Durch die feineren Konturen erkennst du irgendwann hoffentlich ein Bild. Falls nicht, führe ich die Versuchsreihe mit Pantoffeltierchen weiter, die diese Tests mit Bravour bestanden haben.
+	    <item>Test Intro- Bei unserem ersten Experiment musst du die Kreise teilen, so wie Mose das Wasser, nur mit wesentlich mehr Stil. Benutze unseren intergalaktischen Hydro-Kreislaser-Turbo-Schneider AC825, oder deinen Finger, der komischerweise dieselbe Funktion hat, und teile jeden Kreis in vier neue. Durch die feineren Konturen erkennst du irgendwann hoffentlich ein Bild. Falls nicht, führe ich die Versuchsreihe mit Pantoffeltierchen weiter, die diese Tests mit Bravour bestanden haben.</item>
         <item>Berühre Kreise um sie zu teilen.</item>
         <item>Teilst du einen Kreis entstehen immer vier neue.</item>
         <item>Jeder Kreis zeigt die Helligkeit des dahinter versteckten Bildes.</item>
@@ -113,7 +127,7 @@
 
     <string name="game_welcome_positive_confirm">Habs verstanden!</string>
     <string name="game_welcome_postpone">Nicht jetzt…</string>
-    <string name="game_welcome_default_title">Tipps und Tricks</string>
+    <string name="game_welcome_default_title">Dr. Blu\'s Sprechstunde</string>
 
     <string name="handle_error_attempted">Bild nicht vorhanden?! Externen Speicher prüfen!</string>
     <string name="tongue_select_explanation">Sprache für Lösungswörter: %1$s</string>
@@ -221,13 +235,13 @@
     <string name="achievement_dice_10_descr">.Lefrüw nenürg nenie enho Dilb sad Esöl</string>
     <string name="achievement_dice_11_name">Spaziergang</string>
     <string name="achievement_dice_11_descr">Führe ein Alien %1$d und eine gelbe %2$d etwas spazieren.</string>
-    <string name="achievement_dice_12_name">Hier…</string>
+    <string name="achievement_dice_12_name">This…</string>
     <string name="achievement_dice_12_descr">Kombinierte rote Würfel: %1$d/%2$d.</string>
-    <string name="achievement_dice_13_name">…ist…</string>
+    <string name="achievement_dice_13_name">…is…</string>
     <string name="achievement_dice_13_descr">Kombinierte gelbe Würfel: %1$d/%2$d.</string>
     <string name="achievement_dice_14_name">…SPARTA</string>
     <string name="achievement_dice_14_descr">Kombinierte grüne Würfel: %1$d/%2$d.</string>
-    <string name="achievement_dice_15_name">NEIN HIER IST PATRICK</string>
+    <string name="achievement_dice_15_name">NO THIS IS PATRICK</string>
     <string name="achievement_dice_15_descr">Kombinierte Alien-Cubes.</string>
     <string name="achievement_dice_16_name">Zeitkrümmung</string>
     <string name="achievement_dice_16_descr">Bis zur Unendlichkeit und noch viiiiiieeeel weiter!</string>

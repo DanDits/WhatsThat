@@ -23,7 +23,6 @@ import java.util.List;
 
 import dan.dit.whatsthat.R;
 import dan.dit.whatsthat.achievement.AchievementManager;
-import dan.dit.whatsthat.system.ImageDataDownload;
 import dan.dit.whatsthat.system.InitActivity;
 import dan.dit.whatsthat.testsubject.TestSubject;
 
@@ -178,9 +177,10 @@ public class StoreActivity extends FragmentActivity {
         if (mVisibleCategory == null) {
             showCurrCategory();
         }
+
         //TODO for testing:
 
-        ImageDataDownload download = new ImageDataDownload(getApplicationContext(), "daniel", "test1", 1,
+        /*ImageDataDownload download = new ImageDataDownload(getApplicationContext(), "daniel", "test1", 1,
                 "https://www.dropbox.com/s/pqcigkzt0q0yqhr/bla.zip?dl=1",
                 new ImageDataDownload.Feedback() {
 
@@ -208,7 +208,7 @@ public class StoreActivity extends FragmentActivity {
                         Log.d("Image", "ImageData all complete!");
                     }
                 });
-        download.start();
+        download.start();*/
     }
 
     @Override
