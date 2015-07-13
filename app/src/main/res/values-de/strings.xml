@@ -4,14 +4,14 @@
 
     <string name="store_category_menu">Wichtige Dinge</string>
     <string name="store_category_shop">Laden</string>
-    <string name="store_category_achievement">Errungenschaften (+%1$d)</string>
-    <string name="store_category_about">Über &amp; Kontakt</string>
+    <string name="store_category_achievement">Erfolge (+%1$d)</string>
+    <string name="store_category_about">Info &amp; Kontakt</string>
     <string name="store_category_donate">Spenden</string>
     <string name="store_category_credit">Danksagungen</string>
 
     <string name="btn_open_shop">Laden</string>
-    <string name="achievement_button">Errungenschaften</string>
-    <string name="btn_about">Über &amp; Kontakt</string>
+    <string name="achievement_button">Erfolge</string>
+    <string name="btn_about">Info &amp; Kontakt</string>
     <string name="btn_donate">Spenden</string>
     <string name="btn_credits">Danksagungen</string>
 
@@ -92,21 +92,25 @@
     <string name="riddle_dialog_tab_types">Was kann ich rätseln?</string>
     <string name="riddle_dialog_tab_unsolved">Ausgelassen und vergessen…</string>
     <string name="riddle_type_circle">Kreise</string>
-    <string name="riddle_type_circle_explanation">Berühre einen Kreis, damit sich dieser in vier kleinere aufteilt. Verbesser die Kontur, bis du das Bild erkennst.</string>
+    <string name="riddle_type_circle_explanation">Berühre einen Kreis, um diesen in vier kleinere aufzuteilen. Verbessere die Kontur des versteckten Bildes.</string>
     <string-array name="riddle_type_circle_hints">
-	    <item>Test Intro- Bei unserem ersten Experiment musst du die Kreise teilen, so wie Mose das Wasser, nur mit wesentlich mehr Stil. Benutze unseren intergalaktischen Hydro-Kreislaser-Turbo-Schneider AC825, oder deinen Finger, der komischerweise dieselbe Funktion hat, und teile jeden Kreis in vier neue. Durch die feineren Konturen erkennst du irgendwann hoffentlich ein Bild. Falls nicht, führe ich die Versuchsreihe mit Pantoffeltierchen weiter, die diese Tests mit Bravour bestanden haben.</item>
+	<item>Bei unserem ersten Experiment musst du die Kreise teilen, so wie Mose das Wasser, nur mit wesentlich mehr Stil.\nBenutze unseren intergalaktischen Hydro-Kreislaser-Turbo-Schneider AC825, oder deinen Finger, der komischerweise dieselbe Funktion hat, und teile jeden Kreis in vier neue. Durch die feineren Konturen erkennst du irgendwann hoffentlich ein Bild. Falls nicht, führe ich die Versuchsreihe mit Pantoffeltierchen weiter, die diese Tests mit Bravour bestanden haben.</item>
         <item>Berühre Kreise um sie zu teilen.</item>
         <item>Teilst du einen Kreis entstehen immer vier neue.</item>
         <item>Jeder Kreis zeigt die Helligkeit des dahinter versteckten Bildes.</item>
     </string-array>
+    
     <string name="riddle_type_snow">Angry Cell</string>
-    <string name="riddle_type_snow_explanation">Bewege die Zelle durch Kippen des Gerätes. Sammle giftige Süßigkeiten, werde größer und EXPLODIERE, ohne eine Wand zu berühren!</string>
+    <string name="riddle_type_snow_explanation">Bewege die Zelle durch Kippen des Gerätes. Sammle giftige Süßigkeiten, werde größer und EXPLODIERE!</string>
+    <string-array name="riddle_type_snow_hints">
+	<item>Aus deinem Gehirn haben wir eine Zelle entfernt. Ob du dir Sorgen machen musst? Hmm, bei der eh schon geringen Anzahl an Gehirnzellen …  ja. Trotzdem müssen diesen Test durchführen, um tiefere Einblicke in die irdische graue Substanz, ein Bestandteil deines Zentralnervensystems, zu bekommen. Das kannst du aber nicht mehr wissen. Wir haben diese Zelle ja gerade entfernt.\nIn der Umgebung der Zelle platzieren wir kontaminierte biologische Stoffe einer anderen Spezies, um die Reaktion der Zelle darauf zu testen. Achte auf die Partikel, die von dem Stoff ausgehen und deiner Zelle schaden. Den Rest werden wir wie in der Politik mit einer Lüge bestmöglich verschleiern.
+    </string-array>
     <string name="riddle_type_triangle">Dreiecke</string>
     <string name="riddle_type_triangle_explanation">Berühre einen Punkt in einem Dreieck, um kleinere Dreiecke mit schärferem Kontrast zu erzeugen.</string>
     <string name="riddle_type_dice">Alien-Cube</string>
     <string name="riddle_type_dice_explanation">Berühre ein leeres Feld, damit ein neuer Würfel erscheint. Bewege und kombiniere Würfel gleicher Augenzahl und Farbe, um das Bild aufzudecken.</string>
     <string name="riddle_type_jumper">Jump\'n\'run</string>
-    <string name="riddle_type_jumper_explanation">Berühre das Feld, um über Hindernisse zu springen und das Bild zu vergrößern! Halte im Sprung das Feld gedrückt, um einen Double-Jump auszuführen.</string>
+    <string name="riddle_type_jumper_explanation">Berühre das Feld, um über Hindernisse zu springen und das Bild zu vergrößern. Führe einen Double-Jump aus, um über größere oder längere Hindernisse zu springen.</string>
     <string name="riddle_type_developer">Entwickler</string>
     <string name="riddle_type_developer_explanation">Hallo ich oder Bruder.</string>
     <string name="panic_dialog_positive">Alles ok</string>
@@ -161,7 +165,7 @@
     <string name="achievement_circle_9_descr">Die Anfangskugel braucht etwas Aufmerksamkeit. Rede mit ihr!</string>
     <string name="achievement_circle_10_name">All you get is work</string>
     <string name="achievement_circle_10_descr">Danke, dass du meinen sinnlosen Anweisungen folgst :).</string>
-    <string name="achievement_circle_10_descr_unachieved">Du wagst es, mir das ins Gesicht zu sagen!? Entschuldige dich auf der Stelle!</string>
+    <string name="achievement_circle_10_descr_unachieved">Du wagst es, mich zu beleidigen!? Entschuldige dich auf der Stelle!</string>
     <string name="achievement_circle_11_name">It\'s over 9000</string>
     <string name="achievement_circle_11_descr">Erschaffe %2$d Kreise. Schau mich nicht so an. Mein Schöpfer ist Mathematiker. Er weiß was er tut…%3$d sind unangemessen. %4$d sind natürlich völlig absurd. Du hast %1$d.</string>
     <string name="achievement_circle_12_name">Big brother verfolgt dich auf Schritt und  Tritt</string>
