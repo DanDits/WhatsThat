@@ -194,7 +194,7 @@
     <string name="achievement_snow_13_name">Schnapp sie dir alle!</string>
     <string name="achievement_snow_13_descr">Fange %1$d/%2$d Poke…tschuldige, ich meinte Süßkrams.</string>
     <string name="achievement_snow_14_name">Allergie</string>
-    <string name="achievement_snow_14_descr">Wachse und explodiere, ohne dabei mehr als 10 Sporen einzusammeln.</string>
+    <string name="achievement_snow_14_descr">Wachse und explodiere, ohne dabei mehr als %1$d Sporen einzusammeln.</string>
 
     <string name="achievement_triangle_1_name">In nur einem Wimpernschlag</string>
     <string name="achievement_triangle_1_descr">Hier gibt es nur Antiwitze. Zum Beispiel solche: Wie viele Erdlinge braucht es zum Bau eines Raumschiffs?(5 Spiele in 90 Sekunden)</string>
@@ -276,6 +276,7 @@
         <item>Tu das nicht, du brauchst mich!</item>
         <item>Das Bonbon ist eine Lüge!</item>
         <item>Ach, diese unerwiderte Liebe tut so weh...</item>
+        <item>Das war mal wieder ein Schuss in den Oooooofen.</item>
     </string-array>
     <string-array name="devil_talk_fastest">
         <item>WUEEEE.</item>
@@ -285,8 +286,8 @@
     <string-array name="devil_talk_slowest">
         <item>Gut so, lass dir Zeit. Alte Menschen vertragen diese Geschwindigkeit nicht.</item>
         <item>Ouch, das war mein Kopf.</item>
-        <item>My halo is all messed up now</item>
-        <item>Stay away from candy my kid</item>
+        <item>Jetzt ist mein Heiligenschein ganz durcheinander</item>
+        <item>Bleib weg von den Süßigkeiten mein Kind</item>
     </string-array>
     <string-array name="devil_talk_cell_eat_candy">
         <item>NEIN! Das ist doch giftig!</item>
