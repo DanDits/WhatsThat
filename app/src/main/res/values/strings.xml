@@ -201,7 +201,7 @@
     <string name="achievement_snow_5_descr">Explode %1$d times in a game without kissing the wall.</string>
     <string name="achievement_snow_6_name">Not today!</string>
     <string name="achievement_snow_6_descr">Touch the wall as Angry Cell. Again and again.</string>
-    <string name="achievement_snow_7_name">They see me rollin\'</string>
+    <string name="achievement_snow_7_name">They see me rollin\' they hatin\'</string>
     <string name="achievement_snow_7_descr">Relax and stay healthy. No candy.</string>
     <string name="achievement_snow_8_name">Bouncing cell</string>
     <string name="achievement_snow_8_descr">Hit the walls %1$d times using the explosion pressure.</string>
@@ -214,7 +214,7 @@
     <string name="achievement_snow_12_name">Overkill</string>
     <string name="achievement_snow_12_descr">Collect %1$d more tasty candies as Angry Cell.</string>
     <string name="achievement_snow_13_name">Gotta catch \'em all</string>
-    <string name="achievement_snow_13_descr">Catch %1$d/%2$d poke…Sorry I meant candies.</string>
+    <string name="achievement_snow_13_descr">Catch %1$d/%2$d poke… sorry I meant candies.</string>
     <string name="achievement_snow_14_name">Allergy</string>
     <string name="achievement_snow_14_descr">Grow and explode without hitting more than %1$d spores.</string>
 
@@ -295,9 +295,9 @@
         <item>I\'m back!</item>
         <item>Did you miss me?</item>
         <item>I will never leave you.</item>
-        <item>My friiiiend</item>
+        <item>Resurrection in 3...2.. nevermind, I\'m already back</item>
         <item>Overly attached? I call it passion.</item>
-        <item>Like the moon will not leave the earth, I will not leave you!</item>
+        <item>Like the moon will not leave the earth, I will not leave you!</item>	
     </string-array>
     <string-array name="devil_talk_killed">
         <item>I\'ll be back.</item>

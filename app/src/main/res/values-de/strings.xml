@@ -94,7 +94,7 @@
     <string name="riddle_type_circle">Kreise</string>
     <string name="riddle_type_circle_explanation">Berühre einen Kreis, um diesen in vier kleinere aufzuteilen. Verbessere die Kontur des versteckten Bildes.</string>
     <string-array name="riddle_type_circle_hints">
-	<item>Bei unserem ersten Experiment musst du die Kreise teilen, so wie Mose das Wasser, nur mit wesentlich mehr Stil.\nBenutze unseren intergalaktischen Hydro-Kreislaser-Turbo-Schneider AC825, oder deinen Finger, der komischerweise dieselbe Funktion hat, und teile jeden Kreis in vier neue. Durch die feineren Konturen erkennst du irgendwann hoffentlich ein Bild. Falls nicht, führe ich die Versuchsreihe mit Pantoffeltierchen weiter, die diese Tests mit Bravour bestanden haben.</item>
+	<item>Bei unserem ersten Experiment musst du die Kreise teilen, so wie Mose das Wasser, nur wesentlich stilvoller.\nBenutze unseren intergalaktischen Hydro-Kreislaser-Turbo-Schneider AC825, oder deinen Finger, der komischerweise dieselbe Funktion hat, und teile jeden Kreis in vier neue. Durch die feineren Konturen erkennst du irgendwann hoffentlich ein Bild. Falls nicht, führe ich die Versuchsreihe mit Pantoffeltierchen weiter, die diese Tests mit Bravour bestanden haben.</item>
         <item>Berühre Kreise um sie zu teilen.</item>
         <item>Teilst du einen Kreis entstehen immer vier neue.</item>
         <item>Jeder Kreis zeigt die Helligkeit des dahinter versteckten Bildes.</item>
@@ -103,7 +103,7 @@
     <string name="riddle_type_snow">Angry Cell</string>
     <string name="riddle_type_snow_explanation">Bewege die Zelle durch Kippen des Gerätes. Sammle giftige Süßigkeiten, werde größer und EXPLODIERE!</string>
     <string-array name="riddle_type_snow_hints">
-	<item>Aus deinem Gehirn haben wir eine Zelle entfernt. Ob du dir Sorgen machen musst? Hmm, bei der eh schon geringen Anzahl an Gehirnzellen …  ja. Trotzdem müssen diesen Test durchführen, um tiefere Einblicke in die irdische graue Substanz, ein Bestandteil deines Zentralnervensystems, zu bekommen. Das kannst du aber nicht mehr wissen. Wir haben diese Zelle ja gerade entfernt.\nIn der Umgebung der Zelle platzieren wir kontaminierte biologische Stoffe einer anderen Spezies, um die Reaktion der Zelle darauf zu testen. Achte auf die Partikel, die von dem Stoff ausgehen und deiner Zelle schaden. Den Rest werden wir wie in der Politik mit einer Lüge bestmöglich verschleiern.
+	<item>Ein neuer Test. Um tiefere Einblicke in die irdische graue Substanz, ein Bestandteil deines Zentralnervensystems, zu bekommen, mussten wir aus deinem Gehirn eine Zelle entfernen. Ob du dir Sorgen machen musst? Hmm, bei der eh schon geringen Anzahl an Gehirnzellen …  ja. Der Test ist aber wichtiger.\nIn der Umgebung der Zelle platzieren wir kontaminierte biologische Stoffe einer anderen Spezies, um die Reaktion der Zelle darauf zu testen. Achte auf die Partikel, die von dem Stoff ausgehen und deiner Zelle schaden. Den Rest werden wir wie in der Politik mit einer Lüge bestmöglich verschleiern.
     </string-array>
     <string name="riddle_type_triangle">Dreiecke</string>
     <string name="riddle_type_triangle_explanation">Berühre einen Punkt in einem Dreieck, um kleinere Dreiecke mit schärferem Kontrast zu erzeugen.</string>
@@ -131,7 +131,7 @@
 
     <string name="game_welcome_positive_confirm">Habs verstanden!</string>
     <string name="game_welcome_postpone">Nicht jetzt…</string>
-    <string name="game_welcome_default_title">Dr. Blu\'s Sprechstunde</string>
+    <string name="game_welcome_default_title">Magister Tumicos Sprechstunde</string>
 
     <string name="handle_error_attempted">Bild nicht vorhanden?! Externen Speicher prüfen!</string>
     <string name="tongue_select_explanation">Sprache für Lösungswörter: %1$s</string>
@@ -149,7 +149,7 @@
     <string name="achievement_circle_2_name">Ich weiß was</string>
     <string name="achievement_circle_2_descr">Achja? Erkennst du das Bild mit nur %2$d Kreisen?</string>
     <string name="achievement_circle_3_name">Och wie schee</string>
-    <string name="achievement_circle_3_descr">Zähle alle Kreise eines Spieles und bewundere den KÜnstler.</string>
+    <string name="achievement_circle_3_descr">Zähle alle Kreise eines Spieles und bewundere den Künstler.</string>
     <string name="achievement_circle_4_name">Ich liebe es</string>
     <string name="achievement_circle_4_descr">Nun, dann mach das halt für %1$d weitere Bilder.</string>
     <string name="achievement_circle_5_name">Mission possible</string>
@@ -167,8 +167,8 @@
     <string name="achievement_circle_10_descr">Danke, dass du meinen sinnlosen Anweisungen folgst :).</string>
     <string name="achievement_circle_10_descr_unachieved">Du wagst es, mich zu beleidigen!? Entschuldige dich auf der Stelle!</string>
     <string name="achievement_circle_11_name">It\'s over 9000</string>
-    <string name="achievement_circle_11_descr">Erschaffe %2$d Kreise. Schau mich nicht so an. Mein Schöpfer ist Mathematiker. Er weiß was er tut…%3$d sind unangemessen. %4$d sind natürlich völlig absurd. Du hast %1$d.</string>
-    <string name="achievement_circle_12_name">Big brother verfolgt dich auf Schritt und  Tritt</string>
+    <string name="achievement_circle_11_descr">Erschaffe %2$d Kreise. Schau mich nicht so an. Mein Prof ist Mathematiker. Er weiß was er tut…%3$d sind unangemessen. %4$d sind natürlich völlig absurd. Du hast %1$d.</string>
+    <string name="achievement_circle_12_name">Big brother verfolgt dich</string>
     <string name="achievement_circle_12_descr">Schnell, bevor er einen Blick in deine nicht existierende Seele wirft!</string>
 
     <string name="achievement_snow_1_name">Beeilung</string>
@@ -183,7 +183,7 @@
     <string name="achievement_snow_5_descr">Explodiere %1$d mal in einem Spiel ohne dabei die Wand zu küssen.</string>
     <string name="achievement_snow_6_name">Heute nicht!</string>
     <string name="achievement_snow_6_descr">Bekuschel die Wand als Angry Cell. Wieder und wieder.</string>
-    <string name="achievement_snow_7_name">They see me rollin\'</string>
+    <string name="achievement_snow_7_name">They see me rollin\' they hatin\'</string>
     <string name="achievement_snow_7_descr">Entspann dich und sei artig. Nichts Süßes!</string>
     <string name="achievement_snow_8_name">Sprungfeder</string>
     <string name="achievement_snow_8_descr">Küsse %1$d Wände durch den Explosionsdruck.</string>
@@ -196,7 +196,7 @@
     <string name="achievement_snow_12_name">Overkill</string>
     <string name="achievement_snow_12_descr">Verputze %1$d weitere leckere Süßigkeiten als Angry Cell.</string>
     <string name="achievement_snow_13_name">Schnapp sie dir alle!</string>
-    <string name="achievement_snow_13_descr">Fange %1$d/%2$d Poke…tschuldige, ich meinte Süßkrams.</string>
+    <string name="achievement_snow_13_descr">Fange %1$d/%2$d Poke… tschuldige, ich meinte Süßkrams.</string>
     <string name="achievement_snow_14_name">Allergie</string>
     <string name="achievement_snow_14_descr">Wachse und explodiere, ohne dabei mehr als %1$d Sporen einzusammeln.</string>
 
@@ -270,12 +270,12 @@
 	<item>Wiederauferstehung erfolgreich abgeschlossen!</item>
         <item>Ich bin zu anhänglich? Ich würde das Leidenschaft nennen.</item>
         <item>So wie der Mond bei der Erde bleibt, so bleibe ich bei dir!</item>
+		<item>Wiederbelebung in 3..2.. ups, ich bin ja schon da.</item>
     </string-array>
     <string-array name="devil_talk_killed">
         <item>Ich komme wieder.</item>
         <item>Neeeeeeiiiiiinnnnnn.</item>
         <item>Was zur Hölle tust du da?</item>
-        <item>Haaaalt!</item>
         <item>Liebst du mich denn nicht?</item>
         <item>Tu das nicht, du brauchst mich!</item>
         <item>Das Bonbon ist eine Lüge!</item>
@@ -298,7 +298,7 @@
         <item>Bist du so blind, dass ist kein Bonbon?!</item>
         <item>Warum tust du das, hör auf damit!</item>
         <item>Seufz...</item>
-        <item>Stop! Du wirst sonst noch dick!</item>
+        <item>Stop! Achte auf deinen Cholesterinspiegel!</item>
         <item>Wer hat dir eigentlich deine Manieren beigebracht?</item>
     </string-array>
     <string-array name="devil_talk_cell_eat_candy_explosive">
