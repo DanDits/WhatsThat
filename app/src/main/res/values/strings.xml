@@ -288,6 +288,24 @@
     <string name="achievement_jumper_10_name">Boring beginning</string>
     <string name="achievement_jumper_10_descr">Enough of the easy beginning? Well...get the right upgrades my friend.</string>
 
+    <string name="achievement_triangle_1_descr">Hier gibt es nur Antiwitze. Zum Beispiel solche: Wie viele Erdlinge braucht es zum Bau eines Raumschiffs?</string>
+    <string name="achievement_triangle_1_descr_unachieved">Wie viele Erdlinge braucht es zum Bau eines Schiffs? %1$d, weil das Meer zu salzig ist.</string>
+    <string name="achievement_triangle_1_name">In nur einem Wimpernschlag</string>
+    <string name="achievement_triangle_2_descr">Was macht ein Erdling auf dem Mond?</string>
+    <string name="achievement_triangle_2_descr_unachieved">Was macht ein Erdling auf dem Mond? Einen Moonwalk.</string>
+    <string name="achievement_triangle_2_name">Zwei Fliegen mit einer Klappe</string>
+    <string name="achievement_triangle_3_descr">Wie kommt ein Priester auf die Sonne?</string>
+    <string name="achievement_triangle_3_descr_unachieved">Wie kommt ein Priester auf die Sonne? Durch Aberglaube.</string>
+    <string name="achievement_triangle_3_name">Effizienzklicker</string>
+    <string name="achievement_triangle_4_descr">Wie verlässt ein Priester die Sonne?</string>
+    <string name="achievement_triangle_4_descr_unachieved">Wie verlässt ein Priester die Sonne? Als Brandfleck.</string>
+    <string name="achievement_triangle_4_name">Superauge</string>
+    <string name="achievement_triangle_5_descr">Wie nennt man einen Politiker auf dem Mars?</string>
+    <string name="achievement_triangle_5_descr_unachieved">Wie nennt man einen Politiker auf dem Mars? Noch immer einen Lügner.</string>
+    <string name="achievement_triangle_5_name">Fortschreitender Fortschritt</string>
+
+    <string name="achievement_misc_category_name">Allgemein</string>
+
     <string name="dependency_required">Requires:</string>
     <string name="level_dependency">Level %1$s</string>
     <string name="achievement_achieved">Achieved</string>
@@ -340,4 +358,5 @@
         <item>I just want to help</item>
         <item>Tickling me won\'t do anything</item>
     </string-array>
+
 </resources>

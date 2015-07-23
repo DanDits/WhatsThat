@@ -126,7 +126,7 @@ public class FlatRectWorld extends FlatWorld {
         }
         look.reset();
         WorldEffect effect = attachTimedMessage(look, text, (int) (width * TEXT_EFFECT_MAX_WIDTH_FACTOR), attachTo, duration);
-        look.setOffset(offsetX + (offsetX < 0 ? -look.getWidth() : 0),  offsetY + heightFactor * look.getHeight());
+        look.setOffset(offsetX + (offsetX < 0 ? -look.getWidth() : 0), offsetY + heightFactor * look.getHeight());
         return effect;
     }
 
@@ -148,5 +148,9 @@ public class FlatRectWorld extends FlatWorld {
 
     public float getBottom() {
         return mWorldRect.bottom;
+    }
+
+    public float getHeight() {
+        return mWorldRect.height();
     }
 }

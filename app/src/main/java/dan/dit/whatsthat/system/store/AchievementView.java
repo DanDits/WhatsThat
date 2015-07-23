@@ -22,7 +22,9 @@ import java.util.List;
 import dan.dit.whatsthat.R;
 import dan.dit.whatsthat.achievement.Achievement;
 import dan.dit.whatsthat.riddle.Riddle;
+import dan.dit.whatsthat.riddle.achievement.holders.AchievementHolder;
 import dan.dit.whatsthat.riddle.achievement.holders.TestSubjectAchievementHolder;
+import dan.dit.whatsthat.riddle.achievement.holders.TypeAchievementHolder;
 import dan.dit.whatsthat.riddle.types.PracticalRiddleType;
 import dan.dit.whatsthat.testsubject.TestSubject;
 import dan.dit.whatsthat.testsubject.TestSubjectRiddleType;
@@ -36,7 +38,7 @@ public class AchievementView extends ExpandableListView implements StoreContaine
 
     private int mVisibleCategoryIndex;
     private BaseExpandableListAdapter mAdapter;
-    private List<List<Achievement>> mAllAchievements;
+    private List<List<? extends Achievement>> mAllAchievements;
     private List<String> mCategoryNames;
     private List<Integer> mCategoryImage;
     private Button mTitleBackButton;
@@ -50,16 +52,16 @@ public class AchievementView extends ExpandableListView implements StoreContaine
         TestSubjectAchievementHolder holder = TestSubject.getInstance().getAchievementHolder();
         mVisibleCategoryIndex = -1;
         for (TestSubjectRiddleType type : TestSubject.getInstance().getAvailableTypes()) {
-            List<Achievement> achievements = holder.getTypeAchievements(type.getType());
-            if (achievements != null) {
-                mAllAchievements.add(achievements);
-                mCategoryNames.add(context.getResources().getString(type.getNameResId()));
-                mCategoryImage.add(type.getIconResId());
+            TypeAchievementHolder typeHolder = holder.getTypeAchievementHolder(type.getType());
+            if (typeHolder != null) {
+                addAchievementHolder(typeHolder, context.getResources().getString(type.getNameResId()), type.getIconResId());
                 if (lastVisibleType != null && type.getType().equals(lastVisibleType)) {
                     mVisibleCategoryIndex = mCategoryNames.size() - 1;
                 }
             }
         }
+        AchievementHolder misHolder = TestSubject.getInstance().getAchievementHolder().getMiscAchievementHolder();
+        addAchievementHolder(misHolder, context.getResources().getString(R.string.achievement_misc_category_name), R.drawable.cheat);
 
         setOnChildClickListener(new OnChildClickListener() {
             @Override
@@ -68,6 +70,18 @@ public class AchievementView extends ExpandableListView implements StoreContaine
             }
         });
 
+    }
+
+    private void addAchievementHolder(AchievementHolder holder, String name, int imageResId) {
+        if (holder == null) {
+            return;
+        }
+        List<? extends Achievement> achievements = holder.getAchievements();
+        if (achievements != null && !achievements.isEmpty()) {
+            mAllAchievements.add(achievements);
+            mCategoryNames.add(name);
+            mCategoryImage.add(imageResId);
+        }
     }
 
     private void updateTitleBackButton() {

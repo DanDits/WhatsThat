@@ -81,6 +81,10 @@ public class Actor {
         }
     }
 
+    public void onLeaveWorld() {}
+
+    public boolean onCollision(Actor collider) {return false;}
+
     public void putStateFrames(int state, Look look) {
         if (look == null) {
             return;

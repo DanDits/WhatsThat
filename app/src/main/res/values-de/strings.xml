@@ -103,7 +103,7 @@
     <string name="riddle_type_snow">Angry Cell</string>
     <string name="riddle_type_snow_explanation">Bewege die Zelle durch Kippen des Gerätes. Sammle giftige Süßigkeiten, werde größer und EXPLODIERE!</string>
     <string-array name="riddle_type_snow_hints">
-	<item>Ein neuer Test. Um tiefere Einblicke in die irdische graue Substanz, ein Bestandteil deines Zentralnervensystems, zu bekommen, mussten wir aus deinem Gehirn eine Zelle entfernen. Ob du dir Sorgen machen musst? Hmm, bei der eh schon geringen Anzahl an Gehirnzellen …  ja. Der Test ist aber wichtiger.\nIn der Umgebung der Zelle platzieren wir kontaminierte biologische Stoffe einer anderen Spezies, um die Reaktion der Zelle darauf zu testen. Achte auf die Partikel, die von dem Stoff ausgehen und deiner Zelle schaden. Den Rest werden wir wie in der Politik mit einer Lüge bestmöglich verschleiern.
+	    <item>Ein neuer Test. Um tiefere Einblicke in die irdische graue Substanz, ein Bestandteil deines Zentralnervensystems, zu bekommen, mussten wir aus deinem Gehirn eine Zelle entfernen. Ob du dir Sorgen machen musst? Hmm, bei der eh schon geringen Anzahl an Gehirnzellen …  ja. Der Test ist aber wichtiger.\nIn der Umgebung der Zelle platzieren wir kontaminierte biologische Stoffe einer anderen Spezies, um die Reaktion der Zelle darauf zu testen. Achte auf die Partikel, die von dem Stoff ausgehen und deiner Zelle schaden. Den Rest werden wir wie in der Politik mit einer Lüge bestmöglich verschleiern.</item>
     </string-array>
     <string name="riddle_type_triangle">Bunteck</string>
     <string name="riddle_type_triangle_explanation">Berühre einen Punkt in einem Dreieck, um kleinere Dreiecke mit schärferem Kontrast zu erzeugen.</string>
@@ -131,7 +131,7 @@
 
     <string name="game_welcome_positive_confirm">Habs verstanden!</string>
     <string name="game_welcome_postpone">Nicht jetzt…</string>
-    <string name="game_welcome_default_title">Magister Tumicos Sprechstunde</string>
+    <string name="game_welcome_default_title">Dr. Blu\'s Sprechstunde</string>
 
     <string name="handle_error_attempted">Bild nicht vorhanden?! Externen Speicher prüfen!</string>
     <string name="tongue_select_explanation">Sprache für Lösungswörter: %1$s</string>
@@ -201,20 +201,20 @@
     <string name="achievement_snow_14_descr">Wachse und explodiere, ohne dabei mehr als %1$d Sporen einzusammeln.</string>
 
     <string name="achievement_triangle_1_name">In nur einem Wimpernschlag</string>
-    <string name="achievement_triangle_1_descr">Hier gibt es nur Antiwitze. Zum Beispiel solche: Wie viele Erdlinge braucht es zum Bau eines Raumschiffs?(5 Spiele in 90 Sekunden)</string>
-    <string name="achievement_triangle_1_descr_unachieved">Wie viele Erdlinge braucht es zum Bau eines Schiffs? 5, weil das Meer zu salzig ist.</string>
+    <string name="achievement_triangle_1_descr">Hier gibt es nur Antiwitze. Zum Beispiel solche: Wie viele Erdlinge braucht es zum Bau eines Raumschiffs?</string>
+    <string name="achievement_triangle_1_descr_unachieved">Wie viele Erdlinge braucht es zum Bau eines Schiffs? %1$d, weil das Meer zu salzig ist.</string>
     <string name="achievement_triangle_2_name">Zwei Fliegen mit einer Klappe</string>
-    <string name="achievement_triangle_2_descr">Was macht ein Erdling auf dem Mond?(Teile x Kreise auf einmal bzw. Teile x Kreise in y Sekunden)</string>
+    <string name="achievement_triangle_2_descr">Was macht ein Erdling auf dem Mond?</string>
     <string name="achievement_triangle_2_descr_unachieved">Was macht ein Erdling auf dem Mond? Einen Moonwalk.</string>
     <string name="achievement_triangle_3_name">Effizienzklicker</string>
-    <string name="achievement_triangle_3_descr">Wie kommt ein Preister auf die Sonne? (Rätsel mit nur xxx Dreiecken lösen/x klicks)</string>
+    <string name="achievement_triangle_3_descr">Wie kommt ein Priester auf die Sonne?</string>
     <string name="achievement_triangle_3_descr_unachieved">Wie kommt ein Priester auf die Sonne? Durch Aberglaube.</string>
     <string name="achievement_triangle_4_name">Superauge</string>
-    <string name="achievement_triangle_4_descr">Wie verlässt ein Priester die Sonne?(Alle Dreiecke in einem Rätsel)</string>
+    <string name="achievement_triangle_4_descr">Wie verlässt ein Priester die Sonne?</string>
     <string name="achievement_triangle_4_descr_unachieved">Wie verlässt ein Priester die Sonne? Als Brandfleck.</string>
     <string name="achievement_triangle_5_name">Fortschreitender Fortschritt</string>
-    <string name="achievement_triangle_5_descr">Wie nennt man einen Poitiker auf dem Mars? (30 Rätsel gelöst)</string>
-    <string name="achievement_triangle_5_descr_unachieved">Wie nennt man einen Poitiker auf dem Mars? Noch immer einen Lügner.</string>
+    <string name="achievement_triangle_5_descr">Wie nennt man einen Politiker auf dem Mars?</string>
+    <string name="achievement_triangle_5_descr_unachieved">Wie nennt man einen Politiker auf dem Mars? Noch immer einen Lügner.</string>
 
     <string name="achievement_dice_1_name">Ein harter Anfang</string>
     <string name="achievement_dice_1_descr">Fusioniere den Alien-Cube auf jede Farbe in einem Spiel. Lasst die Spiele beginnen!</string>
@@ -261,6 +261,16 @@
     <string name="achievement_dice_21_name">Minimalist</string>
     <string name="achievement_dice_21_descr">Jetzt ist genug, das ist der letzte Erfolg. Unser Perfektionist muss ins Gleichgewicht kommen, beende daher das Spiel mit nur %1$d Kombinationen. Viel Glück.</string>
     <string name="achievement_dice_21_descr_claimed">Eine Gegenseite zum Perfektionist. Das ist wie beim Yin-Yang. Schonmal davon gehört?</string>
+
+    <string name="achievement_misc_category_name">Allgemein</string>
+    <string name="achievement_misc_1_name">Schöpfer Namen</string>
+    <string name="achievement_misc_1_descr">Will das hier nicht ausplaudern. Lese es in den Tipps!!</string>
+    <string name="achievement_misc_2_name">Brauch meine Freunde</string>
+    <string name="achievement_misc_2_descr">Du hast ein Rätsel für mehr als %1$d Tage zurückgestellt.</string>
+    <string name="achievement_misc_3_name">Stockholmsyndrom</string>
+    <string name="achievement_misc_3_descr">Du hast ein Rätsel mehr als %1$d Stunden gespielt.</string>
+    <string name="achievement_misc_4_name">Erfolgsjäger</string>
+    <string name="achievement_misc_4_descr">Schließe %1$d/%2$d Erfolge ab.</string>
 
     <string-array name="devil_talk_return">
         <item>Deine Anziehungskraft hat mich wieder her geholt.</item>

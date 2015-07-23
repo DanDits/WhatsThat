@@ -20,6 +20,7 @@ import dan.dit.whatsthat.R;
 import dan.dit.whatsthat.achievement.Achievement;
 import dan.dit.whatsthat.achievement.AchievementManager;
 import dan.dit.whatsthat.riddle.RiddleInitializer;
+import dan.dit.whatsthat.riddle.achievement.holders.MiscAchievementHolder;
 import dan.dit.whatsthat.riddle.achievement.holders.TestSubjectAchievementHolder;
 import dan.dit.whatsthat.riddle.achievement.holders.TypeAchievementHolder;
 import dan.dit.whatsthat.riddle.types.PracticalRiddleType;
@@ -217,6 +218,7 @@ public class TestSubject {
     public void postAchievementAchieved(Achievement achievement) {
         mAchievementToastProcessor.append(achievement, 200L);
         mAchievementToastProcessor.start();
+        mAchievementHolder.getMiscData().increment(MiscAchievementHolder.KEY_ACHIEVEMENTS_EARNED_COUNT, 1L, 0L);
     }
 
     private void onLevelUp(int newLevel) {
