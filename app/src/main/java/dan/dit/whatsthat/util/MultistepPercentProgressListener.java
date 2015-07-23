@@ -1,7 +1,5 @@
 package dan.dit.whatsthat.util;
 
-import android.util.Log;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,7 +22,7 @@ public class MultistepPercentProgressListener implements PercentProgressListener
         reset(weights);
     }
 
-    public MultistepPercentProgressListener reset(int steps) {
+    private MultistepPercentProgressListener reset(int steps) {
         if (steps <= 0) {
             throw new IllegalArgumentException("No steps given");
         }
@@ -36,7 +34,7 @@ public class MultistepPercentProgressListener implements PercentProgressListener
         return this;
     }
 
-    public MultistepPercentProgressListener reset(double[] weights) {
+    private MultistepPercentProgressListener reset(double[] weights) {
         if (weights == null || weights.length == 0) {
             throw new IllegalArgumentException("No weights given.");
         }
@@ -59,12 +57,9 @@ public class MultistepPercentProgressListener implements PercentProgressListener
     }
 
     public void nextStep() {
-        if (mCurrentStep < mWeights.size()) { // TODO why does this explode if not checked?!
-            Log.d("Riddle", "Next step invoked, current step: " + mCurrentStep + " < " + mWeights.size());
-            mCurrentWeight += mWeights.get(mCurrentStep);
-            mCurrentStep++;
-            notifyProgress(0);
-        }
+        mCurrentWeight += mWeights.get(mCurrentStep);
+        mCurrentStep++;
+        notifyProgress(0);
     }
 
     @Override
@@ -72,11 +67,7 @@ public class MultistepPercentProgressListener implements PercentProgressListener
         if (mCurrentStep >= mWeights.size()) {
             return;
         }
-        if (progress >= PROGRESS_COMPLETE) {
-            nextStep();
-        } else {
-            notifyProgress(progress);
-        }
+        notifyProgress(progress);
     }
 
     private void notifyProgress(int progress) {

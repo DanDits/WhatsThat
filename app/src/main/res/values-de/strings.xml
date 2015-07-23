@@ -109,7 +109,7 @@
     <string name="riddle_type_triangle_explanation">Berühre einen Punkt in einem Dreieck, um kleinere Dreiecke mit schärferem Kontrast zu erzeugen.</string>
     <string name="riddle_type_dice">Alien-Cube</string>
     <string name="riddle_type_dice_explanation">Berühre ein leeres Feld, damit ein neuer Würfel erscheint. Bewege und kombiniere Würfel gleicher Augenzahl und Farbe, um das Bild aufzudecken.</string>
-    <string name="riddle_type_jumper">Monster Parcours</string>
+    <string name="riddle_type_jumper">Invasion</string>
     <string name="riddle_type_jumper_explanation">Berühre das Feld, um über Hindernisse zu springen und das Bild zu vergrößern. Führe einen Double-Jump aus, um über größere oder längere Hindernisse zu springen.</string>
     <string name="riddle_type_developer">Entwickler</string>
     <string name="riddle_type_developer_explanation">Hallo ich oder Bruder.</string>
@@ -167,7 +167,7 @@
     <string name="achievement_circle_10_descr">Danke, dass du meinen sinnlosen Anweisungen folgst :).</string>
     <string name="achievement_circle_10_descr_unachieved">Du wagst es, mich zu beleidigen!? Entschuldige dich auf der Stelle!</string>
     <string name="achievement_circle_11_name">It\'s over 9000</string>
-    <string name="achievement_circle_11_descr">Erschaffe %2$d Kreise. Schau mich nicht so an. Mein Prof ist Mathematiker. Er weiß was er tut…%3$d sind unangemessen. %4$d sind natürlich völlig absurd. Du hast %1$d.</string>
+    <string name="achievement_circle_11_descr">Teile %2$d Kreise. Schau mich nicht so an. Mein Prof ist Mathematiker. Er weiß was er tut…%3$d sind unangemessen. %4$d sind natürlich völlig absurd. Du hast %1$d.</string>
     <string name="achievement_circle_12_name">Big brother verfolgt dich</string>
     <string name="achievement_circle_12_descr">Schnell, bevor er einen Blick in deine nicht existierende Seele wirft!</string>
 

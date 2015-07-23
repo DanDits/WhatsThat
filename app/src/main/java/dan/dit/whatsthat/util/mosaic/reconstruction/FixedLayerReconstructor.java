@@ -19,8 +19,8 @@ import dan.dit.whatsthat.util.image.ColorMetric;
  * Created by daniel on 03.07.15.
  */
 public class FixedLayerReconstructor extends Reconstructor {
-    private static final int MAX_RECALCULATIONS_BASE = 20;
-    private static final int MAX_RECALCULATIONS_LINEAR_GROWTH = 2;
+    private static final int MAX_RECALCULATIONS_BASE = 10;
+    private static final int MAX_RECALCULATIONS_LINEAR_GROWTH = 1;
     private final boolean mUseAlpha;
     private final ColorMetric mColorMetric;
     private MosaicFragment mFragment;
