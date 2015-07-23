@@ -86,9 +86,9 @@
     <string name="riddle_type_snow_explanation">Tilt the device and thus move the cell. Collect toxic candies, grow bigger, don\'t touch walls and EXPLODE.</string>
     <string name="riddle_type_dice">Alien-Cube</string>
     <string name="riddle_type_dice_explanation">Create dices by touching an empty field. Move and combine dices with equal numbers to reveal the image.</string>
-    <string name="riddle_type_triangle">Triangle</string>
+    <string name="riddle_type_triangle">ColEdge</string>
     <string name="riddle_type_triangle_explanation">Press inside a triangle to create smaller ones.</string>
-    <string name="riddle_type_jumper">Jumper</string>
+    <string name="riddle_type_jumper">Monster Run</string>
     <string name="riddle_type_jumper_explanation">Touch to jump or keep pressed to doublejump over obstacles. Each one will slowly reveal the image</string>
     <string name="riddle_type_developer">Developer</string>
     <string name="riddle_type_developer_explanation">Hi self or brother.</string>
@@ -125,6 +125,7 @@
     <string-array name="test_subject_1_riddle_solved_candy">
         <item>You\'re smart!</item>
         <item>Nice job!</item>
+		<item>Well done Captain!</item>
     </string-array>
     <string name="handle_error_attempted">Bild nicht vorhanden?! Externen Speicher prüfen!</string>
     <string name="tongue_select_explanation">Sprache für Lösungswörter: %1$s</string>
