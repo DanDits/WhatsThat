@@ -105,13 +105,26 @@
     <string-array name="riddle_type_snow_hints">
 	    <item>Ein neuer Test. Um tiefere Einblicke in die irdische graue Substanz, ein Bestandteil deines Zentralnervensystems, zu bekommen, mussten wir aus deinem Gehirn eine Zelle entfernen. Ob du dir Sorgen machen musst? Hmm, bei der eh schon geringen Anzahl an Gehirnzellen …  ja. Der Test ist aber wichtiger.\nIn der Umgebung der Zelle platzieren wir kontaminierte biologische Stoffe einer anderen Spezies, um die Reaktion der Zelle darauf zu testen. Achte auf die Partikel, die von dem Stoff ausgehen und deiner Zelle schaden. Den Rest werden wir wie in der Politik mit einer Lüge bestmöglich verschleiern.</item>
     </string-array>
+	
     <string name="riddle_type_triangle">Bunteck</string>
     <string name="riddle_type_triangle_explanation">Berühre einen Punkt in einem Dreieck, um kleinere Dreiecke mit schärferem Kontrast zu erzeugen.</string>
+    <string-array name="riddle_type_triangle_hints">
+	    <item>WiseMind meint, ich rede zu viel. Ich will mich diesmal kurz fassen: Ein farbliches Pendant zum Kreis-Test. Klickst du auf ein Dreieck, teilt sich dieses in zwei kleinere. Wozu das gut sein soll? Zum Testen eurer Farbwahrnehmung.</item>
+    </string-array>	
+	
     <string name="riddle_type_dice">Alien-Cube</string>
     <string name="riddle_type_dice_explanation">Berühre ein leeres Feld, damit ein neuer Würfel erscheint. Bewege und kombiniere Würfel gleicher Augenzahl und Farbe, um das Bild aufzudecken.</string>
-    <string name="riddle_type_jumper">Invasion</string>
+	    <string-array name="riddle_type_dice_hints">
+	    <item>Vor kurzem haben wir eine Anomalie bei euch festgestellt: euren irdischen Würfel fehlt eine Dimension. Sie haben fälschlicherweise 6 Seiten, obwohl es 9 sind. Wir testen dein Gedächtnis daher auf Realitätsbasis hinsichtlich Kombination, Zahlen, Taktik, Logik, Farbe, Bewegung, Logistik und Schnelligkeit. Ja, ich halte es auch für einen Fehler, weil dich das ziemlich überfordern wird, aber Befehl ist Befehl. Das komplizierte Experiment in Kürze:\nKombiniere gleiche Augenzahl und Farbe, dadurch entsteht Transparenz in den angezeigten Bereichen. Es gibt fünf Typen: die drei Basiswürfel rot, gelb und grün sowie die Sonderwürfel lila und den Alien Cube. Der Alien-Cube hat auf jeden Basiswürfel unterschiedliche Effekte.</item>
+    </string-array>	
+	
+    <string name="riddle_type_jumper">Monster Lauf</string>
     <string name="riddle_type_jumper_explanation">Berühre das Feld, um über Hindernisse zu springen und das Bild zu vergrößern. Führe einen Double-Jump aus, um über größere oder längere Hindernisse zu springen.</string>
-    <string name="riddle_type_developer">Entwickler</string>
+    <string-array name="riddle_type_jumper_hints">
+	    <item>Ihr Menschen seid merkwürdig. Ein Esel lässt sich mit einer Karotte zum Laufen animieren, bei euch Homo-Sapiens bedarf es einem Bündel Geld, obwohl das nicht mal essbar ist.\nWir haben an einem Geschäftsmann einige Versuche durchgeführt und wollen die Veränderungen in unserem Monster Parcours testen. Vor dem Eingriff mussten wir die Erinnerungen blockieren. Die Blockade lässt sich glücklicherweise durch Bewegungen wieder lösen. Wir haben unserem Kaufmann zu einem Marathon mit einem einfachen Gedanken motivieren können:  "Am Ende des Regenbogens steht ein Topf voller Geld." Zu schade, dass es nachts keinen Regenbogen gibt.</item>
+    </string-array>	    
+	
+	<string name="riddle_type_developer">Entwickler</string>
     <string name="riddle_type_developer_explanation">Hallo ich oder Bruder.</string>
     <string name="panic_dialog_positive">Alles ok</string>
     <string name="panic_ask_type">Wie funktioniert das Rätsel</string>
@@ -200,19 +213,19 @@
     <string name="achievement_snow_14_name">Allergie</string>
     <string name="achievement_snow_14_descr">Wachse und explodiere, ohne dabei mehr als %1$d Sporen einzusammeln.</string>
 
-    <string name="achievement_triangle_1_name">In nur einem Wimpernschlag</string>
+    <string name="achievement_triangle_1_name">In nur einem Augenblick</string>
     <string name="achievement_triangle_1_descr">Hier gibt es nur Antiwitze. Zum Beispiel solche: Wie viele Erdlinge braucht es zum Bau eines Raumschiffs?</string>
     <string name="achievement_triangle_1_descr_unachieved">Wie viele Erdlinge braucht es zum Bau eines Schiffs? %1$d, weil das Meer zu salzig ist.</string>
     <string name="achievement_triangle_2_name">Zwei Fliegen mit einer Klappe</string>
     <string name="achievement_triangle_2_descr">Was macht ein Erdling auf dem Mond?</string>
     <string name="achievement_triangle_2_descr_unachieved">Was macht ein Erdling auf dem Mond? Einen Moonwalk.</string>
-    <string name="achievement_triangle_3_name">Effizienzklicker</string>
+    <string name="achievement_triangle_3_name">Effizienzklicks</string>
     <string name="achievement_triangle_3_descr">Wie kommt ein Priester auf die Sonne?</string>
     <string name="achievement_triangle_3_descr_unachieved">Wie kommt ein Priester auf die Sonne? Durch Aberglaube.</string>
     <string name="achievement_triangle_4_name">Superauge</string>
     <string name="achievement_triangle_4_descr">Wie verlässt ein Priester die Sonne?</string>
     <string name="achievement_triangle_4_descr_unachieved">Wie verlässt ein Priester die Sonne? Als Brandfleck.</string>
-    <string name="achievement_triangle_5_name">Fortschreitender Fortschritt</string>
+    <string name="achievement_triangle_5_name">Fortschritt ist fortschreitend </string>
     <string name="achievement_triangle_5_descr">Wie nennt man einen Politiker auf dem Mars?</string>
     <string name="achievement_triangle_5_descr_unachieved">Wie nennt man einen Politiker auf dem Mars? Noch immer einen Lügner.</string>
 
@@ -224,7 +237,7 @@
     <string name="achievement_dice_3_descr">Kauf dir alle Tipps für das Rätsel. Warum? Weil das Rätsel kompliziert ist und wenn sich meine Schöpfer schon die Mühe machen, dann musst du das irgendwie auch mal lesen</string>
     <string name="achievement_dice_4_name">Los Ecke! Entdecke!</string>
     <string name="achievement_dice_4_descr">Kombiniere in jeder Ecke %1$d gelbe Würfel.</string>
-    <string name="achievement_dice_5_name">Übersetzungsfehler</string>
+    <string name="achievement_dice_5_name">Übersetzungs-\nfehler</string>
     <string name="achievement_dice_5_descr">owefhufeymwen fof f%1$d ouhosbl 1. Konnte.Nicht.Übersetzen.</string>
     <string name="achievement_dice_5_descr_claimed">Verzeihung. Ich meinte 3 resets</string>
     <string name="achievement_dice_6_name">Green peace</string>
@@ -262,12 +275,37 @@
     <string name="achievement_dice_21_descr">Jetzt ist genug, das ist der letzte Erfolg. Unser Perfektionist muss ins Gleichgewicht kommen, beende daher das Spiel mit nur %1$d Kombinationen. Viel Glück.</string>
     <string name="achievement_dice_21_descr_claimed">Eine Gegenseite zum Perfektionist. Das ist wie beim Yin-Yang. Schonmal davon gehört?</string>
 
+    <string name="achievement_jumper_1_name">Die Antwort auf das Leben...</string>
+    <string name="achievement_jumper_1_descr">… das Universum und den Rest. Plus die Anzahl an Hörnern eines Einhorns.</string>
+    <string name="achievement_jumper_1_descr_claimed">… das Universum und den Rest. Plus die Anzahl an Hörnern eines Einhorns. 43!</string>
+    <string name="achievement_jumper_2_name">Unterbegabung</string>
+    <string name="achievement_jumper_2_descr">Sag mal, du hast nun %1$d mal im ersten Bereich versagt. Bist du sicher, dass du das hier weiterspielen möchtest?</string>
+    <string name="achievement_jumper_3_name">Super Mario</string>
+    <string name="achievement_jumper_3_descr">Vollführe %1$d Double Jumps in einem Spiel bevor du \"Schwer\" erreichst.</string>
+    <string name="achievement_jumper_3_descr_claimed">So viel zum Thema physikalische Gesetze...</string>
+    <string name="achievement_jumper_4_name">Multitasking</string>
+    <string name="achievement_jumper_4_descr">Beende ein Spiel ab Schwierigkeit \"Schwer\" ohne zu kollidieren.</string>
+    <string name="achievement_jumper_5_name">Ausweichmanöver</string>
+    <string name="achievement_jumper_5_descr">Gratulation. Du hast mehr als %1$d Hindernisse überwunden.</string>
+    <string name="achievement_jumper_6_name">Die Schöpfer schlagen</string>
+    <string name="achievement_jumper_6_descr">Wow. Du hast den Rekord meiner Schöpfer geschlagen. Schreibe deinen Rekord mit dem Betreff \"Skyline Rekord\".</string>
+    <string name="achievement_jumper_7_name">Knuffbums Geschichte</string>
+    <string name="achievement_jumper_7_descr">Finde die Wahrheit über Knuffbum heraus.</string>
+    <string name="achievement_jumper_8_name">Still a better lovestory than twighlight</string>
+    <string name="achievement_jumper_8_descr">Danke, dass du mit Knuffbum geknuddelt hast.</string>
+    <string name="achievement_jumper_9_name">Marathon</string>
+    <string name="achievement_jumper_9_descr">Ich geh kurz spazieren. Sind ja nur %1$d Meter.</string>
+    <string name="achievement_jumper_10_name">Öder Anfang</string>
+    <string name="achievement_jumper_10_descr">Der Anfang ist dir zu öde? Dann kaufe das passende Upgrade mein Freund.</string>
+	<string name="achievement_jumper_11_name">Naturtalent</string>
+    <string name="achievement_jumper_11_descr">Erreiche in drei aufeinanderfolgenden Spielen mindestens 1000 Meter.</string>
+
     <string name="achievement_misc_category_name">Allgemein</string>
     <string name="achievement_misc_1_name">Schöpfer Namen</string>
     <string name="achievement_misc_1_descr">Will das hier nicht ausplaudern. Lese es in den Tipps!!</string>
     <string name="achievement_misc_2_name">Brauch meine Freunde</string>
     <string name="achievement_misc_2_descr">Du hast ein Rätsel für mehr als %1$d Tage zurückgestellt.</string>
-    <string name="achievement_misc_3_name">Stockholmsyndrom</string>
+    <string name="achievement_misc_3_name">Stockholm-\nsyndrom</string>
     <string name="achievement_misc_3_descr">Du hast ein Rätsel mehr als %1$d Stunden gespielt.</string>
     <string name="achievement_misc_4_name">Erfolgsjäger</string>
     <string name="achievement_misc_4_descr">Schließe %1$d/%2$d Erfolge ab.</string>
@@ -280,7 +318,7 @@
 	<item>Wiederauferstehung erfolgreich abgeschlossen!</item>
         <item>Ich bin zu anhänglich? Ich würde das Leidenschaft nennen.</item>
         <item>So wie der Mond bei der Erde bleibt, so bleibe ich bei dir!</item>
-		<item>Wiederbelebung in 3..2.. ups, ich bin ja schon da.</item>
+		<item>Wiederbelebung in 3..2.. ups, bin ja schon da.</item>
     </string-array>
     <string-array name="devil_talk_killed">
         <item>Ich komme wieder.</item>

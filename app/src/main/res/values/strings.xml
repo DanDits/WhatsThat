@@ -265,9 +265,9 @@
     <string name="achievement_dice_21_descr">I know, this is the last one. But there must be an opposing side of perfectionists. So finish this with only %1$d combinations. Good luck.</string>
     <string name="achievement_dice_21_descr_claimed">An opposing side of Perfectionist.It\'s like Yin-Yang. Ever heared of it?</string>
 
-    <string name="achievement_jumper_1_name">The answer to life</string>
-    <string name="achievement_jumper_1_descr">The answer, to life, to universe and everything. Plus the number of horns of a unicorn </string>
-    <string name="achievement_jumper_1_descr_claimed">43</string>
+    <string name="achievement_jumper_1_name">The answer to life...</string>
+    <string name="achievement_jumper_1_descr">...to universe and everything. Plus the number of horns of a unicorn.</string>
+    <string name="achievement_jumper_1_descr_claimed">...to universe and everything. Plus the number of horns of a unicorn.43!</string>
     <string name="achievement_jumper_2_name">Lack of talent</string>
     <string name="achievement_jumper_2_descr">You failed %1$d times in easy. Are you sure you wanna continue playing this game?</string>
     <string name="achievement_jumper_3_name">Super Mario</string>
@@ -287,7 +287,9 @@
     <string name="achievement_jumper_9_descr">Going for a short walk of %1$d meters.</string>
     <string name="achievement_jumper_10_name">Boring beginning</string>
     <string name="achievement_jumper_10_descr">Enough of the easy beginning? Well...get the right upgrades my friend.</string>
-
+    <string name="achievement_jumper_11_name">Natural talent</string>
+    <string name="achievement_jumper_11_descr">Reach at least 1000 meters in three successive games.</string>
+	
     <string name="achievement_triangle_1_descr">Hier gibt es nur Antiwitze. Zum Beispiel solche: Wie viele Erdlinge braucht es zum Bau eines Raumschiffs?</string>
     <string name="achievement_triangle_1_descr_unachieved">Wie viele Erdlinge braucht es zum Bau eines Schiffs? %1$d, weil das Meer zu salzig ist.</string>
     <string name="achievement_triangle_1_name">In nur einem Wimpernschlag</string>
