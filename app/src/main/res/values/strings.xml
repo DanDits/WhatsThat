@@ -288,7 +288,7 @@
     <string name="achievement_jumper_10_name">Boring beginning</string>
     <string name="achievement_jumper_10_descr">Enough of the easy beginning? Well...get the right upgrades my friend.</string>
     <string name="achievement_jumper_11_name">Natural talent</string>
-    <string name="achievement_jumper_11_descr">Reach at least 1000 meters in three successive games.</string>
+    <string name="achievement_jumper_11_descr">Reach at least %2$d meters in %1$d successive games.</string>
 	
     <string name="achievement_triangle_1_descr">Hier gibt es nur Antiwitze. Zum Beispiel solche: Wie viele Erdlinge braucht es zum Bau eines Raumschiffs?</string>
     <string name="achievement_triangle_1_descr_unachieved">Wie viele Erdlinge braucht es zum Bau eines Schiffs? %1$d, weil das Meer zu salzig ist.</string>

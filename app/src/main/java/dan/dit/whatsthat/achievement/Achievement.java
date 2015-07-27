@@ -110,7 +110,7 @@ public abstract class Achievement implements AchievementDataEventListener, Depen
             progress = 0;
         }
         int oldValue = mValue;
-        mValue = (int) (progress * mMaxValue / 100.);
+        mValue = Math.round(progress * mMaxValue / 100.f);
         Log.d("Achievement", "Achieving " + progress + " percent of " + mMaxValue + ": " + oldValue + "->" + mValue);
         if (mValue >= mMaxValue || progress == 100) {
             achieveUnchecked();

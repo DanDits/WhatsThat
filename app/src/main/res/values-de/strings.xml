@@ -31,33 +31,46 @@
     <string name="intro_test_subject_estimated_intelligence">-Intelligenz-</string>
 
     <string name="test_subject_0_name">Doofes Kind</string>
-    <string name="test_subject_0_int">Kennt seinen Namen</string>
+    <string name="test_subject_0_int">Hoffnungslos</string>
     <string-array name="test_subject_0_intro_main">
-        <item>°Willkommen Erdling!°</item>
-        <item>°Willkommen auf einer Reise in die Untiefen deines Geistes!°</item>
-	<item>°Unsere Wahl fiel auf dich.°</item>
-	<item>°Du wirst unser Testobjekt sein.°</item>
-	<item>°Wir werden dich beobachten.°</item>
-	<item>°Wir hoffen, du hast das Potential, das wir in dir sehen.°</item>
-	<item>°Zumindest aus der Entfernung sahst du vielversprechend aus…°</item>
-	<item>°…aber von nahem betrachtet…°</item>
-	<item>°Enttäusche deinen Planeten besser nicht.°</item>
-	<item>°Darf ich dir unseren Bordcomputer vorstellen…°</item>
-	<item>°…mit ihm haben wir gerade dein Gehirn verbunden°</item>
-	<item>°Denk einfach: Hallo°</item>
-	<item>°Ein Gehirn von der Größe einer Galaxie und…nunja, deines…°</item>
-        <item>°Ich hoffe mal ihr werdet euch verstehen°</item>
+        <item>Hallo Du, kannst du mich verstehen?</item>
+        <item>Die Neuronen reagieren auf meine liebliche Stimme. </item>
+        <item>Das deute ich als ja.</item>
+        <item>Erdling, ich heiße dich auf einer Reise in die Untiefen deines Geistes willkommen.</item>
+        <item>Ich bin Meister Blu Xiaros Zubatro Venalo der 364k.</item>
+        <item>Es reicht aber, wenn du mich ganz zwanglos mit \"Erhabener\" anredest.</item>
+        <item>Achja, das hier ist Rd. Gulk.</item>
+        <item>Ihr würdet ihn einen verrückt genialen Wissenschaftler nennen.</item>
+        <item>Verrate mir nur vorweg bitte eins: Was bist du für ein Wesen?</item>
+        <item>Unsere hochentwickelte Kultur ist darüber zu erhaben, aber euch Menschen ist das ja wichtig.</item>
+        <item>Meine Schöpfer und ich, oder kurz gesagt, wir, wollen die menschliche Spezies besser verstehen.</item>
+        <item>Unsere Wahl ist dabei auf dich gefallen.</item>
+        <item>Du wirst unser Versuchsobjekt sein</item>
+        <item>Wir werden dich beobachten und im Hintergrund die gewonnen Daten auswerten.</item>
+        <item>Wir hoffen, du hast das Potential, das wir in dir sahen.</item>
+        <item>Ich vermute immer noch ein Versagen des Zentralgehirns…</item>
+        <item>Nun...Enttäusche deinen Planeten besser nicht.</item>
     </string-array>
     <string-array name="test_subject_0_intro_nuts">
-        <item>°Übermütige Kommentare und Beleidigungen sind keine Fehlfunktion, sondern nur ein Versuch menschlich zu kommunizieren.°</item>
-        <item>°Wenn ich hier drücke, dann…oh…°</item>
-        <item>°…alpha Stimulation bewirkt Allergiereaktion der Neuronen. Wäre hätte gedacht, dass sich Gehirne dagegen wehren würden.°</item>
-        <item>°Eine rausgestreckte Zunge? Was hat das zu bedeuten? Hm, ich schreibs ins Protokoll..°</item>
-        <item>°So, bloß nicht überfordern, mal sehen..°</item>
-        <item>°…Buchstaben, nö. Zahlen, negativ, was kennst du eigentlich?°</item>
-        <item>°…habs wohl überschätzt…</item>
-        <item>°Mal sehen, wie es auf Bilder reagiert°</item>
-        <item>°Notiz an selbst: Menschen dumm, aber widerstandsfähig gegen Traktorstrahl°</item>
+        <item>Darf ich dir unser Zentralgehirn WiseMind vorstellen...mit ihr haben wir dein Gehirn verbunden.</item>
+        <item>Ein Gehirn von der Größe einer Galaxie..und dann..nun ja.. deines daneben</item>
+        <item>Ich hoffe ihr werdet euch trotzdem verstehen</item>
+        <item>°TEST: 13 IST PRIMZAHL?°</item>
+        <item>°ANTWORTZEIT ÜBERSCHRITTEN°</item>
+        <item>Ok vielleicht was einfacheres, denk mal an Süßigkeiten.</item>
+        <item>°JA; SCHOKOLADE IST GESUND°</item>
+        <item>Wunderbar, da der Anschluss funktioniert können wir hoffentlich gleich beginnen.</item>
+        <item>Ich hoffe mal du bist nicht schwer von Begriff.</item>
+        <item>So, bloß nicht überfordern. Mal sehen..Buchstaben, nö...Zahlen, negativ.</item>
+        <item>Was kannst du eigentlich?</item>
+        <item>Mal sehen, wie es auf Bilder reagiert.</item>
+        <item>Aha...Affinität zu Anomalien der Farbvalenz</item>
+        <item>WiseMind, bereichte Versuchsreihe 272 zur Feststellung und Messung der Intelligenz der Homo Sapiens vor.</item>
+        <item>Erdling, wie bei allen zukünftigen Experimenten der Versuchsreihe 272, geht es darum, das Bild zu erraten.</item>
+        <item>Wenn du einmal nicht weiterkommst, dann schiebe bitte "keine Panik".</item>
+        <item>WiseMind wird eine für dich maßgeschneiderte Hilfe geben, wenn unser Intellekt den irdischen übersteigt.</item>
+        <item>Und nun, wie man bei euch so schön sagt: Kopf in Mülleimer!</item>
+        <item>Oh, hoppla, Verzeihung ich meinte natürlich: Viel Erfolg!</item>
     </string-array>
     <string-array name="test_subject_0_riddle_solved_candy">
         <item>Gut gemacht!</item>
@@ -67,21 +80,53 @@
     </string-array>
 
     <string name="test_subject_1_name">Kind</string>
-    <string name="test_subject_1_int">Kennt Buchstaben</string>
+    <string name="test_subject_1_int">Ein Funken</string>
     <string-array name="test_subject_1_intro_main">
-        <item>-hallo testsubjekt-</item>
-        <item>°Es tut sich etwas, Marvin hat seine Wette verloren°</item>
-        <item>-war klar-</item>
-        <item>°Wenn das Kind noch dicker wird, brauchen wir mehr Energie°</item>
-        <item>°Vielleicht hätten wir doch kein zufälliges Subjekt nehmen sollen°</item>
+        <item>WiseMind berichtet von Verbesserungen.</item>
+        <item>Wenn das nicht von ihr kommen würde...wer hätte das geglaubt.</item>
+        <item>°TEST: 7364. PRIMZAHL?°</item>
+        <item>°NEIN; SCHOKOLADE IST KEINE PRIMZAHL°</item>
+        <item>Immerhin warst du diesmal wenigstens schnell mit deiner Antwort.</item>
+        <item>Das ist schonmal besser als nichts.</item>
+        <item>Wenn ich nun das Protokoll hier lade, dann…</item>
+        <item>Oha. Alpha Stimulation bewirkt eine Allergiereaktion.</item>
+        <item>Wer hätte gedacht, dass Gehirne so reagieren könnten.</item>
+        <item>Dann..Injektion der Äther Blocker zur Sensibilisierung der Materie.</item>
+        <item>Warum grinst du so dämlich?</item>
+        <item>Ach weil du das nicht verstanden hast.</item>
+        <item>Ich schreibs ins Protokoll.</item>
     </string-array>
     <string-array name="test_subject_1_intro_nuts">
-        <item>°Was seine Eltern wohl denken°</item>
-        <item>°Hat er seinen Grips von seinen Eltern°</item>
-        <item>°Will jemand wetten was passiert?°</item>
-        <item>°Neue Runde, neues Glück°</item>
+        <item>Die Reaktionen lassen vermuten, dass der menschliche IQ nur knapp über dem absoluten Gefrierpunkt liegt</item>
+        <item>Homo Sapiens, wie haben die bloß diesen Planeten so schnell kaputt gemacht mit so wenig Hirn.</item>
+        <item>Das zerstörerische Verhalten war wohl keine Absicht, sondern fehlender Überblick.</item>
+        <item>Ob wir ihnen dabei helfen sollten und dann den Planeten von neuem besiedeln?</item>
+        <item>Oh du hörst mir noch zu…ich mache nur Spaß.</item>
     </string-array>
     <string-array name="test_subject_1_riddle_solved_candy">
+        <item>Nur weiter so!</item>
+        <item>Nicht schlecht!</item>
+        <item>Bravo!</item>
+    </string-array>
+
+    <string name="test_subject_2_name">Klugscheißer</string>
+    <string name="test_subject_2_int">Hoffnungslos überschätzt</string>
+    <string-array name="test_subject_2_intro_main">
+        <item>WiseMind ist außer sich…vor Begeisterung</item>
+        <item>Sie meint, sie hätte von Anfang an recht gehabt.</item>
+        <item>Ich allerdings behaupte, du hast nur gelernt, was wir von dir sehen wollten.</item>
+        <item>Uns ist aufgefallen, das du noch gar keine Primzahlen kanntest.</item>
+        <item>Bei uns werden Primzahlen sozusagen mit der Muttermilch aufsogen.</item>
+        <item>Verzeihe die Überschätzung deines Intellekts.</item>
+        <item>°TEST: 2+5=?°</item>
+        <item>°6. FAST KORREKT!!°</item>
+        <item>Seufz. Das kann ja noch was werden.</item>
+    </string-array>
+    <string-array name="test_subject_2_intro_nuts">
+        <item>Übermütige Kommentare und Beleidigungen meinerseits oder von WiseMind sind nur ein Versuch menschlich zu kommunizieren.</item>
+        <item>Aber nun weiter im Protokoll.</item>
+    </string-array>
+    <string-array name="test_subject_2_riddle_solved_candy">
         <item>Kluger Zug!</item>
         <item>Clever!</item>
     </string-array>
@@ -114,11 +159,11 @@
 	
     <string name="riddle_type_dice">Alien-Cube</string>
     <string name="riddle_type_dice_explanation">Berühre ein leeres Feld, damit ein neuer Würfel erscheint. Bewege und kombiniere Würfel gleicher Augenzahl und Farbe, um das Bild aufzudecken.</string>
-	    <string-array name="riddle_type_dice_hints">
+    <string-array name="riddle_type_dice_hints">
 	    <item>Vor kurzem haben wir eine Anomalie bei euch festgestellt: euren irdischen Würfel fehlt eine Dimension. Sie haben fälschlicherweise 6 Seiten, obwohl es 9 sind. Wir testen dein Gedächtnis daher auf Realitätsbasis hinsichtlich Kombination, Zahlen, Taktik, Logik, Farbe, Bewegung, Logistik und Schnelligkeit. Ja, ich halte es auch für einen Fehler, weil dich das ziemlich überfordern wird, aber Befehl ist Befehl. Das komplizierte Experiment in Kürze:\nKombiniere gleiche Augenzahl und Farbe, dadurch entsteht Transparenz in den angezeigten Bereichen. Es gibt fünf Typen: die drei Basiswürfel rot, gelb und grün sowie die Sonderwürfel lila und den Alien Cube. Der Alien-Cube hat auf jeden Basiswürfel unterschiedliche Effekte.</item>
     </string-array>	
 	
-    <string name="riddle_type_jumper">Monster Lauf</string>
+    <string name="riddle_type_jumper">Monstarathon</string>
     <string name="riddle_type_jumper_explanation">Berühre das Feld, um über Hindernisse zu springen und das Bild zu vergrößern. Führe einen Double-Jump aus, um über größere oder längere Hindernisse zu springen.</string>
     <string-array name="riddle_type_jumper_hints">
 	    <item>Ihr Menschen seid merkwürdig. Ein Esel lässt sich mit einer Karotte zum Laufen animieren, bei euch Homo-Sapiens bedarf es einem Bündel Geld, obwohl das nicht mal essbar ist.\nWir haben an einem Geschäftsmann einige Versuche durchgeführt und wollen die Veränderungen in unserem Monster Parcours testen. Vor dem Eingriff mussten wir die Erinnerungen blockieren. Die Blockade lässt sich glücklicherweise durch Bewegungen wieder lösen. Wir haben unserem Kaufmann zu einem Marathon mit einem einfachen Gedanken motivieren können:  "Am Ende des Regenbogens steht ein Topf voller Geld." Zu schade, dass es nachts keinen Regenbogen gibt.</item>
@@ -144,7 +189,7 @@
 
     <string name="game_welcome_positive_confirm">Habs verstanden!</string>
     <string name="game_welcome_postpone">Nicht jetzt…</string>
-    <string name="game_welcome_default_title">Dr. Blu\'s Sprechstunde</string>
+    <string name="game_welcome_default_title">Rd. Gulk\'s Sprechstunde</string>
 
     <string name="handle_error_attempted">Bild nicht vorhanden?! Externen Speicher prüfen!</string>
     <string name="tongue_select_explanation">Sprache für Lösungswörter: %1$s</string>
@@ -298,7 +343,7 @@
     <string name="achievement_jumper_10_name">Öder Anfang</string>
     <string name="achievement_jumper_10_descr">Der Anfang ist dir zu öde? Dann kaufe das passende Upgrade mein Freund.</string>
 	<string name="achievement_jumper_11_name">Naturtalent</string>
-    <string name="achievement_jumper_11_descr">Erreiche in drei aufeinanderfolgenden Spielen mindestens 1000 Meter.</string>
+    <string name="achievement_jumper_11_descr">Erreiche in %1$d aufeinanderfolgenden Spielen mindestens %2$d Meter.</string>
 
     <string name="achievement_misc_category_name">Allgemein</string>
     <string name="achievement_misc_1_name">Schöpfer Namen</string>
