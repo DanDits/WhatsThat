@@ -34,10 +34,12 @@ public class Wallet {
     public WalletEntry assureEntry(String key, int defaultValue) {
         WalletEntry entry = mEntries.get(key);
         if (entry == null) {
-            int loaded = mPrefs.getInt(mName + key, defaultValue);
-            entry = new WalletEntry(key, 0, loaded);
-            mEntries.put(key, entry);
-            mEditor.init(entry).apply();
+            synchronized (this) {
+                int loaded = mPrefs.getInt(mName + key, defaultValue);
+                entry = new WalletEntry(key, 0, loaded);
+                mEntries.put(key, entry);
+                mEditor.init(entry).apply();
+            }
         }
         return entry;
     }

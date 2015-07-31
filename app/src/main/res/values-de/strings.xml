@@ -3,7 +3,7 @@
 <resources>
 
     <string name="store_category_menu">Wichtige Dinge</string>
-    <string name="store_category_shop">Laden</string>
+    <string name="store_category_shop">Laden: %1$d</string>
     <string name="store_category_achievement">Erfolge (+%1$d)</string>
     <string name="store_category_about">Info &amp; Kontakt</string>
     <string name="store_category_donate">Spenden</string>
@@ -39,7 +39,7 @@
         <item>Erdling, ich heiße dich auf einer Reise in die Untiefen deines Geistes willkommen.</item>
         <item>Ich bin Meister Minion Xiaros Blu Equaris Zubatro Venalo der 364k.</item>
         <item>Es reicht aber, wenn du mich ganz zwanglos mit \"Erhabener\" anredest.</item>
-        <item>Achja, das hier ist Rd. Gulk.</item>
+        <item>Achja, das hier ist Dr. Gulk.</item>
         <item>Ihr würdet ihn einen verrückt genialen Wissenschaftler nennen.</item>
         <item>Verrate mir nur vorweg bitte eins: Was bist du für ein Wesen?</item>
         <item>Unsere hochentwickelte Kultur ist darüber zu erhaben, aber euch Menschen ist das ja wichtig.</item>
@@ -422,13 +422,15 @@
     <string name="riddle_type_jumper_explanation">Berühre das Feld, um über Hindernisse zu springen und das Bild zu vergrößern. Führe einen Double-Jump aus, um über größere oder längere Hindernisse zu springen.</string>
     <string-array name="riddle_type_jumper_hints">
 	    <item>Ihr Menschen seid merkwürdig. Ein Esel lässt sich mit einer Karotte zum Laufen animieren, bei euch Homo-Sapiens bedarf es einem Bündel Geld, obwohl das nicht mal essbar ist.\nWir haben an einem Geschäftsmann einige Versuche durchgeführt und wollen die Veränderungen in unserem Monster Parcours testen. Vor dem Eingriff mussten wir die Erinnerungen blockieren. Die Blockade lässt sich glücklicherweise durch Bewegungen wieder lösen. Wir haben unserem Kaufmann zu einem Marathon mit einem einfachen Gedanken motivieren können:  "Am Ende des Regenbogens steht ein Topf voller Geld." Zu schade, dass es nachts keinen Regenbogen gibt.</item>
-    </string-array>	    
+        <item>Wer ist Knuffbuff?</item>
+        <item>Ein mysteriöses Wesen!</item>
+    </string-array>
 	
 	<string name="riddle_type_developer">Entwickler</string>
     <string name="riddle_type_developer_explanation">Hallo ich oder Bruder.</string>
     <string name="panic_dialog_positive">Alles ok</string>
     <string name="panic_ask_type">Wie funktioniert das Rätsel</string>
-    <string name="panic_skip">Bild auslassen…später weitermachen</string>
+    <string name="panic_skip">Bild auslassen… später weitermachen</string>
     <string name="panic_complain">Aaaah, was ist das? Krum und schief! Beschwerde!</string>
     <string name="panic_cannot_skip">Gehirn .. überladen ... kann nicht .. weitere Rätsel . merken ...</string>
 
@@ -452,6 +454,23 @@
     <string name="dependency_required">Benötigt:</string>
     <string name="level_dependency">Level %1$s</string>
     <string name="achievement_achieved">Abgeschlossen</string>
+
+    <string name="article_product_confirm_purchase">Kauf bestätigen: %1$s</string>
+    <string name="article_product_confirm_purchase_too_expensive">Zu teuer: %1$s</string>
+    <string name="article_product_confirm_purchase_dependency_missing">Benötigt: %1$s</string>
+    <string name="article_product_confirm_purchase_unavailable">Kauf nicht möglich</string>
+    <string name="shop_article_free">Kostenlos</string>
+
+    <string name="article_hint_name">Hinweise %1$d/%2$d</string>
+    <string name="article_hint_descr">Weil Dr. Gulk alles besser weiß.</string>
+    <string name="article_hint_not_yet_read">Neuer Hinweis im nächsten Spiel</string>
+
+    <string name="article_circle_divide_by_move_feature_name">Lazor Schneider</string>
+    <string name="article_circle_divide_by_move_feature_descr">Erlaubt Kreise mit dem Finger zu zerschneiden. Sehr entspannend!</string>
+    <string name="article_triangle_divide_by_move_feature_name">Mehr Lazor</string>
+    <string name="article_triangle_divide_by_move_feature_descr">Erlaubt Dreiecke mit dem Finger zu zerschneiden. Noch entspannender!</string>
+
+
 
     <string name="achievement_name_hidden">\?\?\?</string>
     <string name="achievement_descr_undiscovered">\?\?\?</string>
@@ -589,10 +608,10 @@
     <string name="achievement_jumper_5_descr">Gratulation. Du hast mehr als %1$d Hindernisse überwunden.</string>
     <string name="achievement_jumper_6_name">Die Schöpfer schlagen</string>
     <string name="achievement_jumper_6_descr">Wow. Du hast den Rekord meiner Schöpfer geschlagen. Schreibe deinen Rekord mit dem Betreff \"Skyline Rekord\".</string>
-    <string name="achievement_jumper_7_name">Knuffbums Geschichte</string>
-    <string name="achievement_jumper_7_descr">Finde die Wahrheit über Knuffbum heraus.</string>
+    <string name="achievement_jumper_7_name">Knuffbuffs Geschichte</string>
+    <string name="achievement_jumper_7_descr">Finde die Wahrheit über Knuffbuff heraus.</string>
     <string name="achievement_jumper_8_name">Still a better lovestory than twighlight</string>
-    <string name="achievement_jumper_8_descr">Danke, dass du mit Knuffbum geknuddelt hast.</string>
+    <string name="achievement_jumper_8_descr">Danke, dass du mit Knuffbuff geknuddelt hast.</string>
     <string name="achievement_jumper_9_name">Marathon</string>
     <string name="achievement_jumper_9_descr">Ich geh kurz spazieren. Sind ja nur %1$d Meter.</string>
     <string name="achievement_jumper_10_name">Öder Anfang</string>

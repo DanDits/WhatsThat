@@ -8,6 +8,8 @@ import android.util.Log;
 import java.util.ArrayList;
 import java.util.List;
 
+import dan.dit.whatsthat.R;
+import dan.dit.whatsthat.testsubject.TestSubject;
 import dan.dit.whatsthat.testsubject.dependencies.Dependable;
 import dan.dit.whatsthat.testsubject.dependencies.Dependency;
 import dan.dit.whatsthat.util.PercentProgressListener;
@@ -150,13 +152,12 @@ public abstract class Achievement implements AchievementDataEventListener, Depen
         return !mRewardClaimed && isAchieved();
     }
 
-    public int claimReward() {
+    public void claimReward() {
         if (isRewardClaimable()) {
             mRewardClaimed = true;
             mManager.onChanged(this, AchievementManager.CHANGED_GOT_CLAIMED);
-            return mScoreReward;
+            TestSubject.getInstance().addAchievementScore(mScoreReward);
         }
-        return 0;
     }
 
     @Override
@@ -247,5 +248,23 @@ public abstract class Achievement implements AchievementDataEventListener, Depen
 
     public List<Dependency> getDependencies() {
         return mDependencies;
+    }
+
+    public CharSequence buildDependenciesText(Resources res, String separator) {
+        StringBuilder builder = new StringBuilder();
+        builder.append(res.getString(R.string.dependency_required));
+        builder.append(' ');
+        boolean addSeparator = false;
+        for (int i = 0; i < mDependencies.size(); i++) {
+            Dependency dep = mDependencies.get(i);
+            if (!dep.isFulfilled()) {
+                if (addSeparator) {
+                    builder.append(separator);
+                }
+                builder.append(mDependencies.get(i).getName(res));
+                addSeparator = true;
+            }
+        }
+        return builder.toString();
     }
 }

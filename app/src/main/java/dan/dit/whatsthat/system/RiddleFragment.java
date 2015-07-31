@@ -467,7 +467,12 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
                         if (selected != null) {
                             nextCheatedRiddle(selected);
                         } else {
-                            Toast.makeText(getActivity(), "Bild nicht gefunden.", Toast.LENGTH_SHORT).show();
+                            if (value.equalsIgnoreCase("42")) {
+                                TestSubject.getInstance().addAchievementScore(42);
+                                Toast.makeText(getActivity(), "You got rich boy.", Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toast.makeText(getActivity(), "Bild nicht gefunden.", Toast.LENGTH_SHORT).show();
+                            }
                         }
                     }
                 }).setNegativeButton("Abbrechen", new DialogInterface.OnClickListener() {

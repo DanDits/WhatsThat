@@ -32,7 +32,7 @@
         <item>13 Euros</item>
     </string-array>
     <string name="store_category_menu">Important things</string>
-    <string name="store_category_shop">Shop</string>
+    <string name="store_category_shop">Shop: %1$d</string>
     <string name="store_category_achievement">Achievements (+%1$d)</string>
     <string name="store_category_about">About &amp; Contact</string>
     <string name="store_category_donate">Donate</string>
@@ -311,6 +311,21 @@
     <string name="dependency_required">Requires:</string>
     <string name="level_dependency">Level %1$s</string>
     <string name="achievement_achieved">Achieved</string>
+
+    <string name="article_product_confirm_purchase">Confirm purchase: %1$s</string>
+    <string name="article_product_confirm_purchase_too_expensive">Too expensive: %1$s</string>
+    <string name="article_product_confirm_purchase_unavailable">Purchase not possible</string>
+    <string name="shop_article_free">Free</string>
+
+    <string name="article_hint_name">Hints %1$d/%2$d</string>
+    <string name="article_hint_descr">Because Dr. Drams knows everything</string>
+    <string name="article_hint_not_yet_read">New hint available</string>
+
+    <string name="article_circle_divide_by_move_feature_name">Lazor Cutter</string>
+    <string name="article_circle_divide_by_move_feature_descr">Allows dividing of circles by moving the finger. Very relaxing!</string>
+    <string name="article_triangle_divide_by_move_feature_name">More Lazor</string>
+    <string name="article_triangle_divide_by_move_feature_descr">Allows dividing of triangles by moving the finger. Even more relaxing!</string>
+    <string name="shop_article_spent">(-%1$d)</string>
 
     <string-array name="devil_talk_return">
         <item>I\'m back!</item>

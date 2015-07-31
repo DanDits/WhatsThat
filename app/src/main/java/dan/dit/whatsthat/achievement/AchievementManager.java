@@ -68,7 +68,6 @@ public class AchievementManager implements AchievementDataEventListener {
     protected void onChanged(Achievement achievement, int changedHint) {
         if (achievement != null) {
             mChangedAchievements.add(achievement);
-            Log.d("Achievement", "Achievemenet on changed: " + changedHint + ": " + achievement);
             if (changedHint == CHANGED_TO_ACHIEVED) {
                 TestSubject.getInstance().postAchievementAchieved(achievement);
             }

@@ -28,7 +28,6 @@ import dan.dit.whatsthat.riddle.achievement.holders.TypeAchievementHolder;
 import dan.dit.whatsthat.riddle.types.PracticalRiddleType;
 import dan.dit.whatsthat.testsubject.TestSubject;
 import dan.dit.whatsthat.testsubject.TestSubjectRiddleType;
-import dan.dit.whatsthat.testsubject.dependencies.Dependency;
 import dan.dit.whatsthat.util.ui.LinearLayoutProgressBar;
 
 /**
@@ -90,8 +89,7 @@ public class AchievementView extends ExpandableListView implements StoreContaine
 
     private boolean claimReward(Achievement achievement, View toAnimate) {
         if (achievement.isRewardClaimable()) {
-            int claimedScore = achievement.claimReward();
-            TestSubject.getInstance().addAchievementScore(claimedScore);
+            achievement.claimReward();
             Animation anim = AnimationUtils.loadAnimation(getContext(), R.anim.reward_claimed);
             toAnimate.startAnimation(anim);
             anim.setAnimationListener(new Animation.AnimationListener() {
@@ -239,22 +237,7 @@ public class AchievementView extends ExpandableListView implements StoreContaine
                 }
             } else {
                 descr.setTextColor(Color.RED);
-                StringBuilder builder = new StringBuilder();
-                builder.append(getResources().getString(R.string.dependency_required));
-                builder.append(' ');
-                List<Dependency> deps = achievement.getDependencies();
-                boolean addSeparator = false;
-                for (int i = 0; i < deps.size(); i++) {
-                    Dependency dep = deps.get(i);
-                    if (!dep.isFulfilled()) {
-                        if (addSeparator) {
-                            builder.append(", ");
-                        }
-                        builder.append(deps.get(i).getName(getResources()));
-                        addSeparator = true;
-                    }
-                }
-                descr.setText(builder.toString());
+                descr.setText(achievement.buildDependenciesText(getResources(), ", "));
             }
 
             TextView reward = (TextView) convertView.findViewById(R.id.achievement_reward);
