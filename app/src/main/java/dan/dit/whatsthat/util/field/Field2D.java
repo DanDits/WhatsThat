@@ -7,6 +7,7 @@ import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -30,7 +31,7 @@ public class Field2D<FE extends FieldElement> implements Iterable<FE> {
     private float mFieldWidth;
     private float mFieldHeight;
     private FE[][] mFieldElements; //[0][0] top left corner, [3][1] fourth row, second column
-    private Queue<FieldElement> mPathfindingNodes;
+    private Queue<FE> mPathfindingNodes;
     private Paint mClearPaint;
     private Rect mFieldRect;
 
@@ -64,10 +65,15 @@ public class Field2D<FE extends FieldElement> implements Iterable<FE> {
     public void drawField(Canvas canvas) {
         canvas.drawPaint(mClearPaint);
         for (FE e : this) {
-            final int padding = 1;
-            mFieldRect.set((int) (mFieldWidth * e.mX) + padding, (int) (mFieldHeight * e.mY) + padding, (int) (mFieldWidth * e.mX + mFieldWidth) - padding, (int) (mFieldHeight * e.mY + mFieldHeight) - padding);
+            setFieldRect(mFieldRect, e);
             e.draw(canvas, mFieldRect);
         }
+    }
+
+    public Rect setFieldRect(Rect rect, FE fieldElement) {
+        final int padding = 1;
+        rect.set((int) (mFieldWidth * fieldElement.mX) + padding, (int) (mFieldHeight * fieldElement.mY) + padding, (int) (mFieldWidth * fieldElement.mX + mFieldWidth) - padding, (int) (mFieldHeight * fieldElement.mY + mFieldHeight) - padding);
+        return rect;
     }
 
     public FE travelDirection(FieldElement field1, FieldElement field2) {
@@ -100,7 +106,7 @@ public class Field2D<FE extends FieldElement> implements Iterable<FE> {
         return mFieldElements[y][x];
     }
 
-    public int isReachable(FieldElement fromField, FieldElement target, FieldElement.Neighbor[] neighborTypes) {
+    public int isReachable(FE fromField, FieldElement target, FieldElement.Neighbor[] neighborTypes) {
         if (fromField.equals(target)) {
             return 0;
         }
@@ -121,24 +127,44 @@ public class Field2D<FE extends FieldElement> implements Iterable<FE> {
             for (FieldElement.Neighbor n : neighborTypes) {
 
                 if (hasNeighbor(currField, n)) {
-                    FieldElement nextField = getNeighbor(currField, n);
+                    FE nextField = getNeighbor(currField, n);
                     if (nextField.equals(target)) {
                         return currField.mPathfindingValue;
                     }
-                    reachNextField(nextField, currField.mPathfindingValue + 1);
+                    if (nextField.mPathfindingValue == 0 && !nextField.isBlocked()) {
+                        // field not yet reached and
+                        // the next field is not blocked, go on
+                        mPathfindingNodes.add(nextField);
+                        nextField.mPathfindingValue = currField.mPathfindingValue + 1;
+                    }
                 }
             }
         } while (!mPathfindingNodes.isEmpty());
         return -1;
     }
 
-    private void reachNextField(FieldElement nextField, int pathfindingValue) {
-        if (nextField.mPathfindingValue == 0 && !nextField.isBlocked()) {
-            // field not yet reached and
-            // the next field is not blocked, go on
-            mPathfindingNodes.add(nextField);
-            nextField.mPathfindingValue = pathfindingValue;
+    public List<FE> findPath(FE fromField, FE target, FieldElement.Neighbor[] neighborTypes) {
+        int pathLength = isReachable(fromField, target, neighborTypes);
+        if (pathLength == -1) {
+            return null;
         }
+        List<FE> path = new ArrayList<>(pathLength);
+        FE curr = target;
+        path.add(curr);
+        for (int i = 0; i < pathLength; i++) {
+            for (FieldElement.Neighbor neighbor : neighborTypes) {
+                if (hasNeighbor(curr, neighbor)) {
+                    FE currNeighbor = getNeighbor(curr, neighbor);
+                    if (currNeighbor.mPathfindingValue == pathLength - i) {
+                        curr = currNeighbor;
+                        path.add(curr);
+                        break;
+                    }
+                }
+            }
+        }
+        Collections.reverse(path);
+        return path;
     }
 
     public FE getNeighbor(FieldElement field, FieldElement.Neighbor neighbor) {

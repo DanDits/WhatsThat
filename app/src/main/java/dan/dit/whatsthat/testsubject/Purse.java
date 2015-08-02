@@ -1,7 +1,6 @@
 package dan.dit.whatsthat.testsubject;
 
 import android.content.Context;
-import android.util.Log;
 
 import dan.dit.whatsthat.riddle.types.PracticalRiddleType;
 import dan.dit.whatsthat.testsubject.wallet.Wallet;
@@ -34,7 +33,6 @@ public class Purse {
                 mScoreWallet.getEntryValue(SW_KEY_SOLVED_RIDDLE_SCORE)
                 + mScoreWallet.getEntryValue(SW_KEY_ACHIEVEMENT_SCORE)
                 - mScoreWallet.getEntryValue(SW_KEY_SPENT_SCORE);
-        Log.d("HomeStuff", "Getting current score: " + score);
         return score;
     }
 

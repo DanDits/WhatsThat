@@ -425,9 +425,16 @@
         <item>Wer ist Knuffbuff?</item>
         <item>Ein mysteriöses Wesen!</item>
     </string-array>
-	
+
+    <string name="riddle_type_memory">Memory</string>
+    <string name="riddle_type_memory_explanation">Finde Paare von gleichen Bildern.</string>
+    <string-array name="riddle_type_memory_hints">
+        <item>Memory ist cool.</item>
+    </string-array>
+
 	<string name="riddle_type_developer">Entwickler</string>
     <string name="riddle_type_developer_explanation">Hallo ich oder Bruder.</string>
+
     <string name="panic_dialog_positive">Alles ok</string>
     <string name="panic_ask_type">Wie funktioniert das Rätsel</string>
     <string name="panic_skip">Bild auslassen… später weitermachen</string>

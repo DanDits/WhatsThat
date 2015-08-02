@@ -11,6 +11,8 @@ import android.view.Gravity;
 import com.github.johnpersano.supertoasts.SuperToast;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -234,9 +236,10 @@ public class TestSubject {
         if (newLevel == LEVEL_0_KID_STUPID) {
             addNewType(PracticalRiddleType.CIRCLE_INSTANCE);
             addNewType(PracticalRiddleType.SNOW_INSTANCE);
-            //addNewType(PracticalRiddleType.TRIANGLE_INSTANCE);
+            addNewType(PracticalRiddleType.TRIANGLE_INSTANCE);
             addNewType(PracticalRiddleType.DICE_INSTANCE);
             addNewType(PracticalRiddleType.JUMPER_INSTANCE);
+            addNewType(PracticalRiddleType.MEMORY_INSTANCE);
             addNewType(PracticalRiddleType.DEVELOPER_INSTANCE);
         }
     }
@@ -426,6 +429,34 @@ public class TestSubject {
 
     public Dependency makeProductPurchasedDependency(String articleKey, int productIndex) {
         return new ProductPurchasedDependency(mShopArticleHolder.getArticle(articleKey), productIndex);
+    }
+
+    private static final Comparator<PracticalRiddleType> TYPE_COMPARATOR = new Comparator<PracticalRiddleType>() {
+        @Override
+        public int compare(PracticalRiddleType t1, PracticalRiddleType t2) {
+            if (t1.equals(t2)) {
+                return 0;
+            } else if (TestSubject.isInitialized()) {
+                List<TestSubjectRiddleType> sortedTypes = TestSubject.getInstance().mTypes;
+                int index = 0;
+                int pos1 = 0;
+                int pos2 = 0;
+                for (TestSubjectRiddleType type : sortedTypes) {
+                    if (type.getType().equals(t1)) {
+                        pos1 = index;
+                    } else if (type.getType().equals(t2)) {
+                        pos2 = index;
+                    }
+                    index++;
+                }
+                return pos1 - pos2;
+            } else {
+                return t1.getFullName().compareTo(t2.getFullName());
+            }
+        }
+    };
+    public static void sortTypes(List<PracticalRiddleType> types) {
+        Collections.sort(types, TYPE_COMPARATOR);
     }
 
     private static class ProductPurchasedDependency extends Dependency {

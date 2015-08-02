@@ -1,0 +1,903 @@
+package dan.dit.whatsthat.riddle.games;
+
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffXfermode;
+import android.graphics.RectF;
+import android.support.annotation.NonNull;
+import android.util.Log;
+import android.view.MotionEvent;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Random;
+
+import dan.dit.whatsthat.R;
+import dan.dit.whatsthat.achievement.AchievementProperties;
+import dan.dit.whatsthat.image.Image;
+import dan.dit.whatsthat.riddle.Riddle;
+import dan.dit.whatsthat.riddle.RiddleConfig;
+import dan.dit.whatsthat.riddle.achievement.AchievementDataRiddleType;
+import dan.dit.whatsthat.riddle.achievement.holders.AchievementSnow;
+import dan.dit.whatsthat.util.PercentProgressListener;
+import dan.dit.whatsthat.util.compaction.CompactedDataCorruptException;
+import dan.dit.whatsthat.util.compaction.Compacter;
+import dan.dit.whatsthat.util.flatworld.collision.GeneralHitboxCollider;
+import dan.dit.whatsthat.util.flatworld.collision.Hitbox;
+import dan.dit.whatsthat.util.flatworld.collision.HitboxCircle;
+import dan.dit.whatsthat.util.flatworld.effects.WorldEffect;
+import dan.dit.whatsthat.util.flatworld.look.Frames;
+import dan.dit.whatsthat.util.flatworld.look.Look;
+import dan.dit.whatsthat.util.flatworld.look.NinePatchLook;
+import dan.dit.whatsthat.util.flatworld.mover.HitboxMoonMover;
+import dan.dit.whatsthat.util.flatworld.mover.HitboxNewtonFrictionMover;
+import dan.dit.whatsthat.util.flatworld.mover.HitboxNoMover;
+import dan.dit.whatsthat.util.flatworld.world.Actor;
+import dan.dit.whatsthat.util.flatworld.world.FlatRectWorld;
+import dan.dit.whatsthat.util.flatworld.world.FlatWorldCallback;
+import dan.dit.whatsthat.util.image.BitmapUtil;
+import dan.dit.whatsthat.util.image.ImageUtil;
+
+/**
+ * Created by daniel on 15.04.15.
+ */
+public class RiddleSnow extends RiddleGame implements FlatWorldCallback {
+    private static final float STATE_DELTA_ON_IDEA_CHILD_COLLECT_WITH_ACTIVE_DEVIL = 0.1f;
+    private static final float STATE_DELTA_ON_IDEA_CHILD_COLLECT = 0.25f;
+    private static final int STATE_DELTA_ON_WALL_EXPLOSION = 2;
+    private static final long MOVEMENT_PERIOD = 8L;
+    private static final float SNOWBALL_BASE_START_FRACTION = 1.f/4.f;
+    private static final float GRAVITY = 400.f; //dp
+    private static final float SNOWBALL_SCREENSIZE_MAX_FRACTION = 1.f / 3.f;
+    private static final float BORDER_WIDTH = 3f;
+    private static final float IDEA_COLLECTION_RADIUS_BASE = 21;
+    public static final int IDEAS_REQUIRED_FOR_MAX_SIZE = 10;
+    private static final long RELOAD_RIDDLE_BLOCK_DURATION = 2000L; //ms
+    private static final long EXPLOSION_DELAY = 3000; //ms
+    private static final long TOUCH_GRAVITY_FULL_EFFECT_DELAY = 500; //ms
+    private static final double EXPLOSION_HIT_WALL_FRACTION = 0.4;
+    private static final double SNOW_EXPLOSION_SIZE_MULTIPLIER = 2.0;
+    private static final float CRASHED_WALL_BIGGER_SPEED_MULTIPLIER = 1.5f;
+    private static final float CRASHED_WALL_SMALL_SPEED_MULTIPLIER = 0.5f;
+    private static final float EXPLOSION_SPEED_MULTIPLIER = 10.f;
+    private static final float DEVIL_RADIUS_FRACTION_OF_CELL_MAX_RADIUS = 0.25f;
+    public static final boolean DEFAULT_DEVIL_IS_VISIBLE = true;
+
+    private long mReloadRiddleMoveBlockDuration;
+
+    private Bitmap mBackgroundSnow;
+    private Bitmap mFogLayer;
+    private Canvas mFogLayerCanvas;
+    private Bitmap[] mFullExplosion;
+    private Paint mExplosionPaint;
+    private FlatRectWorld mWorld;
+
+    private float mGravity;
+    private float mRiddleOffsetX;
+    private float mRiddleOffsetY;
+    private Paint mBorderPaint;
+    private Random mRand;
+    private boolean mFeatureTouchGravity;
+    private long mTouchGravityStartPressTime;
+    private float mTouchGravityPressX;
+    private float mTouchGravityPressY;
+    private Canvas mBackgroundSnowCanvas;
+    private boolean mTouchGravityIsPressed;
+    private List<Float> mExplosionHistoryX;
+    private List<Float> mExplosionHistoryY;
+    private List<Integer> mExplosionHistoryType;
+    private List<Integer> mExplosionHistorySize;
+    private Paint mClearPaint;
+    private Cell mCell;
+    private Idea mIdea;
+    private Devil mDevil;
+    private long mIdleTimeCounter;
+
+    public RiddleSnow(Riddle riddle, Image image, Bitmap bitmap, Resources res, RiddleConfig config, PercentProgressListener listener) {
+        super(riddle, image, bitmap, res, config, listener);
+    }
+
+    @Override
+    public synchronized void onClose() {
+        super.onClose();
+        mWorld = null;
+        mBackgroundSnow = null;
+        mBorderPaint = null;
+        mRand = null;
+        mBackgroundSnowCanvas = null;
+        mFogLayer = null;
+        mFogLayerCanvas = null;
+        mFullExplosion = null;
+        mExplosionPaint = null;
+        mExplosionHistoryX = null;
+        mExplosionHistoryY = null;
+        mExplosionHistorySize = null;
+        mExplosionHistoryType = null;
+        mClearPaint = null;
+    }
+
+    @Override
+    public synchronized void draw(Canvas canvas) {
+        if (!isNotClosed()) {
+            return;
+        }
+        canvas.drawBitmap(mBackgroundSnow, 0, 0, null);
+        mWorld.draw(canvas, null);
+        canvas.drawRect(BORDER_WIDTH / 2.f, BORDER_WIDTH / 2.f, mConfig.mWidth - BORDER_WIDTH / 2.f, mConfig.mHeight - BORDER_WIDTH / 2.f, mBorderPaint);
+    }
+
+
+    @Override
+    protected void initBitmap(Resources res, PercentProgressListener listener) {
+        mWorld = new FlatRectWorld(new RectF(0, 0, mConfig.mWidth, mConfig.mHeight), new GeneralHitboxCollider(), this);
+        mRand = new Random();
+        mClearPaint = new Paint();
+        mClearPaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.CLEAR));
+        mBorderPaint = new Paint();
+        mBorderPaint.setStyle(Paint.Style.STROKE);
+        mBorderPaint.setStrokeWidth(BORDER_WIDTH);
+        mBorderPaint.setColor(Color.BLACK);
+        mRiddleOffsetX = (mConfig.mWidth - mBitmap.getWidth()) / 2.f;
+        mRiddleOffsetY = (mConfig.mHeight - mBitmap.getHeight()) / 2.f;
+
+        listener.onProgressUpdate(30);
+        mGravity = ImageUtil.convertDpToPixel(GRAVITY, mConfig.mScreenDensity);
+        mFogLayer = ImageUtil.loadBitmapStrict(res, R.drawable.nebel, mConfig.mWidth, mConfig.mHeight);
+        mFogLayer.setHasAlpha(true);
+        mFogLayerCanvas = new Canvas(mFogLayer);
+        mBackgroundSnow = Bitmap.createBitmap(mConfig.mWidth, mConfig.mHeight, mBitmap.getConfig());
+        mBackgroundSnow.setHasAlpha(true);
+        mBackgroundSnowCanvas = new Canvas(mBackgroundSnow);
+        drawBackground();
+        listener.onProgressUpdate(50);
+        mIdleTimeCounter = AchievementSnow.Achievement7.IDLE_TIME_PASSED;
+        Compacter currentStateData = getCurrentState();
+        long moonYearStart = Devil.SURROUND_CELL_DURATION_START;
+        boolean devilVisible = DEFAULT_DEVIL_IS_VISIBLE;
+        if (currentStateData != null) {
+            mReloadRiddleMoveBlockDuration = RELOAD_RIDDLE_BLOCK_DURATION;
+            if (currentStateData.getSize() >= 6) {
+                try {
+                    if (mConfig.mWidth == currentStateData.getInt(0) && mConfig.mHeight == currentStateData.getInt(1)) {
+                        initCell(res, currentStateData.getFloat(2), currentStateData.getFloat(3), currentStateData.getFloat(4));
+
+                    }
+                    moonYearStart = currentStateData.getLong(5);
+                    devilVisible = currentStateData.getBoolean(6);
+                } catch (CompactedDataCorruptException e) {
+                    currentStateData = null;
+                }
+            }
+        }
+        listener.onProgressUpdate(60);
+        if (currentStateData == null) {
+            Log.d("Riddle", "Initializing new SnowRiddle.");
+            mReloadRiddleMoveBlockDuration = 0L;
+
+            initCell(res, mConfig.mWidth / 2.f, mConfig.mHeight / 2.f, 0.f);
+            listener.onProgressUpdate(70);
+        }
+
+        initIdea(res);
+        initDevil(res, moonYearStart, devilVisible);
+        nextIdea();
+
+        int explosionSize = (int) (2 * mCell.mMaxRadius * SNOW_EXPLOSION_SIZE_MULTIPLIER);
+        mFullExplosion = new Bitmap[5];
+        mFullExplosion[0] = ImageUtil.loadBitmap(res, R.drawable.explosion1, explosionSize, explosionSize, false);
+        mFullExplosion[1] = ImageUtil.loadBitmap(res, R.drawable.explosion2, explosionSize, explosionSize, false);
+        mFullExplosion[2] = ImageUtil.loadBitmap(res, R.drawable.explosion3, explosionSize, explosionSize, false);
+        mFullExplosion[3] = ImageUtil.loadBitmap(res, R.drawable.explosion4, explosionSize, explosionSize, false);
+        mFullExplosion[4] = ImageUtil.loadBitmap(res, R.drawable.explosion5, explosionSize, explosionSize, false);
+        mExplosionPaint = new Paint();
+        mExplosionPaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.DST_OUT));
+
+        listener.onProgressUpdate(80);
+        mExplosionHistoryX = new ArrayList<>();
+        mExplosionHistoryY = new ArrayList<>();
+        mExplosionHistorySize = new ArrayList<>();
+        mExplosionHistoryType = new ArrayList<>();
+        if (currentStateData != null) {
+            for (int i = 8; i + 3 < currentStateData.getSize(); i+=4) {
+                try {
+                    drawExplosion(currentStateData.getFloat(i), currentStateData.getFloat(i + 1), currentStateData.getInt(i + 2), currentStateData.getInt(i + 3));
+                } catch (CompactedDataCorruptException e) {
+                    Log.e("Riddle", "Corrupt data when reconstructing snow: " + e);
+                }
+            }
+        }
+
+        listener.onProgressUpdate(100);
+        Log.d("Riddle", "Snow riddle init done.");
+    }
+
+    private void initCell(Resources res, float x, float y, float radius) {
+        float maxRadius = (Math.min(mConfig.mWidth, mConfig.mHeight) / 2.f * SNOWBALL_SCREENSIZE_MAX_FRACTION);
+        int dim = (int) (maxRadius * 2);
+        Bitmap[] explosive = new Bitmap[] {
+                ImageUtil.loadBitmapStrict(res, R.drawable.zelle_explosion_1, dim, dim),
+                ImageUtil.loadBitmapStrict(res, R.drawable.zelle_explosion_2, dim, dim)};
+        float startRadius = maxRadius * SNOWBALL_BASE_START_FRACTION;
+        float currRadius = startRadius;
+        if (radius >= startRadius) {
+            currRadius = radius;
+        }
+        Bitmap maxCell = ImageUtil.loadBitmapStrict(res, R.drawable.zelle, dim, dim);
+        mCell = Cell.make(x, y, currRadius, maxCell, explosive, startRadius, maxRadius);
+        mWorld.addActor(mCell);
+    }
+
+    private void initIdea(Resources res) {
+        float radius = ImageUtil.convertDpToPixel(IDEA_COLLECTION_RADIUS_BASE, mConfig.mScreenDensity);
+        int size = 2 * (int) radius;
+        Bitmap imageCandy = ImageUtil.loadBitmap(res, R.drawable.idea_candy, size, size, true);
+        Bitmap imageToxic = ImageUtil.loadBitmap(res, R.drawable.idea_toxic, size, size, true);
+        Bitmap[] imageChildren = new Bitmap[] {
+                ImageUtil.loadBitmap(res, R.drawable.spike1, (int) (size * IdeaChild.PARENT_RADIUS_FRACTION), (int) (size * IdeaChild.PARENT_RADIUS_FRACTION), true),
+                ImageUtil.loadBitmap(res, R.drawable.spike2, (int) (size * IdeaChild.PARENT_RADIUS_FRACTION), (int) (size * IdeaChild.PARENT_RADIUS_FRACTION), true),
+                ImageUtil.loadBitmap(res, R.drawable.spike3, (int) (size * IdeaChild.PARENT_RADIUS_FRACTION), (int) (size * IdeaChild.PARENT_RADIUS_FRACTION), true),
+                ImageUtil.loadBitmap(res, R.drawable.spike4, (int) (size * IdeaChild.PARENT_RADIUS_FRACTION), (int) (size * IdeaChild.PARENT_RADIUS_FRACTION), true),
+        };
+        mIdea = makeIdea(0, 0, radius, imageCandy, imageToxic, imageChildren);
+        mWorld.addActor(mIdea);
+    }
+
+    private void initDevil(Resources res, long startMoonYear, boolean devilVisible) {
+        float radius = mCell.mMaxRadius * DEVIL_RADIUS_FRACTION_OF_CELL_MAX_RADIUS;
+        Bitmap image = ImageUtil.loadBitmap(res, R.drawable.angel, 2 * (int) radius, 2 * (int) radius, true);
+        mDevil = makeDevil(mCell, 0, 0, radius, image, startMoonYear, res);
+        if (devilVisible) {
+            mDevil.onAppear();
+        } else {
+            mDevil.onLeaveWorld();
+        }
+        mWorld.addActor(mDevil);
+    }
+
+    private void nextIdea() {
+        final int tries = 5;
+        int count = 0;
+        do {
+            mWorld.setRandomPositionInside(mIdea, mRand);
+            count++;
+        } while (count < tries && mWorld.getCollider().checkCollision(mIdea.getHitbox(), mCell.getHitbox())); // try to get it in some distance, not too important
+    }
+
+    @Override
+    public long getPeriodicEventPeriod() {
+        return MOVEMENT_PERIOD;
+    }
+
+    private void needForSpeed() {
+        float cellX = mCell.getHitbox().getCenterX();
+        float cellY = mCell.getHitbox().getCenterY();
+        if (mFeatureTouchGravity && mTouchGravityIsPressed && (mTouchGravityPressX != cellX || mTouchGravityPressY != cellY)) {
+            float gravityFraction = Math.min(1.0f, (System.currentTimeMillis() - mTouchGravityStartPressTime) / ((float) TOUCH_GRAVITY_FULL_EFFECT_DELAY));
+            double angleBetweenTouchAndSnow = Math.atan2(cellY - mTouchGravityPressY, cellX - mTouchGravityPressX);
+            float forceX = - gravityFraction * mGravity * (float) Math.cos(angleBetweenTouchAndSnow);
+            float forceY = - gravityFraction * mGravity * (float) Math.sin(angleBetweenTouchAndSnow);
+            mCell.updateFrictionAndAccel(forceX, forceY, 0.f);
+        }
+        updateSpeedAchievementData();
+    }
+
+    private void updateSpeedAchievementData() {
+        AchievementDataRiddleType typeData = mConfig.mAchievementTypeData;
+        if (typeData != null) {
+            typeData.putValue(AchievementSnow.KEY_TYPE_MAX_SPEED, (long) mCell.getSpeed(), AchievementSnow.CELL_SPEED_REQUIRED_DELTA);
+        }
+    }
+
+    private void drawExplosion(float explosionCenterX, float explosionCenterY, int explosionSize, int explosionType) {
+        mExplosionHistoryX.add(explosionCenterX);
+        mExplosionHistoryY.add(explosionCenterY);
+        mExplosionHistorySize.add(explosionSize);
+        mExplosionHistoryType.add(explosionType);
+        Bitmap explosionImage;
+        if (explosionSize >= 2 * mCell.mMaxRadius * SNOW_EXPLOSION_SIZE_MULTIPLIER) {
+            // full explosion
+            explosionImage = mFullExplosion[explosionType];
+        } else {
+            explosionImage = BitmapUtil.resize(mFullExplosion[explosionType], explosionSize, explosionSize);
+        }
+        mFogLayerCanvas.drawBitmap(explosionImage, explosionCenterX - explosionImage.getWidth() / 2.f, explosionCenterY - explosionImage.getHeight() / 2.f, mExplosionPaint);
+        drawBackground();
+    }
+
+    private synchronized void drawBackground() {
+        mBackgroundSnowCanvas.drawPaint(mClearPaint);
+        mBackgroundSnowCanvas.drawBitmap(mBitmap, mRiddleOffsetX, mRiddleOffsetY, null);
+        mBackgroundSnowCanvas.drawBitmap(mFogLayer, 0, 0, null);
+    }
+
+    @Override
+    public boolean onPeriodicEvent() {
+        mReloadRiddleMoveBlockDuration -= MOVEMENT_PERIOD;
+        if (mIdleTimeCounter > 0L) {
+            mIdleTimeCounter -= MOVEMENT_PERIOD;
+        }
+        if (mReloadRiddleMoveBlockDuration > 0L) {
+            return false; // wait some time after loading existing riddle so we don't crash immediately
+        }
+        if (mIdleTimeCounter <= 0L && mConfig.mAchievementGameData != null && mIdleTimeCounter != Long.MIN_VALUE) {
+            mIdleTimeCounter = Long.MIN_VALUE;
+            mConfig.mAchievementGameData.increment(AchievementSnow.Achievement7.KEY_IDLE_TIME_PASSED, 1L, 0L);
+        }
+        mWorld.update(MOVEMENT_PERIOD);
+        needForSpeed();
+        if (mCell.updateAndCheckExplosionTimer()) {
+            onExplosion(false);
+        }
+        return mReloadRiddleMoveBlockDuration <= 0L;
+    }
+
+    @Override
+    public boolean onOrientationEvent(float azimuth, float pitch, float roll) {
+        // forceX/Y in screen coordinate space
+        float forceX = mGravity * (float) Math.sin(roll);
+        float forceY = -mGravity * (float) Math.sin(pitch);
+        mCell.updateFrictionAndAccel(forceX, forceY, 3.f / 4.f);
+        return false; // we draw periodically and not on orientation event
+    }
+
+    @Override
+    public boolean onMotionEvent(MotionEvent event) {
+        if (event.getActionMasked() == MotionEvent.ACTION_DOWN) {
+            mDevil.checkIfMocked(event.getX(), event.getY());
+        }
+        if (mFeatureTouchGravity && event.getActionMasked() == MotionEvent.ACTION_DOWN) {
+            mTouchGravityStartPressTime = System.currentTimeMillis();
+            mTouchGravityPressX = event.getX();
+            mTouchGravityPressY = event.getY();
+            mTouchGravityIsPressed = true;
+        } else if (mFeatureTouchGravity && event.getActionMasked() == MotionEvent.ACTION_MOVE) {
+            mTouchGravityPressX = event.getX();
+            mTouchGravityPressY = event.getY();
+        } else if (event.getActionMasked() == MotionEvent.ACTION_UP) {
+            mTouchGravityIsPressed = false;
+            mCell.updateFrictionAndAccel(0, 0, 0);
+        }
+        return false;
+    }
+
+    @Override
+    public void enableNoOrientationSensorAlternative() {
+        mFeatureTouchGravity = true;
+    }
+
+    @NonNull
+    @Override
+    protected String compactCurrentState() {
+        Compacter cmp = new Compacter();
+        cmp.appendData(mConfig.mWidth);
+        cmp.appendData(mConfig.mHeight);
+        cmp.appendData(mCell.getHitbox().getCenterX());
+        cmp.appendData(mCell.getHitbox().getCenterY());
+        cmp.appendData(mCell.mHitboxCircle.getRadius());
+        cmp.appendData(mDevil.getMooonYear());
+        cmp.appendData(mDevil.isActive());
+        cmp.appendData(""); // in case we need the slot
+        Iterator<Float> xIt = mExplosionHistoryX.iterator();
+        Iterator<Float> yIt = mExplosionHistoryY.iterator();
+        Iterator<Integer> sizeIt = mExplosionHistorySize.iterator();
+        Iterator<Integer> typeIt = mExplosionHistoryType.iterator();
+        while (xIt.hasNext()) {
+            cmp.appendData(xIt.next());
+            cmp.appendData(yIt.next());
+            cmp.appendData(sizeIt.next());
+            cmp.appendData(typeIt.next());
+        }
+        return cmp.compact();
+    }
+
+    @Override
+    protected int calculateGainedScore() {
+        return RiddleGame.DEFAULT_SCORE;
+    }
+
+    @Override
+    protected Bitmap makeSnapshot() {
+        Bitmap snapshot = Bitmap.createScaledBitmap(mBitmap, RiddleGame.SNAPSHOT_WIDTH, RiddleGame.SNAPSHOT_HEIGHT, false);
+        Canvas canvas = new Canvas(snapshot);
+        Bitmap overlay = Bitmap.createScaledBitmap(mBackgroundSnow, RiddleGame.SNAPSHOT_WIDTH, RiddleGame.SNAPSHOT_HEIGHT, false);
+        canvas.drawBitmap(overlay, 0, 0, null);
+        float fractionX = RiddleGame.SNAPSHOT_WIDTH / (float) mConfig.mWidth;
+        float fractionY = RiddleGame.SNAPSHOT_HEIGHT / (float) mConfig.mHeight;
+        RectF cellHitbox = mCell.getHitbox().getBoundingRect();
+        Bitmap snow = Bitmap.createScaledBitmap(mCell.mMaxCell, (int) (fractionX * cellHitbox.width()),
+                (int) (fractionY * cellHitbox.height()), false);
+        canvas.drawBitmap(snow, (int) (cellHitbox.left * fractionX), (int) (cellHitbox.top * fractionY), null);
+        return snapshot;
+    }
+
+    @Override
+    protected void initAchievementData() {
+
+    }
+
+    @Override
+    public void onReachedEndOfWorld(Actor columbus, float x, float y, int borderFlags) {
+        boolean collisionLeft = (borderFlags & FlatRectWorld.BORDER_FLAG_LEFT) != 0;
+        boolean collisionRight = (borderFlags & FlatRectWorld.BORDER_FLAG_RIGHT) != 0;
+        boolean collisionTop = (borderFlags & FlatRectWorld.BORDER_FLAG_TOP) != 0;
+        boolean collisionBottom = (borderFlags & FlatRectWorld.BORDER_FLAG_BOTTOM) != 0;
+        if (columbus == mDevil) {
+            mDevil.onTouchedOutside();
+            return;
+        }
+        if (columbus != mCell) {
+            return;
+        }
+        if (mConfig.mAchievementGameData != null) {
+            mConfig.mAchievementGameData.putValues(AchievementSnow.KEY_GAME_COLLISION_SPEED, (long) mCell.getSpeed(), AchievementProperties.UPDATE_POLICY_ALWAYS,
+                    AchievementSnow.KEY_GAME_PRE_COLLISION_CELL_STATE, (long) mCell.getState(), AchievementProperties.UPDATE_POLICY_ALWAYS,
+                    null, 0L, 0L);
+        }
+        mCell.applyWallPhysics(mWorld, collisionLeft, collisionTop, collisionRight, collisionBottom);
+        if (mConfig.mAchievementGameData != null) {
+            mConfig.mAchievementGameData.increment(AchievementSnow.KEY_GAME_COLLISION_COUNT, 1L, AchievementProperties.UPDATE_POLICY_ALWAYS);
+        }
+        onExplosion(true);
+    }
+
+    private void onExplosion(boolean hitWall) {
+        float radius = mCell.mHitboxCircle.getRadius();
+        float explosionX = mCell.getHitbox().getCenterX();
+        float explosionY = mCell.getHitbox().getCenterY();
+        if (mCell.onExplosion(hitWall, mDevil)) {
+            updateCellStateAchievementData();
+
+            int explosionSize = (int) (1 + SNOW_EXPLOSION_SIZE_MULTIPLIER * 2 * radius * (hitWall ? EXPLOSION_HIT_WALL_FRACTION : 1.f));
+            int explosionIndex = mRand.nextInt(mFullExplosion.length);
+            if (mConfig.mAchievementGameData != null) {
+                if (hitWall) {
+                    mConfig.mAchievementGameData.increment(AchievementSnow.KEY_GAME_WALL_EXPLOSION, 1L, 0L);
+                } else {
+                    mConfig.mAchievementGameData.increment(AchievementSnow.KEY_GAME_BIG_EXPLOSION, 1L, 0L);
+                }
+            }
+            drawExplosion(explosionX, explosionY, explosionSize, explosionIndex);
+            updateSpeedAchievementData();
+        }
+    }
+
+    @Override
+    public void onLeftWorld(Actor jesus, int borderFlags) {
+        jesus.onLeaveWorld();
+    }
+
+    @Override
+    public void onCollision(Actor colliding1, Actor colliding2) {
+        if (checkCollisionPair(colliding1, colliding2, mCell, mIdea)) {
+            if (mConfig.mAchievementGameData != null) {
+                mConfig.mAchievementGameData.increment(AchievementSnow.KEY_GAME_IDEAS_COLLECTED, 1, 0);
+            }
+            mCell.onCollectIdea();
+            mDevil.onCellCollectIdea();
+            updateCellStateAchievementData();
+            nextIdea();
+        } else if (checkCollisionPair(colliding1, colliding2, mDevil, mIdea)) {
+            if (mConfig.mAchievementGameData != null) {
+                mConfig.mAchievementGameData.increment(AchievementSnow.KEY_GAME_ANGEL_COLLECTED_IDEA, 1L, 0L);
+            }
+            mDevil.onCollectIdea();
+            nextIdea();
+        } else if (((colliding1 == mCell && colliding2.onCollision(mCell)))
+                    || (colliding2 == mCell && colliding1.onCollision(mCell))) {
+            if (mConfig.mAchievementGameData != null) {
+                mConfig.mAchievementGameData.increment(AchievementSnow.KEY_GAME_CELL_COLLECTED_SPORE, 1L, 0L);
+            }
+            updateCellStateAchievementData();
+        } else if (((colliding1 == mDevil && colliding2.onCollision(mDevil)))
+                || (colliding2 == mDevil && colliding1.onCollision(mDevil))) {
+        }
+    }
+
+    private static boolean checkCollisionPair(Actor colliding1, Actor colliding2, Actor toCheck1, Actor toCheck2) {
+        return (colliding1 == toCheck1 && colliding2 == toCheck2) || (colliding1 == toCheck2 && colliding2 == toCheck1);
+    }
+
+    private void updateCellStateAchievementData() {
+        if (mConfig.mAchievementGameData != null) {
+            mConfig.mAchievementGameData.putValue(AchievementSnow.KEY_GAME_CELL_STATE, (long) mCell.getState(), AchievementProperties.UPDATE_POLICY_ALWAYS);
+        }
+    }
+
+    @Override
+    public void onMoverStateChange(Actor actor) {
+
+    }
+
+    public static class Cell extends Actor {
+        public static final int STATE_NORMAL = -1;
+        public static final int STATE_EXPLOSIVE = -2;
+        private static final long FRAME_DURATION = 250L;
+        private final HitboxNewtonFrictionMover mCellMover;
+        private HitboxCircle mHitboxCircle;
+        private final float mStartRadius;
+        private final float mMaxRadius;
+        private final float mStateRadiusDelta;
+        private final Bitmap mMaxCell;
+        private final Frames mCellLook;
+        private long mExplosionCountDown;
+
+        public Cell(HitboxCircle hitbox, HitboxNewtonFrictionMover mover, Frames cellLook, float startRadius, float maxRadius, Bitmap defaultMaxCell) {
+            super(hitbox, mover, cellLook);
+            mHitboxCircle = hitbox;
+            mCellMover = mover;
+            mStartRadius = startRadius;
+            mMaxRadius = maxRadius;
+            mStateRadiusDelta = (mMaxRadius - mStartRadius) / (float) IDEAS_REQUIRED_FOR_MAX_SIZE;
+            mMaxCell = defaultMaxCell;
+            mCellLook = cellLook;
+            setActive(true);
+        }
+
+        public static Cell make(float x, float y, float radius, Bitmap defaultMaxCell, Bitmap[] explosionFrames, float startRadius, float maxRadius) {
+            HitboxCircle hitbox = new HitboxCircle(x,y, radius);
+            HitboxNewtonFrictionMover mover = new HitboxNewtonFrictionMover();
+            Frames cellLook = Cell.makeCellFrames(null, radius, defaultMaxCell);
+            Look explosionCellLook = new Frames(explosionFrames, FRAME_DURATION);
+            Cell cell = new Cell(hitbox, mover, cellLook, startRadius, maxRadius, defaultMaxCell);
+            cell.putStateFrames(STATE_NORMAL, cellLook);
+            cell.putStateFrames(STATE_EXPLOSIVE, explosionCellLook);
+            return cell;
+        }
+
+        private static Frames makeCellFrames(Frames base, float radius, Bitmap defaultMaxCell) {
+            int size = (int) (radius * 2);
+            Bitmap[] frames = base == null ? new Bitmap[1] : base.getFrames();
+            if (frames[0] == null || frames[0].getWidth() != size) {
+                frames[0] = BitmapUtil.resize(defaultMaxCell, size, size);
+            }
+            return base == null ? new Frames(frames, FRAME_DURATION) : base;
+        }
+
+        private float calculateFriction() {
+            double fractionOfMaxSize = mHitboxCircle.getRadius()  / mMaxRadius;
+            return (float) (0.55 * Math.exp(-1.5 * fractionOfMaxSize));
+        }
+
+        public void onCollectIdea() {
+            boolean explosion = false;
+            float radius = mHitboxCircle.getRadius();
+            if (radius >= mMaxRadius) {
+                radius = mMaxRadius;
+                explosion = true;
+            } else {
+                radius += mStateRadiusDelta;
+                if (radius >= mMaxRadius) {
+                    radius = mMaxRadius;
+                    explosion = true;
+                }
+                Cell.makeCellFrames(mCellLook, radius, mMaxCell);
+            }
+            mHitboxCircle.setRadius(radius);
+            if (explosion && mExplosionCountDown == 0L) {
+                setStateFrames(STATE_EXPLOSIVE);
+                mExplosionCountDown = EXPLOSION_DELAY;
+            }
+        }
+
+        private int getState() {
+            if (mHitboxCircle.getRadius() >= mMaxRadius) {
+                return IDEAS_REQUIRED_FOR_MAX_SIZE;
+            }
+            int state = Math.round((mHitboxCircle.getRadius() - mStartRadius) / mStateRadiusDelta);
+            return Math.min(state, IDEAS_REQUIRED_FOR_MAX_SIZE - 1);
+        }
+
+        private double getSpeed() {
+            return mCellMover.getSpeed();
+        }
+
+        public void updateFrictionAndAccel(float forceX, float forceY, float prevAccelFraction) {
+            float friction =  calculateFriction();
+            mCellMover.setFriction(friction);
+            float accelX = (1-friction) * forceX;
+            float accelY = (1-friction) * forceY;
+            mCellMover.setAcceleration(accelX * (1.f - prevAccelFraction) + mCellMover.getAccelerationX() * prevAccelFraction,
+                    accelY * (1.f - prevAccelFraction) + mCellMover.getAccelerationY() * prevAccelFraction);
+        }
+
+        public void applyWallPhysics(FlatRectWorld world, boolean collisionLeft, boolean collisionTop, boolean collisionRight, boolean collisionBottom) {
+
+            float speedMultiplier = mHitboxCircle.getRadius() > mStartRadius ? -CRASHED_WALL_BIGGER_SPEED_MULTIPLIER : -CRASHED_WALL_SMALL_SPEED_MULTIPLIER;
+            if (collisionLeft) {
+                mHitboxCircle.setLeft(world.getLeft() + 1);
+                mCellMover.multiplySpeed(speedMultiplier, 1.f);
+            }
+            if (collisionTop) {
+                mHitboxCircle.setTop(world.getTop() + 1);
+                mCellMover.multiplySpeed(1.f, speedMultiplier);
+            }
+            if (collisionRight) {
+                mHitboxCircle.setRight(world.getRight() - 1);
+                mCellMover.multiplySpeed(speedMultiplier, 1.f);
+            }
+            if (collisionBottom) {
+                mHitboxCircle.setBottom(world.getBottom() - 1);
+                mCellMover.multiplySpeed(1.f, speedMultiplier);
+            }
+        }
+
+        private boolean updateAndCheckExplosionTimer() {
+            if (mExplosionCountDown > 0) {
+                mExplosionCountDown -= MOVEMENT_PERIOD;
+                return mHitboxCircle.getRadius() >= mMaxRadius && mExplosionCountDown <= 0;
+            }
+            return false;
+        }
+
+        private boolean onExplosion(boolean hitWall, Devil devil) {
+            final float radius = mHitboxCircle.getRadius();
+            if (radius > mStartRadius) {
+                float delta;
+                if (hitWall) {
+                    if (devil.isActive()) {
+                        delta = STATE_DELTA_ON_WALL_EXPLOSION * mStateRadiusDelta;
+                    } else {
+                        delta = radius - mStartRadius;
+                    }
+                } else {
+                    devil.onAppear();
+                    delta = radius - mStartRadius;
+                    mCellMover.multiplySpeed(EXPLOSION_SPEED_MULTIPLIER, EXPLOSION_SPEED_MULTIPLIER);
+                }
+                return shrinkCell(delta);
+            }
+            return false;
+        }
+
+        private boolean shrinkCell(double shrinkDelta) {
+            float radius = mHitboxCircle.getRadius();
+            if (radius > mStartRadius) {
+                radius -= shrinkDelta;
+                if (radius < mStartRadius) {
+                    radius = mStartRadius;
+                }
+
+                makeCellFrames(mCellLook, radius, mMaxCell);
+                mHitboxCircle.setRadius(radius);
+                mExplosionCountDown = 0L;
+                setStateFrames(STATE_NORMAL);
+                return true;
+            }
+            return false;
+        }
+
+        public boolean onCollectIdeaChild(boolean devilAvailable) {
+            return shrinkCell(mStateRadiusDelta * (devilAvailable ? STATE_DELTA_ON_IDEA_CHILD_COLLECT_WITH_ACTIVE_DEVIL : STATE_DELTA_ON_IDEA_CHILD_COLLECT));
+        }
+    }
+
+    public Idea makeIdea(float x, float y, float radius, Bitmap candy, Bitmap toxic, Bitmap[] childBitmaps) {
+        HitboxCircle hitbox = new HitboxCircle(x, y, radius);
+        Look candyLook = new Frames(new Bitmap[] {candy}, 0L);
+        Look toxicLook = new Frames(new Bitmap[] {toxic}, 0L);
+        Look[] childLooks = new Look[childBitmaps.length];
+        int index = 0;
+        for (Bitmap bitmap : childBitmaps) {
+            childLooks[index++] = new Frames(new Bitmap[] {bitmap}, 0L);
+        }
+        return new Idea(hitbox, candyLook, toxicLook, childLooks);
+    }
+
+    private class Idea extends Actor {
+
+        private static final int STATE_CANDY = 0;
+        private static final int STATE_TOXIC = 1;
+        private static final int MAX_CHILDREN = 40;
+        private static final double SPAWNS_PER_SECOND = 2.;
+        private final Look[] mChildLooks;
+        private List<IdeaChild> mChildren = new LinkedList<>();
+        private Random mRand = new Random();
+
+        public Idea(HitboxCircle hitbox, Look candyLook, Look toxicLook, Look[] childLooks) {
+            super(hitbox, HitboxNoMover.INSTANCE, candyLook);
+            putStateFrames(STATE_CANDY, candyLook);
+            putStateFrames(STATE_TOXIC, toxicLook);
+            mChildLooks = childLooks;
+            for (int i = 0; i < MAX_CHILDREN; i++) {
+                IdeaChild child = makeIdeaChild(this, childLooks[mRand.nextInt(childLooks.length)]);
+                mChildren.add(child);
+                mWorld.addActor(child);
+            }
+            setActive(true);
+        }
+
+        @Override
+        public boolean update(long updatePeriod) {
+            boolean result = super.update(updatePeriod);
+            if (mRand.nextDouble() < updatePeriod / 1000. * SPAWNS_PER_SECOND) {
+                for (IdeaChild child : mChildren) {
+                    if (!child.isActive()) {
+                        child.prepare(mRand, mChildLooks);
+                        child.setActive(true);
+                        break;
+                    }
+                }
+            }
+            return result;
+        }
+    }
+
+    private IdeaChild makeIdeaChild(Idea parent, Look look) {
+        RectF parentBounds = parent.getHitbox().getBoundingRect();
+        float parentHalfWidth = parentBounds.width() / 2.f;
+        float radius = parentHalfWidth * IdeaChild.PARENT_RADIUS_FRACTION;
+        Hitbox hitbox = new HitboxCircle(parentBounds.centerX(), parentBounds.centerY(), radius);
+        HitboxNewtonFrictionMover mover = new HitboxNewtonFrictionMover();
+        return new IdeaChild(hitbox, mover, look);
+    }
+
+    private class IdeaChild extends Actor {
+        private static final float FRICTION = 0.5f;
+        private static final float PARENT_RADIUS_FRACTION = 0.20f;
+        private final HitboxNewtonFrictionMover mMover;
+
+        public IdeaChild(Hitbox hitbox, HitboxNewtonFrictionMover mover, Look defaultLook) {
+            super(hitbox, mover, defaultLook);
+            mMover = mover;
+        }
+
+        @Override
+        public void onLeaveWorld() {
+            setActive(false);
+        }
+
+        @Override
+        public boolean onCollision(Actor with) {
+            if (with == mCell) {
+                setActive(false);
+                return mCell.onCollectIdeaChild(mDevil.isActive());
+            } else if (with == mDevil) {
+                setActive(false);
+                mDevil.onCollectIdeaChild();
+                return true;
+            }
+            return false;
+        }
+
+        private void prepare(Random rand, Look[] looks) {
+            RectF parentBounds = mIdea.getHitbox().getBoundingRect();
+            float parentHalfWidth = parentBounds.width() / 2.f;
+            float angle = rand.nextFloat() * (float) Math.PI * 2;
+            float cosAngle = (float) Math.cos(angle);
+            float sinAngle = (float) Math.sin(angle);
+            getHitbox().setCenter(parentBounds.centerX() + parentHalfWidth * cosAngle,
+                    parentBounds.centerY() + parentHalfWidth * sinAngle);
+            float outspeed = Math.min(mWorld.getWidth(), mWorld.getHeight()) * 0.3f;
+            mMover.setSpeed(outspeed * cosAngle, outspeed* sinAngle);
+            mMover.setFriction(FRICTION * rand.nextFloat());
+            mCurrentLook = looks[rand.nextInt(looks.length)];
+        }
+    }
+
+    public Devil makeDevil(Cell cell, float x, float y, float radius, Bitmap image, long startMoonYear, Resources res) {
+        HitboxCircle hitbox = new HitboxCircle(x, y, radius);
+        Look look = new Frames(new Bitmap[] {image}, 0L);
+        HitboxMoonMover moonMover = new HitboxMoonMover(cell.getHitbox(), startMoonYear, 10.f);
+        return new Devil(hitbox, moonMover, look, res);
+    }
+
+    private class Devil extends Actor {
+        private static final long SURROUND_CELL_DURATION_FASTEST = 1000L;
+        private static final long SURROUND_CELL_DURATION_START = 1500L;
+        private static final long SURROUND_CELL_DURATION_SLOWEST = 2000L;
+        private static final long SURROUND_CELL_DURATION_INCREASE = 500L;
+        private static final long SURROUND_CELL_DURATION_DECREASE = 200L;
+        private static final long TOUCH_OUTSIDE_LOCK_DURATION = 250L;
+        private final Resources mRes;
+
+        private long mLastOutsideTouch;
+        private HitboxMoonMover mMoonMover;
+        private NinePatchLook[] mTalkingBackground;
+        private WorldEffect mTalkingEffect;
+
+        public Devil(HitboxCircle hitbox, HitboxMoonMover moonMover, Look defaultLook, Resources res) {
+            super(hitbox, moonMover, defaultLook);
+            mMoonMover = moonMover;
+            mRes = res;
+            mTalkingBackground = new NinePatchLook[] {
+                    new NinePatchLook(NinePatchLook.loadNinePatch(res, R.drawable.say_tl)),
+                    new NinePatchLook(NinePatchLook.loadNinePatch(res, R.drawable.say_tr)),
+                    new NinePatchLook(NinePatchLook.loadNinePatch(res, R.drawable.say_br)),
+                    new NinePatchLook(NinePatchLook.loadNinePatch(res, R.drawable.say_bl))};
+            setActive(true);
+            updateCellCandyVision();
+            moonMover.update(getHitbox(), 0L);
+        }
+
+        private void updateCellCandyVision() {
+            if (isActive()) {
+                mIdea.setStateFrames(Idea.STATE_TOXIC);
+            } else {
+                mIdea.setStateFrames(Idea.STATE_CANDY);
+            }
+        }
+
+        public void onTouchedOutside() {
+            if (System.currentTimeMillis() - mLastOutsideTouch >= TOUCH_OUTSIDE_LOCK_DURATION) {
+                mLastOutsideTouch = 0L;
+            }
+            if (mLastOutsideTouch == 0L) {
+                mLastOutsideTouch = System.currentTimeMillis();
+                mMoonMover.invertDirection();
+                long oldMoonYear = mMoonMover.getMoonYear();
+                long newMoonYear = Math.min(mMoonMover.getMoonYear() + SURROUND_CELL_DURATION_INCREASE, SURROUND_CELL_DURATION_SLOWEST);
+                if (newMoonYear > oldMoonYear && newMoonYear == SURROUND_CELL_DURATION_SLOWEST) {
+                     talk(R.array.devil_talk_slowest, 0.3);
+                }
+                mMoonMover.setMoonYear(newMoonYear);
+            }
+        }
+
+        public void talk(int textId, double probability) {
+            if ((mTalkingEffect == null || mTalkingEffect.getState() == WorldEffect.STATE_TIMEOUT)
+                    && mRand.nextDouble() < probability) {
+                String[] texts = mRes.getStringArray(textId);
+                mTalkingEffect = mWorld.attachTimedMessage(this, mTalkingBackground, texts[mRand.nextInt(texts.length)], 5000L);
+                mTalkingEffect.startFade(0xFFFFFFFF, 0x00FFFFFF, 2000L, 3000L);
+            }
+        }
+
+        public void onCollectIdea() {
+            long oldMoonYear = mMoonMover.getMoonYear();
+            long newMoonYear = Math.max(mMoonMover.getMoonYear() - SURROUND_CELL_DURATION_DECREASE, SURROUND_CELL_DURATION_FASTEST);
+            if (newMoonYear < oldMoonYear && newMoonYear == SURROUND_CELL_DURATION_FASTEST) {
+                talk(R.array.devil_talk_fastest, 0.3);
+            }
+            mMoonMover.setMoonYear(newMoonYear);
+        }
+
+        public long getMooonYear() {
+            return mMoonMover.getMoonYear();
+        }
+
+        @Override
+        public void onLeaveWorld() {
+            setActive(false);
+            talk(R.array.devil_talk_killed, 1.0);
+            if (mConfig.mAchievementGameData != null) {
+                mConfig.mAchievementGameData.putValue(AchievementSnow.KEY_GAME_DEVIL_VISIBLE_STATE, 0L, AchievementProperties.UPDATE_POLICY_ALWAYS);
+            }
+            updateCellCandyVision();
+        }
+
+        public void onAppear() {
+            setActive(true);
+            talk(R.array.devil_talk_return, 1.0);
+            if (mConfig.mAchievementGameData != null) {
+                mConfig.mAchievementGameData.putValue(AchievementSnow.KEY_GAME_DEVIL_VISIBLE_STATE, 1L, AchievementProperties.UPDATE_POLICY_ALWAYS);
+            }
+            updateCellCandyVision();
+        }
+
+        public void checkIfMocked(float x, float y) {
+            if (isActive() && mDevil.getHitbox().isInside(x, y)) {
+                mDevil.talk(R.array.devil_talk_mock, 0.02);
+            }
+        }
+
+        public void onCellCollectIdea() {
+            if (mDevil.isActive()) {
+                if (mCell.getState() == IDEAS_REQUIRED_FOR_MAX_SIZE) {
+                    mDevil.talk(R.array.devil_talk_cell_eat_candy_explosive, 1.);
+                } else {
+                    mDevil.talk(R.array.devil_talk_cell_eat_candy, 1.0 / IDEAS_REQUIRED_FOR_MAX_SIZE);
+                }
+            }
+        }
+
+        public void onCollectIdeaChild() {
+
+        }
+    }
+}

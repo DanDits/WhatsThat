@@ -1,6 +1,8 @@
 package dan.dit.whatsthat.system.store;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.support.v4.app.FragmentActivity;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -12,9 +14,17 @@ import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import dan.dit.whatsthat.R;
+import dan.dit.whatsthat.riddle.Riddle;
+import dan.dit.whatsthat.riddle.types.PracticalRiddleType;
 import dan.dit.whatsthat.testsubject.TestSubject;
 import dan.dit.whatsthat.testsubject.shopping.ShopArticle;
+import dan.dit.whatsthat.testsubject.shopping.ShopArticleFilter;
+import dan.dit.whatsthat.testsubject.shopping.ShopArticleFilterIcon;
+import dan.dit.whatsthat.testsubject.shopping.ShopArticleFilterPurchased;
 import dan.dit.whatsthat.testsubject.shopping.ShopArticleHolder;
 import dan.dit.whatsthat.testsubject.shopping.SubProduct;
 import dan.dit.whatsthat.util.PercentProgressListener;
@@ -24,10 +34,12 @@ import dan.dit.whatsthat.util.ui.LinearLayoutProgressBar;
  * Created by daniel on 12.06.15.
  */
 public class ShopView extends ExpandableListView implements  StoreContainer, ShopArticleHolder.OnArticleChangedListener {
+    private static final int FILTER_DISABLED_COLORFILTER = Color.RED;
     private Button mTitleBackButton;
     private ShopArticleAdapter mAdapter;
     private ShopArticleHolder mArticleHolder;
     private final LayoutInflater mInflater;
+    private ViewGroup mFilterHolder;
 
     public ShopView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -63,14 +75,77 @@ public class ShopView extends ExpandableListView implements  StoreContainer, Sho
     public void refresh(FragmentActivity activity, Button titleBackButton) {
         mTitleBackButton = titleBackButton;
         if (mAdapter == null) {
-            mArticleHolder = TestSubject.getInstance().getShopSortiment();
             mAdapter = new ShopArticleAdapter();
+            mArticleHolder = TestSubject.getInstance().getShopSortiment();
+            initFilters();
             setAdapter(mAdapter);
         } else {
-            mAdapter.notifyDataSetChanged();
+            applyFilters();
         }
         mArticleHolder.setOnArticleChangedListener(this);
         updateTitleBackButton();
+    }
+
+    private void initFilters() {
+        mFilterHolder = (ViewGroup) getRootView().findViewById(R.id.shop_filters);
+
+        //determine the set of the articles' icons
+        List<Integer> iconIds = new ArrayList<>();
+        for (ShopArticle article : mArticleHolder.getAllArticles()) {
+            int id = article.getIconResId();
+            if (!iconIds.contains(id)) {
+                iconIds.add(id);
+            }
+        }
+
+        // add icon filters and filter for not purchased articles only
+        List<ShopArticleFilter> filters = new ArrayList<>();
+        for (Integer iconId : iconIds) {
+            PracticalRiddleType lastVisibleType = Riddle.getLastVisibleRiddleType(getContext());
+            filters.add(new ShopArticleFilterIcon(iconId, iconId, lastVisibleType != null && lastVisibleType.getIconResId() == iconId));
+        }
+        filters.add(new ShopArticleFilterPurchased(R.drawable.icon_filter_progress_complete, true, false));
+        filters.add(new ShopArticleFilterPurchased(R.drawable.icon_filter_progress, false, false));
+
+        // init filters and filter views and listeners
+        mArticleHolder.setFilters(filters);
+        mFilterHolder.removeAllViews();
+        for (ShopArticleFilter filter : filters) {
+            ImageView image = new ImageView(getContext());
+            image.setImageResource(filter.getIcon());
+            applyFilterToImage(image, filter);
+            image.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    int index = mFilterHolder.indexOfChild(view);
+                    List<ShopArticleFilter> filters = mArticleHolder.getFilters();
+                    if (filters != null && index >= 0 && index < filters.size()) {
+                        ShopArticleFilter filter = filters.get(index);
+                        filter.setActive(!filter.isActive());
+                        ImageView image = (ImageView) view;
+                        applyFilterToImage(image, filter);
+                        applyFilters();
+                    }
+                }
+            });
+            mFilterHolder.addView(image);
+        }
+    }
+
+    private void applyFilterToImage(ImageView image, ShopArticleFilter filter) {
+        final PorterDuff.Mode mode = PorterDuff.Mode.MULTIPLY;
+        if (filter.isActive()) {
+            image.setImageAlpha(255);
+            //image.clearColorFilter();
+        } else {
+            image.setImageAlpha(70);
+            //image.setColorFilter(FILTER_DISABLED_COLORFILTER, mode);
+        }
+    }
+
+    private void applyFilters() {
+        mArticleHolder.applyFilters();
+        mAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -80,13 +155,13 @@ public class ShopView extends ExpandableListView implements  StoreContainer, Sho
 
     @Override
     public View getView() {
-        return this;
+        return getRootView();
     }
 
     @Override
     public void onArticleChanged(ShopArticle article) {
         if (mAdapter != null) {
-            mAdapter.notifyDataSetChanged();
+            applyFilters();
             updateTitleBackButton();
         }
     }
