@@ -271,7 +271,7 @@
     <string name="achievement_jumper_2_name">Lack of talent</string>
     <string name="achievement_jumper_2_descr">You failed %1$d times in easy. Are you sure you wanna continue playing this game?</string>
     <string name="achievement_jumper_3_name">Super Mario</string>
-    <string name="achievement_jumper_3_descr">Perform %1$d Double Jumps in a game before reaching \"hard\".</string>
+    <string name="achievement_jumper_3_descr">Perform %1$d Double Jumps in a game before reaching \"medium\".</string>
     <string name="achievement_jumper_3_descr_claimed">So much for the laws of physics...</string>
     <string name="achievement_jumper_4_name">Multitasking</string>
     <string name="achievement_jumper_4_descr">Finish a game after reaching \"hard\" without colliding.</string>
@@ -325,7 +325,7 @@
     <string name="article_circle_divide_by_move_feature_descr">Allows dividing of circles by moving the finger. Very relaxing!</string>
     <string name="article_triangle_divide_by_move_feature_name">More Lazor</string>
     <string name="article_triangle_divide_by_move_feature_descr">Allows dividing of triangles by moving the finger. Even more relaxing!</string>
-    <string name="shop_article_spent">(-%1$d)</string>
+    <string name="shop_article_spent" translatable="false">(-%1$d)</string>
 
     <string-array name="devil_talk_return">
         <item>I\'m back!</item>
@@ -375,5 +375,8 @@
         <item>I just want to help</item>
         <item>Tickling me won\'t do anything</item>
     </string-array>
+    <string name="article_product_confirm_purchase_dependency_missing">Requires: %1$s</string>
+    <string name="riddle_type_memory">Memory</string>
+    <string name="riddle_type_memory_explanation">Find a matching pair</string>
 
 </resources>

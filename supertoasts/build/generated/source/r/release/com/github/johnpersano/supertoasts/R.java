@@ -11,16 +11,16 @@ public final class R {
     public static final class attr {
     }
     public static final class color {
-        public static int black=0x7f040000;
-        public static int dark_gray=0x7f040001;
-        public static int light_gray=0x7f040002;
-        public static int white=0x7f040003;
+        public static int black=0x7f060000;
+        public static int dark_gray=0x7f060001;
+        public static int light_gray=0x7f060002;
+        public static int white=0x7f060003;
     }
     public static final class dimen {
-        public static int buttontoast_hover=0x7f050000;
-        public static int buttontoast_x_padding=0x7f050001;
-        public static int cardtoast_margin=0x7f050002;
-        public static int toast_hover=0x7f050003;
+        public static int buttontoast_hover=0x7f040001;
+        public static int buttontoast_x_padding=0x7f040000;
+        public static int cardtoast_margin=0x7f040002;
+        public static int toast_hover=0x7f040003;
     }
     public static final class drawable {
         public static int background_kitkat_black=0x7f020000;
@@ -85,17 +85,17 @@ public final class R {
         public static int supertoast=0x7f030008;
     }
     public static final class style {
-        public static int DefaultRootLayout=0x7f060000;
-        public static int DefaultText=0x7f060001;
-        public static int SuperActivityToast_Button_Button=0x7f060002;
-        public static int SuperActivityToast_Button_Divider=0x7f060003;
-        public static int SuperActivityToast_Button_RootLayout=0x7f060004;
-        public static int SuperActivityToast_Button_TextView=0x7f060005;
-        public static int SuperActivityToast_ProgressHorizontal_ProgressBar=0x7f060006;
-        public static int SuperActivityToast_ProgressHorizontal_RootLayout=0x7f060007;
-        public static int SuperActivityToast_ProgressHorizontal_TextView=0x7f060008;
-        public static int SuperActivityToast_Progress_ProgressBar=0x7f060009;
-        public static int SuperActivityToast_Progress_TextView=0x7f06000a;
-        public static int SuperCardToast_Button_RootLayout=0x7f06000b;
+        public static int DefaultRootLayout=0x7f050000;
+        public static int DefaultText=0x7f050001;
+        public static int SuperActivityToast_Button_Button=0x7f050002;
+        public static int SuperActivityToast_Button_Divider=0x7f050003;
+        public static int SuperActivityToast_Button_RootLayout=0x7f050004;
+        public static int SuperActivityToast_Button_TextView=0x7f050005;
+        public static int SuperActivityToast_ProgressHorizontal_ProgressBar=0x7f050006;
+        public static int SuperActivityToast_ProgressHorizontal_RootLayout=0x7f050007;
+        public static int SuperActivityToast_ProgressHorizontal_TextView=0x7f050008;
+        public static int SuperActivityToast_Progress_ProgressBar=0x7f050009;
+        public static int SuperActivityToast_Progress_TextView=0x7f05000a;
+        public static int SuperCardToast_Button_RootLayout=0x7f05000b;
     }
 }

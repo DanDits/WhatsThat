@@ -32,6 +32,7 @@ import dan.dit.whatsthat.util.flatworld.collision.GeneralHitboxCollider;
 import dan.dit.whatsthat.util.flatworld.collision.Hitbox;
 import dan.dit.whatsthat.util.flatworld.collision.HitboxCircle;
 import dan.dit.whatsthat.util.flatworld.effects.WorldEffect;
+import dan.dit.whatsthat.util.flatworld.look.CircleLook;
 import dan.dit.whatsthat.util.flatworld.look.Frames;
 import dan.dit.whatsthat.util.flatworld.look.Look;
 import dan.dit.whatsthat.util.flatworld.look.NinePatchLook;
@@ -238,13 +239,8 @@ public class RiddleSnow extends RiddleGame implements FlatWorldCallback {
         int size = 2 * (int) radius;
         Bitmap imageCandy = ImageUtil.loadBitmap(res, R.drawable.idea_candy, size, size, true);
         Bitmap imageToxic = ImageUtil.loadBitmap(res, R.drawable.idea_toxic, size, size, true);
-        Bitmap[] imageChildren = new Bitmap[] {
-                ImageUtil.loadBitmap(res, R.drawable.spike1, (int) (size * IdeaChild.PARENT_RADIUS_FRACTION), (int) (size * IdeaChild.PARENT_RADIUS_FRACTION), true),
-                ImageUtil.loadBitmap(res, R.drawable.spike2, (int) (size * IdeaChild.PARENT_RADIUS_FRACTION), (int) (size * IdeaChild.PARENT_RADIUS_FRACTION), true),
-                ImageUtil.loadBitmap(res, R.drawable.spike3, (int) (size * IdeaChild.PARENT_RADIUS_FRACTION), (int) (size * IdeaChild.PARENT_RADIUS_FRACTION), true),
-                ImageUtil.loadBitmap(res, R.drawable.spike4, (int) (size * IdeaChild.PARENT_RADIUS_FRACTION), (int) (size * IdeaChild.PARENT_RADIUS_FRACTION), true),
-        };
-        mIdea = makeIdea(0, 0, radius, imageCandy, imageToxic, imageChildren);
+
+        mIdea = makeIdea(0, 0, radius, imageCandy, imageToxic);
         mWorld.addActor(mIdea);
     }
 
@@ -359,7 +355,7 @@ public class RiddleSnow extends RiddleGame implements FlatWorldCallback {
         } else if (mFeatureTouchGravity && event.getActionMasked() == MotionEvent.ACTION_MOVE) {
             mTouchGravityPressX = event.getX();
             mTouchGravityPressY = event.getY();
-        } else if (event.getActionMasked() == MotionEvent.ACTION_UP) {
+        } else if (mFeatureTouchGravity && event.getActionMasked() == MotionEvent.ACTION_UP) {
             mTouchGravityIsPressed = false;
             mCell.updateFrictionAndAccel(0, 0, 0);
         }
@@ -677,16 +673,11 @@ public class RiddleSnow extends RiddleGame implements FlatWorldCallback {
         }
     }
 
-    public Idea makeIdea(float x, float y, float radius, Bitmap candy, Bitmap toxic, Bitmap[] childBitmaps) {
+    public Idea makeIdea(float x, float y, float radius, Bitmap candy, Bitmap toxic) {
         HitboxCircle hitbox = new HitboxCircle(x, y, radius);
         Look candyLook = new Frames(new Bitmap[] {candy}, 0L);
         Look toxicLook = new Frames(new Bitmap[] {toxic}, 0L);
-        Look[] childLooks = new Look[childBitmaps.length];
-        int index = 0;
-        for (Bitmap bitmap : childBitmaps) {
-            childLooks[index++] = new Frames(new Bitmap[] {bitmap}, 0L);
-        }
-        return new Idea(hitbox, candyLook, toxicLook, childLooks);
+        return new Idea(hitbox, candyLook, toxicLook);
     }
 
     private class Idea extends Actor {
@@ -695,17 +686,15 @@ public class RiddleSnow extends RiddleGame implements FlatWorldCallback {
         private static final int STATE_TOXIC = 1;
         private static final int MAX_CHILDREN = 40;
         private static final double SPAWNS_PER_SECOND = 2.;
-        private final Look[] mChildLooks;
         private List<IdeaChild> mChildren = new LinkedList<>();
         private Random mRand = new Random();
 
-        public Idea(HitboxCircle hitbox, Look candyLook, Look toxicLook, Look[] childLooks) {
+        public Idea(HitboxCircle hitbox, Look candyLook, Look toxicLook) {
             super(hitbox, HitboxNoMover.INSTANCE, candyLook);
             putStateFrames(STATE_CANDY, candyLook);
             putStateFrames(STATE_TOXIC, toxicLook);
-            mChildLooks = childLooks;
             for (int i = 0; i < MAX_CHILDREN; i++) {
-                IdeaChild child = makeIdeaChild(this, childLooks[mRand.nextInt(childLooks.length)]);
+                IdeaChild child = makeIdeaChild(this);
                 mChildren.add(child);
                 mWorld.addActor(child);
             }
@@ -718,7 +707,7 @@ public class RiddleSnow extends RiddleGame implements FlatWorldCallback {
             if (mRand.nextDouble() < updatePeriod / 1000. * SPAWNS_PER_SECOND) {
                 for (IdeaChild child : mChildren) {
                     if (!child.isActive()) {
-                        child.prepare(mRand, mChildLooks);
+                        child.prepare(mRand);
                         child.setActive(true);
                         break;
                     }
@@ -728,15 +717,16 @@ public class RiddleSnow extends RiddleGame implements FlatWorldCallback {
         }
     }
 
-    private IdeaChild makeIdeaChild(Idea parent, Look look) {
+    private IdeaChild makeIdeaChild(Idea parent) {
         RectF parentBounds = parent.getHitbox().getBoundingRect();
         float parentHalfWidth = parentBounds.width() / 2.f;
         float radius = parentHalfWidth * IdeaChild.PARENT_RADIUS_FRACTION;
         Hitbox hitbox = new HitboxCircle(parentBounds.centerX(), parentBounds.centerY(), radius);
         HitboxNewtonFrictionMover mover = new HitboxNewtonFrictionMover();
-        return new IdeaChild(hitbox, mover, look);
+        return new IdeaChild(hitbox, mover, new CircleLook(radius, CHILD_COLORS[mRand.nextInt(CHILD_COLORS.length)]));
     }
 
+    private static final int[] CHILD_COLORS = new int[] {0xfff10000, 0xff06a928, 0xff9600, 0xff80a400, 0xff2e535e};
     private class IdeaChild extends Actor {
         private static final float FRICTION = 0.5f;
         private static final float PARENT_RADIUS_FRACTION = 0.20f;
@@ -765,7 +755,7 @@ public class RiddleSnow extends RiddleGame implements FlatWorldCallback {
             return false;
         }
 
-        private void prepare(Random rand, Look[] looks) {
+        private void prepare(Random rand) {
             RectF parentBounds = mIdea.getHitbox().getBoundingRect();
             float parentHalfWidth = parentBounds.width() / 2.f;
             float angle = rand.nextFloat() * (float) Math.PI * 2;
@@ -776,7 +766,6 @@ public class RiddleSnow extends RiddleGame implements FlatWorldCallback {
             float outspeed = Math.min(mWorld.getWidth(), mWorld.getHeight()) * 0.3f;
             mMover.setSpeed(outspeed * cosAngle, outspeed* sinAngle);
             mMover.setFriction(FRICTION * rand.nextFloat());
-            mCurrentLook = looks[rand.nextInt(looks.length)];
         }
     }
 

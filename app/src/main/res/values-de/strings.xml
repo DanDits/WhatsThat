@@ -607,7 +607,7 @@
     <string name="achievement_jumper_2_name">Unterbegabung</string>
     <string name="achievement_jumper_2_descr">Sag mal, du hast nun %1$d mal im ersten Bereich versagt. Bist du sicher, dass du das hier weiterspielen möchtest?</string>
     <string name="achievement_jumper_3_name">Super Mario</string>
-    <string name="achievement_jumper_3_descr">Vollführe %1$d Double Jumps in einem Spiel bevor du \"Schwer\" erreichst.</string>
+    <string name="achievement_jumper_3_descr">Vollführe %1$d Double Jumps in einem Spiel bevor du \"Medium\" erreichst.</string>
     <string name="achievement_jumper_3_descr_claimed">So viel zum Thema physikalische Gesetze...</string>
     <string name="achievement_jumper_4_name">Multitasking</string>
     <string name="achievement_jumper_4_descr">Beende ein Spiel ab Schwierigkeit \"Schwer\" ohne zu kollidieren.</string>

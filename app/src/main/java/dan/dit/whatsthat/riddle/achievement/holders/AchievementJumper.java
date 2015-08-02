@@ -115,7 +115,7 @@ public class AchievementJumper extends TypeAchievementHolder {
         public static final int REWARD = 5;
         public static final boolean DISCOVERED = true;
         public static final int REQUIRED_DOUBLE_JUMPS = 30;
-        public static final String KEY_GAME_DOUBLE_JUMPS_BEFORE_HARD = NUMBER + "jumps_before_hard";
+        public static final String KEY_GAME_DOUBLE_JUMPS_BEFORE_MEDIUM = NUMBER + "jumps_before_medium";
 
         public Achievement3(AchievementManager manager, PracticalRiddleType type) {
             super(type, R.string.achievement_jumper_3_name, R.string.achievement_jumper_3_descr, 0, NUMBER, manager, LEVEL, REWARD, 1, DISCOVERED);
@@ -129,21 +129,21 @@ public class AchievementJumper extends TypeAchievementHolder {
         @Override
         public void onAchieved() {
             super.onAchieved();
-            mGameData.removeKey(KEY_GAME_DOUBLE_JUMPS_BEFORE_HARD);
+            mGameData.removeKey(KEY_GAME_DOUBLE_JUMPS_BEFORE_MEDIUM);
         }
 
         @Override
         public void onDataEvent(AchievementDataEvent event) {
             if (event.getChangedData() == mGameData && event.hasChangedKey(KEY_GAME_DOUBLE_JUMP_COUNT) && areDependenciesFulfilled()) {
-                if (mGameData.getValue(KEY_GAME_CURRENT_DIFFICULTY, RiddleJumper.DIFFICULTY_EASY) < RiddleJumper.DIFFICULTY_HARD) {
-                    long jumpsDone = mGameData.increment(KEY_GAME_DOUBLE_JUMPS_BEFORE_HARD, 1L, 0L);
+                if (mGameData.getValue(KEY_GAME_CURRENT_DIFFICULTY, RiddleJumper.DIFFICULTY_EASY) < RiddleJumper.DIFFICULTY_MEDIUM) {
+                    long jumpsDone = mGameData.increment(KEY_GAME_DOUBLE_JUMPS_BEFORE_MEDIUM, 1L, 0L);
                     if (jumpsDone >= REQUIRED_DOUBLE_JUMPS) {
                         achieve();
                     }
                 }
             } else if (event.getChangedData() == mGameData && event.hasChangedKey(KEY_GAME_CURRENT_DISTANCE_RUN)) {
                 if (mGameData.getValue(KEY_GAME_CURRENT_DISTANCE_RUN, 0L) == 0L) {
-                    mGameData.putValue(KEY_GAME_DOUBLE_JUMPS_BEFORE_HARD, 0L, AchievementProperties.UPDATE_POLICY_ALWAYS);
+                    mGameData.putValue(KEY_GAME_DOUBLE_JUMPS_BEFORE_MEDIUM, 0L, AchievementProperties.UPDATE_POLICY_ALWAYS);
                 }
             }
         }
