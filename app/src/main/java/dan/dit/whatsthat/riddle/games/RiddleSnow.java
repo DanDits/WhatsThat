@@ -726,7 +726,7 @@ public class RiddleSnow extends RiddleGame implements FlatWorldCallback {
         return new IdeaChild(hitbox, mover, new CircleLook(radius, CHILD_COLORS[mRand.nextInt(CHILD_COLORS.length)]));
     }
 
-    private static final int[] CHILD_COLORS = new int[] {0xfff10000, 0xff06a928, 0xff9600, 0xff80a400, 0xff2e535e};
+    private static final int[] CHILD_COLORS = new int[] {0xfff10000, 0xff06a928, 0xffff9600, 0xff7b00f9, 0xff0090ba};
     private class IdeaChild extends Actor {
         private static final float FRICTION = 0.5f;
         private static final float PARENT_RADIUS_FRACTION = 0.20f;
