@@ -78,6 +78,10 @@ public abstract class ShopArticle {
 
     public abstract int getPurchaseProgressPercent();
 
+    public void onClose() {
+
+    }
+
     public boolean isClickable(int subProductIndex) {
         return isPurchasable(subProductIndex) == HINT_PURCHASABLE;
     }

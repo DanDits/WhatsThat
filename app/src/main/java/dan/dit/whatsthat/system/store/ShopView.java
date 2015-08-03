@@ -34,7 +34,6 @@ import dan.dit.whatsthat.util.ui.LinearLayoutProgressBar;
  * Created by daniel on 12.06.15.
  */
 public class ShopView extends ExpandableListView implements  StoreContainer, ShopArticleHolder.OnArticleChangedListener {
-    private static final int FILTER_DISABLED_COLORFILTER = Color.RED;
     private Button mTitleBackButton;
     private ShopArticleAdapter mAdapter;
     private ShopArticleHolder mArticleHolder;
@@ -136,10 +135,8 @@ public class ShopView extends ExpandableListView implements  StoreContainer, Sho
         final PorterDuff.Mode mode = PorterDuff.Mode.MULTIPLY;
         if (filter.isActive()) {
             image.setImageAlpha(255);
-            //image.clearColorFilter();
         } else {
             image.setImageAlpha(70);
-            //image.setColorFilter(FILTER_DISABLED_COLORFILTER, mode);
         }
     }
 
@@ -151,6 +148,7 @@ public class ShopView extends ExpandableListView implements  StoreContainer, Sho
     @Override
     public void stop(FragmentActivity activity) {
         mArticleHolder.setOnArticleChangedListener(null);
+        mArticleHolder.closeArticles();
     }
 
     @Override

@@ -62,8 +62,10 @@ public class MiscAchievementHolder implements AchievementHolder {
         public static final int LEVEL = 0;
         public static final int REWARD = 50;
         public static final boolean DISCOVERED = true;
-        public static final String CREATOR_NAME_1 = "Daniel";
-        public static final String CREATOR_NAME_2 = "Fabian";
+        public static final String CREATOR_NAME_1_1 = "Daniel";
+        public static final String CREATOR_NAME_1_2 = "Dani";
+        public static final String CREATOR_NAME_2_1 = "Fabian";
+        public static final String CREATOR_NAME_2_2 = "Fabi";
         public static final String KEY_FIRST_CREATOR_NAME_ALREADY_ENTERED = MiscAchievement.makeId(NUMBER) + "first_name_entered";
 
         public Achievement1(AchievementManager manager, AchievementPropertiesMapped<String> miscData) {
@@ -81,10 +83,12 @@ public class MiscAchievementHolder implements AchievementHolder {
             if (event.getChangedData() == mMiscData && event.hasChangedKey(MiscAchievementHolder.KEY_SOLUTION_INPUT_CURRENT_TEXT)) {
                 String currentText = mMiscData.getMappedValue(MiscAchievementHolder.KEY_SOLUTION_INPUT_CURRENT_TEXT);
                 if (!TextUtils.isEmpty(currentText) && areDependenciesFulfilled()) {
-                    if (currentText.equalsIgnoreCase(CREATOR_NAME_1) && mMiscData.getValue(KEY_FIRST_CREATOR_NAME_ALREADY_ENTERED, 0L) == 0L) {
+                    if ((currentText.equalsIgnoreCase(CREATOR_NAME_1_1) || currentText.equalsIgnoreCase(CREATOR_NAME_1_2))
+                            && mMiscData.getValue(KEY_FIRST_CREATOR_NAME_ALREADY_ENTERED, 0L) == 0L) {
                         mMiscData.putValue(KEY_FIRST_CREATOR_NAME_ALREADY_ENTERED, 1L, AchievementProperties.UPDATE_POLICY_ALWAYS);
                         achieveDelta(1);
-                    } else if (currentText.equalsIgnoreCase(CREATOR_NAME_2) && (getValue() == 0 || mMiscData.getValue(KEY_FIRST_CREATOR_NAME_ALREADY_ENTERED, 0L) == 1L)) {
+                    } else if ((currentText.equalsIgnoreCase(CREATOR_NAME_2_1) || currentText.equalsIgnoreCase(CREATOR_NAME_2_2))
+                            && (getValue() == 0 || mMiscData.getValue(KEY_FIRST_CREATOR_NAME_ALREADY_ENTERED, 0L) == 1L)) {
                         achieveDelta(1);
                     }
                 }

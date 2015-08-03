@@ -686,5 +686,16 @@
         <item>Ich will dir doch nur helfen.</item>
         <item>Wieso behandelst du mich so grob, du machst mich ganz traurig.</item>
     </string-array>
+    <string name="download_article_descr">Erweitere den Bilderpool mit neuen coolen Bildern.</string>
+    <string name="download_article_descr_downloaded">%2$s Bilder von %1$s werden heruntergeladen...</string>
+    <string name="download_article_descr_downloading">%2$s Bilder von %1$s wurden heruntergeladen!</string>
+    <string name="download_article_descr_ready">Herunterladen von %1$s (~%2$dMB) bestätigen</string>
+    <string name="download_article_descr_synced">%2$s Bilder von %1$s sind jetzt im Pool!</string>
+    <string name="download_article_descr_syncing">%2$s Bilder von %1$s werden gespeichert...</string>
+    <string name="download_article_name">Bilder herunterladen</string>
+    <string name="download_article_toast_complete">Neue Bilder bereit</string>
+    <string name="download_article_toast_download_complete">Bilder heruntergeladen</string>
+    <string name="download_article_toast_error_download">Bilder herunterladen fehlgeschlagen (%1$d)</string>
+    <string name="download_article_toast_error_syncing">Bilder speichern fehlgeschlagen (%1$d)</string>
 
 </resources>

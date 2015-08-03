@@ -47,6 +47,18 @@ public class ForeignPurse {
         return true;
     }
 
+    public synchronized boolean purchase(final String key, final int cost, final int amount) {
+        if (TextUtils.isEmpty(key) || cost < 0) {
+            throw new IllegalArgumentException("No key or illegal cost to purchase: " + key + ": " + cost);
+        }
+        if (mPurse.getCurrentScore() < cost) {
+            return false;
+        }
+        mPurse.mShopWallet.editEntry(key).add(amount);
+        mPurse.spentScore(cost);
+        return true;
+    }
+
 
     public int getAvailableRiddleHintsCount(PracticalRiddleType type) {
         return mPurse.getAvailableRiddleHintsCount(type);

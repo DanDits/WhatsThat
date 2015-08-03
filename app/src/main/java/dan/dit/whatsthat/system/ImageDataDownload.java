@@ -19,6 +19,7 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import dan.dit.whatsthat.R;
 import dan.dit.whatsthat.image.Image;
 import dan.dit.whatsthat.image.ImageManager;
 import dan.dit.whatsthat.image.ImageXmlParser;
@@ -45,7 +46,7 @@ public class ImageDataDownload {
     private static final int ERROR_CODE_SYNC_TO_DATABASE_FAILED = 3007;
     private static final double PROGRESS_WEIGHT_FOR_DOWNLOAD = 0.5;
     private final Feedback mListener;
-    private final int mEstimatedSizeMB;
+    private int mEstimatedSizeMB;
     private final String mURL;
     private final String mDataName;
     private final String mOrigin;
@@ -59,9 +60,40 @@ public class ImageDataDownload {
             || (mSyncTask != null && !mSyncTask.isCancelled());
     }
 
+    public boolean isDownloaded() {
+        return mIsDownloaded;
+    }
+
+    public String getOrigin() {
+        return mOrigin;
+    }
+
+    public String getDataName() {
+        return mDataName;
+    }
+
+    public String getUrl() {
+        return mURL;
+    }
+
+    public int getEstimatedSize() {
+        return mEstimatedSizeMB;
+    }
+
+    public void cancel() {
+        if (mDownloadTask != null) {
+            mDownloadTask.cancel(true);
+            mDownloadTask = null;
+        }
+        if (mSyncTask != null) {
+            mSyncTask.cancel(true);
+            mSyncTask = null;
+        }
+    }
+
     public interface Feedback extends PercentProgressListener {
         void setIndeterminate(boolean indeterminate);
-        void onError(String message, int errorCode);
+        void onError(int messageResId, int errorCode);
         void onDownloadComplete();
         void onComplete();
     }
@@ -199,7 +231,7 @@ public class ImageDataDownload {
                 mWakeLock.release();
             }
             if (errorCode != ERROR_CODE_NONE) {
-                mListener.onError("Failed downloading data.", errorCode);
+                mListener.onError(R.string.download_article_toast_error_download, errorCode);
             } else {
                 mListener.onDownloadComplete();
                 startSync();
@@ -233,6 +265,9 @@ public class ImageDataDownload {
                 }
 
                 int fileLength = connection.getContentLength();
+                if (fileLength > 0) {
+                    mEstimatedSizeMB = fileLength / (1024 * 1024);
+                }
                 fileLength = fileLength > 0 ? fileLength : mEstimatedSizeMB * 1024 * 1024;
 
                 if (isCancelled()) {
@@ -303,7 +338,7 @@ public class ImageDataDownload {
                 mIsDownloaded = false;
             }
             if (errorCode != ERROR_CODE_NONE) {
-                mListener.onError("Failed syncing data.", errorCode);
+                mListener.onError(R.string.download_article_toast_error_syncing, errorCode);
             } else {
                 mListener.onComplete();
             }

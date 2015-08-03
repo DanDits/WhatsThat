@@ -40,7 +40,7 @@ import dan.dit.whatsthat.util.image.ImageUtil;
 public class RiddleMemory extends RiddleGame {
     private static final int DEFAULT_FIELD_X = 8;
     private static final int DEFAULT_FIELD_Y = 6; // one dimension must be a multiple of 2!
-    private static final int CONTENT_IN_PATH_ALPHA = 125; //TODO no effect?!
+    private static final int CONTENT_IN_PATH_ALPHA = 155;
 
     private Field2D<MemoryCard> mField;
     private Dimension mFieldDimension;
@@ -231,7 +231,7 @@ public class RiddleMemory extends RiddleGame {
             Collections.shuffle(memoryImagesFinal);
         }
 
-        // now init the MemoryCards
+        // now init the MemoryCard pairs, restoring cover state and uncovered attribute if available
         listener.onProgressUpdate(50);
         for (int index = 0; index < requiredImages * 2; index++) {
             MemoryCard card = mField.getField(index % mFieldX, index / mFieldX);
@@ -378,7 +378,7 @@ public class RiddleMemory extends RiddleGame {
             }
             canvas.drawRect(fieldRect, mCardBorderPaint);
             mCardBorderPaint.setColor(oldColor);
-            mCardBorderPaint.setAlpha(isInPath ? CONTENT_IN_PATH_ALPHA : 255);
+            mCardContentPaint.setAlpha(isInPath ? CONTENT_IN_PATH_ALPHA : 255);
             if (isPairUncovered()) {
                 canvas.drawBitmap(mBitmap, mBitmapSource, fieldRect, mCardContentPaint);
             } else if (mUncovered) {
@@ -386,7 +386,15 @@ public class RiddleMemory extends RiddleGame {
                     canvas.drawBitmap(mBlackUncoveredCardBitmap, fieldRect.left, fieldRect.top, mCardContentPaint);
                 } else {
                     mBlackCardsToDraw--;
-                    canvas.drawBitmap(mMemoryBitmap, fieldRect.left, fieldRect.top, mCardContentPaint);
+                    if (mMemoryBitmap != null) {
+                        canvas.drawBitmap(mMemoryBitmap, fieldRect.left, fieldRect.top, mCardContentPaint);
+                    } else {
+                        // emergency case in case bitmap loading failed since we can't fetch a new one easily
+                        oldColor = mCardBorderPaint.getColor();
+                        mCardContentPaint.setColor(mMemoryImage.getAverageARGB());
+                        canvas.drawRect(fieldRect, mCardContentPaint);
+                        mCardContentPaint.setColor(oldColor);
+                    }
                 }
             } else {
                 canvas.drawBitmap(mCoveredCardBitmap.get(mCoverState), fieldRect.left, fieldRect.top, mCardContentPaint);
@@ -429,6 +437,7 @@ public class RiddleMemory extends RiddleGame {
                 if (mCoverState < MemoryCard.STATE_COVERED_BLACK) {
                     mCoverState++;
                 }
+                mCoverState = Math.max(mCoverState, STATE_COVERED_GREEN); //just to make sure we are never in an illegal state, works without though
             }
         }
     }

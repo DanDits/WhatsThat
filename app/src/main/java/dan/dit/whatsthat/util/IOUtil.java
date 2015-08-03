@@ -34,12 +34,14 @@ public final class IOUtil {
      */
 	public static boolean unzip(File zipArchive, File target) {
 		if (zipArchive == null || target == null || !zipArchive.exists() || !target.exists()) {
+			Log.e("HomeStuff", "Unzip failed at 0: " + zipArchive + " target " + target);
 			return false;
 		}
 		ZipInputStream zipinputstream;
 		try {
 			zipinputstream = new ZipInputStream(new FileInputStream(zipArchive));
 		} catch (FileNotFoundException e) {
+            Log.e("HomeStuff", "Unzip failed at 1: " + e);
 			return false;
 		}
 
@@ -53,6 +55,7 @@ public final class IOUtil {
 				zipentry = zipinputstream.getNextEntry();
 			} catch (IOException ioe) {
 				// critical, especially if next would be a directory which contains files
+                Log.e("HomeStuff", "Unzip failed at 2: " + ioe);
 				return false; 
 			}
 			if (zipentry != null) {
@@ -61,7 +64,8 @@ public final class IOUtil {
 				
 	            File tempExtracted = new File(target, entryName);
 	            if (zipentry.isDirectory()) {
-	            	if (!tempExtracted.mkdirs()) {
+	            	if (!tempExtracted.isDirectory() && !tempExtracted.mkdirs()) {
+                        Log.e("HomeStuff", "Unzip problem at 3.5.");
                         result = false;
                     }
 	            } else {
@@ -76,17 +80,21 @@ public final class IOUtil {
                         if (n == 0) {
                             // this can happen when zip archive is corrupt, closeEntry will never return
                             fileoutputstream.close();
+                            Log.e("HomeStuff", "Unzip failed at 3: Zip archive corrupt.");
                             return false;
                         }
 						fileoutputstream.close();
 						zipinputstream.closeEntry();
 					} catch (IOException e) {
-                        Log.e("Image", "Exception during write of unzip: " + e);
+                        Log.e("HomeStuff", "Unzip problem at 4: " + e);
 						result = false;
 					}
 	            }
 			}
 		} while (zipentry != null);
+        if (!result) {
+            Log.e("HomeStuff", "Unzip failed at 5.");
+        }
 		return result;
 	}
 	

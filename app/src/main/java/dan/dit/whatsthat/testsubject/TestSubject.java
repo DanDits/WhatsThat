@@ -164,7 +164,7 @@ public class TestSubject {
     private void initPreferences() {
         mPreferences = mApplicationContext.getSharedPreferences(TEST_SUBJECT_PREFERENCES_FILE, Context.MODE_PRIVATE);
         mPurse = new Purse(mApplicationContext);
-        mShopArticleHolder = new ShopArticleHolder(new ForeignPurse(mPurse));
+        mShopArticleHolder = new ShopArticleHolder(mApplicationContext, new ForeignPurse(mPurse));
         mGender = mPreferences.getInt(TEST_SUBJECT_PREF_GENDER, GENDER_NOT_CHOSEN);
         mFinishedMainTexts = mPreferences.getBoolean(TEST_SUBJECT_PREF_FINISHED_MAIN_TEXTS, false);
 

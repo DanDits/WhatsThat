@@ -1,5 +1,7 @@
 package dan.dit.whatsthat.testsubject.shopping;
 
+import android.content.Context;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -15,6 +17,7 @@ import dan.dit.whatsthat.testsubject.TestSubject;
  * Created by daniel on 29.07.15.
  */
 public class ShopArticleHolder {
+    private final Context mApplicationContext;
     private OnArticleChangedListener mListener;
     private ForeignPurse mPurse;
     private List<ShopArticle> mFilteredArticles;
@@ -57,12 +60,19 @@ public class ShopArticleHolder {
         return mAllArticles;
     }
 
+    public void closeArticles() {
+        for (ShopArticle article : mAllArticles) {
+            article.onClose();
+        }
+    }
+
     public interface OnArticleChangedListener {
         void onArticleChanged(ShopArticle article);
     }
 
-    public ShopArticleHolder(ForeignPurse purse) {
+    public ShopArticleHolder(Context applicationContext, ForeignPurse purse) {
         mPurse = purse;
+        mApplicationContext = applicationContext;
         makeArticles();
     }
 
@@ -79,6 +89,8 @@ public class ShopArticleHolder {
         addArticle(new ShopArticleSimple(ARTICLE_KEY_CIRCLE_DIVIDE_BY_MOVE_FEATURE, mPurse, R.string.article_circle_divide_by_move_feature_name, R.string.article_circle_divide_by_move_feature_descr, R.drawable.icon_circle, 6));
         addArticle(new ShopArticleSimple(ARTICLE_KEY_TRIANGLE_DIVIDE_BY_MOVE_FEATURE, mPurse, R.string.article_triangle_divide_by_move_feature_name, R.string.article_triangle_divide_by_move_feature_descr, R.drawable.icon_triangle, 6));
         addHintArticles();
+        addArticle(new ShopArticleDownload(mApplicationContext, mPurse, R.string.download_article_name, R.string.download_article_descr, R.drawable.icon_general, 0,
+                "daniel", "test1", 2, "https://www.dropbox.com/s/pqcigkzt0q0yqhr/bla.zip?dl=1"));
         //TODO add articles
         sortArticles();
     }

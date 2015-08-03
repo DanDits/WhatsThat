@@ -379,4 +379,15 @@
     <string name="riddle_type_memory">Memory</string>
     <string name="riddle_type_memory_explanation">Find a matching pair</string>
 
+    <string name="download_article_toast_download_complete">Download complete.</string>
+    <string name="download_article_toast_complete">New images ready.</string>
+    <string name="download_article_toast_error_download">Failed downloaded images (%1$d)</string>
+    <string name="download_article_toast_error_syncing">Failed syncing data (%1$d)</string>
+    <string name="download_article_descr_syncing">Syncing %1$s\'s images (%2$s)…</string>
+    <string name="download_article_descr_downloading">Downloading %1$s\'s images (%2$s)…</string>
+    <string name="download_article_descr_downloaded">Downloaded %1$s\'s images (%2$s)…</string>
+    <string name="download_article_descr_synced">%1$s\'s images (%2$s) are now in the pool!</string>
+    <string name="download_article_descr_ready">Confirm download from %1$s (~%2$dMB)</string>
+    <string name="download_article_name">Download images</string>
+    <string name="download_article_descr">Grow the image pool with fresh cool images.</string>
 </resources>

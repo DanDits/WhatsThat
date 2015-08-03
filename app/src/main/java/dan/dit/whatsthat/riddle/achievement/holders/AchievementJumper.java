@@ -142,9 +142,11 @@ public class AchievementJumper extends TypeAchievementHolder {
                     }
                 }
             } else if (event.getChangedData() == mGameData && event.hasChangedKey(KEY_GAME_CURRENT_DISTANCE_RUN)) {
-                if (mGameData.getValue(KEY_GAME_CURRENT_DISTANCE_RUN, 0L) == 0L) {
+                if (RiddleJumper.distanceRunToMeters(mGameData.getValue(KEY_GAME_CURRENT_DISTANCE_RUN, 0L)) == 0) {
                     mGameData.putValue(KEY_GAME_DOUBLE_JUMPS_BEFORE_MEDIUM, 0L, AchievementProperties.UPDATE_POLICY_ALWAYS);
                 }
+            } else if (event.getEventType() == AchievementDataEvent.EVENT_TYPE_DATA_CLOSE) {
+                mGameData.putValue(KEY_GAME_DOUBLE_JUMPS_BEFORE_MEDIUM, 0L, AchievementProperties.UPDATE_POLICY_ALWAYS);
             }
         }
     }

@@ -60,7 +60,7 @@ public class AchievementView extends ExpandableListView implements StoreContaine
             }
         }
         AchievementHolder misHolder = TestSubject.getInstance().getAchievementHolder().getMiscAchievementHolder();
-        addAchievementHolder(misHolder, context.getResources().getString(R.string.achievement_misc_category_name), R.drawable.cheat);
+        addAchievementHolder(misHolder, context.getResources().getString(R.string.achievement_misc_category_name), R.drawable.icon_general);
 
         setOnChildClickListener(new OnChildClickListener() {
             @Override
