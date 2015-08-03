@@ -102,7 +102,7 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
         riddle.initViews(mRiddleView, mSolutionView, this);
         updateNextRiddleButton();
         if (mRiddleView != null && mRiddleView.hasController()) {
-
+            mErrorHandlingAttempted = false; // clear flag
             long currRiddleId = mRiddleView.getRiddleId();
             if (currRiddleId <= Riddle.NO_ID) {
                 Log.e("Riddle", "Got riddle with no id and still no id: " + currRiddleId + " riddle " + riddle);

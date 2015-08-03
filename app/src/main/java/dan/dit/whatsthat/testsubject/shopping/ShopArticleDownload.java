@@ -9,8 +9,6 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.w3c.dom.Text;
-
 import dan.dit.whatsthat.R;
 import dan.dit.whatsthat.system.ImageDataDownload;
 import dan.dit.whatsthat.testsubject.ForeignPurse;

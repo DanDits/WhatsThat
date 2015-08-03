@@ -43,7 +43,7 @@ import dan.dit.whatsthat.util.mosaic.data.MosaicTile;
 public class Image implements MosaicTile<String> {
     public static final String SHAREDPREFERENCES_FILENAME ="dan.dit.whatsthat.imagePrefs";
     public static final String ORIGIN_IS_THE_APP = "WhatsThat";
-    public static final String IMAGES_DIRECTORY_NAME = "images";
+    public static final String IMAGES_DIRECTORY_NAME = ".images";
     public static final int NO_AVERAGE_COLOR = 0;
 
     // instead of building everytime on every device this app runs we built once for every new release of images all essential data

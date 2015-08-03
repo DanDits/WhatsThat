@@ -14,5 +14,7 @@
     <ProgressBar
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/progress_bar"/>
+        android:id="@+id/progress_bar"
+        android:indeterminateBehavior="cycle"
+        android:max="100" />
 </LinearLayout>
