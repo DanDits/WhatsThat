@@ -170,7 +170,7 @@
     <string name="achievement_circle_2_descr">You know nothing. Or do you recognize the picture with only %2$d circles?</string>
     <string name="achievement_circle_3_name">So beautiful</string>
     <string name="achievement_circle_3_descr">Count all circles in a game and admire the artist.</string>
-    <string name="achievement_circle_4_name">I\'m loving this</string>
+    <string name="achievement_circle_4_name">I\'m loving it</string>
     <string name="achievement_circle_4_descr">Well then do this job again for %1$d more pictures.</string>
     <string name="achievement_circle_5_name">Mission possible</string>
     <string name="achievement_circle_5_descr">Finish a game within %1$d seconds but more clicks than wipes.</string>
@@ -390,4 +390,12 @@
     <string name="download_article_descr_ready">Confirm download from %1$s (~%2$dMB)</string>
     <string name="download_article_name">Download images</string>
     <string name="download_article_descr">Grow the image pool with fresh cool images.</string>
+    <string name="achievement_misc_1_descr">Pst! Don\'t wanna tell you that here! Read in hints!</string>
+    <string name="achievement_misc_1_name">Creator names</string>
+    <string name="achievement_misc_2_descr">You skipped an experiment for more than %1$d days.</string>
+    <string name="achievement_misc_2_name">Need my friends</string>
+    <string name="achievement_misc_3_descr">You have been busy with one experiment for more than %1$d hours.</string>
+    <string name="achievement_misc_3_name">Stockholm syndrome</string>
+    <string name="achievement_misc_4_descr">Complete %1$d/%2$d achievements</string>
+    <string name="achievement_misc_4_name">Achievement hunter</string>
 </resources>

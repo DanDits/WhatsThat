@@ -530,7 +530,7 @@
     <string name="achievement_snow_9_descr">Die Wahrheit mag wehtun, aber sie ist besser als jede Lüge</string>
     <string name="achievement_snow_10_name">Sturer Esel</string>
     <string name="achievement_snow_10_descr">Falls du es nicht wusstest: Die Wand ist keine Hilfe</string>
-    <string name="achievement_snow_11_name">…oder doch kein Glück?</string>
+    <string name="achievement_snow_11_name">…oder doch Können?</string>
     <string name="achievement_snow_11_descr">Löse %1$d Rätsel mit nur einer Explosion.</string>
     <string name="achievement_snow_12_name">Overkill</string>
     <string name="achievement_snow_12_descr">Verputze %1$d weitere leckere Süßigkeiten als Angry Cell.</string>
@@ -628,11 +628,11 @@
 
     <string name="achievement_misc_category_name">Allgemein</string>
     <string name="achievement_misc_1_name">Schöpfer Namen</string>
-    <string name="achievement_misc_1_descr">Will das hier nicht ausplaudern. Lese es in den Tipps!!</string>
+    <string name="achievement_misc_1_descr">Pst! Will das hier nicht ausplaudern! Lese es in den Tipps!</string>
     <string name="achievement_misc_2_name">Brauch meine Freunde</string>
-    <string name="achievement_misc_2_descr">Du hast ein Rätsel für mehr als %1$d Tage zurückgestellt.</string>
+    <string name="achievement_misc_2_descr">Du hast ein Experiment für mehr als %1$d Tage zurückgestellt.</string>
     <string name="achievement_misc_3_name">Stockholm-\nsyndrom</string>
-    <string name="achievement_misc_3_descr">Du hast ein Rätsel mehr als %1$d Stunden gespielt.</string>
+    <string name="achievement_misc_3_descr">Du hast bei einem Experiment mehr als %1$d Stunden verbracht.</string>
     <string name="achievement_misc_4_name">Erfolgsjäger</string>
     <string name="achievement_misc_4_descr">Schließe %1$d/%2$d Erfolge ab.</string>
 
