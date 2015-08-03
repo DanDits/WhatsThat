@@ -23,6 +23,7 @@ import dan.dit.whatsthat.riddle.games.RiddleGame;
 import dan.dit.whatsthat.riddle.games.RiddleJumper;
 import dan.dit.whatsthat.riddle.games.RiddleMemory;
 import dan.dit.whatsthat.riddle.games.RiddleSnow;
+import dan.dit.whatsthat.riddle.games.RiddleTorchlight;
 import dan.dit.whatsthat.riddle.games.RiddleTriangle;
 import dan.dit.whatsthat.util.PercentProgressListener;
 
@@ -439,6 +440,32 @@ public class Types {
         @Override
         public int getExplanationResId() {
             return R.string.riddle_type_developer_explanation;
+        }
+    }
+
+    /**
+     * New testing project by FD
+     */
+    public static class Torchlight extends PracticalRiddleType {
+        public static final String NAME = "Torchlight";
+        @Override
+        protected String getName() {return NAME;}
+
+        @Override
+        public RiddleGame makeRiddle(Riddle riddle, Image image, Bitmap bitmap, Resources res, RiddleConfig config, PercentProgressListener listener) {
+            return new RiddleTorchlight(riddle, image, bitmap, res, config, listener);
+        }
+        @Override
+        public int getIconResId() {
+            return R.drawable.icon_plain;
+        }
+        @Override
+        public int getNameResId() {
+            return R.string.riddle_type_torchlight;
+        }
+        @Override
+        public int getExplanationResId() {
+            return R.string.riddle_type_torchlight_explanation;
         }
     }
 }

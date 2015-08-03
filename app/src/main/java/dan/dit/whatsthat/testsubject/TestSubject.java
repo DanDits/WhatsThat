@@ -240,6 +240,7 @@ public class TestSubject {
             addNewType(PracticalRiddleType.DICE_INSTANCE);
             addNewType(PracticalRiddleType.JUMPER_INSTANCE);
             addNewType(PracticalRiddleType.MEMORY_INSTANCE);
+            addNewType(PracticalRiddleType.TORCHLIGHT_INSTANCE);
             addNewType(PracticalRiddleType.DEVELOPER_INSTANCE);
         }
     }

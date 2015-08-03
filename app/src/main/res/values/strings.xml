@@ -90,6 +90,8 @@
     <string name="riddle_type_triangle_explanation">Press inside a triangle to create smaller ones.</string>
     <string name="riddle_type_jumper">Invasion</string>
     <string name="riddle_type_jumper_explanation">Touch to jump or keep pressed to doublejump over obstacles. Each one will slowly reveal the image</string>
+    <string name="riddle_type_torchlight">Torchlight</string>
+    <string name="riddle_type_torchlight_explanation">Something happens later</string>
     <string name="riddle_type_developer">Developer</string>
     <string name="riddle_type_developer_explanation">Hi self or brother.</string>
     <string name="panic_dialog_positive">All right</string>
@@ -239,7 +241,7 @@
     <string name="achievement_dice_9_name">Logistic master</string>
     <string name="achievement_dice_9_descr">%1$dx Alien, %2$dx purple, %3$dx green, %4$dx yellow on the field :).</string>
     <string name="achievement_dice_10_name">X-ray vision</string>
-    <string name="achievement_dice_10_descr">.Ecid wolley yna gninibmoc tuohtiw erutcip a hsinif</string>
+    <string name="achievement_dice_10_descr">.Secid wolley yna gninibmoc tuohtiw erutcip a hsinif</string>
     <string name="achievement_dice_11_name">Going for a walk</string>
     <string name="achievement_dice_11_descr">Take an alien %1$d and a yellow %2$d for a walk.</string>
     <string name="achievement_dice_12_name">This…</string>
@@ -278,11 +280,11 @@
     <string name="achievement_jumper_5_name">Avoiding manoeuvres</string>
     <string name="achievement_jumper_5_descr">Congratulations. You dodged more than %1$d obstacles.</string>
     <string name="achievement_jumper_6_name">Beating the creators</string>
-    <string name="achievement_jumper_6_descr">Wow. You beat my creators records. Write an email and tell your record by writing "Skyline record" in the subject line.</string>
+    <string name="achievement_jumper_6_descr">Wow. You beat my creators records. Write your record via mail as \"Monstarathon record\" in the subject line.</string>
     <string name="achievement_jumper_7_name">Knuffbum\'s story</string>
     <string name="achievement_jumper_7_descr">Find the truth about Knuffbum.</string>
     <string name="achievement_jumper_8_name">Still a better lovestory than twighlight</string>
-    <string name="achievement_jumper_8_descr">Cuddle Knuffbum at \"ultra hard\" half a dozen.</string>
+    <string name="achievement_jumper_8_descr">Thank you for cuddling with Knuffbuff.</string>
     <string name="achievement_jumper_9_name">Marathon</string>
     <string name="achievement_jumper_9_descr">Going for a short walk of %1$d meters.</string>
     <string name="achievement_jumper_10_name">Boring beginning</string>
@@ -290,21 +292,21 @@
     <string name="achievement_jumper_11_name">Natural talent</string>
     <string name="achievement_jumper_11_descr">Reach at least %2$d meters in %1$d successive games.</string>
 	
-    <string name="achievement_triangle_1_descr">Hier gibt es nur Antiwitze. Zum Beispiel solche: Wie viele Erdlinge braucht es zum Bau eines Raumschiffs?</string>
-    <string name="achievement_triangle_1_descr_unachieved">Wie viele Erdlinge braucht es zum Bau eines Schiffs? %1$d, weil das Meer zu salzig ist.</string>
-    <string name="achievement_triangle_1_name">In nur einem Wimpernschlag</string>
-    <string name="achievement_triangle_2_descr">Was macht ein Erdling auf dem Mond?</string>
-    <string name="achievement_triangle_2_descr_unachieved">Was macht ein Erdling auf dem Mond? Einen Moonwalk.</string>
-    <string name="achievement_triangle_2_name">Zwei Fliegen mit einer Klappe</string>
-    <string name="achievement_triangle_3_descr">Wie kommt ein Priester auf die Sonne?</string>
-    <string name="achievement_triangle_3_descr_unachieved">Wie kommt ein Priester auf die Sonne? Durch Aberglaube.</string>
-    <string name="achievement_triangle_3_name">Effizienzklicker</string>
-    <string name="achievement_triangle_4_descr">Wie verlässt ein Priester die Sonne?</string>
-    <string name="achievement_triangle_4_descr_unachieved">Wie verlässt ein Priester die Sonne? Als Brandfleck.</string>
-    <string name="achievement_triangle_4_name">Superauge</string>
-    <string name="achievement_triangle_5_descr">Wie nennt man einen Politiker auf dem Mars?</string>
-    <string name="achievement_triangle_5_descr_unachieved">Wie nennt man einen Politiker auf dem Mars? Noch immer einen Lügner.</string>
-    <string name="achievement_triangle_5_name">Fortschreitender Fortschritt</string>
+    <string name="achievement_triangle_1_descr">This time you just get some anti-humor. For instance: How many earthlings do you need to build a spaceship?</string>
+    <string name="achievement_triangle_1_descr_unachieved">How many earthlings do you need to build a spaceship? %1$d, as the sea is too salty.</string>
+    <string name="achievement_triangle_1_name">In a flash</string>
+    <string name="achievement_triangle_2_descr">What\'s an earthling doing on the moon?</string>
+    <string name="achievement_triangle_2_descr_unachieved">What\'s an earthling doing on the moon? A moonwalk.</string>
+    <string name="achievement_triangle_2_name">Two birds with one stone</string>
+    <string name="achievement_triangle_3_descr">How gets a priest to the sun?</string>
+    <string name="achievement_triangle_3_descr_unachieved">How gets a priest to the sun? With superstition.</string>
+    <string name="achievement_triangle_3_name">Efficient clicks</string>
+    <string name="achievement_triangle_4_descr">How does a priest leave the sun?</string>
+    <string name="achievement_triangle_4_descr_unachieved">How does a priest leave the sun? As a burn mark.</string>
+    <string name="achievement_triangle_4_name">Super Eye</string>
+    <string name="achievement_triangle_5_descr">How do you call a politican on Mars?</string>
+    <string name="achievement_triangle_5_descr_unachieved">How do you call a politician on Mars? Still a liar.</string>
+    <string name="achievement_triangle_5_name">Progressive progress</string>
 
     <string name="achievement_misc_category_name">Allgemein</string>
 
