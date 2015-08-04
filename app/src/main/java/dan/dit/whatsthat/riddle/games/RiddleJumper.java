@@ -18,6 +18,7 @@ import android.view.MotionEvent;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
@@ -91,6 +92,9 @@ public class RiddleJumper extends RiddleGame implements FlatWorldCallback {
     private static final float MAX_SOLUTION_SCALE = 0.5f;
     private static final float BUBBLE_CENTER_Y_ESTIMATE = 0.765f * 0.5f;
     private static final float DISTANCE_RUN_PENALTY_ON_SAVE_FRACTION = 0.75f; // mainly required so that it is not worth closing the riddle (or app) when you know you are going to collide
+    private static final float[] CLEAR_MIND_SIZE_FRACTION = new float[] {0.05f, 0.13f, 0.25f, 0.5f};
+    private static final int FOGGED_MIND_COLOR = Color.DKGRAY;
+    private static final int[] MIND_CLEARED_EVERY_K_OBSTACLES = new int[] {2, 3, 5, 8};
 
 
     private Bitmap mThoughtbubble;
@@ -122,15 +126,19 @@ public class RiddleJumper extends RiddleGame implements FlatWorldCallback {
     private List<List<Obstacle>> mObstacles;
     private int mDifficulty;
     private long mDifficultyMinTimeExtra;
-    private Paint mSolutionPaint;
-    private Paint mGradientPaint;
     private boolean mStateMotionIsDown;
     private boolean mFlagDoSuperJump;
     private float mObstaclesSpeed;
     private Obstacle mBoss;
-    private float mLastDrawnSolutionFraction;
-    private float mLastDrawnPassedFraction;
-    private Bitmap mScaledSolution;
+    private Bitmap mClearMindBackground;
+    private Canvas mClearMindCanvas;
+    private Bitmap[] mClearMind;
+    private List<Float> mClearMindX;
+    private List<Float> mClearMindY;
+    private List<Integer> mClearMindType;
+    private Paint mSolutionPaint;
+    private Paint mClearMindPaint;
+    private Bitmap mBitmapScaled;
 
     public RiddleJumper(Riddle riddle, Image image, Bitmap bitmap, Resources res, RiddleConfig config, PercentProgressListener listener) {
         super(riddle, image, bitmap, res, config, listener);
@@ -165,21 +173,14 @@ public class RiddleJumper extends RiddleGame implements FlatWorldCallback {
     @Override
     protected void initBitmap(Resources res, PercentProgressListener listener) {
         mRand = new Random();
+        mBitmapScaled = BitmapUtil.attemptBitmapScaling(mBitmap, (int) (mBitmap.getWidth() * MAX_SOLUTION_SCALE), (int) (mBitmap.getHeight() * MAX_SOLUTION_SCALE), false);
         mClearPaint = new Paint();
         mClearPaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.CLEAR));
         mTextPaint = new Paint();
         mTextPaint.setTextSize(35.f);
         mSolutionBackgroundHeight = (int) (mConfig.mHeight / Types.Jumper.BITMAP_ASPECT_RATIO);
-        mSolutionBackground = Bitmap.createBitmap(mConfig.mWidth, mSolutionBackgroundHeight, Bitmap.Config.ARGB_8888);
-        mSolutionBackgroundCanvas = new Canvas(mSolutionBackground);
         listener.onProgressUpdate(20);
         mObstaclesSpeed = - mConfig.mWidth / ((float) OBSTACLES_RIGHT_LEFT_DURATION / ONE_SECOND);
-        mSolutionPaint = new Paint();
-        mSolutionPaint.setAntiAlias(true);
-        mSolutionPaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_ATOP));
-        mGradientPaint = new Paint();
-        mGradientPaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_ATOP));
-        mThoughtbubble = ImageUtil.loadBitmap(res, R.drawable.gedankenblase, (int) (BUBBLE_SCALE * mConfig.mWidth), (int) (BUBBLE_SCALE * mSolutionBackgroundHeight), true);
         listener.onProgressUpdate(30);
         Compacter cmp = getCurrentState();
         initDistanceRun(cmp);
@@ -199,7 +200,7 @@ public class RiddleJumper extends RiddleGame implements FlatWorldCallback {
         listener.onProgressUpdate(65);
         initObstacles(res, cmp, listener);
         listener.onProgressUpdate(90);
-        updateSolution(true);
+        initSolution(res, cmp);
         listener.onProgressUpdate(95);
         drawForeground();
         listener.onProgressUpdate(100);
@@ -402,57 +403,63 @@ public class RiddleJumper extends RiddleGame implements FlatWorldCallback {
         return mConfig.mHeight - mRunnerHeight * relativeHeight;
     }
 
-    private synchronized void drawSolution(final float fraction, final boolean forceDraw) {
-        final float REDRAW_THRESHOLD_FACTOR = 0.01f;
-        final boolean fractionRedrawRequired = Math.abs(fraction - mLastDrawnSolutionFraction) >= REDRAW_THRESHOLD_FACTOR;
-        final float passedFraction =  mObstaclesPassed / (float) REQUIRED_TOTAL_OBSTACLES;
-        final boolean passedFractionRedrawRequired = Math.abs(passedFraction - mLastDrawnPassedFraction) >= REDRAW_THRESHOLD_FACTOR;
-        if (!fractionRedrawRequired && !passedFractionRedrawRequired && !forceDraw) {
-            return;
+    private void initSolution(Resources res, Compacter cmp) {
+        mSolutionPaint = new Paint();
+        mSolutionPaint.setAntiAlias(true);
+        mSolutionPaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_ATOP));
+        mSolutionBackground = Bitmap.createBitmap(mConfig.mWidth, mSolutionBackgroundHeight, Bitmap.Config.ARGB_8888);
+        mSolutionBackgroundCanvas = new Canvas(mSolutionBackground);
+        mThoughtbubble = ImageUtil.loadBitmap(res, R.drawable.gedankenblase, (int) (BUBBLE_SCALE * mConfig.mWidth), (int) (BUBBLE_SCALE * mSolutionBackgroundHeight), true);
+
+        mClearMind = new Bitmap[CLEAR_MIND_SIZE_FRACTION.length];
+        for (int i = 0; i < CLEAR_MIND_SIZE_FRACTION.length; i++) {
+            float fraction = CLEAR_MIND_SIZE_FRACTION[i];
+            int clearMindSize = (int) (Math.min(mSolutionBackground.getWidth(), mSolutionBackground.getHeight()) * fraction);
+            mClearMind[i] = ImageUtil.loadBitmap(res, R.drawable.explosion1, clearMindSize, clearMindSize, false);
+        }
+        mClearMindX = new LinkedList<>();
+        mClearMindY = new LinkedList<>();
+        mClearMindType = new LinkedList<>();
+        mClearMindBackground = Bitmap.createBitmap(mSolutionBackground.getWidth(), mSolutionBackground.getHeight(), mSolutionBackground.getConfig());
+        mClearMindCanvas = new Canvas(mClearMindBackground);
+        mClearMindCanvas.drawColor(FOGGED_MIND_COLOR);
+        mClearMindPaint = new Paint();
+        mClearMindPaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.DST_OUT));
+        if (cmp != null && cmp.getSize() > 5) {
+            Compacter xData = new Compacter(cmp.getData(3));
+            Compacter yData = new Compacter(cmp.getData(4));
+            Compacter typeData = new Compacter(cmp.getData(5));
+            try {
+                int count = Math.min(xData.getSize(), Math.min(yData.getSize(), typeData.getSize()));
+                for (int i = 0; i < count; i++) {
+                    clearMind(xData.getFloat(i), yData.getFloat(i), typeData.getInt(i));
+                }
+            } catch (CompactedDataCorruptException e) {
+                Log.e("Riddle", "Clear mind data corrupt for RiddleJumper: " + e);
+            }
         }
         mSolutionBackgroundCanvas.drawPaint(mClearPaint);
-        mSolutionBackgroundCanvas.drawBitmap(mThoughtbubble, (mSolutionBackground.getWidth() - mThoughtbubble.getWidth()) / 2, (mSolutionBackground.getHeight() - mThoughtbubble.getHeight()) / 2, null);
+        drawSolution();
+    }
 
-        if (passedFraction < 1.f) {
-            int lineY = (int) (mSolutionBackgroundCanvas.getHeight() * passedFraction);
-            if (forceDraw || passedFractionRedrawRequired) {
-                mGradientPaint.setShader(new LinearGradient(0, mSolutionBackgroundCanvas.getHeight(), 0, lineY, Color.BLACK, Color.WHITE, Shader.TileMode.CLAMP));
-            }
-            mSolutionBackgroundCanvas.drawPaint(mGradientPaint);
-            int greyScale = (int) (passedFraction * 255.f);
-            mSolutionPaint.setColor(Color.rgb(greyScale, greyScale, greyScale));
-            mSolutionBackgroundCanvas.drawLine(0, lineY, mSolutionBackgroundCanvas.getWidth(), lineY, mSolutionPaint);
-        }
+    private void clearMind(float x, float y, int type) {
+        mClearMindX.add(x);
+        mClearMindY.add(y);
+        type = Math.min(mClearMind.length - 1, type);
+        mClearMindType.add(type);
+        mClearMindCanvas.drawBitmap(mClearMind[type], x, y, mClearMindPaint);
+    }
 
-        if (fraction > 0) {
-            if (mScaledSolution == null || fractionRedrawRequired || forceDraw) {
-                int wantedWidth = (int) (fraction * mBitmap.getWidth());
-                int wantedHeight = (int) (fraction * mBitmap.getHeight());
-                mScaledSolution = null;
-                if (wantedWidth > 0 && wantedHeight > 0) {
-                    mScaledSolution = BitmapUtil.resize(mBitmap, wantedWidth, wantedHeight);
-                }
-            }
-            if (mScaledSolution != null) {
-                mSolutionBackgroundCanvas.drawBitmap(mScaledSolution, mSolutionBackground.getWidth() / 2 - mScaledSolution.getWidth() / 2, mSolutionBackground.getHeight() * BUBBLE_CENTER_Y_ESTIMATE - mScaledSolution.getHeight() / 2, mSolutionPaint);
-            }
-        }
+    private synchronized void drawSolution() {
+        mSolutionBackgroundCanvas.drawBitmap(mThoughtbubble, mSolutionBackground.getWidth() / 2 - mThoughtbubble.getWidth() / 2, mSolutionBackground.getHeight() / 2 - mThoughtbubble.getHeight() / 2, null);
 
-        mLastDrawnSolutionFraction = fraction;
-        mLastDrawnPassedFraction = passedFraction;
+        mSolutionBackgroundCanvas.drawBitmap(mBitmapScaled, mSolutionBackground.getWidth() / 2 - mBitmapScaled.getWidth() / 2, mSolutionBackground.getHeight() * BUBBLE_CENTER_Y_ESTIMATE - mBitmapScaled.getHeight() / 2, mSolutionPaint);
+        mSolutionBackgroundCanvas.drawBitmap(mClearMindBackground, 0, 0, mSolutionPaint);
     }
 
     @Override
     public long getPeriodicEventPeriod() {
         return UPDATE_PERIOD;
-    }
-
-    private void updateSolution(boolean forceDraw) {
-        float scale = (float) Math.exp((mObstaclesPassed / (double) REQUIRED_TOTAL_OBSTACLES - 1.) * 7.);
-        if (scale <= 1 || forceDraw) {
-            scale = Math.min(MAX_SOLUTION_SCALE, scale);
-            drawSolution(scale, forceDraw);
-        }
     }
 
     private void onObstaclePassed(Actor obstacle) {
@@ -462,7 +469,13 @@ public class RiddleJumper extends RiddleGame implements FlatWorldCallback {
         mDifficultyMinTimeExtra++;
         //noinspection SuspiciousMethodCalls
         mCurrentObstacles.remove(obstacle); // not suspicious
-        updateSolution(false);
+        if (mObstaclesPassed % MIND_CLEARED_EVERY_K_OBSTACLES[mDifficulty] == 0) {
+            int type = mDifficulty;
+            float x = mRand.nextFloat() * (mClearMindBackground.getWidth() - mClearMind[type].getWidth());
+            float y = mRand.nextFloat() * (mClearMindBackground.getHeight() - mClearMind[type].getHeight());
+            clearMind(x, y, type);
+            drawSolution();
+        }
         if (mConfig.mAchievementGameData != null) {
             mConfig.mAchievementGameData.increment(AchievementJumper.KEY_GAME_OBSTACLE_DODGED_COUNT, 1L, 0L);
         }
@@ -470,7 +483,7 @@ public class RiddleJumper extends RiddleGame implements FlatWorldCallback {
 
     private void initDistanceRun(Compacter data) {
         mDistanceRun = 0f;
-        if (data != null && data.getSize() >= 3) {
+        if (data != null && data.getSize() > 2) {
             try {
                 mDistanceRun = data.getFloat(2);
             } catch (CompactedDataCorruptException e) {
@@ -597,7 +610,7 @@ public class RiddleJumper extends RiddleGame implements FlatWorldCallback {
     @NonNull
     @Override
     protected String compactCurrentState() {
-        Compacter cmp = new Compacter(3);
+        Compacter cmp = new Compacter(5);
         cmp.appendData(mBackgroundSlideCounter)
                 .appendData(mObstaclesPassed);
         if (mCollisionBreak) {
@@ -605,6 +618,21 @@ public class RiddleJumper extends RiddleGame implements FlatWorldCallback {
         } else {
             cmp.appendData(mDistanceRun * DISTANCE_RUN_PENALTY_ON_SAVE_FRACTION);
         }
+        Compacter clearMindX = new Compacter(mClearMindX.size());
+        Compacter clearMindY = new Compacter(mClearMindY.size());
+        Compacter clearType = new Compacter(mClearMindType.size());
+        for (Float xData : mClearMindX) {
+            clearMindX.appendData(xData);
+        }
+        for (Float yData : mClearMindY) {
+            clearMindY.appendData(yData);
+        }
+        for (Integer type : mClearMindType) {
+            clearType.appendData(type);
+        }
+        cmp.appendData(clearMindX.compact());
+        cmp.appendData(clearMindY.compact());
+        cmp.appendData(clearType.compact());
         return cmp.compact();
     }
 
@@ -632,7 +660,6 @@ public class RiddleJumper extends RiddleGame implements FlatWorldCallback {
             mRunner.clearJump(getTopForRelativeHeight(RELATIVE_HEIGHT_BASELINE));
             mRunner.setStateFrames(Runner.STATE_COLLISION);
             drawForeground();
-            updateSolution(false);
             if (mConfig.mAchievementGameData != null) {
                 mConfig.mAchievementGameData.increment(AchievementJumper.KEY_GAME_COLLISION_COUNT, 1L, 0L);
                 if (colliding1 == mBoss || colliding2 == mBoss) {

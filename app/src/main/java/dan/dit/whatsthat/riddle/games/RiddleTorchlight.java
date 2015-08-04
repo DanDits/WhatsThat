@@ -2,8 +2,16 @@ package dan.dit.whatsthat.riddle.games;
 
 import android.content.res.Resources;
 import android.graphics.Bitmap;
+import android.graphics.BitmapShader;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffXfermode;
+import android.graphics.RadialGradient;
+import android.graphics.Rect;
+import android.graphics.Shader;
+import android.graphics.Xfermode;
 import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -21,7 +29,8 @@ import dan.dit.whatsthat.util.image.ImageUtil;
 public class RiddleTorchlight extends RiddleGame {
 
     private static final int HIDDEN_COLOR = 0xff110f0f;
-    private static final long DRAWPAUSETIME = 300;//ms
+    private static final long DRAWPAUSETIME = 50;//ms
+    private static final float GLOW_RADIUS = 70.f;
 
 
     int x;
@@ -30,6 +39,7 @@ public class RiddleTorchlight extends RiddleGame {
     private Paint paint;
     private Paint glowpaint;
     long Lasttimedrawn;
+    private Paint glowToDarkPaint;
 
     public RiddleTorchlight(Riddle riddle, Image image, Bitmap bitmap, Resources res, RiddleConfig config, PercentProgressListener listener) {
         super(riddle, image, bitmap, res, config, listener);
@@ -47,13 +57,16 @@ public class RiddleTorchlight extends RiddleGame {
 
     @Override
     public void draw(Canvas canvas) {
-        canvas.drawPaint(paint);
-        int Radius = 90;
-        int InnerRadius = 30;
-        int VisibleLeft = x-Radius;
-        int VisibleTop = y-Radius;
         int Left = x-flame.getWidth()/2;
         int Top = y-flame.getHeight()/2;
+        canvas.drawPaint(paint);
+        canvas.drawCircle(x, y, GLOW_RADIUS, glowpaint);
+        canvas.drawCircle(x, y, GLOW_RADIUS, glowToDarkPaint);
+        canvas.drawBitmap(flame, Left, Top, null);
+
+        /*int Radius = (int) GLOW_RADIUS;
+        int VisibleLeft = x-Radius;
+        int VisibleTop = y-Radius;
 
 
         for (int i = Math.max(VisibleLeft, 0); i< Math.min(x+Radius,mBitmap.getWidth());i++){
@@ -70,9 +83,7 @@ public class RiddleTorchlight extends RiddleGame {
                     canvas.drawPoint(i,j,glowpaint);
                 }
             }
-        }
-        canvas.drawBitmap(flame,Left,Top,null);
-
+        }*/
         /*canvas.drawBitmap(mBitmap,0,0,null);
 
         for (int i = 0; i<mBitmap.getWidth();i++){
@@ -93,7 +104,14 @@ public class RiddleTorchlight extends RiddleGame {
         paint = new Paint();
         paint.setColor(HIDDEN_COLOR);
         glowpaint = new Paint();
+        glowpaint.setShader(new BitmapShader(mBitmap, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP));
+        glowToDarkPaint = new Paint();
+        updateGlowToDarkPaint();
         flame = ImageUtil.loadBitmap(res, R.drawable.lagerfeuer,mBitmap.getWidth()/5,mBitmap.getHeight()/5,false);
+    }
+
+    private void updateGlowToDarkPaint() {
+        glowToDarkPaint.setShader(new RadialGradient(x, y, GLOW_RADIUS, Color.TRANSPARENT, HIDDEN_COLOR, Shader.TileMode.CLAMP));
     }
 
     @Override
@@ -103,11 +121,13 @@ public class RiddleTorchlight extends RiddleGame {
         Log.d("Fabi", "Bewegt zu " + x + "/" + y);
 
         if (event.getActionMasked()==MotionEvent.ACTION_DOWN || event.getActionMasked()==MotionEvent.ACTION_UP) {
+            updateGlowToDarkPaint();
             return true;
         } else if (event.getActionMasked()==MotionEvent.ACTION_MOVE){
             long currenttime = System.currentTimeMillis();
             if (currenttime-Lasttimedrawn > DRAWPAUSETIME){
                 Lasttimedrawn = currenttime;
+                updateGlowToDarkPaint();
                 return true;
             }else {
                 return false;
