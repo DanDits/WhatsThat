@@ -41,21 +41,19 @@
         <item>Es reicht aber, wenn du mich ganz zwanglos mit \"Erhabener\" anredest.</item>
         <item>Achja, das hier ist Dr. Kulg.</item>
         <item>Ihr würdet ihn einen verrückt genialen Wissenschaftler nennen.</item>
-        <item>Verrate mir nur vorweg bitte eins: Was bist du für ein Wesen?</item>
-        <item>Unsere hochentwickelte Kultur ist darüber zu erhaben, aber euch Menschen ist das ja wichtig.</item>
         <item>Meine Schöpfer und ich, oder kurz gesagt, wir, wollen die menschliche Spezies besser verstehen.</item>
         <item>Unsere Wahl ist dabei auf dich gefallen.</item>
         <item>Du wirst unser Versuchsobjekt sein</item>
         <item>Wir werden dich beobachten und im Hintergrund die gewonnen Daten auswerten.</item>
         <item>Wir hoffen, du hast das Potential, das wir in dir sahen.</item>
-        <item>Zumindest sahst du aus der Ferne vielversprechend aus...</item>		
-        <item>Aber von Nahmen betrachtet.. vermute ich ein Versagen des Zentralgehirns...</item>
+        <item>Zumindest sahst du aus der Ferne vielversprechend aus…</item>
+        <item>Aber von Nahmen betrachtet.. vermute ich ein Versagen des Zentralgehirns…</item>
         <item>Nun.. enttäusche deinen Planeten besser nicht.</item>
     </string-array>
     <string-array name="test_subject_0_intro_nuts">
-        <item>...</item>
+        <item>…</item>
 		<item>Darf ich dir unser Zentralgehirn WiseMind vorstellen.. mit ihr haben wir dein Gehirn verbunden.</item>
-        <item>Ein Gehirn von der Größe einer Galaxie.. und dann.. nun ja.. deines daneben...</item>
+        <item>Ein Gehirn von der Größe einer Galaxie.. und dann.. nun ja.. deines daneben…</item>
         <item>Ich hoffe ihr werdet euch trotzdem verstehen</item>
         <item>Test: Ist 13 eine Primzahl?</item>
         <item>Keine Reaktion. Antwortzeit überschritten.</item>
@@ -279,8 +277,8 @@
         <item>..dann vergesse ich manchmal, dass ich bei dir diesen Fachjargon nicht verwenden sollte.</item>
         <item>Also übersetzt: Wir haben die Sonne und deine Augen beobachtet.</item>
         <item>Natürlich um die Farbwahrnehmung nochmals genauer zu untersuchen!</item>
-		<item>Die Konvergenz unserer Untersuchungen... stimmt..</item>
-		<item>nicht einmal annährend mit eurem Wissen überein.</item>
+		<item>Die Konvergenz unserer Untersuchungen… stimmt..</item>
+		<item>nicht einmal annähernd mit eurem Wissen überein.</item>
 		<item>Ihr wisst also gar nichts.</item>
 		<item>Na schön. Für diese Erkenntnis hätte ich nicht mal einen Keks bekommen.</item>
     </string-array>
@@ -291,12 +289,12 @@
 		<item>Träumer können wir aber mit dem richtigen Kniff aufwecken.</item>
 		<item>Als drittes gibt es noch solche, die nichts wissen und wissen, dass sie nichts wissen.</item>
 		<item>Unwissende können wir aber lehren.</item>
-		<item>Und ihr... ein ganz spezieller Haufen...</item>
-		<item>Ihr wisst nichts und wisst nicht, dass ihr nichts wisst...</item>
-		<item>Diesen Zustand von geistiger Umnachtung...</item>
+		<item>Und ihr… ein ganz spezieller Haufen…</item>
+		<item>Ihr wisst nichts und wisst nicht, dass ihr nichts wisst…</item>
+		<item>Diesen Zustand von geistiger Umnachtung…</item>
 		<item>Ihr seid eine GEfahr für diesen Planeten und das Sonnensystem.</item>
 		<item>Wenn ich auf eine Spezies mein ganzes Wissen und Gut setzen müsste..</item>
-		<item>..ihr wärt wohl die letzten...</item>
+		<item>..ihr wärt wohl die letzten…</item>
 		<item>Tut mir ja leid, ich sage halt einfach immer die Wahrheit.</item>
 		<item>Na gut, das war gelogen.</item>
 		<item>Ich neige nur meistens zu aggressiver Offenheit.</item>
@@ -394,11 +392,12 @@
     <string name="riddle_type_circle">Kreise</string>
     <string name="riddle_type_circle_explanation">Berühre einen Kreis, um diesen in vier kleinere aufzuteilen. Verbessere die Kontur des versteckten Bildes.</string>
     <string-array name="riddle_type_circle_hints">
-	    <item>Bei unserem ersten Experiment musst du die Kreise teilen, so wie Mose das Wasser, nur wesentlich stilvoller. Teile einen Kreis in vier neue, bis du durch die feineren Konturen erkennst du irgendwann hoffentlich ein Bild. Falls nicht, führe ich die Versuchsreihe mit Pantoffeltierchen weiter, die diese Tests mit Bravour bestanden haben.</item>
-        <item>Demo Version beendet. Kaufe dir das Spiel für 59,99€. Just kidding. Geh mal in den Shop. Der intergalaktische Kreislaser-Turbo-Schneider ist sicher nützlich…</item>
-        <item>Berühre Kreise um sie zu teilen.</item>
-        <item>Teilst du einen Kreis entstehen immer vier neue.</item>
-        <item>Jeder Kreis zeigt die Helligkeit des dahinter versteckten Bildes.</item>
+	    <item>Teile bei unserem ersten Experiment einen Kreise, so wie Mose das Wasser. Nur nicht in zwei Hälften sondern vier neue Kreise, bis du irgendwann durch die feineren Konturen hoffentlich ein Bild erkennst. Falls nicht, führe ich die Versuchsreihe mit Pantoffeltierchen weiter, die diese Tests mit Bravour bestanden haben.</item>
+        <item>Demo Version beendet. Kaufe die Vollversion für nur 59,99€. Just kidding. Geh trotzdem mal in den Shop. Der intergalaktische Kreislaser-Turbo-Schneider ist sicher nützlich…</item>
+        <item>Manche menschliche Augen erkennen manche Bilder manchmal erst aus manch einer Entfernung.</item>
+        <item>Manchmal hilft auch ein Screenshot. Bei eurem kleinen Gehirn aber nicht immer.</item>
+        <item>Eine Schnellanleitung findest du oben rechts. Dort kannst du auch ein Bild überspringen, solltest du mal nicht weiter kommen.</item>
+        <item>Willst du irgendwann mal aufhören mich zu belästigen?! Sonst muss ich dein Gehirn aufsaugen.</item>
     </string-array>
     
     <string name="riddle_type_snow">Angry Cell</string>
@@ -407,19 +406,36 @@
         <item>Ein neuer Test. In der Umgebung der Zelle platzieren wir kontaminierte biologische Stoffe einer anderen Spezies, um die Reaktion der Zelle darauf zu testen. Achte auf die Partikel, die von dem Stoff ausgehen und deiner Zelle schaden. Den Rest werden wir, wie in der Politik, mit einer Lüge bestmöglich verschleiern.</item>
         <item>Durch den Versuch erhoffen wir uns tiefere Einblicke in die irdische graue Substanz, ein Bestandteil deines Zentralnervensystems. Dazu mussten wir aus deinem Gehirn eine Zelle entfernen. </item>
         <item>Ob du dir wegen der entfernten Gehirnzelle Sorgen  machen musst? Hmm, bei der ohnehin schon geringen Anzahl…  ja. Der Test ist aber wichtiger.</item>
+        <item>Woher Engelchen kommt? Wir haben einer Zelle Tätrhaw injiziert. Das zeigt der Zelle die blanke Realität.  Als wir das Zeug einem Politiker gegeben haben, ist die Zelle augenblicklich geplatzt.</item>
+        <item>Sollte Engelchen zu hektisch oder aufgewühlt sein: Lass es die Wand schmecken. Es wird sich beruhigen.</item>
+        <item>Jedes Partikel lässt dich prozentual schrumpfen. Engelchen schützt dich etwas vor durchgehenden Partikel oder Wandkollisionen.</item>
+        <item>Du kannst Engelchen auch aus dem Spielfeld drücken. Dann wird deine Zelle temporär wieder in den Narrheits-Zustand versetzt.</item>
     </string-array>
 	
     <string name="riddle_type_triangle">Bunteck</string>
     <string name="riddle_type_triangle_explanation">Berühre einen Punkt in einem Dreieck, um kleinere Dreiecke mit schärferem Kontrast zu erzeugen.</string>
     <string-array name="riddle_type_triangle_hints">
-	    <item>WiseMind meint, ich rede zu viel. Ich will mich deshalb kurz fassen: Ein farbliches Pendant zum Kreis-Test. Klickst du auf ein Dreieck, teilt sich dieses in zwei kleinere. Wozu das ganze? Zum Testen eurer Farbwahrnehmung.</item>
-    </string-array>	
+	    <item>WiseMind meint, ich rede zu viel. Ich halte mich deshalb kurz: Ein farbliches Pendant zum Kreis-Test. Klickst du auf ein Dreieck, teilt sich dieses in zwei kleinere. Wozu das ganze? Zum Testen eurer Farbwahrnehmung.</item>
+        <item>Wenn du mehrere Dreiecke in der Mitte berührst, teilst du alle auf einmal. Magic! Ansonsten gleiche Punkte wie beim Kreis-Experiment.</item>
+        <item>Willst du dich mit mir unterhalten oder tust du nur so, als ob du dich nach einer Konversation sehnst?</item>
+        <item>Du kannst deine kurze Lebenszeit gerne weiter verschwenden und Buttons drücken.</item>
+        <item>Menschenskind! Jetzt habe ich genug! 300 Milliliter von dieser Spritze. Das haut sogar einen Elefanten um. Und Tschüss.</item>
+    </string-array>
 	
     <string name="riddle_type_dice">Alien-Cube</string>
     <string name="riddle_type_dice_explanation">Berühre ein leeres Feld, damit ein neuer Würfel erscheint. Bewege und kombiniere Würfel gleicher Augenzahl und Farbe, um das Bild aufzudecken.</string>
     <string-array name="riddle_type_dice_hints">
-	    <item>Vor kurzem haben wir eine Anomalie bei euch festgestellt: euren irdischen Würfel fehlt eine Dimension. Sie haben fälschlicherweise 6 Seiten, obwohl es 9 sind. Wir testen dein Gedächtnis daher auf Realitätsbasis hinsichtlich Kombination, Zahlen, Taktik, Logik, Farbe, Bewegung, Logistik und Schnelligkeit. Ja, ich halte es auch für einen Fehler, weil dich das ziemlich überfordern wird, aber Befehl ist Befehl. Das komplizierte Experiment in Kürze:\nKombiniere gleiche Augenzahl und Farbe, dadurch entsteht Transparenz in den angezeigten Bereichen. Es gibt fünf Typen: die drei Basiswürfel rot, gelb und grün sowie die Sonderwürfel lila und den Alien Cube. Der Alien-Cube hat auf jeden Basiswürfel unterschiedliche Effekte.</item>
-    </string-array>	
+	    <item>Ein komplizierter Test. Kombiniere  Würfel gleicher Zahl und Farbe. In den angezeigten Bereichen entsteht Transparenz. Es gibt drei Basiswürfel rot, gelb und grün sowie die Sonderwürfel lila und den Alien Cube. Der Alien-Cube hat auf jeden Basiswürfel unterschiedliche Effekte.</item>
+        <item>Grund für diesen komplizierten Versuch ist eine Anomalie, dir wir bei euch festgestellt: euren irdischen Würfel fehlt eine Dimension. Sie haben fälschlicherweise 6 Seiten, obwohl es 9 sind.</item>
+        <item>Wir testen dein Gedächtnis daher auf Realitätsbasis hinsichtlich Kombination, Zahlen, Taktik, Logik, Farbe, Bewegung, Logistik und Schnelligkeit. Ja, ich halte es auch für einen Fehler, weil dich das ziemlich überfordert, aber Befehl ist Befehl.</item>
+        <item>Alien-Cube auf Rot ergibt grün und deckt den entsprechende Bereich auf.</item>
+        <item>Alien-Cube auf Gelb deckt das Feld zu 100% und lässt die Würfel verschwinden.</item>
+        <item>Alien-Cube auf Grün ergibt lila. Die aufgedeckten Felder sind beweglich aber die Transparenz ist abhängig von der Augenzahl.</item>
+        <item>Was ich empfehle?  Wenn du bereits einen grünen Würfel hast, kannst du mit rot sofort einen zweiten grünen Würfel mit geschenkter Transparenz bekommen.\nAls Glücksspieler empfehle ich gelb. Möchtest das ganze Bild scannen, würde ich einen grünen Würfel nehmen.</item>
+        <item>Wenn ich den Alien–Cube auf grün kombiniere, dann meist auf 4–6. Wieso? Na das Verhältnis Felder:Transparenz ist hier ziemlich gut.</item>
+        <item>Ein volles Feld ist nicht unbedingt tragisch: du verlierst zwar rote und gelbe Würfel sowie etwas Transparenz, dafür hast du wieder Freiraum.</item>
+        <item>Nach dem Ameisenprinzip können rote und gelbe Würfel beliebig bewegt werden, sofern ein Weg frei ist. Was wohl der maximale Sprung ist?</item>
+    </string-array>
 	
     <string name="riddle_type_jumper">Monstarathon</string>
     <string name="riddle_type_jumper_explanation">Berühre das Feld, um über Hindernisse zu springen und das Bild zu vergrößern. Führe einen Double-Jump aus, um über größere oder längere Hindernisse zu springen.</string>
@@ -442,7 +458,7 @@
     <string name="panic_ask_type">Wie funktioniert das Rätsel</string>
     <string name="panic_skip">Bild auslassen… später weitermachen</string>
     <string name="panic_complain">Aaaah, was ist das? Krum und schief! Beschwerde!</string>
-    <string name="panic_cannot_skip">Gehirn .. überladen ... kann nicht .. weitere Rätsel . merken ...</string>
+    <string name="panic_cannot_skip">Gehirn .. überladen … kann nicht .. weitere Rätsel . merken …</string>
 
     <string-array name="panic_author_credit_title">
         <item>Bewundere den Künstler des Bildes!</item>
