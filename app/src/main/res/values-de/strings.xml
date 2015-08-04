@@ -419,6 +419,7 @@
         <item>Wenn du mehrere Dreiecke in der Mitte berührst, teilst du alle auf einmal. Magic! Ansonsten gleiche Punkte wie beim Kreis-Experiment.</item>
         <item>Willst du dich mit mir unterhalten oder tust du nur so, als ob du dich nach einer Konversation sehnst?</item>
         <item>Du kannst deine kurze Lebenszeit gerne weiter verschwenden und Buttons drücken.</item>
+        <item>Bist du verliebt in mich oder wieso willst du nicht loslassen?</item>
         <item>Menschenskind! Jetzt habe ich genug! 300 Milliliter von dieser Spritze. Das haut sogar einen Elefanten um. Und Tschüss.</item>
     </string-array>
 	
@@ -440,9 +441,17 @@
     <string name="riddle_type_jumper">Monstarathon</string>
     <string name="riddle_type_jumper_explanation">Berühre das Feld, um über Hindernisse zu springen und das Bild zu vergrößern. Führe einen Double-Jump aus, um über größere oder längere Hindernisse zu springen.</string>
     <string-array name="riddle_type_jumper_hints">
-	    <item>Ihr Menschen seid merkwürdig. Ein Esel lässt sich mit einer Karotte zum Laufen animieren, bei euch Homo-Sapiens bedarf es einem Bündel Geld, obwohl das nicht mal essbar ist.\nWir haben an einem Geschäftsmann einige Versuche durchgeführt und wollen die Veränderungen in unserem Monster Parcours testen. Vor dem Eingriff mussten wir die Erinnerungen blockieren. Die Blockade lässt sich glücklicherweise durch Bewegungen wieder lösen. Wir haben unserem Kaufmann zu einem Marathon mit einem einfachen Gedanken motivieren können:  "Am Ende des Regenbogens steht ein Topf voller Geld." Zu schade, dass es nachts keinen Regenbogen gibt.</item>
-        <item>Wer ist Knuffbuff?</item>
-        <item>Ein mysteriöses Wesen!</item>
+        <item>Wir haben an einem Geschäftsmann einige Versuche durchgeführt und mussten die Erinnerungen blockieren. Die Blockade lässt sich glücklicherweise in unserem Monster Parcours wieder lösen. Wir haben unserem Kaufmann zu einem Marathon mit einem einfachen Gedanken motivieren können:  "Am Ende des Regenbogens steht ein Topf voller Geld." Zu schade, dass es nachts keinen Regenbogen gibt.</item>
+        <item>Ihr Menschen seid ein merkwürdisches Völkchen. Ein Esel lässt sich mit einer Karotte zum Laufen animieren, bei euch Homo-Sapiens bedarf es einem Bündel Geld, obwohl das nicht mal essbar ist.</item>
+        <item>Einmal klicken: Jump, zweimal klicken oder gedrückt halten: Double Jump. Kapiert?</item>
+        <item>Es gibt vier Bereiche. Je nach Schwierigkeit wird die Erinnerung pro überwundenem Hindernis schneller zurückkehren.</item>
+        <item>Übung macht den Meister. Aber manche Menschen sind für Jump and Runs einfach nicht geschaffen.</item>
+        <item>Hast du Knuffbuff schon kennengelernt? Er wartet nach jeder Schwierigkeitszone auf dich.</item>
+        <item>Du fragst dich wer Knuffbuff ist? Ein mysteriöses Wesen!</item>
+        <item>Sein Laserstrahl verkohlt dich übrigens nur zu seinen Füßen. Der Rest ist lediglich Showeinlage.</item>
+        <item>Warum er alles Lasern will? Nach dem Verspeisen von Antimaterie ist er leider etwas verrückt geworden.</item>
+        <item>Knuffbuff und ich sind die Lieblinge meines Meisters.</item>
+        <item>Ach Knuffbuff, du Dummerchen. Warum konntest du NImmersatt deine Klauen nicht einfach von der Antimaterie lassen…?</item>
     </string-array>
 
     <string name="riddle_type_memory">Memory</string>

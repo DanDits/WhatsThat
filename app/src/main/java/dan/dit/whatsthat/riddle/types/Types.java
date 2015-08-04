@@ -107,7 +107,7 @@ public class Types {
         }
         @Override
         public int getTotalAvailableHintsCount() {
-            return 4;
+            return 6;
         }
 
         public List<Integer> getHintCosts() {
@@ -161,11 +161,11 @@ public class Types {
         }
         @Override
         public int getAvailableHintsAtStartCount() {
-            return 5;
+            return 4;
         }
         @Override
         public int getTotalAvailableHintsCount() {
-            return 1;
+            return 7;
         }
         public List<Integer> getHintCosts() {
             List<Integer> costs = new ArrayList<>(getTotalAvailableHintsCount());
@@ -228,11 +228,11 @@ public class Types {
         }
         @Override
         public int getAvailableHintsAtStartCount() {
-            return 0;
+            return 3;
         }
         @Override
         public int getTotalAvailableHintsCount() {
-            return 1;
+            return 10;
         }
         public List<Integer> getHintCosts() {
             List<Integer> costs = new ArrayList<>(getTotalAvailableHintsCount());
@@ -290,11 +290,10 @@ public class Types {
         }
         @Override
         public int getAvailableHintsAtStartCount() {
-            return 0;
+            return 1;
         }
         @Override
-        public int getTotalAvailableHintsCount() {
-            return 1;
+        public int getTotalAvailableHintsCount() {return 6;
         }
         public List<Integer> getHintCosts() {
             List<Integer> costs = new ArrayList<>(getTotalAvailableHintsCount());
@@ -350,11 +349,11 @@ public class Types {
         }
         @Override
         public int getAvailableHintsAtStartCount() {
-            return 1;
+            return 2;
         }
         @Override
         public int getTotalAvailableHintsCount() {
-            return 3;
+            return 11;
         }
         public List<Integer> getHintCosts() {
             List<Integer> costs = new ArrayList<>(getTotalAvailableHintsCount());
