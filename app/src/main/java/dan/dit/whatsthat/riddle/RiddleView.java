@@ -100,6 +100,7 @@ public class RiddleView extends SurfaceView implements SensorEventListener {
         if (holder != null && holder.getSurface() != null && holder.getSurface().isValid()) {
             Canvas canvas = holder.lockCanvas();
             if (canvas != null) {
+                // clear previously drawn artifacts (view is double buffered), very important if there is any pixel with alpha drawn by the riddle
                 canvas.drawColor(0, android.graphics.PorterDuff.Mode.CLEAR);
                 if (hasController()) {
                     mRiddleCtr.draw(canvas);
@@ -110,7 +111,7 @@ public class RiddleView extends SurfaceView implements SensorEventListener {
     }
 
     public void draw() {
-        if (mRiddleCtr == null || !mRiddleCtr.hasRunningRenderThread()) {
+        if (mRiddleCtr != null && !mRiddleCtr.hasRunningRenderThread()) {
             performDrawRiddle();
         }
     }

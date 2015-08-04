@@ -42,13 +42,14 @@ import dan.dit.whatsthat.util.flatworld.mover.HitboxNewtonMover;
 import dan.dit.whatsthat.util.flatworld.world.Actor;
 import dan.dit.whatsthat.util.flatworld.world.FlatRectWorld;
 import dan.dit.whatsthat.util.flatworld.world.FlatWorldCallback;
+import dan.dit.whatsthat.util.image.BitmapUtil;
 import dan.dit.whatsthat.util.image.ImageUtil;
 
 /**
  * Created by daniel on 10.05.15.
  */
 public class RiddleJumper extends RiddleGame implements FlatWorldCallback {
-    //fixed constants
+    //fixed constants //TODO memory leaks? Test if also GC interrupts when paused
     private static final float RELATIVE_HEIGHT_BASELINE = 1.f;
     private static final long ONE_SECOND = 1000L;
     private static final long UPDATE_PERIOD = 16L;
@@ -56,16 +57,16 @@ public class RiddleJumper extends RiddleGame implements FlatWorldCallback {
 
     //variable constants
     private static final long BACKGROUND_SLIDE_DURATION = 30000L; //ms
-    private static final long FRAME_DURATION = 150L; //ms
+    private static final long FRAME_DURATION = 125L; //ms
     private static final float RUNNER_LEFT_OFFSET = 10.f; // pixel
     private static final float JUMP_RELATIVE_HEIGHT_DELTA = 1.25f;
     private static final float DOUBLE_JUMP_RELATIVE_HEIGHT_DELTA = 1.8f;
-    private static final long JUMP_DURATION = 600L; //ms, time required to perform the normal jump: reaching the peak and landing again.
+    private static final long JUMP_DURATION = 500L; //ms, time required to perform the normal jump: reaching the peak and landing again.
     private static final long DOUBLE_JUMP_REST_DURATION = (long) ((2 * DOUBLE_JUMP_RELATIVE_HEIGHT_DELTA - JUMP_RELATIVE_HEIGHT_DELTA) * JUMP_DURATION / 2); //ms, time required from normal jump peak to full peak and landing again
     private static final float OBSTACLE_RELATIVE_HEIGHT_SMALL = 0.7f;
     private static final float OBSTACLE_RELATIVE_HEIGHT_FLYING = 0.4f;
-    private static final float OBSTACLE_RELATIVE_HEIGHT_BIG = 1.25f;
-    private static final long OBSTACLES_RIGHT_LEFT_DURATION = 1200L; //ms, describes the speed the obstacles travel from right to left
+    private static final float OBSTACLE_RELATIVE_HEIGHT_BIG = 1.1f;
+    private static final long OBSTACLES_RIGHT_LEFT_DURATION = 1100L; //ms, describes the speed the obstacles travel from right to left
     private static final long FLYER_FALL_DURATION = OBSTACLES_RIGHT_LEFT_DURATION; //ms, describes the speed the flying falls to bottom
     private static final long FIRST_OBSTACLE_DURATION = 3000L; //ms, delay until the first obstacle appears
 
@@ -88,14 +89,13 @@ public class RiddleJumper extends RiddleGame implements FlatWorldCallback {
     private static final int ULTRA_OBSTACLES = 3;
     private static final float BUBBLE_SCALE = 0.8f;
     private static final float MAX_SOLUTION_SCALE = 0.5f;
-    private static final float BUBBLE_CENTER_Y_ESTIMATE = 0.765f; // of the half height since solution is scaled around the center of this canvas
+    private static final float BUBBLE_CENTER_Y_ESTIMATE = 0.765f * 0.5f;
     private static final float DISTANCE_RUN_PENALTY_ON_SAVE_FRACTION = 0.75f; // mainly required so that it is not worth closing the riddle (or app) when you know you are going to collide
 
 
     private Bitmap mThoughtbubble;
     private Bitmap mSolutionBackground;
     private Canvas mSolutionBackgroundCanvas;
-    private Matrix mSolutionTransform;
     private Paint mClearPaint;
     private int mSolutionBackgroundHeight;
     private FlatRectWorld mWorld;
@@ -128,6 +128,9 @@ public class RiddleJumper extends RiddleGame implements FlatWorldCallback {
     private boolean mFlagDoSuperJump;
     private float mObstaclesSpeed;
     private Obstacle mBoss;
+    private float mLastDrawnSolutionFraction;
+    private float mLastDrawnPassedFraction;
+    private Bitmap mScaledSolution;
 
     public RiddleJumper(Riddle riddle, Image image, Bitmap bitmap, Resources res, RiddleConfig config, PercentProgressListener listener) {
         super(riddle, image, bitmap, res, config, listener);
@@ -151,11 +154,11 @@ public class RiddleJumper extends RiddleGame implements FlatWorldCallback {
         canvas.drawText(Integer.toString(distanceRunToMeters(mDistanceRun)) + "m", canvas.getWidth() / 2.f, 35.f, mTextPaint);
     }
 
-    public static final int distanceRunToMeters(float distanceRun) {
+    public static int distanceRunToMeters(float distanceRun) {
         return (int) (distanceRun / ONE_SECOND);
     }
 
-    public static final float meterToDistanceRun(int meter) {
+    public static float meterToDistanceRun(int meter) {
         return meter * ONE_SECOND;
     }
 
@@ -166,7 +169,6 @@ public class RiddleJumper extends RiddleGame implements FlatWorldCallback {
         mClearPaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.CLEAR));
         mTextPaint = new Paint();
         mTextPaint.setTextSize(35.f);
-        mSolutionTransform = new Matrix();
         mSolutionBackgroundHeight = (int) (mConfig.mHeight / Types.Jumper.BITMAP_ASPECT_RATIO);
         mSolutionBackground = Bitmap.createBitmap(mConfig.mWidth, mSolutionBackgroundHeight, Bitmap.Config.ARGB_8888);
         mSolutionBackgroundCanvas = new Canvas(mSolutionBackground);
@@ -280,6 +282,9 @@ public class RiddleJumper extends RiddleGame implements FlatWorldCallback {
             obstacles.add(Obstacle.makeObstacle(fliegerLook, 0.8f, 0.9f, mConfig.mWidth,
                     fliegerTop, NEXT_OBSTACLE_MIN_TIME_SMALL, mWorld, mObstaclesSpeed, fliegerFallSpeed));
         }
+        Look fliegerLook = new Frames(flieger, FRAME_DURATION);
+        obstacles.add(Obstacle.makeObstacle(fliegerLook, 0.8f, 0.9f, mConfig.mWidth,
+                fliegerTop, NEXT_OBSTACLE_MIN_TIME_SMALL, mWorld, mObstaclesSpeed, 0));
 
     }
 
@@ -397,15 +402,22 @@ public class RiddleJumper extends RiddleGame implements FlatWorldCallback {
         return mConfig.mHeight - mRunnerHeight * relativeHeight;
     }
 
-    private synchronized void setSolution(float fraction) {
+    private synchronized void drawSolution(final float fraction, final boolean forceDraw) {
+        final float REDRAW_THRESHOLD_FACTOR = 0.01f;
+        final boolean fractionRedrawRequired = Math.abs(fraction - mLastDrawnSolutionFraction) >= REDRAW_THRESHOLD_FACTOR;
+        final float passedFraction =  mObstaclesPassed / (float) REQUIRED_TOTAL_OBSTACLES;
+        final boolean passedFractionRedrawRequired = Math.abs(passedFraction - mLastDrawnPassedFraction) >= REDRAW_THRESHOLD_FACTOR;
+        if (!fractionRedrawRequired && !passedFractionRedrawRequired && !forceDraw) {
+            return;
+        }
         mSolutionBackgroundCanvas.drawPaint(mClearPaint);
-
         mSolutionBackgroundCanvas.drawBitmap(mThoughtbubble, (mSolutionBackground.getWidth() - mThoughtbubble.getWidth()) / 2, (mSolutionBackground.getHeight() - mThoughtbubble.getHeight()) / 2, null);
 
-        float passedFraction =  mObstaclesPassed / (float) REQUIRED_TOTAL_OBSTACLES;
         if (passedFraction < 1.f) {
             int lineY = (int) (mSolutionBackgroundCanvas.getHeight() * passedFraction);
-            mGradientPaint.setShader(new LinearGradient(0, mSolutionBackgroundCanvas.getHeight(), 0, lineY, Color.BLACK, Color.WHITE, Shader.TileMode.CLAMP));
+            if (forceDraw || passedFractionRedrawRequired) {
+                mGradientPaint.setShader(new LinearGradient(0, mSolutionBackgroundCanvas.getHeight(), 0, lineY, Color.BLACK, Color.WHITE, Shader.TileMode.CLAMP));
+            }
             mSolutionBackgroundCanvas.drawPaint(mGradientPaint);
             int greyScale = (int) (passedFraction * 255.f);
             mSolutionPaint.setColor(Color.rgb(greyScale, greyScale, greyScale));
@@ -413,20 +425,21 @@ public class RiddleJumper extends RiddleGame implements FlatWorldCallback {
         }
 
         if (fraction > 0) {
-            fraction = Math.min(MAX_SOLUTION_SCALE, fraction);
-            initCenteredScaledRotation(mSolutionTransform, 0, fraction, mBitmap.getWidth(), mBitmap.getHeight(), mConfig.mWidth, (int) (mSolutionBackgroundHeight * BUBBLE_CENTER_Y_ESTIMATE), 0.5f, 0.5f);
-            mSolutionBackgroundCanvas.drawBitmap(mBitmap, mSolutionTransform, mSolutionPaint);
+            if (mScaledSolution == null || fractionRedrawRequired || forceDraw) {
+                int wantedWidth = (int) (fraction * mBitmap.getWidth());
+                int wantedHeight = (int) (fraction * mBitmap.getHeight());
+                mScaledSolution = null;
+                if (wantedWidth > 0 && wantedHeight > 0) {
+                    mScaledSolution = BitmapUtil.resize(mBitmap, wantedWidth, wantedHeight);
+                }
+            }
+            if (mScaledSolution != null) {
+                mSolutionBackgroundCanvas.drawBitmap(mScaledSolution, mSolutionBackground.getWidth() / 2 - mScaledSolution.getWidth() / 2, mSolutionBackground.getHeight() * BUBBLE_CENTER_Y_ESTIMATE - mScaledSolution.getHeight() / 2, mSolutionPaint);
+            }
         }
 
-    }
-
-    private static void initCenteredScaledRotation(Matrix transformation, float angle, float fraction, int bitmapWidth, int bitmapHeight, int width, int height, float relativeToWidth, float relativeToHeight) {
-        transformation.reset();
-        transformation.postTranslate(-bitmapWidth / 2.f, -bitmapHeight / 2.f);
-        transformation.postRotate(angle);
-        transformation.postScale(fraction, fraction);
-        transformation.postTranslate(-fraction * bitmapWidth / 2.f + fraction * bitmapWidth / 2.f + width * relativeToWidth,
-                -fraction * bitmapHeight / 2.f + fraction * bitmapHeight / 2.f + height * relativeToHeight);
+        mLastDrawnSolutionFraction = fraction;
+        mLastDrawnPassedFraction = passedFraction;
     }
 
     @Override
@@ -437,7 +450,8 @@ public class RiddleJumper extends RiddleGame implements FlatWorldCallback {
     private void updateSolution(boolean forceDraw) {
         float scale = (float) Math.exp((mObstaclesPassed / (double) REQUIRED_TOTAL_OBSTACLES - 1.) * 7.);
         if (scale <= 1 || forceDraw) {
-            setSolution(scale);
+            scale = Math.min(MAX_SOLUTION_SCALE, scale);
+            drawSolution(scale, forceDraw);
         }
     }
 
@@ -462,6 +476,9 @@ public class RiddleJumper extends RiddleGame implements FlatWorldCallback {
             } catch (CompactedDataCorruptException e) {
                 Log.e("Riddle", "Error reading distance run data: " + e);
             }
+        }
+        if (mConfig.mAchievementGameData != null) {
+            mConfig.mAchievementGameData.putValue(AchievementJumper.KEY_GAME_CURRENT_DISTANCE_RUN, (long) mDistanceRun, AchievementProperties.UPDATE_POLICY_ALWAYS);
         }
         updateDifficulty();
     }

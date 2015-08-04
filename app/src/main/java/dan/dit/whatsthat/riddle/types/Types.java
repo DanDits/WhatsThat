@@ -380,7 +380,7 @@ public class Types {
 
         @Override
         public int getIconResId() {
-            return R.drawable.icon_plain;
+            return R.drawable.icon_memory;
         }
         @Override
         public int getNameResId() {
