@@ -36,7 +36,7 @@ public class NoPanicDialog extends DialogFragment {
     public interface Callback {
         boolean canSkip();
         void onSkip();
-        void onComplain();
+        void onComplain(Image image);
     }
 
     @Override
@@ -136,7 +136,7 @@ public class NoPanicDialog extends DialogFragment {
             @Override
             public void onClick(View view) {
                 dismiss();
-                mCallback.onComplain();
+                mCallback.onComplain(mImage);
             }
         });
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());

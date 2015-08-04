@@ -75,6 +75,9 @@ public class ForeignPurse {
         if (mPurse.getCurrentScore() < cost) {
             return false;
         }
+        if (getAvailableRiddleHintsCount(type) >= type.getTotalAvailableHintsCount()) {
+            return false;
+        }
         int oldScore = mPurse.getCurrentScore();
         mPurse.increaseAvailableRiddleHintNumber(type);
         mPurse.spentScore(cost);

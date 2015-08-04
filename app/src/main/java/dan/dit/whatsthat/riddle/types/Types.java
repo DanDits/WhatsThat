@@ -103,7 +103,7 @@ public class Types {
         }
         @Override
         public int getAvailableHintsAtStartCount() {
-            return 3;
+            return 1;
         }
         @Override
         public int getTotalAvailableHintsCount() {

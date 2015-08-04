@@ -455,6 +455,7 @@
     <string name="no_panic_title">Keine Panik!</string>
 
     <string name="game_welcome_positive_confirm">Habs verstanden!</string>
+    <string name="game_welcome_positive_next">Nächster Hinweis</string>
     <string name="game_welcome_postpone">Nicht jetzt…</string>
     <string name="game_welcome_default_title">Dr. Kulgs Sprechstunde</string>
 
@@ -700,5 +701,8 @@
     <string name="download_article_toast_download_complete">Bilder heruntergeladen</string>
     <string name="download_article_toast_error_download">Bilder herunterladen fehlgeschlagen (%1$d)</string>
     <string name="download_article_toast_error_syncing">Bilder speichern fehlgeschlagen (%1$d)</string>
+    <string name="panic_complain_nothing">Nur Geduld</string>
+    <string name="panic_complain_dummy_toast">Beschwerde registriert</string>
+    <string name="panic_complain_content">Ich will mich über das Rätsel und Bild beschweren...SAG UNS WAS DIR NICHT PASST! :)</string>
 
 </resources>

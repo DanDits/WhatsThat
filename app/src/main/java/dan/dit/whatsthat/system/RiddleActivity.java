@@ -10,6 +10,7 @@ import android.view.WindowManager;
 import java.util.Collection;
 
 import dan.dit.whatsthat.R;
+import dan.dit.whatsthat.image.Image;
 import dan.dit.whatsthat.riddle.RiddleInitializer;
 import dan.dit.whatsthat.riddle.UnsolvedRiddlesChooser;
 
@@ -72,7 +73,7 @@ public class RiddleActivity extends Activity implements UnsolvedRiddlesChooser.C
     }
 
     @Override
-    public void onComplain() {
-        mFragment.onComplain();
+    public void onComplain(Image image) {
+        mFragment.onComplain(image);
     }
 }

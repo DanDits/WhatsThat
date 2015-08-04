@@ -49,6 +49,7 @@ public class AchievementCircle extends TypeAchievementHolder {
         mAchievements.put(Achievement12.NUMBER, new Achievement12(manager, mType));
     }
 
+    // The beginning
     public static class Achievement1 extends GameAchievement {
         public static final int NUMBER = 1;
         public static final int LEVEL = 0;
@@ -63,6 +64,13 @@ public class AchievementCircle extends TypeAchievementHolder {
         @Override
         public CharSequence getDescription(Resources res) {
             return res.getString(mDescrResId, getValue(), FINISH_GAMES_COUNT);
+        }
+
+        @Override
+        public void onAchieved() {
+            super.onAchieved();
+            TestSubject.getInstance().purchaseNextHintForFree(PracticalRiddleType.CIRCLE_INSTANCE);
+            TestSubject.getInstance().purchaseNextHintForFree(PracticalRiddleType.CIRCLE_INSTANCE);
         }
 
         @Override

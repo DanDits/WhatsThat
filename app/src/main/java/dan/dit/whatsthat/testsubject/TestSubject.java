@@ -241,7 +241,7 @@ public class TestSubject {
             addNewType(PracticalRiddleType.JUMPER_INSTANCE);
             addNewType(PracticalRiddleType.MEMORY_INSTANCE);
             addNewType(PracticalRiddleType.TORCHLIGHT_INSTANCE);
-            addNewType(PracticalRiddleType.DEVELOPER_INSTANCE);
+            //addNewType(PracticalRiddleType.DEVELOPER_INSTANCE);
         }
     }
 
@@ -421,7 +421,11 @@ public class TestSubject {
     }
 
     public boolean hasAvailableHint(PracticalRiddleType type) {
-        return mPurse.getCurrentRiddleHintNumber(type) < mPurse.getAvailableRiddleHintsCount(type);
+        return hasAvailableHint(type, mPurse.getCurrentRiddleHintNumber(type));
+    }
+
+    public boolean hasAvailableHint(PracticalRiddleType type, int hintNumber) {
+        return hintNumber < mPurse.getAvailableRiddleHintsCount(type);
     }
 
     public boolean hasFeature(String featureKey) {
@@ -458,6 +462,11 @@ public class TestSubject {
     };
     public static void sortTypes(List<PracticalRiddleType> types) {
         Collections.sort(types, TYPE_COMPARATOR);
+    }
+
+    public boolean purchaseNextHintForFree(PracticalRiddleType type) {
+        ForeignPurse purse = mShopArticleHolder.getPurse();
+        return purse.purchaseHint(type, 0);
     }
 
     private static class ProductPurchasedDependency extends Dependency {

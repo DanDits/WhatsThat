@@ -8,7 +8,9 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.InputType;
@@ -29,6 +31,11 @@ import android.widget.Toast;
 
 import com.github.johnpersano.supertoasts.SuperToast;
 
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.security.Key;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -52,6 +59,7 @@ import dan.dit.whatsthat.solution.SolutionInputView;
 import dan.dit.whatsthat.storage.ImageTable;
 import dan.dit.whatsthat.storage.ImagesContentProvider;
 import dan.dit.whatsthat.system.store.StoreActivity;
+import dan.dit.whatsthat.testsubject.SimpleCrypto;
 import dan.dit.whatsthat.testsubject.TestSubject;
 import dan.dit.whatsthat.util.PercentProgressListener;
 import dan.dit.whatsthat.util.image.Dimension;
@@ -62,7 +70,9 @@ import dan.dit.whatsthat.util.ui.ImageButtonWithNumber;
  * Created by daniel on 10.04.15.
  */
 public class RiddleFragment extends Fragment implements PercentProgressListener, LoaderManager.LoaderCallbacks<Cursor>, SolutionInputListener, UnsolvedRiddlesChooser.Callback, NoPanicDialog.Callback {
-   public static final Map<String, Image> ALL_IMAGES = new HashMap<>();
+    public static final Map<String, Image> ALL_IMAGES = new HashMap<>();
+    private static final String PRE_ENCRYPTED_COMPLAIN = "Image: ";
+    private static final String POST_ENCRYPTED_COMPLAIN = "EndImage";
     private RiddleManager mManager;
     private RiddleView mRiddleView;
     private SolutionInputView mSolutionView;
@@ -122,7 +132,7 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
         }
         if (TestSubject.getInstance().hasAvailableHint(type)) {
             GameWelcomeDialog dialog = GameWelcomeDialog.makeInstance(type);
-            dialog.show(getFragmentManager(), "GameWelcomeDialog");
+            dialog.show(getFragmentManager(), GameWelcomeDialog.GAME_WELCOME_DIALOG_TAG);
         }
     }
 
@@ -428,9 +438,104 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
         nextRiddle();
     }
 
+    private void decryptComplain() {
+        Key privateKey = SimpleCrypto.getDeveloperPrivateKey();
+        if (privateKey == null) {
+            Toast.makeText(getActivity(), "Kein Schlüssel gefunden.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        File complainFile = new File(ExternalStorage.getExternalStoragePathIfMounted(null) + "/kummerkasten.txt");
+        if (!complainFile.exists()) {
+            Toast.makeText(getActivity(), "Benötigt Datei " + complainFile.getAbsolutePath(), Toast.LENGTH_LONG).show();
+            return;
+        }
+        FileReader reader = null;
+        String data = null;
+        try {
+            reader = new FileReader(complainFile);
+            int read;
+            StringBuilder builder = new StringBuilder();
+            char[] buffer = new char[64];
+            while ((read = reader.read(buffer)) > 0) {
+                builder.append(buffer, 0, read);
+            }
+            data = builder.toString();
+        } catch (IOException ioe) {
+            Toast.makeText(getActivity(), "Fehler beim Lesen der kummerkasten Datei", Toast.LENGTH_SHORT).show();
+        } finally {
+            try {
+                reader.close();
+            } catch (IOException ioe) {
+                //ignore
+            }
+        }
+        if (data == null) {
+            return;
+        }
+        int start = data.lastIndexOf(PRE_ENCRYPTED_COMPLAIN);
+        int end = data.lastIndexOf(POST_ENCRYPTED_COMPLAIN);
+        if (start >= 0 && end >= 0 && start + PRE_ENCRYPTED_COMPLAIN.length() <= end) {
+            String encrypted = data.substring(start + PRE_ENCRYPTED_COMPLAIN.length(), end);
+            String decrypted = SimpleCrypto.decrypt(privateKey, encrypted);
+            String result = data.substring(0, start + PRE_ENCRYPTED_COMPLAIN.length())
+                    + decrypted
+                    + POST_ENCRYPTED_COMPLAIN
+                    + data.substring(end + POST_ENCRYPTED_COMPLAIN.length(), data.length());
+            FileWriter writer = null;
+            try {
+                writer = new FileWriter(complainFile);
+                writer.write(result);
+                Toast.makeText(getActivity(), "Beschwerde bereit.. ;)", Toast.LENGTH_SHORT).show();
+            } catch (IOException ioe) {
+                Toast.makeText(getActivity(), "Fehler beim Schreiber der entschlüsselten Beschwerde", Toast.LENGTH_SHORT).show();
+            } finally {
+                try {
+                    writer.close();
+                } catch (IOException ioe) {
+                    //ignore
+                }
+            }
+
+        } else {
+            Toast.makeText(getActivity(), "Verschlüsselter Bereich nicht gefunden.", Toast.LENGTH_SHORT).show();
+        }
+    }
+
     @Override
-    public void onComplain() {
-        Toast.makeText(getActivity(), "Hättest du wohl gerne.", Toast.LENGTH_SHORT).show();
+    public void onComplain(Image image) {
+        if (mRiddleView == null) {
+            return;
+        }
+        if (!mRiddleView.hasController()) {
+            Toast.makeText(getActivity(), R.string.panic_complain_nothing, Toast.LENGTH_SHORT).show();
+            return;
+        }
+        try {
+            Intent intent = new Intent(Intent.ACTION_SEND);
+            intent.setType("plain/text");
+            intent.putExtra(Intent.EXTRA_EMAIL, new String[]{TestSubject.EMAIL_FEEDBACK});
+            intent.putExtra(Intent.EXTRA_SUBJECT, "WhatsThat complain");
+            StringBuilder builder = new StringBuilder();
+            builder.append(getResources().getString(R.string.panic_complain_content))
+                    .append("\n\nMetadata:\n")
+                    .append("Type: ").append(mRiddleView.getRiddleType().getFullName()).append("\n")
+                    .append("Riddle size: ").append(mRiddleView.getWidth()).append("x").append(mRiddleView.getHeight()).append("\n")
+                    .append("Version: ").append(getActivity().getPackageManager().getPackageInfo(getActivity().getPackageName(), 0).versionName).append("\n");
+            if (image != null) {
+                builder.append("Image author: ").append(image.getAuthor().getName()).append("\n");
+                Key publicKey = SimpleCrypto.getDeveloperPublicKey();
+                if (publicKey != null) {
+                    builder.append(PRE_ENCRYPTED_COMPLAIN).append(SimpleCrypto.encrypt(publicKey, image.getName() + " " + image.getRelativePath() + " " + image.getHash()))
+                            .append(POST_ENCRYPTED_COMPLAIN).append("\n");
+
+                }
+            }
+            intent.putExtra(Intent.EXTRA_TEXT, builder.toString());
+            startActivity(intent);
+        } catch (Exception e) {
+            Log.e("HomeStuff", "Exception during complaining, better pretend or user gets mad :D " + e);
+            Toast.makeText(getActivity(), R.string.panic_complain_dummy_toast, Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void showRiddlesDialog() {
@@ -470,6 +575,8 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
                             if (value.equalsIgnoreCase("42")) {
                                 TestSubject.getInstance().addAchievementScore(42);
                                 Toast.makeText(getActivity(), "You got rich boy.", Toast.LENGTH_SHORT).show();
+                            } else if (value.equalsIgnoreCase("kummerkasten")) {
+                                decryptComplain();
                             } else {
                                 Toast.makeText(getActivity(), "Bild nicht gefunden.", Toast.LENGTH_SHORT).show();
                             }

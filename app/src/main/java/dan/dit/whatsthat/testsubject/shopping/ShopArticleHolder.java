@@ -9,6 +9,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import dan.dit.whatsthat.R;
+import dan.dit.whatsthat.riddle.achievement.holders.AchievementCircle;
 import dan.dit.whatsthat.riddle.types.PracticalRiddleType;
 import dan.dit.whatsthat.testsubject.ForeignPurse;
 import dan.dit.whatsthat.testsubject.TestSubject;
@@ -64,6 +65,10 @@ public class ShopArticleHolder {
         for (ShopArticle article : mAllArticles) {
             article.onClose();
         }
+    }
+
+    public ForeignPurse getPurse() {
+        return mPurse;
     }
 
     public interface OnArticleChangedListener {
@@ -158,7 +163,7 @@ public class ShopArticleHolder {
         }
         getArticle(ARTICLE_KEY_CIRCLE_DIVIDE_BY_MOVE_FEATURE).addDependency(TestSubject.getInstance().getRiddleTypeDependency(PracticalRiddleType.CIRCLE_INSTANCE), ShopArticle.GENERAL_DEPENDENCY_INDEX);
         getArticle(ARTICLE_KEY_TRIANGLE_DIVIDE_BY_MOVE_FEATURE).addDependency(TestSubject.getInstance().getRiddleTypeDependency(PracticalRiddleType.TRIANGLE_INSTANCE), ShopArticle.GENERAL_DEPENDENCY_INDEX);
-
+        getArticle(ShopArticleRiddleHints.makeKey(PracticalRiddleType.CIRCLE_INSTANCE)).addDependency(TestSubject.getInstance().makeAchievementDependency(PracticalRiddleType.CIRCLE_INSTANCE, AchievementCircle.Achievement1.NUMBER), 1);
     }
 
     private void addArticle(ShopArticle article) {

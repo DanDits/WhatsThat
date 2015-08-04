@@ -11,6 +11,7 @@ import android.view.View;
 
 import dan.dit.whatsthat.R;
 import dan.dit.whatsthat.riddle.types.PracticalRiddleType;
+import dan.dit.whatsthat.system.RiddleFragment;
 import dan.dit.whatsthat.testsubject.TestSubject;
 
 /**
@@ -18,6 +19,7 @@ import dan.dit.whatsthat.testsubject.TestSubject;
  */
 public class GameWelcomeDialog extends DialogFragment {
     public static final String KEY_TYPE = "key_type_full_name";
+    public static final String GAME_WELCOME_DIALOG_TAG = "dan.dit.whatsthat.GameWelcomeDialog";
     private PracticalRiddleType mType;
 
     @Override
@@ -38,10 +40,11 @@ public class GameWelcomeDialog extends DialogFragment {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         View view = mType.getGameWelcomeView(getActivity());
+        int currRiddleHintNumber = TestSubject.getInstance().getCurrentRiddleHintNumber(mType);
         if (view != null) {
             builder.setView(view);
         } else {
-            CharSequence hint = mType.getRiddleHint(getResources(), TestSubject.getInstance().getCurrentRiddleHintNumber(mType));
+            CharSequence hint = mType.getRiddleHint(getResources(), currRiddleHintNumber);
             if (!TextUtils.isEmpty(hint)) {
                 builder.setTitle(R.string.game_welcome_default_title).setMessage(hint);
             } else {
@@ -57,6 +60,18 @@ public class GameWelcomeDialog extends DialogFragment {
                 }
             )
             .setNegativeButton(R.string.game_welcome_postpone, null);
+        if (currRiddleHintNumber >= 0 && TestSubject.getInstance().hasAvailableHint(mType, currRiddleHintNumber + 1)) {
+            builder.setNeutralButton(R.string.game_welcome_positive_next, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int which) {
+                    dismiss();
+                    TestSubject.getInstance().increaseRiddleHintsDisplayed(mType);
+                    if (TestSubject.getInstance().hasAvailableHint(mType)) {
+                        makeInstance(mType).show(getFragmentManager(), GAME_WELCOME_DIALOG_TAG);
+                    }
+                }
+            });
+        }
         return builder.create();
     }
 

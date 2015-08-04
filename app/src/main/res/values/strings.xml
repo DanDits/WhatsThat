@@ -109,6 +109,7 @@
     <string name="no_panic_title">Don\'t panic!</string>
 
     <string name="game_welcome_positive_confirm">Got it!</string>
+    <string name="game_welcome_positive_next">Next hint</string>
     <string name="game_welcome_postpone">Not now…</string>
     <string name="game_welcome_default_title">Tips and tricks</string>
 
@@ -400,4 +401,7 @@
     <string name="achievement_misc_3_name">Stockholm syndrome</string>
     <string name="achievement_misc_4_descr">Complete %1$d/%2$d achievements</string>
     <string name="achievement_misc_4_name">Achievement hunter</string>
+    <string name="panic_complain_nothing">Keep calm and wait on</string>
+    <string name="panic_complain_dummy_toast">Complain has been noted</string>
+    <string name="panic_complain_content">I want to complain about this riddle and image...TELL US WHAT YOU THINK IS BAD :)</string>
 </resources>
