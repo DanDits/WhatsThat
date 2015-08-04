@@ -28,9 +28,9 @@ import dan.dit.whatsthat.util.image.ImageUtil;
  */
 public class RiddleTorchlight extends RiddleGame {
 
-    private static final int HIDDEN_COLOR = 0xff110f0f;
+    private static final int HIDDEN_COLOR = Color.BLACK;
     private static final long DRAWPAUSETIME = 50;//ms
-    private static final float GLOW_RADIUS = 70.f;
+    private static final float GLOW_RADIUS = 90.f;
 
 
     int x;
@@ -40,6 +40,7 @@ public class RiddleTorchlight extends RiddleGame {
     private Paint glowpaint;
     long Lasttimedrawn;
     private Paint glowToDarkPaint;
+    private Bitmap mTorchlightEffect;
 
     public RiddleTorchlight(Riddle riddle, Image image, Bitmap bitmap, Resources res, RiddleConfig config, PercentProgressListener listener) {
         super(riddle, image, bitmap, res, config, listener);
@@ -57,12 +58,10 @@ public class RiddleTorchlight extends RiddleGame {
 
     @Override
     public void draw(Canvas canvas) {
-        int Left = x-flame.getWidth()/2;
-        int Top = y-flame.getHeight()/2;
         canvas.drawPaint(paint);
         canvas.drawCircle(x, y, GLOW_RADIUS, glowpaint);
-        canvas.drawCircle(x, y, GLOW_RADIUS, glowToDarkPaint);
-        canvas.drawBitmap(flame, Left, Top, null);
+        canvas.drawBitmap(mTorchlightEffect, x - mTorchlightEffect.getWidth() / 2 - 2, y - mTorchlightEffect.getHeight() / 2 - 2, glowToDarkPaint);
+        canvas.drawBitmap(flame, x - flame.getWidth() / 2, y - flame.getHeight() / 2, null);
 
         /*int Radius = (int) GLOW_RADIUS;
         int VisibleLeft = x-Radius;
@@ -106,28 +105,22 @@ public class RiddleTorchlight extends RiddleGame {
         glowpaint = new Paint();
         glowpaint.setShader(new BitmapShader(mBitmap, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP));
         glowToDarkPaint = new Paint();
-        updateGlowToDarkPaint();
+        mTorchlightEffect = ImageUtil.loadBitmap(res, R.drawable.torchlight_effect, (int) (GLOW_RADIUS * 2) + 5, (int) (GLOW_RADIUS * 2) + 5, true);
+        glowToDarkPaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.DARKEN));
         flame = ImageUtil.loadBitmap(res, R.drawable.lagerfeuer,mBitmap.getWidth()/5,mBitmap.getHeight()/5,false);
-    }
-
-    private void updateGlowToDarkPaint() {
-        glowToDarkPaint.setShader(new RadialGradient(x, y, GLOW_RADIUS, Color.TRANSPARENT, HIDDEN_COLOR, Shader.TileMode.CLAMP));
     }
 
     @Override
     public boolean onMotionEvent(MotionEvent event) {
         x = (int) event.getX();
         y = (int) event.getY();
-        Log.d("Fabi", "Bewegt zu " + x + "/" + y);
 
         if (event.getActionMasked()==MotionEvent.ACTION_DOWN || event.getActionMasked()==MotionEvent.ACTION_UP) {
-            updateGlowToDarkPaint();
             return true;
         } else if (event.getActionMasked()==MotionEvent.ACTION_MOVE){
             long currenttime = System.currentTimeMillis();
             if (currenttime-Lasttimedrawn > DRAWPAUSETIME){
                 Lasttimedrawn = currenttime;
-                updateGlowToDarkPaint();
                 return true;
             }else {
                 return false;
