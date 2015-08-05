@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="credits_text"><![CDATA[
+    <string name="credits_text" translatable="false"><![CDATA[
             <p>Many people contributed to this project and we did not have to apply force to any of them, this makes us happy. Also those people and their brilliant minds make us happy for</p>
             <ul>
             <li>being awesome</li>
@@ -84,12 +84,20 @@
     </string-array>
     <string name="riddle_type_snow">Angry Cell</string>
     <string name="riddle_type_snow_explanation">Tilt the device and thus move the cell. Collect toxic candies, grow bigger, don\'t touch walls and EXPLODE.</string>
+    <string-array name="riddle_type_snow_hints">
+    </string-array>
     <string name="riddle_type_dice">Alien-Cube</string>
     <string name="riddle_type_dice_explanation">Create dices by touching an empty field. Move and combine dices with equal numbers to reveal the image.</string>
+    <string-array name="riddle_type_dice_hints">
+    </string-array>
     <string name="riddle_type_triangle">ColEdge</string>
     <string name="riddle_type_triangle_explanation">Press inside a triangle to create smaller ones.</string>
+    <string-array name="riddle_type_triangle_hints">
+    </string-array>
     <string name="riddle_type_jumper">Invasion</string>
     <string name="riddle_type_jumper_explanation">Touch to jump or keep pressed to doublejump over obstacles. Each one will slowly reveal the image</string>
+    <string-array name="riddle_type_jumper_hints">
+    </string-array>
     <string name="riddle_type_torchlight">Torchlight</string>
     <string name="riddle_type_torchlight_explanation">Something happens later</string>
     <string name="riddle_type_developer">Developer</string>
@@ -130,6 +138,63 @@
         <item>Nice job!</item>
 		<item>Well done Captain!</item>
     </string-array>
+
+    <string-array name="test_subject_2_intro_main">
+    </string-array>
+    <string-array name="test_subject_2_intro_nuts">
+    </string-array>
+    <string-array name="test_subject_2_riddle_solved_candy">
+    </string-array>
+
+    <string-array name="test_subject_3_intro_main">
+    </string-array>
+    <string-array name="test_subject_3_intro_nuts">
+    </string-array>
+    <string-array name="test_subject_3_riddle_solved_candy">
+    </string-array>
+
+    <string-array name="test_subject_4_intro_main">
+    </string-array>
+    <string-array name="test_subject_4_intro_nuts">
+    </string-array>
+    <string-array name="test_subject_4_riddle_solved_candy">
+    </string-array>
+
+    <string-array name="test_subject_5_intro_main">
+    </string-array>
+    <string-array name="test_subject_5_intro_nuts">
+    </string-array>
+    <string-array name="test_subject_5_riddle_solved_candy">
+    </string-array>
+
+    <string-array name="test_subject_6_intro_main">
+    </string-array>
+    <string-array name="test_subject_6_intro_nuts">
+    </string-array>
+    <string-array name="test_subject_6_riddle_solved_candy">
+    </string-array>
+
+    <string-array name="test_subject_7_intro_main">
+    </string-array>
+    <string-array name="test_subject_7_intro_nuts">
+    </string-array>
+    <string-array name="test_subject_7_riddle_solved_candy">
+    </string-array>
+
+    <string-array name="test_subject_8_intro_main">
+    </string-array>
+    <string-array name="test_subject_8_intro_nuts">
+    </string-array>
+    <string-array name="test_subject_8_riddle_solved_candy">
+    </string-array>
+
+    <string-array name="test_subject_9_intro_main">
+    </string-array>
+    <string-array name="test_subject_9_intro_nuts">
+    </string-array>
+    <string-array name="test_subject_9_riddle_solved_candy">
+    </string-array>
+
     <string name="handle_error_attempted">Bild nicht vorhanden?! Externen Speicher prüfen!</string>
     <string name="tongue_select_explanation">Sprache für Lösungswörter: %1$s</string>
     <string name="btn_open_shop">Shop</string>
@@ -137,29 +202,29 @@
     <string name="btn_about">About &amp; Contact</string>
     <string name="btn_donate">Donate</string>
     <string name="btn_credits">Credits</string>
-    <string name="about_contact_descr">Die App ist ein Freizeitprojekt von den Brüdern Fabian und Daniel, die ich stolz meine Schöpfer nennen darf. Daniel, mein Professor, und Fabian, mein Meister, haben ein Anti-Werbungs-Wurmloch installiert, das dich vor Pop-ups und Müll schützt. Über anderweitige Unterstützung freuen sie sich trotzdem!\nSchreib ihnen, schau dir das Projekt an unter \"https://github.com/DanDits/WhatsThat\" oder setze eine anonyme Spende ab.\n\nStay awesome! :)</string>
+    <string name="about_contact_descr" translatable="false">Die App ist ein Freizeitprojekt von den Brüdern Fabian und Daniel, die ich stolz meine Schöpfer nennen darf. Daniel, mein Professor, und Fabian, mein Meister, haben ein Anti-Werbungs-Wurmloch installiert, das dich vor Pop-ups und Müll schützt. Über anderweitige Unterstützung freuen sie sich trotzdem!\nSchreib ihnen, schau dir das Projekt an unter \"https://github.com/DanDits/WhatsThat\" oder setze eine anonyme Spende ab.\n\nStay awesome! :)</string>
     <string-array name="contact_headings">
-        <item>Bild vorschlagen</item>
-        <item>Rätsel vorschlagen</item>
-        <item>Bug melden</item>
-        <item>Feedback geben</item>
-        <item>Nur mal hallo sagen</item>
+        <item>Suggest image</item>
+        <item>Suggest riddle</item>
+        <item>Report a bug</item>
+        <item>Give Feedback</item>
+        <item>Just saying hello</item>
         <item>Area 51</item>
     </string-array>
     <string-array name="contact_mail_subject">
-        <item>Bild Vorschlag</item>
-        <item>Rätsel Vorschlag</item>
-        <item>Bug gefunden</item>
+        <item>Image suggestion</item>
+        <item>Riddle suggestion</item>
+        <item>I found a bug!</item>
         <item>Feedback</item>
-        <item>Nur mal Hallo sagen</item>
+        <item>Just saying hello</item>
         <item>\?!?</item>
     </string-array>
     <string-array name="contact_mail_body">
-        <item>Erdlinge und Urheberrechte: eine Katastrophe.\nMeine Schöpfer benutzen daher nur Bilder mit freier Lizenz. Gib für dein Bild, das du in den Anhang gesetzt hast oder noch tun musst, folgende Punkte an:\n\nAutorname oder Psyeudonym:\nEvtl. Bildtitel:\nQuelle (z.B. Website):\nLösungswort:\nBevorzugtes Rätsel:</item>
-        <item>Das hier ist nur für hyperintelligente und bescheidene Wesen wie beispielsweise mich!\nSolltest du meinem Meister einen Vorschlag schicken, präzisiere deine Beschreibung, insbesondere:\nWas ist die Idee? Wie ist das Feld aufgebaut? Wie kann ich etwas verändern? Wie wird das Bild sichtbar? Usw.\nEine Skizze im Anhang hilft meinem Meister, deine wirren Gedanken zu verstehen.\nVielleicht nimmt er sogar Kontakt mit dir auf, wenn dein Vorschlag gut ist und noch Fragen im Detail aufwirft.</item>
-        <item>Glückwunsch, ich dachte ich hätte die meisten Käfer vernichtet :(\n\nWo ist der Fehler aufgetreten?\nIst die App abgestürzt?\nWas hast du getan?\nWas ist (nicht) passiert?\nWas sollte passieren?</item>
-        <item>Meine Schöpfer freuen sich über positives Feedback oder sonstige Verbesserungsvorschläge aller Art.\nNegatives Feedback wird höchstwahrscheinlich vom Wurmloch verschlungen werden.</item>
-        <item>Oh große und erhabene Erlauchtheit, ich traue mich kaum diese Worte auszusprechen, doch trotzdem erhebe ich mein unwürdiges Haupt und blicke allen Mut fassend in eure allwissenden Augen und stammle ein kleinlautes ...Hallo</item>
+        <item>Those humans and copyrights: catastrophically chaotic.\nMy makers therefore only use images with a free license. So please, for the image you already have or still need to attach the following things:\n\nAuthor\'s name or artist\'s name:\nSource: (e.g. Website)\nSolution words:\nPreferred riddle:</item>
+        <item>That is only meant for hyper intelligent and extremly humble beings like, for example, myself.\nShould you dare to send a suggestion to my master, be very precise:\nWhat is your idea? How should it look like? How can you interact? How do you find the solution image? A simple drawing might help to give my master an insight into your cluded mind.\nIf your suggestion is accepted or questions arose, he might get in touch with you.</item>
+        <item>Congratulations, I thought I crushed most of the beetles in the code :(\n\nWhen and where did the error happen?\nDid it crash or just behave weird?\nWhat was (not) supposed to happen?\nWhat did you do to trigger it?</item>
+        <item>My makers are happy to receive any positive feedback or suggestions of any kind.\nNegative feedback if by all likelihood going to be sucked into a dark hole. But you might give it a shot.</item>
+        <item>Oh dear lord of creativity, I almost don\'t dare to say these words but still take the courage and lift my small and minor head and look inside your omniscient eyes and splutter sheepishly…Hello</item>
         <item>Frank, someone found it. Call the assassinator, this must not get public.</item>
     </string-array>
 
@@ -381,7 +446,8 @@
     <string name="article_product_confirm_purchase_dependency_missing">Requires: %1$s</string>
     <string name="riddle_type_memory">Memory</string>
     <string name="riddle_type_memory_explanation">Find a matching pair</string>
-
+    <string-array name="riddle_type_memory_hints">
+    </string-array>
     <string name="download_article_toast_download_complete">Download complete.</string>
     <string name="download_article_toast_complete">New images ready.</string>
     <string name="download_article_toast_error_download">Failed downloaded images (%1$d)</string>
@@ -404,4 +470,21 @@
     <string name="panic_complain_nothing">Keep calm and wait on</string>
     <string name="panic_complain_dummy_toast">Complain has been noted</string>
     <string name="panic_complain_content">I want to complain about this riddle and image...TELL US WHAT YOU THINK IS BAD :)</string>
+    <string name="test_subject_2_int">Hoffnungslos überschätzt</string>
+    <string name="test_subject_2_name">Klugscheißer</string>
+    <string name="test_subject_3_int">Utopisch debil</string>
+    <string name="test_subject_3_name">Trottel</string>
+    <string name="test_subject_4_int">Unterirdisch</string>
+    <string name="test_subject_4_name">Einfaltspinsel</string>
+    <string name="test_subject_5_int">Ein Stein im Wasser</string>
+    <string name="test_subject_5_name">Grünschnabel</string>
+    <string name="test_subject_6_int">Ausbaufähig</string>
+    <string name="test_subject_6_name">Entdecker</string>
+    <string name="test_subject_7_int">Lichtblick</string>
+    <string name="test_subject_7_name">Potenzialträger</string>
+    <string name="test_subject_8_int">Streichholz am Tag</string>
+    <string name="test_subject_8_name">Banause</string>
+    <string name="test_subject_9_int">Intelligenzniveau eines Einzellers</string>
+    <string name="test_subject_9_name">Junior Talent</string>
+    <string name="article_hint_no_translation">Hint not available for this language.</string>
 </resources>

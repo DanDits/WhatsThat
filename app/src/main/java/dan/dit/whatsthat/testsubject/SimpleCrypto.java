@@ -32,6 +32,9 @@ public class SimpleCrypto {
 
     private static final String PUBLIC_KEY_FILE = "dev_key_public.txt";
     private static final String PRIVATE_KEY_FILE = "dev_key_private.txt";
+    private static final String DEVELOPER_PUBLIC_KEY_ENCODED = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCYT5vZ5Wof4Hh3hgNjVVAd13bUrPnqyiHXqCRT\n" +
+            "zvEUVPAnokpr+Uw2Ft2YFPSw9J4USHrqWqVdumiABJameWx6MuvNPUU4yNd/xWd3UYpCMwJHaJm3\n" +
+            "WP481XbUk5qU5JZWAPPZGHYBEm5FXA1kC5L8jfT41+F1ca2R0dA7S3GXEQIDAQAB";
     private static Key DEVELOPER_PUBLIC_KEY;
 
     private SimpleCrypto() {}
@@ -81,28 +84,33 @@ public class SimpleCrypto {
         if (DEVELOPER_PUBLIC_KEY != null) {
             return DEVELOPER_PUBLIC_KEY;
         }
-        StringBuilder builder = new StringBuilder();
-        FileReader reader = null;
-        try {
-            reader = new FileReader(new File(ExternalStorage.getExternalStoragePathIfMounted(null) + "/" + PUBLIC_KEY_FILE));
-            char[] buffer = new char[64];
-            int read;
-            while ((read = reader.read(buffer)) > 0) {
-                builder.append(buffer, 0, read);
-            }
-        } catch (Exception e) {
-            Log.e("HomeStuff", "Error trying to read public key file: " + e);
-            return null;
-        } finally {
-            if (reader != null) {
-                try {
-                    reader.close();
-                } catch (IOException ioe) {
-                    Log.e("HomeStuff", "Error closing file reader when reading public key file.");
+        String keyEncoded = DEVELOPER_PUBLIC_KEY_ENCODED;
+        if (TextUtils.isEmpty(keyEncoded)) {
+            // attempt to read key from file
+            StringBuilder builder = new StringBuilder();
+            FileReader reader = null;
+            try {
+                reader = new FileReader(new File(ExternalStorage.getExternalStoragePathIfMounted(null) + "/" + PUBLIC_KEY_FILE));
+                char[] buffer = new char[64];
+                int read;
+                while ((read = reader.read(buffer)) > 0) {
+                    builder.append(buffer, 0, read);
+                }
+            } catch (Exception e) {
+                Log.e("HomeStuff", "Error trying to read public key file: " + e);
+                return null;
+            } finally {
+                if (reader != null) {
+                    try {
+                        reader.close();
+                    } catch (IOException ioe) {
+                        Log.e("HomeStuff", "Error closing file reader when reading public key file.");
+                    }
                 }
             }
+            keyEncoded = builder.toString();
         }
-        X509EncodedKeySpec x509KeySpec = new X509EncodedKeySpec(SimpleCrypto.encodedToBytes(builder.toString()));
+        X509EncodedKeySpec x509KeySpec = new X509EncodedKeySpec(SimpleCrypto.encodedToBytes(keyEncoded));
         try {
             KeyFactory keyFactory = KeyFactory.getInstance("RSA");
             DEVELOPER_PUBLIC_KEY = keyFactory.generatePublic(x509KeySpec);

@@ -6,16 +6,15 @@ import dan.dit.whatsthat.riddle.RiddleView;
 
 /**
  * Like the GamePeriodicThread this thread is performing rendering, especially drawing
- * of bitmaps on the final view canvas. The frame period can be changed, but this is not really
- * required or recommended.
+ * of bitmaps on the final view canvas. The drawing is done as fast as possible, limited
+ * by the drawing of the riddle, so it is slowed down by the rendering queue, no explicit
+ * frame rate is used (see http://stackoverflow.com/questions/21838523/annoying-lags-stutters-in-an-android-game/22387533#22387533)
  * Created by daniel on 07.05.15.
  */
 public class GameRenderThread extends Thread {
-    protected static final long FRAME_PERIOD = 12L; // about 80 frames per second
 
 
     private final RiddleView mRiddleView;
-    private long mFramePeriod = FRAME_PERIOD;
     private boolean mIsRunning = false;
 
     /**
@@ -27,33 +26,22 @@ public class GameRenderThread extends Thread {
         mRiddleView = view;
     }
 
-    /**
-     * Sets the frame period to the given period if greater than zero, else to default value.
-     * @param period The new frame period.
-     */
-    public void setFramePeriod(long period) {
-        mFramePeriod = period;
-        if (mFramePeriod <= 0L) {
-            mFramePeriod = FRAME_PERIOD;
-        }
-    }
-
     @Override
     public void run() {
-        long startTime;
+        //long startTime;
         while (mIsRunning && !isInterrupted()) {
-            startTime = System.currentTimeMillis();
+            //startTime = System.nanoTime();
             mRiddleView.performDrawRiddle();
 
-            //restart periodic event after period
-            long sleepTime = mFramePeriod -(System.currentTimeMillis() - startTime);
+            /*//restart periodic event after period
+            long sleepTime = mFramePeriod -(System.nanoTime() - startTime);
 
             try {
                 if (sleepTime > 0)
                     Thread.sleep(sleepTime);
             } catch (InterruptedException e) {
                 interrupt();
-            }
+            }*/
         }
         Log.d("Riddle", "Render thread ended.");
     }

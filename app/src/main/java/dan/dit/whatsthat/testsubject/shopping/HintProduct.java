@@ -1,6 +1,7 @@
 package dan.dit.whatsthat.testsubject.shopping;
 
 import android.graphics.Color;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
@@ -49,6 +50,10 @@ public class HintProduct extends SubProduct {
         if (!mAlreadyRead) {
             view.setTextColor(Color.GREEN);
             view.setText(R.string.article_hint_not_yet_read);
+            return;
+        } else if (TextUtils.isEmpty(text)) {
+            view.setTextColor(Color.YELLOW);
+            view.setText(R.string.article_hint_no_translation);
             return;
         }
         view.setTextColor(mDefaultTextColor);

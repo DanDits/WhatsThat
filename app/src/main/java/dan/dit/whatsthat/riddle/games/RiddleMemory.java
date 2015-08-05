@@ -39,7 +39,7 @@ import dan.dit.whatsthat.util.image.ImageUtil;
  */
 public class RiddleMemory extends RiddleGame {
     private static final int DEFAULT_FIELD_X = 8;
-    private static final int DEFAULT_FIELD_Y = 6; // one dimension must be a multiple of 2!
+    private static final int DEFAULT_FIELD_Y = 7; // one dimension must be a multiple of 2!
     private static final int CONTENT_IN_PATH_ALPHA = 155;
 
     private Field2D<MemoryCard> mField;
@@ -233,6 +233,8 @@ public class RiddleMemory extends RiddleGame {
 
         // now init the MemoryCard pairs, restoring cover state and uncovered attribute if available
         listener.onProgressUpdate(50);
+        int bitmapDeltaX = -(mFieldBitmap.getWidth() - mBitmap.getWidth()) / 2;
+        int bitmapDeltaY = -(mFieldBitmap.getHeight() - mBitmap.getHeight()) / 2;
         for (int index = 0; index < requiredImages * 2; index++) {
             MemoryCard card = mField.getField(index % mFieldX, index / mFieldX);
             Image image = memoryImagesFinal.get(index);
@@ -253,7 +255,11 @@ public class RiddleMemory extends RiddleGame {
                 coverState1 = coverStates[index];
                 coverState2 = coverStates[doppelgangerIndex];
             }
-            card.initPair(res, image, mField.setFieldRect(new Rect(), card), mField.setFieldRect(new Rect(), doppelganger), doppelganger, uncovered1, uncovered2, coverState1, coverState2);
+            Rect source = mField.setFieldRect(new Rect(), card);
+            source.offset(bitmapDeltaX, bitmapDeltaY);
+            Rect doppelgangerSource = mField.setFieldRect(new Rect(), doppelganger);
+            doppelgangerSource.offset(bitmapDeltaX, bitmapDeltaY);
+            card.initPair(res, image, source, doppelgangerSource, doppelganger, uncovered1, uncovered2, coverState1, coverState2);
 
             listener.onProgressUpdate(50 + (int) (index * 50 / ((double) (requiredImages * 2))));
         }

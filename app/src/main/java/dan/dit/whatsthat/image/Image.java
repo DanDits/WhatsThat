@@ -368,6 +368,7 @@ public class Image implements MosaicTile<String> {
                 addOwnFormatAsPreference(image);
                 addOwnContrastAsPreference(image);
                 addOwnGreynessAsPreference(image);
+                image.recycle();
             }
         }
 

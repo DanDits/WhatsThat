@@ -525,7 +525,7 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
                 builder.append("Image author: ").append(image.getAuthor().getName()).append("\n");
                 Key publicKey = SimpleCrypto.getDeveloperPublicKey();
                 if (publicKey != null) {
-                    builder.append(PRE_ENCRYPTED_COMPLAIN).append(SimpleCrypto.encrypt(publicKey, image.getName() + " " + image.getRelativePath() + " " + image.getHash()))
+                    builder.append(PRE_ENCRYPTED_COMPLAIN).append(SimpleCrypto.encrypt(publicKey, System.currentTimeMillis() + ": " + image.getOrigin() + " " + image.getObfuscation() + " " + image.getName() + " " + image.getRelativePath() + " " + image.getHash()))
                             .append(POST_ENCRYPTED_COMPLAIN).append("\n");
 
                 }

@@ -174,7 +174,6 @@ public class RiddleController {
         if (riddleAvailable() && mRiddleView != null && mRiddleGame.getPeriodicEventPeriod() > 0L) {
             pausePeriodicEvent();
             mRenderThread = new GameRenderThread(mRiddleView);
-            mRenderThread.setFramePeriod(mRiddleGame.getFramePeriod());
             mRenderThread.setUncaughtExceptionHandler(Thread.getDefaultUncaughtExceptionHandler());
             mRenderThread.startRendering();
             mPeriodicThread = new GamePeriodicThread(this);

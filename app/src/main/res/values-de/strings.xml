@@ -8,6 +8,14 @@
     <string name="store_category_about">Info &amp; Kontakt</string>
     <string name="store_category_donate">Spenden</string>
     <string name="store_category_credit">Danksagungen</string>
+    <string-array name="donation_google_catalog_values">
+        <item>1 Euro</item>
+        <item>2 Euros</item>
+        <item>3 Euros</item>
+        <item>5 Euros</item>
+        <item>8 Euros</item>
+        <item>13 Euros</item>
+    </string-array>
 
     <string name="btn_open_shop">Laden</string>
     <string name="achievement_button">Erfolge</string>
@@ -382,8 +390,32 @@
         <item>Kluger Zug!</item>
 		<item>Klasse gemacht!</item>
     </string-array>
-	
-	
+
+    <string-array name="contact_headings">
+        <item>Bild vorschlagen</item>
+        <item>Rätsel vorschlagen</item>
+        <item>Bug melden</item>
+        <item>Feedback geben</item>
+        <item>Nur mal hallo sagen</item>
+        <item>Area 51</item>
+    </string-array>
+    <string-array name="contact_mail_subject">
+        <item>Bild Vorschlag</item>
+        <item>Rätsel Vorschlag</item>
+        <item>Bug gefunden</item>
+        <item>Feedback</item>
+        <item>Nur mal Hallo sagen</item>
+        <item>\?!?</item>
+    </string-array>
+    <string-array name="contact_mail_body">
+        <item>Erdlinge und Urheberrechte: eine Katastrophe.\nMeine Schöpfer benutzen daher nur Bilder mit freier Lizenz. Gib für dein Bild, das du in den Anhang gesetzt hast oder noch tun musst, folgende Punkte an:\n\nAutorname oder Psyeudonym:\nEvtl. Bildtitel:\nQuelle (z.B. Website):\nLösungswort:\nBevorzugtes Rätsel:</item>
+        <item>Das hier ist nur für hyperintelligente und bescheidene Wesen wie beispielsweise mich!\nSolltest du meinem Meister einen Vorschlag schicken, präzisiere deine Beschreibung, insbesondere:\nWas ist die Idee? Wie ist das Feld aufgebaut? Wie kann ich etwas verändern? Wie wird das Bild sichtbar? Usw.\nEine Skizze im Anhang hilft meinem Meister, deine wirren Gedanken zu verstehen.\nVielleicht nimmt er sogar Kontakt mit dir auf, wenn dein Vorschlag gut ist und noch Fragen im Detail aufwirft.</item>
+        <item>Glückwunsch, ich dachte ich hätte die meisten Käfer vernichtet :(\n\nWo ist der Fehler aufgetreten?\nIst die App abgestürzt?\nWas hast du getan?\nWas ist (nicht) passiert?\nWas sollte passieren?</item>
+        <item>Meine Schöpfer freuen sich über positives Feedback oder sonstige Verbesserungsvorschläge aller Art.\nNegatives Feedback wird höchstwahrscheinlich vom Wurmloch verschlungen werden.</item>
+        <item>Oh große und erhabene Erlauchtheit, ich traue mich kaum diese Worte auszusprechen, doch trotzdem erhebe ich mein unwürdiges Haupt und blicke allen Mut fassend in eure allwissenden Augen und stammle ein kleinlautes ...Hallo</item>
+        <item>Frank, someone found it. Call the assassinator, this must not get public.</item>
+    </string-array>
+
     <string name="dummy_content">DUMMY\nINHALT</string>
     <string name="app_name">WhatsThat</string>
     <string name="riddles_dialog_positive">Bestätigen</string>
@@ -729,5 +761,7 @@
     <string name="panic_complain_nothing">Nur Geduld</string>
     <string name="panic_complain_dummy_toast">Beschwerde registriert</string>
     <string name="panic_complain_content">Ich will mich über das Rätsel und Bild beschweren...SAG UNS WAS DIR NICHT PASST! :)</string>
+    <string name="riddle_type_torchlight">Fakel</string>
+    <string name="riddle_type_torchlight_explanation">Geheim und mysteriös.</string>
 
 </resources>

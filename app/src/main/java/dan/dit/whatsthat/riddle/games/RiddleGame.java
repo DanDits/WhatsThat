@@ -235,7 +235,4 @@ public abstract class RiddleGame {
         solutionView.setSolutionInput(mSolutionInput, listener);
     }
 
-    public long getFramePeriod() {
-        return GameRenderThread.FRAME_PERIOD;
-    }
 }

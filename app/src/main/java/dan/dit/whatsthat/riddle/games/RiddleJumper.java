@@ -92,7 +92,7 @@ public class RiddleJumper extends RiddleGame implements FlatWorldCallback {
     private static final float MAX_SOLUTION_SCALE = 0.5f;
     private static final float BUBBLE_CENTER_Y_ESTIMATE = 0.765f * 0.5f;
     private static final float DISTANCE_RUN_PENALTY_ON_SAVE_FRACTION = 0.75f; // mainly required so that it is not worth closing the riddle (or app) when you know you are going to collide
-    private static final float[] CLEAR_MIND_SIZE_FRACTION = new float[] {0.05f, 0.13f, 0.25f, 0.5f};
+    private static final float[] CLEAR_MIND_SIZE_FRACTION = new float[] {0.05f, 0.13f, 0.3f, 0.7f};
     private static final int FOGGED_MIND_COLOR = Color.DKGRAY;
     private static final int[] MIND_CLEARED_EVERY_K_OBSTACLES = new int[] {2, 3, 5, 8};
 
@@ -472,7 +472,7 @@ public class RiddleJumper extends RiddleGame implements FlatWorldCallback {
         if (mObstaclesPassed % MIND_CLEARED_EVERY_K_OBSTACLES[mDifficulty] == 0) {
             int type = mDifficulty;
             float x = mRand.nextFloat() * (mClearMindBackground.getWidth() - mClearMind[type].getWidth());
-            float y = mRand.nextFloat() * (mClearMindBackground.getHeight() - mClearMind[type].getHeight());
+            float y = mRand.nextFloat() * (mClearMindBackground.getHeight() * 2 * BUBBLE_CENTER_Y_ESTIMATE);
             clearMind(x, y, type);
             drawSolution();
         }
