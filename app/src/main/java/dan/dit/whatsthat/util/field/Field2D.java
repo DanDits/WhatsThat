@@ -34,6 +34,7 @@ public class Field2D<FE extends FieldElement> implements Iterable<FE> {
     private Queue<FE> mPathfindingNodes;
     private Paint mClearPaint;
     private Rect mFieldRect;
+    private int mFieldRectPadding = 1;
 
     private Field2D(FE[][] fieldElements, float fieldWidth, float fieldHeight) throws BuildException {
         int xCount = fieldElements[0].length;
@@ -70,9 +71,16 @@ public class Field2D<FE extends FieldElement> implements Iterable<FE> {
         }
     }
 
+    public void setFieldRectPadding(int padding) {
+        mFieldRectPadding = padding;
+    }
+
+    public int getFieldRectPadding() {
+        return mFieldRectPadding;
+    }
+
     public Rect setFieldRect(Rect rect, FE fieldElement) {
-        final int padding = 1;
-        rect.set((int) (mFieldWidth * fieldElement.mX) + padding, (int) (mFieldHeight * fieldElement.mY) + padding, (int) (mFieldWidth * fieldElement.mX + mFieldWidth) - padding, (int) (mFieldHeight * fieldElement.mY + mFieldHeight) - padding);
+        rect.set((int) (mFieldWidth * fieldElement.mX) + mFieldRectPadding, (int) (mFieldHeight * fieldElement.mY) + mFieldRectPadding, (int) (mFieldWidth * fieldElement.mX + mFieldWidth) - mFieldRectPadding, (int) (mFieldHeight * fieldElement.mY + mFieldHeight) - mFieldRectPadding);
         return rect;
     }
 

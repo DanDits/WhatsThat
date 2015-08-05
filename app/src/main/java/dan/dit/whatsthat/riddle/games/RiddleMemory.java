@@ -5,6 +5,8 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
@@ -41,6 +43,7 @@ public class RiddleMemory extends RiddleGame {
     private static final int DEFAULT_FIELD_X = 8;
     private static final int DEFAULT_FIELD_Y = 7; // one dimension must be a multiple of 2!
     private static final int CONTENT_IN_PATH_ALPHA = 155;
+    private static final int TILE_IN_PATH_COLOR = Color.GREEN;
 
     private Field2D<MemoryCard> mField;
     private Dimension mFieldDimension;
@@ -53,8 +56,11 @@ public class RiddleMemory extends RiddleGame {
     private Canvas mFieldCanvas;
     private Bitmap mBlackUncoveredCardBitmap;
     private List<MemoryCard> mPath; // not saved, so must be only relevant for visual aspects
+    private List<MemoryCard> mExplicitlySelected; // not saved, so must be only relevant for visual aspects
     private int mBlackCardsToDraw;
     private Paint mCardContentPaint;
+    private Paint mCardShapePaint;
+    private Paint mTileInPathPaint;
 
     public RiddleMemory(Riddle riddle, Image image, Bitmap bitmap, Resources res, RiddleConfig config, PercentProgressListener listener) {
         super(riddle, image, bitmap, res, config, listener);
@@ -88,6 +94,7 @@ public class RiddleMemory extends RiddleGame {
     protected void initBitmap(Resources res, PercentProgressListener listener) {
         mFieldBitmap = Bitmap.createBitmap(mConfig.mWidth, mConfig.mHeight, Bitmap.Config.ARGB_8888);
         mFieldCanvas = new Canvas(mFieldBitmap);
+        mExplicitlySelected = new ArrayList<>(5);
 
         Compacter cmp = getCurrentState();
         mFieldX = DEFAULT_FIELD_X;
@@ -113,6 +120,12 @@ public class RiddleMemory extends RiddleGame {
         mCardBorderPaint.setColor(Color.BLACK);
         mCardBorderPaint.setStyle(Paint.Style.STROKE);
         mCardContentPaint = new Paint();
+        mCardShapePaint = new Paint();
+        mCardShapePaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.DST_IN));
+
+        mTileInPathPaint = new Paint();
+        mTileInPathPaint.setColor(TILE_IN_PATH_COLOR);
+        mTileInPathPaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.MULTIPLY));
 
         mCoveredCardBitmap = new HashMap<>(5);
         mCoveredCardBitmap.put(MemoryCard.STATE_COVERED_GREEN, ImageUtil.loadBitmap(res, R.drawable.memory_card_covered_green, mFieldDimension.getWidth(), mFieldDimension.getHeight(), true));
@@ -273,6 +286,7 @@ public class RiddleMemory extends RiddleGame {
                 if (mPeakedCards >= 2) {
                     coverNotFoundPairs();
                 }
+                mExplicitlySelected.add(card);
                 card.onClick();
                 drawField();
                 return true;
@@ -285,6 +299,8 @@ public class RiddleMemory extends RiddleGame {
         for (MemoryCard allCard : mField) {
             allCard.cover();
         }
+        mPath = null;
+        mExplicitlySelected.clear();
         mPeakedCards = 0;
     }
 
@@ -377,34 +393,49 @@ public class RiddleMemory extends RiddleGame {
 
         @Override
         public void draw(Canvas canvas, Rect fieldRect) {
-            int oldColor =mCardBorderPaint.getColor();
             boolean isInPath = mPath != null && mPath.contains(this);
-            if (isInPath) {
-                mCardBorderPaint.setColor(Color.YELLOW);
-            }
-            canvas.drawRect(fieldRect, mCardBorderPaint);
-            mCardBorderPaint.setColor(oldColor);
-            mCardContentPaint.setAlpha(isInPath ? CONTENT_IN_PATH_ALPHA : 255);
+            int oldColor;
+            Bitmap cardCover = mCoveredCardBitmap.get(mCoverState);
+            cardCover = cardCover == null ? mCoveredCardBitmap.get(STATE_COVERED_GREEN) : cardCover;
+
             if (isPairUncovered()) {
-                canvas.drawBitmap(mBitmap, mBitmapSource, fieldRect, mCardContentPaint);
+                canvas.drawBitmap(mBitmap, mBitmapSource, fieldRect, null);
+                canvas.drawBitmap(cardCover, fieldRect.left, fieldRect.top, mCardShapePaint);
             } else if (mUncovered) {
                 if (mCoverState == STATE_COVERED_BLACK && mBlackCardsToDraw <= 0) {
-                    canvas.drawBitmap(mBlackUncoveredCardBitmap, fieldRect.left, fieldRect.top, mCardContentPaint);
+                    canvas.drawBitmap(mBlackUncoveredCardBitmap, fieldRect.left, fieldRect.top, null);
                 } else {
-                    mBlackCardsToDraw--;
+                    if (mCoverState == STATE_COVERED_BLACK) {
+                        mBlackCardsToDraw--;
+                    }
                     if (mMemoryBitmap != null) {
-                        canvas.drawBitmap(mMemoryBitmap, fieldRect.left, fieldRect.top, mCardContentPaint);
+                        canvas.drawBitmap(mMemoryBitmap, fieldRect.left, fieldRect.top, null);
+                        canvas.drawBitmap(cardCover, fieldRect.left, fieldRect.top, mCardShapePaint);
                     } else {
                         // emergency case in case bitmap loading failed since we can't fetch a new one easily
                         oldColor = mCardBorderPaint.getColor();
                         mCardContentPaint.setColor(mMemoryImage.getAverageARGB());
                         canvas.drawRect(fieldRect, mCardContentPaint);
+                        canvas.drawBitmap(cardCover, fieldRect.left, fieldRect.top, mCardShapePaint);
                         mCardContentPaint.setColor(oldColor);
                     }
                 }
             } else {
-                canvas.drawBitmap(mCoveredCardBitmap.get(mCoverState), fieldRect.left, fieldRect.top, mCardContentPaint);
+                canvas.drawBitmap(cardCover, fieldRect.left, fieldRect.top, null);
             }
+            if (isInPath && !mExplicitlySelected.contains(this)) {
+                canvas.drawRect(fieldRect, mTileInPathPaint);
+            }
+            /*
+            // draw border on top
+            oldColor = mCardBorderPaint.getColor();
+            if (isInPath) {
+                mCardBorderPaint.setColor(Color.YELLOW);
+            }
+            fieldRect.set(fieldRect.left-1, fieldRect.top-1, fieldRect.right+1, fieldRect.bottom+1);
+            canvas.drawRect(fieldRect, mCardBorderPaint);
+            fieldRect.set(fieldRect.left+1, fieldRect.top+1, fieldRect.right-1, fieldRect.bottom-1);
+            mCardBorderPaint.setColor(oldColor);*/
         }
 
         public boolean uncover() {
