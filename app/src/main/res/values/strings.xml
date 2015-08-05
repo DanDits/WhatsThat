@@ -486,5 +486,24 @@
     <string name="test_subject_8_name">Banause</string>
     <string name="test_subject_9_int">Intelligenzniveau eines Einzellers</string>
     <string name="test_subject_9_name">Junior Talent</string>
-    <string name="article_hint_no_translation">Hint not available for this language.</string>
+    <string name="article_hint_no_translation" translatable="false">Hint not available for this language.</string>
+    <string name="achievement_memory_1_name">Short-term memory</string>
+    <string name="achievement_memory_1_descr">.Even glaciers were faster than you with this experiment</string>
+    <string name="achievement_memory_2_descr">Leave a trail of.. 5, 10, 15 or maybe 20 fields.</string>
+    <string name="achievement_memory_2_name">Random trail</string>
+    <string name="achievement_memory_3_name">The right pair</string>
+    <string name="achievement_memory_3_descr_claimed">Despite that little visible area... Not bad.</string>
+    <string name="achievement_memory_4_name">Homunculus</string>
+    <string name="achievement_memory_4_descr">Reveal the picture after 32 fields have been covered.</string>
+    <string name="achievement_memory_3_descr">Little visible area. Can you still detect the picture?</string>
+    <string name="achievement_memory_5_name">Dirt track</string>
+    <string name="achievement_memory_5_descr">Restore a hidden ??? field to its original form</string>
+    <string name="achievement_memory_6_name">DEFINITELY luck</string>
+    <string name="achievement_memory_6_descr">3 matching pairs with the first try? Well, maybe Angry-Cell it was skill but here, DEFINITELY NOT!</string>
+    <string name="achievement_memory_7_descr">That streak... Either this was brilliant or you cheated...</string>
+    <string name="achievement_memory_7_name">Cardships</string>
+    <string name="achievement_memory_8_descr">You get the points if you solve the game without hitting a field twice. Get a pencil quickly!</string>
+    <string name="achievement_memory_8_name">Cheating</string>
+    <string name="achievement_memory_9_name">No magician</string>
+    <string name="achievement_memory_9_descr">Luckily you are no magician.</string>
 </resources>

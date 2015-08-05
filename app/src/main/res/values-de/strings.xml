@@ -49,6 +49,7 @@
         <item>Es reicht aber, wenn du mich ganz zwanglos mit \"Erhabener\" anredest.</item>
         <item>Achja, das hier ist Dr. Kulg.</item>
         <item>Ihr würdet ihn einen verrückt genialen Wissenschaftler nennen.</item>
+        <item>Aber genug davon.</item>
         <item>Meine Schöpfer und ich, oder kurz gesagt, wir, wollen die menschliche Spezies besser verstehen.</item>
         <item>Unsere Wahl ist dabei auf dich gefallen.</item>
         <item>Du wirst unser Versuchsobjekt sein</item>
@@ -106,8 +107,9 @@
     <string-array name="test_subject_1_intro_nuts">
         <item>Die Reaktionen lassen vermuten, dass der menschliche IQ nur knapp über dem absoluten Gefrierpunkt liegt</item>
         <item>Homo Sapiens, wie haben die bloß diesen Planeten so schnell kaputt gemacht mit so wenig Hirn?</item>
-		<item>Steht hier nicht irgendwo in dem meist verkauften Erdlings-Buch so ein Satz…?</item>
-		<item>Achja hier:\"denn sie wissen nicht, was sie tun.\". Kann ich nur bestätigen.</item>
+		<item>Steht hier nicht irgendwo in diesem meist verkauften Erdlings-Buch so ein Satz…?</item>
+		<item>Achja hier:\"denn sie wissen nicht, was sie tun…</item>
+        <item>Ja. Das kann ich nur bestätigen.</item>
         <item>Das zerstörerische Verhalten war wohl keine Absicht, sondern fehlender Überblick.</item>
         <item>Ob wir ihnen dabei helfen sollten und dann den Planeten von neuem besiedeln?</item>
         <item>Oh du hörst mir noch zu.. ich mache nur Spaß.</item>
@@ -219,8 +221,7 @@
     </string-array>
     <string-array name="test_subject_5_intro_nuts">
 		<item>Eine Frage stelle ich mir schon die ganze Zeit.</item>
-		<item>Dass ein Kind einfältig ist, kann ich noch verstehen.</item>
-		<item>Es ist ja noch am Lernen.</item>
+		<item>Ich kann ja verstehen, dass ein Kind in dem frühen Entwicklungsstadium noch lernen muss.</item>
 		<item>Aber wieso seid ihr erwachsenen Menschen so dumm?</item>
 		<item>Verzeihung bitte.</item>
 		<item>Ich wollte sagen: Wieso stellt ihr Menschen eine Evolutionsbremse in der Entwicklung dar?</item>
@@ -412,7 +413,7 @@
         <item>Das hier ist nur für hyperintelligente und bescheidene Wesen wie beispielsweise mich!\nSolltest du meinem Meister einen Vorschlag schicken, präzisiere deine Beschreibung, insbesondere:\nWas ist die Idee? Wie ist das Feld aufgebaut? Wie kann ich etwas verändern? Wie wird das Bild sichtbar? Usw.\nEine Skizze im Anhang hilft meinem Meister, deine wirren Gedanken zu verstehen.\nVielleicht nimmt er sogar Kontakt mit dir auf, wenn dein Vorschlag gut ist und noch Fragen im Detail aufwirft.</item>
         <item>Glückwunsch, ich dachte ich hätte die meisten Käfer vernichtet :(\n\nWo ist der Fehler aufgetreten?\nIst die App abgestürzt?\nWas hast du getan?\nWas ist (nicht) passiert?\nWas sollte passieren?</item>
         <item>Meine Schöpfer freuen sich über positives Feedback oder sonstige Verbesserungsvorschläge aller Art.\nNegatives Feedback wird höchstwahrscheinlich vom Wurmloch verschlungen werden.</item>
-        <item>Oh große und erhabene Erlauchtheit, ich traue mich kaum diese Worte auszusprechen, doch trotzdem erhebe ich mein unwürdiges Haupt und blicke allen Mut fassend in eure allwissenden Augen und stammle ein kleinlautes ...Hallo</item>
+        <item>Oh große und erhabene Erlauchtheit, ich traue mich kaum diese Worte auszusprechen, doch trotzdem erhebe ich mein unwürdiges Haupt und blicke allen Mut fassend in eure allwissenden Augen und stammle ein kleinlautes… Hallo</item>
         <item>Frank, someone found it. Call the assassinator, this must not get public.</item>
     </string-array>
 
@@ -424,7 +425,7 @@
     <string name="riddle_type_circle">Kreise</string>
     <string name="riddle_type_circle_explanation">Berühre einen Kreis, um diesen in vier kleinere aufzuteilen. Verbessere die Kontur des versteckten Bildes.</string>
     <string-array name="riddle_type_circle_hints">
-	    <item>Teile bei unserem ersten Experiment einen Kreise, so wie Mose das Wasser. Nur nicht in zwei Hälften sondern vier neue Kreise, bis du irgendwann durch die feineren Konturen hoffentlich ein Bild erkennst. Falls nicht, führe ich die Versuchsreihe mit Pantoffeltierchen weiter, die diese Tests mit Bravour bestanden haben.</item>
+	    <item>Teile bei unserem ersten Experiment einen Kreise, so wie Mose das Wasser. Nur nicht in zwei Hälften, sondern vier neue Kreise, bis du irgendwann durch die feineren Konturen hoffentlich ein Bild erkennst. Falls nicht, führe ich die Versuchsreihe mit Pantoffeltierchen weiter, die diese Tests mit Bravour bestanden haben.</item>
         <item>Demo Version beendet. Kaufe die Vollversion für nur 59,99€. Just kidding. Geh trotzdem mal in den Shop. Der intergalaktische Kreislaser-Turbo-Schneider ist sicher nützlich…</item>
         <item>Manche menschliche Augen erkennen manche Bilder manchmal erst aus manch einer Entfernung.</item>
         <item>Manchmal hilft auch ein Screenshot. Bei eurem kleinen Gehirn aber nicht immer.</item>
@@ -459,7 +460,7 @@
     <string name="riddle_type_dice_explanation">Berühre ein leeres Feld, damit ein neuer Würfel erscheint. Bewege und kombiniere Würfel gleicher Augenzahl und Farbe, um das Bild aufzudecken.</string>
     <string-array name="riddle_type_dice_hints">
 	    <item>Ein komplizierter Test. Kombiniere  Würfel gleicher Zahl und Farbe. In den angezeigten Bereichen entsteht Transparenz. Es gibt drei Basiswürfel rot, gelb und grün sowie die Sonderwürfel lila und den Alien Cube. Der Alien-Cube hat auf jeden Basiswürfel unterschiedliche Effekte.</item>
-        <item>Grund für diesen komplizierten Versuch ist eine Anomalie, dir wir bei euch festgestellt: euren irdischen Würfel fehlt eine Dimension. Sie haben fälschlicherweise 6 Seiten, obwohl es 9 sind.</item>
+        <item>Grund für diesen komplizierten Versuch ist eine Anomalie, dir wir bei euch festgestellt: Euren irdischen Würfel fehlt eine Dimension. Sie haben fälschlicherweise 6 Seiten, obwohl es 9 sind.</item>
         <item>Wir testen dein Gedächtnis daher auf Realitätsbasis hinsichtlich Kombination, Zahlen, Taktik, Logik, Farbe, Bewegung, Logistik und Schnelligkeit. Ja, ich halte es auch für einen Fehler, weil dich das ziemlich überfordert, aber Befehl ist Befehl.</item>
         <item>Alien-Cube auf Rot ergibt grün und deckt den entsprechende Bereich auf.</item>
         <item>Alien-Cube auf Gelb deckt das Feld zu 100% und lässt die Würfel verschwinden.</item>
@@ -483,7 +484,7 @@
         <item>Sein Laserstrahl verkohlt dich übrigens nur zu seinen Füßen. Der Rest ist lediglich Showeinlage.</item>
         <item>Warum er alles Lasern will? Nach dem Verspeisen von Antimaterie ist er leider etwas verrückt geworden.</item>
         <item>Knuffbuff und ich sind die Lieblinge meines Meisters.</item>
-        <item>Ach Knuffbuff, du Dummerchen. Warum konntest du NImmersatt deine Klauen nicht einfach von der Antimaterie lassen…?</item>
+        <item>Ach Knuffbuff, du Dummerchen. Warum konntest du Nimmersatt deine Klauen nicht einfach von der Antimaterie lassen…?</item>
     </string-array>
 
     <string name="riddle_type_memory">Memory</string>
@@ -686,6 +687,27 @@
     <string name="achievement_jumper_10_descr">Der Anfang ist dir zu öde? Dann kaufe das passende Upgrade mein Freund.</string>
 	<string name="achievement_jumper_11_name">Naturtalent</string>
     <string name="achievement_jumper_11_descr">Erreiche in %1$d aufeinanderfolgenden Spielen mindestens %2$d Meter.</string>
+
+    <string name="achievement_memory_1_name">Kurzzeitgedächtnis</string>
+    <string name="achievement_memory_1_descr">Schon Gletscher sind schneller vorangekommen als du bei diesem Experiment.(xx-Sekunden Spielzeit ODER xxx-Klicks in EINEM Rätsel - Blind)</string>
+    <string name="achievement_memory_2_name">Querbeet</string>
+    <string name="achievement_memory_2_descr">Hinterlasse eine Spur von.. 5, 10, 15 vielleicht auch 20 Feldern.(11 Felder mit der Tracking Spur)</string>
+    <string name="achievement_memory_3_name">Das richtige Paar</string>
+    <string name="achievement_memory_3_descr">Wenig offene Fläche. Erkennst du das Bild trotzdem? (1 oder 2 Paare - blind)</string>
+    <string name="achievement_memory_3_descr_claimed">Trotz wenig offener Fläche… Nicht übel.</string>
+    <string name="achievement_memory_4_name">Homunkulus</string>
+    <string name="achievement_memory_4_descr">Decke das Bild komplett auf, nachdem 32 Felder verdeckt waren.</string>
+    <string name="achievement_memory_5_name">Trampelpfad</string>
+    <string name="achievement_memory_5_descr">Bringe ein verdecktes ??? Feld in seine ursprüngliche Form.</string>
+    <string name="achievement_memory_6_name">DEFINITIV Glück</string>
+    <string name="achievement_memory_6_descr">3 Paare auf Anhieb richtig? Bei Angry-Cell gestehe ich dir das Geschick ein aber hier DEFINITIV NICHT!</string>
+    <string name="achievement_memory_7_name">Karten versenken</string>
+    <string name="achievement_memory_7_descr">So viel richtige Paare hintereinander… Entweder das war gerade ganz schön genial oder aber gemogelt… (blind)</string>
+    <string name="achievement_memory_8_name">Gemogelt</string>
+    <string name="achievement_memory_8_descr">Die Punkte bekommst du, wenn du das Spiel löst und keines der Felder zweimal angeklickt. Einen Stift bitte! (Benötigt Karten versenken)</string>
+    <string name="achievement_memory_9_name">Kein Zauberer</string>
+    <string name="achievement_memory_9_descr">Zum Glück bist du kein Zauberer, einen Zauberspruch hättest du dir nie gemerkt. So wie die xxxx/2038 Karten.(Rotes Feld UND ???=+1)</string>
+
 
     <string name="achievement_misc_category_name">Allgemein</string>
     <string name="achievement_misc_1_name">Schöpfer Namen</string>
