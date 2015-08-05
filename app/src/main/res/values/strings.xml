@@ -77,7 +77,7 @@
     <string name="riddles_dialog_positive">Confirm</string>
     <string name="riddle_dialog_tab_types">Types</string>
     <string name="riddle_dialog_tab_unsolved">Unsolved</string>
-    <string name="riddle_type_circle">Circle</string>
+    <string name="riddle_type_circle">Grey Matter</string>
     <string name="riddle_type_circle_explanation">Touch one circle to pop them into 4 smaller ones until the image is visible.</string>
     <string-array name="riddle_type_circle_hints">
         <item>Touch circles to divide them.</item>
