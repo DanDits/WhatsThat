@@ -412,17 +412,7 @@
         <item>You need me</item>
         <item>The candy is a lie!</item>
     </string-array>
-    <string-array name="devil_talk_fastest">
-        <item>WUEEEE</item>
-        <item>Fast, faster, MEEEE</item>
-        <item>Spin it BABY</item>
-    </string-array>
-    <string-array name="devil_talk_slowest">
-        <item>That\'s good, take it slowly, old people can\'t handle speed.</item>
-        <item>Ouch, my head hurts</item>
-        <item>My halo is all messed up now</item>
-        <item>Stay away from candy my kid</item>
-    </string-array>
+
     <string-array name="devil_talk_cell_eat_candy">
         <item>Nooooo, that\'s poison</item>
         <item>Don\'t you see it\'s not candy?!</item>

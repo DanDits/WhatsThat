@@ -28,6 +28,10 @@ public class Frames extends Look {
         }
     }
 
+    public Frames(Bitmap singleImage) {
+        this(new Bitmap[] {singleImage}, 0L);
+    }
+
     public int getWidth() {
         return mFrames[0].getWidth();
     }

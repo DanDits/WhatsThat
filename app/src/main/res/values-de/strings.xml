@@ -719,6 +719,16 @@
     <string name="achievement_misc_4_name">Erfolgsjäger</string>
     <string name="achievement_misc_4_descr">Schließe %1$d/%2$d Erfolge ab.</string>
 
+    <string-array name="devil_talk_recovering_start">
+        <item>Aah mein Magen</item>
+        <item>Autsch</item>
+        <item>Muss… be…schütz…en</item>
+    </string-array>
+    <string-array name="devil_talk_recovered">
+        <item>Mir geht\'s wieder gut!</item>
+        <item>Da habe ich mir wohl für dich den Magen verdorben…</item>
+        <item>Das habe ich nur für dich durchgestanden!</item>
+    </string-array>
     <string-array name="devil_talk_return">
         <item>Deine Anziehungskraft hat mich wieder her geholt.</item>
         <item>Hast du mich vermisst?</item>
@@ -739,17 +749,7 @@
         <item>Ach, diese unerwiderte Liebe tut so weh…</item>
         <item>Das war mal wieder ein Schuss in den Oooooofen.</item>
     </string-array>
-    <string-array name="devil_talk_fastest">
-        <item>WUEEEE.</item>
-        <item>Schneller als die Polizei erlaubt!</item>
-        <item>Schneeelllllleeerrrrr.</item>
-    </string-array>
-    <string-array name="devil_talk_slowest">
-        <item>Gut so, lass dir Zeit. Alte Menschen vertragen diese Geschwindigkeit nicht.</item>
-        <item>Ouch, das war mein Kopf.</item>
-        <item>Jetzt ist mein Heiligenschein ganz durcheinander</item>
-        <item>Bleib weg von den Süßigkeiten mein Kind</item>
-    </string-array>
+
     <string-array name="devil_talk_cell_eat_candy">
         <item>NEIN! Das ist doch giftig!</item>
         <item>Bist du so blind, dass ist kein Bonbon?!</item>

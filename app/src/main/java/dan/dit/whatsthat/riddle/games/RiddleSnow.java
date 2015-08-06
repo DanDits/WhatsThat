@@ -50,7 +50,7 @@ import dan.dit.whatsthat.util.image.ImageUtil;
  */
 public class RiddleSnow extends RiddleGame implements FlatWorldCallback {
     private static final float STATE_DELTA_ON_IDEA_CHILD_COLLECT_WITH_ACTIVE_DEVIL = 0.1f;
-    private static final float STATE_DELTA_ON_IDEA_CHILD_COLLECT = 0.25f;
+    private static final float STATE_DELTA_ON_IDEA_CHILD_COLLECT = 1.f/3.f;
     private static final int STATE_DELTA_ON_WALL_EXPLOSION = 2;
     private static final float SNOWBALL_BASE_START_FRACTION = 1.f/4.f;
     private static final float GRAVITY = 400.f; //dp
@@ -158,8 +158,8 @@ public class RiddleSnow extends RiddleGame implements FlatWorldCallback {
         listener.onProgressUpdate(50);
         mIdleTimeCounter = AchievementSnow.Achievement7.IDLE_TIME_PASSED;
         Compacter currentStateData = getCurrentState();
-        long moonYearStart = Devil.SURROUND_CELL_DURATION_START;
         boolean devilVisible = DEFAULT_DEVIL_IS_VISIBLE;
+        int devilState = Devil.STATE_PROTECT;
         if (currentStateData != null) {
             mReloadRiddleMoveBlockDuration = RELOAD_RIDDLE_BLOCK_DURATION;
             if (currentStateData.getSize() >= 6) {
@@ -168,7 +168,7 @@ public class RiddleSnow extends RiddleGame implements FlatWorldCallback {
                         initCell(res, currentStateData.getFloat(2), currentStateData.getFloat(3), currentStateData.getFloat(4));
 
                     }
-                    moonYearStart = currentStateData.getLong(5);
+                    devilState = currentStateData.getInt(5);
                     devilVisible = currentStateData.getBoolean(6);
                 } catch (CompactedDataCorruptException e) {
                     currentStateData = null;
@@ -185,7 +185,7 @@ public class RiddleSnow extends RiddleGame implements FlatWorldCallback {
         }
 
         initIdea(res);
-        initDevil(res, moonYearStart, devilVisible);
+        initDevil(res, devilState, devilVisible);
         nextIdea();
 
         int explosionSize = (int) (2 * mCell.mMaxRadius * SNOW_EXPLOSION_SIZE_MULTIPLIER);
@@ -243,16 +243,26 @@ public class RiddleSnow extends RiddleGame implements FlatWorldCallback {
         mWorld.addActor(mIdea);
     }
 
-    private void initDevil(Resources res, long startMoonYear, boolean devilVisible) {
+    private void initDevil(Resources res, int state, boolean devilVisible) {
         float radius = mCell.mMaxRadius * DEVIL_RADIUS_FRACTION_OF_CELL_MAX_RADIUS;
-        Bitmap image = ImageUtil.loadBitmap(res, R.drawable.angel, 2 * (int) radius, 2 * (int) radius, true);
-        mDevil = makeDevil(mCell, 0, 0, radius, image, startMoonYear, res);
+        int size = (int) (2 * radius);
+        Bitmap imageProtect = ImageUtil.loadBitmap(res, R.drawable.angel, size, size, true);
+        Bitmap imageDamaged = ImageUtil.loadBitmap(res, R.drawable.angel_damaged, size, size, true);
+        Bitmap imageRecovering = ImageUtil.loadBitmap(res, R.drawable.angel_recovering, size, size, true);
+        Bitmap[] stateImages = new Bitmap[Devil.STATES_COUNT];
+        stateImages[Devil.STATE_PROTECT] = imageProtect;
+        stateImages[Devil.STATE_DAMAGED] = imageDamaged;
+        stateImages[Devil.STATE_RECOVERING] = imageRecovering;
+        mDevil = makeDevil(mCell, 0, 0, radius, stateImages, state, res);
+        boolean wasSilent = mDevil.mSilent;
+        mDevil.mSilent = true;
         if (devilVisible) {
             mDevil.onAppear();
         } else {
             mDevil.onLeaveWorld();
         }
         mWorld.addActor(mDevil);
+        mDevil.mSilent = wasSilent;
     }
 
     private void nextIdea() {
@@ -375,7 +385,7 @@ public class RiddleSnow extends RiddleGame implements FlatWorldCallback {
         cmp.appendData(mCell.getHitbox().getCenterX());
         cmp.appendData(mCell.getHitbox().getCenterY());
         cmp.appendData(mCell.mHitboxCircle.getRadius());
-        cmp.appendData(mDevil.getMooonYear());
+        cmp.appendData(mDevil.mState);
         cmp.appendData(mDevil.isActive());
         cmp.appendData(""); // in case we need the slot
         Iterator<Float> xIt = mExplosionHistoryX.iterator();
@@ -481,8 +491,7 @@ public class RiddleSnow extends RiddleGame implements FlatWorldCallback {
             if (mConfig.mAchievementGameData != null) {
                 mConfig.mAchievementGameData.increment(AchievementSnow.KEY_GAME_ANGEL_COLLECTED_IDEA, 1L, 0L);
             }
-            mDevil.onCollectIdea();
-            nextIdea();
+            mDevil.attemptCollectIdea();
         } else if (((colliding1 == mCell && colliding2.onCollision(mCell)))
                     || (colliding2 == mCell && colliding1.onCollision(mCell))) {
             if (mConfig.mAchievementGameData != null) {
@@ -667,15 +676,18 @@ public class RiddleSnow extends RiddleGame implements FlatWorldCallback {
             return false;
         }
 
-        public boolean onCollectIdeaChild(boolean devilAvailable) {
-            return shrinkCell(mStateRadiusDelta * (devilAvailable ? STATE_DELTA_ON_IDEA_CHILD_COLLECT_WITH_ACTIVE_DEVIL : STATE_DELTA_ON_IDEA_CHILD_COLLECT));
+        public boolean onCollectIdeaChild(Devil devil) {
+            if (devil.isActive() && devil.mState == Devil.STATE_PROTECT) {
+                return false;
+            }
+            return shrinkCell(mStateRadiusDelta * (devil.isActive() ? STATE_DELTA_ON_IDEA_CHILD_COLLECT_WITH_ACTIVE_DEVIL : STATE_DELTA_ON_IDEA_CHILD_COLLECT));
         }
     }
 
     public Idea makeIdea(float x, float y, float radius, Bitmap candy, Bitmap toxic) {
         HitboxCircle hitbox = new HitboxCircle(x, y, radius);
-        Look candyLook = new Frames(new Bitmap[] {candy}, 0L);
-        Look toxicLook = new Frames(new Bitmap[] {toxic}, 0L);
+        Look candyLook = new Frames(candy);
+        Look toxicLook = new Frames(toxic);
         return new Idea(hitbox, candyLook, toxicLook);
     }
 
@@ -725,7 +737,7 @@ public class RiddleSnow extends RiddleGame implements FlatWorldCallback {
         return new IdeaChild(hitbox, mover, new CircleLook(radius, CHILD_COLORS[mRand.nextInt(CHILD_COLORS.length)]));
     }
 
-    private static final int[] CHILD_COLORS = new int[] {0xfff10000, 0xff06a928, 0xffff9600, 0xff7b00f9, 0xff0090ba};
+    private static final int[] CHILD_COLORS = new int[] {0xfff10000, 0xff06a928, 0xffff9600, 0xff7b00f9, 0xffd6f400, 0xff009071};
     private class IdeaChild extends Actor {
         private static final float FRICTION = 0.5f;
         private static final float PARENT_RADIUS_FRACTION = 0.20f;
@@ -745,10 +757,9 @@ public class RiddleSnow extends RiddleGame implements FlatWorldCallback {
         public boolean onCollision(Actor with) {
             if (with == mCell) {
                 setActive(false);
-                return mCell.onCollectIdeaChild(mDevil.isActive());
+                return mCell.onCollectIdeaChild(mDevil);
             } else if (with == mDevil) {
-                setActive(false);
-                mDevil.onCollectIdeaChild();
+                mDevil.attemptCollectIdeaChild(this);
                 return true;
             }
             return false;
@@ -768,30 +779,42 @@ public class RiddleSnow extends RiddleGame implements FlatWorldCallback {
         }
     }
 
-    public Devil makeDevil(Cell cell, float x, float y, float radius, Bitmap image, long startMoonYear, Resources res) {
+    public Devil makeDevil(Cell cell, float x, float y, float radius, Bitmap[] stateImages, int state, Resources res) {
         HitboxCircle hitbox = new HitboxCircle(x, y, radius);
-        Look look = new Frames(new Bitmap[] {image}, 0L);
-        HitboxMoonMover moonMover = new HitboxMoonMover(cell.getHitbox(), startMoonYear, 10.f);
-        return new Devil(hitbox, moonMover, look, res);
+        Look[] looks = new Look[stateImages.length];
+        for (int i = 0; i < stateImages.length; i++) {
+            looks[i] = new Frames(stateImages[i]);
+        }
+        HitboxMoonMover moonMover = new HitboxMoonMover(cell.getHitbox(), 1, ImageUtil.convertDpToPixel(7.f, mConfig.mScreenDensity));
+        return new Devil(hitbox, moonMover, state, looks, res);
     }
 
+    private static final long[] SURROUND_DURATION = new long[] {1900L, 2000L, 3000L};
     private class Devil extends Actor {
-        private static final long SURROUND_CELL_DURATION_FASTEST = 1000L;
-        private static final long SURROUND_CELL_DURATION_START = 1500L;
-        private static final long SURROUND_CELL_DURATION_SLOWEST = 2000L;
-        private static final long SURROUND_CELL_DURATION_INCREASE = 500L;
-        private static final long SURROUND_CELL_DURATION_DECREASE = 200L;
         private static final long TOUCH_OUTSIDE_LOCK_DURATION = 250L;
-        private final Resources mRes;
+        private static final long RECOVER_DURATION = 20000L;
+        private static final int STATE_PROTECT = 0;
+        private static final int STATE_DAMAGED = 1;
+        private static final int STATE_RECOVERING = 2;
+        private static final int STATES_COUNT = 3;
 
+        private final Resources mRes;
+        private int mState;
         private long mLastOutsideTouch;
         private HitboxMoonMover mMoonMover;
         private NinePatchLook[] mTalkingBackground;
         private WorldEffect mTalkingEffect;
+        private boolean mSilent;
+        private long mTimeToRecover;
 
-        public Devil(HitboxCircle hitbox, HitboxMoonMover moonMover, Look defaultLook, Resources res) {
-            super(hitbox, moonMover, defaultLook);
+        public Devil(HitboxCircle hitbox, HitboxMoonMover moonMover, int state, Look[] stateLooks, Resources res) {
+            super(hitbox, moonMover, stateLooks[state]);
+            for (int i = 0; i < STATES_COUNT; i++) {
+                putStateFrames(i, stateLooks[i]);
+            }
             mMoonMover = moonMover;
+            mMoonMover.setMoonYear(SURROUND_DURATION[state]);
+            mState = state;
             mRes = res;
             mTalkingBackground = new NinePatchLook[] {
                     new NinePatchLook(NinePatchLook.loadNinePatch(res, R.drawable.say_tl), mConfig.mScreenDensity),
@@ -811,24 +834,43 @@ public class RiddleSnow extends RiddleGame implements FlatWorldCallback {
             }
         }
 
+        private void recover() {
+            if (mState == STATE_PROTECT) {
+                return;
+            }
+            mState = STATE_PROTECT;
+            setStateFrames(mState);
+            mMoonMover.setMoonYear(SURROUND_DURATION[mState]);
+            talk(R.array.devil_talk_recovered, 0.7);
+        }
+
+        @Override
+        public boolean update(long updateTime) {
+            boolean result = super.update(updateTime);
+            if (mState == STATE_RECOVERING) {
+                mTimeToRecover -= updateTime;
+                if (mTimeToRecover <= 0) {
+                    recover();
+                }
+            }
+            return result;
+        }
+
         public void onTouchedOutside() {
+            if (mState == STATE_RECOVERING) {
+                return; // ignore
+            }
             if (System.currentTimeMillis() - mLastOutsideTouch >= TOUCH_OUTSIDE_LOCK_DURATION) {
                 mLastOutsideTouch = 0L;
             }
             if (mLastOutsideTouch == 0L) {
                 mLastOutsideTouch = System.currentTimeMillis();
                 mMoonMover.invertDirection();
-                long oldMoonYear = mMoonMover.getMoonYear();
-                long newMoonYear = Math.min(mMoonMover.getMoonYear() + SURROUND_CELL_DURATION_INCREASE, SURROUND_CELL_DURATION_SLOWEST);
-                if (newMoonYear > oldMoonYear && newMoonYear == SURROUND_CELL_DURATION_SLOWEST) {
-                     talk(R.array.devil_talk_slowest, 0.3);
-                }
-                mMoonMover.setMoonYear(newMoonYear);
             }
         }
 
         public void talk(int textId, double probability) {
-            if ((mTalkingEffect == null || mTalkingEffect.getState() == WorldEffect.STATE_TIMEOUT)
+            if (!mSilent && (mTalkingEffect == null || mTalkingEffect.getState() == WorldEffect.STATE_TIMEOUT)
                     && mRand.nextDouble() < probability) {
                 String[] texts = mRes.getStringArray(textId);
                 mTalkingEffect = mWorld.attachTimedMessage(this, mTalkingBackground, texts[mRand.nextInt(texts.length)], 5000L);
@@ -836,17 +878,23 @@ public class RiddleSnow extends RiddleGame implements FlatWorldCallback {
             }
         }
 
-        public void onCollectIdea() {
-            long oldMoonYear = mMoonMover.getMoonYear();
-            long newMoonYear = Math.max(mMoonMover.getMoonYear() - SURROUND_CELL_DURATION_DECREASE, SURROUND_CELL_DURATION_FASTEST);
-            if (newMoonYear < oldMoonYear && newMoonYear == SURROUND_CELL_DURATION_FASTEST) {
-                talk(R.array.devil_talk_fastest, 0.3);
+        public void attemptCollectIdea() {
+            if (mState < STATE_RECOVERING) {
+                mState++;
+                setStateFrames(mState);
+                mMoonMover.setMoonYear(SURROUND_DURATION[mState]);
+                nextIdea();
+                if (mState == STATE_RECOVERING) {
+                    mTimeToRecover = RECOVER_DURATION;
+                    talk(R.array.devil_talk_recovering_start, 0.5);
+                }
             }
-            mMoonMover.setMoonYear(newMoonYear);
         }
 
-        public long getMooonYear() {
-            return mMoonMover.getMoonYear();
+        public void attemptCollectIdeaChild(IdeaChild toCollect) {
+            if (mState < STATE_RECOVERING) {
+                toCollect.setActive(false);
+            }
         }
 
         @Override
@@ -861,6 +909,7 @@ public class RiddleSnow extends RiddleGame implements FlatWorldCallback {
 
         public void onAppear() {
             setActive(true);
+            recover();
             talk(R.array.devil_talk_return, 1.0);
             if (mConfig.mAchievementGameData != null) {
                 mConfig.mAchievementGameData.putValue(AchievementSnow.KEY_GAME_DEVIL_VISIBLE_STATE, 1L, AchievementProperties.UPDATE_POLICY_ALWAYS);
@@ -882,10 +931,6 @@ public class RiddleSnow extends RiddleGame implements FlatWorldCallback {
                     mDevil.talk(R.array.devil_talk_cell_eat_candy, 1.0 / IDEAS_REQUIRED_FOR_MAX_SIZE);
                 }
             }
-        }
-
-        public void onCollectIdeaChild() {
-
         }
     }
 }

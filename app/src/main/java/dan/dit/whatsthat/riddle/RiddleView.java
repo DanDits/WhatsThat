@@ -17,6 +17,7 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
 
+import dan.dit.whatsthat.R;
 import dan.dit.whatsthat.riddle.games.RiddleController;
 import dan.dit.whatsthat.riddle.types.PracticalRiddleType;
 import dan.dit.whatsthat.system.NoPanicDialog;
@@ -91,6 +92,7 @@ public class RiddleView extends SurfaceView implements SensorEventListener {
             mAccelerometerValues = null;
             mGeomagneticValues = null;
         }
+        setVisibility(View.INVISIBLE);
         ctr.onCloseRiddle(getContext());
     }
 
@@ -100,7 +102,7 @@ public class RiddleView extends SurfaceView implements SensorEventListener {
         if (holder != null && holder.getSurface() != null && holder.getSurface().isValid()) {
             Canvas canvas = holder.lockCanvas();
             if (canvas != null) {
-                // clear previously drawn artifacts (view is double buffered), very important if there is any pixel with alpha drawn by the riddle
+                // clear previously drawn artifacts (view is triple buffered), very important if there is any pixel with alpha drawn by the riddle
                 canvas.drawColor(0, android.graphics.PorterDuff.Mode.CLEAR);
                 if (hasController()) {
                     mRiddleCtr.draw(canvas);
@@ -142,6 +144,7 @@ public class RiddleView extends SurfaceView implements SensorEventListener {
             }
         }
         draw();
+        setVisibility(View.VISIBLE);
         mRiddleCtr.resumePeriodicEventIfRequired();
     }
 
@@ -184,23 +187,22 @@ public class RiddleView extends SurfaceView implements SensorEventListener {
 
     private float[] mAccelerometerValues;
     private float[] mGeomagneticValues;
+    private float[] mR = new float[9];
+    private float[] mI = new float[9];
+    private float[] mOrientation = new float[3];
+    private float[] mROut = new float[mR.length];
+
     public void onSensorChanged(SensorEvent event) {
         if (mAccelerometerValues != null && mGeomagneticValues != null) {
             switch(event.sensor.getType()){
                 case Sensor.TYPE_ACCELEROMETER:
-                    for(int i =0; i < 3; i++){
-                        mAccelerometerValues[i] = event.values[i];
-                    }
+                    System.arraycopy(event.values, 0, mAccelerometerValues, 0, 3);
                     break;
                 case Sensor.TYPE_MAGNETIC_FIELD:
-                    for(int i =0; i < 3; i++){
-                        mGeomagneticValues[i] = event.values[i];
-                    }
+                    System.arraycopy(event.values, 0, mGeomagneticValues, 0, 3);
                     break;
             }
-            float R[] = new float[9];
-            float I[] = new float[9];
-            boolean success = SensorManager.getRotationMatrix(R, I, mAccelerometerValues, mGeomagneticValues);
+            boolean success = SensorManager.getRotationMatrix(mR, mI, mAccelerometerValues, mGeomagneticValues);
             if (success) {
                 /*// transform the normal vector g=(0 0 1) into new coordinate space by calculating R^-1 * g = R'*g
                 float[] gravity = new float[3];
@@ -211,12 +213,10 @@ public class RiddleView extends SurfaceView implements SensorEventListener {
                 Log.d("Riddle", "Gravity normal vector: " + Arrays.toString(gravity));*/
 
                 // to get azimuth, pitch and roll:
-                float orientation[] = new float[3];
-                float ROut[] = new float[R.length];
-                SensorManager.remapCoordinateSystem(R, SensorManager.AXIS_X, SensorManager.AXIS_Y, ROut);
+                SensorManager.remapCoordinateSystem(mR, SensorManager.AXIS_X, SensorManager.AXIS_Y, mROut);
 
-                SensorManager.getOrientation(ROut, orientation);
-                mRiddleCtr.onOrientationEvent(orientation[0], orientation[1], orientation[2]);
+                SensorManager.getOrientation(mROut, mOrientation);
+                mRiddleCtr.onOrientationEvent(mOrientation[0], mOrientation[1], mOrientation[2]);
             }
         }
     }

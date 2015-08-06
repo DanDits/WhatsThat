@@ -47,7 +47,7 @@ import dan.dit.whatsthat.util.image.ImageUtil;
  * Created by daniel on 10.05.15.
  */
 public class RiddleJumper extends RiddleGame implements FlatWorldCallback {
-    //fixed constants //TODO memory leaks? Test if also GC interrupts when paused
+    //fixed constants
     private static final float RELATIVE_HEIGHT_BASELINE = 1.f;
     private static final long ONE_SECOND = 1000L;
     private static final long PSEUDO_RUN_SPEED = 1;
