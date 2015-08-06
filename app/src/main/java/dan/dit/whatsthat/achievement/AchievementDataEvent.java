@@ -1,5 +1,6 @@
 package dan.dit.whatsthat.achievement;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -13,7 +14,7 @@ public class AchievementDataEvent {
     public static final int EVENT_TYPE_DATA_CLOSE = 3;
 
     private AchievementData mChangedData;
-    private List<String> mChangedKeys = new LinkedList<>();
+    private List<String> mChangedKeys = new ArrayList<>(5);
     private int mEventType;
 
     public void init(AchievementData changedData, int eventType, String changedKey) {

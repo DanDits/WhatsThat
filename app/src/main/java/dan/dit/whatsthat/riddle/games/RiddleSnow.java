@@ -52,7 +52,6 @@ public class RiddleSnow extends RiddleGame implements FlatWorldCallback {
     private static final float STATE_DELTA_ON_IDEA_CHILD_COLLECT_WITH_ACTIVE_DEVIL = 0.1f;
     private static final float STATE_DELTA_ON_IDEA_CHILD_COLLECT = 0.25f;
     private static final int STATE_DELTA_ON_WALL_EXPLOSION = 2;
-    private static final long MOVEMENT_PERIOD = 8L;
     private static final float SNOWBALL_BASE_START_FRACTION = 1.f/4.f;
     private static final float GRAVITY = 400.f; //dp
     private static final float SNOWBALL_SCREENSIZE_MAX_FRACTION = 1.f / 3.f;
@@ -124,7 +123,7 @@ public class RiddleSnow extends RiddleGame implements FlatWorldCallback {
     }
 
     @Override
-    public synchronized void draw(Canvas canvas) {
+    public void draw(Canvas canvas) {
         if (!isNotClosed()) {
             return;
         }
@@ -265,11 +264,6 @@ public class RiddleSnow extends RiddleGame implements FlatWorldCallback {
         } while (count < tries && mWorld.getCollider().checkCollision(mIdea.getHitbox(), mCell.getHitbox())); // try to get it in some distance, not too important
     }
 
-    @Override
-    public long getPeriodicEventPeriod() {
-        return MOVEMENT_PERIOD;
-    }
-
     private void needForSpeed() {
         float cellX = mCell.getHitbox().getCenterX();
         float cellY = mCell.getHitbox().getCenterY();
@@ -306,17 +300,22 @@ public class RiddleSnow extends RiddleGame implements FlatWorldCallback {
         drawBackground();
     }
 
-    private synchronized void drawBackground() {
+    private void drawBackground() {
         mBackgroundSnowCanvas.drawPaint(mClearPaint);
         mBackgroundSnowCanvas.drawBitmap(mBitmap, mRiddleOffsetX, mRiddleOffsetY, null);
         mBackgroundSnowCanvas.drawBitmap(mFogLayer, 0, 0, null);
     }
 
     @Override
-    public boolean onPeriodicEvent() {
-        mReloadRiddleMoveBlockDuration -= MOVEMENT_PERIOD;
+    public boolean requiresPeriodicEvent() {
+        return true;
+    }
+
+    @Override
+    public boolean onPeriodicEvent(long updateTime) {
+        mReloadRiddleMoveBlockDuration -= updateTime;
         if (mIdleTimeCounter > 0L) {
-            mIdleTimeCounter -= MOVEMENT_PERIOD;
+            mIdleTimeCounter -= updateTime;
         }
         if (mReloadRiddleMoveBlockDuration > 0L) {
             return false; // wait some time after loading existing riddle so we don't crash immediately
@@ -325,9 +324,9 @@ public class RiddleSnow extends RiddleGame implements FlatWorldCallback {
             mIdleTimeCounter = Long.MIN_VALUE;
             mConfig.mAchievementGameData.increment(AchievementSnow.Achievement7.KEY_IDLE_TIME_PASSED, 1L, 0L);
         }
-        mWorld.update(MOVEMENT_PERIOD);
+        mWorld.update(updateTime);
         needForSpeed();
-        if (mCell.updateAndCheckExplosionTimer()) {
+        if (mCell.updateAndCheckExplosionTimer(updateTime)) {
             onExplosion(false);
         }
         return mReloadRiddleMoveBlockDuration <= 0L;
@@ -623,9 +622,9 @@ public class RiddleSnow extends RiddleGame implements FlatWorldCallback {
             }
         }
 
-        private boolean updateAndCheckExplosionTimer() {
+        private boolean updateAndCheckExplosionTimer(long updateTime) {
             if (mExplosionCountDown > 0) {
-                mExplosionCountDown -= MOVEMENT_PERIOD;
+                mExplosionCountDown -= updateTime;
                 return mHitboxCircle.getRadius() >= mMaxRadius && mExplosionCountDown <= 0;
             }
             return false;
@@ -795,10 +794,10 @@ public class RiddleSnow extends RiddleGame implements FlatWorldCallback {
             mMoonMover = moonMover;
             mRes = res;
             mTalkingBackground = new NinePatchLook[] {
-                    new NinePatchLook(NinePatchLook.loadNinePatch(res, R.drawable.say_tl)),
-                    new NinePatchLook(NinePatchLook.loadNinePatch(res, R.drawable.say_tr)),
-                    new NinePatchLook(NinePatchLook.loadNinePatch(res, R.drawable.say_br)),
-                    new NinePatchLook(NinePatchLook.loadNinePatch(res, R.drawable.say_bl))};
+                    new NinePatchLook(NinePatchLook.loadNinePatch(res, R.drawable.say_tl), mConfig.mScreenDensity),
+                    new NinePatchLook(NinePatchLook.loadNinePatch(res, R.drawable.say_tr), mConfig.mScreenDensity),
+                    new NinePatchLook(NinePatchLook.loadNinePatch(res, R.drawable.say_br), mConfig.mScreenDensity),
+                    new NinePatchLook(NinePatchLook.loadNinePatch(res, R.drawable.say_bl), mConfig.mScreenDensity)};
             setActive(true);
             updateCellCandyVision();
             moonMover.update(getHitbox(), 0L);

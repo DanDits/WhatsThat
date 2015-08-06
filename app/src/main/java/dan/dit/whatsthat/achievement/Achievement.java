@@ -85,10 +85,9 @@ public abstract class Achievement implements AchievementDataEventListener, Depen
     }
 
     public boolean areDependenciesFulfilled() {
-        for (Dependency d : mDependencies) {
-            if (!d.isFulfilled()) {
+        for (int i = 0; i < mDependencies.size(); i++) {
+            if (!mDependencies.get(i).isFulfilled())
                 return false;
-            }
         }
         return true;
     }

@@ -3,6 +3,7 @@ package dan.dit.whatsthat.riddle.games;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.support.annotation.NonNull;
+import android.util.Log;
 import android.view.MotionEvent;
 
 import dan.dit.whatsthat.achievement.AchievementManager;
@@ -18,11 +19,12 @@ import dan.dit.whatsthat.riddle.types.PracticalRiddleType;
  * Created by daniel on 05.04.15.
  */
 public class RiddleController {
+    private static final long UPDATE_PERIOD = 16;//ms
     private RiddleGame mRiddleGame;
     private Riddle mRiddle;
     private RiddleView mRiddleView;
-    private GameRenderThread mRenderThread;
     private GamePeriodicThread mPeriodicThread;
+    private long mMissingUpdateTime;
 
     /**
      * Initializes the RiddleController with the RiddleGame that decorates the given Riddle.
@@ -40,7 +42,7 @@ public class RiddleController {
      * @param context A context object required for saving state to permanent storage.
      */
     public final void onCloseRiddle(@NonNull Context context) {
-        pausePeriodicEvent();
+        stopPeriodicEventAndWaitForStop();
         if (riddleAvailable()) {
             onPreRiddleClose();
             mRiddleGame.onClose();
@@ -125,6 +127,7 @@ public class RiddleController {
      */
     public final void onRiddleVisible(RiddleView riddleView) {
         mRiddleView = riddleView;
+        mMissingUpdateTime = 0L;
         onRiddleGotVisible();
     }
 
@@ -156,13 +159,9 @@ public class RiddleController {
     /**
      * Pause the periodic event, stopping future invocations and periodic renderings.
      */
-    public void pausePeriodicEvent() {
-        if (mRenderThread != null) {
-            mRenderThread.stopRendering();
-            mRenderThread = null;
-        }
+    public void stopPeriodicEventAndWaitForStop() {
         if (mPeriodicThread != null) {
-            mPeriodicThread.stopPeriodicEvent();
+            mPeriodicThread.stopPeriodicEventAndWaitForStop();
             mPeriodicThread = null;
         }
     }
@@ -171,11 +170,8 @@ public class RiddleController {
      * If there is a valid riddle and a positive periodic event period, resume (or restart) the rendering and periodic threads.
      */
     public void resumePeriodicEventIfRequired() {
-        if (riddleAvailable() && mRiddleView != null && mRiddleGame.getPeriodicEventPeriod() > 0L) {
-            pausePeriodicEvent();
-            mRenderThread = new GameRenderThread(mRiddleView);
-            mRenderThread.setUncaughtExceptionHandler(Thread.getDefaultUncaughtExceptionHandler());
-            mRenderThread.startRendering();
+        if (riddleAvailable() && mRiddleView != null && mRiddleGame.requiresPeriodicEvent()) {
+            stopPeriodicEventAndWaitForStop();
             mPeriodicThread = new GamePeriodicThread(this);
             mPeriodicThread.setUncaughtExceptionHandler(Thread.getDefaultUncaughtExceptionHandler());
             mPeriodicThread.startPeriodicEvent();
@@ -209,23 +205,21 @@ public class RiddleController {
     }
 
     /**
-     * Only meaningful if there is a valid game initialized. Returns the periodic event period of the RiddleGame.
-     * @return
-     */
-    public long getPeriodicEventPeriod() {
-        return riddleAvailable() ? mRiddleGame.getPeriodicEventPeriod() : 1000;
-    }
-
-    /**
      * The periodic event happened, forward to the RiddleGame if possible.
      */
     protected void onPeriodicEvent() {
         if (riddleAvailable()) {
-            mRiddleGame.onPeriodicEvent();
+            long requiredDrawingTime = mRiddleView.performDrawRiddle();
+            long updateTime = mMissingUpdateTime + requiredDrawingTime;
+            long periodicEventStartTime = System.nanoTime();
+            if (updateTime > 0) {
+                mRiddleGame.onPeriodicEvent(updateTime);
+            }
+            mMissingUpdateTime = (System.nanoTime() - periodicEventStartTime) / 1000000;
         }
     }
 
-    public boolean hasRunningRenderThread() {
-        return mRenderThread != null && mRenderThread.isRunning();
+    public boolean hasRunningPeriodicThread() {
+        return mPeriodicThread != null && mPeriodicThread.isRunning();
     }
 }

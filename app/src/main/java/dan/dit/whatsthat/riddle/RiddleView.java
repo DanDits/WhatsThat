@@ -56,7 +56,7 @@ public class RiddleView extends SurfaceView implements SensorEventListener {
             mSensorManager.unregisterListener(this);
         }
         if (hasController()) {
-            mRiddleCtr.pausePeriodicEvent();
+            mRiddleCtr.stopPeriodicEventAndWaitForStop();
         }
     }
 
@@ -91,11 +91,11 @@ public class RiddleView extends SurfaceView implements SensorEventListener {
             mAccelerometerValues = null;
             mGeomagneticValues = null;
         }
-        ctr.pausePeriodicEvent();
         ctr.onCloseRiddle(getContext());
     }
 
-    public void performDrawRiddle() {
+    public long performDrawRiddle() {
+        long startTime = System.nanoTime();
         SurfaceHolder holder = getHolder();
         if (holder != null && holder.getSurface() != null && holder.getSurface().isValid()) {
             Canvas canvas = holder.lockCanvas();
@@ -108,10 +108,11 @@ public class RiddleView extends SurfaceView implements SensorEventListener {
                 holder.unlockCanvasAndPost(canvas);
             }
         }
+        return (System.nanoTime() - startTime) / 1000000;
     }
 
     public void draw() {
-        if (mRiddleCtr != null && !mRiddleCtr.hasRunningRenderThread()) {
+        if (mRiddleCtr != null && !mRiddleCtr.hasRunningPeriodicThread()) {
             performDrawRiddle();
         }
     }

@@ -14,12 +14,10 @@ public abstract class CollisionController {
     }
 
     public void checkCollision(List<Actor> toCheck, CollisionCallback callback) {
-        // full O(n²) collision checks
-        Iterator<Actor> it = toCheck.iterator();
-        while (it.hasNext()) {
-            Actor curr = it.next();
-            it.remove();
-            for (Actor subCheck : toCheck) {
+        for (int i = 0; i < toCheck.size(); i++) {
+            Actor curr = toCheck.get(i);
+            for (int j = i + 1; j < toCheck.size(); j++) {
+                Actor subCheck = toCheck.get(j);
                 if (checkCollision(subCheck.getHitbox(), curr.getHitbox())) {
                     callback.onCollision(subCheck, curr);
                 }

@@ -3,9 +3,9 @@ package dan.dit.whatsthat.util.flatworld.world;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
@@ -23,12 +23,12 @@ public abstract class FlatWorld {
     protected final CollisionController mCollider;
     protected final FlatWorldCallback mCallback;
 
-    protected List<Actor> mActorsIterateData = new LinkedList<>();
-    protected final List<Actor> mActorsData = Collections.synchronizedList(new LinkedList<Actor>());
-    protected final List<Actor> mActiveActors = new LinkedList<>();
+    protected List<Actor> mActorsIterateData = new ArrayList<>();
+    protected final List<Actor> mActorsData = Collections.synchronizedList(new ArrayList<Actor>());
+    protected final List<Actor> mActiveActors = new ArrayList<>();
 
-    protected List<WorldEffect> mEffectsIterateData = new LinkedList<>();
-    protected final List<WorldEffect> mEffectsData = Collections.synchronizedList(new LinkedList<WorldEffect>());
+    protected List<WorldEffect> mEffectsIterateData = new ArrayList<>();
+    protected final List<WorldEffect> mEffectsData = Collections.synchronizedList(new ArrayList<WorldEffect>());
 
     public FlatWorld(CollisionController collider, FlatWorldCallback callback) {
         mCollider = collider;
@@ -49,8 +49,8 @@ public abstract class FlatWorld {
 
     protected void updateEffects(long updatePeriod) {
         List<WorldEffect> effectIterate = mEffectsIterateData;
-        for (WorldEffect effect : effectIterate) {
-            effect.update(updatePeriod);
+        for (int i = 0; i < effectIterate.size(); i++) {
+            effectIterate.get(i).update(updatePeriod);
         }
     }
 
@@ -61,15 +61,15 @@ public abstract class FlatWorld {
 
     protected void drawActors(Canvas canvas, Paint paint) {
         List<Actor> actorIterate = mActorsIterateData;
-        for (Actor actor : actorIterate) {
-            actor.draw(canvas, paint);
+        for (int i = 0; i < actorIterate.size(); i++) {
+            actorIterate.get(i).draw(canvas, paint);
         }
     }
 
     protected void drawEffects(Canvas canvas, Paint paint) {
         List<WorldEffect> effectIterate = mEffectsIterateData;
-        for (WorldEffect eff : effectIterate) {
-            eff.draw(canvas, paint);
+        for (int i = 0; i < effectIterate.size(); i++) {
+            effectIterate.get(i).draw(canvas, paint);
         }
     }
 
@@ -80,7 +80,8 @@ public abstract class FlatWorld {
     private void updateActors(long updatePeriod) {
         mActiveActors.clear();
         List<Actor> actorIterate = mActorsIterateData;
-        for (Actor actor : actorIterate) {
+        for (int i = 0; i < actorIterate.size(); i++) {
+            Actor actor = actorIterate.get(i);
             if (actor.isActive()) {
                 if (actor.update(updatePeriod)) {
                     mCallback.onMoverStateChange(actor);
@@ -105,7 +106,7 @@ public abstract class FlatWorld {
                     it.remove();
                 }
             }
-            mEffectsIterateData = new LinkedList<>(mEffectsData);
+            mEffectsIterateData = new ArrayList<>(mEffectsData);
         }
     }
 
@@ -126,14 +127,14 @@ public abstract class FlatWorld {
     public void addActor(Actor actor) {
         mActorsData.add(actor);
         synchronized (mActorsData) {
-            mActorsIterateData = new LinkedList<>(mActorsData);
+            mActorsIterateData = new ArrayList<>(mActorsData);
         }
     }
 
     public boolean removeActor(Actor actor) {
         boolean removed = mActorsData.remove(actor);
         synchronized (mActorsData) {
-            mActorsIterateData = new LinkedList<>(mActorsData);
+            mActorsIterateData = new ArrayList<>(mActorsData);
         }
         return removed;
     }

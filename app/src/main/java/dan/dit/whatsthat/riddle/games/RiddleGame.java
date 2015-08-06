@@ -212,11 +212,11 @@ public abstract class RiddleGame {
     }
     public void enableNoOrientationSensorAlternative() {}
 
-    public long getPeriodicEventPeriod() {
-        return 0;
+    public boolean requiresPeriodicEvent() {
+        return false;
     }
 
-    public boolean onPeriodicEvent() { return false;}
+    public boolean onPeriodicEvent(long updateTime) { return false;}
 
     protected abstract void initBitmap(Resources res, PercentProgressListener listener);
     public abstract boolean onMotionEvent(MotionEvent event);

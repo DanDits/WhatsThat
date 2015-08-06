@@ -11,11 +11,13 @@ import android.text.Layout;
 import android.text.StaticLayout;
 import android.text.TextPaint;
 
+import dan.dit.whatsthat.util.image.ImageUtil;
+
 /**
  * Created by daniel on 26.06.15.
  */
 public class NinePatchLook extends Look {
-
+    //TODO weird line breaks even though it has room
     private static final int PADDING_LR = 30;
     private static final int PADDING_TB = 30;
     private int mHeight;
@@ -27,20 +29,20 @@ public class NinePatchLook extends Look {
     private Bitmap mBitmap;
     private Canvas mBitmapCanvas;
 
-    public NinePatchLook(NinePatchDrawable drawable) {
+    public NinePatchLook(NinePatchDrawable drawable, int screenDensity) {
         mNinePatch = drawable;
         mWidth = mNinePatch.getIntrinsicWidth();
         mHeight = mNinePatch.getIntrinsicHeight();
 
         mTextPaint = new TextPaint();
         mTextPaint.setAntiAlias(true);
-        mTextPaint.setTextSize(17.f);
+        mTextPaint.setTextSize(ImageUtil.convertDpToPixel(15.f, screenDensity));
         mTextBounds = new Rect();
     }
 
     private void setBounds(int width, int height) {
-        mWidth = Math.max(width, mNinePatch.getMinimumWidth()) + PADDING_LR;
-        mHeight = Math.max(height, mNinePatch.getMinimumHeight()) + PADDING_TB;
+        mWidth = Math.max(width + PADDING_LR, mNinePatch.getMinimumWidth());
+        mHeight = Math.max(height + PADDING_TB, mNinePatch.getMinimumHeight());
     }
 
     @Override

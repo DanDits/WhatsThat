@@ -230,7 +230,6 @@ public class AchievementSnow extends TypeAchievementHolder {
                 if (event.getChangedData() == mTimerData && event.getEventType() == AchievementDataEvent.EVENT_TYPE_DATA_UPDATE
                         && event.hasChangedKey(KEY_TIMER_COLLECT_IDEA)) {
                     AchievementDataTimer.TimeKeeper keeper = mTimerData.getTimeKeeper(KEY_TIMER_COLLECT_IDEA);
-                    Log.d("Achievement", "Speedy conzales on timer, time keeper: " + keeper);
                     if (keeper != null && keeper.getTimesCount() == COLLECT_COUNT) {
                         long duration = keeper.getTotalTimeConsumed();
                         if (duration > 0L && duration <= COLLECT_MAX_TIME) {

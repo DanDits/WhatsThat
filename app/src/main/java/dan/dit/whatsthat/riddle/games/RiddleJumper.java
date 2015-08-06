@@ -4,14 +4,11 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.LinearGradient;
-import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.graphics.RectF;
-import android.graphics.Shader;
 import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -53,7 +50,6 @@ public class RiddleJumper extends RiddleGame implements FlatWorldCallback {
     //fixed constants //TODO memory leaks? Test if also GC interrupts when paused
     private static final float RELATIVE_HEIGHT_BASELINE = 1.f;
     private static final long ONE_SECOND = 1000L;
-    private static final long UPDATE_PERIOD = 16L;
     private static final long PSEUDO_RUN_SPEED = 1;
 
     //variable constants
@@ -71,7 +67,6 @@ public class RiddleJumper extends RiddleGame implements FlatWorldCallback {
     private static final long FLYER_FALL_DURATION = OBSTACLES_RIGHT_LEFT_DURATION; //ms, describes the speed the flying falls to bottom
     private static final long FIRST_OBSTACLE_DURATION = 3000L; //ms, delay until the first obstacle appears
 
-    private static final int REQUIRED_TOTAL_OBSTACLES = 400; // obstacles score passed till totally visible
     private static final int DIFFICULTIES = 4;
     public static final int DIFFICULTY_EASY = 0;
     public static final int DIFFICULTY_MEDIUM = 1;
@@ -79,9 +74,9 @@ public class RiddleJumper extends RiddleGame implements FlatWorldCallback {
     public static final int DIFFICULTY_ULTRA = 3;
     private static final int[] DISTANCE_RUN_THRESHOLDS = new int[] {0, (int) (150 * ONE_SECOND), (int) (400 * ONE_SECOND), (int) (800 * ONE_SECOND)};
     private static final long[] NEXT_OBSTACLE_MIN_TIME_SMALL = new long[] {1000L, 775L, 600L, 600L, 550L};
-    private static final long[] NEXT_OBSTACLE_MIN_TIME_BIG = new long[] {1000L, 1200L, 1100L, 1050L, 925L};
+    private static final long[] NEXT_OBSTACLE_MIN_TIME_BIG = new long[] {1000L, 1200L, 1075L, 1025L, 905L};
     private static final long[] NEXT_OBSTACLE_MAX_TIME = new long[] {2000L, 1700L, 1400L, 1250L, 1150L}; //ms, maximum time until the next obstacle appears
-    private static final long[] NEXT_OBSTACLE_MIN_TIME_SMALL_WIDTH = new long[] {1200L, 1100L, 1100L, 1050L, 900L};
+    private static final long[] NEXT_OBSTACLE_MIN_TIME_SMALL_WIDTH = new long[] {1200L, 1100L, 1100L, 1025L, 860L};
     private static final double NEXT_OBSTACLE_PREVIOUS_MIN_TIME_WEIGHT = 0.7;
     private static final int[] DIFFICULTY_COLORS = new int[] {Color.GREEN, Color.YELLOW, Color.RED, Color.WHITE, Color.CYAN};
     private static final int EASY_SMALL_OBSTACLES = 6;
@@ -155,7 +150,7 @@ public class RiddleJumper extends RiddleGame implements FlatWorldCallback {
     }
 
     @Override
-    public synchronized void draw(Canvas canvas) {
+    public void draw(Canvas canvas) {
         canvas.drawBitmap(mRunnerBackground, 0, 0, null);
         canvas.drawBitmap(mSolutionBackground, 0, 0, null);
         canvas.drawBitmap(mForeground, 0, 0, null);
@@ -177,7 +172,7 @@ public class RiddleJumper extends RiddleGame implements FlatWorldCallback {
         mClearPaint = new Paint();
         mClearPaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.CLEAR));
         mTextPaint = new Paint();
-        mTextPaint.setTextSize(35.f);
+        mTextPaint.setTextSize(ImageUtil.convertDpToPixel(22, mConfig.mScreenDensity));
         mSolutionBackgroundHeight = (int) (mConfig.mHeight / Types.Jumper.BITMAP_ASPECT_RATIO);
         listener.onProgressUpdate(20);
         mObstaclesSpeed = - mConfig.mWidth / ((float) OBSTACLES_RIGHT_LEFT_DURATION / ONE_SECOND);
@@ -380,8 +375,8 @@ public class RiddleJumper extends RiddleGame implements FlatWorldCallback {
         mRunnerBackgroundCanvas.drawBitmap(mBackgroundImage, mRunnerBackgroundRect, mRunnerBackgroundRectDest, null);
     }
 
-    private boolean onBackgroundUpdate() {
-        mBackgroundSlideCounter += UPDATE_PERIOD;
+    private boolean onBackgroundUpdate(long updateTime) {
+        mBackgroundSlideCounter += updateTime;
         if (mBackgroundSlideCounter >= BACKGROUND_SLIDE_DURATION) {
             mBackgroundSlideCounter -= BACKGROUND_SLIDE_DURATION;
         }
@@ -394,7 +389,7 @@ public class RiddleJumper extends RiddleGame implements FlatWorldCallback {
         return drawBackground;
     }
 
-    private synchronized void drawForeground() {
+    private void drawForeground() {
         mForegroundCanvas.drawPaint(mClearPaint);
         mWorld.draw(mForegroundCanvas, null);
     }
@@ -423,8 +418,13 @@ public class RiddleJumper extends RiddleGame implements FlatWorldCallback {
         mClearMindBackground = Bitmap.createBitmap(mSolutionBackground.getWidth(), mSolutionBackground.getHeight(), mSolutionBackground.getConfig());
         mClearMindCanvas = new Canvas(mClearMindBackground);
         mClearMindCanvas.drawColor(FOGGED_MIND_COLOR);
+        mMindRect = new Rect();
+        mSourceRect = new Rect();
         mClearMindPaint = new Paint();
         mClearMindPaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.DST_OUT));
+        mSolutionBackgroundCanvas.drawPaint(mClearPaint);
+        mSolutionBackgroundCanvas.drawBitmap(mThoughtbubble, mSolutionBackground.getWidth() / 2 - mThoughtbubble.getWidth() / 2, mSolutionBackground.getHeight() / 2 - mThoughtbubble.getHeight() / 2, null);
+        mSolutionBackgroundCanvas.drawBitmap(mClearMindBackground, 0, 0, mSolutionPaint);
         if (cmp != null && cmp.getSize() > 5) {
             Compacter xData = new Compacter(cmp.getData(3));
             Compacter yData = new Compacter(cmp.getData(4));
@@ -438,34 +438,39 @@ public class RiddleJumper extends RiddleGame implements FlatWorldCallback {
                 Log.e("Riddle", "Clear mind data corrupt for RiddleJumper: " + e);
             }
         }
-        mSolutionBackgroundCanvas.drawPaint(mClearPaint);
-        drawSolution();
     }
 
+    private Rect mSourceRect;
+    private Rect mMindRect;
     private void clearMind(float x, float y, int type) {
         mClearMindX.add(x);
         mClearMindY.add(y);
         type = Math.min(mClearMind.length - 1, type);
         mClearMindType.add(type);
-        mClearMindCanvas.drawBitmap(mClearMind[type], x, y, mClearMindPaint);
-    }
 
-    private synchronized void drawSolution() {
-        mSolutionBackgroundCanvas.drawBitmap(mThoughtbubble, mSolutionBackground.getWidth() / 2 - mThoughtbubble.getWidth() / 2, mSolutionBackground.getHeight() / 2 - mThoughtbubble.getHeight() / 2, null);
+        // update the mind canvas by exploding the part out
+        Bitmap clearMind = mClearMind[type];
+        mMindRect.set((int) x, (int) y, (int) (x + clearMind.getWidth() + 0.5f), (int) (y + clearMind.getHeight() + 0.5f));
+        mClearMindCanvas.drawBitmap(clearMind, x, y, mClearMindPaint);
 
-        mSolutionBackgroundCanvas.drawBitmap(mBitmapScaled, mSolutionBackground.getWidth() / 2 - mBitmapScaled.getWidth() / 2, mSolutionBackground.getHeight() * BUBBLE_CENTER_Y_ESTIMATE - mBitmapScaled.getHeight() / 2, mSolutionPaint);
-        mSolutionBackgroundCanvas.drawBitmap(mClearMindBackground, 0, 0, mSolutionPaint);
-    }
+        // redraw relevant part of the thought bubble
+        mSourceRect.set(mMindRect);
+        mSourceRect.offset(-mSolutionBackground.getWidth() / 2 + mThoughtbubble.getWidth() / 2, -mSolutionBackground.getHeight() / 2 + mThoughtbubble.getHeight() / 2);
+        mSolutionBackgroundCanvas.drawBitmap(mThoughtbubble, mSourceRect, mMindRect, null);
 
-    @Override
-    public long getPeriodicEventPeriod() {
-        return UPDATE_PERIOD;
+        // redraw relevant part of the original bitmap
+        mSourceRect.set(mMindRect);
+        mSourceRect.offset(-mSolutionBackground.getWidth() / 2 + mBitmapScaled.getWidth() / 2, (int) (-mSolutionBackground.getHeight() * BUBBLE_CENTER_Y_ESTIMATE + mBitmapScaled.getHeight() / 2));
+        mSolutionBackgroundCanvas.drawBitmap(mBitmapScaled, mSourceRect, mMindRect, mSolutionPaint);
+
+        // overdraw relevant part of solution background with mind canvas
+        mSolutionBackgroundCanvas.drawBitmap(mClearMindBackground, mMindRect, mMindRect, mSolutionPaint);
     }
 
     private void onObstaclePassed(Actor obstacle) {
         obstacle.setActive(false);
         mValidDistanceRun = true; // after loading or first start, to prevent cheating by closing (which is still kinda possible to prevent getting hit but this is punished by decreasing distance)
-        mObstaclesPassed += mDifficulty + 1;
+        mObstaclesPassed++;
         mDifficultyMinTimeExtra++;
         //noinspection SuspiciousMethodCalls
         mCurrentObstacles.remove(obstacle); // not suspicious
@@ -474,7 +479,6 @@ public class RiddleJumper extends RiddleGame implements FlatWorldCallback {
             float x = mRand.nextFloat() * (mClearMindBackground.getWidth() - mClearMind[type].getWidth());
             float y = mRand.nextFloat() * (mClearMindBackground.getHeight() * 2 * BUBBLE_CENTER_Y_ESTIMATE);
             clearMind(x, y, type);
-            drawSolution();
         }
         if (mConfig.mAchievementGameData != null) {
             mConfig.mAchievementGameData.increment(AchievementJumper.KEY_GAME_OBSTACLE_DODGED_COUNT, 1L, 0L);
@@ -506,9 +510,9 @@ public class RiddleJumper extends RiddleGame implements FlatWorldCallback {
         mRunner.setStateFrames(HitboxJumpMover.STATE_NOT_MOVING);
     }
 
-    private boolean onDistanceRun() {
+    private boolean onDistanceRun(long updateTime) {
         if (mValidDistanceRun) {
-            mDistanceRun += PSEUDO_RUN_SPEED * ONE_SECOND / UPDATE_PERIOD;
+            mDistanceRun += PSEUDO_RUN_SPEED * ONE_SECOND / updateTime;
             if (mConfig.mAchievementGameData != null) {
                 mConfig.mAchievementGameData.putValue(AchievementJumper.KEY_GAME_CURRENT_DISTANCE_RUN, (long) mDistanceRun, AchievementProperties.UPDATE_POLICY_ALWAYS);
                 mConfig.mAchievementGameData.putValue(AchievementJumper.KEY_GAME_RUN_HIGHSCORE, (long) mDistanceRun, AchievementJumper.DISTANCE_RUN_THRESHOLD);
@@ -544,14 +548,19 @@ public class RiddleJumper extends RiddleGame implements FlatWorldCallback {
     }
 
     @Override
-    public boolean onPeriodicEvent() {
+    public boolean requiresPeriodicEvent() {
+        return true;
+    }
+
+    @Override
+    public boolean onPeriodicEvent(long updateTime) {
         boolean change = false;
         if (!mCollisionBreak) {
-            mWorld.update(UPDATE_PERIOD);
+            mWorld.update(updateTime);
             drawForeground();
-            change = onDistanceRun();
-            change |= onBackgroundUpdate();
-            checkNextObstacle();
+            change = onDistanceRun(updateTime);
+            change |= onBackgroundUpdate(updateTime);
+            checkNextObstacle(updateTime);
         }
         return change;
     }
@@ -582,8 +591,8 @@ public class RiddleJumper extends RiddleGame implements FlatWorldCallback {
         }
     }
 
-    private void checkNextObstacle() {
-        mNextObstacleCounter -= UPDATE_PERIOD;
+    private void checkNextObstacle(long updateTime) {
+        mNextObstacleCounter -= updateTime;
         if (mNextObstacleCounter <= 0L) {
             onNextObstacle();
         }

@@ -2,6 +2,7 @@ package dan.dit.whatsthat.achievement;
 
 import android.text.TextUtils;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -11,7 +12,7 @@ import dan.dit.whatsthat.util.compaction.Compactable;
  * Created by daniel on 12.05.15.
  */
 public abstract class AchievementData implements Compactable {
-    private final List<AchievementDataEventListener> mListeners = new LinkedList<>();
+    private final List<AchievementDataEventListener> mListeners = new ArrayList<>();
     private List<AchievementDataEventListener> mAddedListeners = new LinkedList<>();
     private List<AchievementDataEventListener> mRemovedListeners = new LinkedList<>();
     protected final String mName;
@@ -66,8 +67,8 @@ public abstract class AchievementData implements Compactable {
             mRemovedListeners.clear();
         }
         mIsProcessingEvent = true;
-        for (AchievementDataEventListener listener : mListeners) {
-            listener.onDataEvent(event);
+        for (int i = 0; i < mListeners.size(); i++) {
+            mListeners.get(i).onDataEvent(event);
         }
         mIsProcessingEvent = false;
     }
