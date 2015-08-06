@@ -1,5 +1,6 @@
 package dan.dit.whatsthat.riddle.games;
 
+import android.os.Handler;
 import android.util.Log;
 
 /**
@@ -10,8 +11,10 @@ import android.util.Log;
  */
 public class GamePeriodicThread extends Thread {
     private RiddleController mController;
-    private boolean mIsRunning;
+    private transient boolean mIsRunning;
     private boolean mStopped;
+    private Handler mStoppedNotifier;
+    private Runnable mOnStopCallback;
 
     /**
      * Creates a new GamePeriodicThread which can be started once. It will not be running
@@ -24,10 +27,14 @@ public class GamePeriodicThread extends Thread {
 
     @Override
     public void run() {
-        while (mIsRunning && !isInterrupted()) {
+        Log.d("Riddle", "Periodic thread started.");
+        while (mIsRunning && !mStopped && !isInterrupted()) {
             mController.onPeriodicEvent();
         }
         mStopped = true;
+        if (mStoppedNotifier != null && mOnStopCallback != null) {
+            mStoppedNotifier.post(mOnStopCallback);
+        }
         Log.d("Riddle", "Periodic thread ended.");
     }
 
@@ -35,7 +42,7 @@ public class GamePeriodicThread extends Thread {
      * Starts the periodic event thread. One time thread, create new one after
      * stopping!
      */
-    public void startPeriodicEvent() {
+    public synchronized void startPeriodicEvent() {
         mIsRunning = true;
         mStopped = false;
         start();
@@ -44,17 +51,13 @@ public class GamePeriodicThread extends Thread {
     /**
      * Stops the periodic event thread.
      */
-    public void stopPeriodicEventAndWaitForStop() {
-        mIsRunning = false;
-        interrupt();
-        while (!mStopped) {
-            // wait till last periodic cycle finished, will not take long
-            try {
-                Thread.sleep(10L);
-            } catch (InterruptedException e) {
-                // continue
-            }
+    public synchronized void stopPeriodicEvent(Runnable onStopCallback) {
+        if (!mIsRunning) {
+            return;
         }
+        mIsRunning = false;
+        mStoppedNotifier = new Handler();
+        mOnStopCallback = onStopCallback;
     }
 
     public boolean isRunning() {

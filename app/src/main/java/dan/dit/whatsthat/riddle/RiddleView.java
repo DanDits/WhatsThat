@@ -56,7 +56,7 @@ public class RiddleView extends SurfaceView implements SensorEventListener {
             mSensorManager.unregisterListener(this);
         }
         if (hasController()) {
-            mRiddleCtr.stopPeriodicEventAndWaitForStop();
+            mRiddleCtr.stopPeriodicEvent(null);
         }
     }
 
@@ -117,7 +117,7 @@ public class RiddleView extends SurfaceView implements SensorEventListener {
         }
     }
 
-    public void setController(@NonNull RiddleController controller) {
+    public synchronized void setController(@NonNull RiddleController controller) {
         if (mRiddleCtr != null) {
             throw new IllegalStateException("Already initialized a controller!");
         }

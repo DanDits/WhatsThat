@@ -41,15 +41,19 @@ public class RiddleController {
      * returns the controller is invalid.
      * @param context A context object required for saving state to permanent storage.
      */
-    public final void onCloseRiddle(@NonNull Context context) {
-        stopPeriodicEventAndWaitForStop();
-        if (riddleAvailable()) {
-            onPreRiddleClose();
-            mRiddleGame.onClose();
-            mRiddleGame = null;
-            onRiddleClosed(context);
-        }
-        mRiddleView = null;
+    public final void onCloseRiddle(@NonNull final Context context) {
+        stopPeriodicEvent(new Runnable() {
+            @Override
+            public void run() {
+                if (riddleAvailable()) {
+                    onPreRiddleClose();
+                    mRiddleGame.onClose();
+                    mRiddleGame = null;
+                    onRiddleClosed(context);
+                }
+                mRiddleView = null;
+            }
+        });
     }
 
     /**
@@ -159,11 +163,15 @@ public class RiddleController {
     /**
      * Pause the periodic event, stopping future invocations and periodic renderings.
      */
-    public void stopPeriodicEventAndWaitForStop() {
-        if (mPeriodicThread != null) {
-            mPeriodicThread.stopPeriodicEventAndWaitForStop();
+    public boolean stopPeriodicEvent(final Runnable toExecute) {
+        if (mPeriodicThread != null && mPeriodicThread.isRunning()) {
+            mPeriodicThread.stopPeriodicEvent(toExecute);
             mPeriodicThread = null;
+            return true;
+        } else if (toExecute != null) {
+            toExecute.run();
         }
+        return false;
     }
 
     /**
@@ -171,10 +179,14 @@ public class RiddleController {
      */
     public void resumePeriodicEventIfRequired() {
         if (riddleAvailable() && mRiddleView != null && mRiddleGame.requiresPeriodicEvent()) {
-            stopPeriodicEventAndWaitForStop();
-            mPeriodicThread = new GamePeriodicThread(this);
-            mPeriodicThread.setUncaughtExceptionHandler(Thread.getDefaultUncaughtExceptionHandler());
-            mPeriodicThread.startPeriodicEvent();
+            stopPeriodicEvent(new Runnable() {
+                @Override
+                public void run() {
+                    mPeriodicThread = new GamePeriodicThread(RiddleController.this);
+                    mPeriodicThread.setUncaughtExceptionHandler(Thread.getDefaultUncaughtExceptionHandler());
+                    mPeriodicThread.startPeriodicEvent();
+                }
+            });
         }
     }
 
