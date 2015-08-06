@@ -42,6 +42,7 @@ public class RiddleController {
      * @param context A context object required for saving state to permanent storage.
      */
     public final void onCloseRiddle(@NonNull final Context context) {
+        Log.d("Riddle", "On close riddle.");
         stopPeriodicEvent(new Runnable() {
             @Override
             public void run() {
@@ -70,6 +71,7 @@ public class RiddleController {
      * @param context The context required to save to permanent storage.
      */
     protected void onRiddleClosed(final Context context) {
+        Log.d("Riddle", "On riddle closed.");
         if (mRiddle.isSolved()) {
             mRiddle.getType().getAchievementData(AchievementManager.getInstance()).onSolvedGame();
         }
@@ -163,15 +165,15 @@ public class RiddleController {
     /**
      * Pause the periodic event, stopping future invocations and periodic renderings.
      */
-    public boolean stopPeriodicEvent(final Runnable toExecute) {
+    public void stopPeriodicEvent(final Runnable toExecute) {
         if (mPeriodicThread != null && mPeriodicThread.isRunning()) {
+            Log.d("Riddle", "Stopping periodic event that is running.");
             mPeriodicThread.stopPeriodicEvent(toExecute);
             mPeriodicThread = null;
-            return true;
         } else if (toExecute != null) {
+            Log.d("Riddle", "Stopping periodic event that was not running.");
             toExecute.run();
         }
-        return false;
     }
 
     /**

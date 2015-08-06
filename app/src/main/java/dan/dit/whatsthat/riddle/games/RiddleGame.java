@@ -97,7 +97,7 @@ public abstract class RiddleGame {
      * If this game is not yet closed, this is when the loaded bitmap object is still valid.
      * @return If the game was not yet closed.
      */
-    protected synchronized boolean isNotClosed() {
+    protected boolean isNotClosed() {
         return mBitmap != null;
     }
 
@@ -160,7 +160,8 @@ public abstract class RiddleGame {
         return mImage;
     }
 
-    public synchronized void onClose() {
+    public void onClose() {
+        Log.d("Riddle", "On close of riddle game.");
         int solved = mSolutionInput.estimateSolvedValue();
         int score = 0;
         if (solved == Solution.SOLVED_COMPLETELY) {

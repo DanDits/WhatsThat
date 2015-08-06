@@ -104,7 +104,7 @@ public class RiddleSnow extends RiddleGame implements FlatWorldCallback {
     }
 
     @Override
-    public synchronized void onClose() {
+    public void onClose() {
         super.onClose();
         mWorld = null;
         mBackgroundSnow = null;
@@ -344,6 +344,9 @@ public class RiddleSnow extends RiddleGame implements FlatWorldCallback {
 
     @Override
     public boolean onOrientationEvent(float azimuth, float pitch, float roll) {
+        if (mFeatureTouchGravity) {
+            return false;
+        }
         // forceX/Y in screen coordinate space
         float forceX = mGravity * (float) Math.sin(roll);
         float forceY = -mGravity * (float) Math.sin(pitch);
