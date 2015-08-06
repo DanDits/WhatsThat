@@ -91,7 +91,6 @@ public class RiddleView extends SurfaceView implements SensorEventListener {
             mAccelerometerValues = null;
             mGeomagneticValues = null;
         }
-        setVisibility(View.INVISIBLE);
         ctr.onCloseRiddle(getContext());
     }
 
@@ -143,7 +142,6 @@ public class RiddleView extends SurfaceView implements SensorEventListener {
             }
         }
         draw();
-        setVisibility(View.VISIBLE);
         mRiddleCtr.resumePeriodicEventIfRequired();
     }
 

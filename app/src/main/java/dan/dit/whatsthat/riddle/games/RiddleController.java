@@ -19,7 +19,6 @@ import dan.dit.whatsthat.riddle.types.PracticalRiddleType;
  * Created by daniel on 05.04.15.
  */
 public class RiddleController {
-    private static final long UPDATE_PERIOD = 16;//ms
     private RiddleGame mRiddleGame;
     private Riddle mRiddle;
     private RiddleView mRiddleView;

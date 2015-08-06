@@ -1,5 +1,6 @@
 package dan.dit.whatsthat.testsubject;
 
+import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.util.Base64;
 import android.util.Log;
@@ -25,7 +26,9 @@ import dan.dit.whatsthat.util.image.ExternalStorage;
 /**
  * Non high security cryptography helper class to asymmetrically
  * encrypt and decrypt strings. Offers a public key to encrypt messages
- * that can only be read by the developers or people that can break 1024 bit codes.
+ * that can only be read by the developers or people that can break 1024 bit codes.<br>
+ *     Offers also a way to generate a key pair and reading these keys from a file in external storage.
+ *     This is especially important as the secret key must not be included in the source code!
  * Created by daniel on 04.08.15.
  */
 public class SimpleCrypto {
@@ -47,7 +50,13 @@ public class SimpleCrypto {
         return Base64.decode(encoded, Base64.DEFAULT);
     }
 
-    public static void saveKeyPair(KeyPair pair) {
+    /**
+     * Saves the given key pair to external storage in two separate files writing
+     * only the key encoded by Base64 with default settings. No descriptive or other metadata
+     * is provided to and into the file.
+     * @param pair The key pair to save to files.
+     */
+    public static void saveKeyPair(@NonNull KeyPair pair) {
         DEVELOPER_PUBLIC_KEY = pair.getPublic();
         FileWriter writer = null;
         try {
@@ -80,6 +89,13 @@ public class SimpleCrypto {
         }
     }
 
+    /**
+     * Retrieves the fixed developer public key. The key is initialized the first
+     * time this method is invoked and future invocations will return the same key.
+     * This method will return a static key but can be altered to read the key from the file
+     * if needed for debugging.
+     * @return The developer's public key. Can be null on error.
+     */
     public static synchronized Key getDeveloperPublicKey() {
         if (DEVELOPER_PUBLIC_KEY != null) {
             return DEVELOPER_PUBLIC_KEY;
@@ -121,6 +137,12 @@ public class SimpleCrypto {
         }
     }
 
+    /**
+     * Returns the developer's private key by reading it from file.
+     * The key is not kept in memory, but this is not top secret so pieces
+     * can and will be leaked into memory.
+     * @return The developer's private key read from file or null on error.
+     */
     public static Key getDeveloperPrivateKey() {
         StringBuilder builder = new StringBuilder();
         FileReader reader = null;
@@ -131,6 +153,7 @@ public class SimpleCrypto {
             while ((read = reader.read(buffer)) > 0) {
                 builder.append(buffer, 0, read);
             }
+            Arrays.fill(buffer, '\0');
         } catch (Exception e) {
             Log.e("HomeStuff", "Error trying to read private key file: " + e);
             return null;
@@ -156,6 +179,10 @@ public class SimpleCrypto {
         }
     }
 
+    /**
+     * Generates a new 2014-bit RSA key pair.
+     * @return A new RSA key pair or null on error.
+     */
     public static KeyPair generateKeyPair() {
         // Generate key pair for 1024-bit RSA encryption and decryption
         try {
@@ -170,6 +197,13 @@ public class SimpleCrypto {
         }
     }
 
+    /**
+     * Encrypts the given data string with the given public key, returning
+     * the encrypted encoded data in Base64.
+     * @param publicKey The public key used for the RSA encryption.
+     * @param data The data to encrypt.
+     * @return The encrypted data or null on error or illegal parameter.
+     */
     public static String encrypt(Key publicKey, String data) {
         if (publicKey == null || TextUtils.isEmpty(data)) {
             return null;
@@ -187,6 +221,14 @@ public class SimpleCrypto {
         }
     }
 
+    /**
+     * Decrypts the given encrypted encoded data in Base64 using the given
+     * private key.
+     * @param privateKey The private RSA key belonging to the key pair with
+     *                   the public key used for encrypting the given encrypted data.
+     * @param encrypted The encrypted data to decrypt.
+     * @return The decrypted data or null on error or if illegal parameter were given.
+     */
     public static String decrypt(Key privateKey, String encrypted) {
         if (privateKey == null || TextUtils.isEmpty(encrypted)) {
             return null;
