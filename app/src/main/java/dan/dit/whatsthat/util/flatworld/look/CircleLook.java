@@ -48,7 +48,7 @@ public class CircleLook extends Look {
         paint.setColor(mColor);
         paint.setStyle(Paint.Style.FILL);
         canvas.drawCircle(x, y, mRadius, paint);
-        if (paint != CIRCLE_PAINT && paint != null) {
+        if (paint != CIRCLE_PAINT) {
             paint.setColor(oldColor);
             paint.setStyle(oldStyle);
         }

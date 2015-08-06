@@ -44,7 +44,7 @@ public class Image implements MosaicTile<String> {
     public static final String SHAREDPREFERENCES_FILENAME ="dan.dit.whatsthat.imagePrefs";
     public static final String ORIGIN_IS_THE_APP = "WhatsThat";
     public static final String IMAGES_DIRECTORY_NAME = ".images";
-    public static final int NO_AVERAGE_COLOR = 0;
+    private static final int NO_AVERAGE_COLOR = 0;
 
     // instead of building everytime on every device this app runs we built once for every new release of images all essential data
     // that takes long time like hash or preference/refused calculation, save it into a simple text file which we then read on first app
@@ -91,11 +91,11 @@ public class Image implements MosaicTile<String> {
      * @param hash The md5 hash of the image. The hash can be obtained by ImageUtil.
      * @return True if successfully deleted from the database.
      */
-    protected static boolean deleteFromDatabase(Context context, String hash) {
+    private static boolean deleteFromDatabase(Context context, String hash) {
         return context.getContentResolver().delete(ImagesContentProvider.buildImageUri(hash), null, null) > 0;
     }
 
-    protected boolean deleteFromDatabase(Context context) {
+    boolean deleteFromDatabase(Context context) {
         Log.d("Image", "Deleting " + toString() + " from database.");
         return deleteFromDatabase(context, getHash());
     }
@@ -105,7 +105,7 @@ public class Image implements MosaicTile<String> {
      * @param context The application context.
      * @return If the image has been saved successfully.
      */
-    protected boolean saveToDatabase(Context context) {
+    boolean saveToDatabase(Context context) {
         ContentValues cv = new ContentValues();
         cv.put(ImageTable.COLUMN_TIMESTAMP, mTimestamp);
         cv.put(ImageTable.COLUMN_AUTHOR, mAuthor.compact());

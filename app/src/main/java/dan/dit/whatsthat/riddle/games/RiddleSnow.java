@@ -680,14 +680,11 @@ public class RiddleSnow extends RiddleGame implements FlatWorldCallback {
         }
 
         public boolean onCollectIdeaChild(Devil devil) {
-            if (devil.isActive() && devil.mState == Devil.STATE_PROTECT) {
-                return false;
-            }
-            return shrinkCell(mStateRadiusDelta * (devil.isActive() ? STATE_DELTA_ON_IDEA_CHILD_COLLECT_WITH_ACTIVE_DEVIL : STATE_DELTA_ON_IDEA_CHILD_COLLECT));
+            return !(devil.isActive() && devil.mState == Devil.STATE_PROTECT) && shrinkCell(mStateRadiusDelta * (devil.isActive() ? STATE_DELTA_ON_IDEA_CHILD_COLLECT_WITH_ACTIVE_DEVIL : STATE_DELTA_ON_IDEA_CHILD_COLLECT));
         }
     }
 
-    public Idea makeIdea(float x, float y, float radius, Bitmap candy, Bitmap toxic) {
+    private Idea makeIdea(float x, float y, float radius, Bitmap candy, Bitmap toxic) {
         HitboxCircle hitbox = new HitboxCircle(x, y, radius);
         Look candyLook = new Frames(candy);
         Look toxicLook = new Frames(toxic);
@@ -782,7 +779,7 @@ public class RiddleSnow extends RiddleGame implements FlatWorldCallback {
         }
     }
 
-    public Devil makeDevil(Cell cell, float x, float y, float radius, Bitmap[] stateImages, int state, Resources res) {
+    private Devil makeDevil(Cell cell, float x, float y, float radius, Bitmap[] stateImages, int state, Resources res) {
         HitboxCircle hitbox = new HitboxCircle(x, y, radius);
         Look[] looks = new Look[stateImages.length];
         for (int i = 0; i < stateImages.length; i++) {

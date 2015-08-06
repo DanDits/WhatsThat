@@ -109,7 +109,7 @@ public abstract class GameAchievement extends Achievement {
 
     }
 
-    protected static String makeId(PracticalRiddleType type, int number) {
+    private static String makeId(PracticalRiddleType type, int number) {
         return type.getFullName() + number;
     }
 

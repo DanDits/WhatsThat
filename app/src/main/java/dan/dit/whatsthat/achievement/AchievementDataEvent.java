@@ -1,7 +1,6 @@
 package dan.dit.whatsthat.achievement;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -27,7 +26,7 @@ public class AchievementDataEvent {
         }
     }
 
-    protected void addChangedKey(String key) {
+    void addChangedKey(String key) {
         if (key != null) {
             mChangedKeys.add(key);
         }

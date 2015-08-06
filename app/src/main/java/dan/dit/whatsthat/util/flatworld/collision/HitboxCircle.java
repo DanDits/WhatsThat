@@ -113,7 +113,7 @@ public class HitboxCircle extends Hitbox {
         return collisionTester.collisionTest(this);
     }
 
-    public boolean checkCollision(HitboxCircle with) {
+    private boolean checkCollision(HitboxCircle with) {
         float dx = mCenterX - with.mCenterX;
         float dy = mCenterY - with.mCenterY;
         float r = mRadius + with.mRadius;

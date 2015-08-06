@@ -7,8 +7,8 @@ import dan.dit.whatsthat.util.image.BitmapUtil;
 /**
  * Created by daniel on 21.01.15.
  */
-public class Logo {
-    public static final double BRIGHTNESS_IS_LOGO_THRESHOLD_DEFAULT = 0.5; // threshold when a pixel is considered to be in the logo
+class Logo {
+    private static final double BRIGHTNESS_IS_LOGO_THRESHOLD_DEFAULT = 0.5; // threshold when a pixel is considered to be in the logo
 
     private Bitmap mLogo;
     private double mBrightnessThreshold;
@@ -17,7 +17,7 @@ public class Logo {
         this(logo, BRIGHTNESS_IS_LOGO_THRESHOLD_DEFAULT);
     }
 
-    public Logo(Bitmap logo, double brightnessThreshold) {
+    private Logo(Bitmap logo, double brightnessThreshold) {
         mLogo = logo;
         mBrightnessThreshold = brightnessThreshold;
         if (mLogo == null) {

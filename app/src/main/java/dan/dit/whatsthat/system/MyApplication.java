@@ -4,7 +4,7 @@ import android.app.Application;
 import android.content.Intent;
 
 public class MyApplication extends Application {
-    boolean mExceptionHandled = false;
+    private boolean mExceptionHandled = false;
 
     @Override
     public void onCreate () {

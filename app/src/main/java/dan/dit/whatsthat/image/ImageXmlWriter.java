@@ -23,7 +23,7 @@ import dan.dit.whatsthat.util.image.ExternalStorage;
  * that writes a list of images to a bundle that can be read the parser.
  * Created by daniel on 18.04.15.
  */
-public class ImageXmlWriter {
+class ImageXmlWriter {
 
     private static final String BUILD_DIRECTORY_NAME = "build";
 

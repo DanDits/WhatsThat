@@ -30,8 +30,8 @@ public class SolutionInputLetterClick extends SolutionInput {
     private static final char NO_LETTER = 0; // this letter is not expected to be in any alphabet
 
 
-    public static final int LETTER_POOL_MIN_SIZE = 18; // minimum pool size of all displayed letters
-    public static final int LETTER_POOL_MIN_WRONG_LETTERS = 2; // minimum amount of wrong letters
+    private static final int LETTER_POOL_MIN_SIZE = 18; // minimum pool size of all displayed letters
+    private static final int LETTER_POOL_MIN_WRONG_LETTERS = 2; // minimum amount of wrong letters
     public static final String IDENTIFIER = "LETTERCLICK";
     private static final int USER_LETTER_COLOR_COMPLETED = Color.GREEN;
     private static final int USER_LETTER_COLOR_INCOMPLETE = Color.RED;

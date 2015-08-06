@@ -31,7 +31,7 @@ public class RiddleController {
      * @param riddleGame The game that decorates the Riddle parameter.
      * @param riddle The riddle decorated by the game.
      */
-    protected RiddleController(@NonNull RiddleGame riddleGame, @NonNull Riddle riddle) {
+    RiddleController(@NonNull RiddleGame riddleGame, @NonNull Riddle riddle) {
         mRiddleGame = riddleGame;
         mRiddle = riddle;
     }
@@ -60,7 +60,7 @@ public class RiddleController {
     /**
      * Invoked on closure of the controller before the RiddleGame's onClose method is invoked.
      */
-    protected void onPreRiddleClose() {
+    void onPreRiddleClose() {
         RiddleManager.addToCache(mRiddle, mRiddleGame.makeSnapshot());
     }
 
@@ -70,7 +70,7 @@ public class RiddleController {
      * a valid member anymore. By default saving achievement data and decorated riddle object.
      * @param context The context required to save to permanent storage.
      */
-    protected void onRiddleClosed(final Context context) {
+    void onRiddleClosed(final Context context) {
         Log.d("Riddle", "On riddle closed.");
         if (mRiddle.isSolved()) {
             mRiddle.getType().getAchievementData(AchievementManager.getInstance()).onSolvedGame();
@@ -142,7 +142,7 @@ public class RiddleController {
     /**
      * The riddle just got visible, by default tell the manager this happened.
      */
-    protected void onRiddleGotVisible() {
+    void onRiddleGotVisible() {
         RiddleInitializer.INSTANCE.getRiddleManager().onUnsolvedRiddle(mRiddle); // especially important that, if saving this riddle when finished excludes the image from the list since saving is async
     }
 
@@ -221,7 +221,7 @@ public class RiddleController {
     /**
      * The periodic event happened, forward to the RiddleGame if possible.
      */
-    protected void onPeriodicEvent() {
+    void onPeriodicEvent() {
         if (riddleAvailable()) {
             long requiredDrawingTime = mRiddleView.performDrawRiddle();
             long updateTime = mMissingUpdateTime + requiredDrawingTime;

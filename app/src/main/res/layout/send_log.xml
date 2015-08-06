@@ -6,26 +6,26 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Send log"
-        android:id="@+id/send"
-        android:layout_gravity="center_horizontal"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="0dp" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Cancel"
+        android:text="@android:string/cancel"
         android:id="@+id/cancel"
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/send_log_confirm"
+        android:id="@+id/send"
+        android:layout_gravity="center_horizontal"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="0dp" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Sorry, crash!"
+        android:text="@string/send_log_title"
         android:id="@+id/text"
         android:layout_centerHorizontal="true"
         android:layout_alignParentTop="true" />

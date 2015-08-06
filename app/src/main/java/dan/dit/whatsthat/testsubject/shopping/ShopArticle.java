@@ -17,23 +17,23 @@ import dan.dit.whatsthat.testsubject.dependencies.Dependency;
  * Created by daniel on 29.07.15.
  */
 public abstract class ShopArticle {
-    protected static final int GENERAL_DEPENDENCY_INDEX = -1;
+    static final int GENERAL_DEPENDENCY_INDEX = -1;
     public static final int HINT_PURCHASABLE = 1;
     public static final int HINT_NOT_PURCHASABLE_TOO_EXPENSIVE = 0;
     public static final int HINT_NOT_PURCHASABLE_DEPENDENCIES_MISSING = -1;
     public static final int HINT_NOT_PURCHASABLE_ALREADY_PURCHASED = -2;
-    public static final int HINT_NOT_PURCHASABLE_OTHER = -3;
+    static final int HINT_NOT_PURCHASABLE_OTHER = -3;
 
     private static final int DEFAULT_ICON = R.drawable.icon_plain;
-    protected final String mKey;
-    protected final int mDescrResId;
-    protected final int mNameResId;
-    protected ForeignPurse mPurse;
-    protected int mIconResId;
-    protected ShopArticleHolder.OnArticleChangedListener mListener;
+    final String mKey;
+    private final int mDescrResId;
+    final int mNameResId;
+    ForeignPurse mPurse;
+    private int mIconResId;
+    ShopArticleHolder.OnArticleChangedListener mListener;
     private Map<Integer, List<Dependency>> mDependencies;
 
-    public ShopArticle(String key, ForeignPurse purse, int nameResId, int descrResId, int iconResId) {
+    ShopArticle(String key, ForeignPurse purse, int nameResId, int descrResId, int iconResId) {
         mPurse = purse;
         mKey = key;
         mNameResId = nameResId;
@@ -104,22 +104,22 @@ public abstract class ShopArticle {
             return true;
         }
         for (Dependency dep : deps) {
-            if (!dep.isFulfilled()) {
+            if (dep.isNotFulfilled()) {
                 return false;
             }
         }
         return true;
     }
 
-    public boolean areDependenciesFulfilled(int subProductIndex) {
+    boolean areDependenciesMissing(int subProductIndex) {
         if (subProductIndex < 0) {
-            return checkDependencies(mDependencies.get(GENERAL_DEPENDENCY_INDEX));
+            return !checkDependencies(mDependencies.get(GENERAL_DEPENDENCY_INDEX));
         } else {
             if (!checkDependencies(mDependencies.get(GENERAL_DEPENDENCY_INDEX)) || !checkDependencies(mDependencies.get(subProductIndex))) {
-                return false;
+                return true;
             }
         }
-        return true;
+        return false;
     }
 
     private boolean appendMissingDependencies(StringBuilder builder, Resources res, List<Dependency> deps, boolean separator) {
@@ -128,7 +128,7 @@ public abstract class ShopArticle {
         }
         boolean addSeparator = separator;
         for (Dependency dep : deps) {
-            if (!dep.isFulfilled()) {
+            if (dep.isNotFulfilled()) {
                 if (addSeparator) {
                     builder.append(", ");
                 }
@@ -139,13 +139,13 @@ public abstract class ShopArticle {
         return addSeparator;
     }
 
-    public CharSequence makeMissingDependenciesText(Resources res, int subProductIndex) {
+    CharSequence makeMissingDependenciesText(Resources res, int subProductIndex) {
         StringBuilder builder = new StringBuilder();
         if (subProductIndex < 0) {
             appendMissingDependencies(builder, res, mDependencies.get(GENERAL_DEPENDENCY_INDEX), false);
         } else {
-            boolean addSeparator = false;
-            addSeparator = appendMissingDependencies(builder, res, mDependencies.get(GENERAL_DEPENDENCY_INDEX), addSeparator);
+            boolean addSeparator;
+            addSeparator = appendMissingDependencies(builder, res, mDependencies.get(GENERAL_DEPENDENCY_INDEX), false);
             appendMissingDependencies(builder, res, mDependencies.get(subProductIndex), addSeparator);
         }
         return builder.toString();

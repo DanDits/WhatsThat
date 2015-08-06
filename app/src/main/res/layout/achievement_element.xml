@@ -26,7 +26,7 @@
         android:id="@+id/achievement_descr"
         android:textAppearance="@android:style/TextAppearance.Holo.Small"
         android:textIsSelectable="false"
-        android:textSize="10sp" />
+        android:textSize="12sp" />
     <TextView android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"

@@ -23,7 +23,7 @@ public class ShopArticleRiddleHints extends ShopArticle {
     private ConfirmProduct mConfirmProduct;
     private Map<Integer, HintProduct> mHints;
 
-    public static final String makeKey(PracticalRiddleType type) {
+    public static String makeKey(PracticalRiddleType type) {
         return type.getFullName() + KEY_SUFFIX;
     }
 
@@ -54,7 +54,7 @@ public class ShopArticleRiddleHints extends ShopArticle {
         if (subProductIndex > availableHints) {
             return HINT_NOT_PURCHASABLE_OTHER; // only the next one is purchasable in the list
         }
-        if (!areDependenciesFulfilled(subProductIndex)) {
+        if (areDependenciesMissing(subProductIndex)) {
             return HINT_NOT_PURCHASABLE_DEPENDENCIES_MISSING;
         }
 

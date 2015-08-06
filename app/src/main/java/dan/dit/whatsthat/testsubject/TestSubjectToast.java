@@ -8,12 +8,12 @@ import com.github.johnpersano.supertoasts.SuperToast;
  * Created by daniel on 11.05.15.
  */
 public class TestSubjectToast {
-    public int mTextResId;
-    public int mIconResId;
+    private int mTextResId;
+    private int mIconResId;
     public SuperToast.IconPosition mIconPosition;
-    public int mGravity;
-    public int mOffsetX;
-    public int mOffsetY;
+    private int mGravity;
+    private int mOffsetX;
+    private int mOffsetY;
     public long mDuration;
     public CharSequence mText;
     public SuperToast.Animations mAnimations;

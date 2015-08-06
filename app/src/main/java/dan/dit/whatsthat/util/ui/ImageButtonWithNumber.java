@@ -6,6 +6,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.support.annotation.NonNull;
 import android.util.AttributeSet;
 import android.widget.ImageButton;
 
@@ -51,7 +52,7 @@ public class ImageButtonWithNumber extends ImageButton implements ViewWithNumber
     }
 
     @Override
-    public void onDraw(Canvas canvas) {
+    public void onDraw(@NonNull Canvas canvas) {
         super.onDraw(canvas);
         drawTextCentered(canvas, mNumber, getWidth() * mRelX, getHeight() * mRelY);
     }

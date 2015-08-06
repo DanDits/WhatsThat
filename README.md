@@ -2,7 +2,7 @@
 An android riddle game app.
 
 #The idea
-An android application created for and with Android-Studio. It's a cooperation between me and my brother and a playground for various minigames and ideas. All riddle types have the central idea to find the solution to an arbitrary image provided and hidden by the riddle. The riddles are not hard to solve and require mostly linear and straightforward solving techniques. The act of solving the riddle is meant to be the enjoyable part, the design of the riddles should be so entertaining that entering the solution is only the secondary aim.
+An android application created for and with Android-Studio. It's a cooperation between me and my brother and a playground for various mini games and ideas. All riddle types have the central idea to find the solution to an arbitrary image provided and hidden by the riddle. The riddles are not hard to solve and require mostly linear and straightforward solving techniques. The act of solving the riddle is meant to be the enjoyable part, the design of the riddles should be so entertaining that entering the solution is only the secondary aim.
 
 #Working progress
 As I am a student of mathematics and not directly into computer science this is a playground for coding and image processing for me. My brother does not work on the code but rather on the development of the ideas, collection of images, general design and the testing. 

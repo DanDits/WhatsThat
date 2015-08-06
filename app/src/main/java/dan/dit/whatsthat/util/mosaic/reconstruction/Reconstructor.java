@@ -65,7 +65,7 @@ public abstract class Reconstructor {
 	 * to wantedCount.
 	 * @throws IllegalArgumentException If a parameter is negative or zero.
 	 */
-	protected static int getClosestCount(int imageDimension, int wantedCount) {
+	static int getClosestCount(int imageDimension, int wantedCount) {
 		if (imageDimension <= 0 || wantedCount <= 0) {
 			throw new IllegalArgumentException("Image and wanted rect dimension must be greater than zero");
 		} else {

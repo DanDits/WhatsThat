@@ -13,23 +13,23 @@ import dan.dit.whatsthat.util.compaction.Compacter;
  * Created by daniel on 30.03.15.
  */
 public abstract class SolutionInput implements Compactable {
-    protected Solution mSolution;
-    protected SolutionInputListener mListener;
+    Solution mSolution;
+    SolutionInputListener mListener;
 
 
 
-    public SolutionInput(Compacter compacted) throws CompactedDataCorruptException {
+    SolutionInput(Compacter compacted) throws CompactedDataCorruptException {
         unloadData(compacted);
     }
 
-    public SolutionInput(Solution solution) {
+    SolutionInput(Solution solution) {
         if (solution == null) {
             throw new IllegalArgumentException("No solution given.");
         }
         initSolution(solution);
     }
 
-    protected void setListener(SolutionInputListener listener) {
+    void setListener(SolutionInputListener listener) {
         mListener = listener;
     }
 

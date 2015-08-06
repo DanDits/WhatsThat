@@ -14,8 +14,8 @@ public class FieldElement {
 
     public enum Neighbor {
         LEFT(-1, 0), TOP(0, -1), RIGHT(1, 0), BOTTOM(0, 1), TOP_LEFT(-1, -1), TOP_RIGHT(1, -1), BOTTOM_LEFT(-1,1), BOTTOM_RIGHT(1, 1), SELF(0, 0);
-        protected int mXDelta;
-        protected int mYDelta;
+        int mXDelta;
+        int mYDelta;
 
         Neighbor(int xDelta, int yDelta) {
             mXDelta = xDelta;
@@ -35,7 +35,7 @@ public class FieldElement {
     public static final Neighbor[] DIRECT_AND_DIAGONAL_NEIGHBORS = new Neighbor[] {Neighbor.LEFT, Neighbor.TOP, Neighbor.RIGHT, Neighbor.BOTTOM,
         Neighbor.TOP_LEFT, Neighbor.TOP_RIGHT, Neighbor.BOTTOM_LEFT, Neighbor.BOTTOM_RIGHT};
 
-    protected int mPathfindingValue;
+    int mPathfindingValue;
     protected int mX;
     protected int mY;
 

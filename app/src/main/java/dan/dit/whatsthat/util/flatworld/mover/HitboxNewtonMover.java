@@ -6,13 +6,13 @@ import dan.dit.whatsthat.util.flatworld.collision.Hitbox;
  * Created by daniel on 31.05.15.
  */
 public class HitboxNewtonMover extends HitboxMover {
-    public static final int STATE_NOT_MOVING = 0;
-    public static final int STATE_MOVING = 1;
-    public static final int STATE_MOVING_ACCELERATING = 2;
-    protected float mSpeedX;
-    protected float mSpeedY;
-    protected float mAccelX;
-    protected float mAccelY;
+    private static final int STATE_NOT_MOVING = 0;
+    private static final int STATE_MOVING = 1;
+    private static final int STATE_MOVING_ACCELERATING = 2;
+    float mSpeedX;
+    float mSpeedY;
+    float mAccelX;
+    float mAccelY;
 
     public HitboxNewtonMover() {
     }

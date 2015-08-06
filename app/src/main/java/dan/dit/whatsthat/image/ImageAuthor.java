@@ -36,15 +36,15 @@ public class ImageAuthor implements Compactable {
         unloadData(compactedData);
     }
 
-    public void setLicense(String license) {
+    private void setLicense(String license) {
         mLicense = license == null ?  "" : license;
     }
 
-    public void setTitle(String title) {
+    private void setTitle(String title) {
         mTitle = title == null ? "" : title;
     }
 
-    public void setExtras(String extras) {
+    private void setExtras(String extras) {
         mExtras = extras == null ? "" : extras;
     }
 

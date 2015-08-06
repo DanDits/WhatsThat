@@ -11,8 +11,8 @@ import dan.dit.whatsthat.util.compaction.CompactedDataCorruptException;
  * Created by daniel on 18.05.15.
  */
 public class AchievementDataRiddleType extends AchievementProperties {
-    public static final String DATA_NAME_PREFIX = "riddletype";
-    public static final String KEY_NEW_GAMES_STARTED = "new_games_started";
+    private static final String DATA_NAME_PREFIX = "riddletype";
+    private static final String KEY_NEW_GAMES_STARTED = "new_games_started";
     public static final String KEY_GAMES_SOLVED = "games_solved";
 
     public AchievementDataRiddleType(PracticalRiddleType type, AchievementManager manager) throws CompactedDataCorruptException {

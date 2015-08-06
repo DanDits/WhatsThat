@@ -3,22 +3,11 @@ package dan.dit.whatsthat.system;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.util.Log;
-
-import java.io.File;
-import java.io.IOException;
-import java.security.Key;
-import java.security.KeyFactory;
-import java.security.KeyPair;
-import java.security.spec.X509EncodedKeySpec;
 
 import dan.dit.whatsthat.R;
 import dan.dit.whatsthat.image.ImageManager;
 import dan.dit.whatsthat.riddle.RiddleInitializer;
-import dan.dit.whatsthat.testsubject.SimpleCrypto;
-import dan.dit.whatsthat.testsubject.TestSubject;
-import dan.dit.whatsthat.util.image.ExternalStorage;
 
 /**
  * Created by daniel on 26.04.15.

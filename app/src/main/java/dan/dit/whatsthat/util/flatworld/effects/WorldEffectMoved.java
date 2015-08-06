@@ -16,11 +16,11 @@ import dan.dit.whatsthat.util.image.ColorAnalysisUtil;
  */
 public class WorldEffectMoved extends  WorldEffect {
     private static final float FADE_COLOR_IMPACT = 0.8f;
-    protected HitboxGhostPoint mPoint;
-    HitboxMover mMover;
+    private HitboxGhostPoint mPoint;
+    private HitboxMover mMover;
     private Paint mPaint;
 
-    public WorldEffectMoved(Look look, float x, float y, HitboxMover mover) {
+    WorldEffectMoved(Look look, float x, float y, HitboxMover mover) {
         super(look);
         mPoint = new HitboxGhostPoint(x, y);
         mMover = mover;
@@ -38,7 +38,7 @@ public class WorldEffectMoved extends  WorldEffect {
         return state;
     }
 
-    protected void onUpdateMoverStateChange() {
+    private void onUpdateMoverStateChange() {
 
     }
 

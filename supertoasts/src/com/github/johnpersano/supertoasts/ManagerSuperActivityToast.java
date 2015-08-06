@@ -57,14 +57,14 @@ class ManagerSuperActivityToast extends Handler {
     /* Private method to create a new list if the manager is being initialized */
     private ManagerSuperActivityToast() {
 
-        mList = new LinkedList<SuperActivityToast>();
+        mList = new LinkedList<>();
 
     }
 
     /**
      * Singleton method to ensure all SuperActivityToasts are passed through the same manager.
      */
-    protected static synchronized ManagerSuperActivityToast getInstance() {
+    static synchronized ManagerSuperActivityToast getInstance() {
 
         if (mManagerSuperActivityToast != null) {
 

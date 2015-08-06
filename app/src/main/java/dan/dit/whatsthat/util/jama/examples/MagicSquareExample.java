@@ -8,11 +8,11 @@ import dan.dit.whatsthat.util.jama.QRDecomposition;
 
 /** Example of use of Matrix Class, featuring magic squares. **/
 
-public class MagicSquareExample {
+class MagicSquareExample {
 
    /** Generate magic square test matrix. **/
 
-   public static Matrix magic (int n) {
+   private static Matrix magic(int n) {
 
       double[][] M = new double[n][n];
 
@@ -77,7 +77,7 @@ public class MagicSquareExample {
    
    /** Format double with Fw.d. **/
 
-   public static String fixedWidthDoubletoString (double x, int w, int d) {
+   private static String fixedWidthDoubletoString(double x, int w, int d) {
       java.text.DecimalFormat fmt = new java.text.DecimalFormat();
       fmt.setMaximumFractionDigits(d);
       fmt.setMinimumFractionDigits(d);
@@ -91,7 +91,7 @@ public class MagicSquareExample {
 
    /** Format integer with Iw. **/
 
-   public static String fixedWidthIntegertoString (int n, int w) {
+   private static String fixedWidthIntegertoString(int n, int w) {
       String s = Integer.toString(n);
       while (s.length() < w) {
          s = " " + s;

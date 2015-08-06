@@ -39,11 +39,11 @@ public class SimpleCrypto {
 
     private SimpleCrypto() {}
 
-    public static String encodeToString(byte[] data) {
+    private static String encodeToString(byte[] data) {
         return Base64.encodeToString(data, Base64.DEFAULT);
     }
 
-    public static byte[] encodedToBytes(String encoded) {
+    private static byte[] encodedToBytes(String encoded) {
         return Base64.decode(encoded, Base64.DEFAULT);
     }
 

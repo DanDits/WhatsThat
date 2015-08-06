@@ -70,7 +70,7 @@ public class RectReconstructor extends Reconstructor {
 	 * The amount of rows of the fragmenation.
 	 * @return The amount of rows of the fragmentation. Greater than or equal 1.
 	 */
-	public int getRows() {
+	private int getRows() {
 		return this.resultingRGBA.length;
 	}
 	
@@ -78,7 +78,7 @@ public class RectReconstructor extends Reconstructor {
 	 * Returns the amount of columns of the fragmentation.
 	 * @return The amount of columns of the fragmentation. Greater than or equal 1.
 	 */
-	public int getColumns() {
+	private int getColumns() {
 		return this.resultingRGBA[0].length;
 	}
 	

@@ -1,6 +1,5 @@
 package dan.dit.whatsthat.util.jama.test;
 import java.io.*;
-import java.util.zip.GZIPInputStream;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.Locale;
@@ -33,7 +32,7 @@ If the test does not run to completion, this indicates that there is a
 substantial problem within the implementation that was not anticipated in the test design.  
 The stopping point should give an indication of where the problem exists.
 **/
-public class TestMatrix {
+class TestMatrix {
    public static void main (String argv[]) {
       Matrix A,B,C,Z,O,I,R,S,X,SUB,M,T,SQ,DEF,SOL;
       // Uncomment this to test IO in a different locale.
@@ -933,7 +932,7 @@ public class TestMatrix {
 
    private static void try_success (String s,String e) {
       print(">    " + s + "success\n");
-      if ( e != "" ) {
+      if (!"".equals(e) ) {
         print(">      Message: " + e + "\n");
       }
    }

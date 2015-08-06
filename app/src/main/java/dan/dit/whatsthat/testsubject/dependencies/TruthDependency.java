@@ -18,8 +18,8 @@ public class TruthDependency extends Dependency {
     }
 
     @Override
-    public boolean isFulfilled() {
-        return mDependency.getValue() == WalletEntry.TRUE;
+    public boolean isNotFulfilled() {
+        return mDependency.getValue() != WalletEntry.TRUE;
     }
 
     @Override

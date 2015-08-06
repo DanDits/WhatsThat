@@ -71,7 +71,7 @@ public enum FragmentNeighbor {
 	private int rowDelta;
 	private int columnDelta;
 	
-	private FragmentNeighbor(int rowDelta, int columnDelta) {	
+	FragmentNeighbor(int rowDelta, int columnDelta) {
 		this.rowDelta = rowDelta;
 		this.columnDelta = columnDelta;
 	}

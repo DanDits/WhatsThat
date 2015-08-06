@@ -212,7 +212,7 @@ public class InitializationFragment extends Fragment implements ImageManager.Syn
     }
 
     private void startRiddleInit() {
-        if (!RiddleInitializer.INSTANCE.isInitialized()) {
+        if (RiddleInitializer.INSTANCE.isNotInitialized()) {
             RiddleInitializer.INSTANCE.init(getActivity().getApplicationContext(), this);
         } else {
             onInitComplete();

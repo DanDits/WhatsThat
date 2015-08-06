@@ -36,25 +36,25 @@ public abstract class RiddleGame {
     /**
      * The default score awarded for solving a RiddleGame.
      */
-    public static final int DEFAULT_SCORE = 1;
+    static final int DEFAULT_SCORE = 1;
 
     /**
      * The width for a snapshot bitmap for unsolved RiddleGame's that get closed.
      */
-    public static final int SNAPSHOT_WIDTH = 64;
+    static final int SNAPSHOT_WIDTH = 64;
 
     /**
      * The height for a snapshot bitmap.
      */
-    public static final int SNAPSHOT_HEIGHT = 64;
+    static final int SNAPSHOT_HEIGHT = 64;
 
     private Riddle mRiddle; // should be hidden
     private RiddleController mRiddleController;
-    protected Image mImage; // image with hash of mRiddle.mCore.imageHash
-    protected SolutionInput mSolutionInput; // input keyboard used, most likely choosing letters by clicking on them
-    protected Bitmap mBitmap; // the correctly scaled bitmap of the image to work with
+    Image mImage; // image with hash of mRiddle.mCore.imageHash
+    private SolutionInput mSolutionInput; // input keyboard used, most likely choosing letters by clicking on them
+    Bitmap mBitmap; // the correctly scaled bitmap of the image to work with
     // note: full galaxy s2 display 480x800 pixel, hdpi (scaling of 1.5 by default)
-    protected RiddleConfig mConfig;
+    RiddleConfig mConfig;
 
     /**
      * Creates a new RiddleGame, decorating the given riddle, using the given bitmap loaded from the riddle's image.
@@ -66,7 +66,7 @@ public abstract class RiddleGame {
      * @param config The config to use or describe the riddle.
      * @param listener The listener to inform about progress (important if loading takes some time).
      */
-    public RiddleGame(Riddle riddle, Image image, Bitmap bitmap, Resources res, RiddleConfig config, PercentProgressListener listener) {
+    RiddleGame(Riddle riddle, Image image, Bitmap bitmap, Resources res, RiddleConfig config, PercentProgressListener listener) {
         if (riddle == null || bitmap == null || res == null || listener == null || config == null || image == null) {
             throw new IllegalArgumentException("Null argument for InitializedRiddle given.");
         }
@@ -85,7 +85,7 @@ public abstract class RiddleGame {
      * default controller if none supplied.
      * @return A new RiddleController for this RiddleGame and Riddle.
      */
-    protected RiddleController makeController() {
+    private RiddleController makeController() {
         if (mConfig == null || mConfig.mControllerFactory == null) {
             return RiddleControllerFactory.INSTANCE.makeController(this, mRiddle);
         } else {
@@ -97,7 +97,7 @@ public abstract class RiddleGame {
      * If this game is not yet closed, this is when the loaded bitmap object is still valid.
      * @return If the game was not yet closed.
      */
-    protected boolean isNotClosed() {
+    boolean isNotClosed() {
         return mBitmap != null;
     }
 
@@ -105,7 +105,7 @@ public abstract class RiddleGame {
      * Returns the current state associated with the riddle (probably loaded after restarting the app).
      * @return A compacter holding the current state or null if the RiddleGame has no state saved (probably new riddle).
      */
-    protected Compacter getCurrentState() {
+    Compacter getCurrentState() {
         String state = mRiddle.getCurrentState();
         if (TextUtils.isEmpty(state)) {
             return null;
@@ -123,7 +123,7 @@ public abstract class RiddleGame {
      * this creates a new SolutionInput for the type using the solution entered to solve the riddle.
      * If the riddle is not yet solved this reconstructs the previous SolutionInput.
      */
-    protected void initSolutionInput() {
+    private void initSolutionInput() {
         if (mRiddle.isSolved()) {
             Solution sol;
             try {
@@ -190,7 +190,7 @@ public abstract class RiddleGame {
      * Makes a new snapshot of this RiddleGame. By default none is made.
      * @return null
      */
-    protected Bitmap makeSnapshot() {
+    Bitmap makeSnapshot() {
         return null;
     }
 

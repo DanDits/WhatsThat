@@ -57,7 +57,7 @@ public final class RiddleInitializer {
      * Registers a riddle. The image will be remembered to be already used by the riddle's type.
      * @param riddle The riddle to register. Not null.
      */
-    protected void registerUsedRiddleImage(Riddle riddle) {
+    void registerUsedRiddleImage(Riddle riddle) {
         if (riddle == null) {
             throw new IllegalArgumentException("Null riddle given, what image you want to register?");
         }
@@ -74,8 +74,8 @@ public final class RiddleInitializer {
      * an Exception.
      * @return If it is initialized.
      */
-    public boolean isInitialized() {
-        return mManager != null && !isInitializing();
+    public boolean isNotInitialized() {
+        return mManager == null || isInitializing();
     }
 
     // used in success or failure, in good days or in bad days
@@ -240,7 +240,7 @@ public final class RiddleInitializer {
      * can be changed freely.
      * @return A copy of the image hashes used by the riddle types. Can be empty.
      */
-    protected Map<RiddleType, Set<String>> makeUsedImagesCopy() {
+    Map<RiddleType, Set<String>> makeUsedImagesCopy() {
         // required because we might run into concurrency issues if an image gets added while we are still iterating over the list when making a new riddle
         Map<RiddleType, Set<String>> usedImagesForType = new HashMap<>();
         for (RiddleType type : mUsedImagesForType.keySet()) {

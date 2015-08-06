@@ -16,7 +16,7 @@ public class HitboxRect extends Hitbox {
     private float mRight;
     private Tester mTester = new Tester();
 
-    public HitboxRect(final float left, final float top, final float width, final float height) {
+    private HitboxRect(final float left, final float top, final float width, final float height) {
         mLeft = left;
         mTop = top;
         mRight = left + width;
@@ -24,7 +24,7 @@ public class HitboxRect extends Hitbox {
         mBoundingRect.set(mLeft, mTop, mRight, mBottom);
     }
 
-    public boolean checkCollision(HitboxRect other) {
+    private boolean checkCollision(HitboxRect other) {
         return mRight >= other.mLeft && mLeft <= other.mRight && mBottom >= other.mTop && mTop <= other.mBottom;
     }
 

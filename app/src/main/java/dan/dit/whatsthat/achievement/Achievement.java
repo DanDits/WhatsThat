@@ -30,18 +30,18 @@ public abstract class Achievement implements AchievementDataEventListener, Depen
     protected final String mId;
     protected boolean mDiscovered;
     protected final AchievementManager mManager;
-    protected int mValue;
-    protected int mMaxValue;
+    private int mValue;
+    private int mMaxValue;
     protected final int mLevel;
     private final int mScoreReward;
     private boolean mRewardClaimed;
-    protected final int mNameResId;
+    private final int mNameResId;
     protected final int mDescrResId;
-    protected final int mRewardResId;
+    private final int mRewardResId;
     protected final List<Dependency> mDependencies;
-    protected long mAchievedTimestamp;
+    private long mAchievedTimestamp;
 
-    public Achievement(String id, int nameResId, int descrResId, int rewardResId, AchievementManager manager, int level, int scoreReward, int maxValue, boolean discovered) {
+    protected Achievement(String id, int nameResId, int descrResId, int rewardResId, AchievementManager manager, int level, int scoreReward, int maxValue, boolean discovered) {
         mId = id;
         mValue = DEFAULT_VALUE;
         mDiscovered = discovered;
@@ -86,7 +86,7 @@ public abstract class Achievement implements AchievementDataEventListener, Depen
 
     public boolean areDependenciesFulfilled() {
         for (int i = 0; i < mDependencies.size(); i++) {
-            if (!mDependencies.get(i).isFulfilled())
+            if (mDependencies.get(i).isNotFulfilled())
                 return false;
         }
         return true;
@@ -143,7 +143,7 @@ public abstract class Achievement implements AchievementDataEventListener, Depen
         return mLevel;
     }
 
-    public int getScoreReward() {
+    private int getScoreReward() {
         return mScoreReward;
     }
 
@@ -173,7 +173,7 @@ public abstract class Achievement implements AchievementDataEventListener, Depen
         }
     }
 
-    protected synchronized final void discover() {
+    private synchronized void discover() {
         if (mDiscovered) {
             return; // already discovered
         }
@@ -215,7 +215,7 @@ public abstract class Achievement implements AchievementDataEventListener, Depen
 
     protected abstract void onAchieved();
 
-    protected final void addData(SharedPreferences.Editor editor) {
+    final void addData(SharedPreferences.Editor editor) {
         editor
                 .putBoolean(mId + SEPARATOR + KEY_DISCOVERED, mDiscovered)
                 .putInt(mId + SEPARATOR + KEY_VALUE, mValue)
@@ -256,7 +256,7 @@ public abstract class Achievement implements AchievementDataEventListener, Depen
         boolean addSeparator = false;
         for (int i = 0; i < mDependencies.size(); i++) {
             Dependency dep = mDependencies.get(i);
-            if (!dep.isFulfilled()) {
+            if (dep.isNotFulfilled()) {
                 if (addSeparator) {
                     builder.append(separator);
                 }

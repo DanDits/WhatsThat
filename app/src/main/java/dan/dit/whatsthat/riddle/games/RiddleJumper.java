@@ -240,7 +240,8 @@ public class RiddleJumper extends RiddleGame implements FlatWorldCallback {
                 ImageUtil.loadBitmap(res, R.drawable.monsterteufel1, width, heightSmall, false),
                 ImageUtil.loadBitmap(res, R.drawable.monsterteufel2, width, heightSmall, false),
                 ImageUtil.loadBitmap(res, R.drawable.monsterteufel3, width, heightSmall, false),
-                ImageUtil.loadBitmap(res, R.drawable.monsterteufel4, width, heightSmall, false)};
+                null};
+        monsterTeufel[3] = monsterTeufel[1];
         List<Obstacle> obstacles = mObstacles.get(difficulty);
         int startCount = obstacles.size();
         while (obstacles.size() - startCount < EASY_SMALL_OBSTACLES) {

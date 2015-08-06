@@ -250,7 +250,7 @@ public class RiddleDeveloper extends RiddleGame {
     @NonNull
     @Override
     protected String compactCurrentState() {
-        return null;
+        return "";
     }
 
     @Override

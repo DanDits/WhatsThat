@@ -10,7 +10,7 @@ import dan.dit.whatsthat.util.compaction.CompactedDataCorruptException;
  * Created by daniel on 20.05.15.
  */
 public class AchievementDataTimerRiddle extends AchievementDataTimer {
-    public static final String DATA_NAME = "riddletimer";
+    private static final String DATA_NAME = "riddletimer";
     private static volatile AchievementDataTimerRiddle INSTANCE;
 
     private AchievementDataTimerRiddle(AchievementManager manager) throws CompactedDataCorruptException {

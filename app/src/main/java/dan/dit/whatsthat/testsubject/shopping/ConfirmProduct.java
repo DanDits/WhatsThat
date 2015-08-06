@@ -21,7 +21,7 @@ public class ConfirmProduct extends SubProduct {
     }
 
     public void inflateView(LayoutInflater inflater) {
-        mView = inflater.inflate(R.layout.shop_confirm_product, null);;
+        mView = inflater.inflate(R.layout.shop_confirm_product, null);
     }
 
     @Override

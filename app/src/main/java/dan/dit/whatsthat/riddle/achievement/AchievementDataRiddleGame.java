@@ -15,18 +15,18 @@ import dan.dit.whatsthat.util.compaction.Compacter;
  * Created by daniel on 13.05.15.
  */
 public class AchievementDataRiddleGame extends AchievementProperties {
-    public static final int STATE_NONE = 0;
-    public static final int STATE_OPENING= 1;
+    private static final int STATE_NONE = 0;
+    private static final int STATE_OPENING= 1;
     public static final int STATE_OPENED = 2;
     public static final int STATE_CLOSED = 3;
 
-    public static final String DATA_NAME = "riddlegame";
-    public static final String KEY_START_TIME = "start_time";
+    private static final String DATA_NAME = "riddlegame";
+    private static final String KEY_START_TIME = "start_time";
     public static final String KEY_PLAYED_TIME = "played_time";
     public static final String KEY_LAST_OPENED = "last_opened";
     public static final String KEY_SOLVED = "solved";
 
-    protected int mState = STATE_NONE;
+    private int mState = STATE_NONE;
 
     public AchievementDataRiddleGame(PracticalRiddleType type) {
         super(DATA_NAME + type.getFullName());
@@ -62,13 +62,13 @@ public class AchievementDataRiddleGame extends AchievementProperties {
         openGame();
     }
 
-    private final boolean isAcceptingInput() {
-        return mState == STATE_OPENING || mState == STATE_OPENED;
+    private boolean isDecliningInput() {
+        return mState != STATE_OPENING && mState != STATE_OPENED;
     }
 
     @Override
     public synchronized Long increment(String key, long delta, long baseValue) {
-        if (!isAcceptingInput()) {
+        if (isDecliningInput()) {
             return baseValue;
         }
         return super.increment(key, delta, baseValue);
@@ -76,14 +76,14 @@ public class AchievementDataRiddleGame extends AchievementProperties {
 
     @Override
     public synchronized void putValue(String key, Long value, long requiredValueToOldDelta) {
-        if (!isAcceptingInput()) {
+        if (isDecliningInput()) {
             return;
         }
         super.putValue(key, value, requiredValueToOldDelta);
     }
 
     public synchronized void putValues(String key1, Long value1, long reqDelta1, String key2, Long value2, long reqDelta2, String key3, Long value3, long reqDelta3) {
-        if (!isAcceptingInput()) {
+        if (isDecliningInput()) {
             return;
         }
         boolean hadSilentChanges = isSilentChangeMode();

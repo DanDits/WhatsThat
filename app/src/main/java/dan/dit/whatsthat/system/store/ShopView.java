@@ -1,7 +1,6 @@
 package dan.dit.whatsthat.system.store;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.support.v4.app.FragmentActivity;
 import android.util.AttributeSet;
@@ -132,7 +131,6 @@ public class ShopView extends ExpandableListView implements  StoreContainer, Sho
     }
 
     private void applyFilterToImage(ImageView image, ShopArticleFilter filter) {
-        final PorterDuff.Mode mode = PorterDuff.Mode.MULTIPLY;
         if (filter.isActive()) {
             image.setImageAlpha(255);
         } else {

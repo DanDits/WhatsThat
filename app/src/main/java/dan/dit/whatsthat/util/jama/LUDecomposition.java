@@ -179,7 +179,7 @@ public class LUDecomposition implements java.io.Serializable {
    @return     true if U, and hence A, is nonsingular.
    */
 
-   public boolean isNonsingular () {
+   private boolean isNonsingular() {
       for (int j = 0; j < n; j++) {
          if (LU[j][j] == 0)
             return false;
@@ -233,9 +233,7 @@ public class LUDecomposition implements java.io.Serializable {
 
    public int[] getPivot () {
       int[] p = new int[m];
-      for (int i = 0; i < m; i++) {
-         p[i] = piv[i];
-      }
+      System.arraycopy(piv, 0, p, 0, m);
       return p;
    }
 

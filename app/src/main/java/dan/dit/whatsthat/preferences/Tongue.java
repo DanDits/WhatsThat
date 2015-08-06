@@ -132,7 +132,7 @@ public enum Tongue {
      * a flag of the country that this language origins from.
      * @return An icon resource id or 0.
      */
-    protected int getIconResId() {
+    int getIconResId() {
         return mIconResId;
     }
 

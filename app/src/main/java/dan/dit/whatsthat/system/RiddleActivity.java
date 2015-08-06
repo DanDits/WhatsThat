@@ -22,7 +22,7 @@ public class RiddleActivity extends Activity implements UnsolvedRiddlesChooser.C
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (!RiddleInitializer.INSTANCE.isInitialized()) {
+        if (RiddleInitializer.INSTANCE.isNotInitialized()) {
             // app got killed by android and is trying to reconstruct this activity when not initialized
             Log.d("HomeStuff", "App killed and trying to reconstruct non initialized into RiddleActivity.");
             Intent reInit = new Intent(getApplicationContext(), InitActivity.class);

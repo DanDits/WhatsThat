@@ -20,17 +20,17 @@ import dan.dit.whatsthat.util.flatworld.mover.HitboxNoMover;
  * Created by daniel on 03.06.15.
  */
 public abstract class FlatWorld {
-    protected final CollisionController mCollider;
-    protected final FlatWorldCallback mCallback;
+    private final CollisionController mCollider;
+    final FlatWorldCallback mCallback;
 
-    protected List<Actor> mActorsIterateData = new ArrayList<>();
-    protected final List<Actor> mActorsData = Collections.synchronizedList(new ArrayList<Actor>());
-    protected final List<Actor> mActiveActors = new ArrayList<>();
+    private List<Actor> mActorsIterateData = new ArrayList<>();
+    private final List<Actor> mActorsData = Collections.synchronizedList(new ArrayList<Actor>());
+    private final List<Actor> mActiveActors = new ArrayList<>();
 
-    protected List<WorldEffect> mEffectsIterateData = new ArrayList<>();
-    protected final List<WorldEffect> mEffectsData = Collections.synchronizedList(new ArrayList<WorldEffect>());
+    private List<WorldEffect> mEffectsIterateData = new ArrayList<>();
+    private final List<WorldEffect> mEffectsData = Collections.synchronizedList(new ArrayList<WorldEffect>());
 
-    public FlatWorld(CollisionController collider, FlatWorldCallback callback) {
+    FlatWorld(CollisionController collider, FlatWorldCallback callback) {
         mCollider = collider;
         if (collider == null) {
             throw new IllegalArgumentException("No collider given (use NoCollider for no collision).");
@@ -47,7 +47,7 @@ public abstract class FlatWorld {
         checkCollision();
     }
 
-    protected void updateEffects(long updatePeriod) {
+    private void updateEffects(long updatePeriod) {
         List<WorldEffect> effectIterate = mEffectsIterateData;
         for (int i = 0; i < effectIterate.size(); i++) {
             effectIterate.get(i).update(updatePeriod);
@@ -59,14 +59,14 @@ public abstract class FlatWorld {
         drawEffects(canvas, paint);
     }
 
-    protected void drawActors(Canvas canvas, Paint paint) {
+    private void drawActors(Canvas canvas, Paint paint) {
         List<Actor> actorIterate = mActorsIterateData;
         for (int i = 0; i < actorIterate.size(); i++) {
             actorIterate.get(i).draw(canvas, paint);
         }
     }
 
-    protected void drawEffects(Canvas canvas, Paint paint) {
+    private void drawEffects(Canvas canvas, Paint paint) {
         List<WorldEffect> effectIterate = mEffectsIterateData;
         for (int i = 0; i < effectIterate.size(); i++) {
             effectIterate.get(i).draw(canvas, paint);
@@ -93,11 +93,11 @@ public abstract class FlatWorld {
         }
     }
 
-    protected void checkCollision() {
+    private void checkCollision() {
         mCollider.checkCollision(mActiveActors, mCallback);
     }
 
-    public void pushEffect(WorldEffect effect) {
+    private void pushEffect(WorldEffect effect) {
         mEffectsData.add(effect);
         synchronized (mEffectsData) {
             Iterator<WorldEffect> it = mEffectsData.iterator();
@@ -117,7 +117,7 @@ public abstract class FlatWorld {
         return effect;
     }
 
-    public WorldEffect attachTimedMessage(NinePatchLook background, String message, int textMaxWidth, Actor toAttach, long duration) {
+    WorldEffect attachTimedMessage(NinePatchLook background, String message, int textMaxWidth, Actor toAttach, long duration) {
         WorldEffectMovedText effect = new WorldEffectMovedText(background, 0, 0, new HitboxAttachedMover(toAttach.getHitbox()), message, textMaxWidth);
         effect.setDuration(duration);
         pushEffect(effect);

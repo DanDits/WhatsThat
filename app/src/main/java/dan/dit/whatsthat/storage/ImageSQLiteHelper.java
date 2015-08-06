@@ -10,7 +10,7 @@ import android.database.sqlite.SQLiteOpenHelper;
  * current riddles {@see RiddleTable}.
  * Created by daniel on 24.03.15.
  */
-public class ImageSQLiteHelper extends SQLiteOpenHelper{
+class ImageSQLiteHelper extends SQLiteOpenHelper{
     //Initial version number = 1
     private static final int DATABASE_VERSION=1;
 
@@ -21,7 +21,7 @@ public class ImageSQLiteHelper extends SQLiteOpenHelper{
      * Creates an instance of the SQLiteOpenHelper required to use the imageData database.
      * @param context Context object.
      */
-    protected ImageSQLiteHelper(Context context) {
+    ImageSQLiteHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 

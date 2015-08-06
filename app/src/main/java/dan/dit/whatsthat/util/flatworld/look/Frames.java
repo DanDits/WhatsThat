@@ -10,7 +10,7 @@ import android.util.Log;
  */
 public class Frames extends Look {
     private Bitmap[] mFrames;
-    protected int mFrameIndex;
+    int mFrameIndex;
     private long mFrameCounter;
     private long mFrameDuration;
 

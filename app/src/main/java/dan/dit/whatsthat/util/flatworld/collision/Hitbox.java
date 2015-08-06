@@ -8,7 +8,7 @@ import java.util.Random;
  * Created by daniel on 31.05.15.
  */
 public abstract class Hitbox {
-    protected RectF mBoundingRect = new RectF();
+    RectF mBoundingRect = new RectF();
 
     public abstract RectF getBoundingRect();
 
@@ -41,7 +41,7 @@ public abstract class Hitbox {
      */
     public abstract void setCenter(float centerX, float centerY);
 
-    protected static float getRandomFloatInRange(float min, float max, Random random) {
+    static float getRandomFloatInRange(float min, float max, Random random) {
         return min + random.nextFloat() * (max - min);
     }
 

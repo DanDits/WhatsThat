@@ -9,7 +9,7 @@ import android.util.Log;
  * Stuffing drawing queue, see http://source.android.com/devices/graphics/architecture.html
  * Created by daniel on 07.05.15.
  */
-public class GamePeriodicThread extends Thread {
+class GamePeriodicThread extends Thread {
     private RiddleController mController;
     private transient boolean mIsRunning;
     private boolean mStopped;

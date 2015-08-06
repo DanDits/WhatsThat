@@ -22,7 +22,7 @@ public abstract class ContentRiddleType extends RiddleType {
     public static final ContentLittleGrey GREY_LITTLE_INSTANCE = new ContentLittleGrey();
     private static final int INTEREST_VALUE = 2;
 
-    protected int multiplier() {
+    int multiplier() {
         return 1;
     }
 

@@ -22,8 +22,8 @@ public class MinValueDependency extends Dependency{
     }
 
     @Override
-    public boolean isFulfilled() {
-        return mDependency.getValue() >= mMinValue;
+    public boolean isNotFulfilled() {
+        return mDependency.getValue() < mMinValue;
     }
 
     @Override

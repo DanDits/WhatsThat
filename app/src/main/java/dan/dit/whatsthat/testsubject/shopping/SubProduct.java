@@ -7,11 +7,11 @@ import android.view.View;
  * Created by daniel on 29.07.15.
  */
 public abstract class SubProduct {
-    protected ShopArticle mParentArticle;
+    ShopArticle mParentArticle;
 
     public abstract View getView();
 
-    public void setParentArticle(ShopArticle parentArticle) {
+    void setParentArticle(ShopArticle parentArticle) {
         mParentArticle = parentArticle;
     }
 

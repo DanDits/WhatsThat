@@ -9,7 +9,7 @@ import dan.dit.whatsthat.riddle.Riddle;
  * Created by daniel on 08.05.15.
  */
 public class SilentRiddleController extends RiddleController {
-    protected SilentRiddleController(@NonNull RiddleGame riddleGame, @NonNull Riddle riddle) {
+    SilentRiddleController(@NonNull RiddleGame riddleGame, @NonNull Riddle riddle) {
         super(riddleGame, riddle);
     }
 

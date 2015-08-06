@@ -39,8 +39,7 @@ public class ShopArticleSimple extends ShopArticle {
 
     @Override
     public int getSubProductCount() {
-        int count = mPurse.hasShopValue(mKey) ? 0 : 1;
-        return count;
+        return mPurse.hasShopValue(mKey) ? 0 : 1;
     }
 
     @Override
@@ -90,7 +89,7 @@ public class ShopArticleSimple extends ShopArticle {
         if (mPurse.hasShopValue(mKey)) {
             return HINT_NOT_PURCHASABLE_ALREADY_PURCHASED;
         }
-        if (!areDependenciesFulfilled(subProductIndex)) {
+        if (areDependenciesMissing(subProductIndex)) {
             return HINT_NOT_PURCHASABLE_DEPENDENCIES_MISSING;
         }
         return mPurse.getCurrentScore() >= mCost ? HINT_PURCHASABLE : HINT_NOT_PURCHASABLE_TOO_EXPENSIVE;

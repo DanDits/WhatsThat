@@ -36,13 +36,13 @@ public class UnsolvedRiddlesChooser {
      * A helper DateFormat for subclasses that display the time, e.g. the starttime of a game.
      * Use for a consistent look.
      */
-    protected static final DateFormat TIME_FORMAT = SimpleDateFormat.getTimeInstance(SimpleDateFormat.SHORT);
+    private static final DateFormat TIME_FORMAT = SimpleDateFormat.getTimeInstance(SimpleDateFormat.SHORT);
 
     /**
      * A helper DateFormat for subclasses that display a date, e.g. the startdate of a game.
      * Use for a consistent look.
      */
-    protected static final DateFormat DATE_FORMAT = SimpleDateFormat.getDateInstance(SimpleDateFormat.MEDIUM);
+    private static final DateFormat DATE_FORMAT = SimpleDateFormat.getDateInstance(SimpleDateFormat.MEDIUM);
     private static final Calendar CALENDAR_CHECKER1 = Calendar.getInstance();
     private static final Calendar CALENDAR_CHECKER2 = Calendar.getInstance();
     private String mToday;
@@ -141,7 +141,7 @@ public class UnsolvedRiddlesChooser {
      * @param second The second Date.
      * @return If <code>true</code> then the dates are on the same day of the year in the same year.
      */
-    protected static boolean isSameDate(Date first, Date second) {
+    private static boolean isSameDate(Date first, Date second) {
         CALENDAR_CHECKER1.setTime(first);
         CALENDAR_CHECKER2.setTime(second);
         return CALENDAR_CHECKER1.get(Calendar.DAY_OF_YEAR) == CALENDAR_CHECKER2.get(Calendar.DAY_OF_YEAR)
@@ -155,7 +155,7 @@ public class UnsolvedRiddlesChooser {
      * @param builder To append the text to.
      * @param startDate The start date of the game.
      */
-    protected StringBuilder appendDate(StringBuilder builder, Date startDate) {
+    private StringBuilder appendDate(StringBuilder builder, Date startDate) {
         Date today = new Date();
         if (isSameDate(today, startDate)) {
             builder.append(mToday);
@@ -171,7 +171,7 @@ public class UnsolvedRiddlesChooser {
         return builder;
     }
 
-    protected StringBuilder appendTime(StringBuilder builder, Date startDate) {
+    private StringBuilder appendTime(StringBuilder builder, Date startDate) {
         builder.append(TIME_FORMAT.format(startDate));
         return builder;
     }

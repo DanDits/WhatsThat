@@ -17,7 +17,6 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
 
-import dan.dit.whatsthat.R;
 import dan.dit.whatsthat.riddle.games.RiddleController;
 import dan.dit.whatsthat.riddle.types.PracticalRiddleType;
 import dan.dit.whatsthat.system.NoPanicDialog;

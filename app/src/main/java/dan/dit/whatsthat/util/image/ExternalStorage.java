@@ -19,7 +19,7 @@ public class ExternalStorage {
      * or null if the external storage state is not MEDIA_MOUNTED.
      * Path format is : BasePath/WhatsThat/directoryName or BasePath/WhatsThat or null
      */
-    public static final String getExternalStoragePathIfMounted(String directoryName) {
+    public static String getExternalStoragePathIfMounted(String directoryName) {
         if (!Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
             Log.e("HomeStuff", "External storage not available, not retrieving path for directory " + directoryName);
             return null;

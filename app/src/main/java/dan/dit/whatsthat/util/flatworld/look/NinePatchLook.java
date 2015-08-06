@@ -27,7 +27,6 @@ public class NinePatchLook extends Look {
     private StaticLayout mTextLayout;
     private Rect mTextBounds;
     private Bitmap mBitmap;
-    private Canvas mBitmapCanvas;
 
     public NinePatchLook(NinePatchDrawable drawable, int screenDensity) {
         mNinePatch = drawable;
@@ -93,7 +92,7 @@ public class NinePatchLook extends Look {
 
     private void updateBitmap() {
         mBitmap = Bitmap.createBitmap(mWidth, mHeight, Bitmap.Config.ARGB_8888);
-        mBitmapCanvas = new Canvas(mBitmap);
+        Canvas mBitmapCanvas = new Canvas(mBitmap);
         mNinePatch.setBounds(0, 0, mWidth, mHeight);
         mNinePatch.draw(mBitmapCanvas);
         drawText(mBitmapCanvas, PADDING_LR / 2, PADDING_TB / 2);
@@ -112,8 +111,7 @@ public class NinePatchLook extends Look {
     public static NinePatchDrawable loadNinePatch(Resources res, int id){
         Bitmap bitmap = BitmapFactory.decodeResource(res, id);
         byte[] chunk = bitmap.getNinePatchChunk();
-        NinePatchDrawable ninePatch = new NinePatchDrawable(res, bitmap,
+        return new NinePatchDrawable(res, bitmap,
                 chunk, new Rect(), null);
-        return ninePatch;
     }
 }

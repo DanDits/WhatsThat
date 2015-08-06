@@ -362,7 +362,7 @@ public class ImageDataDownload {
 
             // Step 1: unzip into storage directory
             File storageDirectory = getStorageDirectory();
-            if (IOUtil.unzip(storage, storageDirectory)) {
+            if (storageDirectory != null && IOUtil.unzip(storage, storageDirectory)) {
                 publishProgress(25);
                 // Step 2: find the xml holding required information to parse data
                 File dataHolder = null;

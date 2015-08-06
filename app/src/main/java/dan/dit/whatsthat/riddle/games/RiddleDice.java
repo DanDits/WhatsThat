@@ -362,9 +362,9 @@ public class RiddleDice extends RiddleGame {
     }
 
     private class DicePosition extends FieldElement {
-        protected int mDiceNumber;
-        protected int mDiceState;
-        protected int mAlpha;
+        int mDiceNumber;
+        int mDiceState;
+        int mAlpha;
 
         @Override
         public boolean isBlocked() {

@@ -7,7 +7,7 @@ import android.widget.Button;
 /**
  * Created by daniel on 11.06.15.
  */
-public interface StoreContainer {
+interface StoreContainer {
     void refresh(FragmentActivity activity, Button titleBackButton);
     void stop(FragmentActivity activity);
     View getView();

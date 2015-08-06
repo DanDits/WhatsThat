@@ -16,10 +16,10 @@ import static java.util.Collections.EMPTY_LIST;
  * Created by daniel on 15.06.15.
  */
 public abstract class TypeAchievementHolder implements AchievementHolder {
-    protected final PracticalRiddleType mType;
-    protected Map<Integer, GameAchievement> mAchievements;
+    final PracticalRiddleType mType;
+    Map<Integer, GameAchievement> mAchievements;
 
-    public TypeAchievementHolder(PracticalRiddleType type) {
+    TypeAchievementHolder(PracticalRiddleType type) {
         mType = type;
     }
 

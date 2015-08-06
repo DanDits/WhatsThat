@@ -65,7 +65,7 @@ public class AchievementManager implements AchievementDataEventListener {
         }
     }
 
-    protected void onChanged(Achievement achievement, int changedHint) {
+    void onChanged(Achievement achievement, int changedHint) {
         if (achievement != null) {
             mChangedAchievements.add(achievement);
             if (changedHint == CHANGED_TO_ACHIEVED) {
@@ -96,7 +96,7 @@ public class AchievementManager implements AchievementDataEventListener {
         return new Compacter(data);
     }
 
-    protected SharedPreferences getSharedPreferences() {
+    SharedPreferences getSharedPreferences() {
         return mPrefs;
     }
 

@@ -33,14 +33,14 @@ class ManagerSuperCardToast {
 
     private ManagerSuperCardToast() {
 
-        mList = new LinkedList<SuperCardToast>();
+        mList = new LinkedList<>();
 
     }
 
     /**
      * Singleton method to ensure all SuperCardToasts are passed through the same manager.
      */
-    protected static synchronized ManagerSuperCardToast getInstance() {
+    static synchronized ManagerSuperCardToast getInstance() {
 
         if (mManagerSuperCardToast != null) {
 

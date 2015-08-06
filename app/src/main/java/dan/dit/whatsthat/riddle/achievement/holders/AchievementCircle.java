@@ -97,7 +97,7 @@ public class AchievementCircle extends TypeAchievementHolder {
 
         @Override
         public CharSequence getDescription(Resources res) {
-            return res.getString(mDescrResId, getValue(), MAX_CIRCLES);
+            return res.getString(mDescrResId, MAX_CIRCLES);
         }
 
         @Override

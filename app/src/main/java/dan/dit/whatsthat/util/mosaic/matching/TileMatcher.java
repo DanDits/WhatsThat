@@ -15,7 +15,7 @@ import dan.dit.whatsthat.util.mosaic.data.MosaicTile;
  */
 public abstract class TileMatcher<S> {
 
-    protected final ColorMetric mColorMetric;
+    final ColorMetric mColorMetric;
     private Map<Integer, MosaicTile<S>> mBestMatches;
 
     public void setHashMatches(boolean hashMatches) {
@@ -26,14 +26,14 @@ public abstract class TileMatcher<S> {
         }
     }
 
-    protected void resetHashMatches() {
+    void resetHashMatches() {
         if (mBestMatches != null) {
             setHashMatches(false);
             setHashMatches(true);
         }
     }
 
-    protected MosaicTile<S> getBestMatchHashed(int color) {
+    private MosaicTile<S> getBestMatchHashed(int color) {
         if (mBestMatches == null) {
             throw new IllegalStateException("Hash not used!");
         }
@@ -49,7 +49,7 @@ public abstract class TileMatcher<S> {
 	/**
 	 * If the TileMatcher uses the alpha value of the rgb values for matching.
 	 */
-	protected final boolean useAlpha;
+	final boolean useAlpha;
 	
 	/**
 	 * Creates a new tile matcher, the given flag simply signals
@@ -57,7 +57,7 @@ public abstract class TileMatcher<S> {
      * @param useAlpha If the matcher uses the alpha value for matching.
      * @param metric The color metric to use, if null defaults to Euclid2.
      */
-	protected TileMatcher(boolean useAlpha, ColorMetric metric) {
+    TileMatcher(boolean useAlpha, ColorMetric metric) {
 		this.useAlpha = useAlpha;
         mColorMetric = metric == null ? ColorMetric.Euclid2.INSTANCE : metric;
 	}

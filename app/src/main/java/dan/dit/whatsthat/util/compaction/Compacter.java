@@ -24,7 +24,7 @@ import java.util.List;
 public class Compacter implements Iterable<String> {
 	private static final String SEPARATION_SYMBOL = ";"; // any length one string which is no blank symbol that gets trimmed
 	private static final String BLANK = " "; // any string of length >= 1 unequal to and does not contain SEPARATION_SYMBOL
-	public static final String SEPARATOR = BLANK + SEPARATION_SYMBOL + BLANK;
+	private static final String SEPARATOR = BLANK + SEPARATION_SYMBOL + BLANK;
 	private static final char[] SEPERATOR_CHARS = SEPARATOR.toCharArray();
 	private List<String> data;
 	

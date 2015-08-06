@@ -7,7 +7,7 @@ import android.content.res.Resources;
  */
 public abstract class Dependency {
 
-    public abstract boolean isFulfilled();
+    public abstract boolean isNotFulfilled();
 
     public abstract CharSequence getName(Resources res);
 }

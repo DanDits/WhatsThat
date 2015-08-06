@@ -5,7 +5,7 @@
     <view
         class="dan.dit.whatsthat.system.store.CreditsView"
         android:orientation="vertical" android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:id="@+id/store_container">
 
     </view>

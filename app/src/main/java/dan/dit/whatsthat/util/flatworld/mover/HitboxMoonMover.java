@@ -13,8 +13,8 @@ public class HitboxMoonMover extends  HitboxMover {
     public static final float ANGLE_TOP = (float) Math.PI * 3.f / 2.f;
     public static final float ANGLE_LEFT = (float) Math.PI;
     public static final float ANGLE_BOTTOM = (float) Math.PI / 2.f;
-    public static final int STATE_NOT_MOVING = 0;
-    public static final int STATE_MOVING = 1;
+    private static final int STATE_NOT_MOVING = 0;
+    private static final int STATE_MOVING = 1;
 
     private Hitbox mPlanet;
     private long mMoonYear;

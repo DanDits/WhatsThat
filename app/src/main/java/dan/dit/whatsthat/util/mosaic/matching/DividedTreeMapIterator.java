@@ -12,7 +12,7 @@ import java.util.TreeMap;
  * @param <K> The key type which must be comparable.
  * @param <T> The type of the entries in the treemap.
  */
-public class DividedTreeMapIterator<K extends Comparable<K>, T> {
+class DividedTreeMapIterator<K extends Comparable<K>, T> {
 	private Iterator<K> ascendingIt;
 	private Iterator<K> descendingIt;
 	private NavigableMap<K, T> tailMap;
@@ -109,7 +109,7 @@ public class DividedTreeMapIterator<K extends Comparable<K>, T> {
 				}
 			}
 		}
-		if (searchUp && !searchDown) {
+		if (searchUp) { // and not searchUp
 			if (hasUp) {
 				up = ascendingIt.next();
 				if (up.compareTo(upperLimit) <= 0) {
@@ -121,7 +121,7 @@ public class DividedTreeMapIterator<K extends Comparable<K>, T> {
 				return null; // has no up
 			}
 		}
-		if (searchDown && !searchUp) {
+		if (searchDown) {//and not search up
 			if (hasDown) {
 				down = descendingIt.next();
 				if (down.compareTo(lowerLimit) >= 0) {

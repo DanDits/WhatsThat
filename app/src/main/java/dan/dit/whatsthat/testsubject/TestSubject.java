@@ -45,9 +45,9 @@ import dan.dit.whatsthat.util.compaction.Compacter;
  */
 public class TestSubject {
     private static final TestSubject INSTANCE = new TestSubject();
-    public static final int LEVEL_NONE = -1;
-    public static final int LEVEL_0_KID_STUPID = 0;
-    public static final int LEVEL_1_KID_NORMAL = 1;
+    private static final int LEVEL_NONE = -1;
+    private static final int LEVEL_0_KID_STUPID = 0;
+    private static final int LEVEL_1_KID_NORMAL = 1;
     public static final String EMAIL_ON_ERROR = "whatsthat.contact@gmail.com";
     public static final String EMAIL_FEEDBACK = "whatsthat.feedback@gmail.com";
     private static final String TEST_SUBJECT_PREFERENCES_FILE = "dan.dit.whatsthat.testsubject_preferences";
@@ -283,23 +283,23 @@ public class TestSubject {
     //TODO rework intro mechanics, make class that handles ui and saving of state, allowing to ask for input (gender) and
     // TODO showing images and other things for indidivual messages
     public String nextText() {
-        if (!hasNextMainText() || mFinishedMainTexts) {
+        if (hasFinishedMainTexts() || mFinishedMainTexts) {
             return nextNutsText();
         } else {
             String text = nextMainText();
-            if (!hasNextMainText()) {
+            if (hasFinishedMainTexts()) {
                 mPreferences.edit().putBoolean(TEST_SUBJECT_PREF_FINISHED_MAIN_TEXTS, true).apply();
             }
             return text;
         }
     }
 
-    private boolean hasNextMainText() {
-        return mIntroTextMain.length > mTextMainIndex;
+    private boolean hasFinishedMainTexts() {
+        return mIntroTextMain.length <= mTextMainIndex;
     }
 
     private String nextMainText() {
-        if (!hasNextMainText() || mIntroTextMain.length == 0) {
+        if (hasFinishedMainTexts() || mIntroTextMain.length == 0) {
             return "";
         }
         String text = mIntroTextMain[mTextMainIndex];
@@ -481,8 +481,8 @@ public class TestSubject {
             }
         }
         @Override
-        public boolean isFulfilled() {
-            return mArticle.isPurchasable(mProduct) == ShopArticle.HINT_NOT_PURCHASABLE_ALREADY_PURCHASED;
+        public boolean isNotFulfilled() {
+            return mArticle.isPurchasable(mProduct) != ShopArticle.HINT_NOT_PURCHASABLE_ALREADY_PURCHASED;
         }
 
         @Override
@@ -511,13 +511,13 @@ public class TestSubject {
             mType = type;
         }
         @Override
-        public boolean isFulfilled() {
+        public boolean isNotFulfilled() {
             for (TestSubjectRiddleType testType : mTypes) {
                 if (testType.getType().equals(mType)) {
-                    return true;
+                    return false;
                 }
             }
-            return false;
+            return true;
         }
 
         @Override
@@ -541,8 +541,8 @@ public class TestSubject {
         }
 
         @Override
-        public boolean isFulfilled() {
-            return mAchievement.isAchieved() && !mAchievement.isRewardClaimable();
+        public boolean isNotFulfilled() {
+            return !mAchievement.isAchieved() || mAchievement.isRewardClaimable();
         }
 
         @Override

@@ -8,12 +8,8 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
-import android.graphics.RadialGradient;
-import android.graphics.Rect;
 import android.graphics.Shader;
-import android.graphics.Xfermode;
 import android.support.annotation.NonNull;
-import android.util.Log;
 import android.view.MotionEvent;
 
 import dan.dit.whatsthat.R;
@@ -33,12 +29,12 @@ public class RiddleTorchlight extends RiddleGame {
     private static final float GLOW_RADIUS = 90.f;
 
 
-    int x;
-    int y;
-    Bitmap flame;
+    private int x;
+    private int y;
+    private Bitmap flame;
     private Paint paint;
     private Paint glowpaint;
-    long Lasttimedrawn;
+    private long Lasttimedrawn;
     private Paint glowToDarkPaint;
     private Bitmap mTorchlightEffect;
 
@@ -132,7 +128,7 @@ public class RiddleTorchlight extends RiddleGame {
     @NonNull
     @Override
     protected String compactCurrentState() {
-        return null;
+        return "";
     }
 
 

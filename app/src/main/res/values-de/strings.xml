@@ -548,7 +548,7 @@
     <string name="achievement_circle_1_name">Der Anfang</string>
     <string name="achievement_circle_1_descr">Löse %1$d/%2$d Bilder.</string>
     <string name="achievement_circle_2_name">Ich weiß was</string>
-    <string name="achievement_circle_2_descr">Achja? Erkennst du das Bild mit nur %2$d Kreisen?</string>
+    <string name="achievement_circle_2_descr">Achja? Erkennst du das Bild mit nur %1$d Kreisen?</string>
     <string name="achievement_circle_3_name">Och wie schee</string>
     <string name="achievement_circle_3_descr">Zähle alle Kreise eines Spieles und bewundere den Künstler.</string>
     <string name="achievement_circle_4_name">Ich liebe es</string>
@@ -785,5 +785,7 @@
     <string name="panic_complain_content">Ich will mich über das Rätsel und Bild beschweren...SAG UNS WAS DIR NICHT PASST! :)</string>
     <string name="riddle_type_torchlight">Fakel</string>
     <string name="riddle_type_torchlight_explanation">Geheim und mysteriös.</string>
+    <string name="send_log_confirm">Log senden</string>
+    <string name="send_log_title">Sorry, abgestürzt!</string>
 
 </resources>

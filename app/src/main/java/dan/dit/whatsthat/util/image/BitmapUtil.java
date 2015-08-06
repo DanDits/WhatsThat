@@ -87,7 +87,7 @@ public class BitmapUtil {
         return result;
     }
 
-    public static final Matrix toMatrix(Bitmap source) {
+    public static Matrix toMatrix(Bitmap source) {
         Matrix matrix = new Matrix(source.getHeight(), source.getWidth());
 
         for (int y = 0; y < source.getHeight(); y++) {
@@ -98,7 +98,7 @@ public class BitmapUtil {
         return matrix;
     }
 
-    public static final Bitmap toBitmap(Matrix matrix) {
+    public static Bitmap toBitmap(Matrix matrix) {
         Bitmap result = Bitmap.createBitmap(matrix.getColumnDimension(), matrix.getRowDimension(), Bitmap.Config.ARGB_8888);
         for (int y = 0; y < result.getHeight(); y++) {
             for (int x = 0; x < result.getWidth(); x++) {

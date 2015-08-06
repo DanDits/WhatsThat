@@ -7,11 +7,11 @@ import android.graphics.Paint;
  * Created by daniel on 30.05.15.
  */
 public abstract class Look {
-    protected boolean mVisible;
-    protected float mOffsetX;
-    protected float mOffsetY;
+    boolean mVisible;
+    float mOffsetX;
+    float mOffsetY;
 
-    public Look() {
+    Look() {
         mVisible = true;
     }
 

@@ -13,14 +13,14 @@ public class TestSubjectRiddleType implements Compactable {
     private PracticalRiddleType mType;
     private boolean mSelected = true;
 
-    protected TestSubjectRiddleType(PracticalRiddleType toDecorate) {
+    TestSubjectRiddleType(PracticalRiddleType toDecorate) {
         if (toDecorate == null) {
             throw new NullPointerException();
         }
         mType = toDecorate;
     }
 
-    protected TestSubjectRiddleType(Compacter compactedData) throws CompactedDataCorruptException {
+    TestSubjectRiddleType(Compacter compactedData) throws CompactedDataCorruptException {
         unloadData(compactedData);
     }
 

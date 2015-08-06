@@ -10,19 +10,19 @@ import dan.dit.whatsthat.util.flatworld.look.Look;
  */
 public abstract class WorldEffect {
     public static final int STATE_TIMEOUT = 0;
-    public static final int STATE_RUNNING = 1;
-    public static final long DURATION_INFINITE = Long.MAX_VALUE;
+    private static final int STATE_RUNNING = 1;
+    private static final long DURATION_INFINITE = Long.MAX_VALUE;
 
-    protected Look mLook;
-    protected long mDuration;
+    Look mLook;
+    private long mDuration;
 
-    protected int mFadeFrom;
-    protected int mFadeTo;
-    protected long mFadeOffsetDuration;
-    protected long mFadeTime;
-    protected long mFadeTimeTotal;
+    int mFadeFrom;
+    int mFadeTo;
+    long mFadeOffsetDuration;
+    long mFadeTime;
+    long mFadeTimeTotal;
 
-    public WorldEffect(Look look) {
+    WorldEffect(Look look) {
         mLook = look;
         if (mLook == null) {
             throw new IllegalArgumentException("Null frames given to WorldEffect.");

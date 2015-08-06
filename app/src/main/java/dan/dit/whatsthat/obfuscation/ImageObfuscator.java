@@ -127,7 +127,7 @@ public class ImageObfuscator {
                     alpha -= 4;
 				}
 
-				raster[y][x] = rgb = ColorAnalysisUtil.toRGB(red, green, blue, alpha);				
+				raster[y][x] = ColorAnalysisUtil.toRGB(red, green, blue, alpha);
 			}
 		}
 		
@@ -201,7 +201,7 @@ public class ImageObfuscator {
                 int alphaFactor = 3 - alpha % 4;
                 alpha -= alphaFactor * 64 - alphaFactor;
 
-				raster[y][x]=rgb=ColorAnalysisUtil.toRGB(red, green, blue, alpha);
+				raster[y][x]=ColorAnalysisUtil.toRGB(red, green, blue, alpha);
 				
 			}
 		}

@@ -84,7 +84,7 @@ public class RiddleManager {
      * @param solvedRiddlesCount The amount of solved riddles.
      * @param loadedScore The score earned by all solved riddles.
      */
-    protected RiddleManager(@NonNull List<Riddle> loadedUnsolvedRiddles, int solvedRiddlesCount, int loadedScore) {
+    RiddleManager(@NonNull List<Riddle> loadedUnsolvedRiddles, int solvedRiddlesCount, int loadedScore) {
         mAllUnsolvedRiddles.addAll(loadedUnsolvedRiddles);
         mSolvedRiddlesCount = solvedRiddlesCount;
         mLoadedScore = loadedScore;
@@ -116,7 +116,7 @@ public class RiddleManager {
      * no listeners will be notified about them though!
      * @return The list of unsolved riddles.
      */
-    protected List<Riddle> getUnsolvedRiddles() {
+    List<Riddle> getUnsolvedRiddles() {
         return mAllUnsolvedRiddles;
     }
 

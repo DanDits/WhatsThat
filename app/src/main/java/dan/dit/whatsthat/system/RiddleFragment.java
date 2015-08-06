@@ -8,9 +8,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
-import android.net.Uri;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.InputType;
@@ -78,7 +76,6 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
     private SolutionInputView mSolutionView;
     private PercentProgressListener mProgressBar;
     private ImageButton mBtnRiddles;
-    private ImageButton mBtnCheat;
     private ImageButtonWithNumber mOpenStore;
     private Iterator<Long> mOpenUnsolvedRiddlesId;
     private RiddlePickerDialog mRiddlePickerDialog;
@@ -390,7 +387,7 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
                 onPanic();
             }
         });
-        mBtnCheat = (ImageButton) getView().findViewById(R.id.riddle_cheat);
+        ImageButton mBtnCheat = (ImageButton) getView().findViewById(R.id.riddle_cheat);
         mBtnCheat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -463,10 +460,12 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
         } catch (IOException ioe) {
             Toast.makeText(getActivity(), "Fehler beim Lesen der kummerkasten Datei", Toast.LENGTH_SHORT).show();
         } finally {
-            try {
-                reader.close();
-            } catch (IOException ioe) {
-                //ignore
+            if (reader != null) {
+                try {
+                    reader.close();
+                } catch (IOException ioe) {
+                    //ignore
+                }
             }
         }
         if (data == null) {
@@ -489,10 +488,12 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
             } catch (IOException ioe) {
                 Toast.makeText(getActivity(), "Fehler beim Schreiber der entschlüsselten Beschwerde", Toast.LENGTH_SHORT).show();
             } finally {
-                try {
-                    writer.close();
-                } catch (IOException ioe) {
-                    //ignore
+                if (writer != null) {
+                    try {
+                        writer.close();
+                    } catch (IOException ioe) {
+                        //ignore
+                    }
                 }
             }
 

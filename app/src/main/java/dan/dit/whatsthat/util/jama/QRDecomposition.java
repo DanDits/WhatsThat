@@ -95,7 +95,7 @@ public class QRDecomposition implements java.io.Serializable {
    @return     true if R, and hence A, has full rank.
    */
 
-   public boolean isFullRank () {
+   private boolean isFullRank() {
       for (int j = 0; j < n; j++) {
          if (Rdiag[j] == 0)
             return false;

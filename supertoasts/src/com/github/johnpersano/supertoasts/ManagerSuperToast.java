@@ -48,12 +48,12 @@ public class ManagerSuperToast extends Handler {
     /* Private method to create a new list if the manager is being initialized */
     private ManagerSuperToast() {
 
-        mQueue = new LinkedBlockingQueue<SuperToast>();
+        mQueue = new LinkedBlockingQueue<>();
 
     }
 
     /* Singleton method to ensure all SuperToasts are passed through the same manager */
-    protected static synchronized ManagerSuperToast getInstance() {
+    static synchronized ManagerSuperToast getInstance() {
 
         if (mManagerSuperToast != null) {
 
@@ -70,7 +70,7 @@ public class ManagerSuperToast extends Handler {
     }
 
     /* Add SuperToast to queue and try to show it */
-    protected void add(SuperToast superToast) {
+    void add(SuperToast superToast) {
 
         /* Add SuperToast to queue and try to show it */
         mQueue.add(superToast);
@@ -196,7 +196,7 @@ public class ManagerSuperToast extends Handler {
     }
 
     /* Hide and remove the SuperToast */
-    protected void removeSuperToast(SuperToast superToast) {
+    void removeSuperToast(SuperToast superToast) {
 
         final WindowManager windowManager = superToast
                 .getWindowManager();
@@ -223,7 +223,7 @@ public class ManagerSuperToast extends Handler {
     }
 
     /* Cancels/removes all showing pending SuperToasts */
-    protected void cancelAllSuperToasts() {
+    void cancelAllSuperToasts() {
 
         removeMessages(Messages.ADD_SUPERTOAST);
         removeMessages(Messages.DISPLAY_SUPERTOAST);

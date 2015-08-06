@@ -21,7 +21,7 @@ import dan.dit.whatsthat.R;
  * Created by daniel on 28.03.15.
  */
 public class ImageManager {
-    protected static final String PREFERENCES_KEY_IMAGE_MANAGER_VERSION = "dan.dit.whatsthat.prefkey_imagemanagerversion";
+    private static final String PREFERENCES_KEY_IMAGE_MANAGER_VERSION = "dan.dit.whatsthat.prefkey_imagemanagerversion";
     private static boolean SYNCING_TASK_HAS_FINISHED_THIS_RUN;
 
     private ImageManager() {}

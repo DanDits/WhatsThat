@@ -13,7 +13,7 @@ import dan.dit.whatsthat.util.image.ColorMetric;
  * @author Daniel
  *
  */
-public abstract class ShapeReconstructor extends Reconstructor {
+abstract class ShapeReconstructor extends Reconstructor {
 	private int rowCount;
 	private int columnCount;
 	private int totalHeight;
@@ -22,7 +22,7 @@ public abstract class ShapeReconstructor extends Reconstructor {
 	private int rectWidth;
 	private boolean[][][] raster;
 	private int[][] averageRGB;
-	protected ColorMetric mColorMetric;
+	ColorMetric mColorMetric;
 
 
 	/**
@@ -37,8 +37,8 @@ public abstract class ShapeReconstructor extends Reconstructor {
 	 * Reconstructor does not use corner connections (TOP_LEFT, BOTTOM_RIGHT,...), set this
 	 * @param metric The color metric to use to compare colors for similarity.
 	 */
-	public ShapeReconstructor(Bitmap source, int maxRows, int maxColumns,
-							  boolean allowCornerConnections, ColorMetric metric) {
+	ShapeReconstructor(Bitmap source, int maxRows, int maxColumns,
+					   boolean allowCornerConnections, ColorMetric metric) {
 		if (source == null) {
 			throw new NullPointerException();
 		}
@@ -79,7 +79,7 @@ public abstract class ShapeReconstructor extends Reconstructor {
 	 * Returns the total height of the image to reconstruct.
 	 * @return The total height of the image to reconstruct.
 	 */
-	public int getTotalHeight() {
+	int getTotalHeight() {
 		return totalHeight;
 	}
 
@@ -87,7 +87,7 @@ public abstract class ShapeReconstructor extends Reconstructor {
 	 * Returns the total width of the image to reconstruct.
 	 * @return The total widht of the image to reconstruct.
 	 */
-	public int getTotalWidth() {
+	int getTotalWidth() {
 		return totalWidth;
 	}
 	
@@ -101,7 +101,7 @@ public abstract class ShapeReconstructor extends Reconstructor {
 	 * @return The index of the last row which is connected without interruption to the
 	 * given fragment.
 	 */
-	protected int getLastConnectedRow(int startRow, int column, boolean up) {
+	int getLastConnectedRow(int startRow, int column, boolean up) {
 		int dirIndex = up ? FragmentNeighbor.UP.ordinal() : FragmentNeighbor.DOWN.ordinal();
 		int delta = up ? -1 : 1;
 		int currRow = startRow;
@@ -123,7 +123,7 @@ public abstract class ShapeReconstructor extends Reconstructor {
 	 * @return The index of the last column which is connected without interruption to the
 	 * given fragment.
 	 */
-	protected int getLastConnectedColumn(int startColumn, int row, boolean left) {
+	int getLastConnectedColumn(int startColumn, int row, boolean left) {
 		int dirIndex = left ? FragmentNeighbor.LEFT.ordinal() : FragmentNeighbor.RIGHT.ordinal();
 		int delta = left ? -1 : 1;
 		int currColumn = startColumn;
@@ -144,7 +144,7 @@ public abstract class ShapeReconstructor extends Reconstructor {
 	 * @param to The neighbor to check for a connection.
 	 * @return <code>true</code> if the Fragment is connected to the neighbor.
 	 */
-	protected boolean isConnected(int row, int column, FragmentNeighbor to) {
+	boolean isConnected(int row, int column, FragmentNeighbor to) {
 		return this.raster[row][column][to.ordinal()];
 	}
 	
@@ -162,7 +162,7 @@ public abstract class ShapeReconstructor extends Reconstructor {
 	 * @return <code>true</code> if the neighbor existed and the connection between the
 	 * neighbors changed.
 	 */
-	protected boolean setConnected(int row, int column, FragmentNeighbor neighbor, boolean connected) {
+	boolean setConnected(int row, int column, FragmentNeighbor neighbor, boolean connected) {
 		int neighborRow = row + neighbor.getRowDelta();
 		int neighborColumn = column + neighbor.getColumnDelta();
 		if (neighborRow >= 0 && neighborRow < this.rowCount 
@@ -190,7 +190,7 @@ public abstract class ShapeReconstructor extends Reconstructor {
 	 * for all rects.
 	 * @return The height of a basic single fragment rect.
 	 */
-	public int getRectHeight() {
+	int getRectHeight() {
 		return rectHeight;
 	}
 
@@ -199,7 +199,7 @@ public abstract class ShapeReconstructor extends Reconstructor {
 	 * for all rects.
 	 * @return The widht of a basic single fragment rect.
 	 */
-	public int getRectWidth() {
+	int getRectWidth() {
 		return rectWidth;
 	}
 
@@ -210,7 +210,7 @@ public abstract class ShapeReconstructor extends Reconstructor {
 	 * @param column The column index of the fragment.
 	 * @return The average RGB value of the fragment.
 	 */
-	protected int getAverageRGB(int row, int column) {
+	int getAverageRGB(int row, int column) {
 		return this.averageRGB[row][column];
 	}
 	
@@ -218,7 +218,7 @@ public abstract class ShapeReconstructor extends Reconstructor {
 	 * Returns the amount of rows of the basic fragmentation. Does not change.
 	 * @return The amount of rows of the basic fragmentation.
 	 */
-	protected int getRowCount() {
+	int getRowCount() {
 		return this.rowCount;
 	}
 	
@@ -226,7 +226,7 @@ public abstract class ShapeReconstructor extends Reconstructor {
 	 * Returns the amount of columns of the basic fragmentation. Does not change.
 	 * @return The amount of columns of the basic fragmentation.
 	 */
-	protected int getColumnCount() {
+	int getColumnCount() {
 		return this.columnCount;
 	}
 

@@ -7,7 +7,7 @@ public abstract class ShopArticleFilter {
     private final int mIcon;
     private boolean mActive;
 
-    public ShopArticleFilter(int iconResId) {
+    ShopArticleFilter(int iconResId) {
         mIcon = iconResId;
     }
 

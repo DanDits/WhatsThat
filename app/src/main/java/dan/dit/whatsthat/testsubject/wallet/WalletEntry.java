@@ -41,7 +41,7 @@ public class WalletEntry implements Dependable {
         return mNameResId == 0 ? mKey : res.getString(mNameResId);
     }
 
-    protected void setValue(int value) {
+    void setValue(int value) {
         mValue = value;
     }
 }

@@ -18,7 +18,7 @@ public class ListLockMaxIndex {
         refresh();
     }
 
-    protected void refresh() {
+    void refresh() {
         if (mMaxElements > 0) {
             mMaxIndex = Math.min(mList.size(), mMaxElements) - 1;
         } else {

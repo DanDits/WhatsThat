@@ -1,6 +1,5 @@
 package dan.dit.whatsthat.util.flatworld.collision;
 
-import java.util.Iterator;
 import java.util.List;
 
 import dan.dit.whatsthat.util.flatworld.world.Actor;

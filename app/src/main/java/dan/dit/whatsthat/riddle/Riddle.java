@@ -47,20 +47,20 @@ public class Riddle {
      * The key to identify a parameter that describes the last visible unsolved riddle type
      * saved when the riddle fragment shut down or stopped.
      */
-    public static final String LAST_VISIBLE_RIDDLE_TYPE_FULL_NAME_ID_KEY = "dan.dit.whatsthat.last_visible_riddle_type_fullname_key";
+    private static final String LAST_VISIBLE_RIDDLE_TYPE_FULL_NAME_ID_KEY = "dan.dit.whatsthat.last_visible_riddle_type_fullname_key";
 
 
     /**
      * A constant that is to be used when an id parameter or result value is around that is not a valid id of any riddle.
      */
     public static final long NO_ID = -1L;
-    protected String mSolutionData;
-    protected int mSolved; // if solved only the core needs to be saved, if not yet started solving no need to save to database
-    protected Core mCore;
-    protected String mCurrentState; // the current state after closing
+    private String mSolutionData;
+    private int mSolved; // if solved only the core needs to be saved, if not yet started solving no need to save to database
+    Core mCore;
+    private String mCurrentState; // the current state after closing
     private String mAchievementData; // the achievement data after closing
 
-    protected Riddle(String hash, PracticalRiddleType type, String origin) {
+    Riddle(String hash, PracticalRiddleType type, String origin) {
         mCore = new Core(origin, hash, type);
         mSolved = Solution.SOLVED_NOTHING;
     }
@@ -211,7 +211,7 @@ public class Riddle {
             return mImageHash;
         }
 
-        protected ContentValues makeContentValues() {
+        ContentValues makeContentValues() {
             ContentValues cv = new ContentValues();
             cv.put(RiddleTable.COLUMN_ID, mId);
             cv.put(RiddleTable.COLUMN_TIMESTAMP, mTimestamp);
@@ -278,7 +278,7 @@ public class Riddle {
         mSolutionData = cursor.getString(cursor.getColumnIndexOrThrow(RiddleTable.COLUMN_SOLUTION));
     }
 
-    protected ContentValues makeContentValues() {
+    private ContentValues makeContentValues() {
         ContentValues cv = mCore.makeContentValues();
         cv.put(RiddleTable.COLUMN_SOLVED, mSolved);
         cv.put(RiddleTable.COLUMN_CURRENTSTATE, mCurrentState);
@@ -287,7 +287,7 @@ public class Riddle {
         return cv;
     }
 
-    protected static long saveToDatabase(Context context, ContentValues cv) {
+    private static long saveToDatabase(Context context, ContentValues cv) {
         cv.put(ImagesContentProvider.SQL_INSERT_OR_REPLACE, true);
         Uri uri = context.getContentResolver().insert(ImagesContentProvider.CONTENT_URI_RIDDLE, cv);
         if (uri != null) {
@@ -316,7 +316,7 @@ public class Riddle {
         return Core.isId(id) && context.getContentResolver().delete(ImagesContentProvider.CONTENT_URI_RIDDLE, RiddleTable.COLUMN_ID + "=?", new String[]{Long.toString(id)}) > 0;
     }
 
-    protected static Map<RiddleType, Set<String>> loadUsedImagesForTypes(@NonNull Context context,@NonNull RiddleInitializer.InitTask commandingTask) {
+    static Map<RiddleType, Set<String>> loadUsedImagesForTypes(@NonNull Context context, @NonNull RiddleInitializer.InitTask commandingTask) {
         Cursor cursor = context.getContentResolver().query(ImagesContentProvider.CONTENT_URI_RIDDLE,
                 new String[] {RiddleTable.COLUMN_RIDDLETYPE, RiddleTable.COLUMN_IMAGEHASH}, null, null, RiddleTable.COLUMN_TIMESTAMP + " DESC");
         final int PROGRESS_FOR_LOADING_CURSOR = 15;
@@ -347,7 +347,7 @@ public class Riddle {
     }
 
 
-    protected static List<Riddle> loadUnsolvedRiddles(Context context, RiddleInitializer.InitTask commandingTask) {
+    static List<Riddle> loadUnsolvedRiddles(Context context, RiddleInitializer.InitTask commandingTask) {
         Cursor cursor = context.getContentResolver().query(ImagesContentProvider.CONTENT_URI_RIDDLE_UNSOLVED,
                 RiddleTable.ALL_COLUMNS, null, null, RiddleTable.COLUMN_TIMESTAMP + " DESC");
         final int PROGRESS_FOR_LOADING_CURSOR = 25;

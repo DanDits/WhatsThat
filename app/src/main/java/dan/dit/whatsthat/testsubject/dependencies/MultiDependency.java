@@ -18,14 +18,14 @@ public class MultiDependency extends Dependency{
     }
 
     @Override
-    public boolean isFulfilled() {
+    public boolean isNotFulfilled() {
         boolean fulfilled = true;
         for (Dependency dep : mDependencies) {
-            if (!dep.isFulfilled()) {
+            if (dep.isNotFulfilled()) {
                 fulfilled = false;
             }
         }
-        return fulfilled;
+        return !fulfilled;
     }
 
     @Override

@@ -21,7 +21,7 @@ public class CompactedDataCorruptException extends Exception {
 		super(message, cause);
 	}
 
-	public CompactedDataCorruptException setCorruptData(String corruptData) {
+	private CompactedDataCorruptException setCorruptData(String corruptData) {
 		this.corruptData = corruptData;
 		return this;
 	}

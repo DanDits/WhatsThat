@@ -12,11 +12,11 @@ import dan.dit.whatsthat.util.compaction.Compacter;
 public class AchievementProperties extends AchievementData {
     public static final long UPDATE_POLICY_ALWAYS = 0L;
 
-    protected final Map<String, Long> mValues = new HashMap<>();
+    private final Map<String, Long> mValues = new HashMap<>();
     private boolean mSilentChangeMode;
-    protected AchievementDataEvent mEvent = new AchievementDataEvent();
+    private AchievementDataEvent mEvent = new AchievementDataEvent();
 
-    public AchievementProperties(String name, Compacter data) throws CompactedDataCorruptException {
+    protected AchievementProperties(String name, Compacter data) throws CompactedDataCorruptException {
         super(name);
         unloadData(data);
     }
@@ -39,15 +39,12 @@ public class AchievementProperties extends AchievementData {
         }
     }
 
-    public AchievementProperties(String name) {
+    protected AchievementProperties(String name) {
         super(name);
     }
 
     public boolean removeKey(String key) {
-        if (key == null) {
-            return false;
-        }
-        return mValues.remove(key) != null;
+        return key != null && mValues.remove(key) != null;
     }
 
     @Override

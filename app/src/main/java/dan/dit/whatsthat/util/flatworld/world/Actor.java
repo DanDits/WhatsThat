@@ -15,9 +15,9 @@ import dan.dit.whatsthat.util.flatworld.mover.HitboxMover;
  * Created by daniel on 31.05.15.
  */
 public class Actor {
-    protected Hitbox mHitbox;
-    protected HitboxMover mMover;
-    protected final Map<Integer, Look> mStateFrames = new HashMap<>();
+    private Hitbox mHitbox;
+    private HitboxMover mMover;
+    private final Map<Integer, Look> mStateFrames = new HashMap<>();
     protected Look mCurrentLook;
     private boolean mActive;
 
@@ -33,7 +33,7 @@ public class Actor {
         }
     }
 
-    public void setMover(HitboxMover mover) {
+    private void setMover(HitboxMover mover) {
         mMover = mover;
         if (mover == null) {
             throw new IllegalArgumentException("Illegal mover!");

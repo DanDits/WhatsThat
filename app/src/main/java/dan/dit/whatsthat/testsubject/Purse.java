@@ -8,14 +8,14 @@ import dan.dit.whatsthat.testsubject.wallet.Wallet;
 /**
  * Created by daniel on 10.06.15.
  */
-public class Purse {
+class Purse {
     private static final String SCORE_WALLET = "score";
     private static final String SHOP_WALLET = "shop";
-    protected static final String SHW_KEY_TESTSUBJECT_LEVEL = "testsubject_level";
-    protected static final String SHW_KEY_SKIPABLE_GAMES = "skipable_games";
-    protected static final String SW_KEY_SPENT_SCORE = "testsubject_spent_score";
-    protected static final String SW_KEY_SOLVED_RIDDLE_SCORE = "solved_riddle_score";
-    protected static final String SW_KEY_ACHIEVEMENT_SCORE = "achievement_score";
+    static final String SHW_KEY_TESTSUBJECT_LEVEL = "testsubject_level";
+    static final String SHW_KEY_SKIPABLE_GAMES = "skipable_games";
+    private static final String SW_KEY_SPENT_SCORE = "testsubject_spent_score";
+    static final String SW_KEY_SOLVED_RIDDLE_SCORE = "solved_riddle_score";
+    static final String SW_KEY_ACHIEVEMENT_SCORE = "achievement_score";
     private static final String SHW_KEY_CURRENT_RIDDLE_HINT = "current_riddle_hint_";
     private static final String SHW_KEY_AVAILABLE_RIDDLE_HINT_COUNT = "available_riddle_hint_";
 
@@ -29,11 +29,9 @@ public class Purse {
     }
 
     public int getCurrentScore() {
-        int score =
-                mScoreWallet.getEntryValue(SW_KEY_SOLVED_RIDDLE_SCORE)
+        return  mScoreWallet.getEntryValue(SW_KEY_SOLVED_RIDDLE_SCORE)
                 + mScoreWallet.getEntryValue(SW_KEY_ACHIEVEMENT_SCORE)
                 - mScoreWallet.getEntryValue(SW_KEY_SPENT_SCORE);
-        return score;
     }
 
     public void spentScore(final int score) {

@@ -36,7 +36,7 @@ public abstract class PracticalRiddleType extends RiddleType {
     public static final Types.Circle CIRCLE_INSTANCE = new Types.Circle();
     public static final Types.Snow SNOW_INSTANCE = new Types.Snow();
     public static final Types.Dice DICE_INSTANCE = new Types.Dice();
-    public static final Types.Developer DEVELOPER_INSTANCE = new Types.Developer();
+    private static final Types.Developer DEVELOPER_INSTANCE = new Types.Developer();
     public static final Types.Triangle TRIANGLE_INSTANCE = new Types.Triangle();
     public static final Types.Jumper JUMPER_INSTANCE = new Types.Jumper();
     public static final Types.Memory MEMORY_INSTANCE = new Types.Memory();

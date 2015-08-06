@@ -27,9 +27,9 @@ import java.util.List;
  */
 public class Wrappers {
 
-    private List<OnClickWrapper> onClickWrapperList = new ArrayList<OnClickWrapper>();
+    private List<OnClickWrapper> onClickWrapperList = new ArrayList<>();
 
-    private List<OnDismissWrapper> onDismissWrapperList = new ArrayList<OnDismissWrapper>();
+    private List<OnDismissWrapper> onDismissWrapperList = new ArrayList<>();
 
     /**
      * Adds an onclickwrapper to a list that will be reattached on orientation change.

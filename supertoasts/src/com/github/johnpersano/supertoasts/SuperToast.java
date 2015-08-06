@@ -149,7 +149,7 @@ public class SuperToast {
     /**
      * Text sizes for all types of SuperToasts.
      */
-    public static class TextSize {
+    private static class TextSize {
 
         public static final int EXTRA_SMALL = (12);
         public static final int SMALL = (14);

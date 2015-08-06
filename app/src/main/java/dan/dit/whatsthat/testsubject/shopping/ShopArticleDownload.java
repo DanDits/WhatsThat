@@ -33,7 +33,7 @@ public class ShopArticleDownload extends ShopArticle implements ImageDataDownloa
         mDownload = new ImageDataDownload(context, origin, dataName, estimatedSizeMB, url, this);
     }
 
-    public static String makeKey(String origin, String dataName) {
+    private static String makeKey(String origin, String dataName) {
         return KEY_PREFIX + origin + dataName;
     }
 
@@ -47,7 +47,7 @@ public class ShopArticleDownload extends ShopArticle implements ImageDataDownloa
         if (mPurse.hasShopValue(mKey)) {
             return HINT_NOT_PURCHASABLE_ALREADY_PURCHASED;
         }
-        if (!areDependenciesFulfilled(subProductIndex)) {
+        if (areDependenciesMissing(subProductIndex)) {
             return HINT_NOT_PURCHASABLE_DEPENDENCIES_MISSING;
         }
         return mPurse.getCurrentScore() >= mCost ? HINT_PURCHASABLE : HINT_NOT_PURCHASABLE_TOO_EXPENSIVE;
@@ -132,9 +132,9 @@ public class ShopArticleDownload extends ShopArticle implements ImageDataDownloa
     public void setIndeterminate(boolean indeterminate) {
         if (mDownloadProduct != null && mDownloadProduct.mProgress != null) {
             if (indeterminate && !mDownloadProduct.mProgress.isIndeterminate()) {
-                mDownloadProduct.mProgress.setIndeterminate(indeterminate);
+                mDownloadProduct.mProgress.setIndeterminate(true);
             } else if (!indeterminate && mDownloadProduct.mProgress.isIndeterminate()) {
-                mDownloadProduct.mProgress.setIndeterminate(indeterminate);
+                mDownloadProduct.mProgress.setIndeterminate(false);
             }
         }
     }

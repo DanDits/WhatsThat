@@ -129,7 +129,7 @@ public final class IOUtil {
 	 * The list will not contain directories, only files. Returned list will never be <code>null</code>.
 	 */
     public static LinkedList<File> getFiles(File folder) {
-    	LinkedList<File> filesInFolder = new LinkedList<File>();
+    	LinkedList<File> filesInFolder = new LinkedList<>();
     	IOUtil.addContainingFiles(folder, filesInFolder);
     	return filesInFolder;
     }

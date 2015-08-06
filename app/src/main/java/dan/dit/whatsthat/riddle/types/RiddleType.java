@@ -12,10 +12,10 @@ import android.util.Log;
  */
 public abstract class RiddleType {
     private static final String RIDDLE_TYPE_PREFIX = "RT";
-    protected static final char RIDDLE_TYPE_PREFIX_PRACTICAL = 'p';
-    protected static final char RIDDLE_TYPE_PREFIX_FORMAT = 'f';
-    protected static final char RIDDLE_TYPE_PREFIX_CONTENT ='c';
-    protected static final int FULL_NAME_MIN_LENGTH = RIDDLE_TYPE_PREFIX.length() + 1;
+    static final char RIDDLE_TYPE_PREFIX_PRACTICAL = 'p';
+    static final char RIDDLE_TYPE_PREFIX_FORMAT = 'f';
+    static final char RIDDLE_TYPE_PREFIX_CONTENT ='c';
+    static final int FULL_NAME_MIN_LENGTH = RIDDLE_TYPE_PREFIX.length() + 1;
     private static final int TYPE_PREFIX_INDEX = RIDDLE_TYPE_PREFIX.length();
 
     protected abstract char getTypePrefix();
@@ -24,7 +24,7 @@ public abstract class RiddleType {
 
     private String mFullName;
 
-    protected RiddleType() {
+    RiddleType() {
         mFullName = RIDDLE_TYPE_PREFIX + getTypePrefix() + getName();
         registerType();
     }
@@ -87,7 +87,7 @@ public abstract class RiddleType {
      * Defined by subclasses to weight some types more than others.
      * @return A positive interest value.
      */
-    public abstract int getInterestValue();
+    protected abstract int getInterestValue();
 
     /**
      * Returns the interest value if the givent ype is equal to this type, else zero.

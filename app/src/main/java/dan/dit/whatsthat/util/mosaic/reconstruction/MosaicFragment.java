@@ -13,7 +13,7 @@ import dan.dit.whatsthat.util.image.ColorAnalysisUtil;
 public class MosaicFragment {
 	private int width;
 	private int height;
-	protected int averageRGB;
+	private int averageRGB;
 	
 	/**
 	 * Creates a new Fragment, storing the given widht, height
@@ -26,7 +26,7 @@ public class MosaicFragment {
 		reset(width, height, averageRGB);
 	}
 
-	protected void reset(int width, int height, int averageRGB) {
+	void reset(int width, int height, int averageRGB) {
 		this.width = width;
 		this.height = height;
         this.averageRGB = averageRGB;

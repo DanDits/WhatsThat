@@ -10,11 +10,11 @@ public class RiddleControllerFactory {
 
     private RiddleControllerFactory() {}
 
-    protected RiddleController makeController(RiddleGame game, Riddle riddle) {
+    RiddleController makeController(RiddleGame game, Riddle riddle) {
         return new RiddleController(game, riddle);
     }
 
-    public static class Silent extends RiddleControllerFactory {
+    protected static class Silent extends RiddleControllerFactory {
         private Silent() {}
 
         protected RiddleController makeController(RiddleGame game, Riddle riddle) {

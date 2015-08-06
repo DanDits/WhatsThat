@@ -29,7 +29,7 @@ public class Solution implements Compactable {
      * be an expected solution for an image, don't use it there!
      * @param tongue The tongue of the solution.
      */
-    protected Solution(Tongue tongue) {
+    Solution(Tongue tongue) {
         if (tongue == null) {
             throw new IllegalArgumentException("Null tongue given.");
         }

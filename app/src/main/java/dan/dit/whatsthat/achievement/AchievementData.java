@@ -18,7 +18,7 @@ public abstract class AchievementData implements Compactable {
     protected final String mName;
     private boolean mIsProcessingEvent;
 
-    public AchievementData(String dataName) {
+    AchievementData(String dataName) {
         mName = dataName;
         if (TextUtils.isEmpty(mName)) {
             throw new IllegalArgumentException("Null name given for achievement data.");
@@ -55,7 +55,7 @@ public abstract class AchievementData implements Compactable {
         return false;
     }
 
-    protected synchronized void notifyListeners(AchievementDataEvent event) {
+    synchronized void notifyListeners(AchievementDataEvent event) {
         if (!mIsProcessingEvent) {
             for (AchievementDataEventListener added : mAddedListeners) {
                 mListeners.add(added);

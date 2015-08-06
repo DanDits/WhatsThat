@@ -11,14 +11,13 @@ import android.view.View;
 
 import dan.dit.whatsthat.R;
 import dan.dit.whatsthat.riddle.types.PracticalRiddleType;
-import dan.dit.whatsthat.system.RiddleFragment;
 import dan.dit.whatsthat.testsubject.TestSubject;
 
 /**
  * Created by daniel on 04.07.15.
  */
 public class GameWelcomeDialog extends DialogFragment {
-    public static final String KEY_TYPE = "key_type_full_name";
+    private static final String KEY_TYPE = "key_type_full_name";
     public static final String GAME_WELCOME_DIALOG_TAG = "dan.dit.whatsthat.GameWelcomeDialog";
     private PracticalRiddleType mType;
 

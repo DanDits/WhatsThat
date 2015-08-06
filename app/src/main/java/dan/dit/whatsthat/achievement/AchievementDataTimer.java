@@ -1,5 +1,6 @@
 package dan.dit.whatsthat.achievement;
 
+import android.text.TextUtils;
 import android.util.Log;
 
 import java.util.Arrays;
@@ -24,7 +25,7 @@ import dan.dit.whatsthat.util.compaction.Compacter;
  */
 public class AchievementDataTimer extends AchievementData {
     private Map<String, TimeKeeper> mTimeKeepers = new HashMap<>();
-    protected AchievementDataEvent mEvent = new AchievementDataEvent();
+    private AchievementDataEvent mEvent = new AchievementDataEvent();
 
     /**
      * Loads an AchievementDataTimer with the given data name.
@@ -32,7 +33,7 @@ public class AchievementDataTimer extends AchievementData {
      * @param compactedData The comapted data. Can be null to create a new instance.
      * @throws CompactedDataCorruptException If there was an error reading the data.
      */
-    public AchievementDataTimer(String dataName, Compacter compactedData) throws CompactedDataCorruptException {
+    protected AchievementDataTimer(String dataName, Compacter compactedData) throws CompactedDataCorruptException {
         super(dataName);
         unloadData(compactedData);
     }
@@ -41,7 +42,7 @@ public class AchievementDataTimer extends AchievementData {
      * Creates a new AchievementDataTimer with the given data name.
      * @param dataName The AchievementData name.
      */
-    public AchievementDataTimer(String dataName) {
+    protected AchievementDataTimer(String dataName) {
         super(dataName);
     }
 
@@ -83,7 +84,7 @@ public class AchievementDataTimer extends AchievementData {
      * @param key The key for the new TimeKeeper.
      * @param amount The positive amount of timestamps to hold.
      */
-    public synchronized void newTimeKeeper(String key, int amount) {
+    private synchronized void newTimeKeeper(String key, int amount) {
         if (key == null || amount <= 0) {
             return;
         }
@@ -174,7 +175,7 @@ public class AchievementDataTimer extends AchievementData {
             if (count <= 0) {
                 throw new IllegalArgumentException("Illegal count: " + count);
             }
-            if (key == null) {
+            if (TextUtils.isEmpty(key)) {
                 throw new IllegalArgumentException("Illegal key: " + key);
             }
             mKey = key;

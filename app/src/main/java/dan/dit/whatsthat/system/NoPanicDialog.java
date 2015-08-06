@@ -27,7 +27,7 @@ import dan.dit.whatsthat.testsubject.TestSubject;
 public class NoPanicDialog extends DialogFragment {
     public static final String KEY_IMAGE = "key_image_hash";
     public static final String KEY_TYPE = "key_type_full_name";
-    public static final String KEY_NO_SECRETS = "key_no_secrets";
+    private static final String KEY_NO_SECRETS = "key_no_secrets";
     private PracticalRiddleType mType;
     private Image mImage;
     private Callback mCallback;
