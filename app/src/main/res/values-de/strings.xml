@@ -38,7 +38,7 @@
     <string name="intro_test_subject_name">-Test Subjekt-</string>
     <string name="intro_test_subject_estimated_intelligence">-Intelligenz-</string>
 
-    <string name="test_subject_0_name">Doofes Kind</string>
+    <string name="test_subject_0_name">Verwirrtes Kind</string>
     <string name="test_subject_0_int">Hoffnungslos</string>
     <string-array name="test_subject_0_intro_main">
         <item>Hallo Du, kannst du mich verstehen?</item>
@@ -49,7 +49,8 @@
         <item>Es reicht aber, wenn du mich ganz zwanglos mit \"Erhabener\" anredest.</item>
         <item>Achja, das hier ist Dr. Kulg.</item>
         <item>Ihr würdet ihn einen verrückt genialen Wissenschaftler nennen.</item>
-        <item>Aber genug davon.</item>
+        <item>Verrate mir nur vorweg bitte eins: Was bist du für ein Wesen?</item>
+        <item>Unsere hochentwickelte Kultur ist darüber zu erhaben, aber euch Menschen ist das ja wichtig.</item>
         <item>Meine Schöpfer und ich, oder kurz gesagt, wir, wollen die menschliche Spezies besser verstehen.</item>
         <item>Unsere Wahl ist dabei auf dich gefallen.</item>
         <item>Du wirst unser Versuchsobjekt sein</item>
@@ -786,5 +787,6 @@
     <string name="riddle_type_torchlight">Fakel</string>
     <string name="riddle_type_torchlight_explanation">Geheim und mysteriös.</string>
     <string name="send_log_confirm">Log senden</string>
+    <string name="intro_starting_episode">Willkommen %1$s</string>
 
 </resources>

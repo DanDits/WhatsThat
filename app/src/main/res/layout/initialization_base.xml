@@ -33,7 +33,7 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/init_abduction"
+            android:id="@+id/intro_abduction"
             android:layout_gravity="center"
             android:src="@drawable/abduction"
             android:visibility="invisible" />
@@ -41,30 +41,37 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/init_kid"
+            android:id="@+id/intro_subject"
             android:layout_gravity="center_horizontal|bottom"
             android:src="@drawable/kid"
             android:visibility="invisible" />
-
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/intro_icon"
+            android:layout_gravity="top|center_horizontal"
+            />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:id="@+id/init_subject_descr"
+            android:id="@+id/intro_subject_descr"
             android:layout_gravity="bottom|left"
             android:textStyle="italic" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/init_text"
-            android:layout_gravity="center_horizontal|top"
+            android:id="@+id/intro_message"
+            android:layout_gravity="center"
             android:background="@drawable/say_alien"
             android:visibility="invisible"
             android:paddingTop="10dp"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
-            android:layout_margin="10dp" />
+            android:layout_margin="10dp"
+            android:layout_marginTop="48dp"/>
+
     </FrameLayout>
 
 </LinearLayout>

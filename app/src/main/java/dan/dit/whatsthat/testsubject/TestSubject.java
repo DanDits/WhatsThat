@@ -1,5 +1,6 @@
 package dan.dit.whatsthat.testsubject;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
@@ -7,6 +8,8 @@ import android.graphics.Color;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.View;
+import android.widget.TextView;
 
 import com.github.johnpersano.supertoasts.SuperToast;
 
@@ -29,6 +32,8 @@ import dan.dit.whatsthat.riddle.achievement.holders.MiscAchievementHolder;
 import dan.dit.whatsthat.riddle.achievement.holders.TestSubjectAchievementHolder;
 import dan.dit.whatsthat.riddle.achievement.holders.TypeAchievementHolder;
 import dan.dit.whatsthat.riddle.types.PracticalRiddleType;
+import dan.dit.whatsthat.testsubject.intro.GeneralStartingEpisode;
+import dan.dit.whatsthat.testsubject.intro.Intro;
 import dan.dit.whatsthat.util.dependencies.Dependable;
 import dan.dit.whatsthat.util.dependencies.Dependency;
 import dan.dit.whatsthat.util.dependencies.MinValueDependency;
@@ -45,13 +50,9 @@ import dan.dit.whatsthat.util.compaction.Compacter;
  */
 public class TestSubject {
     private static final TestSubject INSTANCE = new TestSubject();
-    private static final int LEVEL_NONE = -1;
-    private static final int LEVEL_0_KID_STUPID = 0;
-    private static final int LEVEL_1_KID_NORMAL = 1;
     public static final String EMAIL_ON_ERROR = "whatsthat.contact@gmail.com";
     public static final String EMAIL_FEEDBACK = "whatsthat.feedback@gmail.com";
     private static final String TEST_SUBJECT_PREFERENCES_FILE = "dan.dit.whatsthat.testsubject_preferences";
-    private static final String TEST_SUBJECT_PREF_FINISHED_MAIN_TEXTS = "key_finished_main_texts";
     private static final String TEST_SUBJECT_PREF_RIDDLE_TYPES = "key_testsubject_riddletypes";
     private static final String TEST_SUBJECT_PREF_GENDER = "key_testsubject_gender";
     private static final int DEFAULT_SKIPABLE_GAMES = 15;
@@ -67,15 +68,6 @@ public class TestSubject {
 
     private SharedPreferences mPreferences;
     private int mGender = GENDER_NOT_CHOSEN;
-    private int mNameResId;
-    private int mIntelligenceResId;
-    private int mImageResId;
-    private int mTextMainIndex;
-    private int mTextNutsIndex;
-    private String[] mIntroTextMain;
-    private boolean mFinishedMainTexts;
-    private String[] mIntroTextNuts;
-    private int mRiddleSolvedCandy;
     private Random mRand = new Random();
     private List<TestSubjectRiddleType> mTypes = new ArrayList<>();
 
@@ -85,6 +77,8 @@ public class TestSubject {
     private DelayedQueueProcessor<TestSubjectToast> mGeneralToastProcessor;
     private DelayedQueueProcessor<Achievement> mAchievementToastProcessor;
     private ShopArticleHolder mShopArticleHolder;
+    private int mCurrLevel;
+    private TestSubjectLevel[] mLevels;
 
     private TestSubject() {
     }
@@ -93,7 +87,7 @@ public class TestSubject {
         INSTANCE.mApplicationContext = context.getApplicationContext();
         AchievementManager.initialize(INSTANCE.mApplicationContext);
         INSTANCE.initPreferences();
-        INSTANCE.initLevel();
+        INSTANCE.initLevels();
         INSTANCE.mInitialized = true;
         INSTANCE.mAchievementHolder = new TestSubjectAchievementHolder(AchievementManager.getInstance());
         INSTANCE.mAchievementHolder.addDependencies();
@@ -111,8 +105,40 @@ public class TestSubject {
         mPreferences.edit().putInt(TEST_SUBJECT_PREF_GENDER, mGender).apply();
     }
 
+    @SuppressLint("CommitPrefEdits")
+    public void saveIntro(Intro intro) {
+        if (intro == null) {
+            return;
+        }
+        intro.save(mPreferences.edit(), mPurse.mShopWallet.getEntryValue(Purse.SHW_KEY_TESTSUBJECT_LEVEL));
+    }
+
+    public Intro makeIntro(View introView) {
+        int level = mPurse.mShopWallet.getEntryValue(Purse.SHW_KEY_TESTSUBJECT_LEVEL);
+        TestSubjectLevel currLevel = mLevels[level];
+        Intro intro = Intro.makeIntro(introView, currLevel);
+        intro.load(mPreferences, level);
+        Resources res = intro.getResources();
+        String testSubjDescr =
+                res.getString(R.string.intro_test_subject_name)
+                        +"\n"
+                        + res.getString(currLevel.mNameResId)
+                        + "\n"
+                        + res.getString(R.string.intro_test_subject_estimated_intelligence)
+                        +"\n"
+                        + res.getString(currLevel.mIntelligenceResId);
+        ((TextView) intro.findViewById(R.id.intro_subject_descr)).setText(testSubjDescr);
+        intro.addEpisodeAsCurrentMain(new GeneralStartingEpisode(intro, res.getString(R.string.intro_starting_episode, res.getString(currLevel.mNameResId)), currLevel));
+        if (intro.getCurrentEpisode() == null) {
+            intro.nextEpisode(); // if this level is loaded for the first time we need to set the initial episode
+        } else {
+            intro.getCurrentEpisode().start();
+        }
+        return intro;
+    }
+
     public Dependable getLevelDependency() {
-        return mPurse.mShopWallet.assureEntry(Purse.SHW_KEY_TESTSUBJECT_LEVEL, LEVEL_0_KID_STUPID);
+        return mPurse.mShopWallet.assureEntry(Purse.SHW_KEY_TESTSUBJECT_LEVEL);
     }
 
     public void initToasts() {
@@ -166,7 +192,6 @@ public class TestSubject {
         mPurse = new Purse(mApplicationContext);
         mShopArticleHolder = new ShopArticleHolder(mApplicationContext, new ForeignPurse(mPurse));
         mGender = mPreferences.getInt(TEST_SUBJECT_PREF_GENDER, GENDER_NOT_CHOSEN);
-        mFinishedMainTexts = mPreferences.getBoolean(TEST_SUBJECT_PREF_FINISHED_MAIN_TEXTS, false);
 
         // TestSubjectRiddleTypes
         String typesDataRaw = mPreferences.getString(TEST_SUBJECT_PREF_RIDDLE_TYPES, null);
@@ -193,19 +218,26 @@ public class TestSubject {
         }
     }
 
-    private void initLevel() {
-        WalletEntry levelEntry = mPurse.mShopWallet.assureEntry(Purse.SHW_KEY_TESTSUBJECT_LEVEL, LEVEL_NONE);
-        int oldLevel = levelEntry.getValue();
-        if (oldLevel == LEVEL_NONE) {
-            mPurse.mShopWallet.editEntry(Purse.SHW_KEY_TESTSUBJECT_LEVEL).set(LEVEL_0_KID_STUPID);
+    private void levelUp() {
+        if (mCurrLevel >= mLevels.length - 1) {
+            return;
         }
-        int newLevel = levelEntry.getValue();
-        if (newLevel > oldLevel) {
-            onLevelUp(newLevel);
-            saveTypes();
-        }
+        mPurse.mShopWallet.editEntry(Purse.SHW_KEY_TESTSUBJECT_LEVEL).add(1);
+        mCurrLevel = mPurse.mShopWallet.getEntryValue(Purse.SHW_KEY_TESTSUBJECT_LEVEL);
+        TestSubjectLevel currLevel = mLevels[mCurrLevel];
+        currLevel.onLeveledUp();
+        currLevel.applyLevel(mApplicationContext.getResources());
+    }
 
-        applyLevel(mApplicationContext.getResources(), newLevel);
+    private void initLevels() {
+        mLevels = TestSubjectLevel.makeAll(this);
+        WalletEntry levelEntry = mPurse.mShopWallet.assureEntry(Purse.SHW_KEY_TESTSUBJECT_LEVEL, TestSubjectLevel.LEVEL_NONE);
+        mCurrLevel = levelEntry.getValue();
+        if (mCurrLevel == TestSubjectLevel.LEVEL_NONE) {
+            levelUp();
+        } else {
+            mLevels[mCurrLevel].applyLevel(mApplicationContext.getResources());
+        }
     }
 
     public static TestSubject getInstance() {
@@ -232,20 +264,7 @@ public class TestSubject {
         mAchievementHolder.getMiscData().increment(MiscAchievementHolder.KEY_ACHIEVEMENTS_EARNED_COUNT, 1L, 0L);
     }
 
-    private void onLevelUp(int newLevel) {
-        if (newLevel == LEVEL_0_KID_STUPID) {
-            addNewType(PracticalRiddleType.CIRCLE_INSTANCE);
-            addNewType(PracticalRiddleType.SNOW_INSTANCE);
-            addNewType(PracticalRiddleType.TRIANGLE_INSTANCE);
-            addNewType(PracticalRiddleType.DICE_INSTANCE);
-            addNewType(PracticalRiddleType.JUMPER_INSTANCE);
-            addNewType(PracticalRiddleType.MEMORY_INSTANCE);
-            addNewType(PracticalRiddleType.TORCHLIGHT_INSTANCE);
-            //addNewType(PracticalRiddleType.DEVELOPER_INSTANCE);
-        }
-    }
-
-    private void addNewType(PracticalRiddleType type) {
+    protected void addNewType(PracticalRiddleType type) {
         for (TestSubjectRiddleType currType : mTypes) {
             if (currType.getType().equals(type)) {
                 return;
@@ -253,85 +272,6 @@ public class TestSubject {
         }
         mTypes.add(new TestSubjectRiddleType(type));
         mPurse.setAvailableRiddleHintsAtStartCount(type);
-    }
-
-    private void applyLevel(Resources res, int level) {
-        mTextMainIndex = 0;
-        mTextNutsIndex = 0;
-        switch (level) {
-            case LEVEL_0_KID_STUPID:
-                mNameResId = R.string.test_subject_0_name;
-                mIntelligenceResId = R.string.test_subject_0_int;
-                mImageResId = R.drawable.kid0;
-                mIntroTextMain = res.getStringArray(R.array.test_subject_0_intro_main);
-                mIntroTextNuts = res.getStringArray(R.array.test_subject_0_intro_nuts);
-                mRiddleSolvedCandy = R.array.test_subject_0_riddle_solved_candy;
-                break;
-            case LEVEL_1_KID_NORMAL:
-                mNameResId = R.string.test_subject_1_name;
-                mIntelligenceResId = R.string.test_subject_1_int;
-                mImageResId = R.drawable.kid;
-                mIntroTextMain = res.getStringArray(R.array.test_subject_1_intro_main);
-                mIntroTextNuts = res.getStringArray(R.array.test_subject_1_intro_nuts);
-                mRiddleSolvedCandy = R.array.test_subject_1_riddle_solved_candy;
-                break;
-            default:
-                throw new IllegalArgumentException("Not a valid level " + level);
-        }
-    }
-
-    //TODO rework intro mechanics, make class that handles ui and saving of state, allowing to ask for input (gender) and
-    // TODO showing images and other things for indidivual messages
-    public String nextText() {
-        if (hasFinishedMainTexts() || mFinishedMainTexts) {
-            return nextNutsText();
-        } else {
-            String text = nextMainText();
-            if (hasFinishedMainTexts()) {
-                mPreferences.edit().putBoolean(TEST_SUBJECT_PREF_FINISHED_MAIN_TEXTS, true).apply();
-            }
-            return text;
-        }
-    }
-
-    private boolean hasFinishedMainTexts() {
-        return mIntroTextMain.length <= mTextMainIndex;
-    }
-
-    private String nextMainText() {
-        if (hasFinishedMainTexts() || mIntroTextMain.length == 0) {
-            return "";
-        }
-        String text = mIntroTextMain[mTextMainIndex];
-        mTextMainIndex++;
-        return text;
-    }
-
-    private String nextNutsText() {
-        if (mIntroTextNuts != null && mIntroTextNuts.length > 0) {
-            String text = mIntroTextNuts[mTextNutsIndex];
-            mTextNutsIndex++;
-            mTextNutsIndex %= mIntroTextNuts.length;
-            return text;
-        } else {
-            return "";
-        }
-    }
-
-    public int getRiddleSolvedResIds() {
-        return mRiddleSolvedCandy;
-    }
-
-    public int getIntelligenceResId() {
-        return mIntelligenceResId;
-    }
-
-    public int getImageResId() {
-        return mImageResId;
-    }
-
-    public int getNameResId() {
-        return mNameResId;
     }
 
     public List<TestSubjectRiddleType> getAvailableTypes() {
@@ -464,6 +404,14 @@ public class TestSubject {
     public boolean purchaseNextHintForFree(PracticalRiddleType type) {
         ForeignPurse purse = mShopArticleHolder.getPurse();
         return purse.purchaseHint(type, 0);
+    }
+
+    public int getRiddleSolvedResIds() {
+        return mLevels[mCurrLevel].mRiddleSolvedCandy;
+    }
+
+    public int getImageResId() {
+        return mLevels[mCurrLevel].mImageResId;
     }
 
     private static class ProductPurchasedDependency extends Dependency {
