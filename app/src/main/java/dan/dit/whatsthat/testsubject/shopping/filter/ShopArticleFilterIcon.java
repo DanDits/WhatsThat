@@ -1,4 +1,6 @@
-package dan.dit.whatsthat.testsubject.shopping;
+package dan.dit.whatsthat.testsubject.shopping.filter;
+
+import dan.dit.whatsthat.testsubject.shopping.ShopArticle;
 
 /**
  * Created by daniel on 31.07.15.

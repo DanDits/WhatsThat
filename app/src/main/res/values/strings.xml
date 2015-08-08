@@ -257,6 +257,9 @@
     <string name="achievement_circle_11_descr">Divide %2$d circles. Don\'t look at me like this. The prof is a math guy. He knows what he\'s doing …%3$d is inadequate. %4$d is of course absurd. You got %1$d.</string>
     <string name="achievement_circle_12_name">Big brother is watching you</string>
     <string name="achievement_circle_12_descr">Be fast or he will look into your soul.</string>
+    <string name="achievement_circle_13_name">Getting rich</string>
+    <string name="achievement_circle_13_descr">You have the choice: Get rich now -or- get a better best time than %1$d seconds and get even more…</string>
+    <string name="achievement_circle_13_descr_perfect">Wow, I didn\'t believe %1$d seconds were even possible! That\'s it, I am done.</string>
 
     <string name="achievement_snow_1_name">Hurry up</string>
     <string name="achievement_snow_1_descr">Complete %1$d games within %2$d seconds.</string>
@@ -447,7 +450,7 @@
     <string name="download_article_descr_downloaded">Downloaded %1$s\'s images (%2$s)…</string>
     <string name="download_article_descr_synced">%1$s\'s images (%2$s) are now in the pool!</string>
     <string name="download_article_descr_ready">Confirm download from %1$s (~%2$dMB)</string>
-    <string name="download_article_name">Download images</string>
+    <string name="download_article_name">Download image bundle \"%1$s\"</string>
     <string name="download_article_descr">Grow the image pool with fresh cool images.</string>
     <string name="achievement_misc_1_descr">Pst! Don\'t wanna tell you that here! Read in hints!</string>
     <string name="achievement_misc_1_name">Creator names</string>
@@ -497,5 +500,5 @@
     <string name="achievement_memory_9_name">No magician</string>
     <string name="achievement_memory_9_descr">Luckily you are no magician.</string>
     <string name="send_log_confirm">Send log</string>
-    <string name="send_log_title">Sorry, crash!</string>
+    <string name="send_log_title" translatable="false">Sorry, crash!</string>
 </resources>

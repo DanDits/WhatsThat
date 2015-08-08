@@ -29,13 +29,13 @@ import dan.dit.whatsthat.riddle.achievement.holders.MiscAchievementHolder;
 import dan.dit.whatsthat.riddle.achievement.holders.TestSubjectAchievementHolder;
 import dan.dit.whatsthat.riddle.achievement.holders.TypeAchievementHolder;
 import dan.dit.whatsthat.riddle.types.PracticalRiddleType;
-import dan.dit.whatsthat.testsubject.dependencies.Dependable;
-import dan.dit.whatsthat.testsubject.dependencies.Dependency;
-import dan.dit.whatsthat.testsubject.dependencies.MinValueDependency;
+import dan.dit.whatsthat.util.dependencies.Dependable;
+import dan.dit.whatsthat.util.dependencies.Dependency;
+import dan.dit.whatsthat.util.dependencies.MinValueDependency;
 import dan.dit.whatsthat.testsubject.shopping.ShopArticle;
 import dan.dit.whatsthat.testsubject.shopping.ShopArticleHolder;
 import dan.dit.whatsthat.testsubject.shopping.ShopArticleRiddleHints;
-import dan.dit.whatsthat.testsubject.wallet.WalletEntry;
+import dan.dit.whatsthat.util.wallet.WalletEntry;
 import dan.dit.whatsthat.util.DelayedQueueProcessor;
 import dan.dit.whatsthat.util.compaction.CompactedDataCorruptException;
 import dan.dit.whatsthat.util.compaction.Compacter;
@@ -75,7 +75,7 @@ public class TestSubject {
     private String[] mIntroTextMain;
     private boolean mFinishedMainTexts;
     private String[] mIntroTextNuts;
-    private String[] mRiddleSolvedCandy;
+    private int mRiddleSolvedCandy;
     private Random mRand = new Random();
     private List<TestSubjectRiddleType> mTypes = new ArrayList<>();
 
@@ -265,7 +265,7 @@ public class TestSubject {
                 mImageResId = R.drawable.kid0;
                 mIntroTextMain = res.getStringArray(R.array.test_subject_0_intro_main);
                 mIntroTextNuts = res.getStringArray(R.array.test_subject_0_intro_nuts);
-                mRiddleSolvedCandy = res.getStringArray(R.array.test_subject_0_riddle_solved_candy);
+                mRiddleSolvedCandy = R.array.test_subject_0_riddle_solved_candy;
                 break;
             case LEVEL_1_KID_NORMAL:
                 mNameResId = R.string.test_subject_1_name;
@@ -273,7 +273,7 @@ public class TestSubject {
                 mImageResId = R.drawable.kid;
                 mIntroTextMain = res.getStringArray(R.array.test_subject_1_intro_main);
                 mIntroTextNuts = res.getStringArray(R.array.test_subject_1_intro_nuts);
-                mRiddleSolvedCandy = res.getStringArray(R.array.test_subject_1_riddle_solved_candy);
+                mRiddleSolvedCandy = R.array.test_subject_1_riddle_solved_candy;
                 break;
             default:
                 throw new IllegalArgumentException("Not a valid level " + level);
@@ -318,11 +318,8 @@ public class TestSubject {
         }
     }
 
-    public String nextRiddleSolvedCandy() {
-        if (mRiddleSolvedCandy.length > 0) {
-            return mRiddleSolvedCandy[mRand.nextInt(mRiddleSolvedCandy.length)];
-        }
-        return "";
+    public int getRiddleSolvedResIds() {
+        return mRiddleSolvedCandy;
     }
 
     public int getIntelligenceResId() {

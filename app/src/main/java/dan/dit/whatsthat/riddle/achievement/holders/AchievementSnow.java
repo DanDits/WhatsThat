@@ -16,7 +16,7 @@ import dan.dit.whatsthat.riddle.types.PracticalRiddleType;
 import dan.dit.whatsthat.riddle.types.Types;
 import dan.dit.whatsthat.solution.Solution;
 import dan.dit.whatsthat.testsubject.TestSubject;
-import dan.dit.whatsthat.testsubject.dependencies.Dependency;
+import dan.dit.whatsthat.util.dependencies.Dependency;
 
 /**
  * Created by daniel on 21.05.15.

@@ -7,7 +7,7 @@ import dan.dit.whatsthat.R;
 import dan.dit.whatsthat.achievement.Achievement;
 import dan.dit.whatsthat.achievement.AchievementManager;
 import dan.dit.whatsthat.testsubject.TestSubject;
-import dan.dit.whatsthat.testsubject.dependencies.MinValueDependency;
+import dan.dit.whatsthat.util.dependencies.MinValueDependency;
 
 /**
  * Created by daniel on 23.07.15.

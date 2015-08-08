@@ -1,8 +1,8 @@
-package dan.dit.whatsthat.testsubject.wallet;
+package dan.dit.whatsthat.util.wallet;
 
 import android.content.res.Resources;
 
-import dan.dit.whatsthat.testsubject.dependencies.Dependable;
+import dan.dit.whatsthat.util.dependencies.Dependable;
 
 /**
  * Created by daniel on 10.06.15.

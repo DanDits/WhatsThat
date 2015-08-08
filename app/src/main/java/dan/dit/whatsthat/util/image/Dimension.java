@@ -21,6 +21,14 @@ public class Dimension {
         return mHeight;
     }
 
+    public int getWidthForDensity(int screenDensity) {
+        return (int) ImageUtil.convertDpToPixel(mWidth, screenDensity);
+    }
+
+    public int getHeightForDensity(int screenDensity) {
+        return (int) ImageUtil.convertDpToPixel(mHeight, screenDensity);
+    }
+
     public void set(int width, int height) {
         mWidth = width;
         mHeight = height;

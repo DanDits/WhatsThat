@@ -1,7 +1,6 @@
 package dan.dit.whatsthat.system.store;
 
 import android.content.Context;
-import android.graphics.PorterDuff;
 import android.support.v4.app.FragmentActivity;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -21,9 +20,9 @@ import dan.dit.whatsthat.riddle.Riddle;
 import dan.dit.whatsthat.riddle.types.PracticalRiddleType;
 import dan.dit.whatsthat.testsubject.TestSubject;
 import dan.dit.whatsthat.testsubject.shopping.ShopArticle;
-import dan.dit.whatsthat.testsubject.shopping.ShopArticleFilter;
-import dan.dit.whatsthat.testsubject.shopping.ShopArticleFilterIcon;
-import dan.dit.whatsthat.testsubject.shopping.ShopArticleFilterPurchased;
+import dan.dit.whatsthat.testsubject.shopping.filter.ShopArticleFilter;
+import dan.dit.whatsthat.testsubject.shopping.filter.ShopArticleFilterIcon;
+import dan.dit.whatsthat.testsubject.shopping.filter.ShopArticleFilterPurchased;
 import dan.dit.whatsthat.testsubject.shopping.ShopArticleHolder;
 import dan.dit.whatsthat.testsubject.shopping.SubProduct;
 import dan.dit.whatsthat.util.PercentProgressListener;

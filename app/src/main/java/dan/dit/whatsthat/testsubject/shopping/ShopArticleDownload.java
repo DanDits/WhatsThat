@@ -38,6 +38,11 @@ public class ShopArticleDownload extends ShopArticle implements ImageDataDownloa
     }
 
     @Override
+    public CharSequence getName(Resources res) {
+        return res.getString(mNameResId, mDownload.getDataName());
+    }
+
+    @Override
     public boolean isClickable(int subProductIndex) {
         return isPurchasable(subProductIndex) == HINT_PURCHASABLE || (mPurse.getShopValue(mKey) < SHOP_VALUE_DOWNLOADED_AND_SYNCED);
     }

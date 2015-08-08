@@ -1,4 +1,4 @@
-package dan.dit.whatsthat.testsubject.wallet;
+package dan.dit.whatsthat.util.wallet;
 
 import android.content.Context;
 import android.content.SharedPreferences;

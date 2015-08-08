@@ -17,7 +17,7 @@ import dan.dit.whatsthat.riddle.achievement.GameAchievement;
 import dan.dit.whatsthat.riddle.types.PracticalRiddleType;
 import dan.dit.whatsthat.riddle.types.Types;
 import dan.dit.whatsthat.testsubject.TestSubject;
-import dan.dit.whatsthat.testsubject.dependencies.Dependency;
+import dan.dit.whatsthat.util.dependencies.Dependency;
 import dan.dit.whatsthat.testsubject.shopping.ShopArticleHolder;
 
 /**
@@ -47,6 +47,7 @@ public class AchievementCircle extends TypeAchievementHolder {
         mAchievements.put(Achievement10.NUMBER, new Achievement10(manager, mType));
         mAchievements.put(Achievement11.NUMBER, new Achievement11(manager, mType));
         mAchievements.put(Achievement12.NUMBER, new Achievement12(manager, mType));
+        mAchievements.put(Achievement13.NUMBER, new Achievement13(manager, mType));
     }
 
     // The beginning
@@ -89,7 +90,7 @@ public class AchievementCircle extends TypeAchievementHolder {
         public static final int LEVEL = 0;
         public static final int REWARD = 10;
         public static final boolean DISCOVERED = true;
-        public static final int MAX_CIRCLES = 16;
+        public static final int MAX_CIRCLES = 40;
 
         public Achievement2(AchievementManager manager, PracticalRiddleType type) {
             super(type, R.string.achievement_circle_2_name, R.string.achievement_circle_2_descr, 0, NUMBER, manager, LEVEL, REWARD, 1, DISCOVERED);
@@ -552,7 +553,7 @@ public class AchievementCircle extends TypeAchievementHolder {
         public static final int LEVEL = 0;
         public static final int REWARD = 20;
         public static final boolean DISCOVERED = true;
-        private static final long TIME_TO_BE_FAST = 250L;
+        private static final long TIME_TO_BE_FAST = 200L;
 
         public Achievement12(AchievementManager manager, PracticalRiddleType type) {
             super(type, R.string.achievement_circle_12_name, R.string.achievement_circle_12_descr, 0, NUMBER, manager, LEVEL, REWARD, 1, DISCOVERED);
@@ -564,6 +565,61 @@ public class AchievementCircle extends TypeAchievementHolder {
                 if (areDependenciesFulfilled() && mGameData.getValue(KEY_CIRCLE_COUNT, 0L) == 4L
                         && (System.currentTimeMillis() - mGameData.getValue(AchievementDataRiddleGame.KEY_LAST_OPENED, 0L)) <= TIME_TO_BE_FAST) {
                     achieveAfterDependencyCheck();
+                }
+            }
+        }
+    }
+
+    public static class Achievement13 extends GameAchievement {
+        public static final int NUMBER = 13;
+        public static final int LEVEL = 0;
+        public static final int REWARD = 0;
+        public static final boolean DISCOVERED = false;
+        public static final int PERFECT_REWARD = 300;
+        public static final int MAX_REWARD = 250;
+        public static final int MIN_REWARD = 30;
+        public static final long MAX_REWARD_TIME = 3L * 1000L; // 3 seconds played time
+        public static final long MIN_REWARD_TIME = 60L * 60L * 1000L; //1 hour played time
+
+        public Achievement13(AchievementManager manager, PracticalRiddleType type) {
+            super(type, R.string.achievement_circle_13_name, R.string.achievement_circle_13_descr, 0, NUMBER, manager, LEVEL, REWARD, 1, DISCOVERED);
+        }
+
+        @Override
+        public CharSequence getDescription(Resources res) {
+            long bestTime = PracticalRiddleType.CIRCLE_INSTANCE.getAchievementData(mManager)
+                    .getValue(AchievementDataRiddleType.KEY_BEST_SOLVED_TIME, Long.MAX_VALUE);
+            if (bestTime < MAX_REWARD_TIME) {
+                return res.getString(R.string.achievement_circle_13_descr_perfect, bestTime / 1000L);
+            } else if (bestTime != Long.MAX_VALUE) {
+                return res.getString(mDescrResId, bestTime / 1000L);
+            } else {
+                return super.getDescription(res);
+            }
+        }
+
+        @Override
+        public int getScoreReward() {
+            long bestTime = PracticalRiddleType.CIRCLE_INSTANCE.getAchievementData(mManager)
+                    .getValue(AchievementDataRiddleType.KEY_BEST_SOLVED_TIME, Long.MAX_VALUE);
+            if (bestTime > MIN_REWARD_TIME) {
+                return 0;
+            } else if (bestTime <= MAX_REWARD_TIME) {
+                return PERFECT_REWARD;
+            } else {
+                //linearly interpolate bestTime for points (MAX_REWARD_TIME, MAX_REWARD) , (MIN_REWARD_TIME, MIN_REWARD)
+                return (int) ((MIN_REWARD - MAX_REWARD) / (Math.log10(MIN_REWARD_TIME) - Math.log10(MAX_REWARD_TIME)) * (Math.log10(bestTime) - Math.log10(MAX_REWARD_TIME)) + MAX_REWARD);
+            }
+        }
+
+        @Override
+        public void onDataEvent(AchievementDataEvent event) {
+            if (!isDiscovered() && event.getChangedData() == mGameData && mGameData.isSolved()
+                    && event.getEventType() == AchievementDataEvent.EVENT_TYPE_DATA_CLOSE) {
+                if (areDependenciesFulfilled()) {
+                    achieve();
+                } else if (!isDiscovered()) {
+                    discover();
                 }
             }
         }

@@ -32,7 +32,7 @@ public class AchievementDataRiddleGame extends AchievementProperties {
         super(DATA_NAME + type.getFullName());
     }
 
-    public void loadGame(Compacter achievementData) {
+    public synchronized void loadGame(Compacter achievementData) {
         if (mState == STATE_OPENED || mState == STATE_OPENING) {
             Log.e("Achievement", "Trying to open already opened AchievementDataRiddleGame " + mName);
             return;
@@ -108,7 +108,7 @@ public class AchievementDataRiddleGame extends AchievementProperties {
         return mState;
     }
 
-    public void closeGame(long solved) {
+    public synchronized void closeGame(long solved) {
         if (mState == STATE_CLOSED || mState == STATE_NONE) {
             Log.e("Achievement", "Trying to close already closed or not yet opened AchievementDataRiddleGame " + mName);
             return;

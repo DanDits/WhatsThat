@@ -182,7 +182,9 @@ public class RiddleTriangle extends RiddleGame {
 
     @Override
     public Bitmap makeSnapshot() {
-        return BitmapUtil.resize(mBackground, SNAPSHOT_WIDTH, SNAPSHOT_HEIGHT);
+        int width = SNAPSHOT_DIMENSION.getWidthForDensity(mConfig.mScreenDensity);
+        int height = SNAPSHOT_DIMENSION.getHeightForDensity(mConfig.mScreenDensity);
+        return BitmapUtil.resize(mBackground, width, height);
     }
 
     @Override

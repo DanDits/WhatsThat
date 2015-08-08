@@ -217,7 +217,7 @@ public class RiddleMaker {
         Dimension bitmapDim = new Dimension(canvasDim);
         bitmapDim.fitInsideWithRatio(type.getSuggestedBitmapAspectRatio()); // and then the bitmap inside the canvas
 
-        Log.d("Image", "Making riddle for type " + type + " and bitmapDim " + bitmapDim);
+        Log.d("Image", "Making new riddle for type " + type + " and bitmapDim " + bitmapDim);
         mAllImages = new LinkedList<>(RiddleFragment.ALL_IMAGES.values());
         mUsedImagesForTypes = RiddleInitializer.INSTANCE.makeUsedImagesCopy();
         mBitmapDimension = bitmapDim;

@@ -17,7 +17,6 @@ import dan.dit.whatsthat.util.image.ImageUtil;
  * Created by daniel on 26.06.15.
  */
 public class NinePatchLook extends Look {
-    //TODO weird line breaks even though it has room
     private static final int PADDING_LR = 30;
     private static final int PADDING_TB = 30;
     private int mHeight;

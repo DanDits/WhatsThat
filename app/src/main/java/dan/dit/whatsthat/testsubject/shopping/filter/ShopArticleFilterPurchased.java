@@ -1,5 +1,6 @@
-package dan.dit.whatsthat.testsubject.shopping;
+package dan.dit.whatsthat.testsubject.shopping.filter;
 
+import dan.dit.whatsthat.testsubject.shopping.ShopArticle;
 import dan.dit.whatsthat.util.PercentProgressListener;
 
 /**

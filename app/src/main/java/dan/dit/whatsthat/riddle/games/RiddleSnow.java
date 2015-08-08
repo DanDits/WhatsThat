@@ -411,12 +411,14 @@ public class RiddleSnow extends RiddleGame implements FlatWorldCallback {
 
     @Override
     protected Bitmap makeSnapshot() {
-        Bitmap snapshot = Bitmap.createScaledBitmap(mBitmap, RiddleGame.SNAPSHOT_WIDTH, RiddleGame.SNAPSHOT_HEIGHT, false);
+        int width = SNAPSHOT_DIMENSION.getWidthForDensity(mConfig.mScreenDensity);
+        int height = SNAPSHOT_DIMENSION.getHeightForDensity(mConfig.mScreenDensity);
+        Bitmap snapshot = Bitmap.createScaledBitmap(mBitmap, width, height, false);
         Canvas canvas = new Canvas(snapshot);
-        Bitmap overlay = Bitmap.createScaledBitmap(mBackgroundSnow, RiddleGame.SNAPSHOT_WIDTH, RiddleGame.SNAPSHOT_HEIGHT, false);
+        Bitmap overlay = Bitmap.createScaledBitmap(mBackgroundSnow, width, height, false);
         canvas.drawBitmap(overlay, 0, 0, null);
-        float fractionX = RiddleGame.SNAPSHOT_WIDTH / (float) mConfig.mWidth;
-        float fractionY = RiddleGame.SNAPSHOT_HEIGHT / (float) mConfig.mHeight;
+        float fractionX = width / (float) mConfig.mWidth;
+        float fractionY = height / (float) mConfig.mHeight;
         RectF cellHitbox = mCell.getHitbox().getBoundingRect();
         Bitmap snow = Bitmap.createScaledBitmap(mCell.mMaxCell, (int) (fractionX * cellHitbox.width()),
                 (int) (fractionY * cellHitbox.height()), false);

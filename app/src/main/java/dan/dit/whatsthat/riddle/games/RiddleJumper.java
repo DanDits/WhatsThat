@@ -806,11 +806,13 @@ public class RiddleJumper extends RiddleGame implements FlatWorldCallback {
 
     @Override
     public Bitmap makeSnapshot() {
-        Bitmap snapshot = Bitmap.createScaledBitmap(mRunnerBackground, RiddleGame.SNAPSHOT_WIDTH, RiddleGame.SNAPSHOT_HEIGHT, false);
+        int width = SNAPSHOT_DIMENSION.getWidthForDensity(mConfig.mScreenDensity);
+        int height = SNAPSHOT_DIMENSION.getHeightForDensity(mConfig.mScreenDensity);
+        Bitmap snapshot = Bitmap.createScaledBitmap(mRunnerBackground, width, height, false);
         Canvas canvas = new Canvas(snapshot);
-        Bitmap overlay = Bitmap.createScaledBitmap(mSolutionBackground, RiddleGame.SNAPSHOT_WIDTH, RiddleGame.SNAPSHOT_HEIGHT, false);
+        Bitmap overlay = Bitmap.createScaledBitmap(mSolutionBackground, width, height, false);
         canvas.drawBitmap(overlay, 0, 0, null);
-        overlay = Bitmap.createScaledBitmap(mForeground, RiddleGame.SNAPSHOT_WIDTH, RiddleGame.SNAPSHOT_HEIGHT, false);
+        overlay = Bitmap.createScaledBitmap(mForeground, width, height, false);
         canvas.drawBitmap(overlay, 0, 0, null);
         return snapshot;
     }

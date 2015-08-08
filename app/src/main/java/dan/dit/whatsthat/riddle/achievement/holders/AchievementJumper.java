@@ -15,7 +15,7 @@ import dan.dit.whatsthat.riddle.achievement.GameAchievement;
 import dan.dit.whatsthat.riddle.games.RiddleJumper;
 import dan.dit.whatsthat.riddle.types.PracticalRiddleType;
 import dan.dit.whatsthat.testsubject.TestSubject;
-import dan.dit.whatsthat.testsubject.dependencies.Dependency;
+import dan.dit.whatsthat.util.dependencies.Dependency;
 import dan.dit.whatsthat.testsubject.shopping.ShopArticleRiddleHints;
 
 /**

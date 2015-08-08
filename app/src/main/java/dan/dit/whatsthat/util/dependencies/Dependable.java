@@ -1,4 +1,4 @@
-package dan.dit.whatsthat.testsubject.dependencies;
+package dan.dit.whatsthat.util.dependencies;
 
 import android.content.res.Resources;
 

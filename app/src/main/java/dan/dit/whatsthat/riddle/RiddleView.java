@@ -2,6 +2,7 @@ package dan.dit.whatsthat.riddle;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.Canvas;
 import android.graphics.PixelFormat;
 import android.hardware.Sensor;
@@ -12,14 +13,19 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
 
+import com.github.johnpersano.supertoasts.SuperToast;
+
 import dan.dit.whatsthat.riddle.games.RiddleController;
 import dan.dit.whatsthat.riddle.types.PracticalRiddleType;
 import dan.dit.whatsthat.system.NoPanicDialog;
+import dan.dit.whatsthat.testsubject.TestSubject;
+import dan.dit.whatsthat.testsubject.TestSubjectToast;
 
 /**
  * Created by daniel on 31.03.15.
@@ -235,5 +241,12 @@ public class RiddleView extends SurfaceView implements SensorEventListener {
             throw new IllegalStateException("No controller initialized.");
         }
         return mRiddleCtr.getRiddleType();
+    }
+
+    public TestSubjectToast makeSolvedToast(Resources res) {
+        if (!hasController()) {
+            throw new IllegalStateException("No controller initialized.");
+        }
+        return mRiddleCtr.makeSolvedToast(res);
     }
 }

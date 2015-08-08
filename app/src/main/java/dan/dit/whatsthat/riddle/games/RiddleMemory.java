@@ -42,8 +42,7 @@ import dan.dit.whatsthat.util.image.ImageUtil;
 public class RiddleMemory extends RiddleGame {
     private static final int DEFAULT_FIELD_X = 8;
     private static final int DEFAULT_FIELD_Y = 7; // one dimension must be a multiple of 2!
-    private static final int CONTENT_IN_PATH_ALPHA = 155;
-    private static final int TILE_IN_PATH_COLOR = Color.GREEN;
+    private static final int TILE_IN_PATH_COLOR = Color.YELLOW;
 
     private Field2D<MemoryCard> mField;
     private Dimension mFieldDimension;
@@ -87,7 +86,9 @@ public class RiddleMemory extends RiddleGame {
 
     @Override
     public Bitmap makeSnapshot() {
-        return BitmapUtil.resize(mFieldBitmap, SNAPSHOT_WIDTH, SNAPSHOT_HEIGHT);
+        int width = SNAPSHOT_DIMENSION.getWidthForDensity(mConfig.mScreenDensity);
+        int height = SNAPSHOT_DIMENSION.getHeightForDensity(mConfig.mScreenDensity);
+        return BitmapUtil.resize(mFieldBitmap, width, height);
     }
 
     @Override
@@ -112,7 +113,7 @@ public class RiddleMemory extends RiddleGame {
         try {
             mField = new MemoryBuilder(mFieldX, mFieldY).build(fieldWidth, fieldHeight);
         } catch (BuildException be) {
-            Log.e("Riddle", "Failed building field for RiddleMemory.");
+            Log.e("Riddle", "Failed building field for RiddleMemory: " + be);
             throw new RuntimeException(be);
         }
         mFieldDimension = new Dimension((int) mField.getFieldWidth(), (int) mField.getFieldHeight());

@@ -15,7 +15,6 @@ import android.text.InputType;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -57,9 +56,10 @@ import dan.dit.whatsthat.solution.SolutionInputView;
 import dan.dit.whatsthat.storage.ImageTable;
 import dan.dit.whatsthat.storage.ImagesContentProvider;
 import dan.dit.whatsthat.system.store.StoreActivity;
-import dan.dit.whatsthat.testsubject.SimpleCrypto;
 import dan.dit.whatsthat.testsubject.TestSubject;
+import dan.dit.whatsthat.testsubject.TestSubjectToast;
 import dan.dit.whatsthat.util.PercentProgressListener;
+import dan.dit.whatsthat.util.SimpleCrypto;
 import dan.dit.whatsthat.util.image.Dimension;
 import dan.dit.whatsthat.util.image.ExternalStorage;
 import dan.dit.whatsthat.util.ui.ImageButtonWithNumber;
@@ -303,26 +303,23 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
         mSolutionView.clearListener();
     }
 
-    private void giveCandy(PracticalRiddleType solvedType) {
+    private void giveCandy(TestSubjectToast candyToast) {
         Animation anim = AnimationUtils.loadAnimation(getActivity(), R.anim.solution_complete);
         mSolutionView.startAnimation(anim);
-        SuperToast toast = new SuperToast(getActivity());
-        toast.setAnimations(SuperToast.Animations.POPUP);
-        toast.setGravity(Gravity.CENTER, 0, 0);
-        toast.setBackground(SuperToast.Background.BLUE);
-        toast.setText(TestSubject.getInstance().nextRiddleSolvedCandy());
-        toast.setTextSize(40);
-        toast.setDuration(SuperToast.Duration.SHORT);
-        if (solvedType != null) {
-            toast.setIcon(solvedType.getIconResId(), SuperToast.IconPosition.LEFT);
+
+        long delay = 0L;
+        if (candyToast != null) {
+            SuperToast toast = candyToast.makeSuperToast(getActivity());
+            toast.show();
+            delay = toast.getDuration() / 2L;
         }
-        toast.show();
+
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
                 findSomeRiddle();
             }
-        }, toast.getDuration() / 2);
+        }, delay);
     }
 
     private PracticalRiddleType findNextRiddleType() {
@@ -341,13 +338,13 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
 
     @Override
     public boolean onSolutionComplete(String userWord) {
-        PracticalRiddleType solvedType = null;
+        TestSubjectToast solvedToast = null;
         if (mRiddleView.hasController()) {
-            solvedType = mRiddleView.getRiddleType();
+            solvedToast = mRiddleView.makeSolvedToast(getResources());
             mRiddleView.removeController();
         }
         mSolutionView.clearListener();
-        giveCandy(solvedType);
+        giveCandy(solvedToast);
         return true;
     }
 

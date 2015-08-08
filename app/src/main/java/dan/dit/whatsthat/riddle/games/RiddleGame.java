@@ -8,12 +8,16 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.MotionEvent;
 
+import dan.dit.whatsthat.BuildConfig;
 import dan.dit.whatsthat.achievement.AchievementData;
+import dan.dit.whatsthat.achievement.AchievementDataEventListener;
 import dan.dit.whatsthat.image.Image;
 import dan.dit.whatsthat.preferences.Language;
 import dan.dit.whatsthat.riddle.Riddle;
 import dan.dit.whatsthat.riddle.RiddleConfig;
 import dan.dit.whatsthat.riddle.RiddleView;
+import dan.dit.whatsthat.riddle.achievement.AchievementDataRiddleGame;
+import dan.dit.whatsthat.riddle.achievement.AchievementDataRiddleType;
 import dan.dit.whatsthat.solution.Solution;
 import dan.dit.whatsthat.solution.SolutionInput;
 import dan.dit.whatsthat.solution.SolutionInputListener;
@@ -22,6 +26,7 @@ import dan.dit.whatsthat.solution.SolutionInputView;
 import dan.dit.whatsthat.util.PercentProgressListener;
 import dan.dit.whatsthat.util.compaction.CompactedDataCorruptException;
 import dan.dit.whatsthat.util.compaction.Compacter;
+import dan.dit.whatsthat.util.image.Dimension;
 
 /**
  * The "important" base type for the things that can be actually played! Decorates a Riddle object
@@ -41,12 +46,7 @@ public abstract class RiddleGame {
     /**
      * The width for a snapshot bitmap for unsolved RiddleGame's that get closed.
      */
-    static final int SNAPSHOT_WIDTH = 64;
-
-    /**
-     * The height for a snapshot bitmap.
-     */
-    static final int SNAPSHOT_HEIGHT = 64;
+    static final Dimension SNAPSHOT_DIMENSION = new Dimension(32, 32);
 
     private Riddle mRiddle; // should be hidden
     private RiddleController mRiddleController;
@@ -164,21 +164,26 @@ public abstract class RiddleGame {
         Log.d("Riddle", "On close of riddle game.");
         int solved = mSolutionInput.estimateSolvedValue();
         int score = 0;
-        if (solved == Solution.SOLVED_COMPLETELY) {
-            score = Math.max(calculateGainedScore(), 0); // no negative score gains
-        }
         String currentState = null;
-        if (solved < Solution.SOLVED_COMPLETELY) {
-            currentState = compactCurrentState();
-        }
         String solutionData;
-        if (solved < Solution.SOLVED_COMPLETELY) {
-            solutionData = mSolutionInput.compact();
-        } else {
+        if (solved >= Solution.SOLVED_COMPLETELY) {
+            score = Math.max(calculateGainedScore(), 0); // no negative score gains
             solutionData = mSolutionInput.getCurrentUserSolution().compact();
+        } else {
+            currentState = compactCurrentState();
+            solutionData = mSolutionInput.compact();
         }
-        mRiddle.getType().getAchievementDataGame().closeGame(solved);
+
+        AchievementDataRiddleGame gameData = mRiddle.getType().getAchievementDataGame();
+        gameData.closeGame(solved);
+        AchievementDataRiddleType typeData = mRiddle.getType().getAchievementData(null);
+        if (typeData != null && solved >= Solution.SOLVED_COMPLETELY) {
+            typeData.putValue(AchievementDataRiddleType.KEY_BEST_SOLVED_TIME, gameData.getValue(AchievementDataRiddleGame.KEY_PLAYED_TIME, Long.MAX_VALUE), -1);
+        }
         AchievementData achievementDataRaw = mConfig.mAchievementGameData;
+        if (BuildConfig.DEBUG && achievementDataRaw != gameData) {
+            throw new IllegalStateException("Config and type's achievement data not the same!");
+        }
         String achievementData = achievementDataRaw == null ? null : achievementDataRaw.compact();
 
         mRiddle.onClose(solved, score, currentState, achievementData, solutionData);
@@ -203,6 +208,12 @@ public abstract class RiddleGame {
 
     protected abstract void initAchievementData();
 
+    /**
+     * Calculates the gained score. Can but generally should not depend on the
+     * way the riddle was solved and the game was played. Should be a positive number or zero.
+     * Calculations should be robust and produce the same result if nothing major happens to the game.
+     * @return The score that will be gained.
+     */
     protected abstract int calculateGainedScore();
 
     public abstract void draw(Canvas canvas);

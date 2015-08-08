@@ -404,7 +404,9 @@ public class RiddleCircle extends RiddleGame {
 
     @Override
     protected Bitmap makeSnapshot() {
-        return Bitmap.createScaledBitmap(mCirclesBitmap, RiddleGame.SNAPSHOT_WIDTH, RiddleGame.SNAPSHOT_HEIGHT, false);
+        int width = SNAPSHOT_DIMENSION.getWidthForDensity(mConfig.mScreenDensity);
+        int height = SNAPSHOT_DIMENSION.getHeightForDensity(mConfig.mScreenDensity);
+        return Bitmap.createScaledBitmap(mCirclesBitmap, width, height, false);
     }
 
     @Override

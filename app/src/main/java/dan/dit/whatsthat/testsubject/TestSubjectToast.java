@@ -16,6 +16,7 @@ public class TestSubjectToast {
     private int mOffsetY;
     public long mDuration;
     public CharSequence mText;
+    public int mTextSize;
     public SuperToast.Animations mAnimations;
     public int mBackground;
     public int mTextColor;
@@ -38,6 +39,9 @@ public class TestSubjectToast {
             superToast.setText(context.getResources().getText(mTextResId));
         } else if (mText != null) {
             superToast.setText(mText);
+        }
+        if (mTextSize != 0) {
+            superToast.setTextSize(mTextSize);
         }
         if (mAnimations != null) {
             superToast.setAnimations(mAnimations);

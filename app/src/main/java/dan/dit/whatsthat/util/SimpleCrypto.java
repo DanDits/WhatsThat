@@ -1,4 +1,4 @@
-package dan.dit.whatsthat.testsubject;
+package dan.dit.whatsthat.util;
 
 import android.support.annotation.NonNull;
 import android.text.TextUtils;

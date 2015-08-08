@@ -8,8 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import dan.dit.whatsthat.R;
-import dan.dit.whatsthat.testsubject.dependencies.Dependable;
-import dan.dit.whatsthat.testsubject.dependencies.Dependency;
+import dan.dit.whatsthat.util.dependencies.Dependable;
+import dan.dit.whatsthat.util.dependencies.Dependency;
 import dan.dit.whatsthat.util.PercentProgressListener;
 
 /**
@@ -266,7 +266,7 @@ public abstract class Achievement implements AchievementDataEventListener, Depen
      * Discovers the achievement if not yet discovered. This will invoke
      * onDiscovered() before notifying the manager.
      */
-    private synchronized void discover() {
+    protected synchronized void discover() {
         if (mDiscovered) {
             return; // already discovered
         }

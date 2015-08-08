@@ -3,7 +3,7 @@ package dan.dit.whatsthat.testsubject;
 import android.content.Context;
 
 import dan.dit.whatsthat.riddle.types.PracticalRiddleType;
-import dan.dit.whatsthat.testsubject.wallet.Wallet;
+import dan.dit.whatsthat.util.wallet.Wallet;
 
 /**
  * Created by daniel on 10.06.15.

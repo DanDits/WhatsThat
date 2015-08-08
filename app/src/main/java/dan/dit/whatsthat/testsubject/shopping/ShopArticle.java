@@ -11,7 +11,7 @@ import java.util.Map;
 
 import dan.dit.whatsthat.R;
 import dan.dit.whatsthat.testsubject.ForeignPurse;
-import dan.dit.whatsthat.testsubject.dependencies.Dependency;
+import dan.dit.whatsthat.util.dependencies.Dependency;
 
 /**
  * Created by daniel on 29.07.15.

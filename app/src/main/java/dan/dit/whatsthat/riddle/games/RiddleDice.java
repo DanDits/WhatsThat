@@ -353,7 +353,7 @@ public class RiddleDice extends RiddleGame {
 
     @Override
     public Bitmap makeSnapshot() {
-        return BitmapUtil.resize(mFieldArea, SNAPSHOT_WIDTH, SNAPSHOT_HEIGHT);
+        return BitmapUtil.resize(mFieldArea, SNAPSHOT_DIMENSION.getWidthForDensity(mConfig.mScreenDensity), SNAPSHOT_DIMENSION.getHeightForDensity(mConfig.mScreenDensity));
     }
 
     @Override

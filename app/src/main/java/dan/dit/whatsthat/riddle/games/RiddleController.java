@@ -1,10 +1,14 @@
 package dan.dit.whatsthat.riddle.games;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.Canvas;
 import android.support.annotation.NonNull;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.MotionEvent;
+
+import com.github.johnpersano.supertoasts.SuperToast;
 
 import dan.dit.whatsthat.achievement.AchievementManager;
 import dan.dit.whatsthat.riddle.Riddle;
@@ -12,6 +16,8 @@ import dan.dit.whatsthat.riddle.RiddleInitializer;
 import dan.dit.whatsthat.riddle.RiddleManager;
 import dan.dit.whatsthat.riddle.RiddleView;
 import dan.dit.whatsthat.riddle.types.PracticalRiddleType;
+import dan.dit.whatsthat.testsubject.TestSubject;
+import dan.dit.whatsthat.testsubject.TestSubjectToast;
 
 /**
  * A riddle controller is the class between the RiddleView and the RiddleGame. If closed the controller can
@@ -234,5 +240,19 @@ public class RiddleController {
 
     public boolean hasRunningPeriodicThread() {
         return mPeriodicThread != null && mPeriodicThread.isRunning();
+    }
+
+    public TestSubjectToast makeSolvedToast(Resources res) {
+        TestSubjectToast toast = new TestSubjectToast(Gravity.CENTER, 0, 0, mRiddle.getType().getIconResId(), 0, SuperToast.Duration.SHORT);
+        toast.mAnimations = SuperToast.Animations.POPUP;
+        toast.mBackground = SuperToast.Background.BLUE;
+
+        String[] candies = res.getStringArray(TestSubject.getInstance().getRiddleSolvedResIds());
+        if (candies != null && candies.length > 0) {
+            int score = mRiddleGame.calculateGainedScore();
+            toast.mText = candies[(int) (Math.random() * candies.length)] + (score > 0 ? (" +" + score) : "");
+        }
+        toast.mTextSize = 40;
+        return toast;
     }
 }
