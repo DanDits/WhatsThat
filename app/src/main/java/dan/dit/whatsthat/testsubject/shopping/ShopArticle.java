@@ -99,23 +99,23 @@ public abstract class ShopArticle {
         return this;
     }
 
-    private boolean checkDependencies(List<Dependency> deps) {
+    private boolean isDependencyNotFulfilled(List<Dependency> deps) {
         if (deps == null) {
-            return true;
+            return false;
         }
         for (Dependency dep : deps) {
             if (dep.isNotFulfilled()) {
-                return false;
+                return true;
             }
         }
-        return true;
+        return false;
     }
 
     boolean areDependenciesMissing(int subProductIndex) {
         if (subProductIndex < 0) {
-            return !checkDependencies(mDependencies.get(GENERAL_DEPENDENCY_INDEX));
+            return isDependencyNotFulfilled(mDependencies.get(GENERAL_DEPENDENCY_INDEX));
         } else {
-            if (!checkDependencies(mDependencies.get(GENERAL_DEPENDENCY_INDEX)) || !checkDependencies(mDependencies.get(subProductIndex))) {
+            if (isDependencyNotFulfilled(mDependencies.get(GENERAL_DEPENDENCY_INDEX)) || isDependencyNotFulfilled(mDependencies.get(subProductIndex))) {
                 return true;
             }
         }

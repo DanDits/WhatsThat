@@ -7,9 +7,16 @@ import dan.dit.whatsthat.util.compaction.CompactedDataCorruptException;
 import dan.dit.whatsthat.util.compaction.Compacter;
 
 /**
+ * A special AchievementData that maps keys to long values. Every
+ * change will notify the associated listeners if no silent changes are currently
+ * enabled and the update policy is met and an actual change happened.
  * Created by daniel on 12.05.15.
  */
 public class AchievementProperties extends AchievementData {
+    /**
+     * The update policy that means that the data is always set, no matter the previous data.
+     * This will still only notify listeners if the data changed.
+     */
     public static final long UPDATE_POLICY_ALWAYS = 0L;
 
     private final Map<String, Long> mValues = new HashMap<>();
@@ -50,6 +57,7 @@ public class AchievementProperties extends AchievementData {
     @Override
     protected synchronized void resetData() {
         mValues.clear();
+        notifyListeners(mEvent.initReset(this));
     }
 
     public synchronized void putValue(String key, Long value, long requiredValueToOldDelta) {

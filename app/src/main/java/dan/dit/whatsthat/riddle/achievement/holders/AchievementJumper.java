@@ -204,7 +204,7 @@ public class AchievementJumper extends TypeAchievementHolder {
         public static final int LEVEL = 0;
         public static final int REWARD = 5;
         public static final boolean DISCOVERED = false;
-        public static final long OUR_DISTANCE_RUN = (long) RiddleJumper.meterToDistanceRun(200);
+        public static final long OUR_DISTANCE_RUN = (long) RiddleJumper.meterToDistanceRun(1996);
 
         public Achievement6(AchievementManager manager, PracticalRiddleType type) {
             super(type, R.string.achievement_jumper_6_name, R.string.achievement_jumper_6_descr, 0, NUMBER, manager, LEVEL, REWARD, 1, DISCOVERED);
@@ -347,7 +347,7 @@ public class AchievementJumper extends TypeAchievementHolder {
         public static final int REWARD = 5;
         public static final boolean DISCOVERED = true;
         private static final int REQUIRED_SUCCESSIVE_GAMES = 3;
-        private static final long REQUIRED_RUN_DISTANCE = (long) RiddleJumper.meterToDistanceRun(200);
+        private static final long REQUIRED_RUN_DISTANCE = (long) RiddleJumper.meterToDistanceRun(1000);
         private static final String KEY_TYPE_SUCCESSIVE_CHECKPOINTS_REACHED = NUMBER + "checkpoints_reached";
 
         public Achievement11(AchievementManager manager, PracticalRiddleType type) {

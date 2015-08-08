@@ -237,7 +237,7 @@ public class AchievementView extends ExpandableListView implements StoreContaine
                 }
             } else {
                 descr.setTextColor(Color.RED);
-                descr.setText(achievement.buildDependenciesText(getResources(), ", "));
+                descr.setText(achievement.buildDependenciesText(getResources()));
             }
 
             TextView reward = (TextView) convertView.findViewById(R.id.achievement_reward);

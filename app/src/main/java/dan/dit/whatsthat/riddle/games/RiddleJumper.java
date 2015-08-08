@@ -584,7 +584,8 @@ public class RiddleJumper extends RiddleGame implements FlatWorldCallback {
     private void setNextObstacleRandomly() {
         List<Obstacle> obstacles = mObstacles.get(mDifficulty);
         Collections.shuffle(obstacles, mRand);
-        for (Obstacle obstacle : obstacles) {
+        for (int i = 0; i < obstacles.size(); i++) {
+            Obstacle obstacle = obstacles.get(i);
             if (!obstacle.isActive()) {
                 mNextObstacle = obstacle;
                 break;

@@ -235,7 +235,7 @@ public class Matrix implements Cloneable, java.io.Serializable {
    public double[] getRowPackedCopy () {
       double[] vals = new double[m*n];
       for (int i = 0; i < m; i++) {
-          System.arraycopy(A[i], 0, vals, i * n + 0, n);
+          System.arraycopy(A[i], 0, vals, i * n, n);
       }
       return vals;
    }
@@ -281,7 +281,7 @@ public class Matrix implements Cloneable, java.io.Serializable {
       double[][] B = X.getArray();
       try {
          for (int i = i0; i <= i1; i++) {
-             System.arraycopy(A[i], j0, B[i - i0], j0 - j0, j1 + 1 - j0);
+             System.arraycopy(A[i], j0, B[i - i0], 0, j1 + 1 - j0);
          }
       } catch(ArrayIndexOutOfBoundsException e) {
          throw new ArrayIndexOutOfBoundsException("Submatrix indices");
@@ -347,7 +347,7 @@ public class Matrix implements Cloneable, java.io.Serializable {
       double[][] B = X.getArray();
       try {
          for (int i = 0; i < r.length; i++) {
-             System.arraycopy(A[r[i]], j0, B[i], j0 - j0, j1 + 1 - j0);
+             System.arraycopy(A[r[i]], j0, B[i], 0, j1 + 1 - j0);
          }
       } catch(ArrayIndexOutOfBoundsException e) {
          throw new ArrayIndexOutOfBoundsException("Submatrix indices");

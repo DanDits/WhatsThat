@@ -177,38 +177,6 @@ public class StoreActivity extends FragmentActivity {
         if (mVisibleCategory == null) {
             showCurrCategory();
         }
-
-        //TODO for testing:
-
-        /*ImageDataDownload download = new ImageDataDownload(getApplicationContext(), "daniel", "test1", 1,
-                "https://www.dropbox.com/s/pqcigkzt0q0yqhr/bla.zip?dl=1",
-                new ImageDataDownload.Feedback() {
-
-                    @Override
-                    public void onProgressUpdate(int progress) {
-                        Log.d("Image", "ImageData progress: " + progress);
-                    }
-
-                    @Override
-                    public void setIndeterminate(boolean indeterminate) {
-                    }
-
-                    @Override
-                    public void onError(String message, int errorCode) {
-                        Log.d("Image", "ImageData failed: " + message + " error: " + errorCode);
-                    }
-
-                    @Override
-                    public void onDownloadComplete() {
-                        Log.d("Image", "ImageData download complete");
-                    }
-
-                    @Override
-                    public void onComplete() {
-                        Log.d("Image", "ImageData all complete!");
-                    }
-                });
-        download.start();*/
     }
 
     @Override

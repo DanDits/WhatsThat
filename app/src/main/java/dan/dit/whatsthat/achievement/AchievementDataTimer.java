@@ -49,6 +49,7 @@ public class AchievementDataTimer extends AchievementData {
     @Override
     protected synchronized void resetData() {
         mTimeKeepers.clear();
+        notifyListeners(mEvent.initReset(this));
     }
 
     @Override
@@ -134,8 +135,7 @@ public class AchievementDataTimer extends AchievementData {
         TimeKeeper timeKeeper = mTimeKeepers.get(key);
         if (timeKeeper != null) {
             timeKeeper.update(duration);
-            mEvent.init(this, AchievementDataEvent.EVENT_TYPE_DATA_UPDATE, key);
-            notifyListeners(mEvent);
+            notifyListeners(mEvent.init(this, AchievementDataEvent.EVENT_TYPE_DATA_UPDATE, key));
         }
     }
 
@@ -186,7 +186,6 @@ public class AchievementDataTimer extends AchievementData {
 
         private TimeKeeper(Compacter data) throws CompactedDataCorruptException {
             unloadData(data);
-            Log.d("Achievement", "Reconstructed timekeeper: " + this);
         }
 
         @Override
