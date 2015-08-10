@@ -16,7 +16,7 @@
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:text="@string/init_skip_unavailable"
+            android:text="@string/init_skip_state_none"
             android:id="@+id/init_skip"
             style="@style/button_important" />
         <ImageButton android:layout_width="wrap_content"
@@ -50,7 +50,34 @@
             android:layout_height="wrap_content"
             android:id="@+id/intro_icon"
             android:layout_gravity="top|center_horizontal"
+            android:visibility="invisible"
             />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/intro_answers_container"
+            android:orientation="horizontal"
+            android:layout_gravity="top|center_horizontal"
+            android:visibility="invisible">
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/intro_answer1"/>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/intro_answer2"/>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/intro_answer3"
+                />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/intro_answer4"
+                />
+        </LinearLayout>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

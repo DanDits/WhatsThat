@@ -9,6 +9,10 @@ public class Episode {
     protected final Intro mIntro;
     private int mIcon;
 
+    public Episode(Intro intro) {
+        this(intro, null);
+    }
+
     public Episode(Intro intro, String message) {
         mIntro = intro;
         mMessageResId = 0;
@@ -35,7 +39,11 @@ public class Episode {
         return true;
     }
 
-    public void start() {
+    protected boolean isMandatory() {
+        return false;
+    }
+
+    protected void start() {
         if (mMessage != null) {
             mIntro.applyMessage(mMessage);
         } else if (mMessageResId != 0) {
@@ -45,8 +53,5 @@ public class Episode {
         }
         mIntro.applyIcon(mIcon);
     }
-
-
-
 
 }

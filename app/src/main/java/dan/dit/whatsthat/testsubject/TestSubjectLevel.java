@@ -2,15 +2,6 @@ package dan.dit.whatsthat.testsubject;
 
 import android.content.res.Resources;
 import android.view.View;
-import android.view.animation.AccelerateInterpolator;
-import android.view.animation.AlphaAnimation;
-import android.view.animation.Animation;
-import android.view.animation.AnimationSet;
-import android.view.animation.RotateAnimation;
-import android.view.animation.ScaleAnimation;
-import android.view.animation.TranslateAnimation;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import java.util.List;
 
@@ -18,8 +9,8 @@ import dan.dit.whatsthat.R;
 import dan.dit.whatsthat.riddle.types.PracticalRiddleType;
 import dan.dit.whatsthat.testsubject.intro.Episode;
 import dan.dit.whatsthat.testsubject.intro.EpisodeBuilder;
-import dan.dit.whatsthat.testsubject.intro.GeneralStartingEpisode;
 import dan.dit.whatsthat.testsubject.intro.Intro;
+import dan.dit.whatsthat.testsubject.intro.QuestionEpisode;
 
 /**
  * Created by daniel on 08.08.15.
@@ -79,15 +70,76 @@ public abstract class TestSubjectLevel {
         @Override
         public List<Episode> makeMainIntroEpisodes(Intro intro) {
             EpisodeBuilder builder = new EpisodeBuilder(intro);
+
+            // general intro, 0 to 5
             builder.setCurrentIcon(0);
-            builder.nextEpisodes(mTextMain, 0, 6); // 0 to 5
-            builder.setCurrentIcon(R.drawable.intro_dr_gluk);
-            builder.nextEpisodes(mTextMain, 6, 2); // 6 to 7
-            // now add mandatory episode where we ask for and set gender
+            builder.nextEpisodes(mTextMain, 0, 6);
+
+            //dr kulg presentation, 6 to 7
+            builder.setCurrentIcon(R.drawable.intro_dr_kulg);
+            builder.nextEpisodes(mTextMain, 6, 2);
+
+            // gender question, mandatory, 8 to 9
             builder.setCurrentIcon(0);
-            builder.nextEpisodes(mTextMain, 8, 1); // 8
+            builder.nextEpisode(new QuestionEpisode(intro,
+                    true,
+                    mTextMain[8],
+                    new int[] {R.string.intro_test_subject_gender_answer_male, R.string.intro_test_subject_gender_answer_female, R.string.intro_test_subject_gender_answer_whatever},
+                    1,
+                    new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    switch (v.getId()) {
+                        case R.id.intro_answer1:
+                            mTestSubject.setGender(TestSubject.GENDER_MALE);
+                            break;
+                        case R.id.intro_answer2:
+                            mTestSubject.setGender(TestSubject.GENDER_FEMALE);
+                            break;
+                        case R.id.intro_answer3:
+                            mTestSubject.setGender(TestSubject.GENDER_WHATEVER);
+                            break;
+                        case R.id.intro_answer4:
+                            mTestSubject.setGender(TestSubject.GENDER_ALIEN);
+                            break;
+
+                    }
+                }
+            }));
+            builder.nextEpisodes(mTextMain, 9, 1);
+
+            // rest of the episodes, 10 to rest
             builder.setCurrentIcon(0);
-            builder.nextEpisodes(mTextMain, 9, mTextMain.length); // 9 to rest
+            builder.nextEpisodes(mTextMain, 10, mTextMain.length);
+            return builder.build();
+        }
+
+        @Override
+        public List<Episode> makeSubIntroEpisodes(final Intro intro) {
+            if (mTextNuts.length < 8) {
+                return null;
+            }
+            EpisodeBuilder builder = new EpisodeBuilder(intro);
+            builder.setCurrentIcon(0);
+
+            // Test: 13 is prime question, 0 to 3 and 4
+            builder.nextEpisodes(mTextNuts, 0, 4);
+            builder.nextEpisode(new QuestionEpisode(intro, false, mTextNuts[4], new int[]{R.string.intro_test_answer_yes, R.string.intro_test_answer_no, R.string.intro_test_answer_bullshit}, 0, new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    intro.nextEpisode();
+                }
+            }));
+
+            // in between texts and then chocolate, 5 to 6 and 7
+            builder.nextEpisodes(mTextNuts, 5, 2);
+            builder.setCurrentIcon(R.drawable.chocolate_thought);
+            builder.nextEpisodes(mTextNuts, 7, 1);
+
+            // rest of texts, 8 to end
+            builder.setCurrentIcon(0);
+            builder.nextEpisodes(mTextNuts, 8, mTextNuts.length);
+
             return builder.build();
         }
 

@@ -526,7 +526,7 @@ public class SolutionInputLetterClick extends SolutionInput {
         if (TextUtils.isEmpty(word)) {
             return new Solution(mSolution.getTongue()); // empty solution, should not be the case
         }
-        return new Solution(mSolution.getTongue(), userLettersToWord());
+        return new Solution(mSolution.getTongue(), word);
     }
 
     @Override

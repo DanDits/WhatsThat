@@ -637,8 +637,8 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
         return new CursorLoader(getActivity(), ImagesContentProvider.CONTENT_URI_IMAGE, ImageTable.ALL_COLUMNS, null, null, ImageTable.COLUMN_TIMESTAMP);
     }
 
-    private Cursor mLoadedImagesCursor;
-    private AsyncTask mLoadedImagesTask;
+    private transient Cursor mLoadedImagesCursor;
+    private transient AsyncTask mLoadedImagesTask;
     public synchronized void onLoadFinished(Loader<Cursor> loader, Cursor data) {
         // Swap the new cursor in.  (The framework will take care of closing the
         // old cursor once we return.)

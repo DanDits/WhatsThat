@@ -47,11 +47,17 @@
     <string name="image_author_details">%1$s</string>
     <string name="app_name">WhatsThat</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
-    <string name="init_skip_available_all">-testsubject ready-</string>
-    <string name="init_skip_unavailable">-loading testsubject-</string>
+    <string name="init_skip_state_ready">-testsubject ready-</string>
+    <string name="init_skip_state_mandatory_intro_missing">-loading testsubject-</string>
+    <string name="init_skip_state_init_missing">-loading testsubject-</string>
+    <string name="init_skip_state_none">-loading testsubject-</string>
 
     <string name="intro_test_subject_name">-test subject-</string>
     <string name="intro_test_subject_estimated_intelligence">-intelligence-</string>
+
+    <string name="intro_test_subject_gender_answer_male">Male</string>
+    <string name="intro_test_subject_gender_answer_female">Female</string>
+    <string name="intro_test_subject_gender_answer_whatever">Don\'t know</string>
 
     <string name="test_subject_0_name">Kid</string>
     <string name="test_subject_0_int">404</string>
@@ -260,6 +266,7 @@
     <string name="achievement_circle_13_name">Getting rich</string>
     <string name="achievement_circle_13_descr">You have the choice: Get rich now -or- get a better best time than %1$d seconds and get even more…</string>
     <string name="achievement_circle_13_descr_perfect">Wow, I didn\'t believe %1$d seconds were even possible! That\'s it, I am done.</string>
+    <string name="achievement_circle_13_descr_claimed">You have the strange feeling that %1$d seconds were not the best you could get. But then you look at the cash…</string>
 
     <string name="achievement_snow_1_name">Hurry up</string>
     <string name="achievement_snow_1_descr">Complete %1$d games within %2$d seconds.</string>

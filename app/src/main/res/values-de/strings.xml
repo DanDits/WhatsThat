@@ -32,11 +32,21 @@
     <string name="image_author_license">Lizenz: %1$s</string>
     <string name="image_author_details">%1$s</string>
 
-    <string name="init_skip_available_all">-testsubjekt bereit-</string>
-    <string name="init_skip_unavailable">-lade testsubjekt-</string>
+    <string name="init_skip_state_ready">Testsubjekt bereit</string>
+    <string name="init_skip_state_mandatory_intro_missing">Testsubjekt Interaktion benötigt</string>
+    <string name="init_skip_state_init_missing">Testsubjekt Informationen nötig</string>
+    <string name="init_skip_state_none">Testsubjekt wird geladen</string>
 
     <string name="intro_test_subject_name">-Test Subjekt-</string>
     <string name="intro_test_subject_estimated_intelligence">-Intelligenz-</string>
+
+    <string name="intro_test_subject_gender_answer_male">Männlich</string>
+    <string name="intro_test_subject_gender_answer_female">Weiblich</string>
+    <string name="intro_test_subject_gender_answer_whatever">Weiß nicht</string>
+
+    <string name="intro_test_answer_yes">Yes</string>
+    <string name="intro_test_answer_no">No</string>
+    <string name="intro_test_answer_bullshit">Schokolade</string>
 
     <string name="test_subject_0_name">Verwirrtes Kind</string>
     <string name="test_subject_0_int">Hoffnungslos</string>
@@ -67,8 +77,8 @@
         <item>Ich hoffe ihr werdet euch trotzdem verstehen</item>
         <item>Test: Ist 13 eine Primzahl?</item>
         <item>Keine Reaktion. Antwortzeit überschritten.</item>
-        <item>Ok vielleicht was einfacheres, denk mal an Süßigkeiten.</item>
-        <item>Ja; Schokolade ist gesund.</item>
+        <item>Ok vielleicht was einfacheres, denk mal an etwas zu essen.</item>
+        <item>Aha, Süßigkeiten.</item>
         <item>Wunderbar, da der Anschluss funktioniert können wir hoffentlich gleich beginnen.</item>
         <item>Ich hoffe mal du bist nicht schwer von Begriff.</item>
         <item>Nicht das wir dich überfordern. Mal sehen.. Buchstaben, nö…Zahlen, negativ…</item>
@@ -572,6 +582,10 @@
     <string name="achievement_circle_11_descr">Teile %2$d Kreise. Schau mich nicht so an. Mein Prof ist Mathematiker. Er weiß was er tut…%3$d sind unangemessen. %4$d sind natürlich völlig absurd. Du hast %1$d.</string>
     <string name="achievement_circle_12_name">Big brother verfolgt dich</string>
     <string name="achievement_circle_12_descr">Schnell, bevor er einen Blick in deine nicht existierende Seele wirft!</string>
+    <string name="achievevment_circle_13_name">Reich werden</string>
+    <string name="achievement_circle_13_descr">Du hast die Wahl: Werde sofort reich -oder- erreiche eine bessere Bestzeit als %1$d Sekunden und bekomme schnapp dir noch viel mehr…</string>
+    <string name="achievement_circle_13_descr_perfect">Wow, ich hätte nicht gedacht, dass %1$d Sekunden jemals möglich wären! Das wars, ich bin fertig.</string>
+    <string name="achievement_circle_13_descr_claimed">Du hast das seltsame Gefühl, dass %1$d Sekunden nicht deine Bestleistung waren. Aber dann erblickst du das Geld…</string>
 
     <string name="achievement_snow_1_name">Beeilung</string>
     <string name="achievement_snow_1_descr">Beende %1$d Spiele in weniger als %2$d Sekunden.</string>

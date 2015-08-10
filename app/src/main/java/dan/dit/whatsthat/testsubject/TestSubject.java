@@ -58,9 +58,10 @@ public class TestSubject {
     private static final int DEFAULT_SKIPABLE_GAMES = 15;
 
     private static final int GENDER_NOT_CHOSEN = -1;
-    private static final int GENDER_MALE = 0; // genders as int, not boolean .. you never know, male = 0 chosen by fair dice role, take that feminists
-    private static final int GENDER_FEMALE = 1;
-    private static final int GENDER_ALIEN = 2; // :o
+    public static final int GENDER_MALE = 0; // genders as int, not boolean .. you never know, male = 0 chosen by fair dice role, take that feminists
+    public static final int GENDER_FEMALE = 1;
+    public static final int GENDER_WHATEVER = 2;
+    public static final int GENDER_ALIEN = 3; // :o
 
 
     private boolean mInitialized;
@@ -128,11 +129,11 @@ public class TestSubject {
                         +"\n"
                         + res.getString(currLevel.mIntelligenceResId);
         ((TextView) intro.findViewById(R.id.intro_subject_descr)).setText(testSubjDescr);
-        intro.addEpisodeAsCurrentMain(new GeneralStartingEpisode(intro, res.getString(R.string.intro_starting_episode, res.getString(currLevel.mNameResId)), currLevel));
+        new GeneralStartingEpisode(intro, res.getString(R.string.intro_starting_episode, res.getString(currLevel.mNameResId)), currLevel).start();
         if (intro.getCurrentEpisode() == null) {
             intro.nextEpisode(); // if this level is loaded for the first time we need to set the initial episode
         } else {
-            intro.getCurrentEpisode().start();
+            intro.startUnmanagedEpisode(intro.getCurrentEpisode());
         }
         return intro;
     }
@@ -153,7 +154,6 @@ public class TestSubject {
             @Override
             public long process(Achievement toProcess) {
                 TestSubjectToast achievementToast = makeAchievementToast(toProcess);
-                Log.d("Achievement", "Showing achievement toast: " + achievementToast);
                 showToast(achievementToast);
                 return achievementToast == null ? 0L : achievementToast.mDuration;
             }

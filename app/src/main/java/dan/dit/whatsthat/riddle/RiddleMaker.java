@@ -30,8 +30,8 @@ import dan.dit.whatsthat.util.image.Dimension;
  * Created by daniel on 29.04.15.
  */
 public class RiddleMaker {
-    private static final int PROGRESS_FOUND_IMAGE_AND_MADE_BASIC_RIDDLE = 25;
-    private static final int PROGRESS_LOADED_IMAGE_BITMAP = 40;
+    private static final int PROGRESS_FOUND_IMAGE_AND_MADE_BASIC_RIDDLE = 15;
+    private static final int PROGRESS_LOADED_IMAGE_BITMAP = 30;
     private static final int PROGRESS_INITIALIZED_RIDDLE_BITMAP = 100;
 
     private static final double PICK_DISTRIBUTION_EXP_LAMBDA = 0.3; // lambda of the exponential distribution http://de.wikipedia.org/wiki/Exponentialverteilung

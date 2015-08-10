@@ -43,12 +43,16 @@ import dan.dit.whatsthat.util.ui.LinearLayoutProgressBar;
  * Created by daniel on 10.04.15.
  */
 public class InitializationFragment extends Fragment implements ImageManager.SynchronizationListener, RiddleInitializer.InitProgressListener {
-    private static final int STATE_DATA_NONE = 0;
-    private static final int STATE_DATA_COMPLETE = 1;
+    private static final int STATE_NONE = 0;
+    private static final int STATE_DATA_INITIALIZED = 1;
+    private static final int STATE_MANDATORY_INTRO_DONE = 2;
+    private static final int STATE_READY = 3;
+
     private int mRiddleProgress;
+    private int mIntroProgress;
     private int mImageProgress;
     private LinearLayoutProgressBar mProgressBar;
-    private int mState = STATE_DATA_NONE;
+    private int mState = STATE_NONE;
     private Button mInitSkip;
     private View mIntroContainer;
     private ImageButton mTongueSelect;
@@ -63,17 +67,29 @@ public class InitializationFragment extends Fragment implements ImageManager.Syn
             public boolean onTouch(View view, MotionEvent motionEvent) {
                 if (motionEvent.getActionMasked() == MotionEvent.ACTION_DOWN) {
                     mIntro.nextEpisode();
+                    checkDataState();
                     return true;
                 }
                 return false;
             }
         };
+        mIntro.setOnInteractionListener(new Intro.OnInteractionListener() {
+            @Override
+            public void onIntroInteraction(int actionCode) {
+                if (actionCode == Intro.INTERACTION_QUESTION_ANSWERED) {
+                    checkDataState();
+                }
+            }
+        });
         mIntroContainer.setOnTouchListener(nextTextListener);
+        checkDataState();
     }
 
     private synchronized void checkDataState() {
-        if (!RiddleInitializer.INSTANCE.isInitializing() && !ImageManager.isSyncing() && TestSubject.isInitialized()) {
-            if (mState != STATE_DATA_COMPLETE) {
+        boolean mandatoryIntroDone = mIntro == null || !mIntro.isMandatoryEpisodeMissing();
+        if (!RiddleInitializer.INSTANCE.isInitializing() && !ImageManager.isSyncing() && TestSubject.isInitialized()
+                && mandatoryIntroDone) {
+            if (mState != STATE_READY) {
                 Handler handler = new Handler();
                 handler.postDelayed(new Runnable() {
                     @Override
@@ -86,24 +102,31 @@ public class InitializationFragment extends Fragment implements ImageManager.Syn
                     }
                 }, 1500);
             }
-            mState = STATE_DATA_COMPLETE;
-            mInitSkip.setText(R.string.init_skip_available_all);
+            mState = STATE_READY;
+            mInitSkip.setText(R.string.init_skip_state_ready);
             mInitSkip.setEnabled(true);
             mProgressBar.onProgressUpdate(0);
-            return;
+        } else if (mandatoryIntroDone) {
+            mIntroProgress = PROGRESS_COMPLETE;
+            updateProgressBar();
+            mState = STATE_MANDATORY_INTRO_DONE;
+            mInitSkip.setText(R.string.init_skip_state_init_missing);
+            mInitSkip.setEnabled(false);
+        } else {
+            mState = STATE_DATA_INITIALIZED;
+            mInitSkip.setText(R.string.init_skip_state_mandatory_intro_missing);
+            mInitSkip.setEnabled(false);
         }
-        mState = STATE_DATA_NONE;
-        mInitSkip.setText(R.string.init_skip_unavailable);
-        mInitSkip.setEnabled(false);
     }
 
     private void initProgressBar() {
         mRiddleProgress = 0;
         mImageProgress = 0;
+        mIntroProgress = 0;
     }
 
     private void updateProgressBar() {
-        mProgressBar.onProgressUpdate((mImageProgress + mRiddleProgress) / 2);
+        mProgressBar.onProgressUpdate((mImageProgress + mRiddleProgress + mIntroProgress) / 3);
     }
 
     private void startSyncing() {
@@ -174,6 +197,8 @@ public class InitializationFragment extends Fragment implements ImageManager.Syn
                 @Override
                 public void onPostExecute(Void nothing) {
                     TestSubject.getInstance().initToasts(); // has to run on ui thread since toasts will be displayed there
+                    mIntroProgress = 50;
+                    updateProgressBar();
                     startIntro();
                 }
 
@@ -186,6 +211,10 @@ public class InitializationFragment extends Fragment implements ImageManager.Syn
     @Override
     public void onStart() {
         super.onStart();
+        mState = STATE_NONE;
+        mInitSkip.setText(R.string.init_skip_state_none);
+        mInitSkip.setEnabled(false);
+
         initProgressBar();
         initTestSubject();
         startRiddleInit();
@@ -245,7 +274,7 @@ public class InitializationFragment extends Fragment implements ImageManager.Syn
         mInitSkip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (mState >= STATE_DATA_COMPLETE) {
+                if (mState >= STATE_READY) {
                     mInitSkip.clearAnimation();
                     mIntroContainer.setVisibility(View.GONE);
                     ((OnInitClosingCallback) getActivity()).onSkipInit();

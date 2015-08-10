@@ -578,8 +578,8 @@ public class AchievementCircle extends TypeAchievementHolder {
         public static final int PERFECT_REWARD = 300;
         public static final int MAX_REWARD = 250;
         public static final int MIN_REWARD = 30;
-        public static final long MAX_REWARD_TIME = 3L * 1000L; // 3 seconds played time
-        public static final long MIN_REWARD_TIME = 60L * 60L * 1000L; //1 hour played time
+        public static final long MAX_REWARD_TIME = 5L * 1000L; // 5 seconds played time
+        public static final long MIN_REWARD_TIME = 30L * 60L * 1000L; //30 minutes played time
 
         public Achievement13(AchievementManager manager, PracticalRiddleType type) {
             super(type, R.string.achievement_circle_13_name, R.string.achievement_circle_13_descr, 0, NUMBER, manager, LEVEL, REWARD, 1, DISCOVERED);
@@ -591,6 +591,8 @@ public class AchievementCircle extends TypeAchievementHolder {
                     .getValue(AchievementDataRiddleType.KEY_BEST_SOLVED_TIME, Long.MAX_VALUE);
             if (bestTime < MAX_REWARD_TIME) {
                 return res.getString(R.string.achievement_circle_13_descr_perfect, bestTime / 1000L);
+            } else if (isAchieved() && !isRewardClaimable()) {
+                return res.getString(R.string.achievement_circle_13_descr_claimed, bestTime / 1000L);
             } else if (bestTime != Long.MAX_VALUE) {
                 return res.getString(mDescrResId, bestTime / 1000L);
             } else {
@@ -607,7 +609,7 @@ public class AchievementCircle extends TypeAchievementHolder {
             } else if (bestTime <= MAX_REWARD_TIME) {
                 return PERFECT_REWARD;
             } else {
-                //linearly interpolate bestTime for points (MAX_REWARD_TIME, MAX_REWARD) , (MIN_REWARD_TIME, MIN_REWARD)
+                //"linearly" (well, the time is scaled logarithmically) interpolate bestTime for points (MAX_REWARD_TIME, MAX_REWARD) , (MIN_REWARD_TIME, MIN_REWARD)
                 return (int) ((MIN_REWARD - MAX_REWARD) / (Math.log10(MIN_REWARD_TIME) - Math.log10(MAX_REWARD_TIME)) * (Math.log10(bestTime) - Math.log10(MAX_REWARD_TIME)) + MAX_REWARD);
             }
         }
