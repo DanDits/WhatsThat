@@ -112,6 +112,7 @@ public abstract class TestSubjectLevel {
             builder.setCurrentIcon(0);
             builder.nextEpisodes(mTextMain, 10, mTextMain.length);
             return builder.build();
+
         }
 
         @Override
