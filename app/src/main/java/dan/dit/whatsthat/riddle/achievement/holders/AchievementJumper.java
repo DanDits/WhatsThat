@@ -236,6 +236,7 @@ public class AchievementJumper extends TypeAchievementHolder {
         public static final int LEVEL = 0;
         public static final int REWARD = 5;
         public static final boolean DISCOVERED = true;
+        private static final Long REQUIRED_HINT_NUMBER = 11L;
         private AchievementPropertiesMapped<String> mMiscData;
 
         public Achievement7(AchievementManager manager, PracticalRiddleType type) {
@@ -261,7 +262,7 @@ public class AchievementJumper extends TypeAchievementHolder {
         public void onDataEvent(AchievementDataEvent event) {
             if (event.getChangedData() == mMiscData) {
                 String key = ShopArticleRiddleHints.makeKey(PracticalRiddleType.JUMPER_INSTANCE);
-                if (event.hasChangedKey(key) && mMiscData.getValue(key, -1L) >= 2) {
+                if (event.hasChangedKey(key) && mMiscData.getValue(key, -1L) >= REQUIRED_HINT_NUMBER) {
                     achieveAfterDependencyCheck();
                 }
             }

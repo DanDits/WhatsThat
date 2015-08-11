@@ -161,11 +161,11 @@ public class Types {
         }
         @Override
         public int getAvailableHintsAtStartCount() {
-            return 4;
+            return 2;
         }
         @Override
         public int getTotalAvailableHintsCount() {
-            return 7;
+            return 6;
         }
         public List<Integer> getHintCosts() {
             List<Integer> costs = new ArrayList<>(getTotalAvailableHintsCount());
@@ -228,12 +228,11 @@ public class Types {
         }
         @Override
         public int getAvailableHintsAtStartCount() {
-            return 3;
+            return 2;
         }
         @Override
-        public int getTotalAvailableHintsCount() {
-            return 10;
-        }
+        public int getTotalAvailableHintsCount() {return 9;}
+
         public List<Integer> getHintCosts() {
             List<Integer> costs = new ArrayList<>(getTotalAvailableHintsCount());
             costs.add(10);
@@ -353,7 +352,7 @@ public class Types {
         }
         @Override
         public int getTotalAvailableHintsCount() {
-            return 11;
+            return 12;
         }
         public List<Integer> getHintCosts() {
             List<Integer> costs = new ArrayList<>(getTotalAvailableHintsCount());

@@ -57,7 +57,10 @@
         <item>Erdling, ich heiße dich auf einer Reise in die Untiefen deines Geistes willkommen.</item>
         <item>Ich bin Meister Minion Xiaros Blu Equaris Zubatro Venalo der 364k.</item>
         <item>Es reicht aber, wenn du mich ganz zwanglos mit \"Erhabener\" anredest.</item>
-        <item>Achja, das hier ist Dr. Kulg.</item>
+        <item>Du kannst mich natürlich auch mit anderen Ehrentiteln anreden.</item>
+        <item>Beispielsweise \"Eure Durchlauchtheit\", \"Erhabenes Wesen aus Sonnenstrahlen\"</item>
+        <item>Oder \"Oh ruhmreiches und unübertreffliches Wesen aller Galaxien\". Entschuldige. Ich schweife schnell ab. </item>
+        <item>Das hier ist Dr. Kulg.</item>
         <item>Ihr würdet ihn einen verrückt genialen Wissenschaftler nennen.</item>
         <item>Verrate mir nur vorweg bitte eins: Was bist du für ein Wesen?</item>
         <item>Unsere hochentwickelte Kultur ist darüber zu erhaben, aber euch Menschen ist das ja wichtig.</item>
@@ -118,9 +121,9 @@
     <string-array name="test_subject_1_intro_nuts">
         <item>Die Reaktionen lassen vermuten, dass der menschliche IQ nur knapp über dem absoluten Gefrierpunkt liegt</item>
         <item>Homo Sapiens, wie haben die bloß diesen Planeten so schnell kaputt gemacht mit so wenig Hirn?</item>
-		<item>Steht hier nicht irgendwo in diesem meist verkauften Erdlings-Buch so ein Satz…?</item>
+		<item>Steht hier nicht irgendwo so ein Satz…?</item>
 		<item>Achja hier:\"denn sie wissen nicht, was sie tun…</item>
-        <item>Ja. Das kann ich nur bestätigen.</item>
+        <item>Das kann ich nur bestätigen.</item>
         <item>Das zerstörerische Verhalten war wohl keine Absicht, sondern fehlender Überblick.</item>
         <item>Ob wir ihnen dabei helfen sollten und dann den Planeten von neuem besiedeln?</item>
         <item>Oh du hörst mir noch zu.. ich mache nur Spaß.</item>
@@ -141,13 +144,17 @@
         <item>Bei uns werden Primzahlen schon in der Plasmagranulation aufgenommen…</item>
 		<item>-das entspricht eurer Muttermilch.</item>
         <item>Verzeihe die Überschätzung deines Intellekts.</item>
-        <item>Test: 2+5=?</item>
-        <item>6. Fast korrekt!</item>
+        <item>Test: Was ist die Lösung des P-NP Problems?</item>
+        <item>Wie? Ein Millennium-Problem?</item>
+        <item>Nach so langer Zeit und noch immer keine Lösung?</item>
+        <item>Hmmm.. dann eben ein leichter Test.</item>
+        <item>Was ist das Molekulargewicht von Antimaterie?</item>
+        <item>6? Naja. Fast korrekt!</item>
         <item>Seufz. Das kann ja noch was werden…</item>
 		<item>Als die Suppe der Weisheit verteilt wurde, seid ihr wohl mit der Gabel angerannt.</item>
     </string-array>
     <string-array name="test_subject_2_intro_nuts">
-        <item>Übermütige Kommentare und Beleidigungen meinerseits sind nur ein Versuch menschlich zu kommunizieren.</item>
+        <item>Übermütige Kommentare und Beleidigungen meinerseits sind übrigens nur ein Versuch menschlich zu kommunizieren.</item>
         <item>Aber nun weiter im Protokoll.</item>
     </string-array>
     <string-array name="test_subject_2_riddle_solved_candy">
@@ -177,11 +184,19 @@
 		<item>Ein geistiger Pygmäe besitzt in einem FInger mehr Intelligenz, als ihr in eurem gesamten Körper.</item>
 		<item>Solltet ihr eines Tages wieder einmal Besuch von einer anderen Hochkultur bekommen:</item>
 		<item>ihr habt nichts zu befürchten.</item>
-		<item>Es gibt zwei Möglichkeiten: Entweder sie tilgen euch und euren Planeten von diesem Fleck..</item>
-		<item>..oder sie kehren mit blanken Entsetzen im Gesicht um.</item>
-		<item>Wir sind eine der wenigen Ausnahmen, dass wir Möglichkeit drei wagen:</item>
-		<item>Führe eine Versuchsreihe mit den Lebewesen zur Messung derer Intelligenz durch.</item>
-		<item>Das ihr noch lebt, habt ihr alles meinem bisher robusten Nervenschild zu verdanken.</item>
+		<item>Vermutlich kehren sie mit blankem Entsetzen im Gesicht um.</item>
+		<item>Oder sie genießen das Kino, wenn ihr euch gegenseitig bekämpft.</item>
+		<item>Wir sind eine der wenigen Ausnahmen:</item>
+		<item>Wir studieren euch vorher!</item>
+		<item>Ihr führt Versuche, ich meine Ratten und Affen gesehen zu haben, an niederen Lebewesen durch.</item>
+        <item>Das tun wir auch!</item>
+        <item>Mit euch zum Beispiel.</item>
+        <item>Was gugst du mich so an?</item>
+        <item>Unsere Versuche dienen immer nur zur Messung der Intelligenz anderer Lebewesen!</item>
+        <item>Naja meistens zumindest. Sofern vorhanden.</item>
+        <item>Und wenn sie sich nicht so anstellen.</item>
+        <item>Ich gebe mir ja Mühe den Motivationsfaktor wieder anzukurbeln.</item>
+        <item>Hier ist das aber schwieriger als angenommen.</item>
     </string-array>
     <string-array name="test_subject_3_riddle_solved_candy">
         <item>Beifall gibt\'s später…</item>
@@ -195,7 +210,7 @@
         <item>Sogar WiseMind fängt langsam an zu zweifeln.</item>
         <item>Zu zweifeln, ob die Entscheidung mit dir die richtige war.</item>
         <item>Sie ist nun am Prüfen, ob es an deinem Gehirn liegt.</item>
-        <item>Vielleicht ist der Schwachsinn ein kollektives Problem.</item>
+        <item>Vielleicht ist der Schwachsinn ein kollektives Problem archaischen Ursprungs.</item>
         <item>Wir wissen ja noch nicht, woran ihr Erdlinge sonst noch leidet.</item>
 		<item>Erste Ergebnisse ergaben bisher nur:</item>
         <item>Arroganz.</item>
@@ -207,12 +222,12 @@
     </string-array>
     <string-array name="test_subject_4_intro_nuts">
 		<item>Und dann sieh mich an:</item>
-		<item>Intelligent.</item>
+		<item>Das Musterbeispiel eines intelligenten Wesens.</item>
 		<item>Geistrich.</item>
 		<item>Abenteuerlustig auf andere Planeten.</item>
 		<item>Scharfsinnig im Verstand.</item>
 		<item>Fürsorgend für niedere Wesen wie dich.</item>
-		<item>Und natürlich total bescheiden.</item>
+		<item>Und natürlich: total bescheiden.</item>
     </string-array>
     <string-array name="test_subject_4_riddle_solved_candy">
         <item>Wer hätte das gedacht.</item>
@@ -224,7 +239,7 @@
     <string name="test_subject_5_int">Ein Stein im Wasser</string>
     <string-array name="test_subject_5_intro_main">
         <item>Letztes Mal habe ich etwas übertrieben.</item>
-        <item>Ich habe WiseMidn versprochen, dass ich die Menschheit nicht pausenlos dumm nenne.</item>
+        <item>Ich habe WiseMind versprochen, dass ich die Menschheit nicht pausenlos dumm nenne.</item>
         <item>Und dich soll ich auch nicht mehr beleidgen.</item>
         <item>Zumindest nicht so offensichtlich.</item>
         <item>Was aber nicht heißt, dass ich dich anspruchsvoller beschimpfen werde.</item>
@@ -232,18 +247,24 @@
     </string-array>
     <string-array name="test_subject_5_intro_nuts">
 		<item>Eine Frage stelle ich mir schon die ganze Zeit.</item>
-		<item>Ich kann ja verstehen, dass ein Kind in dem frühen Entwicklungsstadium noch lernen muss.</item>
+		<item>Ich kann ja verstehen, dass sich Kinder bei eurer Spezies noch im Entwicklungsstadium und am Lernen befinden.</item>
 		<item>Aber wieso seid ihr erwachsenen Menschen so dumm?</item>
 		<item>Verzeihung bitte.</item>
-		<item>Ich wollte sagen: Wieso stellt ihr Menschen eine Evolutionsbremse in der Entwicklung dar?</item>
+		<item>Ich wollte sagen: Wieso stellen körperlich ausgereifte Menschen eine Evolutionsbremse in der Entwicklung dar?</item>
+        <item>Die Betonung liegt auf körperlich.</item>
+        <item>Von geistig kann kaum die Rede sein.</item>
 		<item>Dass ein dum..</item>
 		<item>..ein intellektueller Tiefflieger aufgrund mangelnder Alternativen Politiker wird, verständlich.</item>
 		<item>Doch der Rest?</item>
 		<item>Könnte versuchen, mal das eigene Sonnensystem zu erforschen.</item>
 		<item>Die Sonne zu erkunden. Euren Intellekt zu verbessern.</item>
 		<item>Und stattdessen aufhören an eurer eigenen Vernichtung zu arbeiten…</item>
-		<item>Ich sehe.. ich brauch mal eine kurze Pause.</item>
-		<item>Der erd-sphärische Druck schlägt aufs Gemüt.</item>
+        <item>Ihr baut Waffen, die euch selbst vernichten würden.</item>
+        <item>Welches Wesen sägt bitte schön den Ast ab, auf dem es sitzt?</item>
+		<item>Ich sehe.. mein Temperament geht mit mir durch.</item>
+		<item>Die Tests reizen mein Nervenschild.</item>
+        <item>Ich frage WiseMind, ob sie nicht etwas dagegen tun kann.</item>
+        <item>Der erd-sphärische Druck schlägt aufs Gemüt.</item>
     </string-array>
     <string-array name="test_subject_5_riddle_solved_candy">
         <item>Nochmal bitte!</item>
@@ -254,13 +275,15 @@
 	<string name="test_subject_6_name">Entdecker</string>
     <string name="test_subject_6_int">Ausbaufähig</string>
     <string-array name="test_subject_6_intro_main">
-        <item>WiseMind hat mir für diese Atmosphäre einen Helm konstruiert.</item>
-        <item>Jetzt geht es mir viiiiiel besser.</item>
+        <item>WiseMind hat mir für diese Atmosphäre eine Spezialcreme hergestellt!</item>
+        <item>Jetzt geht es mir wesentlich besser!</item>
         <item>Und noch eine gute Nachricht!</item>
         <item>Wir haben dich noch nicht aufgegeben!</item>
+        <item>Zumindest noch nicht ganz.</item>
         <item>WiseMind hat gesagt, ich soll meine Anforderungen senken.</item>
-		<item>Also meine Anforderungen an dich. Und sie hat recht!</item>
-		<item>Natürlich hat sie das. WiseMind hat immer recht.</item>
+		<item>Also meine Anforderungen an dich.</item>
+        <item>Und sie trifft den Menschen, äh den Nagel auf den Kopf!</item>
+		<item>Natürlich tut sie das. WiseMind irrt sich fast nie.</item>
 		<item>Aber zurück zum Thema.</item>
     </string-array>
     <string-array name="test_subject_6_intro_nuts">
@@ -269,18 +292,25 @@
 		<item>Nein, Lakritze ist nicht ganz korrekt! Du hattest es fast.</item>
 		<item>Warte, die Frage anders formuliert: Was ist die 3. Schokolade von Pi?</item>
 		<item>4 ist korrekt!!!</item>
-		<item>Fantastisch! Und welche Primzahl lakritzt?</item>
+		<item>Fantastisch! Fehlt eigentlich nur noch der Trommelwirbel.</item>
+        <item>Und welche Primzahl lakritzt?</item>
 		<item>18 IST.. nicht ganz korrekt. Aber ein Anfang</item>
 		<item>Schnelle Antwort bei teilweise richtigen Antworten.</item>
-		<item>So wünsche ich mir das!</item>
+		<item>hmm… Das Ergebnis ist nicht weltbewegend.</item>
+        <item>Es zeugt zumindest noch nicht von besonderer Intelligenz.</item>
+        <item>Bist ja auch bloß ein Mensch.</item>
+        <item>Aber in Summe war es ganz passabel.</item>
+        <item>So passabel, wie die Pryramide in Ägypten einem Kreis entspricht.</item>
 		<item>…</item>
 		<item>Ich habe einen Entschluss gefasst.</item>
 		<item>Deine Reaktionen auf Zahlen waren, stark untertrieben, bescheiden.</item>
 		<item>Katastrophal um genau zu sein.</item>
 		<item>Das ist wohl nicht deine Stärke.</item>
 		<item>Und Buchstaben auch nicht.</item>
+        <item>Ich bin zwar optimistisch, aber im Wolkenkuckucksheim lebe ich trotzdem nicht.</item>
 		<item>Wir arbeiten deswegen ausschließlich mit Bildern weiter.</item>
 		<item>Das bietet noch Potenzial.</item>
+        <item>Und weniger Frust.</item>
     </string-array>
     <string-array name="test_subject_6_riddle_solved_candy">
         <item>Unverhofft gut!</item>
@@ -293,7 +323,7 @@
     <string-array name="test_subject_7_intro_main">
         <item>Zur Abwechslung haben wir helios beobachtet und die chromische Adaption gemessen.</item>
         <item>Des mit Fotorezeptoren ausgestatteten Organs zur Wahrnehmung von Reizen.</item>
-		<item>Ups. Wenn ich mich mit WiseMind unterhalte, ..</item>
+		<item>Ups. Wenn ich mich mit WiseMind unterhalte,..</item>
         <item>..dann vergesse ich manchmal, dass ich bei dir diesen Fachjargon nicht verwenden sollte.</item>
         <item>Also übersetzt: Wir haben die Sonne und deine Augen beobachtet.</item>
         <item>Natürlich um die Farbwahrnehmung nochmals genauer zu untersuchen!</item>
@@ -312,7 +342,7 @@
 		<item>Und ihr… ein ganz spezieller Haufen…</item>
 		<item>Ihr wisst nichts und wisst nicht, dass ihr nichts wisst…</item>
 		<item>Diesen Zustand von geistiger Umnachtung…</item>
-		<item>Ihr seid eine GEfahr für diesen Planeten und das Sonnensystem.</item>
+		<item>Ihr seid eine Gefahr für diesen Planeten und das Sonnensystem.</item>
 		<item>Wenn ich auf eine Spezies mein ganzes Wissen und Gut setzen müsste..</item>
 		<item>..ihr wärt wohl die letzten…</item>
 		<item>Tut mir ja leid, ich sage halt einfach immer die Wahrheit.</item>
@@ -331,7 +361,7 @@
         <item>Ich muss etwas zurück schiffen.</item>
         <item>Mach dir keine falschen Hoffnungen.</item>
 		<item>Ups. Wenn ich mich mit WiseMind unterhalte, ..</item>
-        <item>Ich will nicht sagen, du bist schlau oder schlauer. Nene.</item>
+        <item>Ich will nicht sagen, du bist schlau oder schlauer, nene.</item>
         <item>WiseMind hat eine Zeit lang ein paar Menschenherden beobachtet und erschreckendes festegestellt…</item>
         <item>Zwei Gruppen verfügen über keinerlei Gehirn</item>
 		<item>Oh, es reagiert auf die Worte \"kein Gehirn\".Interessant. Hat das etwas zu bedeuten? WiseMind muss das untersuchen.</item>
@@ -347,15 +377,19 @@
 		<item>..war das eben wieder ein Zucken..? Egal…</item>
 		<item>..um animalisch und rückständige Lebewesen. Obwohl animalisch eine Beleidigung für jedes intelligentere Tier auf diesem Planeten ist.</item>
 		<item>Sogar ein Stein hat mehr Intelligenz.</item>
-		<item>Ihr Menschen kennzeichnet diese Gruppen mit Richtungen.. Moment..</item>
-		<item>..Oben- und Untenextremisten.. Nee.. Wie hießen die nochmal..</item>
+		<item>Ihr Menschen kennzeichnet diese fanatischen Gruppen mit Richtungen.. Moment..</item>
+		<item>..Oben- und Unten.. nee.. West- und Ost.. auch nicht.</item>
+        <item>Wie hießen die denn nochmal…</item>
 		<item>Naja egal.</item>
-		<item>Einzelne Menschen könnten wir sicher von diesem Wahnsinn heilen.</item>
-		<item>Es sieht aber danach aus, dass das Leiden an Irsinn ansteckend ist.</item>
-		<item>Wir behalten dich noch ein wenig hier.</item>
-		<item>Papperlapapp.</item>
-		<item>Natürlich zum Schutz!</item>
-		<item>Wo denkst denn du hin! Als Versuchsobjekt? Also bitte…</item>
+		<item>Ich habe zur Entstehung der genannten Gruppen schon drei verschiedene Theorien.</item>
+		<item>Es ergeben sich nur keine eindeutigen Antworten.</item>
+		<item>Auf jede Theorie gibt es 279 mögliche Thesen.</item>
+		<item>Auf jede These 13 mögliche Lösungen.</item>
+        <item>Aber auf jede Lösung kommen 7 Hypothesen, 65 Gegentheorien, 8 Doktrinen und 4 Hirngespinste.</item>
+		<item>Von den 3038 unterschiedlichen Meinungen ganz zu schweigen!</item>
+		<item>Oder um es mathematisch-philosophisch auszudrücken:</item>
+        <item>Eine Gleichung mit achthundertfünfunzwanzig Unbekannten, siebenundreißig Dogmen und fünfzehn Neologismen.</item>
+        <item>Kapiert?</item>
     </string-array>
     <string-array name="test_subject_8_riddle_solved_candy">
         <item>Voll clever!</item>
@@ -366,9 +400,8 @@
 	<string name="test_subject_9_name">Junior Talent</string>
     <string name="test_subject_9_int">Intelligenzniveau eines Einzellers</string>
     <string-array name="test_subject_9_intro_main">
-        <item>Vom Ernst zurück zum Ernst.</item>
-        <item>Du hast ja recht WiseMind, das war dämlich.</item>
-		<item>Ich meinte: zurück von den ernsten Erkenntnissen zu den erquickenden Forschungen bei unserem Versuchsobjekt.</item>
+        <item>Zurück von den erquickenden Myriaden gescheiter Gedanken.</item>
+        <item>Zurück zu den trostlosen Forschungen bei unserem Versuchsobjekt.</item>
     </string-array>
     <string-array name="test_subject_9_intro_nuts">
 		<item>Ich muss dein Gehirn etwas unter Strom setzen.</item>
@@ -436,11 +469,13 @@
     <string name="riddle_type_circle">Graue Zellen</string>
     <string name="riddle_type_circle_explanation">Berühre einen Kreis, um diesen in vier kleinere aufzuteilen. Verbessere die Kontur des versteckten Bildes.</string>
     <string-array name="riddle_type_circle_hints">
-	    <item>Teile bei unserem ersten Experiment einen Kreise, so wie Mose das Wasser. Nur nicht in zwei Hälften, sondern vier neue Kreise, bis du irgendwann durch die feineren Konturen hoffentlich ein Bild erkennst. Falls nicht, führe ich die Versuchsreihe mit Pantoffeltierchen weiter, die diese Tests mit Bravour bestanden haben.</item>
-        <item>Demo Version beendet. Kaufe die Vollversion für nur 59,99€. Just kidding. Geh trotzdem mal in den Shop. Der intergalaktische Kreislaser-Turbo-Schneider ist sicher nützlich…</item>
-        <item>Manche menschliche Augen erkennen manche Bilder manchmal erst aus manch einer Entfernung.</item>
-        <item>Manchmal hilft auch ein Screenshot. Bei eurem kleinen Gehirn aber nicht immer.</item>
+	    <item>Teile bei unserem ersten Experiment einen Kreis, so wie Mose das Wasser. Nur nicht in zwei Hälften, sondern in vier neue Kreise. Irgendwann erkennst du durch die feineren Konturen ein Bild. Falls nicht, führe ich die Versuchsreihe mit Pantoffeltierchen weiter, die diese Tests mit Bravour bestanden haben.</item>
+        <item>Demo Version beendet. Kaufe die Vollversion für nur 59,99€. Just kidding. Geh trotzdem mal in den Shop. Dort finden sich praktische Dinge, wie zum Beispiel der intergalaktische Kreislaser-Turbo-Schneider. Ist sicher nützlich…</item>
         <item>Eine Schnellanleitung findest du oben rechts. Dort kannst du auch ein Bild überspringen, solltest du mal nicht weiter kommen.</item>
+        <item>Sollte dieses Experiment einigermaßen erfolgreich verlaufen, kannst du später in der Mitte zwischen verschiedenen Versuchen wählen. Oder zurückgestellte Bilder.</item>
+        <item>Manche menschliche Augen erkennen manche Bilder manchmal erst aus manch einer Entfernung. Manchmal hilft auch ein Screenshot.</item>
+        <item>So, jetzt hast du mich genug belästigt. Das wars für den Anfang.</item>
+
         <item>Willst du irgendwann mal aufhören mich zu belästigen?! Sonst muss ich dein Gehirn aufsaugen.</item>
     </string-array>
     
@@ -448,9 +483,8 @@
     <string name="riddle_type_snow_explanation">Bewege die Zelle durch Kippen des Gerätes. Sammle giftige Süßigkeiten, werde größer und EXPLODIERE!</string>
     <string-array name="riddle_type_snow_hints">
         <item>Ein neuer Test. In der Umgebung der Zelle platzieren wir kontaminierte biologische Stoffe einer anderen Spezies, um die Reaktion der Zelle darauf zu testen. Achte auf die Partikel, die von dem Stoff ausgehen und deiner Zelle schaden. Den Rest werden wir, wie in der Politik, mit einer Lüge bestmöglich verschleiern.</item>
-        <item>Durch den Versuch erhoffen wir uns tiefere Einblicke in die irdische graue Substanz, ein Bestandteil deines Zentralnervensystems. Dazu mussten wir aus deinem Gehirn eine Zelle entfernen. </item>
-        <item>Ob du dir wegen der entfernten Gehirnzelle Sorgen  machen musst? Hmm, bei der ohnehin schon geringen Anzahl…  ja. Der Test ist aber wichtiger.</item>
-        <item>Woher Engelchen kommt? Wir haben einer Zelle Tätrhaw injiziert. Das zeigt der Zelle die blanke Realität.  Als wir das Zeug einem Politiker gegeben haben, ist die Zelle augenblicklich geplatzt.</item>
+        <item>Durch den Versuch erhoffen wir uns tiefere Einblicke in die irdische graue Substanz, ein Bestandteil deines Zentralnervensystems. Dazu mussten wir aus deinem Gehirn eine Zelle entfernen. Die entfernte Gehirnzelle wirst du kaum merken. Du kannst deinen Kopf aber gegen die Wand schlagen. Das verdeutlicht den Effekt.</item>
+        <item>Woher Engelchen kommt? Wir haben einer Zelle Tätrhaw injiziert. Das zeigt der Zelle die blanke Realität.  Als wir das Zeug der Zelle eines Politiker gegeben haben, ist die Zelle augenblicklich geplatzt.</item>
         <item>Sollte Engelchen zu hektisch oder aufgewühlt sein: Lass es die Wand schmecken. Es wird sich beruhigen.</item>
         <item>Jedes Partikel lässt dich prozentual schrumpfen. Engelchen schützt dich etwas vor durchgehenden Partikel oder Wandkollisionen.</item>
         <item>Du kannst Engelchen auch aus dem Spielfeld drücken. Dann wird deine Zelle temporär wieder in den Narrheits-Zustand versetzt.</item>
@@ -471,8 +505,7 @@
     <string name="riddle_type_dice_explanation">Berühre ein leeres Feld, damit ein neuer Würfel erscheint. Bewege und kombiniere Würfel gleicher Augenzahl und Farbe, um das Bild aufzudecken.</string>
     <string-array name="riddle_type_dice_hints">
 	    <item>Ein komplizierter Test. Kombiniere  Würfel gleicher Zahl und Farbe. In den angezeigten Bereichen entsteht Transparenz. Es gibt drei Basiswürfel rot, gelb und grün sowie die Sonderwürfel lila und den Alien Cube. Der Alien-Cube hat auf jeden Basiswürfel unterschiedliche Effekte.</item>
-        <item>Grund für diesen komplizierten Versuch ist eine Anomalie, dir wir bei euch festgestellt: Euren irdischen Würfel fehlt eine Dimension. Sie haben fälschlicherweise 6 Seiten, obwohl es 9 sind.</item>
-        <item>Wir testen dein Gedächtnis daher auf Realitätsbasis hinsichtlich Kombination, Zahlen, Taktik, Logik, Farbe, Bewegung, Logistik und Schnelligkeit. Ja, ich halte es auch für einen Fehler, weil dich das ziemlich überfordert, aber Befehl ist Befehl.</item>
+        <item>Grund für diesen komplizierten Versuch ist eine Anomalie, die wir bei euch festgestellt: Euren irdischen Würfel fehlt eine Dimension. Sie haben fälschlicherweise 6 Seiten, obwohl es 9 sind. Wir testen dein Gedächtnis daher auf Realitätsbasis hinsichtlich Kombination, Zahlen, Taktik, Logik, Farbe, Bewegung, Logistik und Schnelligkeit. Ja, ich halte es auch für einen Fehler, weil dich das ziemlich überfordert, aber Befehl ist Befehl.</item>
         <item>Alien-Cube auf Rot ergibt grün und deckt den entsprechende Bereich auf.</item>
         <item>Alien-Cube auf Gelb deckt das Feld zu 100% und lässt die Würfel verschwinden.</item>
         <item>Alien-Cube auf Grün ergibt lila. Die aufgedeckten Felder sind beweglich aber die Transparenz ist abhängig von der Augenzahl.</item>
@@ -485,17 +518,18 @@
     <string name="riddle_type_jumper">Monstarathon</string>
     <string name="riddle_type_jumper_explanation">Berühre das Feld, um über Hindernisse zu springen und das Bild zu vergrößern. Führe einen Double-Jump aus, um über größere oder längere Hindernisse zu springen.</string>
     <string-array name="riddle_type_jumper_hints">
-        <item>Wir haben an einem Geschäftsmann einige Versuche durchgeführt und mussten die Erinnerungen blockieren. Die Blockade lässt sich glücklicherweise in unserem Monster Parcours wieder lösen. Wir haben unserem Kaufmann zu einem Marathon mit einem einfachen Gedanken motivieren können:  "Am Ende des Regenbogens steht ein Topf voller Geld." Zu schade, dass es nachts keinen Regenbogen gibt.</item>
         <item>Ihr Menschen seid ein merkwürdisches Völkchen. Ein Esel lässt sich mit einer Karotte zum Laufen animieren, bei euch Homo-Sapiens bedarf es einem Bündel Geld, obwohl das nicht mal essbar ist.</item>
+        <item>Wie dem auch sei. Wir haben an einem Geschäftsmann einige Versuche durchgeführt und dazu die Erinnerungen blockiert. Du kannst diese wieder lösen, indem du über Hindernisse springst. Mit einem einfachen Gedanken konnten wir unseren Kaufmann zu einem Marathon mit Hindernissen motivieren: \"Am Ende des Regenbogens steht ein Topf voller Geld.\" Zu schade, dass es nachts keinen Regenbogen gibt.</item>
         <item>Einmal klicken: Jump, zweimal klicken oder gedrückt halten: Double Jump. Kapiert?</item>
-        <item>Es gibt vier Bereiche. Je nach Schwierigkeit wird die Erinnerung pro überwundenem Hindernis schneller zurückkehren.</item>
+        <item>Es gibt vier Bereiche. Je nach Schwierigkeit wird die Erinnerung unterschiedlich groß ausfallen.</item>
+        <item>Nach jeden x-überwundenen Hindernissen wird sich unser Geschäftsmann erinnern. Manchmal aber an irrelevante Dinge, der Bereich bleibt dann unverändert.</item>
         <item>Übung macht den Meister. Aber manche Menschen sind für Jump and Runs einfach nicht geschaffen.</item>
-        <item>Hast du Knuffbuff schon kennengelernt? Er wartet nach jeder Schwierigkeitszone auf dich.</item>
-        <item>Du fragst dich wer Knuffbuff ist? Ein mysteriöses Wesen!</item>
+        <item>Du fragst dich wer Manomnom ist? Ein mysteriöses Wesen!</item>
+        <item>Manomnom wartet im letzten Bereich auf dich. Und weil mein Meister ihn so gern hat, auch nach jeder Schwierigkeitszone.</item>
         <item>Sein Laserstrahl verkohlt dich übrigens nur zu seinen Füßen. Der Rest ist lediglich Showeinlage.</item>
         <item>Warum er alles Lasern will? Nach dem Verspeisen von Antimaterie ist er leider etwas verrückt geworden.</item>
-        <item>Knuffbuff und ich sind die Lieblinge meines Meisters.</item>
-        <item>Ach Knuffbuff, du Dummerchen. Warum konntest du Nimmersatt deine Klauen nicht einfach von der Antimaterie lassen…?</item>
+        <item>Manomnom und ich sind die Lieblinge meines Meisters!</item>
+        <item>Ach Manomnom, du Dummerchen. Warum konntest du Nimmersatt deine Klauen nicht einfach von der Antimaterie lassen…?</item>
     </string-array>
 
     <string name="riddle_type_memory">Memory</string>
