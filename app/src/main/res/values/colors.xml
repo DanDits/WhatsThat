@@ -1,7 +1,9 @@
 <resources>
     <color name="important">#ff05f700</color> <!--for the important button-->
+    <color name="dialog_title_text">#00cf3c</color><!--for the alert dialog's title text-->
     <color name="positive_text">#ff42c700</color> <!--for important text-->
     <color name="button_pressed">#ffedf7ae</color> <!--for the standard button-->
-    <color name="main_background">#0099cc</color><!--background; appears everywhere-->
-
+    <color name="main_background">#a7b9d4</color><!--background; appears everywhere (blue: ff0099cc)-->
+    <color name="alien_purple">#ff8d16b4</color><!--the app alien theme purple (e.g. dialog divider)-->
+    <color name="list_selector_pressed">#bcc88fc4</color><!--when an element in the list selector is pressed-->
 </resources>

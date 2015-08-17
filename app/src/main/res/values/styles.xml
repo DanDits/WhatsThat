@@ -5,6 +5,7 @@
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="android:buttonStyle">@style/button</item>
         <item name="android:imageButtonStyle">@style/button</item>
+        <item name="android:alertDialogTheme">@style/Theme_Holo_Dialog_Alert</item>
     </style>
 
     <style name="button" parent="@android:style/Widget.Button">
@@ -27,5 +28,4 @@
     <style name="button_important" parent="@android:style/Widget.ImageButton">
         <item name="android:background">@drawable/button_important_background</item>
     </style>
-
 </resources>

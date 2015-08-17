@@ -12,6 +12,7 @@ import android.view.View;
 import dan.dit.whatsthat.R;
 import dan.dit.whatsthat.riddle.types.PracticalRiddleType;
 import dan.dit.whatsthat.testsubject.TestSubject;
+import dan.dit.whatsthat.util.ui.UiStyleUtil;
 
 /**
  * Created by daniel on 04.07.15.
@@ -79,6 +80,15 @@ public class GameWelcomeDialog extends DialogFragment {
         super.onSaveInstanceState(outState);
         if (mType != null) {
             outState.putString(KEY_TYPE, mType.getFullName());
+        }
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        Dialog dialog = getDialog();
+        if (dialog != null) {
+            UiStyleUtil.setDialogDividerColor(dialog, getResources(), getResources().getColor(R.color.alien_purple));
         }
     }
 

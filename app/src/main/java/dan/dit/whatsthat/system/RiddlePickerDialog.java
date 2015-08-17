@@ -20,6 +20,7 @@ import dan.dit.whatsthat.riddle.Riddle;
 import dan.dit.whatsthat.riddle.RiddleInitializer;
 import dan.dit.whatsthat.riddle.TypeChooser;
 import dan.dit.whatsthat.riddle.UnsolvedRiddlesChooser;
+import dan.dit.whatsthat.util.ui.UiStyleUtil;
 
 /**
  * Created by daniel on 05.05.15.
@@ -98,10 +99,11 @@ public class RiddlePickerDialog extends DialogFragment {
 
     private void initializeTabHost() {
         mTabHost.setup();
-        addTab(getActivity(), this.mTabHost, this.mTabHost.newTabSpec(TAB_TYPES).setIndicator(getResources().getString(R.string.riddle_dialog_tab_types)));
+        addTab(getActivity(), mTabHost, mTabHost.newTabSpec(TAB_TYPES).setIndicator(getResources().getString(R.string.riddle_dialog_tab_types)));
         if (RiddleInitializer.INSTANCE.getRiddleManager().getUnsolvedRiddleCount() > 1) {
-            addTab(getActivity(), this.mTabHost, this.mTabHost.newTabSpec(TAB_UNSOLVED).setIndicator(getResources().getString(R.string.riddle_dialog_tab_unsolved)));
+            addTab(getActivity(), mTabHost, mTabHost.newTabSpec(TAB_UNSOLVED).setIndicator(getResources().getString(R.string.riddle_dialog_tab_unsolved)));
         }
+        UiStyleUtil.setTabHostSelector(mTabHost, R.drawable.tab_widget_selector_alien);
 
     }
 

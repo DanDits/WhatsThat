@@ -63,6 +63,7 @@ import dan.dit.whatsthat.util.SimpleCrypto;
 import dan.dit.whatsthat.util.image.Dimension;
 import dan.dit.whatsthat.util.image.ExternalStorage;
 import dan.dit.whatsthat.util.ui.ImageButtonWithNumber;
+import dan.dit.whatsthat.util.ui.UiStyleUtil;
 
 /**
  * Created by daniel on 10.04.15.
@@ -553,7 +554,7 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
 
         final EditText input = new EditText(getActivity());
         input.setInputType(android.text.InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
-        new AlertDialog.Builder(getActivity())
+        AlertDialog dialog = new AlertDialog.Builder(getActivity())
                 .setTitle("Rätsel laden")
                 .setMessage("Bildname:")
                 .setView(input)
@@ -581,10 +582,11 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
                         }
                     }
                 }).setNegativeButton("Abbrechen", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int whichButton) {
-                // Do nothing.
-            }
-        }).show();
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        // Do nothing.
+                    }
+                }).show();
+        UiStyleUtil.setDialogDividerColor(dialog, getResources(), getResources().getColor(R.color.alien_purple));
     }
 
     private void onRiddlesClick() {

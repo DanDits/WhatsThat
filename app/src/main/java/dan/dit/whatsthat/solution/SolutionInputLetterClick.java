@@ -27,7 +27,7 @@ import dan.dit.whatsthat.util.image.ImageUtil;
  * Created by daniel on 12.04.15.
  */
 public class SolutionInputLetterClick extends SolutionInput {
-    private static final char NO_LETTER = 0; // this letter is not expected to be in any alphabet
+    private static final char NO_LETTER = '\0'; // this letter is not expected to be in any alphabet
 
 
     private static final int LETTER_POOL_MIN_SIZE = 18; // minimum pool size of all displayed letters
@@ -389,6 +389,20 @@ public class SolutionInputLetterClick extends SolutionInput {
                 calculateUserLetterLayout();
                 return true;
             }
+        } else {
+            // already not a letter, cut this one out and let cycle following letters left by one
+            for (int i = userLetterIndex + 1; i < mUserLetters.size(); i++) {
+                int allIndex = findAllLetterIndex(i);
+                if (allIndex >= 0) {
+                    mAllLettersSelected[allIndex] = i - 1;
+                }
+            }
+            mUserLetters.remove(userLetterIndex);
+
+            removeAppendedNoLetters();
+            checkCompleted();
+            calculateUserLetterLayout();
+            return true;
         }
         return false;
     }
@@ -433,7 +447,7 @@ public class SolutionInputLetterClick extends SolutionInput {
             float xCurr = mUserLetterX.get(i);
             float yCurr = mUserLetterY;
             double currDistance = getDistance(x, y, xCurr, yCurr);
-            if (currDistance <= mUserLetterCircleRadius && performUserLetterClick(i)) {
+            if (currDistance <= mUserLetterCircleRadius && i < mUserLetters.size() && performUserLetterClick(i)) {
                 return true;
             }
             if (currDistance < userLetterMinDistance) {

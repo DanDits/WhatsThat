@@ -6,5 +6,6 @@
     <ListView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/riddles_list" />
+        android:id="@+id/riddles_list"
+        android:listSelector="@drawable/list_selector" />
 </LinearLayout>

@@ -509,4 +509,12 @@
     <string name="send_log_confirm">Send log</string>
     <string name="send_log_title" translatable="false">Sorry, crash!</string>
     <string name="intro_starting_episode">Welcome %1$s</string>
+    <string-array name="riddle_jumper_collision_break">
+        <item>You can do betterr</item>
+        <item>Here we go again</item>
+        <item>You can make it further</item>
+        <item>Game Over!</item>
+    </string-array>
+    <string name="riddle_jumper_new_highscore">New record %1$dm</string>
+    <string name="riddle_jumper_old_highscore">Current record %1$dm</string>
 </resources>

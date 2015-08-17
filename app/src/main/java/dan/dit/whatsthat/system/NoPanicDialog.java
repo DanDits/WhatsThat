@@ -20,6 +20,7 @@ import dan.dit.whatsthat.image.ImageAuthor;
 import dan.dit.whatsthat.riddle.achievement.holders.MiscAchievementHolder;
 import dan.dit.whatsthat.riddle.types.PracticalRiddleType;
 import dan.dit.whatsthat.testsubject.TestSubject;
+import dan.dit.whatsthat.util.ui.UiStyleUtil;
 
 /**
  * Created by daniel on 06.05.15.
@@ -143,7 +144,8 @@ public class NoPanicDialog extends DialogFragment {
         builder.setTitle(R.string.no_panic_title).setIcon(R.drawable.dontpanic)
                 .setView(baseView)
                 .setPositiveButton(R.string.panic_dialog_positive, null);
-        return builder.create();
+        AlertDialog dialog = builder.create();
+        return dialog;
     }
 
     private void onAskType() {
@@ -191,6 +193,7 @@ public class NoPanicDialog extends DialogFragment {
         Dialog dialog = getDialog();
         if (dialog != null) {
             dialog.setCanceledOnTouchOutside(true);
+            UiStyleUtil.setDialogDividerColor(dialog, getResources(), getResources().getColor(R.color.alien_purple));
         }
     }
 }

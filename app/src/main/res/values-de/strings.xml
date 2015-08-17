@@ -34,7 +34,7 @@
 
     <string name="init_skip_state_ready">Testsubjekt bereit</string>
     <string name="init_skip_state_mandatory_intro_missing">Testsubjekt Interaktion benötigt</string>
-    <string name="init_skip_state_init_missing">Testsubjekt Informationen nötig</string>
+    <string name="init_skip_state_init_missing">Testsubjekt wird initialisiert</string>
     <string name="init_skip_state_none">Testsubjekt wird geladen</string>
 
     <string name="intro_test_subject_name">-Test Subjekt-</string>
@@ -836,5 +836,13 @@
     <string name="riddle_type_torchlight_explanation">Geheim und mysteriös.</string>
     <string name="send_log_confirm">Log senden</string>
     <string name="intro_starting_episode">Willkommen %1$s</string>
+    <string-array name="riddle_jumper_collision_break">
+        <item>Das kannst du besser</item>
+        <item>Auf ein Neues</item>
+        <item>Du schaffsts noch weiter</item>
+        <item>Game Over!</item>
+    </string-array>
+    <string name="riddle_jumper_new_highscore">Neuer Rekord %1$dm !</string>
+    <string name="riddle_jumper_old_highscore">Bisheriger Rekord %1$dm</string>
 
 </resources>

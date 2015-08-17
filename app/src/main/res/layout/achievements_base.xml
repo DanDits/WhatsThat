@@ -2,6 +2,7 @@
 <view xmlns:android="http://schemas.android.com/apk/res/android"
     class="dan.dit.whatsthat.system.store.AchievementView"
     android:id="@+id/store_container"
+    android:smoothScrollbar="false"
     android:layout_width="match_parent" android:layout_height="match_parent">
 
 </view>
