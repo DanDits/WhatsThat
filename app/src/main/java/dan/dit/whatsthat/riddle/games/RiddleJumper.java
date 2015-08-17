@@ -73,7 +73,7 @@ public class RiddleJumper extends RiddleGame implements FlatWorldCallback {
     public static final int DIFFICULTY_HARD = 2;
     public static final int DIFFICULTY_ULTRA = 3;
     private static final int[] DISTANCE_RUN_THRESHOLDS = new int[] {0, (int) (150 * ONE_SECOND), (int) (400 * ONE_SECOND), (int) (800 * ONE_SECOND)};
-    private static final long[] NEXT_OBSTACLE_MIN_TIME_SMALL = new long[] {1000L, 775L, 600L, 600L, 550L};
+    private static final long[] NEXT_OBSTACLE_MIN_TIME_SMALL = new long[] {970L, 745L, 580L, 570L, 540L};
     private static final long[] NEXT_OBSTACLE_MIN_TIME_BIG = new long[] {1000L, 1200L, 1075L, 1025L, 905L};
     private static final long[] NEXT_OBSTACLE_MAX_TIME = new long[] {2000L, 1700L, 1400L, 1250L, 1150L}; //ms, maximum time until the next obstacle appears
     private static final long[] NEXT_OBSTACLE_MIN_TIME_SMALL_WIDTH = new long[] {1200L, 1100L, 1100L, 1025L, 860L};
@@ -117,7 +117,7 @@ public class RiddleJumper extends RiddleGame implements FlatWorldCallback {
     private Obstacle mNextObstacle;
     private float mDistanceRun;
     private boolean mValidDistanceRun;
-    private Paint mTextPaint;
+    private Paint mDistanceTextPaint;
     private List<List<Obstacle>> mObstacles;
     private int mDifficulty;
     private long mDifficultyMinTimeExtra;
@@ -134,6 +134,12 @@ public class RiddleJumper extends RiddleGame implements FlatWorldCallback {
     private Paint mSolutionPaint;
     private Paint mClearMindPaint;
     private Bitmap mBitmapScaled;
+    private Paint mCollisionBreakTextPaint;
+    private String[] mCollisionBreakTexts;
+    private String mNewHighscoreText;
+    private String mOldHighscoreText;
+    private String mCurrentDistanceRunMeterText;
+    private int mLastDrawnDistanceRun;
 
     public RiddleJumper(Riddle riddle, Image image, Bitmap bitmap, Resources res, RiddleConfig config, PercentProgressListener listener) {
         super(riddle, image, bitmap, res, config, listener);
@@ -141,7 +147,9 @@ public class RiddleJumper extends RiddleGame implements FlatWorldCallback {
 
     @Override
     protected void initAchievementData() {
-
+        if (mConfig.mAchievementGameData != null) {
+            mConfig.mAchievementGameData.increment(AchievementJumper.KEY_GAME_RUN_STARTED, 1L, 0L);
+        }
     }
 
     @Override
@@ -154,7 +162,26 @@ public class RiddleJumper extends RiddleGame implements FlatWorldCallback {
         canvas.drawBitmap(mRunnerBackground, 0, 0, null);
         canvas.drawBitmap(mSolutionBackground, 0, 0, null);
         canvas.drawBitmap(mForeground, 0, 0, null);
-        canvas.drawText(Integer.toString(distanceRunToMeters(mDistanceRun)) + "m", canvas.getWidth() / 2.f, 35.f, mTextPaint);
+        int currDistanceRun = distanceRunToMeters(mDistanceRun);
+        // this optimization is only done to reduce amount of times the strings are concatenated since this allocates a StringBuilder
+        if (currDistanceRun != mLastDrawnDistanceRun || mCurrentDistanceRunMeterText == null) {
+            mLastDrawnDistanceRun = currDistanceRun;
+            mCurrentDistanceRunMeterText = Integer.toString(distanceRunToMeters(mDistanceRun)) + "m";
+        }
+        drawTextCenteredX(canvas, mCurrentDistanceRunMeterText, canvas.getWidth() / 2.f, 35.f, mDummyRect, mDistanceTextPaint);
+    }
+
+    private Rect mDummyRect;
+    private static void drawTextCenteredX(Canvas canvas, String text, float x, float y, Rect dummyRect, Paint paint) {
+        paint.getTextBounds(text, 0, text.length(), dummyRect);
+        canvas.drawText(text, x - dummyRect.exactCenterX(), y, paint);
+    }
+
+    private static void setFittingTextSizeX(String text, int maxWidth, Rect dummyRect, Paint paint) {
+        paint.getTextBounds(text, 0, text.length(), dummyRect);
+        float currWidth = dummyRect.width();
+        float newTextSize = paint.getTextSize() * maxWidth / currWidth; // assume linear correlation between text size and width
+        paint.setTextSize(newTextSize);
     }
 
     public static int distanceRunToMeters(float distanceRun) {
@@ -167,12 +194,21 @@ public class RiddleJumper extends RiddleGame implements FlatWorldCallback {
 
     @Override
     protected void initBitmap(Resources res, PercentProgressListener listener) {
+        mDummyRect = new Rect();
         mRand = new Random();
         mBitmapScaled = BitmapUtil.attemptBitmapScaling(mBitmap, (int) (mBitmap.getWidth() * MAX_SOLUTION_SCALE), (int) (mBitmap.getHeight() * MAX_SOLUTION_SCALE), false);
         mClearPaint = new Paint();
         mClearPaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.CLEAR));
-        mTextPaint = new Paint();
-        mTextPaint.setTextSize(ImageUtil.convertDpToPixel(22, mConfig.mScreenDensity));
+        mDistanceTextPaint = new Paint();
+        mDistanceTextPaint.setAntiAlias(true);
+        mDistanceTextPaint.setTextSize(ImageUtil.convertDpToPixel(22, mConfig.mScreenDensity));
+        mCollisionBreakTextPaint = new Paint();
+        mCollisionBreakTextPaint.setFakeBoldText(true);
+        mCollisionBreakTextPaint.setAntiAlias(true);
+        mCollisionBreakTexts = res.getStringArray(R.array.riddle_jumper_collision_break);
+        mNewHighscoreText = res.getString(R.string.riddle_jumper_new_highscore);
+        mOldHighscoreText = res.getString(R.string.riddle_jumper_old_highscore);
+
         mSolutionBackgroundHeight = (int) (mConfig.mHeight / Types.Jumper.BITMAP_ASPECT_RATIO);
         listener.onProgressUpdate(20);
         mObstaclesSpeed = - mConfig.mWidth / ((float) OBSTACLES_RIGHT_LEFT_DURATION / ONE_SECOND);
@@ -393,6 +429,24 @@ public class RiddleJumper extends RiddleGame implements FlatWorldCallback {
     private void drawForeground() {
         mForegroundCanvas.drawPaint(mClearPaint);
         mWorld.draw(mForegroundCanvas, null);
+        if (mCollisionBreak) {
+            Canvas canvas = mForegroundCanvas;
+            if (mDifficulty < mCollisionBreakTexts.length) {
+                drawTextCenteredX(canvas, mCollisionBreakTexts[mDifficulty], canvas.getWidth() / 2.f, mSolutionBackground.getHeight() / 2.f, mDummyRect, mCollisionBreakTextPaint);
+            }
+            if (mConfig.mAchievementGameData != null) {
+                long currentHighscore = mConfig.mAchievementTypeData.getValue(AchievementJumper.KEY_TYPE_TOTAL_RUN_HIGHSCORE, 0L);
+                if (Math.abs(currentHighscore - mDistanceRun) < AchievementJumper.DISTANCE_RUN_THRESHOLD) {
+                    Paint paint = mDistanceTextPaint;
+                    int oldColor = paint.getColor();
+                    paint.setColor(0xffdc9912);
+                    drawTextCenteredX(canvas, String.format(mNewHighscoreText, distanceRunToMeters(currentHighscore)), canvas.getWidth() / 2.f, mSolutionBackground.getHeight() / 2.f + 2 * mDummyRect.height(), mDummyRect, paint);
+                    paint.setColor(oldColor);
+                } else {
+                    drawTextCenteredX(canvas, String.format(mOldHighscoreText, distanceRunToMeters(currentHighscore)), canvas.getWidth() / 2.f, mSolutionBackground.getHeight() / 2.f + mDummyRect.height(), mDummyRect, mDistanceTextPaint);
+                }
+            }
+        }
     }
 
     private float getTopForRelativeHeight(float relativeHeight) {
@@ -499,6 +553,7 @@ public class RiddleJumper extends RiddleGame implements FlatWorldCallback {
             mConfig.mAchievementGameData.putValue(AchievementJumper.KEY_GAME_CURRENT_DISTANCE_RUN, (long) mDistanceRun, AchievementProperties.UPDATE_POLICY_ALWAYS);
         }
         updateDifficulty();
+        updateCollisionBreakPaint();
     }
 
     private void onReleaseCollision() {
@@ -508,6 +563,9 @@ public class RiddleJumper extends RiddleGame implements FlatWorldCallback {
         }
         updateDifficulty();
         mCollisionBreak = false;
+        if (mConfig.mAchievementGameData != null) {
+            mConfig.mAchievementGameData.increment(AchievementJumper.KEY_GAME_RUN_STARTED, 1L, 0L);
+        }
         mRunner.setStateFrames(HitboxJumpMover.STATE_NOT_MOVING);
     }
 
@@ -541,11 +599,19 @@ public class RiddleJumper extends RiddleGame implements FlatWorldCallback {
             if (mDifficulty != DIFFICULTY_EASY && mBoss != null) {
                 mNextObstacle = mBoss;
             }
+            updateCollisionBreakPaint();
         }
         if (mConfig.mAchievementGameData != null) {
             mConfig.mAchievementGameData.putValue(AchievementJumper.KEY_GAME_CURRENT_DIFFICULTY, (long) mDifficulty, AchievementProperties.UPDATE_POLICY_ALWAYS);
         }
-        mTextPaint.setColor(DIFFICULTY_COLORS[mDifficulty]);
+        mDistanceTextPaint.setColor(DIFFICULTY_COLORS[mDifficulty]);
+    }
+
+    private void updateCollisionBreakPaint() {
+        mCollisionBreakTextPaint.setColor(DIFFICULTY_COLORS[mDifficulty]);
+        if (mDifficulty < mCollisionBreakTexts.length) {
+            setFittingTextSizeX(mCollisionBreakTexts[mDifficulty], mConfig.mWidth - 30, mDummyRect, mCollisionBreakTextPaint);
+        }
     }
 
     @Override

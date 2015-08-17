@@ -256,7 +256,6 @@ public class RiddleMemory extends RiddleGame {
             if (index == doppelgangerIndex) {
                 continue;
             }
-            Log.d("Riddle", "Card index " + index + " and doppelganger " + doppelgangerIndex + " with image " + image + " in final list: " + memoryImagesFinal);
             MemoryCard doppelganger = mField.getField(doppelgangerIndex % mFieldX, doppelgangerIndex / mFieldX);
             boolean uncovered1 = false, uncovered2 = false;
 
@@ -385,7 +384,6 @@ public class RiddleMemory extends RiddleGame {
             mDoppelganger.mUncovered = doppelgangerUncovered;
             mCoverState = coverState;
             mDoppelganger.mCoverState = doppelgangerCoverState;
-            Log.d("Riddle", "Init pair: " + this + " and " + mDoppelganger + " with " + mMemoryBitmap + " rect " + bitmapSource + " rect d" + doppelgangerbitmapSource + " image " + memoryImage);
         }
 
         public boolean isPairUncovered() {

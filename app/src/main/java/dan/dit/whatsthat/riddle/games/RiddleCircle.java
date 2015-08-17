@@ -330,8 +330,9 @@ public class RiddleCircle extends RiddleGame {
         float newRadius = closestRadius / 2.f;
         double distanceClickAndClosest = Math.sqrt((clickX - closestX) * (clickX - closestX) + (clickY - closestY) * (clickY - closestY));
         if (newRadius >= ImageUtil.convertDpToPixel(MIN_RADIUS, mConfig.mScreenDensity) && (distanceClickAndClosest <= closestRadius || distanceClickAndClosest <= ImageUtil.convertDpToPixel(HUMAN_FINGER_THICKNESS, mConfig.mScreenDensity))) {
-            evolveCircleUnchecked(closestIndex, closestX, closestY, newRadius, false);
-            reDraw(); // could also only draw only new children but sometimes it feels like a good thing to refresh the image completely
+
+            mCirclesCanvas.drawRect(closestX - closestRadius, closestY - closestRadius, closestX + closestRadius, closestY+ closestRadius, mClearPaint);
+            evolveCircleUnchecked(closestIndex, closestX, closestY, newRadius, true);
             if (mConfig.mAchievementGameData != null) {
                 mConfig.mAchievementGameData.increment(AchievementCircle.KEY_CIRCLE_DIVIDED_BY_CLICK, 1L, 0L);
             }

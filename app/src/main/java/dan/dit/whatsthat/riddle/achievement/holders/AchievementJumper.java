@@ -31,7 +31,8 @@ public class AchievementJumper extends TypeAchievementHolder {
     public static final String KEY_GAME_CURRENT_DISTANCE_RUN = "curr_distance_run";
     public static final String KEY_TYPE_TOTAL_RUN_HIGHSCORE = "total_highscore";
     public static final String KEY_TYPE_JUMP_COUNT= "all_jumps";
-    public static final long DISTANCE_RUN_THRESHOLD = (long) RiddleJumper.meterToDistanceRun(15);
+    public static final String KEY_GAME_RUN_STARTED = "run_started";
+    public static final long DISTANCE_RUN_THRESHOLD = (long) RiddleJumper.meterToDistanceRun(10);
 
     public AchievementJumper(PracticalRiddleType type) {
         super(type);
@@ -109,6 +110,7 @@ public class AchievementJumper extends TypeAchievementHolder {
         }
     }
 
+    // Super Mario
     private static class Achievement3 extends GameAchievement {
         public static final int NUMBER = 3;
         public static final int LEVEL = 0;
@@ -141,12 +143,10 @@ public class AchievementJumper extends TypeAchievementHolder {
                         achieve();
                     }
                 }
-            } else if (event.getChangedData() == mGameData && event.hasChangedKey(KEY_GAME_CURRENT_DISTANCE_RUN)) {
-                if (RiddleJumper.distanceRunToMeters(mGameData.getValue(KEY_GAME_CURRENT_DISTANCE_RUN, 0L)) == 0) {
+            } else if (event.getChangedData() == mGameData && event.hasChangedKey(KEY_GAME_RUN_STARTED)) {
+                if (mGameData.getValue(KEY_GAME_CURRENT_DIFFICULTY, RiddleJumper.DIFFICULTY_EASY) < RiddleJumper.DIFFICULTY_MEDIUM) {
                     mGameData.putValue(KEY_GAME_DOUBLE_JUMPS_BEFORE_MEDIUM, 0L, AchievementProperties.UPDATE_POLICY_ALWAYS);
                 }
-            } else if (event.getEventType() == AchievementDataEvent.EVENT_TYPE_DATA_CLOSE) {
-                mGameData.putValue(KEY_GAME_DOUBLE_JUMPS_BEFORE_MEDIUM, 0L, AchievementProperties.UPDATE_POLICY_ALWAYS);
             }
         }
     }

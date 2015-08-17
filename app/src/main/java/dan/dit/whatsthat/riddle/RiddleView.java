@@ -86,7 +86,6 @@ public class RiddleView extends SurfaceView implements SensorEventListener {
         if (!hasController()) {
             throw new IllegalStateException("No controller initialized.");
         }
-        mIsResumed = false;
         RiddleController ctr = mRiddleCtr;
         mRiddleCtr = null; // so any input and drawing will no longer be done
         if (mSensorManager != null) {
@@ -127,7 +126,6 @@ public class RiddleView extends SurfaceView implements SensorEventListener {
         if (mRiddleCtr != null) {
             throw new IllegalStateException("Already initialized a controller!");
         }
-        mIsResumed = true;
         mRiddleCtr = controller;
         mRiddleCtr.onRiddleVisible(this);
         if (mRiddleCtr.requiresOrientationSensor()) {
@@ -148,7 +146,11 @@ public class RiddleView extends SurfaceView implements SensorEventListener {
             }
         }
         draw();
-        mRiddleCtr.resumePeriodicEventIfRequired();
+        if (mIsResumed) {
+            mRiddleCtr.resumePeriodicEventIfRequired();
+        } else {
+            onPause();
+        }
     }
 
     public synchronized boolean hasController() {
