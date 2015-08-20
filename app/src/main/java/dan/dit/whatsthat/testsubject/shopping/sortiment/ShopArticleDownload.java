@@ -1,4 +1,4 @@
-package dan.dit.whatsthat.testsubject.shopping;
+package dan.dit.whatsthat.testsubject.shopping.sortiment;
 
 import android.content.Context;
 import android.content.res.Resources;
@@ -12,6 +12,9 @@ import android.widget.Toast;
 import dan.dit.whatsthat.R;
 import dan.dit.whatsthat.system.ImageDataDownload;
 import dan.dit.whatsthat.testsubject.ForeignPurse;
+import dan.dit.whatsthat.testsubject.shopping.ConfirmProduct;
+import dan.dit.whatsthat.testsubject.shopping.ShopArticle;
+import dan.dit.whatsthat.testsubject.shopping.SubProduct;
 
 /**
  * Created by daniel on 03.08.15.
@@ -115,7 +118,7 @@ public class ShopArticleDownload extends ShopArticle implements ImageDataDownloa
 
     @Override
     public void onChildClick(SubProduct product) {
-        if (product == mConfirmProduct && isPurchasable(-1) == HINT_PURCHASABLE && mPurse.purchase(mKey, mCost) && mListener != null) {
+        if (product == mConfirmProduct && isPurchasable(-1) == HINT_PURCHASABLE && mPurse.purchaseFeature(mKey, mCost) && mListener != null) {
             mListener.onArticleChanged(this);
         }
     }

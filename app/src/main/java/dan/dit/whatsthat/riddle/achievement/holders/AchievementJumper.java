@@ -15,8 +15,9 @@ import dan.dit.whatsthat.riddle.achievement.GameAchievement;
 import dan.dit.whatsthat.riddle.games.RiddleJumper;
 import dan.dit.whatsthat.riddle.types.PracticalRiddleType;
 import dan.dit.whatsthat.testsubject.TestSubject;
+import dan.dit.whatsthat.testsubject.shopping.sortiment.SortimentHolder;
 import dan.dit.whatsthat.util.dependencies.Dependency;
-import dan.dit.whatsthat.testsubject.shopping.ShopArticleRiddleHints;
+import dan.dit.whatsthat.testsubject.shopping.sortiment.ShopArticleRiddleHints;
 
 /**
  * Created by daniel on 23.07.15.
@@ -33,6 +34,8 @@ public class AchievementJumper extends TypeAchievementHolder {
     public static final String KEY_TYPE_JUMP_COUNT= "all_jumps";
     public static final String KEY_GAME_RUN_STARTED = "run_started";
     public static final long DISTANCE_RUN_THRESHOLD = (long) RiddleJumper.meterToDistanceRun(10);
+    public static final int ACHIEVEMENT_SUPER_MARIO = Achievement3.NUMBER;
+    public static final int ACHIEVEMENT_LACK_OF_TALENT = Achievement2.NUMBER;
 
     public AchievementJumper(PracticalRiddleType type) {
         super(type);
@@ -83,7 +86,7 @@ public class AchievementJumper extends TypeAchievementHolder {
         }
     }
 
-
+    //Lack of talent
     private static class Achievement2 extends GameAchievement {
         public static final int NUMBER = 2;
         public static final int LEVEL = 0;
@@ -151,6 +154,7 @@ public class AchievementJumper extends TypeAchievementHolder {
         }
     }
 
+    //Multitasking
     private static class Achievement4 extends GameAchievement {
         public static final int NUMBER = 4;
         public static final int LEVEL = 0;
@@ -173,6 +177,7 @@ public class AchievementJumper extends TypeAchievementHolder {
         }
     }
 
+    //Avoiding manouevres
     private static class Achievement5 extends GameAchievement {
         public static final int NUMBER = 5;
         public static final int LEVEL = 0;
@@ -199,6 +204,7 @@ public class AchievementJumper extends TypeAchievementHolder {
         }
     }
 
+    //Beating the creators
     private static class Achievement6 extends GameAchievement {
         public static final int NUMBER = 6;
         public static final int LEVEL = 0;
@@ -231,6 +237,7 @@ public class AchievementJumper extends TypeAchievementHolder {
         }
     }
 
+    //Knuffbum's story
     private static class Achievement7 extends GameAchievement {
         public static final int NUMBER = 7;
         public static final int LEVEL = 0;
@@ -269,6 +276,7 @@ public class AchievementJumper extends TypeAchievementHolder {
         }
     }
 
+    //Still a better lovestory than twilight
     private static class Achievement8 extends GameAchievement {
         public static final int NUMBER = 8;
         public static final int LEVEL = 0;
@@ -336,6 +344,41 @@ public class AchievementJumper extends TypeAchievementHolder {
                 if (mTypeData.getValue(KEY_TYPE_DISTANCE_RUN, 0L) + mGameData.getValue(KEY_GAME_CURRENT_DISTANCE_RUN, 0L) >= REQUIRED_RUN_DISTANCE) {
                     Log.d("Achievement", "Marathon achieved by current distance run: " + mTypeData.getValue(KEY_TYPE_DISTANCE_RUN, 0L) + " current distance: " + mGameData.getValue(KEY_GAME_CURRENT_DISTANCE_RUN, 0L));
                     achieveAfterDependencyCheck();
+                }
+            }
+        }
+    }
+
+    private static class Achievement10 extends GameAchievement {
+        public static final int NUMBER = 10;
+        public static final int LEVEL = 0;
+        public static final int REWARD = 5;
+        public static final boolean DISCOVERED = true;
+        private AchievementPropertiesMapped<String> mMiscData;
+
+        public Achievement10(AchievementManager manager, PracticalRiddleType type) {
+            super(type, R.string.achievement_jumper_10_name, R.string.achievement_jumper_10_descr, 0, NUMBER, manager, LEVEL, REWARD, 1, DISCOVERED);
+        }
+
+        @Override
+        public void onInit() {
+            super.onInit();
+            mMiscData = TestSubject.getInstance().getAchievementHolder().getMiscData();
+            mMiscData.addListener(this);
+        }
+
+        @Override
+        public void onAchieved() {
+            super.onAchieved();
+            mMiscData.removeListener(this);
+        }
+
+        @Override
+        public void onDataEvent(AchievementDataEvent event) {
+            if (event.getChangedData() == mMiscData && event.hasChangedKey(MiscAchievementHolder.KEY_FEATURES_PURCHASED)) {
+                String featureKey = mMiscData.getMappedValue(MiscAchievementHolder.KEY_FEATURES_PURCHASED);
+                if (SortimentHolder.ARTICLE_KEY_JUMPER_START_FURTHER_FEATURE.equalsIgnoreCase(featureKey)) {
+                    achieve();
                 }
             }
         }

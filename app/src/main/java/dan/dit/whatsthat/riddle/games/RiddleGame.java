@@ -228,7 +228,7 @@ public abstract class RiddleGame {
         return false;
     }
 
-    public boolean onPeriodicEvent(long updateTime) { return false;}
+    public void onPeriodicEvent(long updateTime) { }
 
     protected abstract void initBitmap(Resources res, PercentProgressListener listener);
     public abstract boolean onMotionEvent(MotionEvent event);

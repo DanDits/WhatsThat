@@ -1,4 +1,4 @@
-package dan.dit.whatsthat.testsubject.shopping;
+package dan.dit.whatsthat.testsubject.shopping.sortiment;
 
 import android.content.res.Resources;
 import android.util.Log;
@@ -12,6 +12,10 @@ import dan.dit.whatsthat.R;
 import dan.dit.whatsthat.riddle.types.PracticalRiddleType;
 import dan.dit.whatsthat.testsubject.ForeignPurse;
 import dan.dit.whatsthat.testsubject.TestSubject;
+import dan.dit.whatsthat.testsubject.shopping.ConfirmProduct;
+import dan.dit.whatsthat.testsubject.shopping.ShopArticle;
+import dan.dit.whatsthat.testsubject.shopping.SubProduct;
+import dan.dit.whatsthat.testsubject.shopping.sortiment.HintProduct;
 
 /**
  * Created by daniel on 29.07.15.

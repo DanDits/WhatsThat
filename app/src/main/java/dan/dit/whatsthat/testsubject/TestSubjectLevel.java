@@ -163,6 +163,7 @@ public abstract class TestSubjectLevel {
             mTestSubject.addNewType(PracticalRiddleType.JUMPER_INSTANCE);
             mTestSubject.addNewType(PracticalRiddleType.MEMORY_INSTANCE);
             mTestSubject.addNewType(PracticalRiddleType.TORCHLIGHT_INSTANCE);
+            mTestSubject.addNewType(PracticalRiddleType.FLOW_INSTANCE);
             //mTestSubject.addNewType(PracticalRiddleType.DEVELOPER_INSTANCE);
             mTestSubject.saveTypes();
         }

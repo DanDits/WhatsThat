@@ -409,4 +409,8 @@ public abstract class Achievement implements AchievementDataEventListener, Depen
         }
         return builder.toString();
     }
+
+    public String getId() {
+        return mId;
+    }
 }

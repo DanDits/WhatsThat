@@ -22,9 +22,12 @@ import java.util.List;
 import java.util.Map;
 
 import dan.dit.whatsthat.R;
+import dan.dit.whatsthat.achievement.AchievementDataEvent;
+import dan.dit.whatsthat.achievement.AchievementProperties;
 import dan.dit.whatsthat.image.Image;
 import dan.dit.whatsthat.riddle.Riddle;
 import dan.dit.whatsthat.riddle.RiddleConfig;
+import dan.dit.whatsthat.riddle.achievement.holders.AchievementMemory;
 import dan.dit.whatsthat.system.RiddleFragment;
 import dan.dit.whatsthat.util.BuildException;
 import dan.dit.whatsthat.util.PercentProgressListener;
@@ -300,8 +303,21 @@ public class RiddleMemory extends RiddleGame {
             allCard.cover();
         }
         mPath = null;
+        setGameAchievementValue(AchievementMemory.KEY_GAME_PATH_LENGTH, 0L);
         mExplicitlySelected.clear();
         mPeakedCards = 0;
+    }
+
+    private void setGameAchievementValue(String key, long value) {
+        if (mConfig.mAchievementGameData != null) {
+            mConfig.mAchievementGameData.putValue(key, value, AchievementProperties.UPDATE_POLICY_ALWAYS);
+        }
+    }
+
+    private void incrementGameAchievementValue(String key) {
+        if (mConfig.mAchievementGameData != null) {
+            mConfig.mAchievementGameData.increment(key, 1L, 0L);
+        }
     }
 
     @NonNull
@@ -450,8 +466,13 @@ public class RiddleMemory extends RiddleGame {
         }
 
         public void onClick() {
-            if (uncover() && isPairUncovered()) {
+            if (mConfig.mAchievementGameData != null) {
+                mConfig.mAchievementGameData.enableSilentChanges(AchievementDataEvent.EVENT_TYPE_DATA_UPDATE);
+            }
+            boolean uncovered = uncover();
+            if (uncovered && isPairUncovered()) {
                 mPath = mField.findPath(this, mDoppelganger, FieldElement.DIRECT_AND_DIAGONAL_NEIGHBORS);
+                setGameAchievementValue(AchievementMemory.KEY_GAME_PATH_LENGTH, mPath == null ? 0L : mPath.size());
                 if (mPath != null) {
                     for (MemoryCard card : mPath) {
                         if (card.mCoverState == STATE_COVERED_GREEN) {
@@ -463,6 +484,42 @@ public class RiddleMemory extends RiddleGame {
                         }
                     }
                 }
+            }
+            if (uncovered) {
+                incrementGameAchievementValue(AchievementMemory.KEY_GAME_CARD_UNCOVERED_BY_CLICK_COUNT);
+            }
+            int redCount = 0;
+            int yellowCount = 0;
+            int greenCount = 0;
+            int blackCount = 0;
+            int uncoveredPairCount = 0;
+            for (MemoryCard card : mField) {
+                switch (card.mCoverState) {
+                    case STATE_COVERED_GREEN:
+                        greenCount++;
+                        break;
+                    case STATE_COVERED_YELLOW:
+                        yellowCount++;
+                        break;
+                    case STATE_COVERED_RED:
+                        redCount++;
+                        break;
+                    case STATE_COVERED_BLACK:
+                        blackCount++;
+                        break;
+                }
+                if (card.isPairUncovered()) {
+                    uncoveredPairCount++;
+                }
+            }
+            uncoveredPairCount /= 2;
+            setGameAchievementValue(AchievementMemory.KEY_GAME_STATE_GREEN_COUNT, greenCount);
+            setGameAchievementValue(AchievementMemory.KEY_GAME_STATE_YELLOW_COUNT, yellowCount);
+            setGameAchievementValue(AchievementMemory.KEY_GAME_STATE_RED_COUNT, redCount);
+            setGameAchievementValue(AchievementMemory.KEY_GAME_STATE_BLACK_COUNT, blackCount);
+            setGameAchievementValue(AchievementMemory.KEY_GAME_UNCOVERED_PAIRS_COUNT, uncoveredPairCount);
+            if (mConfig.mAchievementGameData != null) {
+                mConfig.mAchievementGameData.disableSilentChanges();
             }
         }
 

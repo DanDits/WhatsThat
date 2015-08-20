@@ -17,23 +17,23 @@ import dan.dit.whatsthat.util.dependencies.Dependency;
  * Created by daniel on 29.07.15.
  */
 public abstract class ShopArticle {
-    static final int GENERAL_DEPENDENCY_INDEX = -1;
+    public static final int GENERAL_DEPENDENCY_INDEX = -1;
     public static final int HINT_PURCHASABLE = 1;
     public static final int HINT_NOT_PURCHASABLE_TOO_EXPENSIVE = 0;
     public static final int HINT_NOT_PURCHASABLE_DEPENDENCIES_MISSING = -1;
     public static final int HINT_NOT_PURCHASABLE_ALREADY_PURCHASED = -2;
-    static final int HINT_NOT_PURCHASABLE_OTHER = -3;
+    public static final int HINT_NOT_PURCHASABLE_OTHER = -3;
 
     private static final int DEFAULT_ICON = R.drawable.icon_plain;
-    final String mKey;
-    private final int mDescrResId;
-    final int mNameResId;
-    ForeignPurse mPurse;
-    private int mIconResId;
-    ShopArticleHolder.OnArticleChangedListener mListener;
+    protected final String mKey;
+    protected final int mDescrResId;
+    protected final int mNameResId;
+    protected final ForeignPurse mPurse;
+    protected final int mIconResId;
+    protected ShopArticleHolder.OnArticleChangedListener mListener;
     private Map<Integer, List<Dependency>> mDependencies;
 
-    ShopArticle(String key, ForeignPurse purse, int nameResId, int descrResId, int iconResId) {
+    protected ShopArticle(String key, ForeignPurse purse, int nameResId, int descrResId, int iconResId) {
         mPurse = purse;
         mKey = key;
         mNameResId = nameResId;
@@ -111,7 +111,7 @@ public abstract class ShopArticle {
         return false;
     }
 
-    boolean areDependenciesMissing(int subProductIndex) {
+    protected boolean areDependenciesMissing(int subProductIndex) {
         if (subProductIndex < 0) {
             return isDependencyNotFulfilled(mDependencies.get(GENERAL_DEPENDENCY_INDEX));
         } else {
@@ -139,7 +139,7 @@ public abstract class ShopArticle {
         return addSeparator;
     }
 
-    CharSequence makeMissingDependenciesText(Resources res, int subProductIndex) {
+    protected CharSequence makeMissingDependenciesText(Resources res, int subProductIndex) {
         StringBuilder builder = new StringBuilder();
         if (subProductIndex < 0) {
             appendMissingDependencies(builder, res, mDependencies.get(GENERAL_DEPENDENCY_INDEX), false);

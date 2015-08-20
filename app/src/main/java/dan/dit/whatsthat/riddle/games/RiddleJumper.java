@@ -26,6 +26,8 @@ import dan.dit.whatsthat.riddle.Riddle;
 import dan.dit.whatsthat.riddle.RiddleConfig;
 import dan.dit.whatsthat.riddle.achievement.holders.AchievementJumper;
 import dan.dit.whatsthat.riddle.types.Types;
+import dan.dit.whatsthat.testsubject.TestSubject;
+import dan.dit.whatsthat.testsubject.shopping.sortiment.SortimentHolder;
 import dan.dit.whatsthat.util.PercentProgressListener;
 import dan.dit.whatsthat.util.compaction.CompactedDataCorruptException;
 import dan.dit.whatsthat.util.compaction.Compacter;
@@ -72,7 +74,8 @@ public class RiddleJumper extends RiddleGame implements FlatWorldCallback {
     public static final int DIFFICULTY_MEDIUM = 1;
     public static final int DIFFICULTY_HARD = 2;
     public static final int DIFFICULTY_ULTRA = 3;
-    private static final int[] DISTANCE_RUN_THRESHOLDS = new int[] {0, (int) (150 * ONE_SECOND), (int) (400 * ONE_SECOND), (int) (800 * ONE_SECOND)};
+    private static final float DISTANCE_RUN_START_FURTHER_FEATURE = meterToDistanceRun(200);
+    private static final int[] DISTANCE_RUN_THRESHOLDS = new int[] {0, (int) (meterToDistanceRun(150)), (int) (meterToDistanceRun(400)), (int) (meterToDistanceRun(800))};
     private static final long[] NEXT_OBSTACLE_MIN_TIME_SMALL = new long[] {970L, 745L, 580L, 570L, 540L};
     private static final long[] NEXT_OBSTACLE_MIN_TIME_BIG = new long[] {1000L, 1200L, 1075L, 1025L, 905L};
     private static final long[] NEXT_OBSTACLE_MAX_TIME = new long[] {2000L, 1700L, 1400L, 1250L, 1150L}; //ms, maximum time until the next obstacle appears
@@ -140,6 +143,7 @@ public class RiddleJumper extends RiddleGame implements FlatWorldCallback {
     private String mOldHighscoreText;
     private String mCurrentDistanceRunMeterText;
     private int mLastDrawnDistanceRun;
+    private float mDistanceRunStart;
 
     public RiddleJumper(Riddle riddle, Image image, Bitmap bitmap, Resources res, RiddleConfig config, PercentProgressListener listener) {
         super(riddle, image, bitmap, res, config, listener);
@@ -166,7 +170,7 @@ public class RiddleJumper extends RiddleGame implements FlatWorldCallback {
         // this optimization is only done to reduce amount of times the strings are concatenated since this allocates a StringBuilder
         if (currDistanceRun != mLastDrawnDistanceRun || mCurrentDistanceRunMeterText == null) {
             mLastDrawnDistanceRun = currDistanceRun;
-            mCurrentDistanceRunMeterText = Integer.toString(distanceRunToMeters(mDistanceRun)) + "m";
+            mCurrentDistanceRunMeterText = Integer.toString(currDistanceRun) + "m";
         }
         drawTextCenteredX(canvas, mCurrentDistanceRunMeterText, canvas.getWidth() / 2.f, 35.f, mDummyRect, mDistanceTextPaint);
     }
@@ -541,7 +545,12 @@ public class RiddleJumper extends RiddleGame implements FlatWorldCallback {
     }
 
     private void initDistanceRun(Compacter data) {
-        mDistanceRun = 0f;
+        if (TestSubject.getInstance().hasFeature(SortimentHolder.ARTICLE_KEY_JUMPER_START_FURTHER_FEATURE)) {
+            mDistanceRunStart = DISTANCE_RUN_START_FURTHER_FEATURE;
+        } else {
+            mDistanceRunStart = 0.f;
+        }
+        mDistanceRun = mDistanceRunStart;
         if (data != null && data.getSize() > 2) {
             try {
                 mDistanceRun = data.getFloat(2);
@@ -557,7 +566,7 @@ public class RiddleJumper extends RiddleGame implements FlatWorldCallback {
     }
 
     private void onReleaseCollision() {
-        mDistanceRun = 0f;
+        mDistanceRun = mDistanceRunStart;
         if (mConfig.mAchievementGameData != null) {
             mConfig.mAchievementGameData.putValue(AchievementJumper.KEY_GAME_CURRENT_DISTANCE_RUN, (long) mDistanceRun, AchievementProperties.UPDATE_POLICY_ALWAYS);
         }
@@ -620,16 +629,14 @@ public class RiddleJumper extends RiddleGame implements FlatWorldCallback {
     }
 
     @Override
-    public boolean onPeriodicEvent(long updateTime) {
-        boolean change = false;
+    public void onPeriodicEvent(long updateTime) {
         if (!mCollisionBreak) {
             mWorld.update(updateTime);
             drawForeground();
-            change = onDistanceRun(updateTime);
-            change |= onBackgroundUpdate(updateTime);
+            onDistanceRun(updateTime);
+            onBackgroundUpdate(updateTime);
             checkNextObstacle(updateTime);
         }
-        return change;
     }
 
     private void onNextObstacle() {

@@ -28,6 +28,7 @@ public class MiscAchievementHolder implements AchievementHolder {
     public static final String KEY_LAST_SOLVED_GAME_PLAYED_TIME = "misc_last_solved_game_played_time";
     public static final String KEY_LAST_SOLVED_GAME_TOTAL_TIME = "misc_last_solved_game_total_time";
     public static final String KEY_ACHIEVEMENTS_EARNED_COUNT = "misc_total_achievements_earned";
+    public static final String KEY_FEATURES_PURCHASED = "misc_features_purchased";
 
     private AchievementPropertiesMapped<String> mData;
     private SortedMap<Integer, MiscAchievement> mAchievements;

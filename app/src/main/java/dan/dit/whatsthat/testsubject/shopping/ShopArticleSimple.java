@@ -66,7 +66,7 @@ public class ShopArticleSimple extends ShopArticle {
 
     @Override
     public void onChildClick(SubProduct product) {
-        if (product == mConfirmProduct && isPurchasable(-1) == HINT_PURCHASABLE && mPurse.purchase(mKey, mCost) && mListener != null) {
+        if (product == mConfirmProduct && isPurchasable(-1) == HINT_PURCHASABLE && mPurse.purchaseFeature(mKey, mCost) && mListener != null) {
             mListener.onArticleChanged(this);
         }
     }

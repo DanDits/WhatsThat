@@ -5,6 +5,9 @@ import android.content.Context;
 import com.github.johnpersano.supertoasts.SuperToast;
 
 /**
+ * A simple record holding parameters to create a SuperToast from.
+ * The main purpose to create this class is to create multiple same or similar SuperToasts
+ * or to get over the requirement to hold onto a Context object for creation.
  * Created by daniel on 11.05.15.
  */
 public class TestSubjectToast {
@@ -20,6 +23,14 @@ public class TestSubjectToast {
     public SuperToast.Animations mAnimations;
     public int mBackground;
     public int mTextColor;
+
+    public TestSubjectToast(int textId) {
+        mTextResId = textId;
+    }
+
+    public TestSubjectToast(CharSequence text) {
+        mText = text;
+    }
 
     public TestSubjectToast(int gravity, int offsetX, int offsetY, int iconId, int textId, int duration) {
         mTextResId = textId;

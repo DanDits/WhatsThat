@@ -41,6 +41,7 @@ public abstract class PracticalRiddleType extends RiddleType {
     public static final Types.Jumper JUMPER_INSTANCE = new Types.Jumper();
     public static final Types.Memory MEMORY_INSTANCE = new Types.Memory();
     public static final Types.Torchlight TORCHLIGHT_INSTANCE = new Types.Torchlight();
+    public static final Types.Flow FLOW_INSTANCE = new Types.Flow();
 
     private SoftReference<Drawable> mIcon;
     private volatile AchievementDataRiddleType mAchievementData;
@@ -54,7 +55,7 @@ public abstract class PracticalRiddleType extends RiddleType {
             }
         }
         if (res != null) {
-            Drawable icon = res.getDrawable(getIconResId());
+            Drawable icon = res.getDrawable(getIconResId(), null);
             Log.d("Riddle", "Remaking icon for type: " + getName());
             mIcon = new SoftReference<>(icon);
             return icon;

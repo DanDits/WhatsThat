@@ -248,9 +248,11 @@ public class RiddleController {
         toast.mBackground = SuperToast.Background.BLUE;
 
         String[] candies = res.getStringArray(TestSubject.getInstance().getRiddleSolvedResIds());
+        int score = mRiddleGame.calculateGainedScore();
         if (candies != null && candies.length > 0) {
-            int score = mRiddleGame.calculateGainedScore();
             toast.mText = candies[(int) (Math.random() * candies.length)] + (score > 0 ? (" +" + score) : "");
+        } else if (score > 0) {
+            toast.mText = "+" + score;
         }
         toast.mTextSize = 40;
         return toast;

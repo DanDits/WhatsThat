@@ -28,18 +28,20 @@ import dan.dit.whatsthat.achievement.Achievement;
 import dan.dit.whatsthat.achievement.AchievementManager;
 import dan.dit.whatsthat.achievement.AchievementProperties;
 import dan.dit.whatsthat.riddle.RiddleInitializer;
+import dan.dit.whatsthat.riddle.achievement.MiscAchievement;
 import dan.dit.whatsthat.riddle.achievement.holders.MiscAchievementHolder;
 import dan.dit.whatsthat.riddle.achievement.holders.TestSubjectAchievementHolder;
 import dan.dit.whatsthat.riddle.achievement.holders.TypeAchievementHolder;
 import dan.dit.whatsthat.riddle.types.PracticalRiddleType;
 import dan.dit.whatsthat.testsubject.intro.GeneralStartingEpisode;
 import dan.dit.whatsthat.testsubject.intro.Intro;
+import dan.dit.whatsthat.testsubject.shopping.sortiment.SortimentHolder;
 import dan.dit.whatsthat.util.dependencies.Dependable;
 import dan.dit.whatsthat.util.dependencies.Dependency;
 import dan.dit.whatsthat.util.dependencies.MinValueDependency;
 import dan.dit.whatsthat.testsubject.shopping.ShopArticle;
 import dan.dit.whatsthat.testsubject.shopping.ShopArticleHolder;
-import dan.dit.whatsthat.testsubject.shopping.ShopArticleRiddleHints;
+import dan.dit.whatsthat.testsubject.shopping.sortiment.ShopArticleRiddleHints;
 import dan.dit.whatsthat.util.wallet.WalletEntry;
 import dan.dit.whatsthat.util.DelayedQueueProcessor;
 import dan.dit.whatsthat.util.compaction.CompactedDataCorruptException;
@@ -190,7 +192,7 @@ public class TestSubject {
     private void initPreferences() {
         mPreferences = mApplicationContext.getSharedPreferences(TEST_SUBJECT_PREFERENCES_FILE, Context.MODE_PRIVATE);
         mPurse = new Purse(mApplicationContext);
-        mShopArticleHolder = new ShopArticleHolder(mApplicationContext, new ForeignPurse(mPurse));
+        mShopArticleHolder = new SortimentHolder(mApplicationContext, new ForeignPurse(mPurse));
         mGender = mPreferences.getInt(TEST_SUBJECT_PREF_GENDER, GENDER_NOT_CHOSEN);
 
         // TestSubjectRiddleTypes
@@ -261,7 +263,7 @@ public class TestSubject {
     public void postAchievementAchieved(Achievement achievement) {
         mAchievementToastProcessor.append(achievement, 200L);
         mAchievementToastProcessor.start();
-        mAchievementHolder.getMiscData().increment(MiscAchievementHolder.KEY_ACHIEVEMENTS_EARNED_COUNT, 1L, 0L);
+        mAchievementHolder.getMiscData().updateMappedValue(MiscAchievementHolder.KEY_ACHIEVEMENTS_EARNED_COUNT, achievement.getId());
     }
 
     protected void addNewType(PracticalRiddleType type) {

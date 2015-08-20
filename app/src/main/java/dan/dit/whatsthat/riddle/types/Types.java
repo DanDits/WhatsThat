@@ -13,12 +13,14 @@ import dan.dit.whatsthat.riddle.RiddleConfig;
 import dan.dit.whatsthat.riddle.achievement.holders.AchievementCircle;
 import dan.dit.whatsthat.riddle.achievement.holders.AchievementDice;
 import dan.dit.whatsthat.riddle.achievement.holders.AchievementJumper;
+import dan.dit.whatsthat.riddle.achievement.holders.AchievementMemory;
 import dan.dit.whatsthat.riddle.achievement.holders.AchievementSnow;
 import dan.dit.whatsthat.riddle.achievement.holders.AchievementTriangle;
 import dan.dit.whatsthat.riddle.achievement.holders.TypeAchievementHolder;
 import dan.dit.whatsthat.riddle.games.RiddleCircle;
 import dan.dit.whatsthat.riddle.games.RiddleDeveloper;
 import dan.dit.whatsthat.riddle.games.RiddleDice;
+import dan.dit.whatsthat.riddle.games.RiddleFlow;
 import dan.dit.whatsthat.riddle.games.RiddleGame;
 import dan.dit.whatsthat.riddle.games.RiddleJumper;
 import dan.dit.whatsthat.riddle.games.RiddleMemory;
@@ -368,10 +370,14 @@ public class Types {
      */
     public static class Memory extends PracticalRiddleType {
         public static final String NAME = "Memory";
-
+        private TypeAchievementHolder mHolder = new AchievementMemory(this);
         @Override
         protected String getName() {return NAME;}
 
+        @Override
+        public TypeAchievementHolder getAchievementHolder() {
+        return mHolder;
+    }
         @Override
         public RiddleGame makeRiddle(Riddle riddle, Image image, Bitmap bitmap, Resources res, RiddleConfig config, PercentProgressListener listener) {
             return new RiddleMemory(riddle, image, bitmap, res, config, listener);
@@ -464,6 +470,29 @@ public class Types {
         @Override
         public int getExplanationResId() {
             return R.string.riddle_type_torchlight_explanation;
+        }
+    }
+
+    public static class Flow extends PracticalRiddleType {
+        public static final String NAME = "Flow";
+        @Override
+        protected String getName() {return NAME;}
+
+        @Override
+        public RiddleGame makeRiddle(Riddle riddle, Image image, Bitmap bitmap, Resources res, RiddleConfig config, PercentProgressListener listener) {
+            return new RiddleFlow(riddle, image, bitmap, res, config, listener);
+        }
+        @Override
+        public int getIconResId() {
+            return R.drawable.icon_plain;
+        }
+        @Override
+        public int getNameResId() {
+            return R.string.riddle_type_flow;
+        }
+        @Override
+        public int getExplanationResId() {
+            return R.string.riddle_type_flow_explanation;
         }
     }
 }

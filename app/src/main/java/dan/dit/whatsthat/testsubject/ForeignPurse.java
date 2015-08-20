@@ -3,6 +3,8 @@ package dan.dit.whatsthat.testsubject;
 import android.text.TextUtils;
 import android.util.Log;
 
+import dan.dit.whatsthat.riddle.achievement.MiscAchievement;
+import dan.dit.whatsthat.riddle.achievement.holders.MiscAchievementHolder;
 import dan.dit.whatsthat.riddle.types.PracticalRiddleType;
 import dan.dit.whatsthat.util.wallet.WalletEntry;
 
@@ -33,9 +35,9 @@ public class ForeignPurse {
         return mPurse.getCurrentScore();
     }
 
-    public synchronized boolean purchase(final String key, final int cost) {
+    public synchronized boolean purchaseFeature(final String key, final int cost) {
         if (TextUtils.isEmpty(key) || cost < 0) {
-            throw new IllegalArgumentException("No key or illegal cost to purchase: " + key + ": " + cost);
+            throw new IllegalArgumentException("No key or illegal cost to purchaseFeature: " + key + ": " + cost);
         }
         if (mPurse.getCurrentScore() < cost) {
             return false;
@@ -43,13 +45,14 @@ public class ForeignPurse {
         int oldScore = mPurse.getCurrentScore();
         mPurse.mShopWallet.editEntry(key).setTrue();
         mPurse.spentScore(cost);
+        TestSubject.getInstance().getAchievementHolder().getMiscData().updateMappedValue(MiscAchievementHolder.KEY_FEATURES_PURCHASED, key);
         Log.d("HomeStuff", "Purchased " + key + " for " + cost + " (score change: " + oldScore + "->" + mPurse.getCurrentScore() + ")");
         return true;
     }
 
     public synchronized boolean purchase(final String key, final int cost, final int amount) {
         if (TextUtils.isEmpty(key) || cost < 0) {
-            throw new IllegalArgumentException("No key or illegal cost to purchase: " + key + ": " + cost);
+            throw new IllegalArgumentException("No key or illegal cost to purchaseFeature: " + key + ": " + cost);
         }
         if (mPurse.getCurrentScore() < cost) {
             return false;
@@ -70,7 +73,7 @@ public class ForeignPurse {
 
     public synchronized boolean purchaseHint(final PracticalRiddleType type, final int cost) {
         if (type == null || cost < 0) {
-            throw new IllegalArgumentException("No type or illegal cost to purchase hint: " + cost);
+            throw new IllegalArgumentException("No type or illegal cost to purchaseFeature hint: " + cost);
         }
         if (mPurse.getCurrentScore() < cost) {
             return false;

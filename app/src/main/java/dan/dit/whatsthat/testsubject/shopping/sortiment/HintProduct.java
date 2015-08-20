@@ -1,4 +1,4 @@
-package dan.dit.whatsthat.testsubject.shopping;
+package dan.dit.whatsthat.testsubject.shopping.sortiment;
 
 import android.graphics.Color;
 import android.text.TextUtils;
@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import dan.dit.whatsthat.R;
 import dan.dit.whatsthat.riddle.types.PracticalRiddleType;
+import dan.dit.whatsthat.testsubject.shopping.SubProduct;
 
 /**
  * Created by daniel on 30.07.15.

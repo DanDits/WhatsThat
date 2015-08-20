@@ -322,13 +322,13 @@ public class RiddleSnow extends RiddleGame implements FlatWorldCallback {
     }
 
     @Override
-    public boolean onPeriodicEvent(long updateTime) {
+    public void onPeriodicEvent(long updateTime) {
         mReloadRiddleMoveBlockDuration -= updateTime;
         if (mIdleTimeCounter > 0L) {
             mIdleTimeCounter -= updateTime;
         }
         if (mReloadRiddleMoveBlockDuration > 0L) {
-            return false; // wait some time after loading existing riddle so we don't crash immediately
+            return; // wait some time after loading existing riddle so we don't crash immediately
         }
         if (mIdleTimeCounter <= 0L && mConfig.mAchievementGameData != null && mIdleTimeCounter != Long.MIN_VALUE) {
             mIdleTimeCounter = Long.MIN_VALUE;
@@ -339,7 +339,7 @@ public class RiddleSnow extends RiddleGame implements FlatWorldCallback {
         if (mCell.updateAndCheckExplosionTimer(updateTime)) {
             onExplosion(false);
         }
-        return mReloadRiddleMoveBlockDuration <= 0L;
+        return;
     }
 
     @Override

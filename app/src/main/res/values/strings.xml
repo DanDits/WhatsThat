@@ -517,4 +517,8 @@
     </string-array>
     <string name="riddle_jumper_new_highscore">New record %1$dm</string>
     <string name="riddle_jumper_old_highscore">Current record %1$dm</string>
+    <string name="riddle_type_flow">Flow</string>
+    <string name="riddle_type_flow_explanation">Everything moves.</string>
+    <string name="article_jumper_start_further_name">Triple XxX</string>
+    <string name="article_jumper_start_further_descr">Start from 200m instead of walking through the easy part.</string>
 </resources>
