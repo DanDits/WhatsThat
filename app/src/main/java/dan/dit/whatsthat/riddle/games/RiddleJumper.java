@@ -444,7 +444,7 @@ public class RiddleJumper extends RiddleGame implements FlatWorldCallback {
                     Paint paint = mDistanceTextPaint;
                     int oldColor = paint.getColor();
                     paint.setColor(0xffdc9912);
-                    drawTextCenteredX(canvas, String.format(mNewHighscoreText, distanceRunToMeters(currentHighscore)), canvas.getWidth() / 2.f, mSolutionBackground.getHeight() / 2.f + 2 * mDummyRect.height(), mDummyRect, paint);
+                    drawTextCenteredX(canvas, String.format(mNewHighscoreText, distanceRunToMeters(mDistanceRun)), canvas.getWidth() / 2.f, mSolutionBackground.getHeight() / 2.f + 2 * mDummyRect.height(), mDummyRect, paint);
                     paint.setColor(oldColor);
                 } else {
                     drawTextCenteredX(canvas, String.format(mOldHighscoreText, distanceRunToMeters(currentHighscore)), canvas.getWidth() / 2.f, mSolutionBackground.getHeight() / 2.f + mDummyRect.height(), mDummyRect, mDistanceTextPaint);

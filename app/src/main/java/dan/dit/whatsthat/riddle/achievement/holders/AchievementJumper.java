@@ -53,6 +53,7 @@ public class AchievementJumper extends TypeAchievementHolder {
         mAchievements.put(Achievement7.NUMBER, new Achievement7(manager, mType));
         mAchievements.put(Achievement8.NUMBER, new Achievement8(manager, mType));
         mAchievements.put(Achievement9.NUMBER, new Achievement9(manager, mType));
+        mAchievements.put(Achievement10.NUMBER, new Achievement10(manager, mType));
         mAchievements.put(Achievement11.NUMBER, new Achievement11(manager, mType));
     }
 

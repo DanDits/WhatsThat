@@ -21,6 +21,7 @@ import dan.dit.whatsthat.riddle.RiddleConfig;
 import dan.dit.whatsthat.riddle.achievement.holders.AchievementCircle;
 import dan.dit.whatsthat.testsubject.TestSubject;
 import dan.dit.whatsthat.testsubject.shopping.ShopArticleHolder;
+import dan.dit.whatsthat.testsubject.shopping.sortiment.SortimentHolder;
 import dan.dit.whatsthat.util.PercentProgressListener;
 import dan.dit.whatsthat.util.compaction.CompactedDataCorruptException;
 import dan.dit.whatsthat.util.compaction.Compacter;
@@ -118,7 +119,7 @@ public class RiddleCircle extends RiddleGame {
         mAverageBrightness /= mBitmap.getWidth() * mBitmap.getHeight();
 
         listener.onProgressUpdate(35);
-        mFeatureDivideByMove = TestSubject.getInstance().hasFeature(ShopArticleHolder.ARTICLE_KEY_CIRCLE_DIVIDE_BY_MOVE_FEATURE);
+        mFeatureDivideByMove = TestSubject.getInstance().hasFeature(SortimentHolder.ARTICLE_KEY_CIRCLE_DIVIDE_BY_MOVE_FEATURE);
 
         mCirclesBitmap = Bitmap.createBitmap(mBitmap.getWidth(), mBitmap.getHeight(), mBitmap.getConfig());
         mCirclesCanvas = new Canvas(mCirclesBitmap);
@@ -150,7 +151,6 @@ public class RiddleCircle extends RiddleGame {
         // try reconstructing circles
         Compacter cmp = getCurrentState();
         if (cmp != null && cmp.getSize() > 3) {
-            Log.d("Riddle", "Reconstructing circle from current state with size " + cmp.getSize());
             // we are reconstructing this riddle, lets try it if dimensions kinda match
             double aspectRatio = mBitmap.getWidth() / ((double) mBitmap.getHeight());
             int widthLoaded = -1;
@@ -164,7 +164,6 @@ public class RiddleCircle extends RiddleGame {
             if (Math.abs(aspectRatio - aspectRatioLoaded) < 1E-3) {
                 // equal ratios
                 float scaling = mBitmap.getWidth() / ((float) widthLoaded);
-                Log.d("Riddle", "Reconstructing riddle, " + (cmp.getSize() - 3) + " circles with ratio multiple of " + scaling);
                 int index = 2;
                 while (index + 3 < cmp.getSize()) {
                     try {

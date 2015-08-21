@@ -17,6 +17,7 @@ import dan.dit.whatsthat.riddle.achievement.GameAchievement;
 import dan.dit.whatsthat.riddle.types.PracticalRiddleType;
 import dan.dit.whatsthat.riddle.types.Types;
 import dan.dit.whatsthat.testsubject.TestSubject;
+import dan.dit.whatsthat.testsubject.shopping.sortiment.SortimentHolder;
 import dan.dit.whatsthat.util.dependencies.Dependency;
 import dan.dit.whatsthat.testsubject.shopping.ShopArticleHolder;
 
@@ -270,7 +271,7 @@ public class AchievementCircle extends TypeAchievementHolder {
             } else {
                 Log.e("Achievement", "Dependency circle Achievement5 not created.");
             }
-            dep = TestSubject.getInstance().makeProductPurchasedDependency(ShopArticleHolder.ARTICLE_KEY_CIRCLE_DIVIDE_BY_MOVE_FEATURE, 0);
+            dep = TestSubject.getInstance().makeProductPurchasedDependency(SortimentHolder.ARTICLE_KEY_CIRCLE_DIVIDE_BY_MOVE_FEATURE, 0);
             if (dep != null) {
                 mDependencies.add(dep);
             } else {

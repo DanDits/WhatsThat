@@ -55,7 +55,7 @@ public abstract class PracticalRiddleType extends RiddleType {
             }
         }
         if (res != null) {
-            Drawable icon = res.getDrawable(getIconResId(), null);
+            Drawable icon = res.getDrawable(getIconResId());
             Log.d("Riddle", "Remaking icon for type: " + getName());
             mIcon = new SoftReference<>(icon);
             return icon;

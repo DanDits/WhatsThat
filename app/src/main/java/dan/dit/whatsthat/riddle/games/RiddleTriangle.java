@@ -26,6 +26,7 @@ import dan.dit.whatsthat.riddle.RiddleConfig;
 import dan.dit.whatsthat.riddle.achievement.holders.AchievementTriangle;
 import dan.dit.whatsthat.testsubject.TestSubject;
 import dan.dit.whatsthat.testsubject.shopping.ShopArticleHolder;
+import dan.dit.whatsthat.testsubject.shopping.sortiment.SortimentHolder;
 import dan.dit.whatsthat.util.PercentProgressListener;
 import dan.dit.whatsthat.util.compaction.CompactedDataCorruptException;
 import dan.dit.whatsthat.util.compaction.Compacter;
@@ -83,7 +84,7 @@ public class RiddleTriangle extends RiddleGame {
         mBackgroundCanvas = new Canvas(mBackground);
         mClearPaint = new Paint();
         mClearPaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.CLEAR));
-        mFeatureDivideByMove = TestSubject.getInstance().hasFeature(ShopArticleHolder.ARTICLE_KEY_TRIANGLE_DIVIDE_BY_MOVE_FEATURE);
+        mFeatureDivideByMove = TestSubject.getInstance().hasFeature(SortimentHolder.ARTICLE_KEY_TRIANGLE_DIVIDE_BY_MOVE_FEATURE);
 
         mTriangles = new ArrayList<>();
         mLock = new ListLockMaxIndex(mTriangles, ListLockMaxIndex.UNLIMITED_ELEMENTS);
