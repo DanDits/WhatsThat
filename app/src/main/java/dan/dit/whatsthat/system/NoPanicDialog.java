@@ -4,11 +4,15 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
@@ -20,6 +24,7 @@ import dan.dit.whatsthat.image.ImageAuthor;
 import dan.dit.whatsthat.riddle.achievement.holders.MiscAchievementHolder;
 import dan.dit.whatsthat.riddle.types.PracticalRiddleType;
 import dan.dit.whatsthat.testsubject.TestSubject;
+import dan.dit.whatsthat.util.ui.GlasDialog;
 import dan.dit.whatsthat.util.ui.UiStyleUtil;
 
 /**
@@ -32,7 +37,8 @@ public class NoPanicDialog extends DialogFragment {
     private PracticalRiddleType mType;
     private Image mImage;
     private Callback mCallback;
-    private TextView mAskTypeAnswer;
+    private ViewGroup mAskTypeAnswer;
+    private TextView mAskTypeAnswerText;
 
     public interface Callback {
         boolean canSkip();
@@ -118,8 +124,9 @@ public class NoPanicDialog extends DialogFragment {
             });
         }
         View askType = baseView.findViewById(R.id.panic_ask_type);
-        mAskTypeAnswer = (TextView) baseView.findViewById(R.id.panic_ask_type_answer);
-        if (mType == null) {
+        mAskTypeAnswer = (ViewGroup) baseView.findViewById(R.id.panic_ask_type_answer);
+        mAskTypeAnswerText = (TextView) baseView.findViewById(R.id.panic_ask_type_answer_text);
+        if (mType == null || mType.getExplanationResId() == 0) {
             askType.setVisibility(View.GONE);
             mAskTypeAnswer.setVisibility(View.GONE);
         } else {
@@ -140,18 +147,31 @@ public class NoPanicDialog extends DialogFragment {
                 mCallback.onComplain(mImage);
             }
         });
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        View dontPanic = baseView.findViewById(R.id.panic_dontpanic);
+        dontPanic.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getActionMasked() == MotionEvent.ACTION_DOWN) {
+                    dismiss();
+                }
+                return true;
+            }
+        });
+        Dialog dialog = new GlasDialog(getActivity(), baseView);
+        return dialog;
+        /*AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.Theme_Holo_Dialog_Alert);
         builder.setTitle(R.string.no_panic_title).setIcon(R.drawable.dontpanic)
                 .setView(baseView)
                 .setPositiveButton(R.string.panic_dialog_positive, null);
         AlertDialog dialog = builder.create();
-        return dialog;
+        return dialog;*/
     }
 
     private void onAskType() {
-        if (mAskTypeAnswer.getVisibility() == View.GONE) {
+        int explanationResId = mType.getExplanationResId();
+        if (mAskTypeAnswer.getVisibility() == View.GONE && explanationResId != 0) {
             mAskTypeAnswer.setVisibility(View.VISIBLE);
-            mAskTypeAnswer.setText(mType.getExplanationResId());
+            mAskTypeAnswerText.setText(explanationResId);
         } else {
             mAskTypeAnswer.setVisibility(View.GONE);
         }

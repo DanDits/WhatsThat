@@ -229,7 +229,9 @@ public class InitializationFragment extends Fragment implements ImageManager.Syn
         RiddleInitializer.INSTANCE.unregisterInitProgressListener(this);
         Log.d("HomeStuff", "OnStop of SyncingFragment, init running=" + RiddleInitializer.INSTANCE.isInitializing() + " sync running=" + ImageManager.isSyncing());
         RiddleInitializer.INSTANCE.cancelInit();
-        TestSubject.getInstance().saveIntro(mIntro);
+        if (TestSubject.isInitialized()) {
+            TestSubject.getInstance().saveIntro(mIntro);
+        }
     }
 
     @Override

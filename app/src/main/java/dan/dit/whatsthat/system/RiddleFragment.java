@@ -1,6 +1,7 @@
 package dan.dit.whatsthat.system;
 
 import android.app.AlertDialog;
+import android.app.DialogFragment;
 import android.app.Fragment;
 import android.app.LoaderManager;
 import android.content.CursorLoader;

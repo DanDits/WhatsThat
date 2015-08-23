@@ -492,7 +492,7 @@ public class Types {
         }
         @Override
         public int getExplanationResId() {
-            return R.string.riddle_type_flow_explanation;
+            return 0;
         }
     }
 }

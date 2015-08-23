@@ -189,6 +189,8 @@ public class SolutionInputLetterClick extends SolutionInput {
         int userLetterCount = mUserLetters.size();
         mUserLetterCircleRadius = 0.f;
         if (userLetterCount > 0) {
+            userLetterCount = mStateCompleted ? userLetterCount : userLetterCount + 1;
+            // simulate one more user letter so that we show that there is room for more letters in the solution word
             mUserLetterCircleRadius = Math.min(heightForUserLetters, (mWidth - padding_lr) / userLetterCount) / 2.f;
             mUserLetterCircleRadius = Math.min(mUserLetterCircleRadius, letter_max_radius);
             if (mUserLetterCircleRadius > 0.f) {
@@ -289,11 +291,27 @@ public class SolutionInputLetterClick extends SolutionInput {
             }
             float userTextOffsetY = -((mUserLetterPaint.descent() + mUserLetterPaint.ascent()) / 2);
             for (Float x : mUserLetterX) {
-                canvas.drawCircle(x, mUserLetterY, mUserLetterCircleRadius, mUserLetterCirclePaint);
-                canvas.drawCircle(x, mUserLetterY, mUserLetterCircleRadius, mUserLetterCircleBorderPaint);
-                String text = String.valueOf(mUserLetters.get(index));
-                mUserLetterPaint.getTextBounds(text, 0, text.length(), mTextBounds);
-                canvas.drawText(text, x - mTextBounds.exactCenterX(), mUserLetterY + userTextOffsetY, mUserLetterPaint);
+                if (index < mUserLetters.size()) {
+                    canvas.drawCircle(x, mUserLetterY, mUserLetterCircleRadius, mUserLetterCirclePaint);
+                    canvas.drawCircle(x, mUserLetterY, mUserLetterCircleRadius, mUserLetterCircleBorderPaint);
+                    String text = String.valueOf(mUserLetters.get(index));
+                    mUserLetterPaint.getTextBounds(text, 0, text.length(), mTextBounds);
+                    canvas.drawText(text, x - mTextBounds.exactCenterX(), mUserLetterY + userTextOffsetY, mUserLetterPaint);
+                } else {
+                    // show that there is room for more
+                    final int COUNT = 5;
+                    float availableWidth = 2 * mUserLetterCircleRadius;
+                    // we got space in interval [x-mUserLetterCircleRadius, x+mUserLetterCircleRadius] for COUNT circles
+                    float currX = x - mUserLetterCircleRadius;
+                    for (int i = 0; i < COUNT; i++) {
+                        float radius = availableWidth / 4;
+                        availableWidth -= 2 * radius;
+                        currX += radius;
+                        canvas.drawCircle(currX, mUserLetterY, radius, mUserLetterCirclePaint);
+                        canvas.drawCircle(currX, mUserLetterY, radius, mUserLetterCircleBorderPaint);
+                        currX += radius;
+                    }
+                }
                 index++;
             }
         }
@@ -377,6 +395,9 @@ public class SolutionInputLetterClick extends SolutionInput {
     }
 
     private boolean performUserLetterClick(int userLetterIndex) {
+        if (userLetterIndex < 0 || userLetterIndex >= mUserLetters.size()) {
+            return false;
+        }
         char clickedChar = mUserLetters.get(userLetterIndex);
         if (clickedChar != NO_LETTER) {
             int allIndex = findAllLetterIndex(userLetterIndex);

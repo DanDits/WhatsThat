@@ -833,7 +833,7 @@
     <string name="panic_complain_dummy_toast">Beschwerde registriert</string>
     <string name="panic_complain_content">Ich will mich über das Rätsel und Bild beschweren...SAG UNS WAS DIR NICHT PASST! :)</string>
     <string name="riddle_type_torchlight">Fakel</string>
-    <string name="riddle_type_torchlight_explanation">Geheim und mysteriös.</string>
+    <string name="riddle_type_torchlight_explanation">Geheim und mysteriös und bla bla.Geheim und mysteriös und bla bla.Geheim und mysteriös und bla bla.Geheim und mysteriös und bla bla.Geheim und mysteriös und bla bla.Geheim und mysteriös und bla bla.Geheim und mysteriös und bla bla.Geheim und mysteriös und bla bla.Geheim und mysteriös und bla bla.Geheim und mysteriös und bla bla.Geheim und mysteriös und bla bla.</string>
     <string name="send_log_confirm">Log senden</string>
     <string name="intro_starting_episode">Willkommen %1$s</string>
     <string-array name="riddle_jumper_collision_break">
