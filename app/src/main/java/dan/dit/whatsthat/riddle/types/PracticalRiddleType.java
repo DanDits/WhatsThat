@@ -193,9 +193,6 @@ public abstract class PracticalRiddleType extends RiddleType {
         return null;
     }
 
-    public View getGameWelcomeView(Context context) {
-        return null;
-    }
     public CharSequence getRiddleHint(Resources res, int hintNumber) {
         return null;
     }

@@ -157,14 +157,7 @@ public class NoPanicDialog extends DialogFragment {
                 return true;
             }
         });
-        Dialog dialog = new GlasDialog(getActivity(), baseView);
-        return dialog;
-        /*AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.Theme_Holo_Dialog_Alert);
-        builder.setTitle(R.string.no_panic_title).setIcon(R.drawable.dontpanic)
-                .setView(baseView)
-                .setPositiveButton(R.string.panic_dialog_positive, null);
-        AlertDialog dialog = builder.create();
-        return dialog;*/
+        return new GlasDialog(getActivity(), baseView);
     }
 
     private void onAskType() {
@@ -213,7 +206,6 @@ public class NoPanicDialog extends DialogFragment {
         Dialog dialog = getDialog();
         if (dialog != null) {
             dialog.setCanceledOnTouchOutside(true);
-            UiStyleUtil.setDialogDividerColor(dialog, getResources(), getResources().getColor(R.color.alien_purple));
         }
     }
 }

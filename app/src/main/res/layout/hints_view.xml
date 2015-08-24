@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<view xmlns:android="http://schemas.android.com/apk/res/android"
+    class="dan.dit.whatsthat.system.HintsView"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:id="@+id/hints_view">
+    <ViewFlipper
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/hints_content"
+        android:layout_gravity="center"
+        android:layout_margin="20dp">
+    </ViewFlipper>
+    <ImageView
+        android:layout_width = "wrap_content"
+        android:layout_height ="wrap_content"
+        android:layout_gravity="right|center_vertical"
+        android:id="@+id/hints_indicator_right"
+        android:src="@drawable/hints_indicator_right"/>
+    <ImageView
+        android:layout_width = "wrap_content"
+        android:layout_height ="wrap_content"
+        android:layout_gravity="left|center_vertical"
+        android:id="@+id/hints_indicator_left"
+        android:src="@drawable/hints_indicator_left"/>
+
+
+</view>

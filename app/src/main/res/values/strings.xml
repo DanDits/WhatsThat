@@ -122,11 +122,6 @@
     </string-array>
     <string name="no_panic_title">Don\'t panic!</string>
 
-    <string name="game_welcome_positive_confirm">Got it!</string>
-    <string name="game_welcome_positive_next">Next hint</string>
-    <string name="game_welcome_postpone">Not now…</string>
-    <string name="game_welcome_default_title">Tips and tricks</string>
-
     <string-array name="test_subject_1_intro_main">
         <item>Mercury</item>
         <item>Venus</item>
@@ -521,4 +516,5 @@
     <string name="riddle_type_flow_explanation">Everything moves.</string>
     <string name="article_jumper_start_further_name">Triple XxX</string>
     <string name="article_jumper_start_further_descr">Start from 200m instead of walking through the easy part.</string>
+    <string name="riddle_hints_dialog_confirm">I got it!</string>
 </resources>

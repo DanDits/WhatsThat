@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/alien_achieved"
+        android:layout_below="@+id/hints_view"
+        android:layout_alignParentLeft="true"
+        />
+
+    <include layout="@layout/hints_view"
+        android:id="@+id/hints_view"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/riddle_hints_dialog_confirm"
+        android:id="@+id/hints_confirm"
+        android:background="@drawable/dialog_button_alien_solid"
+        android:layout_below="@+id/hints_view"
+        android:layout_centerHorizontal="true" />
+</RelativeLayout>

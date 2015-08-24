@@ -189,7 +189,7 @@ public class SolutionInputLetterClick extends SolutionInput {
         int userLetterCount = mUserLetters.size();
         mUserLetterCircleRadius = 0.f;
         if (userLetterCount > 0) {
-            userLetterCount = mStateCompleted ? userLetterCount : userLetterCount + 1;
+            userLetterCount = (mStateCompleted || userLetterCount == mAllLetters.length) ? userLetterCount : userLetterCount + 1;
             // simulate one more user letter so that we show that there is room for more letters in the solution word
             mUserLetterCircleRadius = Math.min(heightForUserLetters, (mWidth - padding_lr) / userLetterCount) / 2.f;
             mUserLetterCircleRadius = Math.min(mUserLetterCircleRadius, letter_max_radius);
@@ -299,7 +299,7 @@ public class SolutionInputLetterClick extends SolutionInput {
                     canvas.drawText(text, x - mTextBounds.exactCenterX(), mUserLetterY + userTextOffsetY, mUserLetterPaint);
                 } else {
                     // show that there is room for more
-                    final int COUNT = 5;
+                    final int COUNT = Math.min(5, mAllLetters.length - mUserLetters.size());
                     float availableWidth = 2 * mUserLetterCircleRadius;
                     // we got space in interval [x-mUserLetterCircleRadius, x+mUserLetterCircleRadius] for COUNT circles
                     float currX = x - mUserLetterCircleRadius;
