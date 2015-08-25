@@ -173,7 +173,6 @@ public class RiddleFlow extends RiddleGame {
             }
         }
         canvas.drawBitmap(mPresentedBitmap, 0, 0, null);
-        Log.d("Riddle", "Time taken for drawing: " + (System.currentTimeMillis() - start));
     }
 
     @Override
@@ -224,10 +223,7 @@ public class RiddleFlow extends RiddleGame {
 
     @Override
     public void onPeriodicEvent(long updatePeriod) {
-        Log.d("Riddle", "Starting periodic event with upatePeriod: " + updatePeriod);
-        long start = System.currentTimeMillis();
         executeFlow(updatePeriod);
-        Log.d("Riddle", "Time taken to execute " + mFlows.size() + " flows: " + (System.currentTimeMillis() - start));
 
         final long sleep = UPDATE_PERIOD - updatePeriod;
         if (sleep > 0) {
@@ -340,9 +336,7 @@ public class RiddleFlow extends RiddleGame {
             int x = (int) event.getX();
             int y = (int) event.getY();
             if (x >= 0 && y >= 0 && x < mWidth && y < mHeight) {
-                long start = System.currentTimeMillis();
                 mFlows.add(new Flow(x, y));
-                Log.d("Riddle", "Time taken for motion event down: " + (System.currentTimeMillis() - start));
             }
         }
         return false;

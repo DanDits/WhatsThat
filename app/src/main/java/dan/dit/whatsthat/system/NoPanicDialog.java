@@ -5,16 +5,20 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.graphics.Color;
+import android.graphics.Rect;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import dan.dit.whatsthat.R;
@@ -39,6 +43,7 @@ public class NoPanicDialog extends DialogFragment {
     private Callback mCallback;
     private ViewGroup mAskTypeAnswer;
     private TextView mAskTypeAnswerText;
+    private int mFunCounter;
 
     public interface Callback {
         boolean canSkip();
@@ -50,6 +55,13 @@ public class NoPanicDialog extends DialogFragment {
     public void onDestroy() {
         super.onDestroy();
         this.getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL);
+    }
+
+    @Override
+    public void onActivityCreated(Bundle arg0) {
+        super.onActivityCreated(arg0);
+        getDialog().getWindow()
+                .getAttributes().windowAnimations = R.style.NoPanicDialogAnimation;
     }
 
     @Override
@@ -152,7 +164,30 @@ public class NoPanicDialog extends DialogFragment {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getActionMasked() == MotionEvent.ACTION_DOWN) {
-                    dismiss();
+                    ImageView image = (ImageView) v;
+                    Rect bounds = image.getDrawable().getBounds();
+                    if (!bounds.contains((int) (event.getX() - v.getWidth() / 2 + bounds.width() / 2), (int) (event.getY() - v.getHeight() / 2 + bounds.height() / 2))) {
+                        dismiss();
+                    } else {
+                        v.clearAnimation();
+                        final int[] anims = new int[] {0,1,1,2,0,2,0,1,0,2,2,2,1,0,0,2,0,1,2,0,0,0,2,2,2,0,1,0,0,2,0,0,2,0,2,0,0,0,2,1,2,2,2,1,0,0,0,2,0,2,1,0,1,2,1,1,1,2,1,1,2,1,1,2,1,2,2,2,0,2,0,0,2,1,0,2,0,2,1,0,2,2,2,1,0,1,2,0,2,1,0,1,2,0,0,0};
+                        int animNumber = anims[mFunCounter];
+                        int anim;
+                        switch (animNumber) {
+                            case 0:
+                                anim = R.anim.panic_fun_zoom;
+                                break;
+                            case 1:
+                                anim = R.anim.panic_fun_roll;
+                                break;
+                            default:
+                                anim = R.anim.panic_fun_bounce;
+                                break;
+                        }
+                        mFunCounter++;
+                        mFunCounter %= anims.length;
+                        v.startAnimation(AnimationUtils.loadAnimation(getActivity(), anim));
+                    }
                 }
                 return true;
             }

@@ -62,13 +62,13 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/author_rahmen">
+        android:background="@drawable/author_rahmen"
+        android:id="@+id/author_container">
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:background="@drawable/heart_background"
-            android:id="@+id/author_container"
             android:layout_marginTop="10dp">
 
             <TextView

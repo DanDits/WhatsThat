@@ -3,6 +3,7 @@ package dan.dit.whatsthat.system;
 import android.app.AlertDialog;
 import android.app.DialogFragment;
 import android.app.Fragment;
+import android.app.FragmentTransaction;
 import android.app.LoaderManager;
 import android.content.CursorLoader;
 import android.content.DialogInterface;
@@ -14,6 +15,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.text.InputType;
 import android.text.TextUtils;
+import android.transition.Slide;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -412,7 +414,8 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
         mRiddleView.supplyNoPanicParams(args);
         NoPanicDialog dialog = new NoPanicDialog();
         dialog.setArguments(args);
-        dialog.show(getFragmentManager(), "PanicDialog");
+        FragmentTransaction t = getFragmentManager().beginTransaction();
+        dialog.show(t, "PanicDialog");
     }
 
     @Override

@@ -362,7 +362,12 @@ public class Types {
             costs.add(1);
             return costs;
         }
-
+        @Override
+        public int getInterestValue(RiddleType typeToCheck) {
+            int interest = super.getInterestValue(typeToCheck);
+            interest += typeToCheck.getInterestValueIfEqual(ContentRiddleType.CONTRAST_WEAK_INSTANCE);
+            return interest;
+        }
     }
 
     /**
@@ -417,6 +422,7 @@ public class Types {
             costs.add(0);
             return costs;
         }
+
 
     }
 
@@ -493,6 +499,14 @@ public class Types {
         @Override
         public int getExplanationResId() {
             return 0;
+        }
+
+        @Override
+        public int getInterestValue(RiddleType typeToCheck) {
+            int interest = super.getInterestValue(typeToCheck);
+            interest += typeToCheck.getInterestValueIfEqual(ContentRiddleType.CONTRAST_STRONG_INSTANCE);
+            interest += typeToCheck.getInterestValueIfEqual(ContentRiddleType.CONTRAST_MEDIUM_INSTANCE);
+            return interest;
         }
     }
 }

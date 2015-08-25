@@ -10,10 +10,15 @@
         android:src="@drawable/alien_achieved"
         android:layout_below="@+id/hints_view"
         android:layout_alignParentLeft="true"
+        android:id="@+id/alien"
         />
 
     <include layout="@layout/hints_view"
-        android:id="@+id/hints_view"/>
+        android:id="@+id/hints_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_toRightOf="@+id/alien"/>
 
     <Button
         android:layout_width="wrap_content"
