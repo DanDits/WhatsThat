@@ -44,6 +44,7 @@ public class NoPanicDialog extends DialogFragment {
     private ViewGroup mAskTypeAnswer;
     private TextView mAskTypeAnswerText;
     private int mFunCounter;
+    private View mAuthorContainer;
 
     public interface Callback {
         boolean canSkip();
@@ -90,8 +91,16 @@ public class NoPanicDialog extends DialogFragment {
 
         if (mImage != null) {
             String[] headings = getResources().getStringArray(R.array.panic_author_credit_title);
-            View authorContainer = baseView.findViewById(R.id.author_container);
-            authorContainer.setVisibility(View.VISIBLE);
+            Button authorQuestion = (Button) baseView.findViewById(R.id.author_ask);
+            authorQuestion.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onAskAuthor();
+                }
+            });
+            mAuthorContainer = baseView.findViewById(R.id.author_container);
+            authorQuestion.setVisibility(View.VISIBLE);
+            mAuthorContainer.setVisibility(View.GONE);
             ((TextView) baseView.findViewById(R.id.credits_heading)).setText(headings[(int) (Math.random() * headings.length)]);
 
             ImageAuthor author = mImage.getAuthor();
@@ -118,6 +127,7 @@ public class NoPanicDialog extends DialogFragment {
                 baseView.findViewById(R.id.author_details).setVisibility(View.GONE);
             }
         } else {
+            baseView.findViewById(R.id.author_ask).setVisibility(View.GONE);
             baseView.findViewById(R.id.author_container).setVisibility(View.GONE);
         }
         Button skip = (Button) baseView.findViewById(R.id.panic_skip);
@@ -202,6 +212,14 @@ public class NoPanicDialog extends DialogFragment {
             mAskTypeAnswerText.setText(explanationResId);
         } else {
             mAskTypeAnswer.setVisibility(View.GONE);
+        }
+    }
+
+    private void onAskAuthor() {
+        if (mAuthorContainer.getVisibility() == View.GONE) {
+            mAuthorContainer.setVisibility(View.VISIBLE);
+        } else {
+            mAuthorContainer.setVisibility(View.GONE);
         }
     }
 
