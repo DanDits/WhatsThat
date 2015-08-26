@@ -576,10 +576,13 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
                             nextCheatedRiddle(selected);
                         } else {
                             if (value.equalsIgnoreCase("42")) {
-                                TestSubject.getInstance().addAchievementScore(42);
+                                TestSubject.getInstance().addAchievementScore(420);
                                 Toast.makeText(getActivity(), "You got rich boy.", Toast.LENGTH_SHORT).show();
                             } else if (value.equalsIgnoreCase("kummerkasten")) {
                                 decryptComplain();
+                            } else if (value.equalsIgnoreCase("oneup")) {
+                                TestSubject.getInstance().levelUp();
+                                Toast.makeText(getActivity(), "Level up!", Toast.LENGTH_SHORT).show();
                             } else {
                                 Toast.makeText(getActivity(), "Bild nicht gefunden.", Toast.LENGTH_SHORT).show();
                             }

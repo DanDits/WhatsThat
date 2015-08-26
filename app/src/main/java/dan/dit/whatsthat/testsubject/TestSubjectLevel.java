@@ -32,7 +32,16 @@ public abstract class TestSubjectLevel {
     protected static TestSubjectLevel[] makeAll(TestSubject testSubject) {
         return new TestSubjectLevel[] {
                 new TestSubjectLevel0(testSubject),
-                new TestSubjectLevel1(testSubject)};
+                new TestSubjectLevel1(testSubject),
+                new TestSubjectLevel2(testSubject),
+                new TestSubjectLevel3(testSubject),
+                new TestSubjectLevel4(testSubject),
+                new TestSubjectLevel5(testSubject),
+                new TestSubjectLevel6(testSubject),
+                new TestSubjectLevel7(testSubject),
+                new TestSubjectLevel8(testSubject),
+                new TestSubjectLevel9(testSubject)
+        };
     }
 
     public abstract List<Episode> makeMainIntroEpisodes(Intro intro);
@@ -151,7 +160,7 @@ public abstract class TestSubjectLevel {
         protected void applyLevel(Resources res) {
             mNameResId = R.string.test_subject_0_name;
             mIntelligenceResId = R.string.test_subject_0_int;
-            mImageResId = R.drawable.kid0;
+            mImageResId = R.drawable.kid00;
             mTextMain = res.getStringArray(R.array.test_subject_0_intro_main);
             mTextNuts = res.getStringArray(R.array.test_subject_0_intro_nuts);
             mRiddleSolvedCandy = R.array.test_subject_0_riddle_solved_candy;
@@ -189,7 +198,7 @@ public abstract class TestSubjectLevel {
         protected void applyLevel(Resources res) {
             mNameResId = R.string.test_subject_1_name;
             mIntelligenceResId = R.string.test_subject_1_int;
-            mImageResId = R.drawable.kid;
+            mImageResId = R.drawable.kid01;
             mTextMain = res.getStringArray(R.array.test_subject_1_intro_main);
             mTextNuts = res.getStringArray(R.array.test_subject_1_intro_nuts);
             mRiddleSolvedCandy = R.array.test_subject_1_riddle_solved_candy;
@@ -197,8 +206,229 @@ public abstract class TestSubjectLevel {
 
         @Override
         protected void onLeveledUp() {
+        }
+    }
+    private static class TestSubjectLevel2 extends TestSubjectLevel {
 
+        protected TestSubjectLevel2(TestSubject testSubject) {
+            super(testSubject);
+        }
+
+        @Override
+        public List<Episode> makeMainIntroEpisodes(Intro intro) {
+            EpisodeBuilder builder = new EpisodeBuilder(intro);
+            builder.nextEpisodes(mTextMain, 0, mTextMain.length);
+            return builder.build();
+        }
+
+        @Override
+        protected void applyLevel(Resources res) {
+            mNameResId = R.string.test_subject_2_name;
+            mIntelligenceResId = R.string.test_subject_2_int;
+            mImageResId = R.drawable.kid02;
+            mTextMain = res.getStringArray(R.array.test_subject_2_intro_main);
+            mTextNuts = res.getStringArray(R.array.test_subject_2_intro_nuts);
+            mRiddleSolvedCandy = R.array.test_subject_2_riddle_solved_candy;
+        }
+
+        @Override
+        protected void onLeveledUp() {
         }
     }
 
+    private static class TestSubjectLevel3 extends TestSubjectLevel {
+
+        protected TestSubjectLevel3(TestSubject testSubject) {
+            super(testSubject);
+        }
+
+        @Override
+        public List<Episode> makeMainIntroEpisodes(Intro intro) {
+            EpisodeBuilder builder = new EpisodeBuilder(intro);
+            builder.nextEpisodes(mTextMain, 0, mTextMain.length);
+            return builder.build();
+        }
+
+        @Override
+        protected void applyLevel(Resources res) {
+            mNameResId = R.string.test_subject_3_name;
+            mIntelligenceResId = R.string.test_subject_3_int;
+            mImageResId = R.drawable.kid03;
+            mTextMain = res.getStringArray(R.array.test_subject_3_intro_main);
+            mTextNuts = res.getStringArray(R.array.test_subject_3_intro_nuts);
+            mRiddleSolvedCandy = R.array.test_subject_3_riddle_solved_candy;
+        }
+
+        @Override
+        protected void onLeveledUp() {
+        }
+    }
+    
+    private static class TestSubjectLevel4 extends TestSubjectLevel {
+
+        protected TestSubjectLevel4(TestSubject testSubject) {
+            super(testSubject);
+        }
+
+        @Override
+        public List<Episode> makeMainIntroEpisodes(Intro intro) {
+            EpisodeBuilder builder = new EpisodeBuilder(intro);
+            builder.nextEpisodes(mTextMain, 0, mTextMain.length);
+            return builder.build();
+        }
+
+        @Override
+        protected void applyLevel(Resources res) {
+            mNameResId = R.string.test_subject_4_name;
+            mIntelligenceResId = R.string.test_subject_4_int;
+            mImageResId = R.drawable.kid04;
+            mTextMain = res.getStringArray(R.array.test_subject_4_intro_main);
+            mTextNuts = res.getStringArray(R.array.test_subject_4_intro_nuts);
+            mRiddleSolvedCandy = R.array.test_subject_4_riddle_solved_candy;
+        }
+
+        @Override
+        protected void onLeveledUp() {
+        }
+    }
+
+    private static class TestSubjectLevel5 extends TestSubjectLevel {
+
+        protected TestSubjectLevel5(TestSubject testSubject) {
+            super(testSubject);
+        }
+
+        @Override
+        public List<Episode> makeMainIntroEpisodes(Intro intro) {
+            EpisodeBuilder builder = new EpisodeBuilder(intro);
+            builder.nextEpisodes(mTextMain, 0, mTextMain.length);
+            return builder.build();
+        }
+
+        @Override
+        protected void applyLevel(Resources res) {
+            mNameResId = R.string.test_subject_5_name;
+            mIntelligenceResId = R.string.test_subject_5_int;
+            mImageResId = R.drawable.kid05;
+            mTextMain = res.getStringArray(R.array.test_subject_5_intro_main);
+            mTextNuts = res.getStringArray(R.array.test_subject_5_intro_nuts);
+            mRiddleSolvedCandy = R.array.test_subject_5_riddle_solved_candy;
+        }
+
+        @Override
+        protected void onLeveledUp() {
+        }
+    }
+
+    private static class TestSubjectLevel6 extends TestSubjectLevel {
+
+        protected TestSubjectLevel6(TestSubject testSubject) {
+            super(testSubject);
+        }
+
+        @Override
+        public List<Episode> makeMainIntroEpisodes(Intro intro) {
+            EpisodeBuilder builder = new EpisodeBuilder(intro);
+            builder.nextEpisodes(mTextMain, 0, mTextMain.length);
+            return builder.build();
+        }
+
+        @Override
+        protected void applyLevel(Resources res) {
+            mNameResId = R.string.test_subject_6_name;
+            mIntelligenceResId = R.string.test_subject_6_int;
+            mImageResId = R.drawable.kid06;
+            mTextMain = res.getStringArray(R.array.test_subject_6_intro_main);
+            mTextNuts = res.getStringArray(R.array.test_subject_6_intro_nuts);
+            mRiddleSolvedCandy = R.array.test_subject_6_riddle_solved_candy;
+        }
+
+        @Override
+        protected void onLeveledUp() {
+        }
+    }
+
+    private static class TestSubjectLevel7 extends TestSubjectLevel {
+
+        protected TestSubjectLevel7(TestSubject testSubject) {
+            super(testSubject);
+        }
+
+        @Override
+        public List<Episode> makeMainIntroEpisodes(Intro intro) {
+            EpisodeBuilder builder = new EpisodeBuilder(intro);
+            builder.nextEpisodes(mTextMain, 0, mTextMain.length);
+            return builder.build();
+        }
+
+        @Override
+        protected void applyLevel(Resources res) {
+            mNameResId = R.string.test_subject_7_name;
+            mIntelligenceResId = R.string.test_subject_7_int;
+            mImageResId = R.drawable.kid07;
+            mTextMain = res.getStringArray(R.array.test_subject_7_intro_main);
+            mTextNuts = res.getStringArray(R.array.test_subject_7_intro_nuts);
+            mRiddleSolvedCandy = R.array.test_subject_7_riddle_solved_candy;
+        }
+
+        @Override
+        protected void onLeveledUp() {
+        }
+    }
+
+    private static class TestSubjectLevel8 extends TestSubjectLevel {
+
+        protected TestSubjectLevel8(TestSubject testSubject) {
+            super(testSubject);
+        }
+
+        @Override
+        public List<Episode> makeMainIntroEpisodes(Intro intro) {
+            EpisodeBuilder builder = new EpisodeBuilder(intro);
+            builder.nextEpisodes(mTextMain, 0, mTextMain.length);
+            return builder.build();
+        }
+
+        @Override
+        protected void applyLevel(Resources res) {
+            mNameResId = R.string.test_subject_8_name;
+            mIntelligenceResId = R.string.test_subject_8_int;
+            mImageResId = R.drawable.kid08;
+            mTextMain = res.getStringArray(R.array.test_subject_8_intro_main);
+            mTextNuts = res.getStringArray(R.array.test_subject_8_intro_nuts);
+            mRiddleSolvedCandy = R.array.test_subject_8_riddle_solved_candy;
+        }
+
+        @Override
+        protected void onLeveledUp() {
+        }
+    }
+
+    private static class TestSubjectLevel9 extends TestSubjectLevel {
+
+        protected TestSubjectLevel9(TestSubject testSubject) {
+            super(testSubject);
+        }
+
+        @Override
+        public List<Episode> makeMainIntroEpisodes(Intro intro) {
+            EpisodeBuilder builder = new EpisodeBuilder(intro);
+            builder.nextEpisodes(mTextMain, 0, mTextMain.length);
+            return builder.build();
+        }
+
+        @Override
+        protected void applyLevel(Resources res) {
+            mNameResId = R.string.test_subject_9_name;
+            mIntelligenceResId = R.string.test_subject_9_int;
+            mImageResId = R.drawable.kid09;
+            mTextMain = res.getStringArray(R.array.test_subject_9_intro_main);
+            mTextNuts = res.getStringArray(R.array.test_subject_9_intro_nuts);
+            mRiddleSolvedCandy = R.array.test_subject_9_riddle_solved_candy;
+        }
+
+        @Override
+        protected void onLeveledUp() {
+        }
+    }
 }

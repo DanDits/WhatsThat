@@ -220,7 +220,7 @@ public class TestSubject {
         }
     }
 
-    private void levelUp() {
+    public void levelUp() {
         if (mCurrLevel >= mLevels.length - 1) {
             return;
         }

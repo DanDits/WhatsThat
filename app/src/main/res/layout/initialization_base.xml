@@ -43,7 +43,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/intro_subject"
             android:layout_gravity="center_horizontal|bottom"
-            android:src="@drawable/kid"
+            android:src="@drawable/kid00"
             android:visibility="invisible" />
         <ImageView
             android:layout_width="wrap_content"

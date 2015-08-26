@@ -53,7 +53,7 @@
 
             <ImageButton android:id="@+id/riddle_make_next"
                 android:layout_width="wrap_content" android:layout_height="wrap_content"
-                android:src="@drawable/kid"
+                android:src="@drawable/kid00"
                 style="@style/button_important"
                 android:layout_centerHorizontal="true"
                 android:scaleType="centerInside"

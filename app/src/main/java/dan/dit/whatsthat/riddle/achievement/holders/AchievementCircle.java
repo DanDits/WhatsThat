@@ -573,7 +573,7 @@ public class AchievementCircle extends TypeAchievementHolder {
 
     public static class Achievement13 extends GameAchievement {
         public static final int NUMBER = 13;
-        public static final int LEVEL = 0;
+        public static final int LEVEL = 3;
         public static final int REWARD = 0;
         public static final boolean DISCOVERED = false;
         public static final int PERFECT_REWARD = 300;
