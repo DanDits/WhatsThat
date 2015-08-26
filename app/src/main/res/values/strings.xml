@@ -37,8 +37,7 @@
     <string name="store_category_about">About &amp; Contact</string>
     <string name="store_category_donate">Donate</string>
     <string name="store_category_credit">Credits</string>
-    <string name="date_today">Today</string>
-    <string name="date_yesterday">Yesterday</string>
+
     <string name="riddle_hint_dialog_title">Information</string>
     <string name="riddle_hint_image_refused">Bad image for riddle</string>
     <string name="image_author_name">Author name: %1$s</string>
@@ -523,4 +522,21 @@
         <item quantity="other">Continue %1$d experiments</item>
     </plurals>
     <string name="riddle_dialog_confirm">Go on</string>
+    <plurals name="riddle_dialog_unsolved_days_ago" >
+        <item quantity="one">%1$d day ago - %2$s</item>
+        <item quantity="other">%1$d days ago - %2$s</item>
+    </plurals>
+    <string name="date_today">Today %1$s</string>
+    <string name="date_yesterday">Yesterday %1$s</string>
+    <plurals name="unsolved_riddles_title">
+        <item quantity="one">Forgotten experiment</item>
+        <item quantity="other">%1$d forgotten experiments</item>
+    </plurals>
+    <string-array name="date_time_of_day">
+        <item>night</item>
+        <item>evening</item>
+        <item>afternoon</item>
+        <item>midday</item>
+        <item>morning</item>
+    </string-array>
 </resources>

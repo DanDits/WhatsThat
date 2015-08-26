@@ -58,7 +58,12 @@ public class RiddlePickerDialog extends DialogFragment {
         mContainer = (ViewGroup) baseView.findViewById(R.id.unsolved_and_types_container);
         mContainer.addView(mTypeChooser.makeView(getActivity()));
         if (RiddleInitializer.INSTANCE.getRiddleManager().getUnsolvedRiddleCount() > (mIdToHide == Riddle.NO_ID ? 0 : 1)) {
-            //mContainer.addView(mChooser.makeView(getActivity(), mIdToHide));
+            mContainer.addView(mChooser.makeView(getActivity(), mIdToHide, new UnsolvedRiddlesChooser.UnsolvedRiddleSelectionChangeListener() {
+                @Override
+                public void onUnsolvedRiddleSelectionChanged() {
+                    updateConfirmButton();
+                }
+            }));
         }
         mConfirm = (Button) baseView.findViewById(R.id.confirm);
         mConfirm.setOnClickListener(new View.OnClickListener() {
@@ -71,7 +76,7 @@ public class RiddlePickerDialog extends DialogFragment {
         return new GlasDialog(getActivity(), baseView);
     }
 
-    private void updateConfirmButton() {//TODO update if UnsolvedChooser changes
+    private void updateConfirmButton() {
         int unsolvedSelected = mChooser != null ? mChooser.getSelectedRiddlesCount() : 0;
         if (unsolvedSelected > 0) {
             mConfirm.setText(getResources().getQuantityString(R.plurals.riddle_dialog_confirm_unsolveds, unsolvedSelected, unsolvedSelected));

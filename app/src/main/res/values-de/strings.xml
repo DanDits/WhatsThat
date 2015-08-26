@@ -23,8 +23,6 @@
     <string name="btn_donate">Spenden</string>
     <string name="btn_credits">Danksagungen</string>
 
-    <string name="date_today">Heute</string>
-    <string name="date_yesterday">Gestern</string>
     <string name="riddle_hint_dialog_title">Informationen</string>
     <string name="riddle_hint_image_refused">Schlechtes Bild für Rätsel</string>
     <string name="image_author_name">Autor Name: %1$s</string>
@@ -842,9 +840,26 @@
     <string name="riddle_hints_dialog_confirm">Habs verstanden!</string>
     <string name="riddle_dialog_title">Experimente wählen</string>
     <plurals name="riddle_dialog_confirm_unsolveds">
-        <item quantity="one">Experiment fortsetzen</item>
-        <item quantity="other">%1$d Experimente fortsetzen</item>
+        <item quantity="one">Ausgesetztes Experiment fortführen</item>
+        <item quantity="other">%1$d Experimente fortführen</item>
     </plurals>
-    <string name="riddle_dialog_confirm">Weiter gehts</string>
+    <string name="riddle_dialog_confirm">Experiment fortsetzen</string>
+    <plurals name="riddle_dialog_unsolved_days_ago" >
+        <item quantity="one">Vor %1$d Tag - %2$s</item>
+        <item quantity="other">Vor %1$d Tagen - %2$s</item>
+    </plurals>
+    <string name="date_today">Heute %1$s</string>
+    <string name="date_yesterday">Gestern %1$s</string>
+    <string-array name="date_time_of_day">
+        <item>Nacht</item>
+        <item>Abend</item>
+        <item>Nachmittag</item>
+        <item>Mittag</item>
+        <item>Morgen</item>
+    </string-array>
+    <plurals name="unsolved_riddles_title">
+        <item quantity="one">Ausgesetztes Experiment</item>
+        <item quantity="other">%1$d ausgesetzte Experimente</item>
+    </plurals>
 
 </resources>

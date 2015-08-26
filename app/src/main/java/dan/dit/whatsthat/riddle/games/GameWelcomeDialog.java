@@ -4,19 +4,16 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 
 import dan.dit.whatsthat.R;
 import dan.dit.whatsthat.riddle.types.PracticalRiddleType;
-import dan.dit.whatsthat.system.HintsView;
+import dan.dit.whatsthat.riddle.HintsView;
 import dan.dit.whatsthat.testsubject.TestSubject;
 import dan.dit.whatsthat.util.ui.GlasDialog;
-import dan.dit.whatsthat.util.ui.UiStyleUtil;
 
 /**
  * Created by daniel on 04.07.15.

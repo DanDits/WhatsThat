@@ -2,7 +2,11 @@ package dan.dit.whatsthat.riddle;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.res.Resources;
+import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -10,6 +14,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.ViewFlipper;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -21,33 +26,24 @@ import java.util.LinkedList;
 import java.util.List;
 
 import dan.dit.whatsthat.R;
+import dan.dit.whatsthat.util.ui.ViewFlipperManager;
 
 /**
  * Created by daniel on 03.05.15.
  */
 public class UnsolvedRiddlesChooser {
-    private RiddlesAdapter mRiddlesAdapter;
     private List<Riddle> mAllRiddlesList;
     private List<Long> mSelectedIds;
-    private int mColor;
     private View mView;
 
-    /**
-     * A helper DateFormat for subclasses that display the time, e.g. the starttime of a game.
-     * Use for a consistent look.
-     */
-    private static final DateFormat TIME_FORMAT = SimpleDateFormat.getTimeInstance(SimpleDateFormat.SHORT);
-
-    /**
-     * A helper DateFormat for subclasses that display a date, e.g. the startdate of a game.
-     * Use for a consistent look.
-     */
-    private static final DateFormat DATE_FORMAT = SimpleDateFormat.getDateInstance(SimpleDateFormat.MEDIUM);
     private static final Calendar CALENDAR_CHECKER1 = Calendar.getInstance();
     private static final Calendar CALENDAR_CHECKER2 = Calendar.getInstance();
-    private String mToday;
-    private String mYesterday;
     private long mIdToHide;
+    private UnsolvedFlipper mUnsolvedFlipper;
+    private String[] mTimesOfDay;
+    private UnsolvedRiddleSelectionChangeListener mUnsolvedRiddleSelectionListener;
+    private TextView mUnsolvedRiddleDate;
+    private Resources mResources;
 
     public int getSelectedRiddlesCount() {
         return mSelectedIds == null ? 0 : mSelectedIds.contains(mIdToHide) ? mSelectedIds.size() - 1 : mSelectedIds.size();
@@ -57,6 +53,10 @@ public class UnsolvedRiddlesChooser {
         void openUnsolvedRiddle(Collection<Long> toOpenIds);
     }
 
+    public interface UnsolvedRiddleSelectionChangeListener {
+        void onUnsolvedRiddleSelectionChanged();
+    }
+
     public Collection<Long> getSelectedRiddles() {
         if (mIdToHide != Riddle.NO_ID && mSelectedIds.size() > 0) {
             mSelectedIds.add(mIdToHide);
@@ -64,12 +64,13 @@ public class UnsolvedRiddlesChooser {
         return mSelectedIds;
     }
 
-    public View makeView(Context context, long idToHide) {
+    public View makeView(Context context, long idToHide, UnsolvedRiddleSelectionChangeListener listener) {
         if (mView != null) {
             return mView;
         }
-        mToday = context.getResources().getString(R.string.date_today);
-        mYesterday = context.getResources().getString(R.string.date_yesterday);
+        mResources = context.getResources();
+        mTimesOfDay = mResources.getStringArray(R.array.date_time_of_day);
+        mUnsolvedRiddleSelectionListener = listener;
         mIdToHide = idToHide;
         mAllRiddlesList = new ArrayList<>(RiddleInitializer.INSTANCE.getRiddleManager().getUnsolvedRiddles());
         for (int i = 0; i < mAllRiddlesList.size(); i++) {
@@ -80,104 +81,116 @@ public class UnsolvedRiddlesChooser {
         }
         View baseView = ((LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.unsolved_riddles, null);
         mView = baseView;
-        ListView mListView = (ListView) baseView.findViewById(R.id.riddles_list);
-        mRiddlesAdapter = new RiddlesAdapter(context, R.layout.unsolved_riddle);
-        mListView.setAdapter(mRiddlesAdapter);
-        mColor = context.getResources().getColor(R.color.important);
+        ((TextView) baseView.findViewById(R.id.unsolved_riddles_title))
+                .setText(mResources.getQuantityString(R.plurals.unsolved_riddles_title, mAllRiddlesList.size(), mAllRiddlesList.size()));
+        mUnsolvedRiddleDate = (TextView) baseView.findViewById(R.id.unsolved_riddle_date);
+        mUnsolvedFlipper = (UnsolvedFlipper) baseView.findViewById(R.id.unsolved_flipper);
         mSelectedIds = new LinkedList<>();
-        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
-            @Override
-            public void onItemClick(AdapterView<?> l, View v, int position, long id) {
-                if (!mSelectedIds.remove(id)) {
-                    mSelectedIds.add(id);
-                }
-                mRiddlesAdapter.notifyDataSetChanged();
-            }
-
-        });
+        mUnsolvedFlipper.init(this);
         return baseView;
     }
 
-    private class RiddlesAdapter extends ArrayAdapter<Riddle> {
-        private int mLayoutResourceId;
-        private LayoutInflater mInflater;
-        public RiddlesAdapter(Context context, int layoutResourceId) {
-            super(context, layoutResourceId, mAllRiddlesList);
-            mLayoutResourceId = layoutResourceId;
-            mInflater = ((Activity)context).getLayoutInflater();
+    public static class UnsolvedFlipper extends ViewFlipperManager {
+
+        private UnsolvedRiddlesChooser mChooser;
+
+        public UnsolvedFlipper(Context context, AttributeSet attrs) {
+            super(context, attrs);
+        }
+        public UnsolvedFlipper(Context context) {
+            super(context);
+        }
+        public UnsolvedFlipper(Context context, AttributeSet attrs, int defStyleAttr) {
+            super(context, attrs, defStyleAttr);
         }
 
         @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            View row = convertView;
-            if (row == null) {
-                row = mInflater.inflate(mLayoutResourceId, parent, false);
+        protected void addViews(LayoutInflater inflater, ViewFlipper flipper) {
+            for (int i = 0; i < mChooser.mAllRiddlesList.size(); i++) {
+                Riddle curr = mChooser.mAllRiddlesList.get(i);
+                ImageView icon = (ImageView) inflater.inflate(R.layout.unsolved_riddle, null);
+                icon.setImageDrawable(curr.getSnapshot(getResources()));
+                flipper.addView(icon);
             }
+        }
 
-            Riddle riddle = mAllRiddlesList.get(position);
-            if (mSelectedIds.contains(riddle.getId())) {
-                row.setBackgroundColor(mColor);
+        @Override
+        public void onDisplayedChildChanged(View displayed) {
+            Riddle current = mChooser.mAllRiddlesList.get(getDisplayedChild());
+            if (current == null) {
+                return;
+            }
+            mChooser.mUnsolvedRiddleDate.setText(mChooser.getDate(new Date(current.getTimestamp())));
+            if (mChooser.mSelectedIds.contains(current.getId())) {
+                mChooser.mUnsolvedRiddleDate.setTextColor(getResources().getColor(R.color.riddle_type_selected));
+                ((ImageView) displayed.findViewById(R.id.riddle_icon)).setImageResource(R.drawable.accept);
             } else {
-                row.setBackgroundResource(0);
+                mChooser.mUnsolvedRiddleDate.setTextColor(getResources().getColor(R.color.riddle_type_unselected));
+                ((ImageView) displayed.findViewById(R.id.riddle_icon)).setImageDrawable(current.getSnapshot(mChooser.mResources));
             }
-            ImageView icon = (ImageView) row.findViewById(R.id.riddle_icon);
-            icon.setImageDrawable(riddle.getSnapshot(getContext().getResources()));
-            TextView createdData = (TextView) row.findViewById(R.id.riddle_date);
-            Date date = new Date(riddle.getTimestamp());
-            StringBuilder builder = new StringBuilder();
-            appendDate(builder, date).append(" - ");
-            appendTime(builder, date);
-            createdData.setText(builder.toString());
-            return row;
+        }
+
+        private void init(UnsolvedRiddlesChooser chooser) {
+            mChooser = chooser;
+            init(0);
         }
 
         @Override
-        public long getItemId(int position) {
-            return mAllRiddlesList.get(position).getId();
+        protected boolean onContentTouched(MotionEvent event) {
+            if (event.getActionMasked() == MotionEvent.ACTION_UP) {
+                int displayedChild = getDisplayedChild();
+                if (displayedChild >= 0 && displayedChild < mChooser.mAllRiddlesList.size()) {
+                    Riddle riddle = mChooser.mAllRiddlesList.get(displayedChild);
+                    long id = riddle == null ? Riddle.NO_ID : riddle.getId();
+                    if (!mChooser.mSelectedIds.remove(id)) {
+                        mChooser.mSelectedIds.add(id);
+                    }
+                    mChooser.mUnsolvedRiddleSelectionListener.onUnsolvedRiddleSelectionChanged();
+                    onDisplayedChildChanged(getDisplayedChildView());
+                    return true;
+                }
+            } else if (event.getActionMasked() == MotionEvent.ACTION_DOWN) {
+                return true;
+            }
+            return false;
         }
 
     }
 
-    /**
-     * Helper method to find out if the given dates are on the same day.
-     * @param first The first Date.
-     * @param second The second Date.
-     * @return If <code>true</code> then the dates are on the same day of the year in the same year.
-     */
-    private static boolean isSameDate(Date first, Date second) {
-        CALENDAR_CHECKER1.setTime(first);
-        CALENDAR_CHECKER2.setTime(second);
-        return CALENDAR_CHECKER1.get(Calendar.DAY_OF_YEAR) == CALENDAR_CHECKER2.get(Calendar.DAY_OF_YEAR)
-                && CALENDAR_CHECKER1.get(Calendar.YEAR) == CALENDAR_CHECKER2.get(Calendar.YEAR);
+    private static int getDaysBeforeToday(Date toCheck, Date today) {
+        CALENDAR_CHECKER1.setTime(toCheck);
+        CALENDAR_CHECKER2.setTime(today);
+        return CALENDAR_CHECKER2.get(Calendar.DAY_OF_YEAR) - CALENDAR_CHECKER1.get(Calendar.DAY_OF_YEAR)
+                + (CALENDAR_CHECKER2.get(Calendar.YEAR) - CALENDAR_CHECKER1.get(Calendar.YEAR)) * 365;
     }
 
-    /**
-     * Helper method for the usual format: When the given date is at the current
-     * day, then 'today' is displayed, or 'yesterday' accordingly, else the date according
-     * to the DATE_FORMAT.
-     * @param builder To append the text to.
-     * @param startDate The start date of the game.
-     */
-    private StringBuilder appendDate(StringBuilder builder, Date startDate) {
+    private String getDate(Date startDate) {
         Date today = new Date();
-        if (isSameDate(today, startDate)) {
-            builder.append(mToday);
+        CALENDAR_CHECKER1.setTime(startDate);
+        int hour = CALENDAR_CHECKER1.get(Calendar.HOUR_OF_DAY);
+        int timeOfDay;
+        if (hour < 6 || hour > 22) {
+            timeOfDay = 0; // night from 23 to 5
+        } else if (hour > 18) {
+            timeOfDay = 1; // evening from 19 to 22
+        } else if (hour > 14) {
+            timeOfDay = 2; // afternoon from 15 to 18
+        } else if (hour > 11) {
+            timeOfDay = 3; // midday from 12 to 14
+        } else if (hour > 5) {
+            timeOfDay = 4; // morning from 6 to 11
         } else {
-            Calendar yesterday = Calendar.getInstance();
-            yesterday.add(Calendar.DATE, -1);
-            if (isSameDate(yesterday.getTime(), startDate)) {
-                builder.append(mYesterday);
-            } else {
-                builder.append(DATE_FORMAT.format(startDate));
-            }
+            timeOfDay = 0; // if not sure, its night..
         }
-        return builder;
-    }
+        String time = mTimesOfDay != null && timeOfDay < mTimesOfDay.length ? mTimesOfDay[timeOfDay] : String.valueOf(hour + ":" + CALENDAR_CHECKER1.get(Calendar.MINUTE));
 
-    private StringBuilder appendTime(StringBuilder builder, Date startDate) {
-        builder.append(TIME_FORMAT.format(startDate));
-        return builder;
+        int dayDiff = getDaysBeforeToday(startDate, today);
+        if (dayDiff == 0) {
+            return (mResources.getString(R.string.date_today, time));
+        } else if (dayDiff == 1) {
+            return (mResources.getString(R.string.date_yesterday, time));
+        } else {
+            return (mResources.getQuantityString(R.plurals.riddle_dialog_unsolved_days_ago, dayDiff, dayDiff, time));
+        }
     }
-
 }
