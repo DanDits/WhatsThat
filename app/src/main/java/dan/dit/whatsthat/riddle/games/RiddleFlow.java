@@ -19,6 +19,8 @@ import dan.dit.whatsthat.image.Image;
 import dan.dit.whatsthat.riddle.Riddle;
 import dan.dit.whatsthat.riddle.RiddleConfig;
 import dan.dit.whatsthat.util.PercentProgressListener;
+import dan.dit.whatsthat.util.compaction.CompactedDataCorruptException;
+import dan.dit.whatsthat.util.compaction.Compacter;
 import dan.dit.whatsthat.util.image.ColorAnalysisUtil;
 import dan.dit.whatsthat.util.image.ColorMetric;
 
@@ -28,13 +30,14 @@ import dan.dit.whatsthat.util.image.ColorMetric;
 public class RiddleFlow extends RiddleGame {
     private static final long UPDATE_PERIOD = 50L; //ms
     private static final long FLOW_MAX_DURATION = 60000L; //ms
-    private static final boolean SEARCH_EDGES = true;
-    private static final boolean APPLY_TRUE_SOLUTION_COLOR_PER_PIXEL = false;
-    private static final boolean SEARCH_RANDOMLY_FOR_EQUAL_PRESSURES = true;
+    private static final boolean SEARCH_EDGES = true; // true results in lines searching for pixels with high pressure values and makes them search for edges (lines of great color difference) to follow. Else it follows colors of equal pressure so lines need to be clicked to follow them.
+    private static final boolean APPLY_TRUE_SOLUTION_COLOR_PER_PIXEL = false; //true would make it too easy and show the true pixel color forever as soon as a flow reaches the pixel
+    private static final boolean SEARCH_RANDOMLY_FOR_EQUAL_PRESSURES = true; //better: true, this avoids the preference of picking the first FlowDirection in the list (TopLeft) if there is no clear precedence which would result in many diagonal lines, instead random yields zig-zig flows
+    private static final boolean USE_ALPHA = true; // if the color metric has to use alpha values of colors to calculate pressure raster. If false black and alpha only images would be completely uniform in pressure and unsolvable
+    private static final ColorMetric METRIC = ColorMetric.Absolute.INSTANCE; // color metric used, can be anything, but should include all colors and alpha uniformly
+
     private int[][] mSolutionRaster;
     private double[][] mPressureRaster;
-    private ColorMetric mMetric;
-    private boolean mUseAlpha = true;
     private Bitmap mPresentedBitmap;
     private Canvas mPresentedCanvas;
     private Paint mClearPaint;
@@ -43,6 +46,8 @@ public class RiddleFlow extends RiddleGame {
     private double[][] mFlowIntensityRaster;
     private int[] mOutputRaster;
     private List<Flow> mFlows;
+    private List<Integer> mFlowStartsX;
+    private List<Integer> mFlowStartsY;
     private Random mRand;
 
     private enum FlowDirection {
@@ -178,8 +183,9 @@ public class RiddleFlow extends RiddleGame {
     @Override
     protected void initBitmap(Resources res, PercentProgressListener listener) {
         mRand = new Random();
+        mFlowStartsX = new ArrayList<>(128);
+        mFlowStartsY = new ArrayList<>(128);
         mFlows = new ArrayList<>();
-        mMetric = ColorMetric.Absolute.INSTANCE;
         mWidth = mBitmap.getWidth();
         mHeight = mBitmap.getHeight();
         mClearPaint = new Paint();
@@ -191,29 +197,48 @@ public class RiddleFlow extends RiddleGame {
                 mSolutionRaster[y][x] = mBitmap.getPixel(x, y);
             }
         }
+        final int firstProgress = 10;
+        listener.onProgressUpdate(firstProgress);
 
         //init pressure
         mPressureRaster = new double[mHeight][mWidth];
-        for (int x = 0; x < mWidth; x++) {
-            for (int y = 0; y < mHeight; y++) {
+        final double metricMax = METRIC.maxValue(USE_ALPHA);
+        for (int y = 0; y < mHeight; y++) {
+            for (int x = 0; x < mWidth; x++) {
                 double pressure = 0.;
                 for (int d = 0; d < FlowDirection.DIRECTIONS_COUNT; d++) {
                     FlowDirection dir = FlowDirection.DIRECTIONS[d];
                     if (dir.hasDirection(x, y, mWidth, mHeight)) {
-                        pressure += mMetric.getDistance(mSolutionRaster[y][x], mSolutionRaster[y + dir.mYDelta][x + dir.mXDelta], mUseAlpha);
+                        pressure += METRIC.getDistance(mSolutionRaster[y][x], mSolutionRaster[y + dir.mYDelta][x + dir.mXDelta], USE_ALPHA);
                     } else {
-                        pressure += mMetric.maxValue(mUseAlpha);
+                        pressure += metricMax;
                     }
                 }
-                pressure /= mMetric.maxValue(mUseAlpha) * FlowDirection.DIRECTIONS_COUNT;//normalize, pressure in [0,1]
+                pressure /= metricMax * FlowDirection.DIRECTIONS_COUNT;//normalize, pressure in [0,1]
                 mPressureRaster[y][x] = Math.pow(pressure, 0.15);
             }
+            listener.onProgressUpdate(firstProgress + (int) ((PercentProgressListener.PROGRESS_COMPLETE - firstProgress) * y / (double) mHeight));
         }
 
         mPresentedBitmap = Bitmap.createBitmap(mWidth, mHeight, mBitmap.getConfig());
         mPresentedCanvas = new Canvas(mPresentedBitmap);
 
         mFlowIntensityRaster = new double[mHeight][mWidth];
+        initPreviousFlows(getCurrentState());
+    }
+
+    private void initPreviousFlows(Compacter currentState) {
+        if (currentState == null || currentState.getSize() < 3) {
+            return;
+        }
+        //first slot empty
+        try {
+            for (int i = 1; i + 1 < currentState.getSize(); i += 2) {
+                addFlow(currentState.getInt(i), currentState.getInt(i + 1));
+            }
+        } catch (CompactedDataCorruptException e) {
+            Log.e("Riddle", "Error adding previous flows when loading RiddleFlow: " + e);
+        }
     }
 
     @Override
@@ -259,6 +284,8 @@ public class RiddleFlow extends RiddleGame {
         public Flow(int startX, int startY) {
             mX = startX;
             mY = startY;
+            mFlowStartsX.add(mX);
+            mFlowStartsY.add(mY);
             mColor = mSolutionRaster[mY][mX];
             mIntensity = 1.;
             mStartPressure = mPressureRaster[mY][mX];
@@ -290,7 +317,7 @@ public class RiddleFlow extends RiddleGame {
                     shuffleArray(mFlowDirectionCandidates, candidatesCount);
                 }
                 // find candidate to flow to
-                double mostSimilarPressureDiff = SEARCH_EDGES ? -Double.MAX_VALUE : Double.MAX_VALUE;
+                double bestFeatureValue = SEARCH_EDGES ? -Double.MAX_VALUE : Double.MAX_VALUE;
                 int bestNeighborX = 0;
                 int bestNeighborY = 0;
                 for (int i = 0; i < candidatesCount; i++) {
@@ -298,10 +325,10 @@ public class RiddleFlow extends RiddleGame {
                     int neighborX = mX + dir.mXDelta;
                     int neighborY = mY + dir.mYDelta;
                     final double pressureToCompare =  mStartPressure;
-                    double currDiff = Math.abs(mPressureRaster[neighborY][neighborX] - pressureToCompare);
-                    boolean acceptDirection = SEARCH_EDGES ? currDiff > mostSimilarPressureDiff : currDiff < mostSimilarPressureDiff;
+                    double feature = SEARCH_EDGES ? mPressureRaster[neighborY][neighborX] : Math.abs(mPressureRaster[neighborY][neighborX] - pressureToCompare);
+                    boolean acceptDirection = SEARCH_EDGES ? feature > bestFeatureValue : feature < bestFeatureValue;
                     if (acceptDirection) {
-                        mostSimilarPressureDiff = currDiff;
+                        bestFeatureValue = feature;
                         bestNeighborX = neighborX;
                         bestNeighborY = neighborY;
                         mLastFlowDirection = dir;
@@ -330,14 +357,18 @@ public class RiddleFlow extends RiddleGame {
         }
     }
 
+    private void addFlow(int x, int y) {
+        if (x >= 0 && y >= 0 && x < mWidth && y < mHeight) {
+            mFlows.add(new Flow(x, y));
+        }
+    }
+
     @Override
     public boolean onMotionEvent(MotionEvent event) {
         if (event.getActionMasked() == MotionEvent.ACTION_DOWN) {
             int x = (int) event.getX();
             int y = (int) event.getY();
-            if (x >= 0 && y >= 0 && x < mWidth && y < mHeight) {
-                mFlows.add(new Flow(x, y));
-            }
+            addFlow(x, y);
         }
         return false;
     }
@@ -345,6 +376,16 @@ public class RiddleFlow extends RiddleGame {
     @NonNull
     @Override
     protected String compactCurrentState() {
-        return null;
+        //we have kind of a problem for this riddle: we cannot restore the state unless
+        // we save all pixels and the intensity raster completely since only the start points
+        // and the random seed will not result in the same image because of timing issues with the
+        // intensity
+        Compacter cmp = new Compacter();
+        cmp.appendData(""); // empty slot in case it is needed
+        for (int i = 0; i < mFlowStartsX.size(); i++) {
+            cmp.appendData(mFlowStartsX.get(i));
+            cmp.appendData(mFlowStartsY.get(i));
+        }
+        return cmp.compact();
     }
 }

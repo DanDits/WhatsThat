@@ -8,5 +8,5 @@
         android:layout_height="wrap_content"
         android:id="@+id/riddle_types_grid"
         android:numColumns="auto_fit"
-        android:listSelector="@drawable/list_selector" />
+        android:listSelector="@drawable/types_list_selector" />
 </LinearLayout>

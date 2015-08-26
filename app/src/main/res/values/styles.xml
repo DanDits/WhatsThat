@@ -5,7 +5,6 @@
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="android:buttonStyle">@style/button</item>
         <item name="android:imageButtonStyle">@style/button</item>
-        <item name="android:alertDialogTheme">@style/Theme_Holo_Dialog_Alert</item>
     </style>
 
     <style name="NoPanicDialogAnimation">

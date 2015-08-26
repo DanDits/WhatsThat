@@ -5,22 +5,26 @@ import android.content.Intent;
 
 public class MyApplication extends Application {
     private boolean mExceptionHandled = false;
+    private boolean mApplicationCreated;
 
     @Override
     public void onCreate () {
         // Setup handler for uncaught exceptions.
-        Thread.setDefaultUncaughtExceptionHandler (new Thread.UncaughtExceptionHandler() {
-          @Override
-          public void uncaughtException (Thread thread, Throwable e) {
-            handleUncaughtException (thread, e);
-          }
+        Thread.setDefaultUncaughtExceptionHandler(new Thread.UncaughtExceptionHandler() {
+            @Override
+            public void uncaughtException(Thread thread, Throwable e) {
+                handleUncaughtException(thread, e);
+            }
         });
         super.onCreate();
+        mApplicationCreated = true;
     }
 
 
     private void handleUncaughtException (Thread thread, Throwable e) {
-        if (!mExceptionHandled) {
+        // only handle exception if application was successfully created and the exception did not occur during creation
+        // else this could result in an endless loop of recreating the application
+        if (!mExceptionHandled && mApplicationCreated) {
             mExceptionHandled = true;
             e.printStackTrace(); // not all Android versions will print the stack trace automatically
 

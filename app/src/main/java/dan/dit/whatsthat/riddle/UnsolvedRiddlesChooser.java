@@ -49,6 +49,10 @@ public class UnsolvedRiddlesChooser {
     private String mYesterday;
     private long mIdToHide;
 
+    public int getSelectedRiddlesCount() {
+        return mSelectedIds == null ? 0 : mSelectedIds.contains(mIdToHide) ? mSelectedIds.size() - 1 : mSelectedIds.size();
+    }
+
     public interface Callback {
         void openUnsolvedRiddle(Collection<Long> toOpenIds);
     }

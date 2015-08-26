@@ -10,7 +10,9 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.TabHost;
 
 import java.util.Collection;
@@ -18,41 +20,24 @@ import java.util.Collection;
 import dan.dit.whatsthat.R;
 import dan.dit.whatsthat.riddle.Riddle;
 import dan.dit.whatsthat.riddle.RiddleInitializer;
+import dan.dit.whatsthat.riddle.RiddleMaker;
+import dan.dit.whatsthat.riddle.RiddleManager;
 import dan.dit.whatsthat.riddle.TypeChooser;
 import dan.dit.whatsthat.riddle.UnsolvedRiddlesChooser;
+import dan.dit.whatsthat.util.ui.GlasDialog;
 import dan.dit.whatsthat.util.ui.UiStyleUtil;
 
 /**
  * Created by daniel on 05.05.15.
  */
 public class RiddlePickerDialog extends DialogFragment {
-    private static final String TAB_UNSOLVED = "TAB_UNSOLVED";
-    private static final String TAB_TYPES = "TAB_TYPES";
 
-    private TabHost mTabHost;
     private UnsolvedRiddlesChooser mChooser;
     private TypeChooser mTypeChooser;
     private long mIdToHide;
     private UnsolvedRiddlesChooser.Callback mCallback;
-
-    private class TabFactory implements TabHost.TabContentFactory {
-
-        private final Context mContext;
-
-        public TabFactory(Context context) {
-            mContext = context;
-        }
-
-        @Override
-        public View createTabContent(String tag) {
-            if (tag != null && tag.equals(TAB_UNSOLVED)) {
-                return mChooser.makeView(mContext, mIdToHide);
-            } else {
-                return mTypeChooser.makeView(mContext);
-            }
-        }
-
-    }
+    private ViewGroup mContainer;
+    private Button mConfirm;
 
     @Override
     public void onDestroy() {
@@ -70,53 +55,39 @@ public class RiddlePickerDialog extends DialogFragment {
 
         mChooser = new UnsolvedRiddlesChooser();
         mTypeChooser = new TypeChooser();
-        mTabHost = (TabHost) baseView.findViewById(android.R.id.tabhost);
-        initializeTabHost();
-        if (savedInstanceState != null) {
-            mTabHost.setCurrentTabByTag(savedInstanceState.getString("tab")); //set the tab as per the saved state
+        mContainer = (ViewGroup) baseView.findViewById(R.id.unsolved_and_types_container);
+        mContainer.addView(mTypeChooser.makeView(getActivity()));
+        if (RiddleInitializer.INSTANCE.getRiddleManager().getUnsolvedRiddleCount() > (mIdToHide == Riddle.NO_ID ? 0 : 1)) {
+            //mContainer.addView(mChooser.makeView(getActivity(), mIdToHide));
         }
+        mConfirm = (Button) baseView.findViewById(R.id.confirm);
+        mConfirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onConfirmation();
+            }
+        });
+        updateConfirmButton();
+        return new GlasDialog(getActivity(), baseView);
+    }
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder
-                .setView(baseView)
-                .setPositiveButton(R.string.riddles_dialog_positive, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        onConfirmation();
-                    }
-                })
-                .setNegativeButton(android.R.string.no, null);
-        return builder.create();
+    private void updateConfirmButton() {//TODO update if UnsolvedChooser changes
+        int unsolvedSelected = mChooser != null ? mChooser.getSelectedRiddlesCount() : 0;
+        if (unsolvedSelected > 0) {
+            mConfirm.setText(getResources().getQuantityString(R.plurals.riddle_dialog_confirm_unsolveds, unsolvedSelected, unsolvedSelected));
+        } else {
+            mConfirm.setText(R.string.riddle_dialog_confirm);
+        }
     }
 
     private void onConfirmation() {
-        if (mTabHost.getCurrentTabTag().equals(TAB_UNSOLVED)) {
+        if (mChooser.getSelectedRiddlesCount() > 0) {
             Collection<Long> riddleIds = mChooser.getSelectedRiddles();
             if (riddleIds != null && !riddleIds.isEmpty()) {
                 mCallback.openUnsolvedRiddle(riddleIds);
             }
         }
-    }
-
-    private void initializeTabHost() {
-        mTabHost.setup();
-        addTab(getActivity(), mTabHost, mTabHost.newTabSpec(TAB_TYPES).setIndicator(getResources().getString(R.string.riddle_dialog_tab_types)));
-        if (RiddleInitializer.INSTANCE.getRiddleManager().getUnsolvedRiddleCount() > 1) {
-            addTab(getActivity(), mTabHost, mTabHost.newTabSpec(TAB_UNSOLVED).setIndicator(getResources().getString(R.string.riddle_dialog_tab_unsolved)));
-        }
-        UiStyleUtil.setTabHostSelector(mTabHost, R.drawable.tab_widget_selector_alien);
-
-    }
-
-    private void addTab(Context context, TabHost tabHost, TabHost.TabSpec tabSpec) {
-        // Attach a Tab view factory to the spec
-        tabSpec.setContent(new TabFactory(context));
-        tabHost.addTab(tabSpec);
-    }
-
-    @Override
-    public void onSaveInstanceState(@NonNull Bundle outState) {
-        outState.putString("tab", mTabHost.getCurrentTabTag()); //save the tab selected
-        super.onSaveInstanceState(outState);
+        dismiss();
     }
 
     @Override

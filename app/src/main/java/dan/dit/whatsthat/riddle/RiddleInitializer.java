@@ -31,6 +31,12 @@ public final class RiddleInitializer {
      */
     public static final RiddleInitializer INSTANCE = new RiddleInitializer();
     private static final String IMPORTANT_PREFERENCES_FILE = "dan.dit.whatsthat.important_preferences";
+    /*
+     * Key to shared preferences entry that stores the highest used id for Riddle cores. Used to retrieve new ids
+     * for new cores as those are not assigned by the database. The database takes over these ids and so its possible
+     * to uniquely identify a riddle before it is saved to permanent storage. This will overflow at max long and cause
+     * errors, but if this ever happens we face a bug or a serious addict.
+     */
     private static final String KEY_HIGHEST_USED_ID = "highest_used_id";
 
     private InitTask mInitTask;
@@ -72,7 +78,7 @@ public final class RiddleInitializer {
     /**
      * Checks if this RiddleInitializer is initialized and will return a valid RiddleManager and not throw
      * an Exception.
-     * @return If it is initialized.
+     * @return If it is not initialized.
      */
     public boolean isNotInitialized() {
         return mManager == null || isInitializing();

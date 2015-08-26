@@ -449,7 +449,7 @@
     <string name="download_article_toast_error_syncing">Failed syncing data (%1$d)</string>
     <string name="download_article_descr_syncing">Syncing %1$s\'s images (%2$s)…</string>
     <string name="download_article_descr_downloading">Downloading %1$s\'s images (%2$s)…</string>
-    <string name="download_article_descr_downloaded">Downloaded %1$s\'s images (%2$s)…</string>
+    <string name="download_article_descr_downloaded">Downloaded %1$s\'s images (%2$s)!</string>
     <string name="download_article_descr_synced">%1$s\'s images (%2$s) are now in the pool!</string>
     <string name="download_article_descr_ready">Confirm download from %1$s (~%2$dMB)</string>
     <string name="download_article_name">Download image bundle \"%1$s\"</string>
@@ -517,4 +517,10 @@
     <string name="article_jumper_start_further_name">Triple XxX</string>
     <string name="article_jumper_start_further_descr">Start from 200m instead of walking through the easy part.</string>
     <string name="riddle_hints_dialog_confirm">I got it!</string>
+    <string name="riddle_dialog_title">Choose experiments</string>
+    <plurals name="riddle_dialog_confirm_unsolveds">
+        <item quantity="one">Continue experiment</item>
+        <item quantity="other">Continue %1$d experiments</item>
+    </plurals>
+    <string name="riddle_dialog_confirm">Go on</string>
 </resources>

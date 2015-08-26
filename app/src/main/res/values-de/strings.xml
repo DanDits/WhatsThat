@@ -814,8 +814,8 @@
         <item>Wieso behandelst du mich so grob, du machst mich ganz traurig.</item>
     </string-array>
     <string name="download_article_descr">Erweitere den Bilderpool mit neuen coolen Bildern.</string>
-    <string name="download_article_descr_downloaded">%2$s Bilder von %1$s werden heruntergeladen…</string>
-    <string name="download_article_descr_downloading">%2$s Bilder von %1$s wurden heruntergeladen!</string>
+    <string name="download_article_descr_downloading">%2$s Bilder von %1$s werden heruntergeladen…</string>
+    <string name="download_article_descr_downloaded">%2$s Bilder von %1$s wurden heruntergeladen!</string>
     <string name="download_article_descr_ready">Herunterladen von %1$s (~%2$dMB) bestätigen</string>
     <string name="download_article_descr_synced">%2$s Bilder von %1$s sind jetzt im Pool!</string>
     <string name="download_article_descr_syncing">%2$s Bilder von %1$s werden gespeichert…</string>
@@ -835,10 +835,16 @@
         <item>Das kannst du besser</item>
         <item>Auf ein Neues</item>
         <item>Du schaffsts noch weiter</item>
-        <item>Game Over!</item>
+        <item>Game Over!?</item>
     </string-array>
     <string name="riddle_jumper_new_highscore">Neuer Rekord %1$dm !</string>
     <string name="riddle_jumper_old_highscore">Bisheriger Rekord %1$dm</string>
     <string name="riddle_hints_dialog_confirm">Habs verstanden!</string>
+    <string name="riddle_dialog_title">Experimente wählen</string>
+    <plurals name="riddle_dialog_confirm_unsolveds">
+        <item quantity="one">Experiment fortsetzen</item>
+        <item quantity="other">%1$d Experimente fortsetzen</item>
+    </plurals>
+    <string name="riddle_dialog_confirm">Weiter gehts</string>
 
 </resources>

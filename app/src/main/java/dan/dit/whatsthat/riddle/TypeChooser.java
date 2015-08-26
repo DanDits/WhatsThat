@@ -54,7 +54,6 @@ public class TypeChooser {
         private int mLayoutResourceId;
         private LayoutInflater mInflater;
         private ColorFilter mColorFilter;
-        private int mDefaultColor;
 
         public TypesAdapter(Context context, int layoutResourceId) {
             super(context, layoutResourceId, mTestSubjectTypes);
@@ -73,20 +72,17 @@ public class TypeChooser {
             ImageView typeIcon = (ImageView) row.findViewById(R.id.imageView);
             typeIcon.setImageResource(type.getIconResId());
             if (type.isSelected()) {
-                row.setBackgroundColor(0);
                 typeIcon.clearColorFilter();
+                row.setBackgroundResource(R.drawable.riddle_type_selected);
             } else {
-                row.setBackgroundColor(Color.LTGRAY);
                 typeIcon.setColorFilter(mColorFilter);
+                row.setBackgroundResource(0);
             }
             TextView typeName = (TextView) row.findViewById(R.id.type_name);
             if (type.isSelected()) {
-                if (mDefaultColor == 0) {
-                    mDefaultColor = typeName.getCurrentTextColor();
-                }
-                typeName.setTextColor(getContext().getResources().getColor(R.color.positive_text));
-            } else if (mDefaultColor != 0) {
-                typeName.setTextColor(mDefaultColor);
+                typeName.setTextColor(getContext().getResources().getColor(R.color.riddle_type_selected));
+            } else {
+                typeName.setTextColor(getContext().getResources().getColor(R.color.riddle_type_unselected));
             }
             typeName.setText(type.getNameResId());
             return row;
