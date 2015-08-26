@@ -27,11 +27,11 @@ import dan.dit.whatsthat.util.image.ColorMetric;
 /**
  * Created by daniel on 18.08.15.
  */
-public class RiddleFlow extends RiddleGame {
+public class RiddleFlow extends RiddleGame {//TODO Jeder x-te Flow nur Search_Edges=True
     private static final long UPDATE_PERIOD = 50L; //ms
-    private static final long FLOW_MAX_DURATION = 60000L; //ms
-    private static final boolean SEARCH_EDGES = true; // true results in lines searching for pixels with high pressure values and makes them search for edges (lines of great color difference) to follow. Else it follows colors of equal pressure so lines need to be clicked to follow them.
-    private static final boolean APPLY_TRUE_SOLUTION_COLOR_PER_PIXEL = false; //true would make it too easy and show the true pixel color forever as soon as a flow reaches the pixel
+    private static final long FLOW_MAX_DURATION = 20000L; //ms
+    private static final boolean SEARCH_EDGES = false; // true results in lines searching for pixels with high pressure values and makes them search for edges (lines of great color difference) to follow. Else it follows colors of equal pressure so lines need to be clicked to follow them.
+    private static final boolean APPLY_TRUE_SOLUTION_COLOR_PER_PIXEL = true; //true would make it too easy and show the true pixel color forever as soon as a flow reaches the pixel
     private static final boolean SEARCH_RANDOMLY_FOR_EQUAL_PRESSURES = true; //better: true, this avoids the preference of picking the first FlowDirection in the list (TopLeft) if there is no clear precedence which would result in many diagonal lines, instead random yields zig-zig flows
     private static final boolean USE_ALPHA = true; // if the color metric has to use alpha values of colors to calculate pressure raster. If false black and alpha only images would be completely uniform in pressure and unsolvable
     private static final ColorMetric METRIC = ColorMetric.Absolute.INSTANCE; // color metric used, can be anything, but should include all colors and alpha uniformly
@@ -287,8 +287,8 @@ public class RiddleFlow extends RiddleGame {
             mFlowStartsX.add(mX);
             mFlowStartsY.add(mY);
             mColor = mSolutionRaster[mY][mX];
-            mIntensity = 1.;
             mStartPressure = mPressureRaster[mY][mX];
+            mIntensity = 1.0;
         }
 
 
