@@ -95,6 +95,8 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
 
     private void updateNextRiddleButton() {
         mBtnRiddles.setEnabled(canClickNextRiddle());
+        mBtnRiddles.setImageResource(TestSubject.getInstance().getImageResId());
+
     }
 
     private void nextRiddleIfEmpty() {
@@ -581,8 +583,11 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
                             } else if (value.equalsIgnoreCase("kummerkasten")) {
                                 decryptComplain();
                             } else if (value.equalsIgnoreCase("oneup")) {
-                                TestSubject.getInstance().levelUp();
-                                Toast.makeText(getActivity(), "Level up!", Toast.LENGTH_SHORT).show();
+                                if (TestSubject.getInstance().levelUp()) {
+                                    Toast.makeText(getActivity(), "Level up!", Toast.LENGTH_SHORT).show();
+                                } else {
+                                    Toast.makeText(getActivity(), "Höher geht nicht...", Toast.LENGTH_SHORT).show();
+                                }
                             } else {
                                 Toast.makeText(getActivity(), "Bild nicht gefunden.", Toast.LENGTH_SHORT).show();
                             }
@@ -622,6 +627,7 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
         super.onResume();
         mOpenStore.setEnabled(true);
         mRiddleView.onResume();
+        updateNextRiddleButton();
     }
 
     @Override
@@ -708,6 +714,9 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
             } else {
                 mRiddleView.onPause();
             }
+        }
+        if (mBtnRiddles != null) {
+            updateNextRiddleButton();
         }
     }
 }

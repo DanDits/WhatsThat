@@ -1,6 +1,7 @@
 package dan.dit.whatsthat.riddle;
 
 import android.util.DisplayMetrics;
+import android.util.Log;
 
 import dan.dit.whatsthat.riddle.achievement.AchievementDataRiddleGame;
 import dan.dit.whatsthat.riddle.achievement.AchievementDataRiddleType;
@@ -29,6 +30,14 @@ public class RiddleConfig {
     public RiddleConfig(int width, int height) {
         mWidth = width;
         mHeight = height;
+        if (width <= 0) {
+            Log.e("Riddle", "Setting negative or zero width for RiddleConfig: " + width);
+            mWidth = 480;
+        }
+        if (height <= 0) {
+            Log.e("Riddle", "Setting negative or zero height for RiddleConfig: " + height);
+            mHeight = 480;
+        }
     }
 
     public void setAchievementData(PracticalRiddleType type) {

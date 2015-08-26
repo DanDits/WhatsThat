@@ -220,15 +220,16 @@ public class TestSubject {
         }
     }
 
-    public void levelUp() {
+    public boolean levelUp() {
         if (mCurrLevel >= mLevels.length - 1) {
-            return;
+            return false;
         }
         mPurse.mShopWallet.editEntry(Purse.SHW_KEY_TESTSUBJECT_LEVEL).add(1);
         mCurrLevel = mPurse.mShopWallet.getEntryValue(Purse.SHW_KEY_TESTSUBJECT_LEVEL);
         TestSubjectLevel currLevel = mLevels[mCurrLevel];
         currLevel.onLeveledUp();
         currLevel.applyLevel(mApplicationContext.getResources());
+        return true;
     }
 
     private void initLevels() {
