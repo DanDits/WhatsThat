@@ -24,7 +24,7 @@ import dan.dit.whatsthat.util.image.ColorAnalysisUtil;
  * Created by daniel on 13.06.15.
  */
 public class AboutView extends View implements StoreContainer {
-    private static final int[] COLORS = new int[] {0xFFFF0000, 0xFFfa7600, 0xFFffba00, 0xFF0dd70d, 0xFF0d4fd7, 0xFF921126};
+    private static final int[] COLORS = new int[] {0xFFFF0000, 0xFFfa7600, 0xFFffba00, 0xFF0dd70d, 0xFF0d4fd7, 0xFF9f00b5, 0xFF921126, 0xFFe5dd00, 0xFF00c3d4};
     private static final int AREA_51_INDEX = 5;
     private static final int AREA_51_HACK = 137;
     private float mDiskAngle;

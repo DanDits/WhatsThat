@@ -35,6 +35,10 @@ public class EpisodeBuilder {
         return this;
     }
 
+    public EpisodeBuilder nextEpisodes(String[] messages) {
+        return nextEpisodes(messages, 0, messages.length);
+    }
+
     public EpisodeBuilder nextEpisode(int messageResId) {
         Episode episode = new Episode(mIntro, messageResId);
         episode.setIcon(mCurrentIcon);

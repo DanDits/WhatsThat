@@ -210,6 +210,7 @@
         <item>Give Feedback</item>
         <item>Just saying hello</item>
         <item>Area 51</item>
+        <item>Language and stuff</item>
     </string-array>
     <string-array name="contact_mail_subject">
         <item>Image suggestion</item>
@@ -218,6 +219,7 @@
         <item>Feedback</item>
         <item>Just saying hello</item>
         <item>\?!?</item>
+        <item>Language and translations</item>
     </string-array>
     <string-array name="contact_mail_body">
         <item>Those humans and copyrights: catastrophically chaotic.\nMy makers therefore only use images with a free license. So please, for the image you already have or still need to attach the following things:\n\nAuthor\'s name or artist\'s name:\nSource: (e.g. Website)\nSolution words:\nPreferred riddle:</item>
@@ -226,6 +228,7 @@
         <item>My makers are happy to receive any positive feedback or suggestions of any kind.\nNegative feedback if by all likelihood going to be sucked into a dark hole. But you might give it a shot.</item>
         <item>Oh dear lord of creativity, I almost don\'t dare to say these words but still take the courage and lift my small and minor head and look inside your omniscient eyes and splutter sheepishly…Hello</item>
         <item>Frank, someone found it. Call the assassinator, this must not get public.</item>
+        <item>You found a grammar or spelling mistake? Report it right here. Do you like this game but you would prefer to play it in your mother or another language? WiseMind\'s translation program is not able to get more languages. However if you would like to translate any picture solutions or texts, just contact my master. Consider there is no monetary compensation but a place in Credits.</item>
     </string-array>
 
     <string name="achievement_name_hidden">\?\?\?</string>
@@ -354,7 +357,7 @@
     <string name="achievement_jumper_7_name">Knuffbum\'s story</string>
     <string name="achievement_jumper_7_descr">Find the truth about Knuffbum.</string>
     <string name="achievement_jumper_8_name">Still a better lovestory than twighlight</string>
-    <string name="achievement_jumper_8_descr">Thank you for cuddling with Knuffbuff.</string>
+    <string name="achievement_jumper_8_descr">Thank you for cuddling with Manomnom.</string>
     <string name="achievement_jumper_9_name">Marathon</string>
     <string name="achievement_jumper_9_descr">Going for a short walk of %1$d meters.</string>
     <string name="achievement_jumper_10_name">Boring beginning</string>

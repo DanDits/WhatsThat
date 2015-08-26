@@ -68,22 +68,23 @@ public abstract class TestSubjectLevel {
         }
 
         @Override
-        public List<Episode> makeMainIntroEpisodes(Intro intro) {
+        public List<Episode> makeMainIntroEpisodes(final Intro intro) {
             EpisodeBuilder builder = new EpisodeBuilder(intro);
 
-            // general intro, 0 to 5
+            // general intro
             builder.setCurrentIcon(0);
-            builder.nextEpisodes(mTextMain, 0, 6);
+            builder.nextEpisodes(intro.getResources().getStringArray(R.array.test_subject_0_0_intro_main));
 
-            //dr kulg presentation, 6 to 7
+            //dr kulg presentation
             builder.setCurrentIcon(R.drawable.intro_dr_kulg);
-            builder.nextEpisodes(mTextMain, 6, 2);
+            builder.nextEpisodes(intro.getResources().getStringArray(R.array.test_subject_0_1_intro_main));
 
-            // gender question, mandatory, 8 to 9
+            // gender question, mandatory
             builder.setCurrentIcon(0);
+            String[] questionEpisodeText = intro.getResources().getStringArray(R.array.test_subject_0_2_intro_main);
             builder.nextEpisode(new QuestionEpisode(intro,
                     true,
-                    mTextMain[8],
+                    questionEpisodeText[0],
                     new int[] {R.string.intro_test_subject_gender_answer_male, R.string.intro_test_subject_gender_answer_female, R.string.intro_test_subject_gender_answer_whatever},
                     1,
                     new View.OnClickListener() {
@@ -102,15 +103,16 @@ public abstract class TestSubjectLevel {
                         case R.id.intro_answer4:
                             mTestSubject.setGender(TestSubject.GENDER_ALIEN);
                             break;
-
                     }
                 }
             }));
-            builder.nextEpisodes(mTextMain, 9, 1);
+            if (questionEpisodeText.length > 1) {
+                builder.nextEpisodes(questionEpisodeText, 1, questionEpisodeText.length);
+            }
 
-            // rest of the episodes, 10 to rest
+            // rest of the episodes
             builder.setCurrentIcon(0);
-            builder.nextEpisodes(mTextMain, 10, mTextMain.length);
+            builder.nextEpisodes(intro.getResources().getStringArray(R.array.test_subject_0_3_intro_main));
             return builder.build();
 
         }
