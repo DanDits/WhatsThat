@@ -89,9 +89,9 @@ public class QuestionEpisode extends Episode implements Intro.OnEpisodeSkippedLi
     public void onClick(View v) {
         mCompleted = true;
         stopQuestions();
-        mIntro.onQuestionAnswered(this);
         if (mCallback != null) {
             mCallback.onClick(v);
         }
+        mIntro.onQuestionAnswered(this);
     }
 }

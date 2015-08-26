@@ -104,6 +104,7 @@ public abstract class TestSubjectLevel {
                             mTestSubject.setGender(TestSubject.GENDER_ALIEN);
                             break;
                     }
+                    intro.nextEpisode();
                 }
             }));
             if (questionEpisodeText.length > 1) {
