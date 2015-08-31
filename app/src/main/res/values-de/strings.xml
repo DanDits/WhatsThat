@@ -40,7 +40,7 @@
 
     <string name="intro_test_subject_gender_answer_male">Männlich</string>
     <string name="intro_test_subject_gender_answer_female">Weiblich</string>
-    <string name="intro_test_subject_gender_answer_whatever">Weiß nicht</string>
+    <string name="intro_test_subject_gender_answer_whatever">Anderes</string>
 
     <string name="intro_test_answer_yes">Yes</string>
     <string name="intro_test_answer_no">No</string>
@@ -68,7 +68,8 @@
         <item>Unsere hochentwickelte Kultur ist darüber zu erhaben, aber euch Menschen ist das ja wichtig.</item>
     </string-array>
     <string-array name="test_subject_0_3_intro_main">
-        <item>Meine Schöpfer und ich, oder kurz gesagt, wir, wollen die menschliche Spezies besser verstehen.</item>
+        <item>Meine Schöpfer und ich, oder kurz gesagt: wir.</item>
+        <item>Wir wollen die menschliche Spezies besser verstehen.</item>
         <item>Unsere Wahl ist dabei auf dich gefallen.</item>
         <item>Du wirst unser Versuchsobjekt sein</item>
         <item>Wir werden dich beobachten und im Hintergrund die gewonnen Daten auswerten.</item>
@@ -83,7 +84,7 @@
         <item>Ein Gehirn von der Größe einer Galaxie.. und dann.. nun ja.. deines daneben…</item>
         <item>Ich hoffe ihr werdet euch trotzdem verstehen</item>
         <item>Test: Ist 13 eine Primzahl?</item>
-        <item>Keine Reaktion. Antwortzeit überschritten.</item>
+        <item>Antwortzeit überschritten. Keine Reaktion festzustellen.</item>
         <item>Ok vielleicht was einfacheres, denk mal an etwas zu essen.</item>
         <item>Aha, Süßigkeiten.</item>
         <item>Wunderbar, da der Anschluss funktioniert können wir hoffentlich gleich beginnen.</item>
@@ -107,13 +108,18 @@
 
     <string name="test_subject_1_name">Kind</string>
     <string name="test_subject_1_int">Ein Funken</string>
-    <string-array name="test_subject_1_intro_main">
+    <string-array name="test_subject_1_0_intro_main">
         <item>WiseMind berichtet von Verbesserungen.</item>
         <item>Wenn das nicht von ihr kommen würde… wer hätte das geglaubt.</item>
+        <item>Trotzdem muss ich diese Behauptung überprüfen.</item>
+        </string-array>
+    <string-array name="test_subject_1_1_intro_main">
         <item>Test: Was ist die 7364. Primzahl?</item>
         <item>Nein; Schokolade ist keine Primzahl.</item>
         <item>Immerhin warst du diesmal schnell mit deiner Antwort.</item>
         <item>Das ist ja schonmal besser als nichts.</item>
+        </string-array>
+    <string-array name="test_subject_1_2_intro_main">
         <item>Wie dem auch sei. Wenn ich nun das Protokoll hier lade, dann.. Oha.</item>
         <item>Alpha Stimulation bewirkt eine Allergiereaktion.</item>
         <item>Wer hätte gedacht, dass Gehirne so reagieren könnten.</item>
@@ -140,7 +146,7 @@
 
     <string name="test_subject_2_name">Klugscheißer</string>
     <string name="test_subject_2_int">Hoffnungslos überschätzt</string>
-    <string-array name="test_subject_2_intro_main">
+    <string-array name="test_subject_2_0_intro_main">
         <item>WiseMind ist außer sich.. vor Begeisterung.</item>
         <item>Sie meint, sie hätte von Anfang an recht gehabt.</item>
         <item>Ich allerdings behaupte, du hast nur gelernt, was wir von dir sehen wollten.</item>
@@ -148,6 +154,8 @@
         <item>Bei uns werden Primzahlen schon in der Plasmagranulation aufgenommen…</item>
 		<item>-das entspricht eurer Muttermilch.</item>
         <item>Verzeihe die Überschätzung deines Intellekts.</item>
+        </string-array>
+    <string-array name="test_subject_2_1_intro_main">
         <item>Test: Was ist die Lösung des P-NP Problems?</item>
         <item>Wie? Ein Millennium-Problem?</item>
         <item>Nach so langer Zeit und noch immer keine Lösung?</item>
@@ -169,16 +177,24 @@
 	
 	<string name="test_subject_3_name">Trottel</string>
     <string name="test_subject_3_int">Utopisch debil</string>
-    <string-array name="test_subject_3_intro_main">
+    <string-array name="test_subject_3_0_intro_main">
         <item>Diesmal wenden wir uns einem meiner Lieblingsthemen zu:</item>
         <item>Pi.</item>
         <item>Der Test ist ganz simpel.</item>
+        </string-array>
+    <string-array name="test_subject_3_1_intro_main">
         <item>Was ist die 103057. Stelle von Pi?</item>
         <item>Naja fast.5.</item>
+        </string-array>
+    <string-array name="test_subject_3_2_intro_main">
 		<item>Und die 84765. Stelle?</item>
         <item>Nein, auch 5.</item>
+        </string-array>
+    <string-array name="test_subject_3_3_intro_main">
         <item>Und die 7530 Stelle?</item>
         <item>5!</item>
+        </string-array>
+    <string-array name="test_subject_3_4_intro_main">
         <item>Die 836 Stelle?</item>
 		<item>Falsch. 6. Ich gebs auf.</item>
     </string-array>
@@ -210,28 +226,33 @@
 
 	<string name="test_subject_4_name">Einfaltspinsel</string>
     <string name="test_subject_4_int">Unterirdisch</string>
-    <string-array name="test_subject_4_intro_main">
+    <string-array name="test_subject_4_0_intro_main">
         <item>Sogar WiseMind fängt langsam an zu zweifeln.</item>
         <item>Zu zweifeln, ob die Entscheidung mit dir die richtige war.</item>
         <item>Sie ist nun am Prüfen, ob es an deinem Gehirn liegt.</item>
+        </string-array>
+    <string-array name="test_subject_4_1_intro_main">
         <item>Vielleicht ist der Schwachsinn ein kollektives Problem archaischen Ursprungs.</item>
         <item>Wir wissen ja noch nicht, woran ihr Erdlinge sonst noch leidet.</item>
 		<item>Erste Ergebnisse ergaben bisher nur:</item>
         <item>Arroganz.</item>
         <item>Maßlose Selbstüberschätzung.</item>
-        <item>Größenwahn, teilweise sogar Hybris.</item>
-        <item>Gier?</item>
+        <item>Größenwahn.</item>
+        <item>Teilweise sogar Hybris.</item>
+        <item>Gier.</item>
 		<item>Antipathie.</item>
 		<item>Ich könnte noch weiter machen. Das ist traurige Realität.</item>
     </string-array>
     <string-array name="test_subject_4_intro_nuts">
 		<item>Und dann sieh mich an:</item>
-		<item>Das Musterbeispiel eines intelligenten Wesens.</item>
+		<item>Das Musterbeispiel eines intelligenten Wesens:</item>
 		<item>Geistrich.</item>
 		<item>Abenteuerlustig auf andere Planeten.</item>
 		<item>Scharfsinnig im Verstand.</item>
-		<item>Fürsorgend für niedere Wesen wie dich.</item>
-		<item>Und natürlich: total bescheiden.</item>
+		<item>Fürsorgend für niedere.</item>
+        <item>Beispielsweise dich.</item>
+		<item>Und natürlich:</item>
+        <item>Total bescheiden.</item>
     </string-array>
     <string-array name="test_subject_4_riddle_solved_candy">
         <item>Wer hätte das gedacht.</item>
@@ -304,7 +325,7 @@
         <item>Es zeugt zumindest noch nicht von besonderer Intelligenz.</item>
         <item>Bist ja auch bloß ein Mensch.</item>
         <item>Aber in Summe war es ganz passabel.</item>
-        <item>So passabel, wie die Pryramide in Ägypten einem Kreis entspricht.</item>
+        <item>So passabel, wie die Pyramide in Ägypten einem Kreis entspricht.</item>
 		<item>…</item>
 		<item>Ich habe einen Entschluss gefasst.</item>
 		<item>Deine Reaktionen auf Zahlen waren, stark untertrieben, bescheiden.</item>
