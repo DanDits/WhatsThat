@@ -46,6 +46,13 @@ public class RiddlePickerDialog extends DialogFragment {
     }
 
     @Override
+    public void onActivityCreated(Bundle arg0) {
+        super.onActivityCreated(arg0);
+        getDialog().getWindow()
+                .getAttributes().windowAnimations = R.style.RiddlePickerDialogAnimation;
+    }
+
+    @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         View baseView = getActivity().getLayoutInflater().inflate(R.layout.riddle_picker, null);
         this.getActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL, WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL);

@@ -65,11 +65,6 @@ public class Intro {
         return intro;
     }
 
-    public Intro(View introView, List<Episode> mainEpisodes, List<Episode> subEpisodes) {
-        this(introView);
-        initEpisodes(mainEpisodes, subEpisodes);
-    }
-
     private void initEpisodes(List<Episode> mainEpisodes, List<Episode> subEpisodes) {
         mMainEpisodes = mainEpisodes;
         if (mainEpisodes == null || mainEpisodes.isEmpty() || mainEpisodes.get(0) == null) {

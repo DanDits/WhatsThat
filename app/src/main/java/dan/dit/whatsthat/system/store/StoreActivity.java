@@ -11,6 +11,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationSet;
 import android.view.animation.AnimationUtils;
@@ -23,6 +25,7 @@ import java.util.List;
 
 import dan.dit.whatsthat.R;
 import dan.dit.whatsthat.achievement.AchievementManager;
+import dan.dit.whatsthat.riddle.RiddleInitializer;
 import dan.dit.whatsthat.system.InitActivity;
 import dan.dit.whatsthat.testsubject.TestSubject;
 
@@ -188,7 +191,7 @@ public class StoreActivity extends FragmentActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (!TestSubject.isInitialized()) {
+        if (RiddleInitializer.INSTANCE.isNotInitialized() || !TestSubject.isInitialized()) {
             // app got killed by android and is trying to reconstruct this activity when not initialized
             Log.d("HomeStuff", "App killed and trying to reconstruct non initialized into StoreActivity.");
             Intent reInit = new Intent(getApplicationContext(), InitActivity.class);
@@ -197,6 +200,9 @@ public class StoreActivity extends FragmentActivity {
             finish();
             return;
         }
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
         setContentView(R.layout.store_activity);
         mCategoriesContainer = (ViewGroup) findViewById(R.id.category_container);
         mCategoryTitleBackButton = (Button) findViewById(R.id.btn_category_title_back);

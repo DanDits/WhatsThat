@@ -495,7 +495,7 @@
     <string name="riddle_dialog_tab_types">Experiment Auswahl</string>
     <string name="riddle_dialog_tab_unsolved">Ausgesetzt und vergessen…</string>
     <string name="riddle_type_circle">Graue Zellen</string>
-    <string name="riddle_type_circle_explanation">Berühre einen Kreis, um diesen in vier kleinere aufzuteilen. Verbessere die Kontur des versteckten Bildes.</string>
+    <string name="riddle_type_circle_explanation">Berühre einen Kreis, um diesen in vier kleinere aufzuteilen. Dadurch wird die Kontur des versteckten Bildes sichtbar.</string>
     <string-array name="riddle_type_circle_hints">
 	    <item>Teile bei unserem ersten Experiment einen Kreis, so wie Mose das Wasser. Nur nicht in zwei Hälften, sondern in vier neue Kreise. Irgendwann erkennst du durch die feineren Konturen ein Bild. Falls nicht, führe ich die Versuchsreihe mit Pantoffeltierchen weiter, die diese Tests mit Bravour bestanden haben.</item>
         <item>Demo Version beendet. Kaufe die Vollversion für nur 59,99€. Just kidding. Geh trotzdem mal in den Shop. Dort finden sich praktische Dinge, wie zum Beispiel der intergalaktische Kreislaser-Turbo-Schneider…</item>
@@ -506,7 +506,7 @@
     </string-array>
     
     <string name="riddle_type_snow">Angry Cell</string>
-    <string name="riddle_type_snow_explanation">Bewege die Zelle durch Kippen des Gerätes. Sammle giftige Süßigkeiten, werde größer und EXPLODIERE!</string>
+    <string name="riddle_type_snow_explanation">Beschleunige die Zelle durch Kippen des Gerätes. Sammle Süßigkeiten, wachse und explodiere das Bild frei.</string>
     <string-array name="riddle_type_snow_hints">
         <item>Ein neuer Test. In der Umgebung der Zelle platzieren wir kontaminierte biologische Stoffe einer anderen Spezies, um die Reaktion der Zelle darauf zu testen. Achte auf die Partikel, die von dem Stoff ausgehen und deiner Zelle schaden. Den Rest werden wir, wie in der Politik, mit einer Lüge bestmöglich verschleiern.</item>
         <item>Durch den Versuch erhoffen wir uns tiefere Einblicke in die irdische graue Substanz, ein Bestandteil deines Zentralnervensystems. Dazu mussten wir aus deinem Gehirn eine Zelle entfernen. Die entfernte Gehirnzelle wirst du kaum merken. Du kannst deinen Kopf aber gegen die Wand schlagen. Das verdeutlicht den Effekt.</item>
@@ -517,7 +517,7 @@
     </string-array>
 	
     <string name="riddle_type_triangle">Bunteck</string>
-    <string name="riddle_type_triangle_explanation">Berühre einen Punkt in einem Dreieck, um kleinere Dreiecke mit schärferem Kontrast zu erzeugen.</string>
+    <string name="riddle_type_triangle_explanation">Berühre ein Dreieck, um es in kleinere Dreiecke aufzuteilen. Dadurch wird das versteckte Bild immer besser erkenntlich.</string>
     <string-array name="riddle_type_triangle_hints">
 	    <item>WiseMind meint, ich rede zu viel. Ich halte mich deshalb kurz: Ein farbliches Pendant zum Kreis-Test. Klickst du auf ein Dreieck, teilt sich dieses in zwei kleinere. Wozu das ganze? Zum Testen eurer Farbwahrnehmung.</item>
         <item>Wenn du mehrere Dreiecke in der Mitte berührst, teilst du alle auf einmal. Magic! Ansonsten gleiche Punkte wie beim Kreis-Experiment.</item>
@@ -542,7 +542,7 @@
     </string-array>
 	
     <string name="riddle_type_jumper">Monstarathon</string>
-    <string name="riddle_type_jumper_explanation">Berühre das Feld, um über Hindernisse zu springen und das Bild zu vergrößern. Führe einen Double-Jump aus, um über größere oder längere Hindernisse zu springen.</string>
+    <string name="riddle_type_jumper_explanation">Berühre das Feld, um über Hindernisse zu springen und das Bild zu vergrößern. Halte das Feld gedrückt um höher zu springen.</string>
     <string-array name="riddle_type_jumper_hints">
         <item>Ihr Menschen seid ein merkwürdisches Völkchen. Ein Esel lässt sich mit einer Karotte zum Laufen animieren, bei euch Homo-Sapiens bedarf es einem Bündel Geld, obwohl das nicht mal essbar ist.</item>
         <item>Wie dem auch sei. Wir haben an einem Geschäftsmann einige Versuche durchgeführt und dazu die Erinnerungen blockiert. Du kannst diese wieder lösen, indem du über Hindernisse springst. Mit einem einfachen Gedanken konnten wir unseren Kaufmann zu einem Marathon mit Hindernissen motivieren: \"Am Ende des Regenbogens steht ein Topf voller Geld.\" Zu schade, dass es nachts keinen Regenbogen gibt.</item>
@@ -559,7 +559,7 @@
     </string-array>
 
     <string name="riddle_type_memory">Memory</string>
-    <string name="riddle_type_memory_explanation">Finde Paare von gleichen Bildern.</string>
+    <string name="riddle_type_memory_explanation">Finde Kartenpaare mit gleichen Bildern und decke diese durch Klicken auf.</string>
     <string-array name="riddle_type_memory_hints">
         <item>Memory ist cool.</item>
     </string-array>

@@ -13,6 +13,7 @@ import dan.dit.whatsthat.R;
 import dan.dit.whatsthat.image.Image;
 import dan.dit.whatsthat.riddle.RiddleInitializer;
 import dan.dit.whatsthat.riddle.UnsolvedRiddlesChooser;
+import dan.dit.whatsthat.testsubject.TestSubject;
 
 
 public class RiddleActivity extends Activity implements UnsolvedRiddlesChooser.Callback, NoPanicDialog.Callback {
@@ -22,7 +23,7 @@ public class RiddleActivity extends Activity implements UnsolvedRiddlesChooser.C
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (RiddleInitializer.INSTANCE.isNotInitialized()) {
+        if (RiddleInitializer.INSTANCE.isNotInitialized() || !TestSubject.isInitialized()) {
             // app got killed by android and is trying to reconstruct this activity when not initialized
             Log.d("HomeStuff", "App killed and trying to reconstruct non initialized into RiddleActivity.");
             Intent reInit = new Intent(getApplicationContext(), InitActivity.class);

@@ -92,12 +92,7 @@
             android:id="@+id/intro_message"
             android:layout_gravity="center"
             android:background="@drawable/say_alien"
-            android:visibility="invisible"
-            android:paddingTop="10dp"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:layout_margin="10dp"
-            android:layout_marginTop="48dp"/>
+            android:visibility="invisible" />
 
     </FrameLayout>
 
