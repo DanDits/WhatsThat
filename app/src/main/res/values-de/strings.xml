@@ -542,7 +542,7 @@
     </string-array>
 	
     <string name="riddle_type_jumper">Monstarathon</string>
-    <string name="riddle_type_jumper_explanation">Berühre das Feld, um über Hindernisse zu springen und das Bild zu vergrößern. Halte das Feld gedrückt um höher zu springen.</string>
+    <string name="riddle_type_jumper_explanation">Berühre das Feld, um über Hindernisse zu springen. Halte länger gedrückt um höher zu springen.</string>
     <string-array name="riddle_type_jumper_hints">
         <item>Ihr Menschen seid ein merkwürdisches Völkchen. Ein Esel lässt sich mit einer Karotte zum Laufen animieren, bei euch Homo-Sapiens bedarf es einem Bündel Geld, obwohl das nicht mal essbar ist.</item>
         <item>Wie dem auch sei. Wir haben an einem Geschäftsmann einige Versuche durchgeführt und dazu die Erinnerungen blockiert. Du kannst diese wieder lösen, indem du über Hindernisse springst. Mit einem einfachen Gedanken konnten wir unseren Kaufmann zu einem Marathon mit Hindernissen motivieren: \"Am Ende des Regenbogens steht ein Topf voller Geld.\" Zu schade, dass es nachts keinen Regenbogen gibt.</item>

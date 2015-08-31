@@ -49,7 +49,7 @@ public class HintProduct extends SubProduct {
         TextView view = ((TextView) mView.findViewById(R.id.hint_text));
         CharSequence text = mType.getRiddleHint(mView.getResources(), mHintNumber);
         if (!mAlreadyRead) {
-            view.setTextColor(Color.GREEN);
+            view.setTextColor(view.getResources().getColor(R.color.important_on_main_background));
             view.setText(R.string.article_hint_not_yet_read);
             return;
         } else if (TextUtils.isEmpty(text)) {

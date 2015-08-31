@@ -1,7 +1,6 @@
 package dan.dit.whatsthat.testsubject.shopping;
 
 import android.graphics.Color;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
@@ -36,7 +35,6 @@ public class ConfirmProduct extends SubProduct {
 
     @Override
     public void onClick() {
-        Log.d("HomeStuff", "Clicked confirm product.");
         if (mParentArticle != null) {
             mParentArticle.onChildClick(this);
         }
@@ -45,7 +43,7 @@ public class ConfirmProduct extends SubProduct {
     public void setConfirmable(int purchasableHint, CharSequence costText, CharSequence depText) {
         if (mView != null) {
             TextView view = ((TextView) mView.findViewById(R.id.shop_confirm_title));
-            view.setTextColor(purchasableHint == ShopArticle.HINT_PURCHASABLE ? Color.GREEN : Color.RED);
+            view.setTextColor(purchasableHint == ShopArticle.HINT_PURCHASABLE ? view.getResources().getColor(R.color.important_on_main_background) : Color.RED);
             if (purchasableHint == ShopArticle.HINT_PURCHASABLE) {
                 view.setText(view.getResources().getString(R.string.article_product_confirm_purchase, costText));
             } else if (purchasableHint == ShopArticle.HINT_NOT_PURCHASABLE_DEPENDENCIES_MISSING) {
