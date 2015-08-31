@@ -42,8 +42,8 @@
     <string name="intro_test_subject_gender_answer_female">Weiblich</string>
     <string name="intro_test_subject_gender_answer_whatever">Anderes</string>
 
-    <string name="intro_test_answer_yes">Yes</string>
-    <string name="intro_test_answer_no">No</string>
+    <string name="intro_test_answer_yes">Ja</string>
+    <string name="intro_test_answer_no">Nein</string>
     <string name="intro_test_answer_bullshit">Schokolade</string>
 
     <string name="test_subject_0_name">Verwirrtes Kind</string>
@@ -505,7 +505,7 @@
         <item>So, jetzt hast du mich genug belästigt. Das wars für den Anfang.</item>
     </string-array>
     
-    <string name="riddle_type_snow">Angry Cell</string>
+    <string name="riddle_type_snow">Zorny Zell</string>
     <string name="riddle_type_snow_explanation">Beschleunige die Zelle durch Kippen des Gerätes. Sammle Süßigkeiten, wachse und explodiere das Bild frei.</string>
     <string-array name="riddle_type_snow_hints">
         <item>Ein neuer Test. In der Umgebung der Zelle platzieren wir kontaminierte biologische Stoffe einer anderen Spezies, um die Reaktion der Zelle darauf zu testen. Achte auf die Partikel, die von dem Stoff ausgehen und deiner Zelle schaden. Den Rest werden wir, wie in der Politik, mit einer Lüge bestmöglich verschleiern.</item>
@@ -516,7 +516,7 @@
         <item>Du kannst Engelchen auch aus dem Spielfeld drücken. Dann wird deine Zelle temporär wieder in den Narrheits-Zustand versetzt.</item>
     </string-array>
 	
-    <string name="riddle_type_triangle">Bunteck</string>
+    <string name="riddle_type_triangle">Triluminati</string>
     <string name="riddle_type_triangle_explanation">Berühre ein Dreieck, um es in kleinere Dreiecke aufzuteilen. Dadurch wird das versteckte Bild immer besser erkenntlich.</string>
     <string-array name="riddle_type_triangle_hints">
 	    <item>WiseMind meint, ich rede zu viel. Ich halte mich deshalb kurz: Ein farbliches Pendant zum Kreis-Test. Klickst du auf ein Dreieck, teilt sich dieses in zwei kleinere. Wozu das ganze? Zum Testen eurer Farbwahrnehmung.</item>

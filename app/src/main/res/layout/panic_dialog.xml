@@ -102,7 +102,7 @@
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="Medium Text"
                 android:id="@+id/panic_ask_type_answer_text"
-                android:background="@drawable/say_alien"
+                android:background="@drawable/think_alien"
                 android:layout_gravity="center_horizontal" />
         </LinearLayout>
 

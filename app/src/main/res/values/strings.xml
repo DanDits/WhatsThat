@@ -58,27 +58,6 @@
     <string name="intro_test_subject_gender_answer_female">Female</string>
     <string name="intro_test_subject_gender_answer_whatever">Don\'t know</string>
 
-    <string name="test_subject_0_name">Kid</string>
-    <string name="test_subject_0_int">404</string>
-    <string-array name="test_subject_0_intro_main">
-        <item>Mercury</item>
-        <item>Venus</item>
-        <item>Earth</item>
-        <item>Mars</item>
-    </string-array>
-    <string-array name="test_subject_0_intro_nuts">
-        <item>Mercury</item>
-        <item>Venus</item>
-        <item>Earth</item>
-        <item>Mars</item>
-    </string-array>
-    <string-array name="test_subject_0_riddle_solved_candy">
-        <item>Good boy!</item>
-        <item>Well done!</item>
-    </string-array>
-
-    <string name="test_subject_1_name">Kid</string>
-    <string name="test_subject_1_int">Knows letters</string>
     <string name="riddles_dialog_positive">Confirm</string>
     <string name="riddle_dialog_tab_types">Types</string>
     <string name="riddle_dialog_tab_unsolved">Unsolved</string>
@@ -120,80 +99,6 @@
         <item>Super great human being:</item>
     </string-array>
     <string name="no_panic_title">Don\'t panic!</string>
-
-    <string-array name="test_subject_1_intro_main">
-        <item>Mercury</item>
-        <item>Venus</item>
-        <item>Earth</item>
-        <item>Mars</item>
-    </string-array>
-    <string-array name="test_subject_1_intro_nuts">
-        <item>Mercury</item>
-        <item>Venus</item>
-        <item>Earth</item>
-        <item>Mars</item>
-    </string-array>
-    <string-array name="test_subject_1_riddle_solved_candy">
-        <item>You\'re smart!</item>
-        <item>Nice job!</item>
-		<item>Well done Captain!</item>
-    </string-array>
-
-    <string-array name="test_subject_2_intro_main">
-    </string-array>
-    <string-array name="test_subject_2_intro_nuts">
-    </string-array>
-    <string-array name="test_subject_2_riddle_solved_candy">
-    </string-array>
-
-    <string-array name="test_subject_3_intro_main">
-    </string-array>
-    <string-array name="test_subject_3_intro_nuts">
-    </string-array>
-    <string-array name="test_subject_3_riddle_solved_candy">
-    </string-array>
-
-    <string-array name="test_subject_4_intro_main">
-    </string-array>
-    <string-array name="test_subject_4_intro_nuts">
-    </string-array>
-    <string-array name="test_subject_4_riddle_solved_candy">
-    </string-array>
-
-    <string-array name="test_subject_5_intro_main">
-    </string-array>
-    <string-array name="test_subject_5_intro_nuts">
-    </string-array>
-    <string-array name="test_subject_5_riddle_solved_candy">
-    </string-array>
-
-    <string-array name="test_subject_6_intro_main">
-    </string-array>
-    <string-array name="test_subject_6_intro_nuts">
-    </string-array>
-    <string-array name="test_subject_6_riddle_solved_candy">
-    </string-array>
-
-    <string-array name="test_subject_7_intro_main">
-    </string-array>
-    <string-array name="test_subject_7_intro_nuts">
-    </string-array>
-    <string-array name="test_subject_7_riddle_solved_candy">
-    </string-array>
-
-    <string-array name="test_subject_8_intro_main">
-    </string-array>
-    <string-array name="test_subject_8_intro_nuts">
-    </string-array>
-    <string-array name="test_subject_8_riddle_solved_candy">
-    </string-array>
-
-    <string-array name="test_subject_9_intro_main">
-    </string-array>
-    <string-array name="test_subject_9_intro_nuts">
-    </string-array>
-    <string-array name="test_subject_9_riddle_solved_candy">
-    </string-array>
 
     <string name="handle_error_attempted">Bild nicht vorhanden?! Externen Speicher prüfen!</string>
     <string name="tongue_select_explanation">Sprache für Lösungswörter: %1$s</string>

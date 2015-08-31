@@ -161,7 +161,6 @@ public abstract class TestSubjectLevel {
             mNameResId = R.string.test_subject_0_name;
             mIntelligenceResId = R.string.test_subject_0_int;
             mImageResId = R.drawable.kid00;
-            mTextMain = res.getStringArray(R.array.test_subject_0_intro_main);
             mTextNuts = res.getStringArray(R.array.test_subject_0_intro_nuts);
             mRiddleSolvedCandy = R.array.test_subject_0_riddle_solved_candy;
         }
@@ -190,7 +189,9 @@ public abstract class TestSubjectLevel {
         @Override
         public List<Episode> makeMainIntroEpisodes(Intro intro) {
             EpisodeBuilder builder = new EpisodeBuilder(intro);
-            builder.nextEpisodes(mTextMain, 0, mTextMain.length);
+            builder.nextEpisodes(intro.getResources().getStringArray(R.array.test_subject_1_0_intro_main));
+            builder.nextEpisodes(intro.getResources().getStringArray(R.array.test_subject_1_1_intro_main));
+            builder.nextEpisodes(intro.getResources().getStringArray(R.array.test_subject_1_2_intro_main));
             return builder.build();
         }
 
@@ -199,7 +200,6 @@ public abstract class TestSubjectLevel {
             mNameResId = R.string.test_subject_1_name;
             mIntelligenceResId = R.string.test_subject_1_int;
             mImageResId = R.drawable.kid01;
-            mTextMain = res.getStringArray(R.array.test_subject_1_intro_main);
             mTextNuts = res.getStringArray(R.array.test_subject_1_intro_nuts);
             mRiddleSolvedCandy = R.array.test_subject_1_riddle_solved_candy;
         }
@@ -217,7 +217,8 @@ public abstract class TestSubjectLevel {
         @Override
         public List<Episode> makeMainIntroEpisodes(Intro intro) {
             EpisodeBuilder builder = new EpisodeBuilder(intro);
-            builder.nextEpisodes(mTextMain, 0, mTextMain.length);
+            builder.nextEpisodes(intro.getResources().getStringArray(R.array.test_subject_2_0_intro_main));
+            builder.nextEpisodes(intro.getResources().getStringArray(R.array.test_subject_2_1_intro_main));
             return builder.build();
         }
 
@@ -226,7 +227,6 @@ public abstract class TestSubjectLevel {
             mNameResId = R.string.test_subject_2_name;
             mIntelligenceResId = R.string.test_subject_2_int;
             mImageResId = R.drawable.kid02;
-            mTextMain = res.getStringArray(R.array.test_subject_2_intro_main);
             mTextNuts = res.getStringArray(R.array.test_subject_2_intro_nuts);
             mRiddleSolvedCandy = R.array.test_subject_2_riddle_solved_candy;
         }
@@ -245,7 +245,11 @@ public abstract class TestSubjectLevel {
         @Override
         public List<Episode> makeMainIntroEpisodes(Intro intro) {
             EpisodeBuilder builder = new EpisodeBuilder(intro);
-            builder.nextEpisodes(mTextMain, 0, mTextMain.length);
+            builder.nextEpisodes(intro.getResources().getStringArray(R.array.test_subject_3_0_intro_main));
+            builder.nextEpisodes(intro.getResources().getStringArray(R.array.test_subject_3_1_intro_main));
+            builder.nextEpisodes(intro.getResources().getStringArray(R.array.test_subject_3_2_intro_main));
+            builder.nextEpisodes(intro.getResources().getStringArray(R.array.test_subject_3_3_intro_main));
+            builder.nextEpisodes(intro.getResources().getStringArray(R.array.test_subject_3_4_intro_main));
             return builder.build();
         }
 
@@ -254,7 +258,6 @@ public abstract class TestSubjectLevel {
             mNameResId = R.string.test_subject_3_name;
             mIntelligenceResId = R.string.test_subject_3_int;
             mImageResId = R.drawable.kid03;
-            mTextMain = res.getStringArray(R.array.test_subject_3_intro_main);
             mTextNuts = res.getStringArray(R.array.test_subject_3_intro_nuts);
             mRiddleSolvedCandy = R.array.test_subject_3_riddle_solved_candy;
         }
@@ -273,7 +276,8 @@ public abstract class TestSubjectLevel {
         @Override
         public List<Episode> makeMainIntroEpisodes(Intro intro) {
             EpisodeBuilder builder = new EpisodeBuilder(intro);
-            builder.nextEpisodes(mTextMain, 0, mTextMain.length);
+            builder.nextEpisodes(intro.getResources().getStringArray(R.array.test_subject_4_0_intro_main));
+            builder.nextEpisodes(intro.getResources().getStringArray(R.array.test_subject_4_1_intro_main));
             return builder.build();
         }
 
@@ -282,7 +286,6 @@ public abstract class TestSubjectLevel {
             mNameResId = R.string.test_subject_4_name;
             mIntelligenceResId = R.string.test_subject_4_int;
             mImageResId = R.drawable.kid04;
-            mTextMain = res.getStringArray(R.array.test_subject_4_intro_main);
             mTextNuts = res.getStringArray(R.array.test_subject_4_intro_nuts);
             mRiddleSolvedCandy = R.array.test_subject_4_riddle_solved_candy;
         }

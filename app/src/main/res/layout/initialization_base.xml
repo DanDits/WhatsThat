@@ -91,7 +91,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/intro_message"
             android:layout_gravity="center"
-            android:background="@drawable/say_alien"
+            android:background="@drawable/think_alien"
             android:visibility="invisible" />
 
     </FrameLayout>
