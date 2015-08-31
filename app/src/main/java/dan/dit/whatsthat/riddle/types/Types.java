@@ -490,7 +490,7 @@ public class Types {
         }
         @Override
         public int getIconResId() {
-            return R.drawable.icon_plain;
+            return R.drawable.icon_flow;
         }
         @Override
         public int getNameResId() {
