@@ -739,24 +739,24 @@
     <string name="achievement_jumper_11_descr">Erreiche in %1$d aufeinanderfolgenden Spielen mindestens %2$d Meter.</string>
 
     <string name="achievement_memory_1_name">Kurzzeitgedächtnis</string>
-    <string name="achievement_memory_1_descr">Schon Gletscher sind schneller vorangekommen als du bei diesem Experiment.(xx-Sekunden Spielzeit ODER xxx-Klicks in EINEM Rätsel - Blind)</string>
+    <string name="achievement_memory_1_descr">Schon Gletscher sind schneller vorangekommen als du bei diesem Experiment.</string>
     <string name="achievement_memory_2_name">Querbeet</string>
-    <string name="achievement_memory_2_descr">Hinterlasse eine Spur von.. 5, 10, 15 vielleicht auch 20 Feldern.(11 Felder mit der Tracking Spur)</string>
+    <string name="achievement_memory_2_descr">Hinterlasse eine Spur von.. 5, 10, 15 vielleicht auch 20 Feldern.</string>
     <string name="achievement_memory_3_name">Das richtige Paar</string>
-    <string name="achievement_memory_3_descr">Wenig offene Fläche. Erkennst du das Bild trotzdem? (1 oder 2 Paare - blind)</string>
+    <string name="achievement_memory_3_descr">Wenig offene Fläche. Erkennst du das Bild trotzdem?</string>
     <string name="achievement_memory_3_descr_claimed">Trotz wenig offener Fläche… Nicht übel.</string>
     <string name="achievement_memory_4_name">Homunkulus</string>
-    <string name="achievement_memory_4_descr">Decke das Bild komplett auf, nachdem 32 Felder verdeckt waren.</string>
+    <string name="achievement_memory_4_descr">Decke das Bild komplett auf, nachdem %1$d Felder verdeckt waren.</string>
     <string name="achievement_memory_5_name">Trampelpfad</string>
     <string name="achievement_memory_5_descr">Bringe ein verdecktes ??? Feld in seine ursprüngliche Form.</string>
     <string name="achievement_memory_6_name">DEFINITIV Glück</string>
-    <string name="achievement_memory_6_descr">3 Paare auf Anhieb richtig? Bei Angry-Cell gestehe ich dir das Geschick ein aber hier DEFINITIV NICHT!</string>
+    <string name="achievement_memory_6_descr">%1$d Paare auf Anhieb richtig? Bei Angry-Cell gestehe ich dir das Geschick ein aber hier DEFINITIV NICHT!</string>
     <string name="achievement_memory_7_name">Karten versenken</string>
-    <string name="achievement_memory_7_descr">So viel richtige Paare hintereinander… Entweder das war gerade ganz schön genial oder aber gemogelt… (blind)</string>
+    <string name="achievement_memory_7_descr">So viel richtige Paare hintereinander… Entweder das war gerade ganz schön genial oder aber gemogelt…</string>
     <string name="achievement_memory_8_name">Gemogelt</string>
-    <string name="achievement_memory_8_descr">Die Punkte bekommst du, wenn du das Spiel löst und keines der Felder zweimal angeklickt. Einen Stift bitte! (Benötigt Karten versenken)</string>
+    <string name="achievement_memory_8_descr">Die Punkte bekommst du, wenn du das Spiel löst und keines der Felder zweimal angeklickt. Einen Stift bitte!</string>
     <string name="achievement_memory_9_name">Kein Zauberer</string>
-    <string name="achievement_memory_9_descr">Zum Glück bist du kein Zauberer, einen Zauberspruch hättest du dir nie gemerkt. So wie die xxxx/2038 Karten.(Rotes Feld UND ???=+1)</string>
+    <string name="achievement_memory_9_descr">Zum Glück bist du kein Zauberer, einen Zauberspruch hättest du dir nie gemerkt. So wie die %1$d/%2$d Karten.</string>
 
 
     <string name="achievement_misc_category_name">Allgemein</string>

@@ -76,10 +76,21 @@ public class SolutionInputLetterClick extends SolutionInput {
 
     public SolutionInputLetterClick(Solution sol) {
         super(sol);
+        initPaints();
     }
 
     public SolutionInputLetterClick(Compacter data) throws CompactedDataCorruptException {
         super(data);
+        initPaints();
+    }
+
+    private void initPaints() {
+        mUserLetterCirclePaint.setAntiAlias(true);
+        mUserLetterPaint.setAntiAlias(true);
+        mAllLetterPaint.setAntiAlias(true);
+        mAllLetterCirclePaint.setAntiAlias(true);
+        mAllLetterCircleBorderPaint.setAntiAlias(true);
+        mUserLetterCircleBorderPaint.setAntiAlias(true);
     }
 
     @Override

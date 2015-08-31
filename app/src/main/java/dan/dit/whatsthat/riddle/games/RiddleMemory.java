@@ -43,8 +43,8 @@ import dan.dit.whatsthat.util.image.ImageUtil;
  * Created by daniel on 01.08.15.
  */
 public class RiddleMemory extends RiddleGame {
-    private static final int DEFAULT_FIELD_X = 8;
-    private static final int DEFAULT_FIELD_Y = 7; // one dimension must be a multiple of 2!
+    public static final int DEFAULT_FIELD_X = 8;
+    public static final int DEFAULT_FIELD_Y = 7; // one dimension must be a multiple of 2!
     private static final int TILE_IN_PATH_COLOR = Color.YELLOW;
 
     private Field2D<MemoryCard> mField;
@@ -493,6 +493,7 @@ public class RiddleMemory extends RiddleGame {
             int greenCount = 0;
             int blackCount = 0;
             int uncoveredPairCount = 0;
+            int uncoveredGreenPairCount = 0;
             for (MemoryCard card : mField) {
                 switch (card.mCoverState) {
                     case STATE_COVERED_GREEN:
@@ -510,6 +511,9 @@ public class RiddleMemory extends RiddleGame {
                 }
                 if (card.isPairUncovered()) {
                     uncoveredPairCount++;
+                    if (card.mCoverState == STATE_COVERED_GREEN && card.mDoppelganger.mCoverState == STATE_COVERED_GREEN) {
+                        uncoveredGreenPairCount++;
+                    }
                 }
             }
             uncoveredPairCount /= 2;
@@ -518,6 +522,7 @@ public class RiddleMemory extends RiddleGame {
             setGameAchievementValue(AchievementMemory.KEY_GAME_STATE_RED_COUNT, redCount);
             setGameAchievementValue(AchievementMemory.KEY_GAME_STATE_BLACK_COUNT, blackCount);
             setGameAchievementValue(AchievementMemory.KEY_GAME_UNCOVERED_PAIRS_COUNT, uncoveredPairCount);
+            setGameAchievementValue(AchievementMemory.KEY_GAME_UNCOVERED_PAIRS_IN_GREEN_STATE_COUNT, uncoveredGreenPairCount);
             if (mConfig.mAchievementGameData != null) {
                 mConfig.mAchievementGameData.disableSilentChanges();
             }
