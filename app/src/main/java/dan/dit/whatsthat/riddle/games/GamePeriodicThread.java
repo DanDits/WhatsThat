@@ -52,12 +52,14 @@ class GamePeriodicThread extends Thread {
      * Stops the periodic event thread.
      */
     public synchronized void stopPeriodicEvent(Runnable onStopCallback) {
-        if (!mIsRunning) {
+        if (!isRunning()) {
             return;
         }
         mIsRunning = false;
-        mStoppedNotifier = new Handler();
-        mOnStopCallback = onStopCallback;
+        if (onStopCallback != null) {
+            mStoppedNotifier = new Handler();
+            mOnStopCallback = onStopCallback;
+        }
     }
 
     public boolean isRunning() {

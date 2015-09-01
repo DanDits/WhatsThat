@@ -175,7 +175,6 @@ public class RiddleController {
         if (mPeriodicThread != null && mPeriodicThread.isRunning()) {
             Log.d("Riddle", "Stopping periodic event that is running.");
             mPeriodicThread.stopPeriodicEvent(toExecute);
-            mPeriodicThread = null;
         } else if (toExecute != null) {
             Log.d("Riddle", "Stopping periodic event that was not running.");
             toExecute.run();
