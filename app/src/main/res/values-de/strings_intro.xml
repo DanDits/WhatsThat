@@ -67,9 +67,9 @@
         <item>Oh, hoppla, Verzeihung ich meinte natürlich: Viel Erfolg!</item>
     </string-array>
     <string-array name="test_subject_0_riddle_solved_candy">
-        <item>Gut gemacht!</item>
-        <item>Geschafft!</item>
-        <item>Großes Lob!</item>
+        <item>Gut gemacht</item>
+        <item>Geschafft</item>
+        <item>Großes Lob</item>
     </string-array>
 
     <!-- Level 1 -->
@@ -106,9 +106,9 @@
         <item>Oh du hörst mir noch zu.. ich mache nur Spaß.</item>
     </string-array>
     <string-array name="test_subject_1_riddle_solved_candy">
-        <item>Bedachter Zug!</item>
-        <item>Bombastisch!</item>
-        <item>Bravo!</item>
+        <item>Bedachter Zug</item>
+        <item>Bombastisch</item>
+        <item>Bravo</item>
     </string-array>
 
     <!-- Level 2 -->
@@ -138,9 +138,9 @@
         <item>Aber nun weiter im Protokoll.</item>
     </string-array>
     <string-array name="test_subject_2_riddle_solved_candy">
-        <item>Gratulation!</item>
-        <item>Ganz passabel!</item>
-        <item>Gute Arbeit!</item>
+        <item>Gratulation</item>
+        <item>Ganz passabel</item>
+        <item>Gute Arbeit</item>
     </string-array>
 
     <!-- Level 3 -->
@@ -188,9 +188,9 @@
         <item>Hier ist das aber schwieriger als angenommen.</item>
     </string-array>
     <string-array name="test_subject_3_riddle_solved_candy">
-        <item>Beifall gibt\'s später…</item>
-        <item>Bemühte sich stets…</item>
-        <item>Bin fast sprachlos.</item>
+        <item>Beifall gibt\'s später</item>
+        <item>Bemühte sich stets</item>
+        <item>Bin fast sprachlos</item>
     </string-array>
 
     <!-- Level 4 -->
@@ -225,9 +225,9 @@
         <item>Total bescheiden.</item>
     </string-array>
     <string-array name="test_subject_4_riddle_solved_candy">
-        <item>Wer hätte das gedacht.</item>
-        <item>Wow…</item>
-        <item>Welch eine Überraschung.</item>
+        <item>Wer hätte das gedacht</item>
+        <item>Wow</item>
+        <item>Welch eine Überraschung</item>
     </string-array>
 
     <!-- Level 5 -->
@@ -263,9 +263,9 @@
         <item>Der erd-sphärische Druck schlägt aufs Gemüt.</item>
     </string-array>
     <string-array name="test_subject_5_riddle_solved_candy">
-        <item>Nochmal bitte!</item>
-        <item>Nicht schlecht!</item>
-        <item>Nur weiter so!</item>
+        <item>Nochmal bitte</item>
+        <item>Nicht schlecht</item>
+        <item>Nur weiter so</item>
     </string-array>
 
     <!-- Level 6 -->
@@ -310,9 +310,9 @@
         <item>Und weniger Frust.</item>
     </string-array>
     <string-array name="test_subject_6_riddle_solved_candy">
-        <item>Unverhofft gut!</item>
-        <item>Unglaublich!</item>
-        <item>Unerwartet passabel.</item>
+        <item>Unverhofft gut</item>
+        <item>Unglaublich</item>
+        <item>Unerwartet passabel</item>
     </string-array>
 
     <!-- Level 7 -->
@@ -348,9 +348,9 @@
         <item>Ich neige nur meistens zu aggressiver Offenheit.</item>
     </string-array>
     <string-array name="test_subject_7_riddle_solved_candy">
-        <item>Blendend!</item>
-        <item>Bin stolz auf dich!</item>
-        <item>Bemerkenswert!</item>
+        <item>Blendend</item>
+        <item>Bin stolz auf dich</item>
+        <item>Bemerkenswert</item>
     </string-array>
 
     <!-- Level 8 -->
@@ -391,9 +391,9 @@
         <item>Kapiert?</item>
     </string-array>
     <string-array name="test_subject_8_riddle_solved_candy">
-        <item>Voll clever!</item>
-        <item>Vorstellung übertroffen!</item>
-        <item>Vorbildlich!</item>
+        <item>Voll clever</item>
+        <item>Vorstellung übertroffen</item>
+        <item>Vorbildlich</item>
     </string-array>
 
     <!-- Level 9 -->
@@ -431,8 +431,8 @@
         <item>Es steht ja auf dem Kopf.</item>
     </string-array>
     <string-array name="test_subject_9_riddle_solved_candy">
-        <item>Klasse Leistung!</item>
-        <item>Kluger Zug!</item>
-        <item>Klasse gemacht!</item>
+        <item>Klasse Leistung</item>
+        <item>Kluger Zug</item>
+        <item>Klasse gemacht</item>
     </string-array>
 </resources>

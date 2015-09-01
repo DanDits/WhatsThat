@@ -18,19 +18,19 @@ import dan.dit.whatsthat.R;
 public class DonationsView extends FrameLayout implements StoreContainer {
 
     /**
-     * Google //TODO add own
+     * Google
      */
-    private static final String GOOGLE_PUBKEY = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAg8bTVFK5zIg4FGYkHKKQ/j/iGZQlXU0qkAv2BA6epOX1ihbMz78iD4SmViJlECHN8bKMHxouRNd9pkmQKxwEBHg5/xDC/PHmSCXFx/gcY/xa4etA1CSfXjcsS9i94n+j0gGYUg69rNkp+p/09nO9sgfRTAQppTxtgKaXwpfKe1A8oqmDUfOnPzsEAG6ogQL6Svo6ynYLVKIvRPPhXkq+fp6sJ5YVT5Hr356yCXlM++G56Pk8Z+tPzNjjvGSSs/MsYtgFaqhPCsnKhb55xHkc8GJ9haq8k3PSqwMSeJHnGiDq5lzdmsjdmGkWdQq2jIhKlhMZMm5VQWn0T59+xjjIIwIDAQAB";
-    private static final String[] GOOGLE_CATALOG = new String[]{"ntpsync.donation.1",
-            "ntpsync.donation.2", "ntpsync.donation.3", "ntpsync.donation.5", "ntpsync.donation.8",
-            "ntpsync.donation.13"};
+    private static final String GOOGLE_PUBKEY = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAn6hUO5Q7mp16xluE7lRKlXJeFAvNktJjEHaDeD624XNcVcfRs7F5+LooYu2fCgHPnX74MyYG6p3ZDXDsHfaubenWVodBYHUo9ZfLWk3bo/kfd3vdFDiRVErQflZgQ88MUwcHl0caexKVYAP/LOCkniJvZKQ7+B/bj93us1nyqbaJOV+iBNveZwoODAgYembc0pOCJ4YgjY+J112o1+cgKZkuDunVLSapokhIWriVDp3XHU6b/1WyegzAA3cSiJV6y6rxy6kMFwGIc1e15oZPV8S7ae6GbZMc/GkeYGzxY1Qi1i4edk0K44rNjm0gfGd1Tz5WYD19cdECY9PXn4WD6QIDAQAB";
+    private static final String[] GOOGLE_CATALOG = new String[]{"whatsthat.donation.1",
+            "whatsthat.donation.2", "whatsthat.donation.3", "whatsthat.donation.5", "whatsthat.donation.8",
+            "whatsthat.donation.13"};
 
     /**
      * Flattr
      */
     private static final String FLATTR_PROJECT_URL = "https://github.com/DanDits/WhatsThat/";
     // FLATTR_URL without http:// !
-    private static final String FLATTR_URL = FLATTR_PROJECT_URL;//TODO add own as soon as thing created (after first flattr)
+    private static final String FLATTR_URL = "github.com/DanDits/WhatsThat";//TODO add own as soon as thing created (after first flattr)
 
     /**
      * Bitcoin
