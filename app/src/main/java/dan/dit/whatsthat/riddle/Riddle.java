@@ -179,7 +179,6 @@ public class Riddle {
         return mAchievementData;
     }
 
-
     /****************** CORE ****************************/
     public static class Core {
         private long mId = NO_ID;

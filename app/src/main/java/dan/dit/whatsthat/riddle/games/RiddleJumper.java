@@ -93,6 +93,7 @@ public class RiddleJumper extends RiddleGame implements FlatWorldCallback {
     private static final float[] CLEAR_MIND_SIZE_FRACTION = new float[] {0.05f, 0.13f, 0.3f, 0.7f};
     private static final int FOGGED_MIND_COLOR = Color.DKGRAY;
     private static final int[] MIND_CLEARED_EVERY_K_OBSTACLES = new int[] {2, 3, 5, 8};
+    private static final int MAX_COLLISIONS_FOR_SCORE_BONUS = 1;
 
 
     private Bitmap mThoughtbubble;
@@ -158,7 +159,8 @@ public class RiddleJumper extends RiddleGame implements FlatWorldCallback {
 
     @Override
     protected int calculateGainedScore() {
-        return RiddleGame.DEFAULT_SCORE;
+        int collisions = mConfig.mAchievementGameData != null ? mConfig.mAchievementGameData.getValue(AchievementJumper.KEY_GAME_COLLISION_COUNT, 0L).intValue() : 0;
+        return super.calculateGainedScore() + (collisions <= MAX_COLLISIONS_FOR_SCORE_BONUS ? Types.SCORE_MEDIUM : 0);
     }
 
     @Override

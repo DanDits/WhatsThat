@@ -19,6 +19,8 @@ import dan.dit.whatsthat.image.Image;
 import dan.dit.whatsthat.riddle.Riddle;
 import dan.dit.whatsthat.riddle.RiddleConfig;
 import dan.dit.whatsthat.riddle.achievement.holders.AchievementCircle;
+import dan.dit.whatsthat.riddle.types.PracticalRiddleType;
+import dan.dit.whatsthat.riddle.types.Types;
 import dan.dit.whatsthat.testsubject.TestSubject;
 import dan.dit.whatsthat.testsubject.shopping.ShopArticleHolder;
 import dan.dit.whatsthat.testsubject.shopping.sortiment.SortimentHolder;
@@ -48,6 +50,7 @@ public class RiddleCircle extends RiddleGame {
     // reasonably high, will be the biggest ones too, higher or unlimited can kill the main thread
     // for a test you can easily go up to 50k circles in no time (with no riddle limits and MIN_RADIUS=1.0f) on a <= 400x400 riddle
     private static final int MODE_MOVING_MAX_CIRCLES_CHECKED = 5000;
+    private static final int MAX_CIRCLES_FOR_EXTRA_SCORE = 200;
     /*
      * Holds the brightness for each pixel of the original bitmap (row wise pixel evaluation).
      */
@@ -205,7 +208,7 @@ public class RiddleCircle extends RiddleGame {
 
     @Override
     protected int calculateGainedScore() {
-        return RiddleGame.DEFAULT_SCORE;
+        return super.calculateGainedScore() + (mCircleCenterX.size() < MAX_CIRCLES_FOR_EXTRA_SCORE ? Types.SCORE_SIMPLE : 0);
     }
 
     /**

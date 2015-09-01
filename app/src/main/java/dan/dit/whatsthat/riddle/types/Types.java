@@ -36,6 +36,11 @@ import dan.dit.whatsthat.util.PercentProgressListener;
  * Created by daniel on 18.05.15.
  */
 public class Types {
+    public static final int SCORE_SIMPLE = 1;
+    public static final int SCORE_MEDIUM = 2;
+    private static final int SCORE_HARD = 3;
+    private static final int SCORE_VERY_HARD = 4;
+    private static final int SCORE_ULTRA = 5;
 
     private Types() {} // do not instantiate
 
@@ -120,6 +125,11 @@ public class Types {
             costs.add(10);
             return costs;
         }
+
+        @Override
+        public int getBaseScore() {
+            return SCORE_SIMPLE;
+        }
     }
 
     /**
@@ -173,6 +183,11 @@ public class Types {
             List<Integer> costs = new ArrayList<>(getTotalAvailableHintsCount());
             costs.add(0);
             return costs;
+        }
+
+        @Override
+        public int getBaseScore() {
+            return SCORE_MEDIUM;
         }
     }
 
@@ -240,6 +255,11 @@ public class Types {
             costs.add(10);
             return costs;
         }
+
+        @Override
+        public int getBaseScore() {
+            return SCORE_VERY_HARD;
+        }
     }
 
     /**
@@ -300,6 +320,10 @@ public class Types {
             List<Integer> costs = new ArrayList<>(getTotalAvailableHintsCount());
             costs.add(0);
             return costs;
+        }
+        @Override
+        public int getBaseScore() {
+            return SCORE_SIMPLE;
         }
     }
 
@@ -368,6 +392,10 @@ public class Types {
             interest += typeToCheck.getInterestValueIfEqual(ContentRiddleType.CONTRAST_WEAK_INSTANCE);
             return interest;
         }
+        @Override
+        public int getBaseScore() {
+            return SCORE_ULTRA;
+        }
     }
 
     /**
@@ -423,6 +451,10 @@ public class Types {
             return costs;
         }
 
+        @Override
+        public int getBaseScore() {
+            return SCORE_MEDIUM;
+        }
 
     }
 
@@ -451,6 +483,11 @@ public class Types {
         public int getExplanationResId() {
             return R.string.riddle_type_developer_explanation;
         }
+
+        @Override
+        public int getBaseScore() {
+            return SCORE_SIMPLE;
+        }
     }
 
     /**
@@ -477,8 +514,16 @@ public class Types {
         public int getExplanationResId() {
             return R.string.riddle_type_torchlight_explanation;
         }
+
+        @Override
+        public int getBaseScore() {
+            return SCORE_SIMPLE;
+        }
     }
 
+    /**
+     * The riddle type for the Flow riddle.
+     */
     public static class Flow extends PracticalRiddleType {
         public static final String NAME = "Flow";
         @Override
@@ -498,7 +543,7 @@ public class Types {
         }
         @Override
         public int getExplanationResId() {
-            return 0;
+            return R.string.riddle_type_flow_explanation;
         }
 
         @Override
@@ -507,6 +552,11 @@ public class Types {
             interest += typeToCheck.getInterestValueIfEqual(ContentRiddleType.CONTRAST_STRONG_INSTANCE);
             interest += typeToCheck.getInterestValueIfEqual(ContentRiddleType.CONTRAST_MEDIUM_INSTANCE);
             return interest;
+        }
+
+        @Override
+        public int getBaseScore() {
+            return SCORE_MEDIUM;
         }
     }
 }

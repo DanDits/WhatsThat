@@ -253,9 +253,4 @@ public class RiddleDeveloper extends RiddleGame {
         return "";
     }
 
-    @Override
-    protected int calculateGainedScore() {
-        return 0;
-    }
-
 }

@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Circle related -->
+    <string name="riddle_type_circle">Graue Zellen</string>
+    <string name="riddle_type_circle_explanation">Berühre einen Kreis, um diesen in vier kleinere aufzuteilen. Dadurch wird die Kontur des versteckten Bildes sichtbar.</string>
+    <string-array name="riddle_type_circle_hints">
+        <item>Teile bei unserem ersten Experiment einen Kreis, so wie Mose das Wasser. Nur nicht in zwei Hälften, sondern in vier neue Kreise. Irgendwann erkennst du durch die feineren Konturen ein Bild. Falls nicht, führe ich die Versuchsreihe mit Pantoffeltierchen weiter, die diese Tests mit Bravour bestanden haben.</item>
+        <item>Demo Version beendet. Kaufe die Vollversion für nur 59,99€. Just kidding. Geh trotzdem mal in den Shop. Dort finden sich praktische Dinge, wie zum Beispiel der intergalaktische Kreislaser-Turbo-Schneider…</item>
+        <item>Eine Schnellanleitung findest du oben rechts. Dort kannst du auch ein Bild überspringen, solltest du mal nicht weiter kommen.</item>
+        <item>Sollte dieses Experiment einigermaßen erfolgreich verlaufen, kannst du später in der Mitte zwischen verschiedenen Versuchen wählen. Oder zurückgestellte Bilder.</item>
+        <item>Manche menschliche Augen erkennen manche Bilder manchmal erst aus manch einer Entfernung. Manchmal hilft auch ein Screenshot.</item>
+        <item>So, jetzt hast du mich genug belästigt. Das wars für den Anfang.</item>
+    </string-array>
+    <string name="article_circle_divide_by_move_feature_name">Lazor Schneider</string>
+    <string name="article_circle_divide_by_move_feature_descr">Erlaubt Kreise mit dem Finger zu zerschneiden. Sehr entspannend!</string>
+
+    <!-- Snow related -->
+    <string name="riddle_type_snow">Zorny Zell</string>
+    <string name="riddle_type_snow_explanation">Beschleunige die Zelle durch Kippen des Gerätes. Sammle Süßigkeiten, wachse und explodiere das Bild frei.</string>
+    <string-array name="riddle_type_snow_hints">
+        <item>Ein neuer Test. In der Umgebung der Zelle platzieren wir kontaminierte biologische Stoffe einer anderen Spezies, um die Reaktion der Zelle darauf zu testen. Achte auf die Partikel, die von dem Stoff ausgehen und deiner Zelle schaden. Den Rest werden wir, wie in der Politik, mit einer Lüge bestmöglich verschleiern.</item>
+        <item>Durch den Versuch erhoffen wir uns tiefere Einblicke in die irdische graue Substanz, ein Bestandteil deines Zentralnervensystems. Dazu mussten wir aus deinem Gehirn eine Zelle entfernen. Die entfernte Gehirnzelle wirst du kaum merken. Du kannst deinen Kopf aber gegen die Wand schlagen. Das verdeutlicht den Effekt.</item>
+        <item>Woher Engelchen kommt? Wir haben einer Zelle Tätrhaw injiziert. Das zeigt der Zelle die blanke Realität.  Als wir das Zeug der Zelle eines Politiker gegeben haben, ist die Zelle augenblicklich geplatzt.</item>
+        <item>Sollte Engelchen zu hektisch oder aufgewühlt sein: Lass es die Wand schmecken. Es wird sich beruhigen.</item>
+        <item>Jedes Partikel lässt dich prozentual schrumpfen. Engelchen schützt dich etwas vor durchgehenden Partikel oder Wandkollisionen.</item>
+        <item>Du kannst Engelchen auch aus dem Spielfeld drücken. Dann wird deine Zelle temporär wieder in den Narrheits-Zustand versetzt.</item>
+    </string-array>
+
+    <string-array name="devil_talk_recovering_start">
+        <item>Aah mein Magen</item>
+        <item>Autsch</item>
+        <item>Muss… be…schütz…en</item>
+    </string-array>
+    <string-array name="devil_talk_recovered">
+        <item>Mir geht\'s wieder gut!</item>
+        <item>Da habe ich mir wohl für dich den Magen verdorben…</item>
+        <item>Das habe ich nur für dich durchgestanden!</item>
+    </string-array>
+    <string-array name="devil_talk_return">
+        <item>Deine Anziehungskraft hat mich wieder her geholt.</item>
+        <item>Hast du mich vermisst?</item>
+        <item>Ich werde dich nicht nochmals verlassen.</item>
+        <item>Mein Schatz, ich bin wieder da!</item>
+        <item>Wiederauferstehung erfolgreich abgeschlossen!</item>
+        <item>Ich bin zu anhänglich? Ich würde das Leidenschaft nennen.</item>
+        <item>So wie der Mond bei der Erde bleibt, so bleibe ich bei dir!</item>
+        <item>Wiederbelebung in 3..2.. ups, bin ja schon da.</item>
+    </string-array>
+    <string-array name="devil_talk_killed">
+        <item>Ich komme wieder.</item>
+        <item>Neeeeeeiiiiiinnnnnn.</item>
+        <item>Was zur Hölle tust du da?</item>
+        <item>Liebst du mich denn nicht?</item>
+        <item>Tu das nicht, du brauchst mich!</item>
+        <item>Das Bonbon ist eine Lüge!</item>
+        <item>Ach, diese unerwiderte Liebe tut so weh…</item>
+        <item>Das war mal wieder ein Schuss in den Oooooofen.</item>
+    </string-array>
+    <string-array name="devil_talk_cell_eat_candy">
+        <item>NEIN! Das ist doch giftig!</item>
+        <item>Bist du so blind, dass ist kein Bonbon?!</item>
+        <item>Warum tust du das, hör auf damit!</item>
+        <item>Seufz…</item>
+        <item>Stop! Achte auf deinen Cholesterinspiegel!</item>
+        <item>Wer hat dir eigentlich deine Manieren beigebracht?</item>
+    </string-array>
+    <string-array name="devil_talk_cell_eat_candy_explosive">
+        <item>Wooah, bleib ruhig, schön ruhig.</item>
+        <item>Wann warst du dsa letzte Mal so richtig glücklich?</item>
+        <item>Schnell, küss die Wand!</item>
+        <item>Das wird gleich wehtun.</item>
+    </string-array>
+    <string-array name="devil_talk_mock">
+        <item>Vergiss es, ich dreh einfach weiter meine Kreise</item>
+        <item>Ich will dir doch nur helfen.</item>
+        <item>Wieso behandelst du mich so grob, du machst mich ganz traurig.</item>
+    </string-array>
+
+    <!-- Triangle related -->
+    <string name="riddle_type_triangle">Triluminati</string>
+    <string name="riddle_type_triangle_explanation">Berühre ein Dreieck, um es in kleinere Dreiecke aufzuteilen. Dadurch wird das versteckte Bild immer besser erkenntlich.</string>
+    <string-array name="riddle_type_triangle_hints">
+        <item>WiseMind meint, ich rede zu viel. Ich halte mich deshalb kurz: Ein farbliches Pendant zum Kreis-Test. Klickst du auf ein Dreieck, teilt sich dieses in zwei kleinere. Wozu das ganze? Zum Testen eurer Farbwahrnehmung.</item>
+        <item>Wenn du mehrere Dreiecke in der Mitte berührst, teilst du alle auf einmal. Magic! Ansonsten gleiche Punkte wie beim Kreis-Experiment.</item>
+        <item>Willst du dich mit mir unterhalten oder tust du nur so, als ob du dich nach einer Konversation sehnst?</item>
+        <item>Du kannst deine kurze Lebenszeit gerne weiter verschwenden und Buttons drücken.</item>
+        <item>Bist du verliebt in mich oder wieso willst du nicht loslassen?</item>
+        <item>Menschenskind! Jetzt habe ich genug! 300 Milliliter von dieser Spritze. Das haut sogar einen Elefanten um. Und Tschüss.</item>
+    </string-array>
+    <string name="article_triangle_divide_by_move_feature_name">Mehr Lazor</string>
+    <string name="article_triangle_divide_by_move_feature_descr">Erlaubt Dreiecke mit dem Finger zu zerschneiden. Noch entspannender!</string>
+
+    <!-- Dice related -->
+    <string name="riddle_type_dice">Alien-Cube</string>
+    <string name="riddle_type_dice_explanation">Berühre ein leeres Feld, damit ein neuer Würfel erscheint. Bewege und kombiniere Würfel gleicher Augenzahl und Farbe, um das Bild aufzudecken.</string>
+    <string-array name="riddle_type_dice_hints">
+        <item>Ein komplizierter Test. Kombiniere  Würfel gleicher Zahl und Farbe. In den angezeigten Bereichen entsteht Transparenz. Es gibt drei Basiswürfel rot, gelb und grün sowie die Sonderwürfel lila und den Alien Cube. Der Alien-Cube hat auf jeden Basiswürfel unterschiedliche Effekte.</item>
+        <item>Grund für diesen komplizierten Versuch ist eine Anomalie, die wir bei euch festgestellt: Euren irdischen Würfel fehlt eine Dimension. Sie haben fälschlicherweise 6 Seiten, obwohl es 9 sind. Wir testen dein Gedächtnis daher auf Realitätsbasis hinsichtlich Kombination, Zahlen, Taktik, Logik, Farbe, Bewegung, Logistik und Schnelligkeit. Ja, ich halte es auch für einen Fehler, weil dich das ziemlich überfordert, aber Befehl ist Befehl.</item>
+        <item>Alien-Cube auf Rot ergibt grün und deckt den entsprechende Bereich auf.</item>
+        <item>Alien-Cube auf Gelb deckt das Feld zu 100% und lässt die Würfel verschwinden.</item>
+        <item>Alien-Cube auf Grün ergibt lila. Die aufgedeckten Felder sind beweglich aber die Transparenz ist abhängig von der Augenzahl.</item>
+        <item>Was ich empfehle?  Wenn du bereits einen grünen Würfel hast, kannst du mit rot sofort einen zweiten grünen Würfel mit geschenkter Transparenz bekommen.\nAls Glücksspieler empfehle ich gelb. Möchtest das ganze Bild scannen, würde ich einen grünen Würfel nehmen.</item>
+        <item>Wenn ich den Alien–Cube auf grün kombiniere, dann meist auf 4–6. Wieso? Na das Verhältnis Felder:Transparenz ist hier ziemlich gut.</item>
+        <item>Ein volles Feld ist nicht unbedingt tragisch: du verlierst zwar rote und gelbe Würfel sowie etwas Transparenz, dafür hast du wieder Freiraum.</item>
+        <item>Nach dem Ameisenprinzip können rote und gelbe Würfel beliebig bewegt werden, sofern ein Weg frei ist. Was wohl der maximale Sprung ist?</item>
+    </string-array>
+
+    <!-- Jumper related -->
+    <string name="riddle_type_jumper">Monstarathon</string>
+    <string name="riddle_type_jumper_explanation">Berühre das Feld, um über Hindernisse zu springen. Halte länger gedrückt um höher zu springen.</string>
+    <string-array name="riddle_type_jumper_hints">
+        <item>Ihr Menschen seid ein merkwürdisches Völkchen. Ein Esel lässt sich mit einer Karotte zum Laufen animieren, bei euch Homo-Sapiens bedarf es einem Bündel Geld, obwohl das nicht mal essbar ist.</item>
+        <item>Wie dem auch sei. Wir haben an einem Geschäftsmann einige Versuche durchgeführt und dazu die Erinnerungen blockiert. Du kannst diese wieder lösen, indem du über Hindernisse springst. Mit einem einfachen Gedanken konnten wir unseren Kaufmann zu einem Marathon mit Hindernissen motivieren: \"Am Ende des Regenbogens steht ein Topf voller Geld.\" Zu schade, dass es nachts keinen Regenbogen gibt.</item>
+        <item>Einmal klicken: Jump, zweimal klicken oder gedrückt halten: Double Jump. Kapiert?</item>
+        <item>Es gibt vier Bereiche. Je nach Schwierigkeit wird die Erinnerung unterschiedlich groß ausfallen.</item>
+        <item>Nach jeden x-überwundenen Hindernissen wird sich unser Geschäftsmann erinnern. Manchmal aber an irrelevante Dinge, der Bereich bleibt dann unverändert.</item>
+        <item>Übung macht den Meister. Aber manche Menschen sind für Jump and Runs einfach nicht geschaffen.</item>
+        <item>Du fragst dich wer Manomnom ist? Ein mysteriöses Wesen!</item>
+        <item>Manomnom wartet im letzten Bereich auf dich. Und weil mein Meister ihn so gern hat, auch nach jeder Schwierigkeitszone.</item>
+        <item>Sein Laserstrahl verkohlt dich übrigens nur zu seinen Füßen. Der Rest ist lediglich Showeinlage.</item>
+        <item>Warum er alles Lasern will? Nach dem Verspeisen von Antimaterie ist er leider etwas verrückt geworden.</item>
+        <item>Manomnom und ich sind die Lieblinge meines Meisters!</item>
+        <item>Ach Manomnom, du Dummerchen. Warum konntest du Nimmersatt deine Klauen nicht einfach von der Antimaterie lassen…?</item>
+    </string-array>
+    <string-array name="riddle_jumper_collision_break">
+        <item>Das kannst du besser</item>
+        <item>Auf ein Neues</item>
+        <item>Du schaffsts noch weiter</item>
+        <item>Game Over!?</item>
+    </string-array>
+    <string name="riddle_jumper_new_highscore">Neuer Rekord %1$dm !</string>
+    <string name="riddle_jumper_old_highscore">Bisheriger Rekord %1$dm</string>
+    <string name="article_jumper_start_further_descr">Starte ab 200m und überspringe den leichten Teil.</string>
+    <string name="article_jumper_start_further_name">Triple XxX</string>
+
+    <!-- Memory related -->
+    <string name="riddle_type_memory">Memory</string>
+    <string name="riddle_type_memory_explanation">Finde Kartenpaare mit gleichen Bildern und decke diese durch Klicken auf.</string>
+    <string-array name="riddle_type_memory_hints">
+        <item>Memory ist cool.</item>
+    </string-array>
+
+    <!-- Developer related -->
+    <string name="riddle_type_developer">Entwickler</string>
+    <string name="riddle_type_developer_explanation">Hallo ich oder Bruder.</string>
+
+    <!-- Torchlight related -->
+    <string name="riddle_type_torchlight">Fakel</string>
+    <string name="riddle_type_torchlight_explanation">Geheim und mysteriös und bla bla.Geheim und mysteriös und bla bla.Geheim und mysteriös und bla bla.Geheim und mysteriös und bla bla.Geheim und mysteriös und bla bla.Geheim und mysteriös und bla bla.Geheim und mysteriös und bla bla.Geheim und mysteriös und bla bla.Geheim und mysteriös und bla bla.Geheim und mysteriös und bla bla.Geheim und mysteriös und bla bla.</string>
+
+    <!-- Flow related -->
+    <string name="riddle_type_flow">Chaosfluss</string>
+    <string name="riddle_type_flow_explanation">Durch Berühren entstehen Pixelflüsse, welche Linien im versteckten Bild folgen.</string>
+
+</resources>

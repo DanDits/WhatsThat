@@ -23,6 +23,7 @@ import dan.dit.whatsthat.image.Image;
 import dan.dit.whatsthat.riddle.Riddle;
 import dan.dit.whatsthat.riddle.RiddleConfig;
 import dan.dit.whatsthat.riddle.achievement.holders.AchievementDice;
+import dan.dit.whatsthat.riddle.types.Types;
 import dan.dit.whatsthat.util.BuildException;
 import dan.dit.whatsthat.util.PercentProgressListener;
 import dan.dit.whatsthat.util.compaction.CompactedDataCorruptException;
@@ -348,7 +349,10 @@ public class RiddleDice extends RiddleGame {
 
     @Override
     protected int calculateGainedScore() {
-        return RiddleGame.DEFAULT_SCORE;
+        boolean noResets = mConfig.mAchievementGameData != null && mConfig.mAchievementGameData.getValue(AchievementDice.KEY_GAME_RESET_COUNT, 0L) == 0L;
+        boolean noPurpleDices = mConfig.mAchievementGameData != null && mConfig.mAchievementGameData.getValue(AchievementDice.KEY_GAME_PURPLE_COUNT, 0L) == 0L;
+
+        return super.calculateGainedScore() + ((noResets && noPurpleDices) ? Types.SCORE_SIMPLE : 0);
     }
 
     @Override

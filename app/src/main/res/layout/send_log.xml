@@ -8,7 +8,7 @@
         android:layout_height="wrap_content"
         android:text="@android:string/cancel"
         android:id="@+id/cancel"
-        android:layout_alignParentTop="true"
+        android:layout_below="@+id/text"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
 
@@ -18,8 +18,8 @@
         android:text="@string/send_log_confirm"
         android:id="@+id/send"
         android:layout_gravity="center_horizontal"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="0dp" />
+        android:layout_below="@+id/text"
+        android:layout_alignParentLeft="true" />
 
     <TextView
         android:layout_width="wrap_content"

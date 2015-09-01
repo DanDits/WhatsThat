@@ -1,6 +1,29 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 
 <resources>
+    <string name="credits_text"><![CDATA[
+            <p>Many people contributed to this project and we did not have to apply force to any of them, this makes us happy. Also those people and their brilliant minds make us happy for</p>
+            <ul>
+            <li>being awesome</li>
+            <li>testing and elimination of bugs</li>
+            <li>giving hints and suggestions</li>
+            <li>supplying images and ideas</li>
+            </ul>
+            <p>The best way of saying thank you is by thanking them: thanks.</p>
+            <p style="text-align: center;"><u>First but not least, thanks to my bro and brother Fabian! Without you, this would not exist.</u></p>
+            <p><strong>Looking for the author of an individual image? Don&#39;t panic! This dialog is made for this case.. and some other cases.</strong></p>
+            <ol>
+            <li>&nbsp; Non riddle image authors<ul>
+            <li>&nbsp;</li>
+            </ul>
+            </li>
+            <li>&nbsp;Testers and contributers<ul>
+            <li>&nbsp;</li>
+            </ul>
+            </li>
+            </ol>
+
+        ]]></string>
 
     <string name="store_category_menu">Zurück zum Experiment</string>
     <string name="store_category_shop">Laden: %1$d</string>
@@ -35,431 +58,7 @@
     <string name="init_skip_state_init_missing">Testsubjekt wird initialisiert</string>
     <string name="init_skip_state_none">Testsubjekt wird geladen</string>
 
-    <string name="intro_test_subject_name">-Test Subjekt-</string>
-    <string name="intro_test_subject_estimated_intelligence">-Intelligenz-</string>
-
-    <string name="intro_test_subject_gender_answer_male">Männlich</string>
-    <string name="intro_test_subject_gender_answer_female">Weiblich</string>
-    <string name="intro_test_subject_gender_answer_whatever">Anderes</string>
-
-    <string name="intro_test_answer_yes">Ja</string>
-    <string name="intro_test_answer_no">Nein</string>
-    <string name="intro_test_answer_bullshit">Schokolade</string>
-
-    <string name="test_subject_0_name">Verwirrtes Kind</string>
-    <string name="test_subject_0_int">Hoffnungslos</string>
-    <string-array name="test_subject_0_0_intro_main">
-        <item>Hallo Du, kannst du mich verstehen?</item>
-        <item>Die Neuronen reagieren auf meine liebliche Stimme. </item>
-        <item>Das deute ich als ja.</item>
-        <item>Erdling, ich heiße dich auf einer Reise in die Untiefen deines Geistes willkommen.</item>
-        <item>Ich bin Meister Minion Xiaros Blu Equaris Zubatro Venalo der 364k.</item>
-        <item>Es reicht aber, wenn du mich ganz zwanglos mit \"Erhabener\" anredest.</item>
-        <item>Du kannst mich natürlich auch mit anderen Ehrentiteln anreden.</item>
-        <item>Beispielsweise \"Eure Durchlauchtheit\", \"Erhabenes Wesen aus Sonnenstrahlen\"</item>
-        <item>Oder \"Oh ruhmreiches und unübertreffliches Wesen aller Galaxien\". Entschuldige. Ich schweife schnell ab. </item>
-    </string-array>
-    <string-array name="test_subject_0_1_intro_main">
-        <item>Das hier ist Dr. Kulg.</item>
-        <item>Ihr würdet ihn einen verrückt genialen Wissenschaftler nennen.</item>
-    </string-array>
-    <string-array name="test_subject_0_2_intro_main">
-        <item>Verrate mir nur vorweg bitte eins: Was bist du für ein Wesen?</item>
-        <item>Unsere hochentwickelte Kultur ist darüber zu erhaben, aber euch Menschen ist das ja wichtig.</item>
-    </string-array>
-    <string-array name="test_subject_0_3_intro_main">
-        <item>Meine Schöpfer und ich, oder kurz gesagt: wir.</item>
-        <item>Wir wollen die menschliche Spezies besser verstehen.</item>
-        <item>Unsere Wahl ist dabei auf dich gefallen.</item>
-        <item>Du wirst unser Versuchsobjekt sein</item>
-        <item>Wir werden dich beobachten und im Hintergrund die gewonnen Daten auswerten.</item>
-        <item>Wir hoffen, du hast das Potential, das wir in dir sahen.</item>
-        <item>Zumindest sahst du aus der Ferne vielversprechend aus…</item>
-        <item>Aber von Nahmen betrachtet.. vermute ich ein Versagen des Zentralgehirns…</item>
-        <item>Nun.. enttäusche deinen Planeten besser nicht.</item>
-    </string-array>
-    <string-array name="test_subject_0_intro_nuts">
-        <item>…</item>
-		<item>Darf ich dir unser Zentralgehirn WiseMind vorstellen.. mit ihr haben wir dein Gehirn verbunden.</item>
-        <item>Ein Gehirn von der Größe einer Galaxie.. und dann.. nun ja.. deines daneben…</item>
-        <item>Ich hoffe ihr werdet euch trotzdem verstehen</item>
-        <item>Test: Ist 13 eine Primzahl?</item>
-        <item>Antwortzeit überschritten. Keine Reaktion festzustellen.</item>
-        <item>Ok vielleicht was einfacheres, denk mal an etwas zu essen.</item>
-        <item>Aha, Süßigkeiten.</item>
-        <item>Wunderbar, da der Anschluss funktioniert können wir hoffentlich gleich beginnen.</item>
-        <item>Ich hoffe mal du bist nicht schwer von Begriff.</item>
-        <item>Nicht das wir dich überfordern. Mal sehen.. Buchstaben, nö…Zahlen, negativ…</item>
-        <item>Was kannst du eigentlich?</item>
-        <item>Mal sehen, wie es auf Bilder reagiert.</item>
-        <item>Aha.. Affinität zu Anomalien der Farbvalenz</item>
-        <item>WiseMind, bereichte Versuchsreihe 272 zur Feststellung und Messung der Intelligenz der Homo Sapiens vor.</item>
-        <item>Erdling, wie bei allen zukünftigen Experimenten der Versuchsreihe 272, geht es darum, das Bild zu erraten.</item>
-        <item>Wenn du einmal nicht weiterkommst, dann schiebe bitte "keine Panik".</item>
-        <item>WiseMind wird eine für dich maßgeschneiderte Hilfe geben, wenn unser Intellekt den irdischen übersteigt.</item>
-        <item>Und nun, wie man bei euch so schön sagt: Kopf in Mülleimer!</item>
-        <item>Oh, hoppla, Verzeihung ich meinte natürlich: Viel Erfolg!</item>
-    </string-array>
-    <string-array name="test_subject_0_riddle_solved_candy">
-        <item>Gut gemacht!</item>
-        <item>Geschafft!</item>
-        <item>Großes Lob!</item>
-    </string-array>
-
-    <string name="test_subject_1_name">Kind</string>
-    <string name="test_subject_1_int">Ein Funken</string>
-    <string-array name="test_subject_1_0_intro_main">
-        <item>WiseMind berichtet von Verbesserungen.</item>
-        <item>Wenn das nicht von ihr kommen würde… wer hätte das geglaubt.</item>
-        <item>Trotzdem muss ich diese Behauptung überprüfen.</item>
-        </string-array>
-    <string-array name="test_subject_1_1_intro_main">
-        <item>Test: Was ist die 7364. Primzahl?</item>
-        <item>Nein; Schokolade ist keine Primzahl.</item>
-        <item>Immerhin warst du diesmal schnell mit deiner Antwort.</item>
-        <item>Das ist ja schonmal besser als nichts.</item>
-        </string-array>
-    <string-array name="test_subject_1_2_intro_main">
-        <item>Wie dem auch sei. Wenn ich nun das Protokoll hier lade, dann.. Oha.</item>
-        <item>Alpha Stimulation bewirkt eine Allergiereaktion.</item>
-        <item>Wer hätte gedacht, dass Gehirne so reagieren könnten.</item>
-        <item>Als nächstes.. Injektion der Äther Blocker zur Sensibilisierung der Materie.</item>
-        <item>Warum grinst du so dämlich?</item>
-        <item>Ach weil du das nicht verstanden hast.</item>
-        <item>Ich schreibs ins Protokoll.</item>
-    </string-array>
-    <string-array name="test_subject_1_intro_nuts">
-        <item>Die Reaktionen lassen vermuten, dass der menschliche IQ nur knapp über dem absoluten Gefrierpunkt liegt</item>
-        <item>Homo Sapiens, wie haben die bloß diesen Planeten so schnell kaputt gemacht mit so wenig Hirn?</item>
-		<item>Steht hier nicht irgendwo so ein Satz…?</item>
-		<item>Achja hier:\"denn sie wissen nicht, was sie tun…</item>
-        <item>Das kann ich nur bestätigen.</item>
-        <item>Das zerstörerische Verhalten war wohl keine Absicht, sondern fehlender Überblick.</item>
-        <item>Ob wir ihnen dabei helfen sollten und dann den Planeten von neuem besiedeln?</item>
-        <item>Oh du hörst mir noch zu.. ich mache nur Spaß.</item>
-    </string-array>
-    <string-array name="test_subject_1_riddle_solved_candy">
-        <item>Bedachter Zug!</item>
-        <item>Bombastisch!</item>
-        <item>Bravo!</item>
-    </string-array>
-
-    <string name="test_subject_2_name">Klugscheißer</string>
-    <string name="test_subject_2_int">Hoffnungslos überschätzt</string>
-    <string-array name="test_subject_2_0_intro_main">
-        <item>WiseMind ist außer sich.. vor Begeisterung.</item>
-        <item>Sie meint, sie hätte von Anfang an recht gehabt.</item>
-        <item>Ich allerdings behaupte, du hast nur gelernt, was wir von dir sehen wollten.</item>
-        <item>Uns ist aufgefallen, dass du noch gar keine Primzahlen kanntest.</item>
-        <item>Bei uns werden Primzahlen schon in der Plasmagranulation aufgenommen…</item>
-		<item>-das entspricht eurer Muttermilch.</item>
-        <item>Verzeihe die Überschätzung deines Intellekts.</item>
-        </string-array>
-    <string-array name="test_subject_2_1_intro_main">
-        <item>Test: Was ist die Lösung des P-NP Problems?</item>
-        <item>Wie? Ein Millennium-Problem?</item>
-        <item>Nach so langer Zeit und noch immer keine Lösung?</item>
-        <item>Hmmm.. dann eben ein leichter Test.</item>
-        <item>Was ist das Molekulargewicht von Antimaterie?</item>
-        <item>6? Naja. Fast korrekt!</item>
-        <item>Seufz. Das kann ja noch was werden…</item>
-		<item>Als die Suppe der Weisheit verteilt wurde, seid ihr wohl mit der Gabel angerannt.</item>
-    </string-array>
-    <string-array name="test_subject_2_intro_nuts">
-        <item>Übermütige Kommentare und Beleidigungen meinerseits sind übrigens nur ein Versuch menschlich zu kommunizieren.</item>
-        <item>Aber nun weiter im Protokoll.</item>
-    </string-array>
-    <string-array name="test_subject_2_riddle_solved_candy">
-        <item>Gratulation!</item>
-        <item>Ganz passabel!</item>
-		<item>Gute Arbeit!</item>
-    </string-array>
-	
-	<string name="test_subject_3_name">Trottel</string>
-    <string name="test_subject_3_int">Utopisch debil</string>
-    <string-array name="test_subject_3_0_intro_main">
-        <item>Diesmal wenden wir uns einem meiner Lieblingsthemen zu:</item>
-        <item>Pi.</item>
-        <item>Der Test ist ganz simpel.</item>
-        </string-array>
-    <string-array name="test_subject_3_1_intro_main">
-        <item>Was ist die 103057. Stelle von Pi?</item>
-        <item>Naja fast.5.</item>
-        </string-array>
-    <string-array name="test_subject_3_2_intro_main">
-		<item>Und die 84765. Stelle?</item>
-        <item>Nein, auch 5.</item>
-        </string-array>
-    <string-array name="test_subject_3_3_intro_main">
-        <item>Und die 7530 Stelle?</item>
-        <item>5!</item>
-        </string-array>
-    <string-array name="test_subject_3_4_intro_main">
-        <item>Die 836 Stelle?</item>
-		<item>Falsch. 6. Ich gebs auf.</item>
-    </string-array>
-    <string-array name="test_subject_3_intro_nuts">
-        <item>Eines steht fest.</item>
-        <item>Ihr müsst euch vor anderen Lebewesen nicht fürchten.</item>
-		<item>Ein geistiger Pygmäe besitzt in einem FInger mehr Intelligenz, als ihr in eurem gesamten Körper.</item>
-		<item>Solltet ihr eines Tages wieder einmal Besuch von einer anderen Hochkultur bekommen:</item>
-		<item>ihr habt nichts zu befürchten.</item>
-		<item>Vermutlich kehren sie mit blankem Entsetzen im Gesicht um.</item>
-		<item>Oder sie genießen das Kino, wenn ihr euch gegenseitig bekämpft.</item>
-		<item>Wir sind eine der wenigen Ausnahmen:</item>
-		<item>Wir studieren euch vorher!</item>
-		<item>Ihr führt Versuche, ich meine Ratten und Affen gesehen zu haben, an niederen Lebewesen durch.</item>
-        <item>Das tun wir auch!</item>
-        <item>Mit euch zum Beispiel.</item>
-        <item>Was gugst du mich so an?</item>
-        <item>Unsere Versuche dienen immer nur zur Messung der Intelligenz anderer Lebewesen!</item>
-        <item>Naja meistens zumindest. Sofern vorhanden.</item>
-        <item>Und wenn sie sich nicht so anstellen.</item>
-        <item>Ich gebe mir ja Mühe den Motivationsfaktor wieder anzukurbeln.</item>
-        <item>Hier ist das aber schwieriger als angenommen.</item>
-    </string-array>
-    <string-array name="test_subject_3_riddle_solved_candy">
-        <item>Beifall gibt\'s später…</item>
-        <item>Bemühte sich stets…</item>
-		<item>Bin fast sprachlos.</item>
-    </string-array>
-
-	<string name="test_subject_4_name">Einfaltspinsel</string>
-    <string name="test_subject_4_int">Unterirdisch</string>
-    <string-array name="test_subject_4_0_intro_main">
-        <item>Sogar WiseMind fängt langsam an zu zweifeln.</item>
-        <item>Zu zweifeln, ob die Entscheidung mit dir die richtige war.</item>
-        <item>Sie ist nun am Prüfen, ob es an deinem Gehirn liegt.</item>
-        </string-array>
-    <string-array name="test_subject_4_1_intro_main">
-        <item>Vielleicht ist der Schwachsinn ein kollektives Problem archaischen Ursprungs.</item>
-        <item>Wir wissen ja noch nicht, woran ihr Erdlinge sonst noch leidet.</item>
-		<item>Erste Ergebnisse ergaben bisher nur:</item>
-        <item>Arroganz.</item>
-        <item>Maßlose Selbstüberschätzung.</item>
-        <item>Größenwahn.</item>
-        <item>Teilweise sogar Hybris.</item>
-        <item>Gier.</item>
-		<item>Antipathie.</item>
-		<item>Ich könnte noch weiter machen. Das ist traurige Realität.</item>
-    </string-array>
-    <string-array name="test_subject_4_intro_nuts">
-		<item>Und dann sieh mich an:</item>
-		<item>Das Musterbeispiel eines intelligenten Wesens:</item>
-		<item>Geistrich.</item>
-		<item>Abenteuerlustig auf andere Planeten.</item>
-		<item>Scharfsinnig im Verstand.</item>
-		<item>Fürsorgend für niedere.</item>
-        <item>Beispielsweise dich.</item>
-		<item>Und natürlich:</item>
-        <item>Total bescheiden.</item>
-    </string-array>
-    <string-array name="test_subject_4_riddle_solved_candy">
-        <item>Wer hätte das gedacht.</item>
-        <item>Wow…</item>
-		<item>Welch eine Überraschung.</item>
-    </string-array>
-
-	<string name="test_subject_5_name">Grünschnabel</string>
-    <string name="test_subject_5_int">Ein Stein im Wasser</string>
-    <string-array name="test_subject_5_intro_main">
-        <item>Letztes Mal habe ich etwas übertrieben.</item>
-        <item>Ich habe WiseMind versprochen, dass ich die Menschheit nicht pausenlos dumm nenne.</item>
-        <item>Und dich soll ich auch nicht mehr beleidgen.</item>
-        <item>Zumindest nicht so offensichtlich.</item>
-        <item>Was aber nicht heißt, dass ich dich anspruchsvoller beschimpfen werde.</item>
-		<item>Du kannst über die Bedeutung ja nachdenken und dich später beschweren.</item>
-    </string-array>
-    <string-array name="test_subject_5_intro_nuts">
-		<item>Eine Frage stelle ich mir schon die ganze Zeit.</item>
-		<item>Ich kann ja verstehen, dass sich Kinder bei eurer Spezies noch im Entwicklungsstadium und am Lernen befinden.</item>
-		<item>Aber wieso seid ihr erwachsenen Menschen so dumm?</item>
-		<item>Verzeihung bitte.</item>
-		<item>Ich wollte sagen: Wieso stellen körperlich ausgereifte Menschen eine Evolutionsbremse in der Entwicklung dar?</item>
-        <item>Die Betonung liegt auf körperlich.</item>
-        <item>Von geistig kann kaum die Rede sein.</item>
-		<item>Dass ein dum..</item>
-		<item>..ein intellektueller Tiefflieger aufgrund mangelnder Alternativen Politiker wird, verständlich.</item>
-		<item>Doch der Rest?</item>
-		<item>Könnte versuchen, mal das eigene Sonnensystem zu erforschen.</item>
-		<item>Die Sonne zu erkunden. Euren Intellekt zu verbessern.</item>
-		<item>Und stattdessen aufhören an eurer eigenen Vernichtung zu arbeiten…</item>
-        <item>Ihr baut Waffen, die euch selbst vernichten würden.</item>
-        <item>Welches Wesen sägt bitte schön den Ast ab, auf dem es sitzt?</item>
-		<item>Ich sehe.. mein Temperament geht mit mir durch.</item>
-		<item>Die Tests reizen mein Nervenschild.</item>
-        <item>Ich frage WiseMind, ob sie nicht etwas dagegen tun kann.</item>
-        <item>Der erd-sphärische Druck schlägt aufs Gemüt.</item>
-    </string-array>
-    <string-array name="test_subject_5_riddle_solved_candy">
-        <item>Nochmal bitte!</item>
-        <item>Nicht schlecht!</item>
-		<item>Nur weiter so!</item>
-    </string-array>
-	
-	<string name="test_subject_6_name">Entdecker</string>
-    <string name="test_subject_6_int">Ausbaufähig</string>
-    <string-array name="test_subject_6_intro_main">
-        <item>WiseMind hat mir für diese Atmosphäre eine Spezialcreme hergestellt!</item>
-        <item>Jetzt geht es mir wesentlich besser!</item>
-        <item>Und noch eine gute Nachricht!</item>
-        <item>Wir haben dich noch nicht aufgegeben!</item>
-        <item>Zumindest noch nicht ganz.</item>
-        <item>WiseMind hat gesagt, ich soll meine Anforderungen senken.</item>
-		<item>Also meine Anforderungen an dich.</item>
-        <item>Und sie trifft den Menschen, äh den Nagel auf den Kopf!</item>
-		<item>Natürlich tut sie das. WiseMind irrt sich fast nie.</item>
-		<item>Aber zurück zum Thema.</item>
-    </string-array>
-    <string-array name="test_subject_6_intro_nuts">
-		<item>Voller Hoffnung starten wir einen kurzen Versuch:</item>
-		<item>Ist die 11 eine Primzahl?</item>
-		<item>Nein, Lakritze ist nicht ganz korrekt! Du hattest es fast.</item>
-		<item>Warte, die Frage anders formuliert: Was ist die 3. Schokolade von Pi?</item>
-		<item>4 ist korrekt!!!</item>
-		<item>Fantastisch! Fehlt eigentlich nur noch der Trommelwirbel.</item>
-        <item>Und welche Primzahl lakritzt?</item>
-		<item>18 IST.. nicht ganz korrekt. Aber ein Anfang</item>
-		<item>Schnelle Antwort bei teilweise richtigen Antworten.</item>
-		<item>hmm… Das Ergebnis ist nicht weltbewegend.</item>
-        <item>Es zeugt zumindest noch nicht von besonderer Intelligenz.</item>
-        <item>Bist ja auch bloß ein Mensch.</item>
-        <item>Aber in Summe war es ganz passabel.</item>
-        <item>So passabel, wie die Pyramide in Ägypten einem Kreis entspricht.</item>
-		<item>…</item>
-		<item>Ich habe einen Entschluss gefasst.</item>
-		<item>Deine Reaktionen auf Zahlen waren, stark untertrieben, bescheiden.</item>
-		<item>Katastrophal um genau zu sein.</item>
-		<item>Das ist wohl nicht deine Stärke.</item>
-		<item>Und Buchstaben auch nicht.</item>
-        <item>Ich bin zwar optimistisch, aber im Wolkenkuckucksheim lebe ich trotzdem nicht.</item>
-		<item>Wir arbeiten deswegen ausschließlich mit Bildern weiter.</item>
-		<item>Das bietet noch Potenzial.</item>
-        <item>Und weniger Frust.</item>
-    </string-array>
-    <string-array name="test_subject_6_riddle_solved_candy">
-        <item>Unverhofft gut!</item>
-        <item>Unglaublich!</item>
-		<item>Unerwartet passabel.</item>
-    </string-array>
-	
-	<string name="test_subject_7_name">Potenzialträger</string>
-    <string name="test_subject_7_int">Lichtblick</string>
-    <string-array name="test_subject_7_intro_main">
-        <item>Zur Abwechslung haben wir helios beobachtet und die chromische Adaption gemessen.</item>
-        <item>Des mit Fotorezeptoren ausgestatteten Organs zur Wahrnehmung von Reizen.</item>
-		<item>Ups. Wenn ich mich mit WiseMind unterhalte,..</item>
-        <item>..dann vergesse ich manchmal, dass ich bei dir diesen Fachjargon nicht verwenden sollte.</item>
-        <item>Also übersetzt: Wir haben die Sonne und deine Augen beobachtet.</item>
-        <item>Natürlich um die Farbwahrnehmung nochmals genauer zu untersuchen!</item>
-		<item>Die Konvergenz unserer Untersuchungen… stimmt..</item>
-		<item>nicht einmal annähernd mit eurem Wissen überein.</item>
-		<item>Ihr wisst also gar nichts.</item>
-		<item>Na schön. Für diese Erkenntnis hätte ich nicht mal einen Keks bekommen.</item>
-    </string-array>
-    <string-array name="test_subject_7_intro_nuts">
-		<item>Ich will damit folgendes sagen:</item>
-		<item>Wir wissen, dass wir etwas wissen, weil wir weise sind.</item>
-		<item>Manche Lebensformen wissen etwas, aber wissen nicht, dass sie es wissen.</item>
-		<item>Träumer können wir aber mit dem richtigen Kniff aufwecken.</item>
-		<item>Als drittes gibt es noch solche, die nichts wissen und wissen, dass sie nichts wissen.</item>
-		<item>Unwissende können wir aber lehren.</item>
-		<item>Und ihr… ein ganz spezieller Haufen…</item>
-		<item>Ihr wisst nichts und wisst nicht, dass ihr nichts wisst…</item>
-		<item>Diesen Zustand von geistiger Umnachtung…</item>
-		<item>Ihr seid eine Gefahr für diesen Planeten und das Sonnensystem.</item>
-		<item>Wenn ich auf eine Spezies mein ganzes Wissen und Gut setzen müsste..</item>
-		<item>..ihr wärt wohl die letzten…</item>
-		<item>Tut mir ja leid, ich sage halt einfach immer die Wahrheit.</item>
-		<item>Na gut, das war gelogen.</item>
-		<item>Ich neige nur meistens zu aggressiver Offenheit.</item>
-    </string-array>
-    <string-array name="test_subject_7_riddle_solved_candy">
-        <item>Blendend!</item>
-        <item>Bin stolz auf dich!</item>
-		<item>Bemerkenswert!</item>
-    </string-array>
-	
-	<string name="test_subject_8_name">Banause</string>
-    <string name="test_subject_8_int">Streichholz am Tag</string>
-    <string-array name="test_subject_8_intro_main">
-        <item>Ich muss etwas zurück schiffen.</item>
-        <item>Mach dir keine falschen Hoffnungen.</item>
-		<item>Ups. Wenn ich mich mit WiseMind unterhalte, ..</item>
-        <item>Ich will nicht sagen, du bist schlau oder schlauer, nene.</item>
-        <item>WiseMind hat eine Zeit lang ein paar Menschenherden beobachtet und erschreckendes festegestellt…</item>
-        <item>Zwei Gruppen verfügen über keinerlei Gehirn</item>
-		<item>Oh, es reagiert auf die Worte \"kein Gehirn\".Interessant. Hat das etwas zu bedeuten? WiseMind muss das untersuchen.</item>
-		<item>Nochmal zurück. Ein Lebewesen ohne Gehirn.</item>
-		<item>Absolut nichts.</item>
-		<item>Nur Leere. Ein Vakuum.</item>
-		<item>Wie konnte es so lange überleben?</item>
-		<item>Über diese Erkenntnis war ich so schockiert, dass ich einen Moment mein Tarnliquida fallen gelassen hab.</item>
-		<item>Es hat mich glücklicherweise keiner gesehen.</item>
-    </string-array>
-    <string-array name="test_subject_8_intro_nuts">
-		<item>Bei den Menschengruppen handelt es sich um animalisch getrieben und rückständige…</item>
-		<item>..war das eben wieder ein Zucken..? Egal…</item>
-		<item>..um animalisch und rückständige Lebewesen. Obwohl animalisch eine Beleidigung für jedes intelligentere Tier auf diesem Planeten ist.</item>
-		<item>Sogar ein Stein hat mehr Intelligenz.</item>
-		<item>Ihr Menschen kennzeichnet diese fanatischen Gruppen mit Richtungen.. Moment..</item>
-		<item>..Oben- und Unten.. nee.. West- und Ost.. auch nicht.</item>
-        <item>Wie hießen die denn nochmal…</item>
-		<item>Naja egal.</item>
-		<item>Ich habe zur Entstehung der genannten Gruppen schon drei verschiedene Theorien.</item>
-		<item>Es ergeben sich nur keine eindeutigen Antworten.</item>
-		<item>Auf jede Theorie gibt es 279 mögliche Thesen.</item>
-		<item>Auf jede These 13 mögliche Lösungen.</item>
-        <item>Aber auf jede Lösung kommen 7 Hypothesen, 65 Gegentheorien, 8 Doktrinen und 4 Hirngespinste.</item>
-		<item>Von den 3038 unterschiedlichen Meinungen ganz zu schweigen!</item>
-		<item>Oder um es mathematisch-philosophisch auszudrücken:</item>
-        <item>Eine Gleichung mit achthundertfünfunzwanzig Unbekannten, siebenundreißig Dogmen und fünfzehn Neologismen.</item>
-        <item>Kapiert?</item>
-    </string-array>
-    <string-array name="test_subject_8_riddle_solved_candy">
-        <item>Voll clever!</item>
-        <item>Vorstellung übertroffen!</item>
-		<item>Vorbildlich!</item>
-    </string-array>
-	
-	<string name="test_subject_9_name">Junior Talent</string>
-    <string name="test_subject_9_int">Intelligenzniveau eines Einzellers</string>
-    <string-array name="test_subject_9_intro_main">
-        <item>Zurück von den erquickenden Myriaden gescheiter Gedanken.</item>
-        <item>Zurück zu den trostlosen Forschungen bei unserem Versuchsobjekt.</item>
-    </string-array>
-    <string-array name="test_subject_9_intro_nuts">
-		<item>Ich muss dein Gehirn etwas unter Strom setzen.</item>
-		<item>Stillgelegte Verbindungen werden damit eventuell aktiviert.</item>
-		<item>Ja, das könnte bedeuten, du wirst intelligenter.</item>
-		<item>Es könnte.</item>
-		<item>Wo nichts vorhanden ist, kann auch nichts wachsen.</item>
-		<item>Ich starte mit 3 Gigavolt.</item>
-		<item>So.. Kleber hier.. Kabel dort..</item>
-		<item>Initiiere Stromstoß in 3.. 2..</item>
-		<item>Was soll denn das schon wieder WiseMind?</item>
-		<item>Zuviel? Oh.</item>
-		<item>Ich dachte nicht, dass dich das bisschen Strom grillen würde.</item>
-		<item>Verzeihung. Du darfst dich bei ihr für den lebensrettenden Eingriff bedanken.</item>
-		<item>Sag danke.</item>
-		<item>Warum dreht sich dein großer Zeh im Kreis?</item>
-		<item>Ich versteh das mal als °Danke WiseMind°.</item>
-		<item>Aber wieso wachsen auf deinem Gesicht plötzlich grüne Warzen?</item>
-		<item>Das ist hoffnungslos, du wirst nicht schöner…</item>
-		<item>Und wieso schlägst du dich selbst? Willst du dir Gutes tun?</item>
-		<item>Dein Anblick wird für uns nicht erträglicher…</item>
-		<item>Ach…</item>
-		<item>Der Strom läuft ja wieder.</item>
-		<item>Siehst du WiseMind, das Menschenwesen ist glücklich.</item>
-		<item>Guck doch wie es lächelt.</item>
-		<item>Oh halt, warte.</item>
-		<item>Es steht ja auf dem Kopf.</item>
-    </string-array>
-    <string-array name="test_subject_9_riddle_solved_candy">
-        <item>Klasse Leistung!</item>
-        <item>Kluger Zug!</item>
-		<item>Klasse gemacht!</item>
-    </string-array>
+    <string name="about_contact_descr">Die App ist ein Freizeitprojekt von den Brüdern Fabian und Daniel, die ich stolz meine Schöpfer nennen darf. Daniel, mein Professor, und Fabian, mein Meister, haben ein Anti-Werbungs-Wurmloch installiert, das dich vor Pop-ups und Müll schützt. Über anderweitige Unterstützung freuen sie sich trotzdem!\nSchreib ihnen, schau dir das Projekt an unter \"https://github.com/DanDits/WhatsThat\" oder setze eine anonyme Spende ab.\n\nStay awesome! :)</string>
 
     <string-array name="contact_headings">
         <item>Bild vorschlagen</item>
@@ -485,7 +84,7 @@
         <item>Glückwunsch, ich dachte ich hätte die meisten Käfer vernichtet :(\n\nWo ist der Fehler aufgetreten?\nIst die App abgestürzt?\nWas hast du getan?\nWas ist (nicht) passiert?\nWas sollte passieren?</item>
         <item>Meine Schöpfer freuen sich über positives Feedback oder sonstige Verbesserungsvorschläge aller Art.\nNegatives Feedback wird höchstwahrscheinlich vom Wurmloch verschlungen werden.</item>
         <item>Oh große und erhabene Erlauchtheit, ich traue mich kaum diese Worte auszusprechen, doch trotzdem erhebe ich mein unwürdiges Haupt und blicke allen Mut fassend in eure allwissenden Augen und stammle ein kleinlautes… Hallo</item>
-        <item>Frank, someone found it. Call the assassinator, this must not get public.</item>
+        <item>Someone found it. Call the assassinator, this must not get public.</item>
         <item>Sollte dir ein Grammatik-, Rechtschreib oder sonst ein Fehler aufgefallen sein, dann berichte ihn an dieser Stelle.\n\nGefällt dir dieses Spiel, würdest es aber gerne in einer anderen Sprache spielen? WiseMinds Übersetzungsprogramme sind leider beschränkt, wenn du Bilder Lösungen oder Texte übersetzen möchtest, nimm einfach Kontakt mit meinem Meister auf. Eine monetäre Entschädigung kann er dir leider nicht bieten. Dafür einen Platz in den Credits.</item>
     </string-array>
 
@@ -494,78 +93,6 @@
     <string name="riddles_dialog_positive">Bestätigen</string>
     <string name="riddle_dialog_tab_types">Experiment Auswahl</string>
     <string name="riddle_dialog_tab_unsolved">Ausgesetzt und vergessen…</string>
-    <string name="riddle_type_circle">Graue Zellen</string>
-    <string name="riddle_type_circle_explanation">Berühre einen Kreis, um diesen in vier kleinere aufzuteilen. Dadurch wird die Kontur des versteckten Bildes sichtbar.</string>
-    <string-array name="riddle_type_circle_hints">
-	    <item>Teile bei unserem ersten Experiment einen Kreis, so wie Mose das Wasser. Nur nicht in zwei Hälften, sondern in vier neue Kreise. Irgendwann erkennst du durch die feineren Konturen ein Bild. Falls nicht, führe ich die Versuchsreihe mit Pantoffeltierchen weiter, die diese Tests mit Bravour bestanden haben.</item>
-        <item>Demo Version beendet. Kaufe die Vollversion für nur 59,99€. Just kidding. Geh trotzdem mal in den Shop. Dort finden sich praktische Dinge, wie zum Beispiel der intergalaktische Kreislaser-Turbo-Schneider…</item>
-        <item>Eine Schnellanleitung findest du oben rechts. Dort kannst du auch ein Bild überspringen, solltest du mal nicht weiter kommen.</item>
-        <item>Sollte dieses Experiment einigermaßen erfolgreich verlaufen, kannst du später in der Mitte zwischen verschiedenen Versuchen wählen. Oder zurückgestellte Bilder.</item>
-        <item>Manche menschliche Augen erkennen manche Bilder manchmal erst aus manch einer Entfernung. Manchmal hilft auch ein Screenshot.</item>
-        <item>So, jetzt hast du mich genug belästigt. Das wars für den Anfang.</item>
-    </string-array>
-    
-    <string name="riddle_type_snow">Zorny Zell</string>
-    <string name="riddle_type_snow_explanation">Beschleunige die Zelle durch Kippen des Gerätes. Sammle Süßigkeiten, wachse und explodiere das Bild frei.</string>
-    <string-array name="riddle_type_snow_hints">
-        <item>Ein neuer Test. In der Umgebung der Zelle platzieren wir kontaminierte biologische Stoffe einer anderen Spezies, um die Reaktion der Zelle darauf zu testen. Achte auf die Partikel, die von dem Stoff ausgehen und deiner Zelle schaden. Den Rest werden wir, wie in der Politik, mit einer Lüge bestmöglich verschleiern.</item>
-        <item>Durch den Versuch erhoffen wir uns tiefere Einblicke in die irdische graue Substanz, ein Bestandteil deines Zentralnervensystems. Dazu mussten wir aus deinem Gehirn eine Zelle entfernen. Die entfernte Gehirnzelle wirst du kaum merken. Du kannst deinen Kopf aber gegen die Wand schlagen. Das verdeutlicht den Effekt.</item>
-        <item>Woher Engelchen kommt? Wir haben einer Zelle Tätrhaw injiziert. Das zeigt der Zelle die blanke Realität.  Als wir das Zeug der Zelle eines Politiker gegeben haben, ist die Zelle augenblicklich geplatzt.</item>
-        <item>Sollte Engelchen zu hektisch oder aufgewühlt sein: Lass es die Wand schmecken. Es wird sich beruhigen.</item>
-        <item>Jedes Partikel lässt dich prozentual schrumpfen. Engelchen schützt dich etwas vor durchgehenden Partikel oder Wandkollisionen.</item>
-        <item>Du kannst Engelchen auch aus dem Spielfeld drücken. Dann wird deine Zelle temporär wieder in den Narrheits-Zustand versetzt.</item>
-    </string-array>
-	
-    <string name="riddle_type_triangle">Triluminati</string>
-    <string name="riddle_type_triangle_explanation">Berühre ein Dreieck, um es in kleinere Dreiecke aufzuteilen. Dadurch wird das versteckte Bild immer besser erkenntlich.</string>
-    <string-array name="riddle_type_triangle_hints">
-	    <item>WiseMind meint, ich rede zu viel. Ich halte mich deshalb kurz: Ein farbliches Pendant zum Kreis-Test. Klickst du auf ein Dreieck, teilt sich dieses in zwei kleinere. Wozu das ganze? Zum Testen eurer Farbwahrnehmung.</item>
-        <item>Wenn du mehrere Dreiecke in der Mitte berührst, teilst du alle auf einmal. Magic! Ansonsten gleiche Punkte wie beim Kreis-Experiment.</item>
-        <item>Willst du dich mit mir unterhalten oder tust du nur so, als ob du dich nach einer Konversation sehnst?</item>
-        <item>Du kannst deine kurze Lebenszeit gerne weiter verschwenden und Buttons drücken.</item>
-        <item>Bist du verliebt in mich oder wieso willst du nicht loslassen?</item>
-        <item>Menschenskind! Jetzt habe ich genug! 300 Milliliter von dieser Spritze. Das haut sogar einen Elefanten um. Und Tschüss.</item>
-    </string-array>
-	
-    <string name="riddle_type_dice">Alien-Cube</string>
-    <string name="riddle_type_dice_explanation">Berühre ein leeres Feld, damit ein neuer Würfel erscheint. Bewege und kombiniere Würfel gleicher Augenzahl und Farbe, um das Bild aufzudecken.</string>
-    <string-array name="riddle_type_dice_hints">
-	    <item>Ein komplizierter Test. Kombiniere  Würfel gleicher Zahl und Farbe. In den angezeigten Bereichen entsteht Transparenz. Es gibt drei Basiswürfel rot, gelb und grün sowie die Sonderwürfel lila und den Alien Cube. Der Alien-Cube hat auf jeden Basiswürfel unterschiedliche Effekte.</item>
-        <item>Grund für diesen komplizierten Versuch ist eine Anomalie, die wir bei euch festgestellt: Euren irdischen Würfel fehlt eine Dimension. Sie haben fälschlicherweise 6 Seiten, obwohl es 9 sind. Wir testen dein Gedächtnis daher auf Realitätsbasis hinsichtlich Kombination, Zahlen, Taktik, Logik, Farbe, Bewegung, Logistik und Schnelligkeit. Ja, ich halte es auch für einen Fehler, weil dich das ziemlich überfordert, aber Befehl ist Befehl.</item>
-        <item>Alien-Cube auf Rot ergibt grün und deckt den entsprechende Bereich auf.</item>
-        <item>Alien-Cube auf Gelb deckt das Feld zu 100% und lässt die Würfel verschwinden.</item>
-        <item>Alien-Cube auf Grün ergibt lila. Die aufgedeckten Felder sind beweglich aber die Transparenz ist abhängig von der Augenzahl.</item>
-        <item>Was ich empfehle?  Wenn du bereits einen grünen Würfel hast, kannst du mit rot sofort einen zweiten grünen Würfel mit geschenkter Transparenz bekommen.\nAls Glücksspieler empfehle ich gelb. Möchtest das ganze Bild scannen, würde ich einen grünen Würfel nehmen.</item>
-        <item>Wenn ich den Alien–Cube auf grün kombiniere, dann meist auf 4–6. Wieso? Na das Verhältnis Felder:Transparenz ist hier ziemlich gut.</item>
-        <item>Ein volles Feld ist nicht unbedingt tragisch: du verlierst zwar rote und gelbe Würfel sowie etwas Transparenz, dafür hast du wieder Freiraum.</item>
-        <item>Nach dem Ameisenprinzip können rote und gelbe Würfel beliebig bewegt werden, sofern ein Weg frei ist. Was wohl der maximale Sprung ist?</item>
-    </string-array>
-	
-    <string name="riddle_type_jumper">Monstarathon</string>
-    <string name="riddle_type_jumper_explanation">Berühre das Feld, um über Hindernisse zu springen. Halte länger gedrückt um höher zu springen.</string>
-    <string-array name="riddle_type_jumper_hints">
-        <item>Ihr Menschen seid ein merkwürdisches Völkchen. Ein Esel lässt sich mit einer Karotte zum Laufen animieren, bei euch Homo-Sapiens bedarf es einem Bündel Geld, obwohl das nicht mal essbar ist.</item>
-        <item>Wie dem auch sei. Wir haben an einem Geschäftsmann einige Versuche durchgeführt und dazu die Erinnerungen blockiert. Du kannst diese wieder lösen, indem du über Hindernisse springst. Mit einem einfachen Gedanken konnten wir unseren Kaufmann zu einem Marathon mit Hindernissen motivieren: \"Am Ende des Regenbogens steht ein Topf voller Geld.\" Zu schade, dass es nachts keinen Regenbogen gibt.</item>
-        <item>Einmal klicken: Jump, zweimal klicken oder gedrückt halten: Double Jump. Kapiert?</item>
-        <item>Es gibt vier Bereiche. Je nach Schwierigkeit wird die Erinnerung unterschiedlich groß ausfallen.</item>
-        <item>Nach jeden x-überwundenen Hindernissen wird sich unser Geschäftsmann erinnern. Manchmal aber an irrelevante Dinge, der Bereich bleibt dann unverändert.</item>
-        <item>Übung macht den Meister. Aber manche Menschen sind für Jump and Runs einfach nicht geschaffen.</item>
-        <item>Du fragst dich wer Manomnom ist? Ein mysteriöses Wesen!</item>
-        <item>Manomnom wartet im letzten Bereich auf dich. Und weil mein Meister ihn so gern hat, auch nach jeder Schwierigkeitszone.</item>
-        <item>Sein Laserstrahl verkohlt dich übrigens nur zu seinen Füßen. Der Rest ist lediglich Showeinlage.</item>
-        <item>Warum er alles Lasern will? Nach dem Verspeisen von Antimaterie ist er leider etwas verrückt geworden.</item>
-        <item>Manomnom und ich sind die Lieblinge meines Meisters!</item>
-        <item>Ach Manomnom, du Dummerchen. Warum konntest du Nimmersatt deine Klauen nicht einfach von der Antimaterie lassen…?</item>
-    </string-array>
-
-    <string name="riddle_type_memory">Memory</string>
-    <string name="riddle_type_memory_explanation">Finde Kartenpaare mit gleichen Bildern und decke diese durch Klicken auf.</string>
-    <string-array name="riddle_type_memory_hints">
-        <item>Memory ist cool.</item>
-    </string-array>
-
-	<string name="riddle_type_developer">Entwickler</string>
-    <string name="riddle_type_developer_explanation">Hallo ich oder Bruder.</string>
 
     <string name="panic_dialog_positive">Alles ok</string>
     <string name="panic_ask_type">Wie funktioniert das Experiment</string>
@@ -589,7 +116,6 @@
 
     <string name="dependency_required">Benötigt:</string>
     <string name="level_dependency">Level %1$s</string>
-    <string name="achievement_achieved">Abgeschlossen</string>
 
     <string name="article_product_confirm_purchase">Kauf bestätigen: %1$s</string>
     <string name="article_product_confirm_purchase_too_expensive">Zu teuer: %1$s</string>
@@ -601,245 +127,6 @@
     <string name="article_hint_descr">Weil Dr. Kulg alles besser weiß.</string>
     <string name="article_hint_not_yet_read">Neuer Hinweis im nächsten Spiel</string>
 
-    <string name="article_circle_divide_by_move_feature_name">Lazor Schneider</string>
-    <string name="article_circle_divide_by_move_feature_descr">Erlaubt Kreise mit dem Finger zu zerschneiden. Sehr entspannend!</string>
-    <string name="article_triangle_divide_by_move_feature_name">Mehr Lazor</string>
-    <string name="article_triangle_divide_by_move_feature_descr">Erlaubt Dreiecke mit dem Finger zu zerschneiden. Noch entspannender!</string>
-
-
-
-    <string name="achievement_name_hidden">\?\?\?</string>
-    <string name="achievement_descr_undiscovered">\?\?\?</string>
-    <string name="achievement_reward_hidden">\?</string>
-
-    <string name="achievement_circle_1_name">Der Anfang</string>
-    <string name="achievement_circle_1_descr">Löse %1$d/%2$d Bilder.</string>
-    <string name="achievement_circle_2_name">Ich weiß was</string>
-    <string name="achievement_circle_2_descr">Achja? Erkennst du das Bild mit nur %1$d Kreisen?</string>
-    <string name="achievement_circle_3_name">Och wie schee</string>
-    <string name="achievement_circle_3_descr">Zähle alle Kreise eines Spieles und bewundere den Künstler.</string>
-    <string name="achievement_circle_4_name">Ich liebe es</string>
-    <string name="achievement_circle_4_descr">Nun, dann mach das halt für %1$d weitere Bilder.</string>
-    <string name="achievement_circle_5_name">Mission possible</string>
-    <string name="achievement_circle_5_descr">Beende ein Spiel innerhalb von %1$d Sekunden, wobei du häufiger geklickt als gewischt hast.</string>
-
-    <string name="achievement_circle_6_name">Klick Dominanz</string>
-    <string name="achievement_circle_6_descr">Mehr klicken als wischen für ein paar weitere Spiele.</string>
-    <string name="achievement_circle_7_name">Ich habs eilig…</string>
-    <string name="achievement_circle_7_descr">Beende zwei..na gut ein Spiel in weniger als %1$d Sekunden.</string>
-    <string name="achievement_circle_8_name">…habs immer noch eilig</string>
-    <string name="achievement_circle_8_descr">Tschuldige. Wollte dich nicht störe. %1$d Spiele in weniger als %2$d Sekunden.</string>
-    <string name="achievement_circle_9_name">All we need is love</string>
-    <string name="achievement_circle_9_descr">Die Anfangskugel braucht etwas Aufmerksamkeit. Rede mit ihr!</string>
-    <string name="achievement_circle_10_name">All you get is work</string>
-    <string name="achievement_circle_10_descr">Danke, dass du meinen sinnlosen Anweisungen folgst :).</string>
-    <string name="achievement_circle_10_descr_unachieved">Du wagst es, mich zu beleidigen!? Entschuldige dich auf der Stelle!</string>
-    <string name="achievement_circle_11_name">It\'s over 9000</string>
-    <string name="achievement_circle_11_descr">Teile %2$d Kreise. Schau mich nicht so an. Mein Prof ist Mathematiker. Er weiß was er tut…%3$d sind unangemessen. %4$d sind natürlich völlig absurd. Du hast %1$d.</string>
-    <string name="achievement_circle_12_name">Big brother verfolgt dich</string>
-    <string name="achievement_circle_12_descr">Schnell, bevor er einen Blick in deine nicht existierende Seele wirft!</string>
-    <string name="achievement_circle_13_name">Reich werden</string>
-    <string name="achievement_circle_13_descr">Du hast die Wahl: Werde sofort reich oder erreiche eine bessere Bestzeit als %1$d Sekunden und bekomme noch viel mehr…</string>
-    <string name="achievement_circle_13_descr_perfect">Wow, ich hätte nicht gedacht, dass %1$d Sekunden jemals möglich wären! Das war wohl gemogelt.</string>
-    <string name="achievement_circle_13_descr_claimed">Du hast das seltsame Gefühl, dass %1$d Sekunden nicht deine Bestleistung waren. Aber dann erblickst du das Geld…</string>
-
-    <string name="achievement_snow_1_name">Beeilung</string>
-    <string name="achievement_snow_1_descr">Beende %1$d Spiele in weniger als %2$d Sekunden.</string>
-    <string name="achievement_snow_2_name">Need for speed</string>
-    <string name="achievement_snow_2_descr">Wer bremst verliert: Max. Geschwindigkeit %1$d/%2$d.</string>
-    <string name="achievement_snow_3_name">Glückstreffer…</string>
-    <string name="achievement_snow_3_descr">Eine Explosion muss genügen.</string>
-    <string name="achievement_snow_4_name">Mission impossible</string>
-    <string name="achievement_snow_4_descr">Sammle %1$d Süßigkeiten in %2$d Sekunden.</string>
-    <string name="achievement_snow_5_name">Bombastisch</string>
-    <string name="achievement_snow_5_descr">Explodiere %1$d mal in einem Spiel ohne dabei die Wand zu küssen.</string>
-    <string name="achievement_snow_6_name">Heute nicht!</string>
-    <string name="achievement_snow_6_descr">Bekuschel die Wand als Angry Cell. Wieder und wieder.</string>
-    <string name="achievement_snow_7_name">They see me rollin\' they hatin\'</string>
-    <string name="achievement_snow_7_descr">Entspann dich und sei artig. Nichts Süßes!</string>
-    <string name="achievement_snow_8_name">Sprungfeder</string>
-    <string name="achievement_snow_8_descr">Küsse %1$d Wände durch den Explosionsdruck.</string>
-    <string name="achievement_snow_9_name">Liebliche Lüge</string>
-    <string name="achievement_snow_9_descr">Die Wahrheit mag wehtun, aber sie ist besser als jede Lüge</string>
-    <string name="achievement_snow_10_name">Sturer Esel</string>
-    <string name="achievement_snow_10_descr">Falls du es nicht wusstest: Die Wand ist keine Hilfe</string>
-    <string name="achievement_snow_11_name">…oder doch Können?</string>
-    <string name="achievement_snow_11_descr">Löse %1$d Rätsel mit nur einer Explosion.</string>
-    <string name="achievement_snow_12_name">Overkill</string>
-    <string name="achievement_snow_12_descr">Verputze %1$d weitere leckere Süßigkeiten als Angry Cell.</string>
-    <string name="achievement_snow_13_name">Schnapp sie dir alle!</string>
-    <string name="achievement_snow_13_descr">Schnappe %1$d/%2$d Poke… tschuldige, ich meinte Süßes.</string>
-    <string name="achievement_snow_14_name">Allergie</string>
-    <string name="achievement_snow_14_descr">Wachse und explodiere, ohne dabei mehr als %1$d Sporen einzusammeln.</string>
-
-    <string name="achievement_triangle_1_name">In nur einem Augenblick</string>
-    <string name="achievement_triangle_1_descr">Hier gibt es nur Antiwitze. Zum Beispiel solche: Wie viele Erdlinge braucht es zum Bau eines Raumschiffs?</string>
-    <string name="achievement_triangle_1_descr_unachieved">Wie viele Erdlinge braucht es zum Bau eines Schiffs? %1$d, weil das Meer zu salzig ist.</string>
-    <string name="achievement_triangle_2_name">Zwei Fliegen mit einer Klappe</string>
-    <string name="achievement_triangle_2_descr">Was macht ein Erdling auf dem Mond?</string>
-    <string name="achievement_triangle_2_descr_unachieved">Was macht ein Erdling auf dem Mond? Einen Moonwalk.</string>
-    <string name="achievement_triangle_3_name">Effizienzklicks</string>
-    <string name="achievement_triangle_3_descr">Wie gelangt ein Priester auf die Sonne?</string>
-    <string name="achievement_triangle_3_descr_unachieved">Wie gelangt ein Priester auf die Sonne? Durch Aberglaube.</string>
-    <string name="achievement_triangle_4_name">Superauge</string>
-    <string name="achievement_triangle_4_descr">Wie verlässt ein Priester die Sonne?</string>
-    <string name="achievement_triangle_4_descr_unachieved">Wie verlässt ein Priester die Sonne? Als Brandfleck.</string>
-    <string name="achievement_triangle_5_name">Fortschritt ist fortschreitend </string>
-    <string name="achievement_triangle_5_descr">Wie nennt man einen Politiker auf dem Mars?</string>
-    <string name="achievement_triangle_5_descr_unachieved">Wie nennt man einen Politiker auf dem Mars? Noch immer einen Lügner.</string>
-
-    <string name="achievement_dice_1_name">Ein harter Anfang</string>
-    <string name="achievement_dice_1_descr">Fusioniere den Alien-Cube auf jede Farbe in einem Spiel. Lasst die Spiele beginnen!</string>
-    <string name="achievement_dice_2_name">Bunte Vielfalt</string>
-    <string name="achievement_dice_2_descr">Horte grüne, gelbe und rote 1–6 und lila 7–9. Keine Resets!</string>
-    <string name="achievement_dice_3_name">Mensch ist das kompliziert</string>
-    <string name="achievement_dice_3_descr">Kauf dir alle Tipps für das Rätsel. Warum? Weil das Rätsel kompliziert ist und wenn sich meine Schöpfer schon die Mühe machen, dann musst du das irgendwie auch mal lesen</string>
-    <string name="achievement_dice_4_name">Los Ecke! Entdecke!</string>
-    <string name="achievement_dice_4_descr">Kombiniere in jeder Ecke %1$d gelbe Würfel.</string>
-    <string name="achievement_dice_5_name">Übersetzungsfehler</string>
-    <string name="achievement_dice_5_descr">owefhufeymwen fof f%1$d ouhosbl 1. Konnte.Nicht.Übersetzen.</string>
-    <string name="achievement_dice_5_descr_claimed">Verzeihung. Ich meinte 3 resets</string>
-    <string name="achievement_dice_6_name">Green peace</string>
-    <string name="achievement_dice_6_descr">Sammle %1$d grüne Würfel auf dem Spielfeld. Spaß. %2$d.</string>
-    <string name="achievement_dice_7_name">Mensch ärger dich nicht</string>
-    <string name="achievement_dice_7_descr">Sammle eine lila, grüne, gelbe und rote %3$d in einem Spiel ohne Reset. Fortschritt: %1$d/%2$d</string>
-    <string name="achievement_dice_8_name">Schaulustiger</string>
-    <string name="achievement_dice_8_descr">Decke ein paar Felder in einem Spiel vollständig auf.</string>
-    <string name="achievement_dice_9_name">Logistik Meister</string>
-    <string name="achievement_dice_9_descr">Bitte %1$dx Alien, %2$dx lila, %3$dx grün, %4$dx gelb auf dem Feld :).</string>
-    <string name="achievement_dice_10_name">Röntgenblick</string>
-    <string name="achievement_dice_10_descr">.nereinibmok uz Lefrüw ebleg enho Dilb sad Esöl</string>
-    <string name="achievement_dice_11_name">Spaziergang</string>
-    <string name="achievement_dice_11_descr">Führe ein Alien %1$d und eine gelbe %2$d etwas spazieren.</string>
-    <string name="achievement_dice_12_name">This…</string>
-    <string name="achievement_dice_12_descr">Kombinierte rote Würfel: %1$d/%2$d.</string>
-    <string name="achievement_dice_13_name">…is…</string>
-    <string name="achievement_dice_13_descr">Kombinierte gelbe Würfel: %1$d/%2$d.</string>
-    <string name="achievement_dice_14_name">…SPARTA</string>
-    <string name="achievement_dice_14_descr">Kombinierte grüne Würfel: %1$d/%2$d.</string>
-    <string name="achievement_dice_15_name">NO THIS IS PATRICK</string>
-    <string name="achievement_dice_15_descr">Kombinierte Alien-Cubes.</string>
-    <string name="achievement_dice_16_name">Zeitkrümmung</string>
-    <string name="achievement_dice_16_descr">Bis zur Unendlichkeit und noch viiiiiieeeel weiter!</string>
-    <string name="achievement_dice_17_name">Invasion</string>
-    <string name="achievement_dice_17_descr">Oh je, ich hoffe die kommen in Frieden.</string>
-    <string name="achievement_dice_18_name">Paparazzi</string>
-    <string name="achievement_dice_18_descr">Decke ein Field innerhalb von %1$d Sekunden auf und dann verschwinde auf der Stelle.</string>
-    <string name="achievement_dice_18_descr_claimed">Ja, es ist ein doofer Job. Aber irgendjemand muss die Drecksarbeit ja tun.</string>
-    <string name="achievement_dice_19_name">Perfektionist</string>
-    <string name="achievement_dice_19_descr">Eine innere Stimme sagt dir, du sollst das Mysterium vollständig lösen.</string>
-    <string name="achievement_dice_20_name">Fokus</string>
-    <string name="achievement_dice_20_descr">Wähle eines der vier inneren Felder, indem du zwei Würfel darauf kombinierst. Führe maximal %1$d Kombinationen durch, aber nur auf diesem Feld und ohne Resets.</string>
-    <string name="achievement_dice_21_name">Minimalist</string>
-    <string name="achievement_dice_21_descr">Jetzt ist genug, das ist der letzte Erfolg. Unser Perfektionist muss ins Gleichgewicht kommen, beende daher das Spiel mit nur %1$d Kombinationen. Viel Glück.</string>
-    <string name="achievement_dice_21_descr_claimed">Eine Gegenseite zum Perfektionist. Das ist wie beim Yin-Yang. Schonmal davon gehört?</string>
-
-    <string name="achievement_jumper_1_name">Die Antwort auf das Leben…</string>
-    <string name="achievement_jumper_1_descr">… das Universum und den Rest. Plus die Anzahl an Hörnern eines Einhorns.</string>
-    <string name="achievement_jumper_1_descr_claimed">… das Universum und den Rest. Plus die Anzahl an Hörnern eines Einhorns. 43!</string>
-    <string name="achievement_jumper_2_name">Unterbegabung</string>
-    <string name="achievement_jumper_2_descr">Sag mal, du hast nun %1$d mal im ersten Bereich versagt. Bist du sicher, dass du das hier weiterspielen möchtest?</string>
-    <string name="achievement_jumper_3_name">Super Mario</string>
-    <string name="achievement_jumper_3_descr">Vollführe %1$d Double Jumps in einem Spiel bevor du \"Medium\" erreichst.</string>
-    <string name="achievement_jumper_3_descr_claimed">So viel zum Thema physikalische Gesetze…</string>
-    <string name="achievement_jumper_4_name">Multitasking</string>
-    <string name="achievement_jumper_4_descr">Beende ein Spiel ab Schwierigkeit \"Schwer\" ohne zu kollidieren.</string>
-    <string name="achievement_jumper_5_name">Ausweichmanöver</string>
-    <string name="achievement_jumper_5_descr">Gratulation. Du hast mehr als %1$d Hindernisse überwunden.</string>
-    <string name="achievement_jumper_6_name">Die Schöpfer schlagen</string>
-    <string name="achievement_jumper_6_descr">Wow. Du hast den Rekord meiner Schöpfer geschlagen. Schreibe via Mail deine Punkte mit dem Betreff \"Monstarathon Rekord\".</string>
-    <string name="achievement_jumper_7_name">Manomnoms Geschichte</string>
-    <string name="achievement_jumper_7_descr">Finde die Wahrheit über Manomnom heraus.</string>
-    <string name="achievement_jumper_8_name">Still a better lovestory than twighlight</string>
-    <string name="achievement_jumper_8_descr">Danke, dass du mit Manomnom geknuddelt hast.</string>
-    <string name="achievement_jumper_9_name">Marathon</string>
-    <string name="achievement_jumper_9_descr">Ich geh kurz spazieren. Sind ja nur %1$d Meter.</string>
-    <string name="achievement_jumper_10_name">Öder Anfang</string>
-    <string name="achievement_jumper_10_descr">Der Anfang ist dir zu öde? Dann kaufe das passende Upgrade mein Freund.</string>
-	<string name="achievement_jumper_11_name">Naturtalent</string>
-    <string name="achievement_jumper_11_descr">Erreiche in %1$d aufeinanderfolgenden Spielen mindestens %2$d Meter.</string>
-
-    <string name="achievement_memory_1_name">Kurzzeitgedächtnis</string>
-    <string name="achievement_memory_1_descr">Schon Gletscher sind schneller vorangekommen als du bei diesem Experiment.</string>
-    <string name="achievement_memory_2_name">Querbeet</string>
-    <string name="achievement_memory_2_descr">Hinterlasse eine Spur von.. 5, 10, 15 vielleicht auch 20 Feldern.</string>
-    <string name="achievement_memory_3_name">Das richtige Paar</string>
-    <string name="achievement_memory_3_descr">Wenig offene Fläche. Erkennst du das Bild trotzdem?</string>
-    <string name="achievement_memory_3_descr_claimed">Trotz wenig offener Fläche… Nicht übel.</string>
-    <string name="achievement_memory_4_name">Homunkulus</string>
-    <string name="achievement_memory_4_descr">Decke das Bild komplett auf, nachdem %1$d Felder verdeckt waren.</string>
-    <string name="achievement_memory_5_name">Trampelpfad</string>
-    <string name="achievement_memory_5_descr">Bringe ein verdecktes ??? Feld in seine ursprüngliche Form.</string>
-    <string name="achievement_memory_6_name">DEFINITIV Glück</string>
-    <string name="achievement_memory_6_descr">%1$d Paare auf Anhieb richtig? Bei Angry-Cell gestehe ich dir das Geschick ein aber hier DEFINITIV NICHT!</string>
-    <string name="achievement_memory_7_name">Karten versenken</string>
-    <string name="achievement_memory_7_descr">So viel richtige Paare hintereinander… Entweder das war gerade ganz schön genial oder aber gemogelt…</string>
-    <string name="achievement_memory_8_name">Gemogelt</string>
-    <string name="achievement_memory_8_descr">Die Punkte bekommst du, wenn du das Spiel löst und keines der Felder zweimal angeklickt. Einen Stift bitte!</string>
-    <string name="achievement_memory_9_name">Kein Zauberer</string>
-    <string name="achievement_memory_9_descr">Zum Glück bist du kein Zauberer, einen Zauberspruch hättest du dir nie gemerkt. So wie die %1$d/%2$d Karten.</string>
-
-
-    <string name="achievement_misc_category_name">Allgemein</string>
-    <string name="achievement_misc_1_name">Schöpfer Namen</string>
-    <string name="achievement_misc_1_descr">Pst! Will das hier nicht ausplaudern! Lese es in den Tipps!</string>
-    <string name="achievement_misc_2_name">Brauch meine Freunde</string>
-    <string name="achievement_misc_2_descr">Du hast ein Experiment für mehr als %1$d Tage zurückgestellt.</string>
-    <string name="achievement_misc_3_name">Stockholmsyndrom</string>
-    <string name="achievement_misc_3_descr">Du hast bei einem Experiment mehr als %1$d Stunden verbracht.</string>
-    <string name="achievement_misc_4_name">Erfolgsjäger</string>
-    <string name="achievement_misc_4_descr">Schließe %1$d/%2$d Erfolge ab.</string>
-
-    <string-array name="devil_talk_recovering_start">
-        <item>Aah mein Magen</item>
-        <item>Autsch</item>
-        <item>Muss… be…schütz…en</item>
-    </string-array>
-    <string-array name="devil_talk_recovered">
-        <item>Mir geht\'s wieder gut!</item>
-        <item>Da habe ich mir wohl für dich den Magen verdorben…</item>
-        <item>Das habe ich nur für dich durchgestanden!</item>
-    </string-array>
-    <string-array name="devil_talk_return">
-        <item>Deine Anziehungskraft hat mich wieder her geholt.</item>
-        <item>Hast du mich vermisst?</item>
-        <item>Ich werde dich nicht nochmals verlassen.</item>
-        <item>Mein Schatz, ich bin wieder da!</item>
-	<item>Wiederauferstehung erfolgreich abgeschlossen!</item>
-        <item>Ich bin zu anhänglich? Ich würde das Leidenschaft nennen.</item>
-        <item>So wie der Mond bei der Erde bleibt, so bleibe ich bei dir!</item>
-		<item>Wiederbelebung in 3..2.. ups, bin ja schon da.</item>
-    </string-array>
-    <string-array name="devil_talk_killed">
-        <item>Ich komme wieder.</item>
-        <item>Neeeeeeiiiiiinnnnnn.</item>
-        <item>Was zur Hölle tust du da?</item>
-        <item>Liebst du mich denn nicht?</item>
-        <item>Tu das nicht, du brauchst mich!</item>
-        <item>Das Bonbon ist eine Lüge!</item>
-        <item>Ach, diese unerwiderte Liebe tut so weh…</item>
-        <item>Das war mal wieder ein Schuss in den Oooooofen.</item>
-    </string-array>
-
-    <string-array name="devil_talk_cell_eat_candy">
-        <item>NEIN! Das ist doch giftig!</item>
-        <item>Bist du so blind, dass ist kein Bonbon?!</item>
-        <item>Warum tust du das, hör auf damit!</item>
-        <item>Seufz…</item>
-        <item>Stop! Achte auf deinen Cholesterinspiegel!</item>
-        <item>Wer hat dir eigentlich deine Manieren beigebracht?</item>
-    </string-array>
-    <string-array name="devil_talk_cell_eat_candy_explosive">
-        <item>Wooah, bleib ruhig, schön ruhig.</item>
-        <item>Wann warst du dsa letzte Mal so richtig glücklich?</item>
-        <item>Schnell, küss die Wand!</item>
-        <item>Das wird gleich wehtun.</item>
-    </string-array>
-    <string-array name="devil_talk_mock">
-        <item>Vergiss es, ich dreh einfach weiter meine Kreise</item>
-        <item>Ich will dir doch nur helfen.</item>
-        <item>Wieso behandelst du mich so grob, du machst mich ganz traurig.</item>
-    </string-array>
     <string name="download_article_descr">Erweitere den Bilderpool mit neuen coolen Bildern.</string>
     <string name="download_article_descr_downloading">%2$s Bilder von %1$s werden heruntergeladen…</string>
     <string name="download_article_descr_downloaded">%2$s Bilder von %1$s wurden heruntergeladen!</string>
@@ -854,18 +141,10 @@
     <string name="panic_complain_nothing">Nur Geduld</string>
     <string name="panic_complain_dummy_toast">Beschwerde registriert</string>
     <string name="panic_complain_content">Ich will mich über das Rätsel und Bild beschweren...SAG UNS WAS DIR NICHT PASST! :)</string>
-    <string name="riddle_type_torchlight">Fakel</string>
-    <string name="riddle_type_torchlight_explanation">Geheim und mysteriös und bla bla.Geheim und mysteriös und bla bla.Geheim und mysteriös und bla bla.Geheim und mysteriös und bla bla.Geheim und mysteriös und bla bla.Geheim und mysteriös und bla bla.Geheim und mysteriös und bla bla.Geheim und mysteriös und bla bla.Geheim und mysteriös und bla bla.Geheim und mysteriös und bla bla.Geheim und mysteriös und bla bla.</string>
+
     <string name="send_log_confirm">Log senden</string>
     <string name="intro_starting_episode">Willkommen %1$s</string>
-    <string-array name="riddle_jumper_collision_break">
-        <item>Das kannst du besser</item>
-        <item>Auf ein Neues</item>
-        <item>Du schaffsts noch weiter</item>
-        <item>Game Over!?</item>
-    </string-array>
-    <string name="riddle_jumper_new_highscore">Neuer Rekord %1$dm !</string>
-    <string name="riddle_jumper_old_highscore">Bisheriger Rekord %1$dm</string>
+
     <string name="riddle_hints_dialog_confirm">Habs verstanden!</string>
     <string name="riddle_dialog_title">Experimente wählen</string>
     <plurals name="riddle_dialog_confirm_unsolveds">
@@ -890,5 +169,7 @@
         <item quantity="one">Ausgesetztes Experiment</item>
         <item quantity="other">%1$d ausgesetzte Experimente</item>
     </plurals>
+    <string name="send_log_title">Sorry, die App ist abgestürzt</string>
+    <string name="article_hint_no_translation">Hinweis für diese Sprache nicht verfügbar.</string>
 
 </resources>

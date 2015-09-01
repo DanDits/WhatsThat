@@ -1,0 +1,438 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="intro_test_subject_name">-Test Subjekt-</string>
+    <string name="intro_test_subject_estimated_intelligence">-Intelligenz-</string>
+
+    <string name="intro_test_subject_gender_answer_male">Männlich</string>
+    <string name="intro_test_subject_gender_answer_female">Weiblich</string>
+    <string name="intro_test_subject_gender_answer_whatever">Anderes</string>
+
+    <string name="intro_test_answer_yes">Ja</string>
+    <string name="intro_test_answer_no">Nein</string>
+    <string name="intro_test_answer_bullshit">Schokolade</string>
+
+    <!-- Level 0 -->
+    <string name="test_subject_0_name">Verwirrtes Kind</string>
+    <string name="test_subject_0_int">Hoffnungslos</string>
+    <string-array name="test_subject_0_0_intro_main">
+        <item>Hallo Du, kannst du mich verstehen?</item>
+        <item>Die Neuronen reagieren auf meine liebliche Stimme. </item>
+        <item>Das deute ich als ja.</item>
+        <item>Erdling, ich heiße dich auf einer Reise in die Untiefen deines Geistes willkommen.</item>
+        <item>Ich bin Meister Minion Xiaros Blu Equaris Zubatro Venalo der 364k.</item>
+        <item>Es reicht aber, wenn du mich ganz zwanglos mit \"Erhabener\" anredest.</item>
+        <item>Du kannst mich natürlich auch mit anderen Ehrentiteln anreden.</item>
+        <item>Beispielsweise \"Eure Durchlauchtheit\", \"Erhabenes Wesen aus Sonnenstrahlen\"</item>
+        <item>Oder \"Oh ruhmreiches und unübertreffliches Wesen aller Galaxien\". Entschuldige. Ich schweife schnell ab. </item>
+    </string-array>
+    <string-array name="test_subject_0_1_intro_main">
+        <item>Das hier ist Dr. Kulg.</item>
+        <item>Ihr würdet ihn einen verrückt genialen Wissenschaftler nennen.</item>
+    </string-array>
+    <string-array name="test_subject_0_2_intro_main">
+        <item>Verrate mir nur vorweg bitte eins: Was bist du für ein Wesen?</item>
+        <item>Unsere hochentwickelte Kultur ist darüber zu erhaben, aber euch Menschen ist das ja wichtig.</item>
+    </string-array>
+    <string-array name="test_subject_0_3_intro_main">
+        <item>Meine Schöpfer und ich, oder kurz gesagt: wir.</item>
+        <item>Wir wollen die menschliche Spezies besser verstehen.</item>
+        <item>Unsere Wahl ist dabei auf dich gefallen.</item>
+        <item>Du wirst unser Versuchsobjekt sein</item>
+        <item>Wir werden dich beobachten und im Hintergrund die gewonnen Daten auswerten.</item>
+        <item>Wir hoffen, du hast das Potential, das wir in dir sahen.</item>
+        <item>Zumindest sahst du aus der Ferne vielversprechend aus…</item>
+        <item>Aber von Nahmen betrachtet.. vermute ich ein Versagen des Zentralgehirns…</item>
+        <item>Nun.. enttäusche deinen Planeten besser nicht.</item>
+    </string-array>
+    <string-array name="test_subject_0_intro_nuts">
+        <item>…</item>
+        <item>Darf ich dir unser Zentralgehirn WiseMind vorstellen.. mit ihr haben wir dein Gehirn verbunden.</item>
+        <item>Ein Gehirn von der Größe einer Galaxie.. und dann.. nun ja.. deines daneben…</item>
+        <item>Ich hoffe ihr werdet euch trotzdem verstehen</item>
+        <item>Test: Ist 13 eine Primzahl?</item>
+        <item>Antwortzeit überschritten. Keine Reaktion festzustellen.</item>
+        <item>Ok vielleicht was einfacheres, denk mal an etwas zu essen.</item>
+        <item>Aha, Süßigkeiten.</item>
+        <item>Wunderbar, da der Anschluss funktioniert können wir hoffentlich gleich beginnen.</item>
+        <item>Ich hoffe mal du bist nicht schwer von Begriff.</item>
+        <item>Nicht das wir dich überfordern. Mal sehen.. Buchstaben, nö…Zahlen, negativ…</item>
+        <item>Was kannst du eigentlich?</item>
+        <item>Mal sehen, wie es auf Bilder reagiert.</item>
+        <item>Aha.. Affinität zu Anomalien der Farbvalenz</item>
+        <item>WiseMind, bereichte Versuchsreihe 272 zur Feststellung und Messung der Intelligenz der Homo Sapiens vor.</item>
+        <item>Erdling, wie bei allen zukünftigen Experimenten der Versuchsreihe 272, geht es darum, das Bild zu erraten.</item>
+        <item>Wenn du einmal nicht weiterkommst, dann schiebe bitte "keine Panik".</item>
+        <item>WiseMind wird eine für dich maßgeschneiderte Hilfe geben, wenn unser Intellekt den irdischen übersteigt.</item>
+        <item>Und nun, wie man bei euch so schön sagt: Kopf in Mülleimer!</item>
+        <item>Oh, hoppla, Verzeihung ich meinte natürlich: Viel Erfolg!</item>
+    </string-array>
+    <string-array name="test_subject_0_riddle_solved_candy">
+        <item>Gut gemacht!</item>
+        <item>Geschafft!</item>
+        <item>Großes Lob!</item>
+    </string-array>
+
+    <!-- Level 1 -->
+    <string name="test_subject_1_name">Kind</string>
+    <string name="test_subject_1_int">Ein Funken</string>
+    <string-array name="test_subject_1_0_intro_main">
+        <item>WiseMind berichtet von Verbesserungen.</item>
+        <item>Wenn das nicht von ihr kommen würde… wer hätte das geglaubt.</item>
+        <item>Trotzdem muss ich diese Behauptung überprüfen.</item>
+    </string-array>
+    <string-array name="test_subject_1_1_intro_main">
+        <item>Test: Was ist die 7364. Primzahl?</item>
+        <item>Nein; Schokolade ist keine Primzahl.</item>
+        <item>Immerhin warst du diesmal schnell mit deiner Antwort.</item>
+        <item>Das ist ja schonmal besser als nichts.</item>
+    </string-array>
+    <string-array name="test_subject_1_2_intro_main">
+        <item>Wie dem auch sei. Wenn ich nun das Protokoll hier lade, dann.. Oha.</item>
+        <item>Alpha Stimulation bewirkt eine Allergiereaktion.</item>
+        <item>Wer hätte gedacht, dass Gehirne so reagieren könnten.</item>
+        <item>Als nächstes.. Injektion der Äther Blocker zur Sensibilisierung der Materie.</item>
+        <item>Warum grinst du so dämlich?</item>
+        <item>Ach weil du das nicht verstanden hast.</item>
+        <item>Ich schreibs ins Protokoll.</item>
+    </string-array>
+    <string-array name="test_subject_1_intro_nuts">
+        <item>Die Reaktionen lassen vermuten, dass der menschliche IQ nur knapp über dem absoluten Gefrierpunkt liegt</item>
+        <item>Homo Sapiens, wie haben die bloß diesen Planeten so schnell kaputt gemacht mit so wenig Hirn?</item>
+        <item>Steht hier nicht irgendwo so ein Satz…?</item>
+        <item>Achja hier:\"denn sie wissen nicht, was sie tun…</item>
+        <item>Das kann ich nur bestätigen.</item>
+        <item>Das zerstörerische Verhalten war wohl keine Absicht, sondern fehlender Überblick.</item>
+        <item>Ob wir ihnen dabei helfen sollten und dann den Planeten von neuem besiedeln?</item>
+        <item>Oh du hörst mir noch zu.. ich mache nur Spaß.</item>
+    </string-array>
+    <string-array name="test_subject_1_riddle_solved_candy">
+        <item>Bedachter Zug!</item>
+        <item>Bombastisch!</item>
+        <item>Bravo!</item>
+    </string-array>
+
+    <!-- Level 2 -->
+    <string name="test_subject_2_name">Klugscheißer</string>
+    <string name="test_subject_2_int">Hoffnungslos überschätzt</string>
+    <string-array name="test_subject_2_0_intro_main">
+        <item>WiseMind ist außer sich.. vor Begeisterung.</item>
+        <item>Sie meint, sie hätte von Anfang an recht gehabt.</item>
+        <item>Ich allerdings behaupte, du hast nur gelernt, was wir von dir sehen wollten.</item>
+        <item>Uns ist aufgefallen, dass du noch gar keine Primzahlen kanntest.</item>
+        <item>Bei uns werden Primzahlen schon in der Plasmagranulation aufgenommen…</item>
+        <item>-das entspricht eurer Muttermilch.</item>
+        <item>Verzeihe die Überschätzung deines Intellekts.</item>
+    </string-array>
+    <string-array name="test_subject_2_1_intro_main">
+        <item>Test: Was ist die Lösung des P-NP Problems?</item>
+        <item>Wie? Ein Millennium-Problem?</item>
+        <item>Nach so langer Zeit und noch immer keine Lösung?</item>
+        <item>Hmmm.. dann eben ein leichter Test.</item>
+        <item>Was ist das Molekulargewicht von Antimaterie?</item>
+        <item>6? Naja. Fast korrekt!</item>
+        <item>Seufz. Das kann ja noch was werden…</item>
+        <item>Als die Suppe der Weisheit verteilt wurde, seid ihr wohl mit der Gabel angerannt.</item>
+    </string-array>
+    <string-array name="test_subject_2_intro_nuts">
+        <item>Übermütige Kommentare und Beleidigungen meinerseits sind übrigens nur ein Versuch menschlich zu kommunizieren.</item>
+        <item>Aber nun weiter im Protokoll.</item>
+    </string-array>
+    <string-array name="test_subject_2_riddle_solved_candy">
+        <item>Gratulation!</item>
+        <item>Ganz passabel!</item>
+        <item>Gute Arbeit!</item>
+    </string-array>
+
+    <!-- Level 3 -->
+    <string name="test_subject_3_name">Trottel</string>
+    <string name="test_subject_3_int">Utopisch debil</string>
+    <string-array name="test_subject_3_0_intro_main">
+        <item>Diesmal wenden wir uns einem meiner Lieblingsthemen zu:</item>
+        <item>Pi.</item>
+        <item>Der Test ist ganz simpel.</item>
+    </string-array>
+    <string-array name="test_subject_3_1_intro_main">
+        <item>Was ist die 103057. Stelle von Pi?</item>
+        <item>Naja fast.5.</item>
+    </string-array>
+    <string-array name="test_subject_3_2_intro_main">
+        <item>Und die 84765. Stelle?</item>
+        <item>Nein, auch 5.</item>
+    </string-array>
+    <string-array name="test_subject_3_3_intro_main">
+        <item>Und die 7530 Stelle?</item>
+        <item>5!</item>
+    </string-array>
+    <string-array name="test_subject_3_4_intro_main">
+        <item>Die 836 Stelle?</item>
+        <item>Falsch. 6. Ich gebs auf.</item>
+    </string-array>
+    <string-array name="test_subject_3_intro_nuts">
+        <item>Eines steht fest.</item>
+        <item>Ihr müsst euch vor anderen Lebewesen nicht fürchten.</item>
+        <item>Ein geistiger Pygmäe besitzt in einem FInger mehr Intelligenz, als ihr in eurem gesamten Körper.</item>
+        <item>Solltet ihr eines Tages wieder einmal Besuch von einer anderen Hochkultur bekommen:</item>
+        <item>ihr habt nichts zu befürchten.</item>
+        <item>Vermutlich kehren sie mit blankem Entsetzen im Gesicht um.</item>
+        <item>Oder sie genießen das Kino, wenn ihr euch gegenseitig bekämpft.</item>
+        <item>Wir sind eine der wenigen Ausnahmen:</item>
+        <item>Wir studieren euch vorher!</item>
+        <item>Ihr führt Versuche, ich meine Ratten und Affen gesehen zu haben, an niederen Lebewesen durch.</item>
+        <item>Das tun wir auch!</item>
+        <item>Mit euch zum Beispiel.</item>
+        <item>Was gugst du mich so an?</item>
+        <item>Unsere Versuche dienen immer nur zur Messung der Intelligenz anderer Lebewesen!</item>
+        <item>Naja meistens zumindest. Sofern vorhanden.</item>
+        <item>Und wenn sie sich nicht so anstellen.</item>
+        <item>Ich gebe mir ja Mühe den Motivationsfaktor wieder anzukurbeln.</item>
+        <item>Hier ist das aber schwieriger als angenommen.</item>
+    </string-array>
+    <string-array name="test_subject_3_riddle_solved_candy">
+        <item>Beifall gibt\'s später…</item>
+        <item>Bemühte sich stets…</item>
+        <item>Bin fast sprachlos.</item>
+    </string-array>
+
+    <!-- Level 4 -->
+    <string name="test_subject_4_name">Einfaltspinsel</string>
+    <string name="test_subject_4_int">Unterirdisch</string>
+    <string-array name="test_subject_4_0_intro_main">
+        <item>Sogar WiseMind fängt langsam an zu zweifeln.</item>
+        <item>Zu zweifeln, ob die Entscheidung mit dir die richtige war.</item>
+        <item>Sie ist nun am Prüfen, ob es an deinem Gehirn liegt.</item>
+    </string-array>
+    <string-array name="test_subject_4_1_intro_main">
+        <item>Vielleicht ist der Schwachsinn ein kollektives Problem archaischen Ursprungs.</item>
+        <item>Wir wissen ja noch nicht, woran ihr Erdlinge sonst noch leidet.</item>
+        <item>Erste Ergebnisse ergaben bisher nur:</item>
+        <item>Arroganz.</item>
+        <item>Maßlose Selbstüberschätzung.</item>
+        <item>Größenwahn.</item>
+        <item>Teilweise sogar Hybris.</item>
+        <item>Gier.</item>
+        <item>Antipathie.</item>
+        <item>Ich könnte noch weiter machen. Das ist traurige Realität.</item>
+    </string-array>
+    <string-array name="test_subject_4_intro_nuts">
+        <item>Und dann sieh mich an:</item>
+        <item>Das Musterbeispiel eines intelligenten Wesens:</item>
+        <item>Geistrich.</item>
+        <item>Abenteuerlustig auf andere Planeten.</item>
+        <item>Scharfsinnig im Verstand.</item>
+        <item>Fürsorgend für niedere.</item>
+        <item>Beispielsweise dich.</item>
+        <item>Und natürlich:</item>
+        <item>Total bescheiden.</item>
+    </string-array>
+    <string-array name="test_subject_4_riddle_solved_candy">
+        <item>Wer hätte das gedacht.</item>
+        <item>Wow…</item>
+        <item>Welch eine Überraschung.</item>
+    </string-array>
+
+    <!-- Level 5 -->
+    <string name="test_subject_5_name">Grünschnabel</string>
+    <string name="test_subject_5_int">Ein Stein im Wasser</string>
+    <string-array name="test_subject_5_intro_main">
+        <item>Letztes Mal habe ich etwas übertrieben.</item>
+        <item>Ich habe WiseMind versprochen, dass ich die Menschheit nicht pausenlos dumm nenne.</item>
+        <item>Und dich soll ich auch nicht mehr beleidgen.</item>
+        <item>Zumindest nicht so offensichtlich.</item>
+        <item>Was aber nicht heißt, dass ich dich anspruchsvoller beschimpfen werde.</item>
+        <item>Du kannst über die Bedeutung ja nachdenken und dich später beschweren.</item>
+    </string-array>
+    <string-array name="test_subject_5_intro_nuts">
+        <item>Eine Frage stelle ich mir schon die ganze Zeit.</item>
+        <item>Ich kann ja verstehen, dass sich Kinder bei eurer Spezies noch im Entwicklungsstadium und am Lernen befinden.</item>
+        <item>Aber wieso seid ihr erwachsenen Menschen so dumm?</item>
+        <item>Verzeihung bitte.</item>
+        <item>Ich wollte sagen: Wieso stellen körperlich ausgereifte Menschen eine Evolutionsbremse in der Entwicklung dar?</item>
+        <item>Die Betonung liegt auf körperlich.</item>
+        <item>Von geistig kann kaum die Rede sein.</item>
+        <item>Dass ein dum..</item>
+        <item>..ein intellektueller Tiefflieger aufgrund mangelnder Alternativen Politiker wird, verständlich.</item>
+        <item>Doch der Rest?</item>
+        <item>Könnte versuchen, mal das eigene Sonnensystem zu erforschen.</item>
+        <item>Die Sonne zu erkunden. Euren Intellekt zu verbessern.</item>
+        <item>Und stattdessen aufhören an eurer eigenen Vernichtung zu arbeiten…</item>
+        <item>Ihr baut Waffen, die euch selbst vernichten würden.</item>
+        <item>Welches Wesen sägt bitte schön den Ast ab, auf dem es sitzt?</item>
+        <item>Ich sehe.. mein Temperament geht mit mir durch.</item>
+        <item>Die Tests reizen mein Nervenschild.</item>
+        <item>Ich frage WiseMind, ob sie nicht etwas dagegen tun kann.</item>
+        <item>Der erd-sphärische Druck schlägt aufs Gemüt.</item>
+    </string-array>
+    <string-array name="test_subject_5_riddle_solved_candy">
+        <item>Nochmal bitte!</item>
+        <item>Nicht schlecht!</item>
+        <item>Nur weiter so!</item>
+    </string-array>
+
+    <!-- Level 6 -->
+    <string name="test_subject_6_name">Entdecker</string>
+    <string name="test_subject_6_int">Ausbaufähig</string>
+    <string-array name="test_subject_6_intro_main">
+        <item>WiseMind hat mir für diese Atmosphäre eine Spezialcreme hergestellt!</item>
+        <item>Jetzt geht es mir wesentlich besser!</item>
+        <item>Und noch eine gute Nachricht!</item>
+        <item>Wir haben dich noch nicht aufgegeben!</item>
+        <item>Zumindest noch nicht ganz.</item>
+        <item>WiseMind hat gesagt, ich soll meine Anforderungen senken.</item>
+        <item>Also meine Anforderungen an dich.</item>
+        <item>Und sie trifft den Menschen, äh den Nagel auf den Kopf!</item>
+        <item>Natürlich tut sie das. WiseMind irrt sich fast nie.</item>
+        <item>Aber zurück zum Thema.</item>
+    </string-array>
+    <string-array name="test_subject_6_intro_nuts">
+        <item>Voller Hoffnung starten wir einen kurzen Versuch:</item>
+        <item>Ist die 11 eine Primzahl?</item>
+        <item>Nein, Lakritze ist nicht ganz korrekt! Du hattest es fast.</item>
+        <item>Warte, die Frage anders formuliert: Was ist die 3. Schokolade von Pi?</item>
+        <item>4 ist korrekt!!!</item>
+        <item>Fantastisch! Fehlt eigentlich nur noch der Trommelwirbel.</item>
+        <item>Und welche Primzahl lakritzt?</item>
+        <item>18 IST.. nicht ganz korrekt. Aber ein Anfang</item>
+        <item>Schnelle Antwort bei teilweise richtigen Antworten.</item>
+        <item>hmm… Das Ergebnis ist nicht weltbewegend.</item>
+        <item>Es zeugt zumindest noch nicht von besonderer Intelligenz.</item>
+        <item>Bist ja auch bloß ein Mensch.</item>
+        <item>Aber in Summe war es ganz passabel.</item>
+        <item>So passabel, wie die Pyramide in Ägypten einem Kreis entspricht.</item>
+        <item>…</item>
+        <item>Ich habe einen Entschluss gefasst.</item>
+        <item>Deine Reaktionen auf Zahlen waren, stark untertrieben, bescheiden.</item>
+        <item>Katastrophal um genau zu sein.</item>
+        <item>Das ist wohl nicht deine Stärke.</item>
+        <item>Und Buchstaben auch nicht.</item>
+        <item>Ich bin zwar optimistisch, aber im Wolkenkuckucksheim lebe ich trotzdem nicht.</item>
+        <item>Wir arbeiten deswegen ausschließlich mit Bildern weiter.</item>
+        <item>Das bietet noch Potenzial.</item>
+        <item>Und weniger Frust.</item>
+    </string-array>
+    <string-array name="test_subject_6_riddle_solved_candy">
+        <item>Unverhofft gut!</item>
+        <item>Unglaublich!</item>
+        <item>Unerwartet passabel.</item>
+    </string-array>
+
+    <!-- Level 7 -->
+    <string name="test_subject_7_name">Potenzialträger</string>
+    <string name="test_subject_7_int">Lichtblick</string>
+    <string-array name="test_subject_7_intro_main">
+        <item>Zur Abwechslung haben wir helios beobachtet und die chromische Adaption gemessen.</item>
+        <item>Des mit Fotorezeptoren ausgestatteten Organs zur Wahrnehmung von Reizen.</item>
+        <item>Ups. Wenn ich mich mit WiseMind unterhalte,..</item>
+        <item>..dann vergesse ich manchmal, dass ich bei dir diesen Fachjargon nicht verwenden sollte.</item>
+        <item>Also übersetzt: Wir haben die Sonne und deine Augen beobachtet.</item>
+        <item>Natürlich um die Farbwahrnehmung nochmals genauer zu untersuchen!</item>
+        <item>Die Konvergenz unserer Untersuchungen… stimmt..</item>
+        <item>nicht einmal annähernd mit eurem Wissen überein.</item>
+        <item>Ihr wisst also gar nichts.</item>
+        <item>Na schön. Für diese Erkenntnis hätte ich nicht mal einen Keks bekommen.</item>
+    </string-array>
+    <string-array name="test_subject_7_intro_nuts">
+        <item>Ich will damit folgendes sagen:</item>
+        <item>Wir wissen, dass wir etwas wissen, weil wir weise sind.</item>
+        <item>Manche Lebensformen wissen etwas, aber wissen nicht, dass sie es wissen.</item>
+        <item>Träumer können wir aber mit dem richtigen Kniff aufwecken.</item>
+        <item>Als drittes gibt es noch solche, die nichts wissen und wissen, dass sie nichts wissen.</item>
+        <item>Unwissende können wir aber lehren.</item>
+        <item>Und ihr… ein ganz spezieller Haufen…</item>
+        <item>Ihr wisst nichts und wisst nicht, dass ihr nichts wisst…</item>
+        <item>Diesen Zustand von geistiger Umnachtung…</item>
+        <item>Ihr seid eine Gefahr für diesen Planeten und das Sonnensystem.</item>
+        <item>Wenn ich auf eine Spezies mein ganzes Wissen und Gut setzen müsste..</item>
+        <item>..ihr wärt wohl die letzten…</item>
+        <item>Tut mir ja leid, ich sage halt einfach immer die Wahrheit.</item>
+        <item>Na gut, das war gelogen.</item>
+        <item>Ich neige nur meistens zu aggressiver Offenheit.</item>
+    </string-array>
+    <string-array name="test_subject_7_riddle_solved_candy">
+        <item>Blendend!</item>
+        <item>Bin stolz auf dich!</item>
+        <item>Bemerkenswert!</item>
+    </string-array>
+
+    <!-- Level 8 -->
+    <string name="test_subject_8_name">Banause</string>
+    <string name="test_subject_8_int">Streichholz am Tag</string>
+    <string-array name="test_subject_8_intro_main">
+        <item>Ich muss etwas zurück schiffen.</item>
+        <item>Mach dir keine falschen Hoffnungen.</item>
+        <item>Ups. Wenn ich mich mit WiseMind unterhalte, ..</item>
+        <item>Ich will nicht sagen, du bist schlau oder schlauer, nene.</item>
+        <item>WiseMind hat eine Zeit lang ein paar Menschenherden beobachtet und erschreckendes festegestellt…</item>
+        <item>Zwei Gruppen verfügen über keinerlei Gehirn</item>
+        <item>Oh, es reagiert auf die Worte \"kein Gehirn\".Interessant. Hat das etwas zu bedeuten? WiseMind muss das untersuchen.</item>
+        <item>Nochmal zurück. Ein Lebewesen ohne Gehirn.</item>
+        <item>Absolut nichts.</item>
+        <item>Nur Leere. Ein Vakuum.</item>
+        <item>Wie konnte es so lange überleben?</item>
+        <item>Über diese Erkenntnis war ich so schockiert, dass ich einen Moment mein Tarnliquida fallen gelassen hab.</item>
+        <item>Es hat mich glücklicherweise keiner gesehen.</item>
+    </string-array>
+    <string-array name="test_subject_8_intro_nuts">
+        <item>Bei den Menschengruppen handelt es sich um animalisch getrieben und rückständige…</item>
+        <item>..war das eben wieder ein Zucken..? Egal…</item>
+        <item>..um animalisch und rückständige Lebewesen. Obwohl animalisch eine Beleidigung für jedes intelligentere Tier auf diesem Planeten ist.</item>
+        <item>Sogar ein Stein hat mehr Intelligenz.</item>
+        <item>Ihr Menschen kennzeichnet diese fanatischen Gruppen mit Richtungen.. Moment..</item>
+        <item>..Oben- und Unten.. nee.. West- und Ost.. auch nicht.</item>
+        <item>Wie hießen die denn nochmal…</item>
+        <item>Naja egal.</item>
+        <item>Ich habe zur Entstehung der genannten Gruppen schon drei verschiedene Theorien.</item>
+        <item>Es ergeben sich nur keine eindeutigen Antworten.</item>
+        <item>Auf jede Theorie gibt es 279 mögliche Thesen.</item>
+        <item>Auf jede These 13 mögliche Lösungen.</item>
+        <item>Aber auf jede Lösung kommen 7 Hypothesen, 65 Gegentheorien, 8 Doktrinen und 4 Hirngespinste.</item>
+        <item>Von den 3038 unterschiedlichen Meinungen ganz zu schweigen!</item>
+        <item>Oder um es mathematisch-philosophisch auszudrücken:</item>
+        <item>Eine Gleichung mit achthundertfünfunzwanzig Unbekannten, siebenundreißig Dogmen und fünfzehn Neologismen.</item>
+        <item>Kapiert?</item>
+    </string-array>
+    <string-array name="test_subject_8_riddle_solved_candy">
+        <item>Voll clever!</item>
+        <item>Vorstellung übertroffen!</item>
+        <item>Vorbildlich!</item>
+    </string-array>
+
+    <!-- Level 9 -->
+    <string name="test_subject_9_name">Junior Talent</string>
+    <string name="test_subject_9_int">Intelligenzniveau eines Einzellers</string>
+    <string-array name="test_subject_9_intro_main">
+        <item>Zurück von den erquickenden Myriaden gescheiter Gedanken.</item>
+        <item>Zurück zu den trostlosen Forschungen bei unserem Versuchsobjekt.</item>
+    </string-array>
+    <string-array name="test_subject_9_intro_nuts">
+        <item>Ich muss dein Gehirn etwas unter Strom setzen.</item>
+        <item>Stillgelegte Verbindungen werden damit eventuell aktiviert.</item>
+        <item>Ja, das könnte bedeuten, du wirst intelligenter.</item>
+        <item>Es könnte.</item>
+        <item>Wo nichts vorhanden ist, kann auch nichts wachsen.</item>
+        <item>Ich starte mit 3 Gigavolt.</item>
+        <item>So.. Kleber hier.. Kabel dort..</item>
+        <item>Initiiere Stromstoß in 3.. 2..</item>
+        <item>Was soll denn das schon wieder WiseMind?</item>
+        <item>Zuviel? Oh.</item>
+        <item>Ich dachte nicht, dass dich das bisschen Strom grillen würde.</item>
+        <item>Verzeihung. Du darfst dich bei ihr für den lebensrettenden Eingriff bedanken.</item>
+        <item>Sag danke.</item>
+        <item>Warum dreht sich dein großer Zeh im Kreis?</item>
+        <item>Ich versteh das mal als °Danke WiseMind°.</item>
+        <item>Aber wieso wachsen auf deinem Gesicht plötzlich grüne Warzen?</item>
+        <item>Das ist hoffnungslos, du wirst nicht schöner…</item>
+        <item>Und wieso schlägst du dich selbst? Willst du dir Gutes tun?</item>
+        <item>Dein Anblick wird für uns nicht erträglicher…</item>
+        <item>Ach…</item>
+        <item>Der Strom läuft ja wieder.</item>
+        <item>Siehst du WiseMind, das Menschenwesen ist glücklich.</item>
+        <item>Guck doch wie es lächelt.</item>
+        <item>Oh halt, warte.</item>
+        <item>Es steht ja auf dem Kopf.</item>
+    </string-array>
+    <string-array name="test_subject_9_riddle_solved_candy">
+        <item>Klasse Leistung!</item>
+        <item>Kluger Zug!</item>
+        <item>Klasse gemacht!</item>
+    </string-array>
+</resources>

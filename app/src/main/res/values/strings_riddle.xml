@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Circle related -->
+    <string name="riddle_type_circle">Grey Matter</string>
+    <string name="riddle_type_circle_explanation">Touch one circle to pop them into 4 smaller ones until the image is visible.</string>
+    <string-array name="riddle_type_circle_hints">
+        <item>Touch circles to divide them.</item>
+    </string-array>
+    <string name="article_circle_divide_by_move_feature_name">Lazor Cutter</string>
+    <string name="article_circle_divide_by_move_feature_descr">Allows dividing of circles by moving the finger. Very relaxing!</string>
+
+    <!-- Snow related -->
+    <string name="riddle_type_snow">Angry Cell</string>
+    <string name="riddle_type_snow_explanation">Tilt the device and thus move the cell. Collect toxic candies, grow bigger, don\'t touch walls and EXPLODE.</string>
+    <string-array name="riddle_type_snow_hints">
+    </string-array>
+
+    <string-array name="devil_talk_recovering_start">
+        <item>My stomach hurts…</item>
+        <item>Outch</item>
+        <item>Need… to pro…tect</item>
+    </string-array>
+    <string-array name="devil_talk_recovered">
+        <item>I\'m fine again!</item>
+        <item>I did this just for you!</item>
+    </string-array>
+    <string-array name="devil_talk_return">
+        <item>I\'m back!</item>
+        <item>Did you miss me?</item>
+        <item>I will never leave you.</item>
+        <item>Resurrection in 3…2… nevermind, I\'m already back</item>
+        <item>Overly attached? I call it passion.</item>
+        <item>Like the moon will not leave the earth, I will not leave you!</item>
+    </string-array>
+    <string-array name="devil_talk_killed">
+        <item>I\'ll be back.</item>
+        <item>Noooooooo</item>
+        <item>What are you doing?</item>
+        <item>Staaap!</item>
+        <item>Let me love youuu</item>
+        <item>You need me</item>
+        <item>The candy is a lie!</item>
+    </string-array>
+    <string-array name="devil_talk_cell_eat_candy">
+        <item>Nooooo, that\'s poison</item>
+        <item>Don\'t you see it\'s not candy?!</item>
+        <item>Why you do this, stap</item>
+        <item>Stop…eating candy.</item>
+        <item>Sigh</item>
+        <item>Stop or you will get fat!</item>
+        <item>No toothbrush, no candy</item>
+    </string-array>
+    <string-array name="devil_talk_cell_eat_candy_explosive">
+        <item>Wooo, keep calm, keeeeeep calm</item>
+        <item>Remember the last time you were happy?</item>
+        <item>Fast, kiss the wall</item>
+    </string-array>
+    <string-array name="devil_talk_mock">
+        <item>Nevermind me, I\'m just spinning around</item>
+        <item>Why don\'t you love me back?</item>
+        <item>I just want to help</item>
+        <item>Tickling me won\'t do anything</item>
+    </string-array>
+
+    <!-- Triangle related -->
+    <string name="riddle_type_triangle">ColEdge</string>
+    <string name="riddle_type_triangle_explanation">Press inside a triangle to create smaller ones.</string>
+    <string-array name="riddle_type_triangle_hints">
+    </string-array>
+    <string name="article_triangle_divide_by_move_feature_name">More Lazor</string>
+    <string name="article_triangle_divide_by_move_feature_descr">Allows dividing of triangles by moving the finger. Even more relaxing!</string>
+
+    <!-- Dice related -->
+    <string name="riddle_type_dice">Alien-Cube</string>
+    <string name="riddle_type_dice_explanation">Create dices by touching an empty field. Move and combine dices with equal numbers to reveal the image.</string>
+    <string-array name="riddle_type_dice_hints">
+    </string-array>
+
+    <!-- Jumper related -->
+    <string name="riddle_type_jumper">Invasion</string>
+    <string name="riddle_type_jumper_explanation">Touch to jump or keep pressed to doublejump over obstacles. Each one will slowly reveal the image</string>
+    <string-array name="riddle_type_jumper_hints">
+    </string-array>
+    <string-array name="riddle_jumper_collision_break">
+        <item>You can do betterr</item>
+        <item>Here we go again</item>
+        <item>You can make it further</item>
+        <item>Game Over!</item>
+    </string-array>
+    <string name="riddle_jumper_new_highscore">New record %1$dm</string>
+    <string name="riddle_jumper_old_highscore">Current record %1$dm</string>
+    <string name="article_jumper_start_further_name">Triple XxX</string>
+    <string name="article_jumper_start_further_descr">Start from 200m instead of walking through the easy part.</string>
+
+    <!-- Memory related -->
+    <string name="riddle_type_memory">Memory</string>
+    <string name="riddle_type_memory_explanation">Find a matching pair</string>
+    <string-array name="riddle_type_memory_hints">
+    </string-array>
+
+
+    <!-- Developer related -->
+    <string name="riddle_type_developer">Developer</string>
+    <string name="riddle_type_developer_explanation">Hi self or brother.</string>
+
+    <!-- Torchlight related -->
+    <string name="riddle_type_torchlight">Torchlight</string>
+    <string name="riddle_type_torchlight_explanation">Something happens later</string>
+
+    <!-- Flow related -->
+    <string name="riddle_type_flow">Flow</string>
+    <string name="riddle_type_flow_explanation">Click to create pixel flows which follow lines in the hidden image.</string>
+</resources>

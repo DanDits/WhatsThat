@@ -28,6 +28,7 @@ import dan.dit.whatsthat.image.Image;
 import dan.dit.whatsthat.riddle.Riddle;
 import dan.dit.whatsthat.riddle.RiddleConfig;
 import dan.dit.whatsthat.riddle.achievement.holders.AchievementMemory;
+import dan.dit.whatsthat.riddle.types.Types;
 import dan.dit.whatsthat.system.RiddleFragment;
 import dan.dit.whatsthat.util.BuildException;
 import dan.dit.whatsthat.util.PercentProgressListener;
@@ -46,6 +47,7 @@ public class RiddleMemory extends RiddleGame {
     public static final int DEFAULT_FIELD_X = 8;
     public static final int DEFAULT_FIELD_Y = 7; // one dimension must be a multiple of 2!
     private static final int TILE_IN_PATH_COLOR = Color.YELLOW;
+    private static final int MAX_BLACK_FIELDS_FOR_SCORE_BONUS = 0;
 
     private Field2D<MemoryCard> mField;
     private Dimension mFieldDimension;
@@ -74,7 +76,8 @@ public class RiddleMemory extends RiddleGame {
 
     @Override
     protected int calculateGainedScore() {
-        return RiddleGame.DEFAULT_SCORE;
+        int blackFields = mConfig.mAchievementGameData != null ? mConfig.mAchievementGameData.getValue(AchievementMemory.KEY_GAME_STATE_BLACK_COUNT, 0L).intValue() : 0;
+        return super.calculateGainedScore() + (blackFields <= MAX_BLACK_FIELDS_FOR_SCORE_BONUS ? Types.SCORE_SIMPLE : 0);
     }
 
     @Override

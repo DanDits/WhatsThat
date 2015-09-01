@@ -25,6 +25,7 @@ import dan.dit.whatsthat.riddle.Riddle;
 import dan.dit.whatsthat.riddle.RiddleConfig;
 import dan.dit.whatsthat.riddle.achievement.AchievementDataRiddleType;
 import dan.dit.whatsthat.riddle.achievement.holders.AchievementSnow;
+import dan.dit.whatsthat.riddle.types.Types;
 import dan.dit.whatsthat.util.PercentProgressListener;
 import dan.dit.whatsthat.util.compaction.CompactedDataCorruptException;
 import dan.dit.whatsthat.util.compaction.Compacter;
@@ -68,6 +69,7 @@ public class RiddleSnow extends RiddleGame implements FlatWorldCallback {
     private static final float EXPLOSION_SPEED_MULTIPLIER = 10.f;
     private static final float DEVIL_RADIUS_FRACTION_OF_CELL_MAX_RADIUS = 0.25f;
     public static final boolean DEFAULT_DEVIL_IS_VISIBLE = true;
+    private static final int MAX_WALL_COLLISONS_FOR_SCORE_BONUS = 0;
 
     private long mReloadRiddleMoveBlockDuration;
 
@@ -406,7 +408,8 @@ public class RiddleSnow extends RiddleGame implements FlatWorldCallback {
 
     @Override
     protected int calculateGainedScore() {
-        return RiddleGame.DEFAULT_SCORE;
+        int wallCollisions = mConfig.mAchievementGameData != null ? mConfig.mAchievementGameData.getValue(AchievementSnow.KEY_GAME_COLLISION_COUNT, 0L).intValue() : 0;
+        return super.calculateGainedScore() + (wallCollisions <= MAX_WALL_COLLISONS_FOR_SCORE_BONUS ? Types.SCORE_SIMPLE : 0);
     }
 
     @Override

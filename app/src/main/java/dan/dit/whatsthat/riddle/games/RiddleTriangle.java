@@ -24,6 +24,7 @@ import dan.dit.whatsthat.image.Image;
 import dan.dit.whatsthat.riddle.Riddle;
 import dan.dit.whatsthat.riddle.RiddleConfig;
 import dan.dit.whatsthat.riddle.achievement.holders.AchievementTriangle;
+import dan.dit.whatsthat.riddle.types.Types;
 import dan.dit.whatsthat.testsubject.TestSubject;
 import dan.dit.whatsthat.testsubject.shopping.ShopArticleHolder;
 import dan.dit.whatsthat.testsubject.shopping.sortiment.SortimentHolder;
@@ -43,6 +44,7 @@ public class RiddleTriangle extends RiddleGame {
     public static final int MAX_SPLIT_PER_CLICK = 15;
     private static final int X_SAMPLES_COUNT = 10;
     private static final int Y_SAMPLES_COUNT = 10; // will only consider X_SAMPLES * Y_SAMPLES pixels per triangle
+    private static final int MAX_TRIANGLES_FOR_SCORE_BONUS = 500;
     private List<Triangle> mTriangles;
 
     private Bitmap mBackground;
@@ -59,7 +61,7 @@ public class RiddleTriangle extends RiddleGame {
 
     @Override
     protected int calculateGainedScore() {
-        return RiddleGame.DEFAULT_SCORE;
+        return super.calculateGainedScore() + (mTriangles.size() <= MAX_TRIANGLES_FOR_SCORE_BONUS ? Types.SCORE_SIMPLE : 0);
     }
 
     @Override

@@ -18,23 +18,28 @@ import java.util.Random;
 import dan.dit.whatsthat.image.Image;
 import dan.dit.whatsthat.riddle.Riddle;
 import dan.dit.whatsthat.riddle.RiddleConfig;
+import dan.dit.whatsthat.riddle.types.Types;
 import dan.dit.whatsthat.util.PercentProgressListener;
 import dan.dit.whatsthat.util.compaction.CompactedDataCorruptException;
 import dan.dit.whatsthat.util.compaction.Compacter;
+import dan.dit.whatsthat.util.image.BitmapUtil;
 import dan.dit.whatsthat.util.image.ColorAnalysisUtil;
 import dan.dit.whatsthat.util.image.ColorMetric;
 
 /**
  * Created by daniel on 18.08.15.
  */
-public class RiddleFlow extends RiddleGame {//TODO Jeder x-te Flow nur Search_Edges=True
+public class RiddleFlow extends RiddleGame {
     private static final long UPDATE_PERIOD = 50L; //ms
     private static final long FLOW_MAX_DURATION = 20000L; //ms
-    private static final boolean SEARCH_EDGES = false; // true results in lines searching for pixels with high pressure values and makes them search for edges (lines of great color difference) to follow. Else it follows colors of equal pressure so lines need to be clicked to follow them.
     private static final boolean APPLY_TRUE_SOLUTION_COLOR_PER_PIXEL = true; //true would make it too easy and show the true pixel color forever as soon as a flow reaches the pixel
     private static final boolean SEARCH_RANDOMLY_FOR_EQUAL_PRESSURES = true; //better: true, this avoids the preference of picking the first FlowDirection in the list (TopLeft) if there is no clear precedence which would result in many diagonal lines, instead random yields zig-zig flows
     private static final boolean USE_ALPHA = true; // if the color metric has to use alpha values of colors to calculate pressure raster. If false black and alpha only images would be completely uniform in pressure and unsolvable
     private static final ColorMetric METRIC = ColorMetric.Absolute.INSTANCE; // color metric used, can be anything, but should include all colors and alpha uniformly
+    private static final int MAX_FLOWS_FOR_SCORE_BONUS = 10;
+
+    // searching edges results in lines searching for pixels with high pressure values and makes them search for edges (lines of great color difference) to follow. Else it follows colors of equal pressure so lines need to be clicked to follow them.
+    private static final int SEARCH_EDGES_EACH_X_FLOWS = 3;
 
     private int[][] mSolutionRaster;
     private double[][] mPressureRaster;
@@ -157,10 +162,14 @@ public class RiddleFlow extends RiddleGame {//TODO Jeder x-te Flow nur Search_Ed
     protected void initAchievementData() {
 
     }
+    @Override
+    public Bitmap makeSnapshot() {
+        return BitmapUtil.resize(mPresentedBitmap, SNAPSHOT_DIMENSION.getWidthForDensity(mConfig.mScreenDensity), SNAPSHOT_DIMENSION.getHeightForDensity(mConfig.mScreenDensity));
+    }
 
     @Override
     protected int calculateGainedScore() {
-        return RiddleGame.DEFAULT_SCORE;
+        return super.calculateGainedScore() + (mFlowStartsX.size() < MAX_FLOWS_FOR_SCORE_BONUS ? Types.SCORE_MEDIUM : 0);
     }
 
     @Override
@@ -279,6 +288,7 @@ public class RiddleFlow extends RiddleGame {//TODO Jeder x-te Flow nur Search_Ed
         private int mX;
         private int mY;
         private FlowDirection mLastFlowDirection;
+        private boolean mSearchEdges;
         private final int[] mFlowDirectionCandidates = new int[FlowDirection.DIRECTIONS_COUNT];
 
         public Flow(int startX, int startY) {
@@ -288,6 +298,7 @@ public class RiddleFlow extends RiddleGame {//TODO Jeder x-te Flow nur Search_Ed
             mFlowStartsY.add(mY);
             mColor = mSolutionRaster[mY][mX];
             mStartPressure = mPressureRaster[mY][mX];
+            mSearchEdges = mFlows.size() % SEARCH_EDGES_EACH_X_FLOWS == 0;
             mIntensity = 1.0;
         }
 
@@ -317,7 +328,7 @@ public class RiddleFlow extends RiddleGame {//TODO Jeder x-te Flow nur Search_Ed
                     shuffleArray(mFlowDirectionCandidates, candidatesCount);
                 }
                 // find candidate to flow to
-                double bestFeatureValue = SEARCH_EDGES ? -Double.MAX_VALUE : Double.MAX_VALUE;
+                double bestFeatureValue = mSearchEdges ? -Double.MAX_VALUE : Double.MAX_VALUE;
                 int bestNeighborX = 0;
                 int bestNeighborY = 0;
                 for (int i = 0; i < candidatesCount; i++) {
@@ -325,8 +336,8 @@ public class RiddleFlow extends RiddleGame {//TODO Jeder x-te Flow nur Search_Ed
                     int neighborX = mX + dir.mXDelta;
                     int neighborY = mY + dir.mYDelta;
                     final double pressureToCompare =  mStartPressure;
-                    double feature = SEARCH_EDGES ? mPressureRaster[neighborY][neighborX] : Math.abs(mPressureRaster[neighborY][neighborX] - pressureToCompare);
-                    boolean acceptDirection = SEARCH_EDGES ? feature > bestFeatureValue : feature < bestFeatureValue;
+                    double feature = mSearchEdges ? mPressureRaster[neighborY][neighborX] : Math.abs(mPressureRaster[neighborY][neighborX] - pressureToCompare);
+                    boolean acceptDirection = mSearchEdges ? feature > bestFeatureValue : feature < bestFeatureValue;
                     if (acceptDirection) {
                         bestFeatureValue = feature;
                         bestNeighborX = neighborX;

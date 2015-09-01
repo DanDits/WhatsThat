@@ -23,6 +23,7 @@ import dan.dit.whatsthat.solution.SolutionInput;
 import dan.dit.whatsthat.solution.SolutionInputListener;
 import dan.dit.whatsthat.solution.SolutionInputManager;
 import dan.dit.whatsthat.solution.SolutionInputView;
+import dan.dit.whatsthat.testsubject.TestSubject;
 import dan.dit.whatsthat.util.PercentProgressListener;
 import dan.dit.whatsthat.util.compaction.CompactedDataCorruptException;
 import dan.dit.whatsthat.util.compaction.Compacter;
@@ -38,15 +39,18 @@ import dan.dit.whatsthat.util.image.Dimension;
  * Created by daniel on 29.04.15.
  */
 public abstract class RiddleGame {
-    /**
-     * The default score awarded for solving a RiddleGame.
-     */
-    static final int DEFAULT_SCORE = 1;
 
     /**
      * The width for a snapshot bitmap for unsolved RiddleGame's that get closed.
      */
     static final Dimension SNAPSHOT_DIMENSION = new Dimension(32, 32);
+    /**
+     * Maximum time from creating a new riddle till solving that results in using the multiplier for score calculation
+     */
+    private static final long SCORE_BONUS_MAX_RIDDLE_TIME = 30 * 60 * 1000; //30 minutes in ms
+    private static final int BASE_SCORE_MULTIPLIER = 1; //should not change
+    private static final int MAX_SCORE_MULTIPLIER = 3; // > BASE_SCORE_MULTIPLIER
+    private static final int SCORES_MULTIPLIED_PER_DAY_COUNT = 10;
 
     private Riddle mRiddle; // should be hidden
     private RiddleController mRiddleController;
@@ -55,6 +59,7 @@ public abstract class RiddleGame {
     Bitmap mBitmap; // the correctly scaled bitmap of the image to work with
     // note: full galaxy s2 display 480x800 pixel, hdpi (scaling of 1.5 by default)
     RiddleConfig mConfig;
+    private int mScoreMultiplicator;
 
     /**
      * Creates a new RiddleGame, decorating the given riddle, using the given bitmap loaded from the riddle's image.
@@ -161,7 +166,6 @@ public abstract class RiddleGame {
     }
 
     public void onClose() {
-        Log.d("Riddle", "On close of riddle game.");
         int solved = mSolutionInput.estimateSolvedValue();
         int score = 0;
         String currentState = null;
@@ -208,13 +212,26 @@ public abstract class RiddleGame {
 
     protected abstract void initAchievementData();
 
+    private static final double SCORE_EXP_FACTOR = Math.log(MAX_SCORE_MULTIPLIER - BASE_SCORE_MULTIPLIER) / SCORES_MULTIPLIED_PER_DAY_COUNT;
     /**
      * Calculates the gained score. Can but generally should not depend on the
      * way the riddle was solved and the game was played. Should be a positive number or zero.
      * Calculations should be robust and produce the same result if nothing major happens to the game.
      * @return The score that will be gained.
      */
-    protected abstract int calculateGainedScore();
+    protected synchronized int calculateGainedScore() {
+        if (mScoreMultiplicator <= 0) {
+            mScoreMultiplicator = BASE_SCORE_MULTIPLIER;
+            long now = System.currentTimeMillis();
+            if (mConfig.mAchievementGameData != null && (now - mRiddle.getTimestamp()) < SCORE_BONUS_MAX_RIDDLE_TIME && TestSubject.isInitialized()) {
+                int bonusCount = TestSubject.getInstance().getAndIncrementTodaysScoreBonusCount();
+                mScoreMultiplicator = (int) ((MAX_SCORE_MULTIPLIER - BASE_SCORE_MULTIPLIER) * Math.exp(- SCORE_EXP_FACTOR * bonusCount) + BASE_SCORE_MULTIPLIER);
+                mScoreMultiplicator = Math.max(1, mScoreMultiplicator); // to be sure score will never be zero or negativly multiplied (which cannot happen for exp(x) but this might change)
+            }
+        }
+        Log.d("Riddle", "Calculated gained score with multiplicator " + mScoreMultiplicator);
+        return mRiddle.getType().getBaseScore() * mScoreMultiplicator;
+    }
 
     public abstract void draw(Canvas canvas);
 

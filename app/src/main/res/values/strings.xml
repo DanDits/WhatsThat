@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="credits_text" translatable="false"><![CDATA[
+    <string name="credits_text"><![CDATA[
             <p>Many people contributed to this project and we did not have to apply force to any of them, this makes us happy. Also those people and their brilliant minds make us happy for</p>
             <ul>
             <li>being awesome</li>
@@ -51,41 +51,10 @@
     <string name="init_skip_state_init_missing">-loading testsubject-</string>
     <string name="init_skip_state_none">-loading testsubject-</string>
 
-    <string name="intro_test_subject_name">-test subject-</string>
-    <string name="intro_test_subject_estimated_intelligence">-intelligence-</string>
-
-    <string name="intro_test_subject_gender_answer_male">Male</string>
-    <string name="intro_test_subject_gender_answer_female">Female</string>
-    <string name="intro_test_subject_gender_answer_whatever">Don\'t know</string>
-
     <string name="riddles_dialog_positive">Confirm</string>
     <string name="riddle_dialog_tab_types">Types</string>
     <string name="riddle_dialog_tab_unsolved">Unsolved</string>
-    <string name="riddle_type_circle">Grey Matter</string>
-    <string name="riddle_type_circle_explanation">Touch one circle to pop them into 4 smaller ones until the image is visible.</string>
-    <string-array name="riddle_type_circle_hints">
-        <item>Touch circles to divide them.</item>
-    </string-array>
-    <string name="riddle_type_snow">Angry Cell</string>
-    <string name="riddle_type_snow_explanation">Tilt the device and thus move the cell. Collect toxic candies, grow bigger, don\'t touch walls and EXPLODE.</string>
-    <string-array name="riddle_type_snow_hints">
-    </string-array>
-    <string name="riddle_type_dice">Alien-Cube</string>
-    <string name="riddle_type_dice_explanation">Create dices by touching an empty field. Move and combine dices with equal numbers to reveal the image.</string>
-    <string-array name="riddle_type_dice_hints">
-    </string-array>
-    <string name="riddle_type_triangle">ColEdge</string>
-    <string name="riddle_type_triangle_explanation">Press inside a triangle to create smaller ones.</string>
-    <string-array name="riddle_type_triangle_hints">
-    </string-array>
-    <string name="riddle_type_jumper">Invasion</string>
-    <string name="riddle_type_jumper_explanation">Touch to jump or keep pressed to doublejump over obstacles. Each one will slowly reveal the image</string>
-    <string-array name="riddle_type_jumper_hints">
-    </string-array>
-    <string name="riddle_type_torchlight">Torchlight</string>
-    <string name="riddle_type_torchlight_explanation">Something happens later</string>
-    <string name="riddle_type_developer">Developer</string>
-    <string name="riddle_type_developer_explanation">Hi self or brother.</string>
+
     <string name="panic_dialog_positive">All right</string>
     <string name="panic_ask_type">How does this work</string>
     <string name="panic_skip">Skip .. come back later</string>
@@ -107,7 +76,7 @@
     <string name="btn_about">About &amp; Contact</string>
     <string name="btn_donate">Donate</string>
     <string name="btn_credits">Credits</string>
-    <string name="about_contact_descr" translatable="false">Die App ist ein Freizeitprojekt von den Brüdern Fabian und Daniel, die ich stolz meine Schöpfer nennen darf. Daniel, mein Professor, und Fabian, mein Meister, haben ein Anti-Werbungs-Wurmloch installiert, das dich vor Pop-ups und Müll schützt. Über anderweitige Unterstützung freuen sie sich trotzdem!\nSchreib ihnen, schau dir das Projekt an unter \"https://github.com/DanDits/WhatsThat\" oder setze eine anonyme Spende ab.\n\nStay awesome! :)</string>
+    <string name="about_contact_descr">Die App ist ein Freizeitprojekt von den Brüdern Fabian und Daniel, die ich stolz meine Schöpfer nennen darf. Daniel, mein Professor, und Fabian, mein Meister, haben ein Anti-Werbungs-Wurmloch installiert, das dich vor Pop-ups und Müll schützt. Über anderweitige Unterstützung freuen sie sich trotzdem!\nSchreib ihnen, schau dir das Projekt an unter \"https://github.com/DanDits/WhatsThat\" oder setze eine anonyme Spende ab.\n\nStay awesome! :)</string>
     <string-array name="contact_headings">
         <item>Suggest image</item>
         <item>Suggest riddle</item>
@@ -132,165 +101,12 @@
         <item>Congratulations, I thought I crushed most of the beetles in the code :(\n\nWhen and where did the error happen?\nDid it crash or just behave weird?\nWhat was (not) supposed to happen?\nWhat did you do to trigger it?</item>
         <item>My makers are happy to receive any positive feedback or suggestions of any kind.\nNegative feedback if by all likelihood going to be sucked into a dark hole. But you might give it a shot.</item>
         <item>Oh dear lord of creativity, I almost don\'t dare to say these words but still take the courage and lift my small and minor head and look inside your omniscient eyes and splutter sheepishly…Hello</item>
-        <item>Frank, someone found it. Call the assassinator, this must not get public.</item>
+        <item>Someone found it. Call the assassinator, this must not get public.</item>
         <item>You found a grammar or spelling mistake? Report it right here. Do you like this game but you would prefer to play it in your mother or another language? WiseMind\'s translation program is not able to get more languages. However if you would like to translate any picture solutions or texts, just contact my master. Consider there is no monetary compensation but a place in Credits.</item>
     </string-array>
 
-    <string name="achievement_name_hidden">\?\?\?</string>
-    <string name="achievement_descr_undiscovered">\?\?\?</string>
-    <string name="achievement_reward_hidden">\?</string>
-
-    <string name="achievement_circle_1_name">The beginning</string>
-    <string name="achievement_circle_1_descr">Finish %1$d/%2$d games.</string>
-    <string name="achievement_circle_2_name">I know something</string>
-    <string name="achievement_circle_2_descr">You know nothing. Or do you recognize the picture with only %1$d circles?</string>
-    <string name="achievement_circle_3_name">So beautiful</string>
-    <string name="achievement_circle_3_descr">Count all circles in a game and admire the artist.</string>
-    <string name="achievement_circle_4_name">I\'m loving it</string>
-    <string name="achievement_circle_4_descr">Well then do this job again for %1$d more pictures.</string>
-    <string name="achievement_circle_5_name">Mission possible</string>
-    <string name="achievement_circle_5_descr">Finish a game within %1$d seconds but more clicks than wipes.</string>
-    <string name="achievement_circle_6_name">Click domination</string>
-    <string name="achievement_circle_6_descr">Clicks > wipes for a few more games.</string>
-    <string name="achievement_circle_7_name">I\'m in a hurry…</string>
-    <string name="achievement_circle_7_descr">Finish two…OK let\'s say one riddle in less than %1$d seconds.</string>
-    <string name="achievement_circle_8_name">…still in hurry</string>
-    <string name="achievement_circle_8_descr">sorry…Don\'t wanna bother ya. %1$d games within %2$d seconds.</string>
-    <string name="achievement_circle_9_name">All we need is love</string>
-    <string name="achievement_circle_9_descr">The first circle needs some attention. Talk with it for some time.</string>
-    <string name="achievement_circle_10_name">All you get is work</string>
-    <string name="achievement_circle_10_descr">Thank you for completing my useless tasks :).</string>
-    <string name="achievement_circle_10_descr_unachieved">How dare you say that to my face? Say sorry.</string>
-    <string name="achievement_circle_11_name">It\'s over 9000</string>
-    <string name="achievement_circle_11_descr">Divide %2$d circles. Don\'t look at me like this. The prof is a math guy. He knows what he\'s doing …%3$d is inadequate. %4$d is of course absurd. You got %1$d.</string>
-    <string name="achievement_circle_12_name">Big brother is watching you</string>
-    <string name="achievement_circle_12_descr">Be fast or he will look into your soul.</string>
-    <string name="achievement_circle_13_name">Getting rich</string>
-    <string name="achievement_circle_13_descr">You have the choice: Get rich now -or- get a better best time than %1$d seconds and get even more…</string>
-    <string name="achievement_circle_13_descr_perfect">Wow, I didn\'t believe %1$d seconds were even possible! That\'s it, I am done.</string>
-    <string name="achievement_circle_13_descr_claimed">You have the strange feeling that %1$d seconds were not the best you could get. But then you look at the cash…</string>
-
-    <string name="achievement_snow_1_name">Hurry up</string>
-    <string name="achievement_snow_1_descr">Complete %1$d games within %2$d seconds.</string>
-    <string name="achievement_snow_2_name">Need for speed</string>
-    <string name="achievement_snow_2_descr">Because going slow is boring: max speed %1$d/%2$d.</string>
-    <string name="achievement_snow_3_name">Luck…</string>
-    <string name="achievement_snow_3_descr">One explosion should be enough.</string>
-    <string name="achievement_snow_4_name">Mission impossible</string>
-    <string name="achievement_snow_4_descr">Collect %1$d candies in %2$d seconds.</string>
-    <string name="achievement_snow_5_name">Bombastic</string>
-    <string name="achievement_snow_5_descr">Explode %1$d times in a game without kissing the wall.</string>
-    <string name="achievement_snow_6_name">Not today!</string>
-    <string name="achievement_snow_6_descr">Touch the wall as Angry Cell. Again and again.</string>
-    <string name="achievement_snow_7_name">They see me rollin\' they hatin\'</string>
-    <string name="achievement_snow_7_descr">Relax and stay healthy. No candy.</string>
-    <string name="achievement_snow_8_name">Bouncing cell</string>
-    <string name="achievement_snow_8_descr">Hit the walls %1$d times using the explosion pressure.</string>
-    <string name="achievement_snow_9_name">Lovely lie</string>
-    <string name="achievement_snow_9_descr">The truth may hurt but in the end it\'s always the better way.</string>
-    <string name="achievement_snow_10_name">Stubborn donkey</string>
-    <string name="achievement_snow_10_descr">You know that the wall will not help you?</string>
-    <string name="achievement_snow_11_name">…or maybe skill?</string>
-    <string name="achievement_snow_11_descr">Solve %1$d riddles with only one explosion.</string>
-    <string name="achievement_snow_12_name">Overkill</string>
-    <string name="achievement_snow_12_descr">Collect %1$d more tasty candies as Angry Cell.</string>
-    <string name="achievement_snow_13_name">Gotta catch \'em all</string>
-    <string name="achievement_snow_13_descr">Catch %1$d/%2$d poke… sorry I meant candies.</string>
-    <string name="achievement_snow_14_name">Allergy</string>
-    <string name="achievement_snow_14_descr">Grow and explode without hitting more than %1$d spores.</string>
-
-    <string name="achievement_dice_1_name">Unpleasant beginning</string>
-    <string name="achievement_dice_1_descr">Combine the Alien-Cube on each colour in a game. Let the games begin!</string>
-    <string name="achievement_dice_2_name">Colour diversity</string>
-    <string name="achievement_dice_2_descr">Gather geen, yellow and red 1–6 and purple 7–9. No resets!</string>
-    <string name="achievement_dice_3_name">That\'s complicated</string>
-    <string name="achievement_dice_3_descr">Get all hints for this riddle. Why? Because this is very complicated and it took my master enough effort, so you gotta read it!</string>
-    <string name="achievement_dice_4_name">Powerful corner</string>
-    <string name="achievement_dice_4_descr">Combine %1$d yellow dices in each corner.</string>
-    <string name="achievement_dice_5_name">Translation error</string>
-    <string name="achievement_dice_5_descr">owefhufeymwen fof f%1$d ouhosbl 1. Could.Not.Translate.</string>
-    <string name="achievement_dice_5_descr_claimed">Sorry. I meant 3 resets</string>
-    <string name="achievement_dice_6_name">Green peace</string>
-    <string name="achievement_dice_6_descr">Gather %1$d green dices on the field. Just kidding. %2$d.</string>
-    <string name="achievement_dice_7_name">Ludo</string>
-    <string name="achievement_dice_7_descr">Collect a purple, green, yellow and red %3$d in a game without any reset. Progress: %1$d/%2$d</string>
-    <string name="achievement_dice_8_name">Curious onlooker</string>
-    <string name="achievement_dice_8_descr">Reveal some fields completely in one game.</string>
-    <string name="achievement_dice_9_name">Logistic master</string>
-    <string name="achievement_dice_9_descr">%1$dx Alien, %2$dx purple, %3$dx green, %4$dx yellow on the field :).</string>
-    <string name="achievement_dice_10_name">X-ray vision</string>
-    <string name="achievement_dice_10_descr">.Secid wolley yna gninibmoc tuohtiw erutcip a hsinif</string>
-    <string name="achievement_dice_11_name">Going for a walk</string>
-    <string name="achievement_dice_11_descr">Take an alien %1$d and a yellow %2$d for a walk.</string>
-    <string name="achievement_dice_12_name">This…</string>
-    <string name="achievement_dice_12_descr">Combined red dices: %1$d/%2$d.</string>
-    <string name="achievement_dice_13_name">…is…</string>
-    <string name="achievement_dice_13_descr">Combined yellow dices: %1$d/%2$d.</string>
-    <string name="achievement_dice_14_name">…SPARTA</string>
-    <string name="achievement_dice_14_descr">Combined green dices: %1$d/%2$d.</string>
-    <string name="achievement_dice_15_name">NO THIS IS PATRICK</string>
-    <string name="achievement_dice_15_descr">Combined Alien-Cubes.</string>
-    <string name="achievement_dice_16_name">Warp jump</string>
-    <string name="achievement_dice_16_descr">To infinity and beyond!</string>
-    <string name="achievement_dice_17_name">Invasion</string>
-    <string name="achievement_dice_17_descr">Psst… tell them we come in peace.</string>
-    <string name="achievement_dice_18_name">Paparazzi</string>
-    <string name="achievement_dice_18_descr">Reveal one field completely in %1$d seconds and then get off.</string>
-    <string name="achievement_dice_18_descr_claimed">It\'s a bad job, but someone has to do it, right?</string>
-    <string name="achievement_dice_19_name">Perfectionist</string>
-    <string name="achievement_dice_19_descr">Something tells you to perfectly uncover the mystery.</string>
-    <string name="achievement_dice_20_name">Focus</string>
-    <string name="achievement_dice_20_descr">Choose one of the four inner fields by combining any dices. Perform a maximum of %1$d combinations but only on this field without any resets.</string>
-    <string name="achievement_dice_21_name">Minimalist</string>
-    <string name="achievement_dice_21_descr">I know, this is the last one. But there must be an opposing side of perfectionists. So finish this with only %1$d combinations. Good luck.</string>
-    <string name="achievement_dice_21_descr_claimed">An opposing side of Perfectionist.It\'s like Yin-Yang. Ever heard of it?</string>
-
-    <string name="achievement_jumper_1_name">The answer to life...</string>
-    <string name="achievement_jumper_1_descr">...to universe and everything. Plus the number of horns of a unicorn.</string>
-    <string name="achievement_jumper_1_descr_claimed">...to universe and everything. Plus the number of horns of a unicorn.43!</string>
-    <string name="achievement_jumper_2_name">Lack of talent</string>
-    <string name="achievement_jumper_2_descr">You failed %1$d times in easy. Are you sure you wanna continue playing this game?</string>
-    <string name="achievement_jumper_3_name">Super Mario</string>
-    <string name="achievement_jumper_3_descr">Perform %1$d Double Jumps in a game before reaching \"medium\".</string>
-    <string name="achievement_jumper_3_descr_claimed">So much for the laws of physics...</string>
-    <string name="achievement_jumper_4_name">Multitasking</string>
-    <string name="achievement_jumper_4_descr">Finish a game after reaching \"hard\" without colliding.</string>
-    <string name="achievement_jumper_5_name">Avoiding manoeuvres</string>
-    <string name="achievement_jumper_5_descr">Congratulations. You dodged more than %1$d obstacles.</string>
-    <string name="achievement_jumper_6_name">Beating the creators</string>
-    <string name="achievement_jumper_6_descr">Wow. You beat my creators records. Write your record via mail as \"Monstarathon record\" in the subject line.</string>
-    <string name="achievement_jumper_7_name">Knuffbum\'s story</string>
-    <string name="achievement_jumper_7_descr">Find the truth about Knuffbum.</string>
-    <string name="achievement_jumper_8_name">Still a better lovestory than twighlight</string>
-    <string name="achievement_jumper_8_descr">Thank you for cuddling with Manomnom.</string>
-    <string name="achievement_jumper_9_name">Marathon</string>
-    <string name="achievement_jumper_9_descr">Going for a short walk of %1$d meters.</string>
-    <string name="achievement_jumper_10_name">Boring beginning</string>
-    <string name="achievement_jumper_10_descr">Enough of the easy beginning? Well...get the right upgrades my friend.</string>
-    <string name="achievement_jumper_11_name">Natural talent</string>
-    <string name="achievement_jumper_11_descr">Reach at least %2$d meters in %1$d successive games.</string>
-	
-    <string name="achievement_triangle_1_descr">This time you just get some anti-humor. For instance: How many earthlings do you need to build a spaceship?</string>
-    <string name="achievement_triangle_1_descr_unachieved">How many earthlings do you need to build a spaceship? %1$d, as the sea is too salty.</string>
-    <string name="achievement_triangle_1_name">In a flash</string>
-    <string name="achievement_triangle_2_descr">What\'s an earthling doing on the moon?</string>
-    <string name="achievement_triangle_2_descr_unachieved">What\'s an earthling doing on the moon? A moonwalk.</string>
-    <string name="achievement_triangle_2_name">Two birds with one stone</string>
-    <string name="achievement_triangle_3_descr">How gets a priest to the sun?</string>
-    <string name="achievement_triangle_3_descr_unachieved">How gets a priest to the sun? With superstition.</string>
-    <string name="achievement_triangle_3_name">Efficient clicks</string>
-    <string name="achievement_triangle_4_descr">How does a priest leave the sun?</string>
-    <string name="achievement_triangle_4_descr_unachieved">How does a priest leave the sun? As a burn mark.</string>
-    <string name="achievement_triangle_4_name">Super Eye</string>
-    <string name="achievement_triangle_5_descr">How do you call a politician on Mars?</string>
-    <string name="achievement_triangle_5_descr_unachieved">How do you call a politician on Mars? Still a liar.</string>
-    <string name="achievement_triangle_5_name">Progressive progress</string>
-
-    <string name="achievement_misc_category_name">Allgemein</string>
-
     <string name="dependency_required">Requires:</string>
     <string name="level_dependency">Level %1$s</string>
-    <string name="achievement_achieved">Achieved</string>
 
     <string name="article_product_confirm_purchase">Confirm purchase: %1$s</string>
     <string name="article_product_confirm_purchase_too_expensive">Too expensive: %1$s</string>
@@ -301,55 +117,10 @@
     <string name="article_hint_descr">Because Dr. Drams knows everything</string>
     <string name="article_hint_not_yet_read">New hint available</string>
 
-    <string name="article_circle_divide_by_move_feature_name">Lazor Cutter</string>
-    <string name="article_circle_divide_by_move_feature_descr">Allows dividing of circles by moving the finger. Very relaxing!</string>
-    <string name="article_triangle_divide_by_move_feature_name">More Lazor</string>
-    <string name="article_triangle_divide_by_move_feature_descr">Allows dividing of triangles by moving the finger. Even more relaxing!</string>
     <string name="shop_article_spent" translatable="false">(-%1$d)</string>
 
-    <string-array name="devil_talk_return">
-        <item>I\'m back!</item>
-        <item>Did you miss me?</item>
-        <item>I will never leave you.</item>
-        <item>Resurrection in 3...2.. nevermind, I\'m already back</item>
-        <item>Overly attached? I call it passion.</item>
-        <item>Like the moon will not leave the earth, I will not leave you!</item>	
-    </string-array>
-    <string-array name="devil_talk_killed">
-        <item>I\'ll be back.</item>
-        <item>Noooooooo</item>
-        <item>What are you doing?</item>
-        <item>Staaap!</item>
-        <item>Let me love youuu</item>
-        <item>You need me</item>
-        <item>The candy is a lie!</item>
-    </string-array>
-
-    <string-array name="devil_talk_cell_eat_candy">
-        <item>Nooooo, that\'s poison</item>
-        <item>Don\'t you see it\'s not candy?!</item>
-        <item>Why you do this, stap</item>
-        <item>Stop…eating candy.</item>
-        <item>Sigh</item>
-        <item>Stop or you will get fat!</item>
-        <item>No toothbrush, no candy</item>
-    </string-array>
-    <string-array name="devil_talk_cell_eat_candy_explosive">
-        <item>Wooo, keep calm, keeeeeep calm</item>
-        <item>Remember the last time you were happy?</item>
-        <item>Fast, kiss the wall</item>
-    </string-array>
-    <string-array name="devil_talk_mock">
-        <item>Nevermind me, I\'m just spinning around</item>
-        <item>Why don\'t you love me back?</item>
-        <item>I just want to help</item>
-        <item>Tickling me won\'t do anything</item>
-    </string-array>
     <string name="article_product_confirm_purchase_dependency_missing">Requires: %1$s</string>
-    <string name="riddle_type_memory">Memory</string>
-    <string name="riddle_type_memory_explanation">Find a matching pair</string>
-    <string-array name="riddle_type_memory_hints">
-    </string-array>
+
     <string name="download_article_toast_download_complete">Download complete.</string>
     <string name="download_article_toast_complete">New images ready.</string>
     <string name="download_article_toast_error_download">Failed downloaded images (%1$d)</string>
@@ -361,68 +132,16 @@
     <string name="download_article_descr_ready">Confirm download from %1$s (~%2$dMB)</string>
     <string name="download_article_name">Download image bundle \"%1$s\"</string>
     <string name="download_article_descr">Grow the image pool with fresh cool images.</string>
-    <string name="achievement_misc_1_descr">Pst! Don\'t wanna tell you that here! Read in hints!</string>
-    <string name="achievement_misc_1_name">Creator names</string>
-    <string name="achievement_misc_2_descr">You skipped an experiment for more than %1$d days.</string>
-    <string name="achievement_misc_2_name">Need my friends</string>
-    <string name="achievement_misc_3_descr">You have been busy with one experiment for more than %1$d hours.</string>
-    <string name="achievement_misc_3_name">Stockholm syndrome</string>
-    <string name="achievement_misc_4_descr">Complete %1$d/%2$d achievements</string>
-    <string name="achievement_misc_4_name">Achievement hunter</string>
+
     <string name="panic_complain_nothing">Keep calm and wait on</string>
     <string name="panic_complain_dummy_toast">Complain has been noted</string>
     <string name="panic_complain_content">I want to complain about this riddle and image...TELL US WHAT YOU THINK IS BAD :)</string>
-    <string name="test_subject_2_int">Hoffnungslos überschätzt</string>
-    <string name="test_subject_2_name">Klugscheißer</string>
-    <string name="test_subject_3_int">Utopisch debil</string>
-    <string name="test_subject_3_name">Trottel</string>
-    <string name="test_subject_4_int">Unterirdisch</string>
-    <string name="test_subject_4_name">Einfaltspinsel</string>
-    <string name="test_subject_5_int">Ein Stein im Wasser</string>
-    <string name="test_subject_5_name">Grünschnabel</string>
-    <string name="test_subject_6_int">Ausbaufähig</string>
-    <string name="test_subject_6_name">Entdecker</string>
-    <string name="test_subject_7_int">Lichtblick</string>
-    <string name="test_subject_7_name">Potenzialträger</string>
-    <string name="test_subject_8_int">Streichholz am Tag</string>
-    <string name="test_subject_8_name">Banause</string>
-    <string name="test_subject_9_int">Intelligenzniveau eines Einzellers</string>
-    <string name="test_subject_9_name">Junior Talent</string>
-    <string name="article_hint_no_translation" translatable="false">Hint not available for this language.</string>
-    <string name="achievement_memory_1_name">Short-term memory</string>
-    <string name="achievement_memory_1_descr">Even glaciers were faster than you with this experiment</string>
-    <string name="achievement_memory_2_descr">Leave a trail of.. 5, 10, 15 or maybe 20 fields.</string>
-    <string name="achievement_memory_2_name">Random trail</string>
-    <string name="achievement_memory_3_name">The right pair</string>
-    <string name="achievement_memory_3_descr_claimed">Despite that little visible area... Not bad.</string>
-    <string name="achievement_memory_4_name">Homunculus</string>
-    <string name="achievement_memory_4_descr">Reveal the picture after %1$d fields have been covered.</string>
-    <string name="achievement_memory_3_descr">Little visible area. Can you still detect the picture?</string>
-    <string name="achievement_memory_5_name">Dirt track</string>
-    <string name="achievement_memory_5_descr">Restore a hidden ??? field to its original form</string>
-    <string name="achievement_memory_6_name">DEFINITELY luck</string>
-    <string name="achievement_memory_6_descr">%1$d matching pairs with the first try? Well, maybe Angry-Cell it was skill but here, DEFINITELY NOT!</string>
-    <string name="achievement_memory_7_descr">That streak... Either this was brilliant or you cheated...</string>
-    <string name="achievement_memory_7_name">Cardships</string>
-    <string name="achievement_memory_8_descr">You get the points if you solve the game without hitting a field twice. Get a pencil quickly!</string>
-    <string name="achievement_memory_8_name">Cheating</string>
-    <string name="achievement_memory_9_name">No magician</string>
-    <string name="achievement_memory_9_descr">Luckily you are no magician.</string>
+
+    <string name="article_hint_no_translation">Hint not available for this language.</string>
+
     <string name="send_log_confirm">Send log</string>
-    <string name="send_log_title" translatable="false">Sorry, crash!</string>
-    <string name="intro_starting_episode">Welcome %1$s</string>
-    <string-array name="riddle_jumper_collision_break">
-        <item>You can do betterr</item>
-        <item>Here we go again</item>
-        <item>You can make it further</item>
-        <item>Game Over!</item>
-    </string-array>
-    <string name="riddle_jumper_new_highscore">New record %1$dm</string>
-    <string name="riddle_jumper_old_highscore">Current record %1$dm</string>
-    <string name="riddle_type_flow">Flow</string>
-    <string name="riddle_type_flow_explanation">Everything moves.</string>
-    <string name="article_jumper_start_further_name">Triple XxX</string>
-    <string name="article_jumper_start_further_descr">Start from 200m instead of walking through the easy part.</string>
+    <string name="send_log_title">Sorry, the app crashed!</string>
+
     <string name="riddle_hints_dialog_confirm">I got it!</string>
     <string name="riddle_dialog_title">Choose experiments</string>
     <plurals name="riddle_dialog_confirm_unsolveds">
@@ -447,4 +166,6 @@
         <item>midday</item>
         <item>morning</item>
     </string-array>
+
+    <string name="panic_ask_author">Whose image is this</string>
 </resources>

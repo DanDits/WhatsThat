@@ -65,11 +65,6 @@ public class RiddleTorchlight extends RiddleGame implements FlatWorldCallback {
     }
 
     @Override
-    protected int calculateGainedScore() {
-        return DEFAULT_SCORE;
-    }
-
-    @Override
     public void draw(Canvas canvas) {
         canvas.drawPaint(mBasePaint);
         canvas.drawCircle(mTouchX, mTouchY, GLOW_RADIUS, mGlowPaint);

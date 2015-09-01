@@ -250,6 +250,7 @@ public class RiddleController {
         String[] candies = res.getStringArray(TestSubject.getInstance().getRiddleSolvedResIds());
         int score = mRiddleGame.calculateGainedScore();
         if (candies != null && candies.length > 0) {
+            Log.d("Riddle", "Candy for riddle " + mRiddle + " and score " + score);
             toast.mText = candies[(int) (Math.random() * candies.length)] + (score > 0 ? (" +" + score) : "");
         } else if (score > 0) {
             toast.mText = "+" + score;

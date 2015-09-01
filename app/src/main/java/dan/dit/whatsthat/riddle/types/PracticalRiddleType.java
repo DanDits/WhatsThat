@@ -31,6 +31,11 @@ import dan.dit.whatsthat.util.compaction.CompactedDataCorruptException;
  * Created by daniel on 01.04.15.
  */
 public abstract class PracticalRiddleType extends RiddleType {
+
+    /**
+     * The default score awarded for solving a RiddleGame.
+     */
+    static final int DEFAULT_SCORE = 1;
     private static final Map<String, PracticalRiddleType> ALL_TYPES = new HashMap<>();
     private static final int INTEREST_VALUE = 10;
     public static final Types.Circle CIRCLE_INSTANCE = new Types.Circle();
@@ -206,4 +211,6 @@ public abstract class PracticalRiddleType extends RiddleType {
     public List<Integer> getHintCosts() {
         return null;
     }
+
+    public abstract int getBaseScore();
 }
