@@ -6,6 +6,8 @@
     <color name="button_pressed">#ffedf7ae</color> <!--for the standard button-->
     <color name="important_on_main_background">#03b400</color><!--for important text on top of the main background-->
     <color name="main_background">#bed3ff</color><!--background; appears everywhere (blue: ff0099cc, lighter blue: ffa7b9d4, nice light blue: ffbed3ff)-->
+    <color name="riddle_solved_toast_background">#a7ffbc</color>
+    <color name="riddle_solved_toast_text_bonus">#03d900</color>
     <color name="alien_purple">#ff8d16b4</color><!--the app alien theme purple (e.g. dialog divider)-->
     <color name="list_selector_pressed">#bcc88fc4</color><!--when an element in the list selector is pressed-->
 </resources>

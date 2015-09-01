@@ -491,6 +491,16 @@ public class SuperToast {
     }
 
     /**
+     * Sets the background resource of the {@value #TAG}.
+     *
+     * @param backgroundColor The color to set.
+     */
+    public void setBackgroundColor(int backgroundColor) {
+        mBackground = backgroundColor;
+        mRootLayout.setBackgroundColor(backgroundColor);
+    }
+
+    /**
      * Returns the background resource of the {@value #TAG}.
      *
      * @return int

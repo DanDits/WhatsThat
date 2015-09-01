@@ -158,9 +158,12 @@ public class RiddleJumper extends RiddleGame implements FlatWorldCallback {
     }
 
     @Override
-    protected int calculateGainedScore() {
+    protected void calculateGainedScore(int[] scores) {
         int collisions = mConfig.mAchievementGameData != null ? mConfig.mAchievementGameData.getValue(AchievementJumper.KEY_GAME_COLLISION_COUNT, 0L).intValue() : 0;
-        return super.calculateGainedScore() + (collisions <= MAX_COLLISIONS_FOR_SCORE_BONUS ? Types.SCORE_MEDIUM : 0);
+        int bonus = (collisions <= MAX_COLLISIONS_FOR_SCORE_BONUS ? Types.SCORE_MEDIUM : 0);
+        super.calculateGainedScore(scores);
+        scores[3] += bonus;
+        scores[0] += bonus;
     }
 
     @Override

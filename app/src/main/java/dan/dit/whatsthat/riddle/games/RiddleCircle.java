@@ -207,8 +207,11 @@ public class RiddleCircle extends RiddleGame {
     }
 
     @Override
-    protected int calculateGainedScore() {
-        return super.calculateGainedScore() + (mCircleCenterX.size() < MAX_CIRCLES_FOR_EXTRA_SCORE ? Types.SCORE_SIMPLE : 0);
+    protected void calculateGainedScore(int[] scores) {
+        int bonus = (mCircleCenterX.size() < MAX_CIRCLES_FOR_EXTRA_SCORE ? Types.SCORE_SIMPLE : 0);
+        super.calculateGainedScore(scores);
+        scores[3] += bonus;
+        scores[0] += bonus;
     }
 
     /**

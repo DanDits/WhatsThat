@@ -10,6 +10,7 @@ import android.view.MotionEvent;
 
 import com.github.johnpersano.supertoasts.SuperToast;
 
+import dan.dit.whatsthat.R;
 import dan.dit.whatsthat.achievement.AchievementManager;
 import dan.dit.whatsthat.riddle.Riddle;
 import dan.dit.whatsthat.riddle.RiddleInitializer;
@@ -242,19 +243,32 @@ public class RiddleController {
         return mPeriodicThread != null && mPeriodicThread.isRunning();
     }
 
+    private int[] mScores = new int[4];
     public TestSubjectToast makeSolvedToast(Resources res) {
-        TestSubjectToast toast = new TestSubjectToast(Gravity.CENTER, 0, 0, mRiddle.getType().getIconResId(), 0, SuperToast.Duration.SHORT);
+        TestSubjectToast toast = new TestSubjectToast(Gravity.CENTER, 0, 0, mRiddle.getType().getIconResId(), 0, SuperToast.Duration.MEDIUM);
         toast.mAnimations = SuperToast.Animations.POPUP;
-        toast.mBackground = SuperToast.Background.BLUE;
+        toast.mBackgroundColor = res.getColor(R.color.main_background);
 
         String[] candies = res.getStringArray(TestSubject.getInstance().getRiddleSolvedResIds());
-        int score = mRiddleGame.calculateGainedScore();
-        if (candies != null && candies.length > 0) {
-            Log.d("Riddle", "Candy for riddle " + mRiddle + " and score " + score);
-            toast.mText = candies[(int) (Math.random() * candies.length)] + (score > 0 ? (" +" + score) : "");
-        } else if (score > 0) {
-            toast.mText = "+" + score;
+        mRiddleGame.calculateGainedScore(mScores);
+        int score = mScores[0];
+        if (mScores[3] > 0) {
+            // got bonus
+            toast.mTextColor = res.getColor(R.color.important_on_main_background);
         }
+        StringBuilder builder = new StringBuilder();
+        if (candies != null && candies.length > 0) {
+            builder.append(candies[(int) (Math.random() * candies.length)]);
+        }
+        if (score > 0) {
+            builder.append(" +")
+                    .append(score);
+        }
+        // for each multiplier add an exclamation mark
+        for (int i = 0; i < mScores[2]; i++) {
+            builder.append("!");
+        }
+        toast.mText = builder.toString();
         toast.mTextSize = 40;
         return toast;
     }

@@ -407,9 +407,12 @@ public class RiddleSnow extends RiddleGame implements FlatWorldCallback {
     }
 
     @Override
-    protected int calculateGainedScore() {
+    protected void calculateGainedScore(int[] scores) {
         int wallCollisions = mConfig.mAchievementGameData != null ? mConfig.mAchievementGameData.getValue(AchievementSnow.KEY_GAME_COLLISION_COUNT, 0L).intValue() : 0;
-        return super.calculateGainedScore() + (wallCollisions <= MAX_WALL_COLLISONS_FOR_SCORE_BONUS ? Types.SCORE_SIMPLE : 0);
+        int bonus = (wallCollisions <= MAX_WALL_COLLISONS_FOR_SCORE_BONUS ? Types.SCORE_SIMPLE : 0);
+        super.calculateGainedScore(scores);
+        scores[3] += bonus;
+        scores[0] += bonus;
     }
 
     @Override

@@ -60,8 +60,11 @@ public class RiddleTriangle extends RiddleGame {
     }
 
     @Override
-    protected int calculateGainedScore() {
-        return super.calculateGainedScore() + (mTriangles.size() <= MAX_TRIANGLES_FOR_SCORE_BONUS ? Types.SCORE_SIMPLE : 0);
+    protected void calculateGainedScore(int[] scores) {
+        int bonus = (mTriangles.size() <= MAX_TRIANGLES_FOR_SCORE_BONUS ? Types.SCORE_SIMPLE : 0);
+        super.calculateGainedScore(scores);
+        scores[3] += bonus;
+        scores[0] += bonus;
     }
 
     @Override

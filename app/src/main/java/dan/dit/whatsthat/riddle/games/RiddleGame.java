@@ -48,7 +48,7 @@ public abstract class RiddleGame {
      * Maximum time from creating a new riddle till solving that results in using the multiplier for score calculation
      */
     private static final long SCORE_BONUS_MAX_RIDDLE_TIME = 30 * 60 * 1000; //30 minutes in ms
-    private static final int BASE_SCORE_MULTIPLIER = 1; //should not change
+    public static final int BASE_SCORE_MULTIPLIER = 1; //should not change
     private static final int MAX_SCORE_MULTIPLIER = 3; // > BASE_SCORE_MULTIPLIER
     private static final int SCORES_MULTIPLIED_PER_DAY_COUNT = 10;
 
@@ -165,13 +165,15 @@ public abstract class RiddleGame {
         return mImage;
     }
 
-    public void onClose() {
+    private final int[] mScores = new int[4];
+    public synchronized void onClose() {
         int solved = mSolutionInput.estimateSolvedValue();
         int score = 0;
         String currentState = null;
         String solutionData;
         if (solved >= Solution.SOLVED_COMPLETELY) {
-            score = Math.max(calculateGainedScore(), 0); // no negative score gains
+            calculateGainedScore(mScores);
+            score = Math.max(mScores[0], 0); // no negative score gains
             solutionData = mSolutionInput.getCurrentUserSolution().compact();
         } else {
             currentState = compactCurrentState();
@@ -217,9 +219,10 @@ public abstract class RiddleGame {
      * Calculates the gained score. Can but generally should not depend on the
      * way the riddle was solved and the game was played. Should be a positive number or zero.
      * Calculations should be robust and produce the same result if nothing major happens to the game.
-     * @return The score that will be gained.
+     * @param scores Initialized by the caller of length 4. After returning holds
+     *               values [TotalGainedScore, BaseScore, BaseScoreMultiplicator, BonusScore].
      */
-    protected synchronized int calculateGainedScore() {
+    protected synchronized void calculateGainedScore(int[] scores) {
         if (mScoreMultiplicator <= 0) {
             mScoreMultiplicator = BASE_SCORE_MULTIPLIER;
             long now = System.currentTimeMillis();
@@ -229,8 +232,12 @@ public abstract class RiddleGame {
                 mScoreMultiplicator = Math.max(1, mScoreMultiplicator); // to be sure score will never be zero or negativly multiplied (which cannot happen for exp(x) but this might change)
             }
         }
-        Log.d("Riddle", "Calculated gained score with multiplicator " + mScoreMultiplicator);
-        return mRiddle.getType().getBaseScore() * mScoreMultiplicator;
+        int base = mRiddle.getType().getBaseScore();
+        int total = base * mScoreMultiplicator;
+        scores[0] = total;
+        scores[1] = base;
+        scores[2] = mScoreMultiplicator;
+        scores[3] = 0;
     }
 
     public abstract void draw(Canvas canvas);

@@ -3,6 +3,9 @@ package dan.dit.whatsthat.riddle.achievement;
 import android.content.res.Resources;
 import android.util.Log;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import dan.dit.whatsthat.R;
 import dan.dit.whatsthat.achievement.Achievement;
 import dan.dit.whatsthat.achievement.AchievementManager;
@@ -69,18 +72,27 @@ public abstract class GameAchievement extends Achievement {
     }
 
     private void addLevelDependency() {
-        mDependencies.add(new LevelDependency(mLevel));
+        mDependencies.add(LevelDependency.getInstance(mLevel));
     }
 
     private static class LevelDependency extends MinValueDependency {
-
-        public LevelDependency(int level) {
+        private static Map<Integer, LevelDependency> LEVEL_DEPENDENCIES = new HashMap<>();
+        private LevelDependency(int level) {
             super(TestSubject.getInstance().getLevelDependency(), level);
+        }
+
+        public static LevelDependency getInstance(int level) {
+            LevelDependency dep = LEVEL_DEPENDENCIES.get(level);
+            if (dep == null) {
+                dep = new LevelDependency(level);
+                LEVEL_DEPENDENCIES.put(level, dep);
+            }
+            return dep;
         }
 
         @Override
         public CharSequence getName(Resources res) {
-            return res.getString(R.string.level_dependency, getMinValue());
+            return res.getString(R.string.level_dependency, getMinValue() + 1);
         }
     }
 

@@ -348,11 +348,14 @@ public class RiddleDice extends RiddleGame {
 
 
     @Override
-    protected int calculateGainedScore() {
+    protected void calculateGainedScore(int[] scores) {
         boolean noResets = mConfig.mAchievementGameData != null && mConfig.mAchievementGameData.getValue(AchievementDice.KEY_GAME_RESET_COUNT, 0L) == 0L;
         boolean noPurpleDices = mConfig.mAchievementGameData != null && mConfig.mAchievementGameData.getValue(AchievementDice.KEY_GAME_PURPLE_COUNT, 0L) == 0L;
 
-        return super.calculateGainedScore() + ((noResets && noPurpleDices) ? Types.SCORE_SIMPLE : 0);
+        super.calculateGainedScore(scores);
+        int bonus = ((noResets && noPurpleDices) ? Types.SCORE_SIMPLE : 0);
+        scores[3] += bonus;
+        scores[0] += bonus;
     }
 
     @Override

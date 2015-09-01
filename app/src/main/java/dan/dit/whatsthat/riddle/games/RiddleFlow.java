@@ -54,6 +54,8 @@ public class RiddleFlow extends RiddleGame {
     private List<Integer> mFlowStartsX;
     private List<Integer> mFlowStartsY;
     private Random mRand;
+    private float mOffsetX;
+    private float mOffsetY;
 
     private enum FlowDirection {
         TOP_LEFT(-1, -1), TOP(0, -1), TOP_RIGHT(1, -1),
@@ -68,89 +70,13 @@ public class RiddleFlow extends RiddleGame {
             mAngle = Math.atan2(mYDelta, mXDelta);
         }
 
-        boolean hasDirection(int x, int y, int width, int height) {
-            return (y + mYDelta) >= 0 && (y + mYDelta) < height
-                    && (x + mXDelta) >= 0 && (x + mXDelta) < width;
-        }
-
-        int getDirectionValue(int[][] raster, int x, int y) {
-            return raster[y + mYDelta][x + mXDelta];
-        }
-
-        int adaptToFlow(int toAdaptTo) {
-            //return toAdaptTo;
-            final int ordinal = ordinal();
-            final int diff = toAdaptTo - ordinal;
-            if (diff == 0) {
-                return ordinal;
-            }
-            if (diff > DIRECTIONS_COUNT / 2) {
-                // move 1 CCW since this is shorter than CW
-                return (ordinal() + DIRECTIONS_COUNT - 1) % DIRECTIONS_COUNT;
-            }
-            if (diff > 0) {
-                // move 1 CW
-                return ordinal() + 1;
-            }
-            if (-diff > DIRECTIONS_COUNT / 2) {
-                // move 1 CW since this is shorter than CCW
-                return (ordinal() + 1) % DIRECTIONS_COUNT;
-            }
-            // move 1 CCW since this is shorter than CW
-            return ordinal() - 1;
-        }
-
         final int mXDelta;
         final int mYDelta;
         final double mAngle;
 
-        public FlowDirection oppositeDirection() {
-            switch (this) {
-                case TOP_LEFT:
-                    return BOTTOM_RIGHT;
-                case TOP:
-                    return BOTTOM;
-                case TOP_RIGHT:
-                    return BOTTOM_LEFT;
-                case RIGHT:
-                    return LEFT;
-                case BOTTOM_RIGHT:
-                    return TOP_LEFT;
-                case BOTTOM:
-                    return TOP;
-                case BOTTOM_LEFT:
-                    return TOP_RIGHT;
-                case LEFT:
-                    return RIGHT;
-                default:
-                    return null;
-            }
-        }
-
-        public static FlowDirection bestFromAngle(final double angle) {
-            double bestAngleDiff = Double.MAX_VALUE;
-            FlowDirection bestMatch = null;
-            for (int d = 0; d < DIRECTIONS_COUNT; d++) {
-                FlowDirection curr = DIRECTIONS[d];
-                double currDiff = Math.abs(curr.mAngle - angle);
-                if (currDiff < bestAngleDiff) {
-                    bestAngleDiff = currDiff;
-                    bestMatch = curr;
-                } else {
-                    currDiff = Math.abs(curr.mAngle - angle + Math.PI * 2.);
-                    if (currDiff < bestAngleDiff) {
-                        bestAngleDiff = currDiff;
-                        bestMatch = curr;
-                    } else {
-                        currDiff = Math.abs(angle - curr.mAngle + Math.PI * 2.);
-                        if (currDiff < bestAngleDiff) {
-                            bestAngleDiff = currDiff;
-                            bestMatch = curr;
-                        }
-                    }
-                }
-            }
-            return bestMatch;
+        boolean hasDirection(int x, int y, int width, int height) {
+            return (y + mYDelta) >= 0 && (y + mYDelta) < height
+                    && (x + mXDelta) >= 0 && (x + mXDelta) < width;
         }
     }
 
@@ -168,13 +94,15 @@ public class RiddleFlow extends RiddleGame {
     }
 
     @Override
-    protected int calculateGainedScore() {
-        return super.calculateGainedScore() + (mFlowStartsX.size() < MAX_FLOWS_FOR_SCORE_BONUS ? Types.SCORE_MEDIUM : 0);
+    protected void calculateGainedScore(int[] scores) {
+        int bonus = (mFlowStartsX.size() < MAX_FLOWS_FOR_SCORE_BONUS ? Types.SCORE_MEDIUM : 0);
+        super.calculateGainedScore(scores);
+        scores[3] += bonus;
+        scores[0] += bonus;
     }
 
     @Override
     public void draw(Canvas canvas) {
-        long start = System.currentTimeMillis();
         mPresentedCanvas.drawPaint(mClearPaint);
         boolean drawData = true;
         if (drawData) {
@@ -186,18 +114,20 @@ public class RiddleFlow extends RiddleGame {
                 }
             }
         }
-        canvas.drawBitmap(mPresentedBitmap, 0, 0, null);
+        canvas.drawBitmap(mPresentedBitmap, mOffsetX, mOffsetY, null);
     }
 
     @Override
     protected void initBitmap(Resources res, PercentProgressListener listener) {
-        //TODO center bitmap in canvas
         mRand = new Random();
         mFlowStartsX = new ArrayList<>(128);
         mFlowStartsY = new ArrayList<>(128);
         mFlows = new ArrayList<>();
         mWidth = mBitmap.getWidth();
         mHeight = mBitmap.getHeight();
+        mOffsetX = (mConfig.mWidth - mWidth) / 2.f;
+        mOffsetY = (mConfig.mHeight - mHeight) / 2.f;
+
         mClearPaint = new Paint();
         mClearPaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.CLEAR));
         mOutputRaster = new int[mHeight * mWidth];
@@ -378,8 +308,8 @@ public class RiddleFlow extends RiddleGame {
     @Override
     public boolean onMotionEvent(MotionEvent event) {
         if (event.getActionMasked() == MotionEvent.ACTION_DOWN) {
-            int x = (int) event.getX();
-            int y = (int) event.getY();
+            int x = (int) (event.getX() - mOffsetX);
+            int y = (int) (event.getY() - mOffsetY);
             addFlow(x, y);
         }
         return false;

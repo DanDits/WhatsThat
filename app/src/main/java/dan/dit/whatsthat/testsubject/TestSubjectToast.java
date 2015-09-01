@@ -23,6 +23,7 @@ public class TestSubjectToast {
     public SuperToast.Animations mAnimations;
     public int mBackground;
     public int mTextColor;
+    public int mBackgroundColor;
 
     public TestSubjectToast(int textId) {
         mTextResId = textId;
@@ -59,6 +60,9 @@ public class TestSubjectToast {
         }
         if (mBackground != 0) {
             superToast.setBackground(mBackground);
+        }
+        if (mBackgroundColor != 0) {
+            superToast.setBackgroundColor(mBackgroundColor);
         }
         if (mIconResId != 0) {
             superToast.setIcon(mIconResId, mIconPosition == null ? SuperToast.IconPosition.LEFT : mIconPosition);
