@@ -84,6 +84,7 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
     private Iterator<Long> mOpenUnsolvedRiddlesId;
     private RiddlePickerDialog mRiddlePickerDialog;
     private boolean mErrorHandlingAttempted;
+    private ImageButton mBtnCheat;
 
     public void onProgressUpdate(int progress) {
         mProgressBar.onProgressUpdate(progress);
@@ -390,7 +391,7 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
                 onPanic();
             }
         });
-        ImageButton mBtnCheat = (ImageButton) getView().findViewById(R.id.riddle_cheat);
+        mBtnCheat = (ImageButton) getView().findViewById(R.id.riddle_cheat);
         mBtnCheat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -588,6 +589,8 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
                                 } else {
                                     Toast.makeText(getActivity(), "Höher geht nicht...", Toast.LENGTH_SHORT).show();
                                 }
+                            } else if (value.equalsIgnoreCase("hide")) {
+                                mBtnCheat.setVisibility(View.GONE);
                             } else {
                                 Toast.makeText(getActivity(), "Bild nicht gefunden.", Toast.LENGTH_SHORT).show();
                             }

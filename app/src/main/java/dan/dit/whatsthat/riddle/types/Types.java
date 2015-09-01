@@ -555,6 +555,27 @@ public class Types {
         }
 
         @Override
+        public CharSequence getRiddleHint(Resources res, int hintNumber) {
+            String[] hints = res.getStringArray(R.array.riddle_type_flow_hints);
+            if (hintNumber >= 0 && hintNumber < hints.length) {
+                return hints[hintNumber];
+            }
+            return null;
+        }
+        @Override
+        public int getAvailableHintsAtStartCount() {
+            return 1;
+        }
+        @Override
+        public int getTotalAvailableHintsCount() {
+            return 2;
+        }
+        public List<Integer> getHintCosts() {
+            List<Integer> costs = new ArrayList<>(getTotalAvailableHintsCount());
+            costs.add(0);
+            return costs;
+        }
+        @Override
         public int getBaseScore() {
             return SCORE_MEDIUM;
         }
