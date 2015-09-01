@@ -63,7 +63,7 @@ public class AchievementSnow extends TypeAchievementHolder {
     public static class Achievement2 extends GameAchievement {
         public static final int NUMBER = 2;
         public static final int LEVEL = 0;
-        public static final int REWARD = 5;
+        public static final int REWARD = 60;
         public static final boolean DISCOVERED = true;
         private static final Long REQUIRED_SPEED = 1750L; // within required delta tolerance
 
@@ -101,7 +101,7 @@ public class AchievementSnow extends TypeAchievementHolder {
     public static class Achievement1 extends GameAchievement {
         public static final int NUMBER = 1;
         public static final int LEVEL = 0;
-        public static final int REWARD = 5;
+        public static final int REWARD = 85;
         public static final boolean DISCOVERED = true;
         private static final String KEY_TIMER_SOLVED = Types.Snow.NAME + NUMBER + "_solved"; // timed data key
         private static final int SOLVED_COUNT = 2;
@@ -159,7 +159,7 @@ public class AchievementSnow extends TypeAchievementHolder {
     public static class Achievement3 extends GameAchievement {
         public static final int NUMBER = 3;
         public static final int LEVEL = 0;
-        public static final int REWARD = 10;
+        public static final int REWARD = 150;
         public static final boolean DISCOVERED = true;
 
         public Achievement3(AchievementManager manager, PracticalRiddleType type) {
@@ -188,8 +188,8 @@ public class AchievementSnow extends TypeAchievementHolder {
     //Mission impossible
     public static class Achievement4 extends GameAchievement {
         public static final int NUMBER = 4;
-        public static final int LEVEL = 0;
-        public static final int REWARD = 5;
+        public static final int LEVEL = 1;
+        public static final int REWARD = 200;
         public static final boolean DISCOVERED = true;
         private static final String KEY_TIMER_COLLECT_IDEA = Types.Snow.NAME + NUMBER + "_collectidea"; // timed data key
         private static final int COLLECT_COUNT = 13;
@@ -245,7 +245,7 @@ public class AchievementSnow extends TypeAchievementHolder {
     public static class Achievement5 extends GameAchievement {
         public static final int NUMBER = 5;
         public static final int LEVEL = 0;
-        public static final int REWARD = 5;
+        public static final int REWARD = 150;
         public static final boolean DISCOVERED = true;
         private static final int EXPLOSION_COUNT = 3;
 
@@ -274,7 +274,7 @@ public class AchievementSnow extends TypeAchievementHolder {
     public static class Achievement6 extends GameAchievement {
         public static final int NUMBER = 6;
         public static final int LEVEL = 0;
-        public static final int REWARD = 5;
+        public static final int REWARD = 85;
         public static final boolean DISCOVERED = true;
         private static final int TOUCH_COUNT = 5;
         private static final String KEY_GAME_COLLISION_WITH_MAX_SIZE = NUMBER + "collision_with_max_size";
@@ -309,7 +309,7 @@ public class AchievementSnow extends TypeAchievementHolder {
     public static class Achievement11 extends GameAchievement {
         public static final int NUMBER = 11;
         public static final int LEVEL = 0;
-        public static final int REWARD = 20;
+        public static final int REWARD = 100;
         public static final boolean DISCOVERED = true;
         private static final int SOLVE_WITH_ONE_EXPLOSION_COUNT = 6; //one will be triggered when Achievement 3 is fulfilled
 
@@ -360,7 +360,7 @@ public class AchievementSnow extends TypeAchievementHolder {
     public static class Achievement7 extends GameAchievement {
         public static final int NUMBER = 7;
         public static final int LEVEL = 0;
-        public static final int REWARD = 10;
+        public static final int REWARD = 80;
         public static final boolean DISCOVERED = true;
         public static final long IDLE_TIME_PASSED = 60000; //ms
         public static final String KEY_IDLE_TIME_PASSED = NUMBER + "idle_time_passed";
@@ -402,7 +402,7 @@ public class AchievementSnow extends TypeAchievementHolder {
     public static class Achievement13 extends GameAchievement {
         public static final int NUMBER = 13;
         public static final int LEVEL = 0;
-        public static final int REWARD = 25;
+        public static final int REWARD = 300;
         public static final boolean DISCOVERED = true;
         public static final int CATCH_EM_ALL = 721;
 
@@ -429,7 +429,7 @@ public class AchievementSnow extends TypeAchievementHolder {
     public static class Achievement10 extends GameAchievement {
         public static final int NUMBER = 10;
         public static final int LEVEL = 0;
-        public static final int REWARD = 10;
+        public static final int REWARD = 65;
         public static final boolean DISCOVERED = false;
         private static final int COLLISION_COUNT = 100;
         private static final long MIN_COLLISION_SPEED = 30;
@@ -464,7 +464,7 @@ public class AchievementSnow extends TypeAchievementHolder {
     public static class Achievement8 extends GameAchievement {
         public static final int NUMBER = 8;
         public static final int LEVEL = 0;
-        public static final int REWARD = 10;
+        public static final int REWARD = 90;
         public static final boolean DISCOVERED = true;
 
         public static final int COLLISION_COUNT = 4;
@@ -525,7 +525,7 @@ public class AchievementSnow extends TypeAchievementHolder {
     public static class Achievement9 extends GameAchievement {
         public static final int NUMBER = 9;
         public static final int LEVEL = 0;
-        public static final int REWARD = 10;
+        public static final int REWARD = 75;
         public static final boolean DISCOVERED = false;
         public static final String KEY_GAME_DEVIL_KILLED_COUNT = NUMBER + "devil_killed";
         private static final long KILL_COUNT = 3;
@@ -558,7 +558,7 @@ public class AchievementSnow extends TypeAchievementHolder {
     public static class Achievement12 extends GameAchievement {
         public static final int NUMBER = 12;
         public static final int LEVEL = 0;
-        public static final int REWARD = 10;
+        public static final int REWARD = 80;
         public static final boolean DISCOVERED = true;
 
         public static final int OVERKILL_COUNT = 2;
@@ -603,7 +603,7 @@ public class AchievementSnow extends TypeAchievementHolder {
     public static class Achievement14 extends GameAchievement {
         public static final int NUMBER = 14;
         public static final int LEVEL = 0;
-        public static final int REWARD = 10;
+        public static final int REWARD = 90;
         public static final boolean DISCOVERED = true;
         public static final int MAX_SPORES = 10;
 

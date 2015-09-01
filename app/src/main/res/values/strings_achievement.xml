@@ -24,7 +24,7 @@
     <string name="achievement_circle_7_name">I\'m in a hurry…</string>
     <string name="achievement_circle_7_descr">Finish two…OK let\'s say one riddle in less than %1$d seconds.</string>
     <string name="achievement_circle_8_name">…still in hurry</string>
-    <string name="achievement_circle_8_descr">sorry…Don\'t wanna bother ya. %1$d games within %2$d seconds.</string>
+    <string name="achievement_circle_8_descr">Sorry…Don\'t wanna bother ya. %1$d games within %2$d seconds.</string>
     <string name="achievement_circle_9_name">All we need is love</string>
     <string name="achievement_circle_9_descr">The first circle needs some attention. Talk with it for some time.</string>
     <string name="achievement_circle_10_name">All you get is work</string>
@@ -75,7 +75,7 @@
     <string name="achievement_dice_2_name">Colour diversity</string>
     <string name="achievement_dice_2_descr">Gather geen, yellow and red 1–6 and purple 7–9. No resets!</string>
     <string name="achievement_dice_3_name">That\'s complicated</string>
-    <string name="achievement_dice_3_descr">Get all hints for this riddle. Why? Because this is very complicated and it took my master enough effort, so you gotta read it!</string>
+    <string name="achievement_dice_3_descr">Get all hints for this experiment. Why? Because it is very complicated and my master wrote these things with love, so you have to read it!</string>
     <string name="achievement_dice_4_name">Powerful corner</string>
     <string name="achievement_dice_4_descr">Combine %1$d yellow dices in each corner.</string>
     <string name="achievement_dice_5_name">Translation error</string>
@@ -117,14 +117,14 @@
     <string name="achievement_dice_21_descr_claimed">An opposing side of Perfectionist.It\'s like Yin-Yang. Ever heard of it?</string>
 
     <!-- Jumper achievements -->
-    <string name="achievement_jumper_1_name">The answer to life...</string>
-    <string name="achievement_jumper_1_descr">...to universe and everything. Plus the number of horns of a unicorn.</string>
-    <string name="achievement_jumper_1_descr_claimed">...to universe and everything. Plus the number of horns of a unicorn.43!</string>
+    <string name="achievement_jumper_1_name">The answer to life…</string>
+    <string name="achievement_jumper_1_descr">…to universe and everything. Plus the number of horns of a unicorn.</string>
+    <string name="achievement_jumper_1_descr_claimed">…to universe and everything. Plus the number of horns of a unicorn.43!</string>
     <string name="achievement_jumper_2_name">Lack of talent</string>
     <string name="achievement_jumper_2_descr">You failed %1$d times in easy. Are you sure you wanna continue playing this game?</string>
     <string name="achievement_jumper_3_name">Super Mario</string>
     <string name="achievement_jumper_3_descr">Perform %1$d Double Jumps in a game before reaching \"medium\".</string>
-    <string name="achievement_jumper_3_descr_claimed">So much for the laws of physics...</string>
+    <string name="achievement_jumper_3_descr_claimed">So much for the laws of physics…</string>
     <string name="achievement_jumper_4_name">Multitasking</string>
     <string name="achievement_jumper_4_descr">Finish a game after reaching \"hard\" without colliding.</string>
     <string name="achievement_jumper_5_name">Avoiding manoeuvres</string>
@@ -138,7 +138,7 @@
     <string name="achievement_jumper_9_name">Marathon</string>
     <string name="achievement_jumper_9_descr">Going for a short walk of %1$d meters.</string>
     <string name="achievement_jumper_10_name">Boring beginning</string>
-    <string name="achievement_jumper_10_descr">Enough of the easy beginning? Well...get the right upgrades my friend.</string>
+    <string name="achievement_jumper_10_descr">Enough of the easy beginning? Well… get the right upgrades my friend.</string>
     <string name="achievement_jumper_11_name">Natural talent</string>
     <string name="achievement_jumper_11_descr">Reach at least %2$d meters in %1$d successive games.</string>
 
@@ -160,7 +160,7 @@
     <string name="achievement_triangle_5_name">Progressive progress</string>
 
     <!-- Misc achievements -->
-    <string name="achievement_misc_1_descr">Pst! Don\'t wanna tell you that here! Read in hints!</string>
+    <string name="achievement_misc_1_descr">Did you see the menu \"About and Contact\" yet? There you can read my creator names!</string>
     <string name="achievement_misc_1_name">Creator names</string>
     <string name="achievement_misc_2_descr">You skipped an experiment for more than %1$d days.</string>
     <string name="achievement_misc_2_name">Need my friends</string>
@@ -173,20 +173,38 @@
     <string name="achievement_memory_1_name">Short-term memory</string>
     <string name="achievement_memory_1_descr">Even glaciers were faster than you with this experiment</string>
     <string name="achievement_memory_2_descr">Leave a trail of.. 5, 10, 15 or maybe 20 fields.</string>
-    <string name="achievement_memory_2_name">Random trail</string>
+    <string name="achievement_memory_2_name">Dirt track</string>
     <string name="achievement_memory_3_name">The right pair</string>
-    <string name="achievement_memory_3_descr_claimed">Despite that little visible area... Not bad.</string>
+    <string name="achievement_memory_3_descr_claimed">Despite that little visible area… Not bad.</string>
     <string name="achievement_memory_4_name">Homunculus</string>
     <string name="achievement_memory_4_descr">Reveal the picture after %1$d fields have been covered.</string>
     <string name="achievement_memory_3_descr">Little visible area. Can you still detect the picture?</string>
-    <string name="achievement_memory_5_name">Dirt track</string>
-    <string name="achievement_memory_5_descr">Restore a hidden ??? field to its original form</string>
+    <string name="achievement_memory_5_name">Random trail</string>
+    <string name="achievement_memory_5_descr">X/5 cards have been revealed automatically because the random trail hit the right cards</string>
     <string name="achievement_memory_6_name">DEFINITELY luck</string>
     <string name="achievement_memory_6_descr">%1$d matching pairs with the first try? Well, maybe Angry-Cell it was skill but here, DEFINITELY NOT!</string>
-    <string name="achievement_memory_7_descr">That streak... Either this was brilliant or you cheated...</string>
+    <string name="achievement_memory_7_descr">That streak… Either this was brilliant or you cheated…</string>
     <string name="achievement_memory_7_name">Cardships</string>
     <string name="achievement_memory_8_descr">You get the points if you solve the game without hitting a field twice. Get a pencil quickly!</string>
     <string name="achievement_memory_8_name">Cheating</string>
     <string name="achievement_memory_9_name">No magician</string>
     <string name="achievement_memory_9_descr">Luckily you are no magician.</string>
+
+    <!-- Flow achievements -->
+    <string name="achievement_flow_1_name">One after each other</string>
+    <string name="achievement_flow_1_descr">Place 15 Cellis. Please respect the titel too …</string>
+    <string name="achievement_flow_2_name">Snake</string>
+    <string name="achievement_flow_2_descr">Place 20 Cellis and watch them work. But no one of it may take a break before work is done!</string>
+    <string name="achievement_flow_3_name">Unmasked</string>
+    <string name="achievement_flow_3_descr">Reveal 75 of the picture.</string>
+    <string name="achievement_flow_4_name">Superstition</string>
+    <string name="achievement_flow_4_descr">Place 36 active Cellis and get off, before the unlucky number 13 hits you! (requires efficientclicks)</string>
+    <string name="achievement_flow_5_name">Mass, not class</string>
+    <string name="achievement_flow_5_descr">Well, what you had to do was pretty clear. The question was, how many Cellis you needed. I can tell you: 300.(blind, 300 Puntke in einem Spiel setzen)</string>
+    <string name="achievement_flow_6_name">Stunning</string>
+    <string name="achievement_flow_6_descr">Isn\'t it amazing to watch all these placed Cellis doing crazy stuff? Just say yes. (75 Zellen in einem Spiel setzen und beenden)</string>
+    <string name="achievement_flow_7_name">Ant colony</string>
+    <string name="achievement_flow_7_descr">It\'s bustling. So far 2000 Cellis worked until their job was done</string>
+
+
 </resources>

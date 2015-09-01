@@ -63,7 +63,7 @@
     </string-array>
 
     <!-- Triangle related -->
-    <string name="riddle_type_triangle">ColEdge</string>
+    <string name="riddle_type_triangle">Triluminati</string>
     <string name="riddle_type_triangle_explanation">Press inside a triangle to create smaller ones.</string>
     <string-array name="riddle_type_triangle_hints">
     </string-array>
@@ -77,7 +77,7 @@
     </string-array>
 
     <!-- Jumper related -->
-    <string name="riddle_type_jumper">Invasion</string>
+    <string name="riddle_type_jumper">Monstarathon</string>
     <string name="riddle_type_jumper_explanation">Touch to jump or keep pressed to doublejump over obstacles. Each one will slowly reveal the image</string>
     <string-array name="riddle_type_jumper_hints">
     </string-array>
@@ -96,6 +96,7 @@
     <string name="riddle_type_memory">Memory</string>
     <string name="riddle_type_memory_explanation">Find a matching pair</string>
     <string-array name="riddle_type_memory_hints">
+        <item>dummy</item>
     </string-array>
 
 
