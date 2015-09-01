@@ -55,7 +55,7 @@ public class AchievementCircle extends TypeAchievementHolder {
     public static class Achievement1 extends GameAchievement {
         public static final int NUMBER = 1;
         public static final int LEVEL = 0;
-        public static final int REWARD = 10;
+        public static final int REWARD = 50;
         public static final boolean DISCOVERED = true;
         public static final int FINISH_GAMES_COUNT = 5;
 
@@ -89,7 +89,7 @@ public class AchievementCircle extends TypeAchievementHolder {
     public static class Achievement2 extends GameAchievement {
         public static final int NUMBER = 2;
         public static final int LEVEL = 0;
-        public static final int REWARD = 10;
+        public static final int REWARD = 70;
         public static final boolean DISCOVERED = true;
         public static final int MAX_CIRCLES = 40;
 
@@ -117,7 +117,7 @@ public class AchievementCircle extends TypeAchievementHolder {
     public static class Achievement3 extends GameAchievement {
         public static final int NUMBER = 3;
         public static final int LEVEL = 0;
-        public static final int REWARD = 10;
+        public static final int REWARD = 30;
         public static final boolean DISCOVERED = true;
         public static final int MIN_CIRCLES = 64*64;
         private AchievementProperties mMiscData;
@@ -143,7 +143,6 @@ public class AchievementCircle extends TypeAchievementHolder {
         public void onDataEvent(AchievementDataEvent event) {
             if (event.getChangedData() == mMiscData && event.hasChangedKey(MiscAchievementHolder.KEY_ADMIRED_IMAGE_AUTHOR)
                     && mGameData.getState() == AchievementDataRiddleGame.STATE_OPENED) {
-                Log.d("Achievement", "Admired achievement: " + mMiscData.getValue(MiscAchievementHolder.KEY_ADMIRED_IMAGE_AUTHOR, 0L) + " circles " + mGameData.getValue(KEY_CIRCLE_COUNT, 0L));
                 if (mGameData.getValue(KEY_CIRCLE_COUNT, 0L) >= MIN_CIRCLES) {
                     mGameData.putValue(Achievement4.KEY_GAME_ADMIRED, 1L, AchievementProperties.UPDATE_POLICY_ALWAYS);
                     achieveAfterDependencyCheck();
@@ -156,10 +155,10 @@ public class AchievementCircle extends TypeAchievementHolder {
     public static class Achievement4 extends GameAchievement {
         public static final int NUMBER = 4;
         public static final int LEVEL = 0;
-        public static final int REWARD = 25;
         public static final boolean DISCOVERED = true;
         public static final int MIN_CIRCLES = Achievement3.MIN_CIRCLES;
         public static final int JOBS_COUNT = 10;
+        public static final int REWARD = JOBS_COUNT * 7;
         public static final String KEY_GAME_ADMIRED = NUMBER + MiscAchievementHolder.KEY_ADMIRED_IMAGE_AUTHOR;
         private AchievementProperties mMiscData;
 
@@ -209,11 +208,11 @@ public class AchievementCircle extends TypeAchievementHolder {
         }
     }
 
-    //Mission impossible
+    //Mission possible
     public static class Achievement5 extends GameAchievement {
         public static final int NUMBER = 5;
         public static final int LEVEL = 0;
-        public static final int REWARD = 10;
+        public static final int REWARD = 60;
         public static final boolean DISCOVERED = true;
         public static final int FINISH_WITHIN_DURATION = 20000; //ms
 
@@ -243,9 +242,10 @@ public class AchievementCircle extends TypeAchievementHolder {
     public static class Achievement6 extends GameAchievement {
         public static final int NUMBER = 6;
         public static final int LEVEL = 0;
-        public static final int REWARD = 10;
-        public static final boolean DISCOVERED = true;
         public static final int CLICKS_OVER_SWIPES_COUNT = 5;
+        public static final int REWARD = CLICKS_OVER_SWIPES_COUNT*10;
+        public static final boolean DISCOVERED = true;
+
 
         public Achievement6(AchievementManager manager, PracticalRiddleType type) {
             super(type, R.string.achievement_circle_6_name, R.string.achievement_circle_6_descr, 0, NUMBER, manager, LEVEL, REWARD, CLICKS_OVER_SWIPES_COUNT, DISCOVERED);
@@ -284,9 +284,9 @@ public class AchievementCircle extends TypeAchievementHolder {
     public static class Achievement7 extends GameAchievement {
         public static final int NUMBER = 7;
         public static final int LEVEL = 0;
-        public static final int REWARD = 5;
+        public static final int REWARD = 30;
         public static final boolean DISCOVERED = true;
-        public static final int FINISH_WITHIN_DURATION = 15000; //ms
+        public static final int FINISH_WITHIN_DURATION = 17000; //ms
 
         public Achievement7(AchievementManager manager, PracticalRiddleType type) {
             super(type, R.string.achievement_circle_7_name, R.string.achievement_circle_7_descr, 0, NUMBER, manager, LEVEL, REWARD, 1, DISCOVERED);
@@ -312,8 +312,8 @@ public class AchievementCircle extends TypeAchievementHolder {
     //still in a hurry
     public static class Achievement8 extends GameAchievement {
         public static final int NUMBER = 8;
-        public static final int LEVEL = 0;
-        public static final int REWARD = 25;
+        public static final int LEVEL = 2;
+        public static final int REWARD = 150;
         public static final boolean DISCOVERED = true;
         private static final String KEY_TIMER_SOLVED = Types.Circle.NAME + NUMBER + "_solved"; // timed data key
         private static final int SOLVED_COUNT = 5;
@@ -381,7 +381,7 @@ public class AchievementCircle extends TypeAchievementHolder {
     public static class Achievement9 extends GameAchievement {
         public static final int NUMBER = 9;
         public static final int LEVEL = 0;
-        public static final int REWARD = 0;
+        public static final int REWARD = PracticalRiddleType.CIRCLE_INSTANCE.getBaseScore() * 7;
         public static final boolean DISCOVERED = true;
         private static final int MIN_RUBBISH_LETTERS = 18;
         private static final long TALK_POLITE = 1L;
@@ -414,7 +414,7 @@ public class AchievementCircle extends TypeAchievementHolder {
                 String talk = mMiscData.getMappedValue(MiscAchievementHolder.KEY_SOLUTION_INPUT_CURRENT_TEXT);
                 if (talk != null
                         && (checkTalk(talk, "hi") || checkTalk(talk, "hello") || checkTalk(talk, "hallo") || checkTalk(talk, "whatup")
-                            || checkTalk(talk, "servus") || checkTalk(talk, "moin") || checkTalk(talk, "bonjour"))) {
+                            || checkTalk(talk, "servus") || checkTalk(talk, "moin") || checkTalk(talk, "hey") || checkTalk(talk, "bonjour"))) {
                     talkValue = TALK_POLITE;
                 } else if (talk != null &&
                         (talk.length() >= MIN_RUBBISH_LETTERS)) {
@@ -437,7 +437,7 @@ public class AchievementCircle extends TypeAchievementHolder {
     public static class Achievement10 extends GameAchievement {
         public static final int NUMBER = 10;
         public static final int LEVEL = 0;
-        public static final int REWARD = 1;
+        public static final int REWARD = PracticalRiddleType.CIRCLE_INSTANCE.getBaseScore() * 3;
         public static final boolean DISCOVERED = true;
         public static final String KEY_ACHIEVE_ME = NUMBER + "achieve_me";
         private AchievementPropertiesMapped<String> mMiscData;
@@ -522,11 +522,11 @@ public class AchievementCircle extends TypeAchievementHolder {
     public static class Achievement11 extends GameAchievement {
         public static final int NUMBER = 11;
         public static final int LEVEL = 0;
-        public static final int REWARD = 50;
+        public static final int REWARD = 200;
         public static final boolean DISCOVERED = true;
-        public static final int CIRCLE_TO_CREATE = 42464;
-        public static final int CIRCLE_NOT_TO_CREATE = 42463;
-        public static final int CIRCLE_NOT_TO_CREATE_TOO_MANY = 42465;
+        public static final int CIRCLE_TO_CREATE = 34746;
+        public static final int CIRCLE_NOT_TO_CREATE = 34745;
+        public static final int CIRCLE_NOT_TO_CREATE_TOO_MANY = 34747;
 
         public Achievement11(AchievementManager manager, PracticalRiddleType type) {
             super(type, R.string.achievement_circle_11_name, R.string.achievement_circle_11_descr, 0, NUMBER, manager, LEVEL, REWARD, CIRCLE_TO_CREATE, DISCOVERED);
@@ -552,7 +552,7 @@ public class AchievementCircle extends TypeAchievementHolder {
     public static class Achievement12 extends GameAchievement {
         public static final int NUMBER = 12;
         public static final int LEVEL = 0;
-        public static final int REWARD = 20;
+        public static final int REWARD = 30;
         public static final boolean DISCOVERED = true;
         private static final long TIME_TO_BE_FAST = 200L;
 
@@ -576,11 +576,11 @@ public class AchievementCircle extends TypeAchievementHolder {
         public static final int LEVEL = 3;
         public static final int REWARD = 0;
         public static final boolean DISCOVERED = false;
-        public static final int PERFECT_REWARD = 300;
-        public static final int MAX_REWARD = 250;
-        public static final int MIN_REWARD = 30;
-        public static final long MAX_REWARD_TIME = 5L * 1000L; // 5 seconds played time
-        public static final long MIN_REWARD_TIME = 30L * 60L * 1000L; //30 minutes played time
+        public static final int PERFECT_REWARD = 250;
+        public static final int MAX_REWARD = 200;
+        public static final int MIN_REWARD = 5;
+        public static final long MAX_REWARD_TIME = 10L * 1000L;
+        public static final long MIN_REWARD_TIME = 60L * 1000L;
 
         public Achievement13(AchievementManager manager, PracticalRiddleType type) {
             super(type, R.string.achievement_circle_13_name, R.string.achievement_circle_13_descr, 0, NUMBER, manager, LEVEL, REWARD, 1, DISCOVERED);

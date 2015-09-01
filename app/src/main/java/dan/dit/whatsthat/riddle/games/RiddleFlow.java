@@ -191,6 +191,7 @@ public class RiddleFlow extends RiddleGame {
 
     @Override
     protected void initBitmap(Resources res, PercentProgressListener listener) {
+        //TODO center bitmap in canvas
         mRand = new Random();
         mFlowStartsX = new ArrayList<>(128);
         mFlowStartsY = new ArrayList<>(128);

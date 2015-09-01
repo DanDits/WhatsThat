@@ -40,11 +40,11 @@ public class AchievementTriangle extends TypeAchievementHolder {
     private static class Achievement1 extends GameAchievement {
         public static final int NUMBER = 1;
         public static final int LEVEL = 0;
-        public static final int REWARD = 10;
+        public static final int REWARD = 75;
         public static final boolean DISCOVERED = true;
         private static final int REQUIRED_GAMES_COUNT = 5;
         private static final String KEY_TIMER_SOLVED = Types.Triangle.NAME + NUMBER + "games_solved";
-        private static final long MAX_TIME_DURATION = 90000L;
+        private static final long MAX_TIME_DURATION = 120000L;
 
         public Achievement1(AchievementManager manager, PracticalRiddleType type) {
             super(type, R.string.achievement_triangle_1_name, R.string.achievement_triangle_1_descr, 0, NUMBER, manager, LEVEL, REWARD, 1, DISCOVERED);
@@ -97,7 +97,7 @@ public class AchievementTriangle extends TypeAchievementHolder {
     private static class Achievement2 extends GameAchievement {
         public static final int NUMBER = 2;
         public static final int LEVEL = 0;
-        public static final int REWARD = 10;
+        public static final int REWARD = 50;
         public static final boolean DISCOVERED = true;
         private static final int TRIANGLES_TO_DIVIDE = Math.min(8, RiddleTriangle.MAX_SPLIT_PER_CLICK);
         private static final int MAX_TRIANGLES_THRESHOLD = 20;
@@ -129,7 +129,7 @@ public class AchievementTriangle extends TypeAchievementHolder {
     private static class Achievement3 extends GameAchievement {
         public static final int NUMBER = 3;
         public static final int LEVEL = 0;
-        public static final int REWARD = 10;
+        public static final int REWARD = 80;
         public static final boolean DISCOVERED = true;
         private static final int MAX_TRIANGLES = 100;
 
@@ -159,7 +159,7 @@ public class AchievementTriangle extends TypeAchievementHolder {
     private static class Achievement4 extends GameAchievement {
         public static final int NUMBER = 4;
         public static final int LEVEL = 0;
-        public static final int REWARD = 10;
+        public static final int REWARD = 85;
         public static final boolean DISCOVERED = true;
         private static final int MIN_TRIANGLES = 8000;
 
@@ -189,9 +189,9 @@ public class AchievementTriangle extends TypeAchievementHolder {
     private static class Achievement5 extends GameAchievement {
         public static final int NUMBER = 5;
         public static final int LEVEL = 0;
-        public static final int REWARD = 10;
+        public static final int REWARD = 200;
         public static final boolean DISCOVERED = true;
-        private static final int GAMES_SOLVE_COUNT = 30;
+        private static final int GAMES_SOLVE_COUNT = 25;
 
         public Achievement5(AchievementManager manager, PracticalRiddleType type) {
             super(type, R.string.achievement_triangle_5_name, R.string.achievement_triangle_5_descr, 0, NUMBER, manager, LEVEL, REWARD, GAMES_SOLVE_COUNT, DISCOVERED);

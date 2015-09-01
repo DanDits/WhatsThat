@@ -578,9 +578,17 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
                         if (selected != null) {
                             nextCheatedRiddle(selected);
                         } else {
-                            if (value.equalsIgnoreCase("42")) {
-                                TestSubject.getInstance().addAchievementScore(420);
-                                Toast.makeText(getActivity(), "You got rich boy.", Toast.LENGTH_SHORT).show();
+                            if (value.matches("[0-9]+")) {
+                                int money = 0;
+                                try {
+                                    money = Integer.parseInt(value);
+                                } catch (NumberFormatException nfe) {
+                                    //ignore
+                                }
+                                if (money > 0) {
+                                    TestSubject.getInstance().addAchievementScore(money);
+                                    Toast.makeText(getActivity(), "You got rich boy.", Toast.LENGTH_SHORT).show();
+                                }
                             } else if (value.equalsIgnoreCase("kummerkasten")) {
                                 decryptComplain();
                             } else if (value.equalsIgnoreCase("oneup")) {

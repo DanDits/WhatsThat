@@ -38,9 +38,9 @@ import dan.dit.whatsthat.util.PercentProgressListener;
 public class Types {
     public static final int SCORE_SIMPLE = 1;
     public static final int SCORE_MEDIUM = 2;
-    private static final int SCORE_HARD = 3;
-    private static final int SCORE_VERY_HARD = 4;
-    private static final int SCORE_ULTRA = 5;
+    public static final int SCORE_HARD = 3;
+    public static final int SCORE_VERY_HARD = 4;
+    public static final int SCORE_ULTRA = 5;
 
     private Types() {} // do not instantiate
 
@@ -453,7 +453,7 @@ public class Types {
 
         @Override
         public int getBaseScore() {
-            return SCORE_MEDIUM;
+            return SCORE_HARD;
         }
 
     }
