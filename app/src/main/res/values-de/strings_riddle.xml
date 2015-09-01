@@ -146,10 +146,14 @@
 
     <!-- Torchlight related -->
     <string name="riddle_type_torchlight">Fakel</string>
-    <string name="riddle_type_torchlight_explanation">Geheim und mysteriös und bla bla.Geheim und mysteriös und bla bla.Geheim und mysteriös und bla bla.Geheim und mysteriös und bla bla.Geheim und mysteriös und bla bla.Geheim und mysteriös und bla bla.Geheim und mysteriös und bla bla.Geheim und mysteriös und bla bla.Geheim und mysteriös und bla bla.Geheim und mysteriös und bla bla.Geheim und mysteriös und bla bla.</string>
+    <string name="riddle_type_torchlight_explanation">Geheim und mysteriös und bla bla.</string>
 
     <!-- Flow related -->
     <string name="riddle_type_flow">Chaosfluss</string>
-    <string name="riddle_type_flow_explanation">Durch Berühren entstehen Pixelflüsse, welche Linien im versteckten Bild folgen.</string>
+    <string name="riddle_type_flow_explanation">Berühre das Feld, wodurch Pixelflüsse entstehen. Versuche Puntke nahe an Konturen zu setzen, damit Linien im Bild absuchen.</string>
+    <string-array name="riddle_type_flow_hints">
+        <item>Zellen besitzen nur teilweise Intelligenz. Daher verläuft nur jeder dritte gesetzte Punkt gefundene Konturen ab.</item>
+        <item>Die Dauer der Zellen ist bei allen gleich.</item>
+    </string-array>
 
 </resources>

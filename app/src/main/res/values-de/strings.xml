@@ -2,7 +2,7 @@
 
 <resources>
     <string name="credits_text"><![CDATA[
-            <p>Many people contributed to this project and we did not have to apply force to any of them, this makes us happy. Also those people and their brilliant minds make us happy for</p>
+            <p>Many people contributed to this project and we did not have to apply force to any of them, this makes us happy. Also those people and their brillant minds make us happy for</p>
             <ul>
             <li>being awesome</li>
             <li>testing and elimination of bugs</li>
@@ -140,7 +140,7 @@
     <string name="download_article_toast_error_syncing">Bilder speichern fehlgeschlagen (%1$d)</string>
     <string name="panic_complain_nothing">Nur Geduld</string>
     <string name="panic_complain_dummy_toast">Beschwerde registriert</string>
-    <string name="panic_complain_content">Ich will mich über das Rätsel und Bild beschweren...SAG UNS WAS DIR NICHT PASST! :)</string>
+    <string name="panic_complain_content">Ich will mich über das Rätsel und Bild beschweren…SAG UNS WAS DIR NICHT PASST! :)</string>
 
     <string name="send_log_confirm">Log senden</string>
     <string name="intro_starting_episode">Willkommen %1$s</string>
