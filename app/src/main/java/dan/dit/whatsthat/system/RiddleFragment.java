@@ -27,6 +27,7 @@ import android.view.animation.OvershootInterpolator;
 import android.view.animation.TranslateAnimation;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.github.johnpersano.supertoasts.SuperToast;
@@ -67,11 +68,13 @@ import dan.dit.whatsthat.util.image.Dimension;
 import dan.dit.whatsthat.util.image.ExternalStorage;
 import dan.dit.whatsthat.util.ui.ImageButtonWithNumber;
 import dan.dit.whatsthat.util.ui.UiStyleUtil;
+import dan.dit.whatsthat.util.wallet.Wallet;
+import dan.dit.whatsthat.util.wallet.WalletEntry;
 
 /**
  * Created by daniel on 10.04.15.
  */
-public class RiddleFragment extends Fragment implements PercentProgressListener, LoaderManager.LoaderCallbacks<Cursor>, SolutionInputListener, UnsolvedRiddlesChooser.Callback, NoPanicDialog.Callback {
+public class RiddleFragment extends Fragment implements PercentProgressListener, Wallet.OnEntryChangedListener, LoaderManager.LoaderCallbacks<Cursor>, SolutionInputListener, UnsolvedRiddlesChooser.Callback, NoPanicDialog.Callback {
     public static final Map<String, Image> ALL_IMAGES = new HashMap<>();
     private static final String PRE_ENCRYPTED_COMPLAIN = "Image: ";
     private static final String POST_ENCRYPTED_COMPLAIN = "EndImage";
@@ -85,6 +88,7 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
     private RiddlePickerDialog mRiddlePickerDialog;
     private boolean mErrorHandlingAttempted;
     private ImageButton mBtnCheat;
+    private TextView mScoreInfo;
 
     public void onProgressUpdate(int progress) {
         mProgressBar.onProgressUpdate(progress);
@@ -97,7 +101,12 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
     private void updateNextRiddleButton() {
         mBtnRiddles.setEnabled(canClickNextRiddle());
         mBtnRiddles.setImageResource(TestSubject.getInstance().getImageResId());
+    }
 
+    private void updateScoreInfo() {
+        if (mScoreInfo != null) {
+            mScoreInfo.setText(String.valueOf(TestSubject.getInstance().getCurrentScore()));
+        }
     }
 
     private void nextRiddleIfEmpty() {
@@ -375,6 +384,7 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
             }
         });
         mBtnRiddles = (ImageButton) getView().findViewById(R.id.riddle_make_next);
+        mScoreInfo = (TextView) getView().findViewById(R.id.currency);
         mBtnRiddles.setEnabled(false);
         mBtnRiddles.setImageResource(TestSubject.getInstance().getImageResId());
         mBtnRiddles.setOnClickListener(new View.OnClickListener() {
@@ -599,6 +609,8 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
                                 }
                             } else if (value.equalsIgnoreCase("hide")) {
                                 mBtnCheat.setVisibility(View.GONE);
+                            } else if (value.equalsIgnoreCase("boom")) {
+                                throw new IllegalArgumentException("Boom.");
                             } else {
                                 Toast.makeText(getActivity(), "Bild nicht gefunden.", Toast.LENGTH_SHORT).show();
                             }
@@ -625,6 +637,8 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
         super.onStart();
         mErrorHandlingAttempted = false;
         getLoaderManager().initLoader(0, null, this);
+        updateScoreInfo();
+        TestSubject.getInstance().registerScoreChangedListener(this);
     }
 
     @Override
@@ -645,6 +659,7 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
     public void onStop() {
         super.onStop();
         mManager.cancelMakeRiddle();
+        TestSubject.getInstance().removeScoreChangedListener(this);
         if (mRiddleView != null) {
             clearRiddle();
         }
@@ -729,5 +744,10 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
         if (mBtnRiddles != null) {
             updateNextRiddleButton();
         }
+    }
+
+    @Override
+    public void onEntryChanged(WalletEntry entry) {
+        updateScoreInfo();
     }
 }

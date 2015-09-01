@@ -57,6 +57,7 @@ public class RiddleView extends SurfaceView implements SensorEventListener {
         if (!mIsResumed) {
             return; // already paused
         }
+        Log.d("Riddle", "Pausing riddle view, has controller: " + hasController());
         mIsResumed = false;
         if (mSensorManager != null) {
             mSensorManager.unregisterListener(this);

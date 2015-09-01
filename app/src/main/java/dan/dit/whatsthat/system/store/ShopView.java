@@ -1,6 +1,7 @@
 package dan.dit.whatsthat.system.store;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.support.v4.app.FragmentActivity;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -37,6 +38,7 @@ public class ShopView extends ExpandableListView implements  StoreContainer, Sho
     private ShopArticleHolder mArticleHolder;
     private final LayoutInflater mInflater;
     private ViewGroup mFilterHolder;
+    private TextView mCurrency;
 
     public ShopView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -65,12 +67,17 @@ public class ShopView extends ExpandableListView implements  StoreContainer, Sho
     }
 
     private void updateTitleBackButton() {
-        mTitleBackButton.setText(getContext().getString(R.string.store_category_shop, mArticleHolder.getCurrentScore()));
+        mTitleBackButton.setText(getContext().getString(R.string.store_category_shop));
+    }
+
+    private void updateCurrency() {
+        mCurrency.setText(String.valueOf(mArticleHolder.getCurrentScore()));
     }
 
     @Override
     public void refresh(FragmentActivity activity, Button titleBackButton) {
         mTitleBackButton = titleBackButton;
+        mCurrency = (TextView) getRootView().findViewById(R.id.currency);
         if (mAdapter == null) {
             mAdapter = new ShopArticleAdapter();
             mArticleHolder = TestSubject.getInstance().getShopSortiment();
@@ -81,6 +88,7 @@ public class ShopView extends ExpandableListView implements  StoreContainer, Sho
         }
         mArticleHolder.setOnArticleChangedListener(this);
         updateTitleBackButton();
+        updateCurrency();
     }
 
     private void initFilters() {
@@ -157,7 +165,7 @@ public class ShopView extends ExpandableListView implements  StoreContainer, Sho
     public void onArticleChanged(ShopArticle article) {
         if (mAdapter != null) {
             applyFilters();
-            updateTitleBackButton();
+            updateCurrency();
         }
     }
 

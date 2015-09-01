@@ -3,7 +3,9 @@ package dan.dit.whatsthat.util.wallet;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -19,6 +21,11 @@ public class Wallet {
     private Editor mEditor;
     private SharedPreferences mPrefs;
     private final String mName;
+    private List<OnEntryChangedListener> mListeners;
+
+    public interface OnEntryChangedListener {
+        void onEntryChanged(WalletEntry entry);
+    }
 
     public Wallet(Context context, String name) {
         mName = name;
@@ -99,8 +106,35 @@ public class Wallet {
 
         private void apply() {
             SharedPreferences.Editor editor = mPrefs.edit();
+            int oldValue = mEntry.getValue();
             mEntry.setValue(mValue);
             editor.putInt(mName + mEntry.getKey(), mValue).apply();
+            if (oldValue != mValue) {
+                notifyChangedListeners(mEntry);
+            }
+        }
+    }
+
+    public void addChangedListener(OnEntryChangedListener listener) {
+        if (mListeners == null) {
+            mListeners = new ArrayList<>(1);
+        }
+        if (!mListeners.contains(listener)) {
+            mListeners.add(listener);
+        }
+    }
+
+    public void removeChangedListener(OnEntryChangedListener listener) {
+        if (mListeners != null) {
+            mListeners.remove(listener);
+        }
+    }
+
+    private void notifyChangedListeners(WalletEntry entry) {
+        if (mListeners != null) {
+            for (int i = 0; i < mListeners.size(); i++) {
+                mListeners.get(i).onEntryChanged(entry);
+            }
         }
     }
 }

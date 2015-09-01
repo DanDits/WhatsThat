@@ -84,7 +84,7 @@ public class AchievementView extends ExpandableListView implements StoreContaine
     }
 
     private void updateTitleBackButton() {
-        mTitleBackButton.setText(getContext().getString(R.string.store_category_achievement, TestSubject.getInstance().getAchievementScore()));
+        mTitleBackButton.setText(getContext().getString(R.string.store_category_achievement));
     }
 
     private boolean claimReward(Achievement achievement, View toAnimate) {

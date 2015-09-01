@@ -171,7 +171,7 @@ public class RiddleController {
     /**
      * Pause the periodic event, stopping future invocations and periodic renderings.
      */
-    public void stopPeriodicEvent(final Runnable toExecute) {
+    public synchronized void stopPeriodicEvent(final Runnable toExecute) {
         if (mPeriodicThread != null && mPeriodicThread.isRunning()) {
             Log.d("Riddle", "Stopping periodic event that is running.");
             mPeriodicThread.stopPeriodicEvent(toExecute);
@@ -185,7 +185,7 @@ public class RiddleController {
     /**
      * If there is a valid riddle and a positive periodic event period, resume (or restart) the rendering and periodic threads.
      */
-    public void resumePeriodicEventIfRequired() {
+    public synchronized void resumePeriodicEventIfRequired() {
         if (riddleAvailable() && mRiddleView != null && mRiddleGame.requiresPeriodicEvent()) {
             stopPeriodicEvent(new Runnable() {
                 @Override

@@ -26,8 +26,8 @@
         ]]></string>
 
     <string name="store_category_menu">Zurück zum Experiment</string>
-    <string name="store_category_shop">Laden: %1$d</string>
-    <string name="store_category_achievement">Erfolge (+%1$d)</string>
+    <string name="store_category_shop">Laden</string>
+    <string name="store_category_achievement">Erfolge</string>
     <string name="store_category_about">Info &amp; Kontakt</string>
     <string name="store_category_donate">Spenden</string>
     <string name="store_category_credit">Danksagungen</string>

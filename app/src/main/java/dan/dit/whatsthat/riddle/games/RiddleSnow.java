@@ -63,7 +63,7 @@ public class RiddleSnow extends RiddleGame implements FlatWorldCallback {
     private static final long EXPLOSION_DELAY = 3000; //ms
     private static final long TOUCH_GRAVITY_FULL_EFFECT_DELAY = 500; //ms
     private static final double EXPLOSION_HIT_WALL_FRACTION = 0.4;
-    private static final double SNOW_EXPLOSION_SIZE_MULTIPLIER = 2.0;
+    private static final double SNOW_EXPLOSION_SIZE_MULTIPLIER = 1.25;
     private static final float CRASHED_WALL_BIGGER_SPEED_MULTIPLIER = 1.5f;
     private static final float CRASHED_WALL_SMALL_SPEED_MULTIPLIER = 0.5f;
     private static final float EXPLOSION_SPEED_MULTIPLIER = 10.f;
@@ -499,10 +499,11 @@ public class RiddleSnow extends RiddleGame implements FlatWorldCallback {
             updateCellStateAchievementData();
             nextIdea();
         } else if (checkCollisionPair(colliding1, colliding2, mDevil, mIdea)) {
-            if (mConfig.mAchievementGameData != null) {
-                mConfig.mAchievementGameData.increment(AchievementSnow.KEY_GAME_ANGEL_COLLECTED_IDEA, 1L, 0L);
+            if (mDevil.attemptCollectIdea()) {
+                if (mConfig.mAchievementGameData != null) {
+                    mConfig.mAchievementGameData.increment(AchievementSnow.KEY_GAME_ANGEL_COLLECTED_IDEA, 1L, 0L);
+                }
             }
-            mDevil.attemptCollectIdea();
         } else if (((colliding1 == mCell && colliding2.onCollision(mCell)))
                     || (colliding2 == mCell && colliding1.onCollision(mCell))) {
             if (mConfig.mAchievementGameData != null) {
@@ -886,7 +887,7 @@ public class RiddleSnow extends RiddleGame implements FlatWorldCallback {
             }
         }
 
-        public void attemptCollectIdea() {
+        public boolean attemptCollectIdea() {
             if (mState < STATE_RECOVERING) {
                 mState++;
                 setStateFrames(mState);
@@ -896,7 +897,9 @@ public class RiddleSnow extends RiddleGame implements FlatWorldCallback {
                     mTimeToRecover = RECOVER_DURATION;
                     talk(R.array.devil_talk_recovering_start, 0.5);
                 }
+                return true;
             }
+            return false;
         }
 
         public void attemptCollectIdeaChild(IdeaChild toCollect) {

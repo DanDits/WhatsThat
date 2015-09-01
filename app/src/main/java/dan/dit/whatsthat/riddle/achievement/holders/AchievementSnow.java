@@ -86,7 +86,6 @@ public class AchievementSnow extends TypeAchievementHolder {
             if (event.getChangedData() == mTypeData && event.hasChangedKey(KEY_TYPE_MAX_SPEED)) {
                 if (areDependenciesFulfilled()) {
                     long achievedSpeed = mTypeData.getValue(KEY_TYPE_MAX_SPEED, 0L);
-                    Log.d("Achievement", "Achieved speed: " + achievedSpeed);
                     if (achievedSpeed > REQUIRED_SPEED - CELL_SPEED_REQUIRED_DELTA) {
                         achieve();
                     } else {
@@ -137,12 +136,10 @@ public class AchievementSnow extends TypeAchievementHolder {
                     && mGameData.getState() == AchievementDataRiddleGame.STATE_CLOSED) {
                 // game data closed, game is solved, mark this event
                 mTimerData.onTimeKeeperUpdate(KEY_TIMER_SOLVED, mGameData.getValue(AchievementDataRiddleGame.KEY_PLAYED_TIME, 0L));
-                Log.d("Achievement", "Bomberman on solved, time keeper: " + mTimerData.getTimeKeeper(KEY_TIMER_SOLVED));
             }
             if (event.getChangedData() == mTimerData && event.getEventType() == AchievementDataEvent.EVENT_TYPE_DATA_UPDATE
                     && event.hasChangedKey(KEY_TIMER_SOLVED)) {
                 AchievementDataTimer.TimeKeeper keeper = mTimerData.getTimeKeeper(KEY_TIMER_SOLVED);
-                Log.d("Achievement", "Bomberman on timer, time keeper: " + keeper);
                 if (keeper != null && keeper.getTimesCount() == SOLVED_COUNT) {
                     long duration = keeper.getTotalTimeConsumed();
                     if (duration > 0L && duration <= SOLVED_MAX_TIME) {
@@ -173,8 +170,6 @@ public class AchievementSnow extends TypeAchievementHolder {
                     && mGameData.getValue(AchievementDataRiddleGame.KEY_SOLVED, Solution.SOLVED_NOTHING) == Solution.SOLVED_COMPLETELY
                     && mGameData.getState() == AchievementDataRiddleGame.STATE_CLOSED) {
                 // game data closed, game is solved, check explosion count
-                Log.d("Achievement", "Glückstreffer achievement: " + mGameData.getValue(KEY_GAME_BIG_EXPLOSION, 0L) + " bigs and " +
-                    mGameData.getValue(KEY_GAME_WALL_EXPLOSION, 0L) + " smalls.");
                 long explosionCount = mGameData.getValue(KEY_GAME_BIG_EXPLOSION, 0L) + mGameData.getValue(KEY_GAME_WALL_EXPLOSION, 0L);
                 if (explosionCount == 1) {
                     achieveAfterDependencyCheck();
@@ -329,8 +324,6 @@ public class AchievementSnow extends TypeAchievementHolder {
                         && mGameData.getValue(AchievementDataRiddleGame.KEY_SOLVED, Solution.SOLVED_NOTHING) == Solution.SOLVED_COMPLETELY
                         && mGameData.getState() == AchievementDataRiddleGame.STATE_CLOSED) {
                     // game data closed, game is solved, check explosion count
-                    Log.d("Achievement", "Glückstreffer reloaded achievement: " + mGameData.getValue(KEY_GAME_BIG_EXPLOSION, 0L) + " bigs and " +
-                            mGameData.getValue(KEY_GAME_WALL_EXPLOSION, 0L) + " smalls.");
                     long explosionCount = mGameData.getValue(KEY_GAME_BIG_EXPLOSION, 0L) + mGameData.getValue(KEY_GAME_WALL_EXPLOSION, 0L);
                     if (explosionCount == 1) {
                         if (!areDependenciesFulfilled()) {
@@ -379,12 +372,6 @@ public class AchievementSnow extends TypeAchievementHolder {
         public void onDataEvent(AchievementDataEvent event) {
             if (event.getChangedData() == mGameData
                     && event.hasChangedKey(KEY_IDLE_TIME_PASSED)) {
-                Log.d("Achievement", "Idle time passed." + " big explosions " +
-                        mGameData.getValue(KEY_GAME_BIG_EXPLOSION, 0L)
-                        + " wall explosions " + mGameData.getValue(KEY_GAME_WALL_EXPLOSION, 0L)
-                        + " collisions " + mGameData.getValue(KEY_GAME_COLLISION_COUNT, 0L)
-                        + " ideas collected " + mGameData.getValue(KEY_GAME_IDEAS_COLLECTED, 0L)
-                        + " angle collected " + mGameData.getValue(KEY_GAME_ANGEL_COLLECTED_IDEA, 0L));
                 if (mGameData.getValue(KEY_GAME_BIG_EXPLOSION, 0L) == 0L
                         && mGameData.getValue(KEY_GAME_COLLISION_COUNT, 0L) == 0L
                         && mGameData.getValue(KEY_GAME_WALL_EXPLOSION, 0L) == 0L
@@ -418,7 +405,7 @@ public class AchievementSnow extends TypeAchievementHolder {
         @Override
         public void onDataEvent(AchievementDataEvent event) {
             if (event.getChangedData() == mGameData
-                    && event.hasChangedKey(KEY_GAME_ANGEL_COLLECTED_IDEA)) {
+                    && event.hasChangedKey(KEY_GAME_IDEAS_COLLECTED)) {
                 achieveDelta(1);
             }
         }

@@ -102,9 +102,7 @@ public final class RiddleInitializer {
      */
     protected class InitTask extends AsyncTask<Void, Integer, List<Riddle>> implements InitProgressListener {
         private int mBaseProgress;
-        private static final int INIT_STEPS = 3; // step1: unsolved riddles, step2: used images, step3: score and solved riddles count
-        private int mSolvedRiddlesCount;
-        private int mLoadedScore;
+        private static final int INIT_STEPS = 2; // step1: unsolved riddles, step2: used images
         private Context mContext;
 
         public InitTask(Context context) {
@@ -135,12 +133,6 @@ public final class RiddleInitializer {
             if (isCancelled()) {
                 return null;
             }
-            int[] countAndScore = Riddle.loadSolvedRiddlesCountAndScore(mContext, this);
-            if (isCancelled() || countAndScore == null) {
-                return null;
-            }
-            mSolvedRiddlesCount = countAndScore[0];
-            mLoadedScore = countAndScore[1];
             return unsolved;
         }
 
@@ -160,7 +152,7 @@ public final class RiddleInitializer {
 
         @Override
         public void onPostExecute(List<Riddle> unsolved) {
-            mManager = new RiddleManager(unsolved, mSolvedRiddlesCount, mLoadedScore);
+            mManager = new RiddleManager(unsolved);
             List<InitProgressListener> listeners = new ArrayList<>(mListener); // copy as it will be cleared by onInitFinished
             onInitFinish(); // finish first, so that listeners that check the state are not mislead
 

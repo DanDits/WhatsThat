@@ -12,7 +12,7 @@ import android.util.Log;
 class GamePeriodicThread extends Thread {
     private RiddleController mController;
     private transient boolean mIsRunning;
-    private boolean mStopped;
+    private transient boolean mStopped;
     private Handler mStoppedNotifier;
     private Runnable mOnStopCallback;
 
@@ -61,6 +61,6 @@ class GamePeriodicThread extends Thread {
     }
 
     public boolean isRunning() {
-        return mIsRunning;
+        return mIsRunning || !mStopped;
     }
 }

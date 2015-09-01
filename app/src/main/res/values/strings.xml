@@ -32,8 +32,8 @@
         <item>13 Euros</item>
     </string-array>
     <string name="store_category_menu">Important things</string>
-    <string name="store_category_shop">Shop: %1$d</string>
-    <string name="store_category_achievement">Achievements (+%1$d)</string>
+    <string name="store_category_shop">Shop</string>
+    <string name="store_category_achievement">Achievements</string>
     <string name="store_category_about">About &amp; Contact</string>
     <string name="store_category_donate">Donate</string>
     <string name="store_category_credit">Credits</string>

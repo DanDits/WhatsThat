@@ -22,7 +22,6 @@ import dan.dit.whatsthat.util.image.Dimension;
 public class RiddleManager {
     private final List<Riddle> mAllUnsolvedRiddles = new LinkedList<>();
     private static LruCache<Riddle, Bitmap> mMemoryCache;
-    private int mLoadedScore;
 
     private List<UnsolvedRiddleListener> mUnsolvedRiddleListeners = new LinkedList<>();
     private RiddleMaker mMaker;
@@ -66,10 +65,6 @@ public class RiddleManager {
         }
     }
 
-    public int getLoadedScore() {
-        return mLoadedScore;
-    }
-
     /**
      * There was a change (not further specified) with the unsolved riddles.
      * This informs listeners to recheck the information they need from the manager.
@@ -81,13 +76,9 @@ public class RiddleManager {
     /**
      * Initializes the manager with a list of unsolved riddles.
      * @param loadedUnsolvedRiddles A non null list of riddles.
-     * @param solvedRiddlesCount The amount of solved riddles.
-     * @param loadedScore The score earned by all solved riddles.
      */
-    RiddleManager(@NonNull List<Riddle> loadedUnsolvedRiddles, int solvedRiddlesCount, int loadedScore) {
+    RiddleManager(@NonNull List<Riddle> loadedUnsolvedRiddles) {
         mAllUnsolvedRiddles.addAll(loadedUnsolvedRiddles);
-        mSolvedRiddlesCount = solvedRiddlesCount;
-        mLoadedScore = loadedScore;
     }
 
     /**
@@ -108,7 +99,7 @@ public class RiddleManager {
         if (mMemoryCache != null) {
             mMemoryCache.remove(riddle);
         }
-        Log.d("Riddle", "Solved riddles: " + mSolvedRiddlesCount + ", unsolved riddles " + mAllUnsolvedRiddles.size() + " loaded score " + mLoadedScore);
+        Log.d("Riddle", "Solved riddles: " + mSolvedRiddlesCount + ", unsolved riddles " + mAllUnsolvedRiddles.size());
     }
 
     /**

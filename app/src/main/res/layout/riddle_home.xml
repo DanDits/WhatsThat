@@ -48,8 +48,8 @@
                 android:id="@+id/riddle_cheat"
                 android:src="@drawable/cheat"
                 android:layout_alignParentTop="true"
-                android:layout_toLeftOf="@+id/riddle_hint"
-                android:layout_toStartOf="@+id/riddle_hint" />
+                android:layout_toLeftOf="@+id/riddle_make_next"
+                android:layout_toStartOf="@+id/riddle_make_next" />
 
             <ImageButton android:id="@+id/riddle_make_next"
                 android:layout_width="wrap_content" android:layout_height="wrap_content"
@@ -58,6 +58,22 @@
                 android:layout_centerHorizontal="true"
                 android:scaleType="centerInside"
                 android:layout_alignBottom="@+id/riddle_hint" />
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/riddle_make_next"
+                android:layout_toRightOf="@+id/riddle_make_next"
+                android:layout_toLeftOf="@+id/riddle_hint"
+                android:gravity="center">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/currency"
+                    android:gravity="center"
+                    android:textColor="@color/black"
+                    android:background="@drawable/think_currency"
+                    />
+            </LinearLayout>
 
         </RelativeLayout>
     </view>
@@ -69,12 +85,18 @@
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/progress_bar" />
 
-    <view
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        class="dan.dit.whatsthat.solution.SolutionInputView"
-        android:id="@+id/solution_input_view"
+        android:orientation="vertical"
         android:layout_alignParentLeft="true"
         android:layout_alignParentBottom="true"
-        android:layout_below="@+id/riddle_view" />
+        android:layout_below="@+id/riddle_view"
+        android:background="@drawable/letter_click_border">
+        <view
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            class="dan.dit.whatsthat.solution.SolutionInputView"
+            android:id="@+id/solution_input_view"/>
+    </LinearLayout>
 </RelativeLayout>

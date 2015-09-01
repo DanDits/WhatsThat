@@ -44,6 +44,7 @@ import dan.dit.whatsthat.util.dependencies.MinValueDependency;
 import dan.dit.whatsthat.testsubject.shopping.ShopArticle;
 import dan.dit.whatsthat.testsubject.shopping.ShopArticleHolder;
 import dan.dit.whatsthat.testsubject.shopping.sortiment.ShopArticleRiddleHints;
+import dan.dit.whatsthat.util.wallet.Wallet;
 import dan.dit.whatsthat.util.wallet.WalletEntry;
 import dan.dit.whatsthat.util.DelayedQueueProcessor;
 import dan.dit.whatsthat.util.compaction.CompactedDataCorruptException;
@@ -313,13 +314,13 @@ public class TestSubject {
         mPurse.mScoreWallet.editEntry(Purse.SW_KEY_SOLVED_RIDDLE_SCORE).add(score);
         if (BuildConfig.DEBUG) {
             WalletEntry entry = mPurse.mScoreWallet.assureEntry(Purse.SW_KEY_SOLVED_RIDDLE_SCORE);
-            Log.d("HomeStuff", "Adding " + score + " to wallet, new riddle score: " + entry.getValue() + " (loaded " + RiddleInitializer.INSTANCE.getRiddleManager().getLoadedScore() + ")");
+            Log.d("HomeStuff", "Adding " + score + " to wallet, new riddle score: " + entry.getValue());
         }
     }
 
     public void addAchievementScore(int score) {
         mPurse.mScoreWallet.editEntry(Purse.SW_KEY_ACHIEVEMENT_SCORE).add(score);
-        Log.d("HomeStuff", "Adding " + score + " to wallet, new achievement score: " + mPurse.mScoreWallet.assureEntry(Purse.SW_KEY_ACHIEVEMENT_SCORE).getValue() + " (loaded " + RiddleInitializer.INSTANCE.getRiddleManager().getLoadedScore() + ")");
+        Log.d("HomeStuff", "Adding " + score + " to wallet, new achievement score: " + mPurse.mScoreWallet.assureEntry(Purse.SW_KEY_ACHIEVEMENT_SCORE).getValue());
 
     }
 
@@ -437,6 +438,18 @@ public class TestSubject {
         int bonusCount = mPreferences.getInt(KEY_SCORE_BONUS_COUNT, 0);
         mPreferences.edit().putInt(KEY_SCORE_BONUS_COUNT, bonusCount + 1).apply();
         return bonusCount;
+    }
+
+    public int getCurrentScore() {
+        return mPurse.getCurrentScore();
+    }
+
+    public void registerScoreChangedListener(Wallet.OnEntryChangedListener listener) {
+        mPurse.mScoreWallet.addChangedListener(listener);
+    }
+
+    public void removeScoreChangedListener(Wallet.OnEntryChangedListener listener) {
+        mPurse.mScoreWallet.removeChangedListener(listener);
     }
 
     private static class ProductPurchasedDependency extends Dependency {

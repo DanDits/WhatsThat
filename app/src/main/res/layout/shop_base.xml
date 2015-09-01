@@ -3,28 +3,48 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
-    <HorizontalScrollView
-        android:layout_width="match_parent"
+    <RelativeLayout
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content">
-        <LinearLayout
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_toLeftOf="@+id/currency"
+            android:id="@+id/scrollView">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:id="@+id/shop_filters">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/imageView2"
+                    android:src="@drawable/icon_circle" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/imageView3"
+                    android:src="@drawable/icon_dice" />
+            </LinearLayout>
+        </HorizontalScrollView>
+
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:id="@+id/shop_filters">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/imageView2"
-                android:src="@drawable/icon_circle" />
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/imageView3"
-                android:src="@drawable/icon_dice" />
-        </LinearLayout>
-    </HorizontalScrollView>
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignBottom="@+id/scrollView"
+            android:layout_marginLeft="5dp"
+            android:id="@+id/currency"
+            android:gravity="center"
+            android:textColor="@color/black"
+            android:background="@drawable/think_currency"/>
+    </RelativeLayout>
 
     <view
         class="dan.dit.whatsthat.system.store.ShopView"

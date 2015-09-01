@@ -4,6 +4,7 @@ import android.content.Context;
 
 import dan.dit.whatsthat.riddle.types.PracticalRiddleType;
 import dan.dit.whatsthat.util.wallet.Wallet;
+import dan.dit.whatsthat.util.wallet.WalletEntry;
 
 /**
  * Created by daniel on 10.06.15.
