@@ -16,56 +16,78 @@
         android:layout_height="match_parent"
         android:id="@+id/menu_buttons"
         android:background="@drawable/alien_shop_background"
-        android:layout_gravity="center">
+        android:layout_gravity="center"
+        android:divider="@drawable/store_divider"
+        android:showDividers="middle"
+        android:dividerPadding="10dp"
+        android:paddingBottom="8dp"
+        android:paddingTop="8dp">
 
         <Button
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:text="@string/btn_open_shop"
             android:id="@+id/btn_shop"
             android:layout_gravity="center"
             android:layout_weight="1"
-            android:layout_margin="20dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
             style="@style/button_menu_big" />
 
         <Button
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:text="@string/achievement_button"
             android:id="@+id/btn_achievements"
             android:layout_gravity="center"
             android:layout_weight="1"
-            android:layout_margin="20dp"
+            android:padding="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
             style="@style/button_menu_big" />
-
+        
         <Button
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
+            android:text="@string/workshop_button"
+            android:id="@+id/btn_workshop"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            style="@style/button_menu_big" />
+        
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
             android:text="@string/btn_about"
             android:id="@+id/btn_about"
             android:layout_gravity="center"
             android:layout_weight="1"
-            android:layout_margin="20dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
             style="@style/button_menu_big" />
 
         <Button
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:text="@string/btn_donate"
             android:id="@+id/btn_donate"
             android:layout_gravity="center"
             android:layout_weight="1"
-            android:layout_margin="20dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
             style="@style/button_menu_big" />
 
         <Button
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:text="@string/btn_credits"
             android:id="@+id/btn_credits"
             android:layout_gravity="center"
             android:layout_weight="1"
-            android:layout_margin="20dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
             style="@style/button_menu_big" />
         </LinearLayout>
 

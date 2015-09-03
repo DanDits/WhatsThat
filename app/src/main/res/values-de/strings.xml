@@ -28,6 +28,7 @@
     <string name="store_category_menu">Zurück zum Experiment</string>
     <string name="store_category_shop">Laden</string>
     <string name="store_category_achievement">Erfolge</string>
+    <string name="store_category_workshop">Werkstatt</string>
     <string name="store_category_about">Info &amp; Kontakt</string>
     <string name="store_category_donate">Spenden</string>
     <string name="store_category_credit">Danksagungen</string>
@@ -42,6 +43,7 @@
 
     <string name="btn_open_shop">Laden</string>
     <string name="achievement_button">Erfolge</string>
+    <string name="workshop_button">Werkstatt</string>
     <string name="btn_about">Info &amp; Kontakt</string>
     <string name="btn_donate">Spenden</string>
     <string name="btn_credits">Danksagungen</string>
@@ -90,9 +92,6 @@
 
     <string name="dummy_content">DUMMY\nINHALT</string>
     <string name="app_name">WhatsThat</string>
-    <string name="riddles_dialog_positive">Bestätigen</string>
-    <string name="riddle_dialog_tab_types">Experiment Auswahl</string>
-    <string name="riddle_dialog_tab_unsolved">Ausgesetzt und vergessen…</string>
 
     <string name="panic_dialog_positive">Alles ok</string>
     <string name="panic_ask_type">Wie funktioniert das Experiment</string>
@@ -172,4 +171,6 @@
     <string name="send_log_title">Sorry, die App ist abgestürzt</string>
     <string name="article_hint_no_translation">Hinweis für diese Sprache nicht verfügbar.</string>
 
+    <string name="workshop_tab_bundle_creator">Bilderpaket erstellen</string>
+    <string name="workshop_tab_mosaic">Mosaik Generator</string>
 </resources>

@@ -36,11 +36,12 @@ public class StoreActivity extends FragmentActivity {
     private static final int CATEGORY_MENU = 0;
     private static final int CATEGORY_SHOP = 1;
     private static final int CATEGORY_ACHIEVEMENTS = 2;
-    private static final int CATEGORY_ABOUT = 3;
-    private static final int CATEGORY_DONATE = 4;
-    private static final int CATEGORY_CREDITS = 5;
-    private static final int CATEGORIES_COUNT = 6;
-    private static final int[] mCategoryLayoutId = new int[] {0, R.layout.shop_base, R.layout.achievements_base, R.layout.about_base, R.layout.donations_base, R.layout.credits_base};
+    private static final int CATEGORY_WORKSHOP = 3;
+    private static final int CATEGORY_ABOUT = 4;
+    private static final int CATEGORY_DONATE = 5;
+    private static final int CATEGORY_CREDITS = 6;
+    private static final int CATEGORIES_COUNT = 7;
+    private static final int[] mCategoryLayoutId = new int[] {0, R.layout.shop_base, R.layout.achievements_base, R.layout.workshop_base, R.layout.about_base, R.layout.donations_base, R.layout.credits_base};
     private static final String KEY_CURR_CATEGORY = "dan.dit.whatsthat.STORE_MENU_CURR_CATEGORY";
 
     private boolean mStateOpening;
@@ -130,7 +131,6 @@ public class StoreActivity extends FragmentActivity {
             onPress.setAnimationListener(new Animation.AnimationListener() {
                 @Override
                 public void onAnimationStart(Animation animation) {
-
                 }
 
                 @Override
@@ -213,7 +213,7 @@ public class StoreActivity extends FragmentActivity {
             }
         });
         mMenuContainer = (ViewGroup) findViewById(R.id.menu_buttons);
-        mMenuButtons = new ArrayList<>(5);
+        mMenuButtons = new ArrayList<>(CATEGORIES_COUNT);
         Button shopButton = (Button) findViewById(R.id.btn_shop);
         shopButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -229,6 +229,15 @@ public class StoreActivity extends FragmentActivity {
             public void onClick(View view) {
                 if (onMenuButtonClicked(view)) {
                     mCurrCategory = CATEGORY_ACHIEVEMENTS;
+                }
+            }
+        });
+        Button workshopButton = (Button) findViewById(R.id.btn_workshop);
+        workshopButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (onMenuButtonClicked(view)) {
+                    mCurrCategory = CATEGORY_WORKSHOP;
                 }
             }
         });
@@ -261,6 +270,7 @@ public class StoreActivity extends FragmentActivity {
         });
         mMenuButtons.add(shopButton);
         mMenuButtons.add(achievementsButton);
+        mMenuButtons.add(workshopButton);
         mMenuButtons.add(aboutButton);
         mMenuButtons.add(donateButton);
         mMenuButtons.add(creditsButton);

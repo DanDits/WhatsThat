@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.Random;
 
 import dan.dit.whatsthat.R;
+import dan.dit.whatsthat.achievement.AchievementDataEvent;
 import dan.dit.whatsthat.achievement.AchievementProperties;
 import dan.dit.whatsthat.image.Image;
 import dan.dit.whatsthat.riddle.Riddle;
@@ -76,7 +77,7 @@ public class RiddleJumper extends RiddleGame implements FlatWorldCallback {
     public static final int DIFFICULTY_ULTRA = 3;
     private static final float DISTANCE_RUN_START_FURTHER_FEATURE = meterToDistanceRun(200);
     private static final int[] DISTANCE_RUN_THRESHOLDS = new int[] {0, (int) (meterToDistanceRun(150)), (int) (meterToDistanceRun(400)), (int) (meterToDistanceRun(800))};
-    private static final long[] NEXT_OBSTACLE_MIN_TIME_SMALL = new long[] {970L, 745L, 580L, 570L, 540L};
+    private static final long[] NEXT_OBSTACLE_MIN_TIME_SMALL = new long[] {930L, 740L, 580L, 570L, 540L};
     private static final long[] NEXT_OBSTACLE_MIN_TIME_BIG = new long[] {1000L, 1200L, 1075L, 1025L, 905L};
     private static final long[] NEXT_OBSTACLE_MAX_TIME = new long[] {2000L, 1700L, 1400L, 1250L, 1150L}; //ms, maximum time until the next obstacle appears
     private static final long[] NEXT_OBSTACLE_MIN_TIME_SMALL_WIDTH = new long[] {1200L, 1100L, 1100L, 1025L, 860L};
@@ -445,7 +446,9 @@ public class RiddleJumper extends RiddleGame implements FlatWorldCallback {
             }
             if (mConfig.mAchievementGameData != null) {
                 long currentHighscore = mConfig.mAchievementTypeData.getValue(AchievementJumper.KEY_TYPE_TOTAL_RUN_HIGHSCORE, 0L);
-                if (Math.abs(currentHighscore - mDistanceRun) < AchievementJumper.DISTANCE_RUN_THRESHOLD) {
+                if (mDistanceRun >= currentHighscore) {
+                    // new highscore, set it directly so that the threshold is not displayed and no confusion appears
+                    updateHighscore((long) mDistanceRun, AchievementProperties.UPDATE_POLICY_ALWAYS);
                     Paint paint = mDistanceTextPaint;
                     int oldColor = paint.getColor();
                     paint.setColor(0xffdc9912);
@@ -583,16 +586,22 @@ public class RiddleJumper extends RiddleGame implements FlatWorldCallback {
         mRunner.setStateFrames(HitboxJumpMover.STATE_NOT_MOVING);
     }
 
+    private void updateHighscore(Long distanceRun, Long threshold) {
+        if (mConfig.mAchievementGameData != null) {
+            mConfig.mAchievementGameData.putValue(AchievementJumper.KEY_GAME_RUN_HIGHSCORE, distanceRun, threshold);
+        }
+        if (mConfig.mAchievementTypeData != null) {
+            mConfig.mAchievementTypeData.putValue(AchievementJumper.KEY_TYPE_TOTAL_RUN_HIGHSCORE, distanceRun, threshold);
+        }
+    }
+
     private boolean onDistanceRun(long updateTime) {
         if (mValidDistanceRun) {
             mDistanceRun += PSEUDO_RUN_SPEED * ONE_SECOND / updateTime;
             if (mConfig.mAchievementGameData != null) {
                 mConfig.mAchievementGameData.putValue(AchievementJumper.KEY_GAME_CURRENT_DISTANCE_RUN, (long) mDistanceRun, AchievementProperties.UPDATE_POLICY_ALWAYS);
-                mConfig.mAchievementGameData.putValue(AchievementJumper.KEY_GAME_RUN_HIGHSCORE, (long) mDistanceRun, AchievementJumper.DISTANCE_RUN_THRESHOLD);
             }
-            if (mConfig.mAchievementTypeData != null) {
-                mConfig.mAchievementTypeData.putValue(AchievementJumper.KEY_TYPE_TOTAL_RUN_HIGHSCORE, (long) mDistanceRun, AchievementJumper.DISTANCE_RUN_THRESHOLD);
-            }
+            updateHighscore((long) mDistanceRun, AchievementJumper.DISTANCE_RUN_THRESHOLD);
             updateDifficulty();
             return true;
         }

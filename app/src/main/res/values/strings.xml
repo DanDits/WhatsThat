@@ -34,6 +34,7 @@
     <string name="store_category_menu">Important things</string>
     <string name="store_category_shop">Shop</string>
     <string name="store_category_achievement">Achievements</string>
+    <string name="store_category_workshop">Workshop</string>
     <string name="store_category_about">About &amp; Contact</string>
     <string name="store_category_donate">Donate</string>
     <string name="store_category_credit">Credits</string>
@@ -50,10 +51,6 @@
     <string name="init_skip_state_mandatory_intro_missing">-loading testsubject-</string>
     <string name="init_skip_state_init_missing">-loading testsubject-</string>
     <string name="init_skip_state_none">-loading testsubject-</string>
-
-    <string name="riddles_dialog_positive">Confirm</string>
-    <string name="riddle_dialog_tab_types">Types</string>
-    <string name="riddle_dialog_tab_unsolved">Unsolved</string>
 
     <string name="panic_dialog_positive">All right</string>
     <string name="panic_ask_type">How does this work</string>
@@ -73,6 +70,7 @@
     <string name="tongue_select_explanation">Sprache für Lösungswörter: %1$s</string>
     <string name="btn_open_shop">Shop</string>
     <string name="achievement_button">Achievements</string>
+    <string name="workshop_button">Workshop</string>
     <string name="btn_about">About &amp; Contact</string>
     <string name="btn_donate">Donate</string>
     <string name="btn_credits">Credits</string>
@@ -168,4 +166,25 @@
     </string-array>
 
     <string name="panic_ask_author">Whose image is this</string>
+    <string name="workshop_tab_bundle_creator">Create image bundles</string>
+    <string name="workshop_tab_mosaic">Create mosaic</string>
+    <string name="bundle_creator_bundle_name_descr">New bundle\'s name</string>
+    <string name="bundle_creator_bundle_name_hint">e.g. \"CoolPix\"</string>
+    <string name="bundle_creator_origin_name_descr">Bundle\'s origin</string>
+    <string name="origin_hint">Your name or pseudonym</string>
+    <string name="bundle_creator_progress">Processing image %1$d/%2$d</string>
+    <string name="bundle_creator_bitmaps_descr">Selected images: %1$d (~%2$dMB)</string>
+    <string name="bundle_creator_bitmaps_open_selection">Select images to add</string>
+    <string name="bundle_creator_image_descr">Image information completed %1$d/%2$d</string>
+    <string name="bundle_creator_solution_words_descr">Solution word(s)</string>
+    <string name="bundle_creator_solution_words_hint">Separate words by commata</string>
+    <string name="solution_words_for_language">for language(s)\n(at least English)</string>
+    <string name="bundle_creator_author_descr">Information about image and its author</string>
+    <string name="bundle_creator_author_name_descr">Author\'s name</string>
+    <string name="bundle_creator_author_name_hint">Who took the photo or created the image?</string>
+    <string name="author_info_apply_to_others">Apply to all other images</string>
+    <string name="bundle_creator_author_source_descr">Image source</string>
+    <string name="bundle_creator_author_source_hint">e.g. website or \"private\"</string>
+    <string name="bundle_creator_author_extras_descr">License, title, …</string>
+    <string name="bundle_creator_author_extras_hint">Anything relevant</string>
 </resources>
