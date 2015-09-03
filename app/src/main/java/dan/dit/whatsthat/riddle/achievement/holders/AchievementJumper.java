@@ -33,7 +33,7 @@ public class AchievementJumper extends TypeAchievementHolder {
     public static final String KEY_TYPE_TOTAL_RUN_HIGHSCORE = "total_highscore";
     public static final String KEY_TYPE_JUMP_COUNT= "all_jumps";
     public static final String KEY_GAME_RUN_STARTED = "run_started";
-    public static final long DISTANCE_RUN_THRESHOLD = (long) RiddleJumper.meterToDistanceRun(10);
+    public static final Long DISTANCE_RUN_THRESHOLD = (long) RiddleJumper.meterToDistanceRun(10);
     public static final int ACHIEVEMENT_SUPER_MARIO = Achievement3.NUMBER;
     public static final int ACHIEVEMENT_LACK_OF_TALENT = Achievement2.NUMBER;
 
