@@ -21,12 +21,13 @@ public class ImageAuthor implements Compactable {
     private String mTitle; // title of the image if any
     private String mExtras; // like modifications or any additions and remarks if any
 
+    protected ImageAuthor() {
+        this(null, null, null, null, null);
+    }
+
     public ImageAuthor(String name, String source, String license, String title, String extras) {
-        mName = name;
-        mSource = source == null ? "" : source;
-        if (TextUtils.isEmpty(name)) {
-            throw new IllegalArgumentException("Empty author name.");
-        }
+        setName(name);
+        setSource(source);
         setLicense(license);
         setTitle(title);
         setExtras(extras);
@@ -36,15 +37,19 @@ public class ImageAuthor implements Compactable {
         unloadData(compactedData);
     }
 
-    private void setLicense(String license) {
+    protected void setSource(String source) {
+        mSource = source == null ? "" : source;
+    }
+
+    protected void setLicense(String license) {
         mLicense = license == null ?  "" : license;
     }
 
-    private void setTitle(String title) {
+    protected void setTitle(String title) {
         mTitle = title == null ? "" : title;
     }
 
-    private void setExtras(String extras) {
+    protected void setExtras(String extras) {
         mExtras = extras == null ? "" : extras;
     }
 
@@ -106,5 +111,9 @@ public class ImageAuthor implements Compactable {
         } catch (MalformedURLException e) {
             return null;
         }
+    }
+
+    protected void setName(String name) {
+        mName = name == null ? "" : name;
     }
 }

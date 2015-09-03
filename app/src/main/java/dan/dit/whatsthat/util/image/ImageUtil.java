@@ -13,6 +13,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -27,6 +28,25 @@ import java.util.Date;
  *
  */
 public final class ImageUtil {
+    /**
+     * Regularly loads the bitmap so that it fits inside the required
+     * dimensions but does not necessarily gets resized to fit one dimension exactly
+     */
+    public static final int LOAD_MODE_FIT_NO_RESIZE = 0;
+
+    /**
+     * Loads the bitmap so that it fits inside the required
+     * dimensions and resizes the image so that one dimension fits exactly
+     * and the aspect ratio is (almost) the same to the original image.
+     */
+    public static final int LOAD_MODE_FIT_INSIDE = 1;
+
+    /**
+     * Loads the bitmap so that it fits inside the required
+     * dimensions and resizes the image so that both dimensions fit exactly.
+     */
+    public static final int LOAD_MODE_FIT_EXACT = 2;
+
     private static final String IMAGE_FILE_PREFIX = "WTH_";
     private static final String IMAGE_FILE_EXTENSION = ".png";
     private static final double SIMILARITY_SCALING_THRESHOLD = 0.5; // 0 would mean only exactly the same aspect ratio
@@ -40,6 +60,43 @@ public final class ImageUtil {
         return !TextUtils.isEmpty(imageName) && imageName.endsWith(IMAGE_FILE_EXTENSION) && imageName.startsWith(IMAGE_FILE_PREFIX);
     }
 
+    public static boolean saveToFile(Bitmap image, File target, Bitmap.CompressFormat format, int compression) {
+        if (image == null || target == null) {
+            return false;
+        }
+        if (format == null) {
+            // try to set format by file extension, else take .png but do not rename target file
+            String name = target.getName();
+            String pathLowerCase = name.toLowerCase();
+            if (pathLowerCase.endsWith(".png")) {
+                format = Bitmap.CompressFormat.PNG;
+            } else if (pathLowerCase.endsWith(".jpg") || pathLowerCase.endsWith(".jpeg")) {
+                format = Bitmap.CompressFormat.JPEG;
+            } else if (pathLowerCase.endsWith(".webp")) {
+                format = Bitmap.CompressFormat.WEBP;
+            } else {
+                format = Bitmap.CompressFormat.PNG;
+            }
+        }
+        if (compression < 0) {
+            compression = 0;
+        }
+        if (compression > 100) {
+            compression = 100;
+        }
+        boolean success = false;
+        try {
+            FileOutputStream fos = new FileOutputStream(target);
+            success=image.compress(format, compression, fos);
+            fos.close();
+        } catch (FileNotFoundException e) {
+            Log.e("Image", "File not found: " + e.getMessage());
+        } catch (IOException e) {
+            Log.e("Image", "Error accessing file: " + e.getMessage());
+        }
+        return success;
+    }
+
 	/**
 	 * Saves the given image to the given file in png format.
 	 * @param image The image to be saved.
@@ -48,7 +105,7 @@ public final class ImageUtil {
 	 * if context or image parameter is <code>null</code> or there was an error accessing the external storage
      * or saving the file this returns <code>false</code>.
 	 */
-	public static boolean saveToFile(Bitmap image, String fileName) {
+	public static boolean saveToMediaFile(Bitmap image, String fileName) {
 		// create new File for the new Image
         if (image == null) {
             return false;
@@ -59,20 +116,10 @@ public final class ImageUtil {
                     "Error creating media file, check storage permissions: ");// e.getMessage());
             return false;
         }
-        boolean success = false;
-        try {
-            FileOutputStream fos = new FileOutputStream(pictureFile);
-            success=image.compress(Bitmap.CompressFormat.PNG, 100, fos);
-            fos.close();
-        } catch (FileNotFoundException e) {
-            Log.e("Image", "File not found: " + e.getMessage());
-        } catch (IOException e) {
-            Log.e("Image", "Error accessing file: " + e.getMessage());
-        }
-        return success;
+        return saveToFile(image, pictureFile, Bitmap.CompressFormat.PNG, 100);
     }
 
-    /* Create a File for saving an image */
+    /* Create a File for saving a png image */
     private static File getOutputMediaFile(String pImageName){
         String path = ExternalStorage.getExternalStoragePathIfMounted(MEDIA_DIRECTORY_NAME);
         if (path == null) {
@@ -185,16 +232,39 @@ public final class ImageUtil {
         return areAspectRatiosSimilar(width, height, 1, 1);
     }
 
-    /**
-     * Loads the bitmap specified by the given resource id. A negative value or zero for the required
-     * height or width will result in loading the unscaled original image.
-     * @param res Resources of the context.
-     * @param resId The resource id of the bitmap.
-     * @param reqWidth The required width of the image to load.
-     * @param reqHeight The required height of the image to load.
-     * @return A bitmap that will approximate the given dimensions at its best or null if no bitmap could be loaded.
-     */
-    public static Bitmap loadBitmap(Resources res, int resId, int reqWidth, int reqHeight, boolean enforceDimension) {
+    public static Bitmap loadBitmap(InputStream input, int reqWidth, int reqHeight, int mode) {
+        if (reqWidth <= 0 || reqHeight <= 0) {
+            // load unscaled image
+            final BitmapFactory.Options options = new BitmapFactory.Options();
+            options.inScaled = false;
+            options.inPreferredConfig = Bitmap.Config.ARGB_8888;
+            return BitmapFactory.decodeStream(input, null, options);
+        }
+        final BitmapFactory.Options options = new BitmapFactory.Options();
+        if (input.markSupported()) {
+            // First decode with inJustDecodeBounds=true to check dimensions
+            options.inJustDecodeBounds = true;
+            BitmapFactory.decodeStream(input, null, options);
+            try {
+                input.reset();
+            } catch (IOException ioe) {
+                Log.e("Image", "Error resetting input stream when decoding image: " + ioe);
+                return null;
+            }
+            // Calculate inSampleSize
+            options.inSampleSize = calculateInSampleSize(options, reqWidth, reqHeight);
+        }
+        // Decode bitmap with inSampleSize set
+        options.inJustDecodeBounds = false;
+        options.inPreferredConfig = Bitmap.Config.ARGB_8888;
+        Bitmap result =  BitmapFactory.decodeStream(input, null, options);
+        if (mode == LOAD_MODE_FIT_NO_RESIZE) {
+            return result;
+        }
+        return BitmapUtil.attemptBitmapScaling(result, reqWidth, reqHeight, mode == LOAD_MODE_FIT_EXACT);
+    }
+
+    public static Bitmap loadBitmap(Resources res, int resId, int reqWidth, int reqHeight, int mode) {
         if (reqWidth <= 0 || reqHeight <= 0) {
             // load unscaled image
             final BitmapFactory.Options options = new BitmapFactory.Options();
@@ -214,7 +284,23 @@ public final class ImageUtil {
         options.inJustDecodeBounds = false;
         options.inPreferredConfig = Bitmap.Config.ARGB_8888;
         Bitmap result = BitmapFactory.decodeResource(res, resId, options);
-        return BitmapUtil.attemptBitmapScaling(result, reqWidth, reqHeight, enforceDimension);
+        if (mode == LOAD_MODE_FIT_NO_RESIZE) {
+            return result;
+        }
+        return BitmapUtil.attemptBitmapScaling(result, reqWidth, reqHeight, mode == LOAD_MODE_FIT_EXACT);
+    }
+
+    /**
+     * Loads the bitmap specified by the given resource id. A negative value or zero for the required
+     * height or width will result in loading the unscaled original image.
+     * @param res Resources of the context.
+     * @param resId The resource id of the bitmap.
+     * @param reqWidth The required width of the image to load.
+     * @param reqHeight The required height of the image to load.
+     * @return A bitmap that will approximate the given dimensions at its best or null if no bitmap could be loaded.
+     */
+    public static Bitmap loadBitmap(Resources res, int resId, int reqWidth, int reqHeight, boolean enforceDimension) {
+        return loadBitmap(res, resId, reqWidth, reqHeight, enforceDimension ? LOAD_MODE_FIT_EXACT : LOAD_MODE_FIT_INSIDE);
     }
 
     public static Bitmap loadBitmapStrict(Resources res, int resId, int width, int height) {
@@ -241,6 +327,10 @@ public final class ImageUtil {
      * @return A bitmap or nul lif no bitmap could be loaded or is not found.
      */
     public static Bitmap loadBitmap(File path, int reqWidth, int reqHeight, boolean enforceDimension) {
+        return loadBitmap(path, reqWidth, reqHeight, enforceDimension ? LOAD_MODE_FIT_EXACT : LOAD_MODE_FIT_INSIDE);
+    }
+
+    public static Bitmap loadBitmap(File path, int reqWidth, int reqHeight, int mode) {
         if (reqWidth <= 0 || reqHeight <= 0) {
             // load unscaled image
             final BitmapFactory.Options options = new BitmapFactory.Options();
@@ -263,7 +353,10 @@ public final class ImageUtil {
         if (result == null) {
             return null;
         }
-        return BitmapUtil.attemptBitmapScaling(result, reqWidth, reqHeight, enforceDimension);
+        if (mode == LOAD_MODE_FIT_NO_RESIZE) {
+            return result;
+        }
+        return BitmapUtil.attemptBitmapScaling(result, reqWidth, reqHeight, mode == LOAD_MODE_FIT_EXACT);
     }
 
     /**
@@ -286,8 +379,26 @@ public final class ImageUtil {
     public static String getDrawableNameFromResId(Resources res, int resId) {
         return res.getResourceEntryName(resId);
     }
-	
-	//Library: https://code.google.com/p/pngj/wiki/Overview
+
+    private static final String[] WRONG_EXTENSIONS = new String[] {".jpeg", ".jpg", ".bmp", ".gif", ".png"};
+    public static String ensureFileExtension(String imageName, String ensureExtension) {
+        if (TextUtils.isEmpty(imageName)) {
+            return ensureExtension;
+        }
+        String lowercaseName = imageName.toLowerCase();
+        if (lowercaseName.endsWith(ensureExtension)) {
+            return imageName;
+        }
+        for (String ext : WRONG_EXTENSIONS) {
+            if (lowercaseName.endsWith(ext) && imageName.length() >= ext.length()) {
+                return imageName.substring(0, imageName.length() - ext.length()) + ensureExtension;
+            }
+        }
+        // had other extension or none, just add it
+        return imageName + ensureExtension;
+    }
+
+    //Library: https://code.google.com/p/pngj/wiki/Overview
 	//OR WITH STANDARD JAVA FOR WRITING PNG METADATA
 	/*RenderedImage image = getMyImage();         
 	Iterator<ImageWriter> iterator = ImageIO.getImageWritersBySuffix( "png" );

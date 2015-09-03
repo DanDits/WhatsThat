@@ -2,14 +2,21 @@ package dan.dit.whatsthat.util;
 
 import android.util.Log;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
+import java.util.zip.ZipOutputStream;
+
+import dan.dit.whatsthat.preferences.User;
 
 /**
  * This is an utility class which offers specialized IO methods and file
@@ -133,4 +140,31 @@ public final class IOUtil {
     	IOUtil.addContainingFiles(folder, filesInFolder);
     	return filesInFolder;
     }
+
+	public static boolean zip(List<File> toZipInsideTempDirectory, File targetZip) throws IOException {
+		FileOutputStream os = new FileOutputStream(targetZip);
+		ZipOutputStream zos = new ZipOutputStream(new BufferedOutputStream(os));
+		try {
+			for (int i = 0; i < toZipInsideTempDirectory.size(); ++i) {
+				File file = toZipInsideTempDirectory.get(i);
+				String filename = User.extractRelativePathInsideTempDirectory(file);
+                if (filename == null) {
+                    filename = file.getName();
+                }
+				ZipEntry entry = new ZipEntry(filename);
+				zos.putNextEntry(entry);
+                int n;
+                byte[] buf = new byte[1024];
+                InputStream inputStream = new BufferedInputStream(new FileInputStream(file));
+                while ((n = inputStream.read(buf, 0, buf.length)) > 0) {
+                    zos.write(buf, 0, n);
+                }
+                inputStream.close();
+				zos.closeEntry();
+			}
+            return true;
+		} finally {
+			zos.close();
+		}
+	}
 }

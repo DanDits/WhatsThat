@@ -172,7 +172,9 @@
     <string name="bundle_creator_bundle_name_hint">e.g. \"CoolPix\"</string>
     <string name="bundle_creator_origin_name_descr">Bundle\'s origin</string>
     <string name="origin_hint">Your name or pseudonym</string>
-    <string name="bundle_creator_progress">Processing image %1$d/%2$d</string>
+    <string name="bundle_creator_progress_images">Processing image %1$d/%2$d</string>
+    <string name="bundle_creator_progress_ready_to_save">Ready to save</string>
+    <string name="bundle_creator_progress_info_missing">Enter missing information</string>
     <string name="bundle_creator_bitmaps_descr">Selected images: %1$d (~%2$dMB)</string>
     <string name="bundle_creator_bitmaps_open_selection">Select images to add</string>
     <string name="bundle_creator_image_descr">Image information completed %1$d/%2$d</string>
@@ -187,4 +189,9 @@
     <string name="bundle_creator_author_source_hint">e.g. website or \"private\"</string>
     <string name="bundle_creator_author_extras_descr">License, title, …</string>
     <string name="bundle_creator_author_extras_hint">Anything relevant</string>
+    <string name="bundle_creator_save_bundle">Create bundle</string>
+    <string name="select_images_from_gallery">Select images</string>
+    <string name="bundle_creator_success">Bundle %1$s saved!</string>
+    <string name="bundle_creator_progress_saved">Bundle saved</string>
+    <string name="author_info_apply_to_others_remove_connection">Separate information</string>
 </resources>

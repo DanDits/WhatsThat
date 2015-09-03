@@ -2,6 +2,7 @@ package dan.dit.whatsthat.util.image;
 
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.util.Log;
 
 import java.nio.ByteBuffer;
 
@@ -130,16 +131,56 @@ public class BitmapUtil {
         return Bitmap.createScaledBitmap(originalImage, wantedWidth, wantedHeight, true);
     }
 
+    public static class ByteBufferHolder {
+        private ByteBuffer mBuffer;
+
+        public byte[] array() {
+            return mBuffer == null ? null : mBuffer.array();
+        }
+    }
+
     /**
      * Extract the data bytes from the given png image.
      *
+     * @param buffer A buffer holder to use to copy pixel data into, can be uninitialized to allocate new storage.
      * @param image The image in png format.
-     * @return Data in bytes that describe the image.
      */
-    public static byte[] extractDataFromBitmap(Bitmap image) {
-        ByteBuffer byteBuffer = ByteBuffer.allocate(image.getByteCount());
-        image.copyPixelsToBuffer(byteBuffer);
-        return byteBuffer.array();
+    public static void extractDataFromBitmap(ByteBufferHolder buffer, Bitmap image) {
+        int requiredCapacity = image.getByteCount();
+        if (buffer.mBuffer == null || buffer.mBuffer.capacity() < requiredCapacity) {
+            // we need a new or bigger buffer
+            long maxRemainingBytes = (Runtime.getRuntime().maxMemory() - Runtime.getRuntime().totalMemory()) / 2; // we only talk half
+            if (requiredCapacity < maxRemainingBytes) {
+                buffer.mBuffer = ByteBuffer.allocate(requiredCapacity);
+                buffer.mBuffer.mark();
+                image.copyPixelsToBuffer(buffer.mBuffer);
+                return;
+            } else {
+                // we dont have so much memory left, panic mode
+                if (buffer.mBuffer == null) {
+                    buffer.mBuffer = ByteBuffer.allocate((int) maxRemainingBytes);
+                    buffer.mBuffer.mark();
+                } else {
+                    buffer.mBuffer.reset();
+                }
+                for (int i = 0; i < Math.min(image.getHeight(), Math.max(maxRemainingBytes, buffer.mBuffer.capacity())) / 4; i++) {
+                    int x = Math.min(i, image.getWidth() - 1);
+                    int y = i;
+                    if (y >= image.getHeight()) {
+                        break;
+                    }
+                    int pixel = image.getPixel(x, y);
+                    buffer.mBuffer.put((byte) ((pixel & 0xFF000000) >> 6));
+                    buffer.mBuffer.put((byte) ((pixel & 0x00FF0000) >> 4));
+                    buffer.mBuffer.put((byte) ((pixel & 0x0000FF00) >> 2));
+                    buffer.mBuffer.put((byte) ((pixel & 0x000000FF)));
+                }
+                Log.e("Image", "Too little memory to exract all data from bitmap: " + maxRemainingBytes + ", required: " + requiredCapacity);
+                return;
+            }
+        }
+        buffer.mBuffer.reset();
+        image.copyPixelsToBuffer(buffer.mBuffer);
     }
 
     public static Bitmap attemptBitmapScaling(Bitmap result, int reqWidth, int reqHeight, boolean enforceDimension) {

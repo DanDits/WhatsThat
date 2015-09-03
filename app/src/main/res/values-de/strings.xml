@@ -173,4 +173,30 @@
 
     <string name="workshop_tab_bundle_creator">Bilderpaket erstellen</string>
     <string name="workshop_tab_mosaic">Mosaik Generator</string>
+    <string name="bundle_creator_bundle_name_descr">Neuer Paket Name</string>
+    <string name="bundle_creator_bundle_name_hint">z.B. \"CoolPix\"</string>
+    <string name="bundle_creator_origin_name_descr">Paket Herkunft</string>
+    <string name="origin_hint">Dein Name oder Pseudonym</string>
+    <string name="bundle_creator_progress_images">Verarbeite Bild %1$d/%2$d</string>
+    <string name="bundle_creator_progress_ready_to_save">Bereit zum Speichern</string>
+    <string name="bundle_creator_progress_info_missing">Fehlende Informationen eintragen…</string>
+    <string name="bundle_creator_bitmaps_descr">Ausgewählte Bilder: %1$d (~%2$dMB)</string>
+    <string name="bundle_creator_bitmaps_open_selection">Wähle Bilder zum Hinzufügen</string>
+    <string name="bundle_creator_image_descr">Bilder Informationen vollständig %1$d/%2$d</string>
+    <string name="bundle_creator_solution_words_descr">Lösungswort/wörter</string>
+    <string name="bundle_creator_solution_words_hint">Trenne Wörter durch Kommata</string>
+    <string name="solution_words_for_language">für Sprache(n)\n(mindestens Englisch)</string>
+    <string name="bundle_creator_author_descr">Informationen über Bilder und deren Author</string>
+    <string name="bundle_creator_author_name_descr">Author Name</string>
+    <string name="bundle_creator_author_name_hint">Wer hat das Foto gemacht oder das Bild erstellt?</string>
+    <string name="author_info_apply_to_others">Auf alle anderen Bilder übertragen</string>
+    <string name="bundle_creator_author_source_descr">Bildherkunft</string>
+    <string name="bundle_creator_author_source_hint">z.B. Website oder \"Privat\"</string>
+    <string name="bundle_creator_author_extras_descr">Lizenz, Title, …</string>
+    <string name="bundle_creator_author_extras_hint">Alles was relevant ist</string>
+    <string name="bundle_creator_save_bundle">Paket erstellen</string>
+    <string name="select_images_from_gallery">Bilder wählen</string>
+    <string name="bundle_creator_success">Paket %1$s gespeichert!</string>
+    <string name="bundle_creator_progress_saved">Paket gespeichert</string>
+    <string name="author_info_apply_to_others_remove_connection">Informationen separieren</string>
 </resources>

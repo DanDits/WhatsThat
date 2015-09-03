@@ -10,6 +10,7 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import java.io.File;
+import java.nio.ByteBuffer;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -200,7 +201,7 @@ public class Image implements MosaicTile<String> {
 
         Image result = null;
         try {
-            result = builder.build(context);
+            result = builder.build(context, null);
         } catch (BuildException be) {
             Log.e("Image", "Failed loading image with hash "  + hash + " from database. Building failed.");
         }
@@ -360,15 +361,22 @@ public class Image implements MosaicTile<String> {
         }
 
         private static final Dimension EMPTY_DIMENSION = new Dimension(0, 0);
-        private void calculateHashAndPreferences(Context context) {
+        private void calculateHashAndPreferences(Context context, BitmapUtil.ByteBufferHolder buffer) {
             Bitmap image = mImage.loadBitmap(context, EMPTY_DIMENSION, false);
+            calculateHashAndPreferences(buffer, image);
+        }
+
+        protected void calculateHashAndPreferences(BitmapUtil.ByteBufferHolder buffer, Bitmap image) {
             if (image != null) {
-                mImage.mHash = ImageUtil.getHash(BitmapUtil.extractDataFromBitmap(image));
+                BitmapUtil.extractDataFromBitmap(buffer, image);
+                byte[] bytes = buffer.array();
+                if (bytes != null) {
+                    mImage.mHash = ImageUtil.getHash(bytes);
+                }
                 calculateAverageColor(image);
                 addOwnFormatAsPreference(image);
                 addOwnContrastAsPreference(image);
                 addOwnGreynessAsPreference(image);
-                image.recycle();
             }
         }
 
@@ -513,7 +521,7 @@ public class Image implements MosaicTile<String> {
             return this;
         }
 
-        public Image build(Context context) throws BuildException {
+        protected Image build() throws BuildException {
             if (mImage.mAuthor == null) {
                 throw new BuildException("Source: " + mImage.mName).setMissingData("Image", "Author");
             }
@@ -522,10 +530,6 @@ public class Image implements MosaicTile<String> {
             }
             if (TextUtils.isEmpty(mImage.mRelativePath) && mImage.mResId == 0) {
                 throw new BuildException("Source: " + mImage.mName).setMissingData("Image","ResPath or resId");
-            }
-            if (TextUtils.isEmpty(mImage.mHash)) {
-                Log.d("Image", "Building image with no hash yet: " + mImage.mName);
-                calculateHashAndPreferences(context);
             }
             if (mImage.mSolutions == null || mImage.mSolutions.isEmpty()) {
                 throw new BuildException("Source: " + mImage.mName).setMissingData("Image", "Solutions");
@@ -536,8 +540,33 @@ public class Image implements MosaicTile<String> {
             return mImage;
         }
 
+        public Image build(Context context, BitmapUtil.ByteBufferHolder buffer) throws BuildException {
+            build();
+            if (TextUtils.isEmpty(mImage.mHash)) {
+                if (context == null) {
+                    throw new BuildException("Source: " + mImage.mName).setMissingData("Image", "No context and no hash.");
+                }
+                Log.d("Image", "Building image with no hash yet: " + mImage.mName);
+                calculateHashAndPreferences(context, buffer);
+            }
+
+            return mImage;
+        }
+
         public void setAverageColor(int averageColor) {
             mImage.mAverageColor = averageColor;
+        }
+
+        protected List<Solution> getSolutions() {
+            return mImage.mSolutions;
+        }
+
+        public ImageAuthor getAuthor() {
+            return mImage.mAuthor;
+        }
+
+        public String getOrigin() {
+            return mImage.mOrigin;
         }
     }
 }

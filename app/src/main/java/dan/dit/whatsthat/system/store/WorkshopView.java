@@ -1,10 +1,10 @@
 package dan.dit.whatsthat.system.store;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
-import android.text.Layout;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -12,7 +12,7 @@ import android.widget.FrameLayout;
 import android.widget.TabHost;
 
 import dan.dit.whatsthat.R;
-import dan.dit.whatsthat.riddle.RiddleInitializer;
+import dan.dit.whatsthat.image.BundleCreator;
 import dan.dit.whatsthat.util.ui.UiStyleUtil;
 
 /**
@@ -60,18 +60,31 @@ public class WorkshopView extends FrameLayout implements StoreContainer {
         tabHost.addTab(tabSpec);
     }
 
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if (data == null) {
+            //Display an error
+            return;
+        }
+        if (mBundleCreator != null) {
+            mBundleCreator.onActivityResult(requestCode, resultCode, data);
+        }
+    }
+
     private class TabFactory implements TabHost.TabContentFactory {
 
         private final LayoutInflater mInflater;
+        private final Activity mActivity;
 
-        public TabFactory(Context context) {
-            mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        public TabFactory(Activity activity) {
+            mActivity = activity;
+            mInflater = (LayoutInflater) mActivity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         }
 
         @Override
         public View createTabContent(String tag) {
             if (tag.equals(TAB_BUNDLE_CREATOR)) {
-                mBundleCreator = new BundleCreator(mInflater);
+                mBundleCreator = new BundleCreator(mActivity);
                 return mBundleCreator.getView();
             } else if (tag.equals(TAB_MOSAIC)) {
                 return mInflater.inflate(R.layout.workshop_mosaic, null);

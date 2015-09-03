@@ -3,6 +3,8 @@ package dan.dit.whatsthat.system;
 import android.app.Application;
 import android.content.Intent;
 
+import dan.dit.whatsthat.preferences.User;
+
 public class MyApplication extends Application {
     private boolean mExceptionHandled = false;
     private boolean mApplicationCreated;
@@ -17,6 +19,7 @@ public class MyApplication extends Application {
             }
         });
         super.onCreate();
+        User.makeInstance(this);
         mApplicationCreated = true;
     }
 

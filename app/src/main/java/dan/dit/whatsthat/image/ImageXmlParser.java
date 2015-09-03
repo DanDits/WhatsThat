@@ -23,6 +23,7 @@ import dan.dit.whatsthat.solution.Solution;
 import dan.dit.whatsthat.storage.ImageTable;
 import dan.dit.whatsthat.util.BuildException;
 import dan.dit.whatsthat.util.PercentProgressListener;
+import dan.dit.whatsthat.util.image.BitmapUtil;
 
 /**
  * XML for easily initializing and loading new images into the app. Format:
@@ -92,6 +93,7 @@ public class ImageXmlParser {
     private Map<Integer, List<Image>> mReadBundles = new HashMap<>();
     private boolean mModeAbortOnImageBuildFailure;
     private String mBundleOrigin;
+    private BitmapUtil.ByteBufferHolder mBuffer = new BitmapUtil.ByteBufferHolder();
 
     public List<Image> getBundle(int bundleNumber) {
         return mReadBundles.get(bundleNumber);
@@ -268,7 +270,7 @@ public class ImageXmlParser {
             }
         }
         try {
-            return builder.build(mContext);
+            return builder.build(mContext, mBuffer);
         } catch (BuildException be) {
             if (mModeAbortOnImageBuildFailure) {
                 throw new XmlPullParserException("Could not parse image: " + be);

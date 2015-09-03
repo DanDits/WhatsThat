@@ -1,5 +1,6 @@
 package dan.dit.whatsthat.system.store;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -20,6 +21,7 @@ import android.view.animation.ScaleAnimation;
 import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -281,18 +283,23 @@ public class StoreActivity extends FragmentActivity {
         }
     }
 
-    /**
-     * Needed for Google Play In-app Billing. It uses startIntentSenderForResult(). The result is not propagated to
-     * the Fragment like in startActivityForResult(). Thus we need to propagate manually to our Fragment.
-     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
+        Log.d("HomeStuff", "Store activity got activity result!" + resultCode);
+        /**
+         * Needed for Google Play In-app Billing. It uses startIntentSenderForResult(). The result is not propagated to
+         * the Fragment like in startActivityForResult(). Thus we need to propagate manually to our Fragment.
+         */
         FragmentManager fragmentManager = getSupportFragmentManager();
         Fragment fragment = fragmentManager.findFragmentByTag(DonationsView.FRAGMENT_TAG);
         if (fragment != null) {
             fragment.onActivityResult(requestCode, resultCode, data);
+        }
+
+        if (resultCode == Activity.RESULT_OK && mCurrCategory == CATEGORY_WORKSHOP) {
+            // this downcast is not nice but as long as only workshop needs activity results we are fine
+            ((WorkshopView) mCategory[CATEGORY_WORKSHOP]).onActivityResult(requestCode, resultCode, data);
         }
     }
 }

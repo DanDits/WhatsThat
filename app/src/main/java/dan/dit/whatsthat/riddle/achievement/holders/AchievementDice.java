@@ -755,7 +755,6 @@ public class AchievementDice extends TypeAchievementHolder {
         public void onDataEvent(AchievementDataEvent event) {
             if (event.getChangedData() == mGameData
                     && event.getEventType() == AchievementDataEvent.EVENT_TYPE_DATA_CLOSE) {
-                Log.d("Achievement", "Paparazzi took " + mGameData.getValue(AchievementDataRiddleGame.KEY_PLAYED_TIME, 0L));
                 if (mGameData.getValue(KEY_GAME_FIELDS_COMPLETELY_VISIBLE_COUNT, 0L) == 1
                         && mGameData.getValue(AchievementDataRiddleGame.KEY_PLAYED_TIME, 0L) <= TIME_TO_GET_PICTURE) {
                     achieveAfterDependencyCheck();

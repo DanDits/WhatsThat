@@ -11,11 +11,14 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.StringWriter;
+import java.util.ArrayList;
 import java.util.List;
 
+import dan.dit.whatsthat.preferences.User;
 import dan.dit.whatsthat.riddle.types.RiddleType;
 import dan.dit.whatsthat.solution.Solution;
 import dan.dit.whatsthat.storage.ImageTable;
+import dan.dit.whatsthat.util.IOUtil;
 import dan.dit.whatsthat.util.image.ExternalStorage;
 
 /**
@@ -25,9 +28,76 @@ import dan.dit.whatsthat.util.image.ExternalStorage;
  */
 class ImageXmlWriter {
 
-    private static final String BUILD_DIRECTORY_NAME = "build";
+    private static final String BUILD_DIRECTORY_NAME = ".build";
+    private static final String BUNDLES_DIRECTORY_NAME = "bundles";
+    private static final String BUNDLE_EXTENSION = ".wtb";
 
     private ImageXmlWriter() {}
+
+    public static boolean writeBundle(Context context, List<BundleCreator.SelectedBitmap> imageBundle, String bundleName) {
+        if (context == null || imageBundle == null || TextUtils.isEmpty(bundleName)) {
+            return false;
+        }
+        String path = ExternalStorage.getExternalStoragePathIfMounted(BUNDLES_DIRECTORY_NAME);
+        if (path == null) {
+            return false;
+        }
+        File dir = new File(path);
+        if (!dir.mkdirs() && !dir.isDirectory()) {
+            return false;
+        }
+        File targetZip = new File(path + File.separator + bundleName + BUNDLE_EXTENSION);
+        if (targetZip.exists()) {
+            return false;
+        }
+        File tempDir = User.getTempDirectory();
+        if (tempDir == null) {
+            return false;
+        }
+        File targetDataXml = new File(tempDir, bundleName + ".xml");
+        FileOutputStream output = null;
+        boolean success = false;
+        List<Image> images = new ArrayList<>(imageBundle.size());
+        for (BundleCreator.SelectedBitmap bitmap : imageBundle) {
+            images.add(bitmap.mImage);
+        }
+        try {
+            output = new FileOutputStream(targetDataXml);
+            success = writeXml(output, images, 0);
+        } catch (IOException ioe) {
+            Log.e("Image", "Bundle XMLWRITE: Could not create file or save to file: " + ioe);
+        } catch (IllegalStateException state) {
+            Log.e("Image", "Bundle XMLWRITE: Illegal state for serializer: " + state);
+        } catch (IllegalArgumentException arg) {
+            Log.e("Image", "Bundle XMLWRITE: Illegal argument for serializer: " + arg);
+        } finally {
+            if (output != null) {
+                try {
+                    output.close();
+                } catch (IOException ioe) {
+                    // final failure, ignore
+                }
+            }
+        }
+        if (success) {
+            success = false;
+            // now zip everything together
+            List<File> toZip = new ArrayList<>(1 + imageBundle.size());
+            for (BundleCreator.SelectedBitmap bitmap : imageBundle) {
+                toZip.add(bitmap.mPathInTemp);
+            }
+            toZip.add(targetDataXml);
+            try {
+                if (IOUtil.zip(toZip, targetZip)) {
+                    success = true;
+                    User.clearTempDirectory();
+                }
+            } catch (IOException e) {
+                Log.e("Image", "Failed zipping files " + toZip + " into " + targetZip);
+            }
+        }
+        return success;
+    }
 
     /**
      * Writes a list of images to an xml file contained in the external storage directory under

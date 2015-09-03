@@ -6,6 +6,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/bundle_creator_save_bundle"
+            android:drawableRight="@drawable/x_red"
+            android:id="@+id/bundle_save"/>
         <view
             class="dan.dit.whatsthat.util.ui.LinearLayoutProgressBar"
             android:layout_width="match_parent"
@@ -21,14 +27,7 @@
                     android:layout_centerHorizontal="true"
                     android:layout_centerVertical="true"
                     android:id="@+id/progress_descr"
-                    android:text="@string/bundle_creator_progress"/>
-                <ImageButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/x_red"
-                    android:id="@+id/bundle_clear_current"
-                    android:layout_alignParentTop="true"
-                    android:layout_alignParentRight="true" />
+                    android:text="@string/bundle_creator_progress_images"/>
             </RelativeLayout>
         </view>
         <RelativeLayout
@@ -109,10 +108,18 @@
                 android:layout_marginLeft="35dp"
                 android:id="@+id/bitmap_open_selection"
                 android:text="@string/bundle_creator_bitmaps_open_selection" />
+            <ProgressBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/bitmaps_descr"
+                android:layout_toRightOf="@+id/bitmap_open_selection"
+                android:id="@+id/bitmap_opening_progress"
+                android:indeterminate="true"/>
         </RelativeLayout>
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:id="@+id/image_information_container">
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -135,7 +142,7 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/icon_circle"
+                    android:src="@drawable/x_red"
                     android:id="@+id/bitmap_snapshot"
                     android:layout_centerHorizontal="true"
                     android:layout_centerVertical="true"/>
@@ -145,14 +152,16 @@
                     android:layout_toLeftOf="@id/bitmap_snapshot"
                     android:layout_marginRight="5dp"
                     android:src="@drawable/hints_indicator_left"
-                    android:layout_centerVertical="true"/>
+                    android:layout_centerVertical="true"
+                    android:id="@+id/previous_image" />
                 <ImageButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_toRightOf="@id/bitmap_snapshot"
                     android:layout_marginLeft="5dp"
                     android:src="@drawable/hints_indicator_right"
-                    android:layout_centerVertical="true"/>
+                    android:layout_centerVertical="true"
+                    android:id="@+id/next_image" />
             </RelativeLayout>
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -219,13 +228,6 @@
                     android:text="@string/bundle_creator_author_descr"
                     android:textStyle="bold"
                     android:id="@+id/author_descr"/>
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:layout_below="@+id/author_descr"
-                    android:id="@+id/apply_author_info_to_others"
-                    android:text="@string/author_info_apply_to_others"/>
             </RelativeLayout>
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -287,6 +289,13 @@
                     android:layout_toRightOf="@+id/author_extras_descr"
                     android:hint="@string/bundle_creator_author_extras_hint"/>
             </RelativeLayout>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/author_extras_container"
+                android:id="@+id/apply_author_info_to_others"
+                android:text="@string/author_info_apply_to_others"/>
         </RelativeLayout>
     </LinearLayout>
 </ScrollView>

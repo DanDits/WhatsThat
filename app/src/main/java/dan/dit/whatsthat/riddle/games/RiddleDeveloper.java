@@ -206,7 +206,7 @@ public class RiddleDeveloper extends RiddleGame {
             Log.d("Riddle", "Next step with param" + param + " of " + Arrays.toString(params) + " index " + index + " mode " +mCurrMosaicMode);
             multistepProgress.nextStep();
             Log.d("Riddle", "Resulting used " + matcher.getUsedTilesCount() + " with " + images.size() + " in the pool (time taken " + (System.currentTimeMillis() - tic) + "ms.)");
-            //ImageUtil.saveToFile(mMosaic, "mosaic_" + String.valueOf(factor) + ".png");
+            //ImageUtil.saveToMediaFile(mMosaic, "mosaic_" + String.valueOf(factor) + ".png");
             index++;
         }
         listener.onProgressUpdate(PercentProgressListener.PROGRESS_COMPLETE);
