@@ -27,6 +27,15 @@ import dan.dit.whatsthat.util.image.ExternalStorage;
  * Created by daniel on 18.04.15.
  */
 class ImageXmlWriter {
+    public static final int RESULT_SUCCESS = -1;
+    public static final int RESULT_NONE = 0;
+    public static final int RESULT_ILLEGAL_ARGUMENT = 1;
+    public static final int RESULT_EXTERNAL_STORAGE_PROBLEM = 2;
+    public static final int RESULT_TARGET_BUNDLE_EXISTS = 3;
+    public static final int RESULT_NO_TEMP_DIRECTORY = 4;
+    public static final int RESULT_XML_WRITE_FAILED = 5;
+    public static final int RESULT_XML_WRITE_SUCCESS = 6;
+    public static final int RESULT_ZIP_FAILED = 7;
 
     private static final String BUILD_DIRECTORY_NAME = ".build";
     private static final String BUNDLES_DIRECTORY_NAME = "bundles";
@@ -34,25 +43,25 @@ class ImageXmlWriter {
 
     private ImageXmlWriter() {}
 
-    public static boolean writeBundle(Context context, List<BundleCreator.SelectedBitmap> imageBundle, String bundleName) {
+    public static int writeBundle(Context context, List<BundleCreator.SelectedBitmap> imageBundle, String bundleName) {
         if (context == null || imageBundle == null || TextUtils.isEmpty(bundleName)) {
-            return false;
+            return RESULT_ILLEGAL_ARGUMENT;
         }
         String path = ExternalStorage.getExternalStoragePathIfMounted(BUNDLES_DIRECTORY_NAME);
         if (path == null) {
-            return false;
+            return RESULT_EXTERNAL_STORAGE_PROBLEM;
         }
         File dir = new File(path);
         if (!dir.mkdirs() && !dir.isDirectory()) {
-            return false;
+            return RESULT_EXTERNAL_STORAGE_PROBLEM;
         }
         File targetZip = new File(path + File.separator + bundleName + BUNDLE_EXTENSION);
         if (targetZip.exists()) {
-            return false;
+            return RESULT_TARGET_BUNDLE_EXISTS;
         }
         File tempDir = User.getTempDirectory();
         if (tempDir == null) {
-            return false;
+            return RESULT_NO_TEMP_DIRECTORY;
         }
         File targetDataXml = new File(tempDir, bundleName + ".xml");
         FileOutputStream output = null;
@@ -79,24 +88,25 @@ class ImageXmlWriter {
                 }
             }
         }
+        int result = success ? RESULT_XML_WRITE_SUCCESS : RESULT_XML_WRITE_FAILED;
         if (success) {
-            success = false;
             // now zip everything together
             List<File> toZip = new ArrayList<>(1 + imageBundle.size());
             for (BundleCreator.SelectedBitmap bitmap : imageBundle) {
                 toZip.add(bitmap.mPathInTemp);
             }
             toZip.add(targetDataXml);
+            result = RESULT_ZIP_FAILED;
             try {
                 if (IOUtil.zip(toZip, targetZip)) {
-                    success = true;
+                    result = RESULT_SUCCESS;
                     User.clearTempDirectory();
                 }
             } catch (IOException e) {
                 Log.e("Image", "Failed zipping files " + toZip + " into " + targetZip);
             }
         }
-        return success;
+        return result;
     }
 
     /**

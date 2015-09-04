@@ -187,7 +187,7 @@
     <string name="bundle_creator_solution_words_hint">Trenne Wörter durch Kommata</string>
     <string name="solution_words_for_language">für Sprache(n)\n(mindestens Englisch)</string>
     <string name="bundle_creator_author_descr">Informationen über Bilder und deren Author</string>
-    <string name="bundle_creator_author_name_descr">Author Name</string>
+    <string name="bundle_creator_author_name_descr">Author Name\n(benötigt)</string>
     <string name="bundle_creator_author_name_hint">Wer hat das Foto gemacht oder das Bild erstellt?</string>
     <string name="author_info_apply_to_others">Auf alle anderen Bilder übertragen</string>
     <string name="bundle_creator_author_source_descr">Bildherkunft</string>
@@ -197,6 +197,9 @@
     <string name="bundle_creator_save_bundle">Paket erstellen</string>
     <string name="select_images_from_gallery">Bilder wählen</string>
     <string name="bundle_creator_success">Paket %1$s gespeichert!</string>
+    <string name="bundle_creator_failed_name_exists">Paket %1$s existiert bereits!</string>
+    <string name="bundle_creator_failed_external_storage">Problem mit externem Speicher</string>
     <string name="bundle_creator_progress_saved">Paket gespeichert</string>
     <string name="author_info_apply_to_others_remove_connection">Informationen separieren</string>
+    <string name="bundle_creator_progress_error_result">Fehler (%1$d) beim Speichern</string>
 </resources>

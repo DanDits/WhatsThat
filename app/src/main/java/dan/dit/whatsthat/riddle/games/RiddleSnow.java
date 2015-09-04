@@ -150,7 +150,7 @@ public class RiddleSnow extends RiddleGame implements FlatWorldCallback {
 
         listener.onProgressUpdate(30);
         mGravity = ImageUtil.convertDpToPixel(GRAVITY, mConfig.mScreenDensity);
-        mFogLayer = ImageUtil.loadBitmapStrict(res, R.drawable.nebel, mConfig.mWidth, mConfig.mHeight);
+        mFogLayer = ImageUtil.loadBitmap(res, R.drawable.nebel, mConfig.mWidth, mConfig.mHeight, BitmapUtil.MODE_FIT_EXACT);
         mFogLayer.setHasAlpha(true);
         mFogLayerCanvas = new Canvas(mFogLayer);
         mBackgroundSnow = Bitmap.createBitmap(mConfig.mWidth, mConfig.mHeight, mBitmap.getConfig());
@@ -179,7 +179,6 @@ public class RiddleSnow extends RiddleGame implements FlatWorldCallback {
         }
         listener.onProgressUpdate(60);
         if (currentStateData == null) {
-            Log.d("Riddle", "Initializing new SnowRiddle.");
             mReloadRiddleMoveBlockDuration = 0L;
 
             initCell(res, mConfig.mWidth / 2.f, mConfig.mHeight / 2.f, 0.f);
@@ -216,21 +215,20 @@ public class RiddleSnow extends RiddleGame implements FlatWorldCallback {
         }
 
         listener.onProgressUpdate(100);
-        Log.d("Riddle", "Snow riddle init done.");
     }
 
     private void initCell(Resources res, float x, float y, float radius) {
         float maxRadius = (Math.min(mConfig.mWidth, mConfig.mHeight) / 2.f * SNOWBALL_SCREENSIZE_MAX_FRACTION);
         int dim = (int) (maxRadius * 2);
         Bitmap[] explosive = new Bitmap[] {
-                ImageUtil.loadBitmapStrict(res, R.drawable.zelle_explosion_1, dim, dim),
-                ImageUtil.loadBitmapStrict(res, R.drawable.zelle_explosion_2, dim, dim)};
+                ImageUtil.loadBitmap(res, R.drawable.zelle_explosion_1, dim, dim, BitmapUtil.MODE_FIT_EXACT),
+                ImageUtil.loadBitmap(res, R.drawable.zelle_explosion_2, dim, dim, BitmapUtil.MODE_FIT_EXACT)};
         float startRadius = maxRadius * SNOWBALL_BASE_START_FRACTION;
         float currRadius = startRadius;
         if (radius >= startRadius) {
             currRadius = radius;
         }
-        Bitmap maxCell = ImageUtil.loadBitmapStrict(res, R.drawable.zelle, dim, dim);
+        Bitmap maxCell = ImageUtil.loadBitmap(res, R.drawable.zelle, dim, dim, BitmapUtil.MODE_FIT_EXACT);
         mCell = Cell.make(x, y, currRadius, maxCell, explosive, startRadius, maxRadius);
         mWorld.addActor(mCell);
     }

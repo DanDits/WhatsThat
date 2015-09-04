@@ -6,12 +6,43 @@ import android.util.Log;
 
 import java.nio.ByteBuffer;
 
+import dan.dit.whatsthat.image.Image;
 import dan.dit.whatsthat.util.jama.Matrix;
 
 /**
  * Created by daniel on 08.04.15.
  */
 public class BitmapUtil {
+    /**
+     * The resulting bitmap fits inside the required
+     * dimensions but does not necessarily gets resized to fit one dimension exactly.
+     * The aspect ratio is the same to the original image.
+     */
+    public static final int MODE_FIT_NO_GROW = 0;
+
+    /**
+     * The resulting bitmap fits inside the given
+     * dimensions and is resized so that one dimension fits exactly
+     * and the aspect ratio is the same to the original image.
+     */
+    public static final int MODE_FIT_INSIDE = 1;
+
+    /**
+     * The resulting bitmap fits inside the given
+     * dimensions and is resized so that one dimension fits exactly
+     * and the aspect ratio is almost the same to the original image.
+     * This can result in the resulting bitmap fitting the given dimensions
+     * exactly even though the given bitmap did not.
+     */
+    public static final int MODE_FIT_INSIDE_GENEROUS = 2;
+
+    /**
+     * The resulting bitmap fits inside the required
+     * dimensions and is resized so that both dimensions fit exactly to
+     * the given dimensions.
+     */
+    public static final int MODE_FIT_EXACT = 3;
+
     public static final double CONTRAST_WEAK_THRESHOLD = 0.3; // everything below is bad
     public static final double CONTRAST_STRONG_THRESHOLD = 0.6; // everything between this and weak is ok, everything above is great
 
@@ -149,7 +180,9 @@ public class BitmapUtil {
         int requiredCapacity = image.getByteCount();
         if (buffer.mBuffer == null || buffer.mBuffer.capacity() < requiredCapacity) {
             // we need a new or bigger buffer
-            long maxRemainingBytes = (Runtime.getRuntime().maxMemory() - Runtime.getRuntime().totalMemory()) / 2; // we only talk half
+            Runtime runtime = Runtime.getRuntime();
+            runtime.gc();
+            long maxRemainingBytes = (runtime.maxMemory() - runtime.totalMemory() + runtime.freeMemory()) / 2; // we only talk half
             if (requiredCapacity < maxRemainingBytes) {
                 buffer.mBuffer = ByteBuffer.allocate(requiredCapacity);
                 buffer.mBuffer.mark();
@@ -181,6 +214,32 @@ public class BitmapUtil {
         }
         buffer.mBuffer.reset();
         image.copyPixelsToBuffer(buffer.mBuffer);
+    }
+
+    public static Bitmap attemptBitmapScaling(Bitmap result, int reqWidth, int reqHeight, int mode) {
+        if (reqWidth <= 0 || reqHeight <= 0) {
+            return result;
+        }
+        int imageWidth = result.getWidth();
+        int imageHeight = result.getHeight();
+        if (imageWidth == reqWidth && imageHeight == reqHeight) {
+            return result;
+        }
+        if (mode == MODE_FIT_NO_GROW) {
+            if (imageWidth <= reqWidth && imageHeight <= reqHeight) {
+                return result; // we already fit inside, do not grow
+            }
+            // else scale down to fit inside, keeping aspect ratio
+        }
+        //      for fitting similar aspect ratios, calculate how bad it is to forced scale the image to desired dimensions
+        if (mode == MODE_FIT_EXACT
+                || (mode == MODE_FIT_INSIDE_GENEROUS && ImageUtil.areAspectRatiosSimilar(reqWidth, reqHeight, result.getWidth(), result.getHeight()))) {
+            // scale the image exactly to required dimensions, will most likely break the aspect ratio but not too hard
+            return Bitmap.createScaledBitmap(result, reqWidth, reqHeight, true);
+        }
+        // scale the bitmap so that bitmaps dimensions are smaller or equal to required dimensions, keeping aspect ratio
+        double scalingFactor = Math.min(reqHeight / ((double) result.getHeight()), reqWidth / ((double) result.getWidth()));
+        return Bitmap.createScaledBitmap(result, (int) (result.getWidth() * scalingFactor), (int) (result.getHeight() * scalingFactor), true);
     }
 
     public static Bitmap attemptBitmapScaling(Bitmap result, int reqWidth, int reqHeight, boolean enforceDimension) {

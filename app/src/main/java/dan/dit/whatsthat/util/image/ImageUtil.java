@@ -28,24 +28,6 @@ import java.util.Date;
  *
  */
 public final class ImageUtil {
-    /**
-     * Regularly loads the bitmap so that it fits inside the required
-     * dimensions but does not necessarily gets resized to fit one dimension exactly
-     */
-    public static final int LOAD_MODE_FIT_NO_RESIZE = 0;
-
-    /**
-     * Loads the bitmap so that it fits inside the required
-     * dimensions and resizes the image so that one dimension fits exactly
-     * and the aspect ratio is (almost) the same to the original image.
-     */
-    public static final int LOAD_MODE_FIT_INSIDE = 1;
-
-    /**
-     * Loads the bitmap so that it fits inside the required
-     * dimensions and resizes the image so that both dimensions fit exactly.
-     */
-    public static final int LOAD_MODE_FIT_EXACT = 2;
 
     private static final String IMAGE_FILE_PREFIX = "WTH_";
     private static final String IMAGE_FILE_EXTENSION = ".png";
@@ -187,10 +169,10 @@ public final class ImageUtil {
         return dp * screenDensity / 160.f;
     }
 
-    /*public static float convertPixelsToDp(float px, DisplayMetrics metrics){
+    public static float convertPixelsToDp(float px, DisplayMetrics metrics){
         float dp = px / (metrics.densityDpi / 160.f);
         return dp;
-    }*/
+    }
 
     // Code from http://developer.android.com/training/displaying-bitmaps/load-bitmap.html
     private static int calculateInSampleSize(
@@ -258,10 +240,10 @@ public final class ImageUtil {
         options.inJustDecodeBounds = false;
         options.inPreferredConfig = Bitmap.Config.ARGB_8888;
         Bitmap result =  BitmapFactory.decodeStream(input, null, options);
-        if (mode == LOAD_MODE_FIT_NO_RESIZE) {
-            return result;
+        if (result == null) {
+            return null;
         }
-        return BitmapUtil.attemptBitmapScaling(result, reqWidth, reqHeight, mode == LOAD_MODE_FIT_EXACT);
+        return BitmapUtil.attemptBitmapScaling(result, reqWidth, reqHeight, mode);
     }
 
     public static Bitmap loadBitmap(Resources res, int resId, int reqWidth, int reqHeight, int mode) {
@@ -284,10 +266,10 @@ public final class ImageUtil {
         options.inJustDecodeBounds = false;
         options.inPreferredConfig = Bitmap.Config.ARGB_8888;
         Bitmap result = BitmapFactory.decodeResource(res, resId, options);
-        if (mode == LOAD_MODE_FIT_NO_RESIZE) {
-            return result;
+        if (result == null) {
+            return null;
         }
-        return BitmapUtil.attemptBitmapScaling(result, reqWidth, reqHeight, mode == LOAD_MODE_FIT_EXACT);
+        return BitmapUtil.attemptBitmapScaling(result, reqWidth, reqHeight, mode);
     }
 
     /**
@@ -297,37 +279,23 @@ public final class ImageUtil {
      * @param resId The resource id of the bitmap.
      * @param reqWidth The required width of the image to load.
      * @param reqHeight The required height of the image to load.
+     * @param enforceDimension If true mode is BitmapUtil's FIT_EXACT else mode is FIT_INSIDE_GENEROUS
      * @return A bitmap that will approximate the given dimensions at its best or null if no bitmap could be loaded.
      */
     public static Bitmap loadBitmap(Resources res, int resId, int reqWidth, int reqHeight, boolean enforceDimension) {
-        return loadBitmap(res, resId, reqWidth, reqHeight, enforceDimension ? LOAD_MODE_FIT_EXACT : LOAD_MODE_FIT_INSIDE);
-    }
-
-    public static Bitmap loadBitmapStrict(Resources res, int resId, int width, int height) {
-        // First decode with inJustDecodeBounds=true to check dimensions
-        final BitmapFactory.Options options = new BitmapFactory.Options();
-        options.inJustDecodeBounds = true;
-        BitmapFactory.decodeResource(res, resId, options);
-
-        // Calculate inSampleSize
-        options.inSampleSize = calculateInSampleSize(options, width, height);
-
-        // Decode bitmap with inSampleSize set
-        options.inJustDecodeBounds = false;
-        options.inPreferredConfig = Bitmap.Config.ARGB_8888;
-        Bitmap result = BitmapFactory.decodeResource(res, resId, options);
-        return Bitmap.createScaledBitmap(result, width, height, true);
+        return loadBitmap(res, resId, reqWidth, reqHeight, enforceDimension ? BitmapUtil.MODE_FIT_EXACT : BitmapUtil.MODE_FIT_INSIDE_GENEROUS);
     }
 
     /**
      * Loads the bitmap specified by the given path.
      * @param path The path to the image.
      * @param reqWidth The maximum width.
-     * @param reqHeight THe maximum height.
-     * @return A bitmap or nul lif no bitmap could be loaded or is not found.
+     * @param reqHeight The maximum height.
+     * @param enforceDimension If true mode is BitmapUtil's FIT_EXACT else mode is FIT_INSIDE_GENEROUS
+     * @return A bitmap or null if no bitmap could be loaded or is not found.
      */
     public static Bitmap loadBitmap(File path, int reqWidth, int reqHeight, boolean enforceDimension) {
-        return loadBitmap(path, reqWidth, reqHeight, enforceDimension ? LOAD_MODE_FIT_EXACT : LOAD_MODE_FIT_INSIDE);
+        return loadBitmap(path, reqWidth, reqHeight, enforceDimension ? BitmapUtil.MODE_FIT_EXACT : BitmapUtil.MODE_FIT_INSIDE_GENEROUS);
     }
 
     public static Bitmap loadBitmap(File path, int reqWidth, int reqHeight, int mode) {
@@ -353,10 +321,7 @@ public final class ImageUtil {
         if (result == null) {
             return null;
         }
-        if (mode == LOAD_MODE_FIT_NO_RESIZE) {
-            return result;
-        }
-        return BitmapUtil.attemptBitmapScaling(result, reqWidth, reqHeight, mode == LOAD_MODE_FIT_EXACT);
+        return BitmapUtil.attemptBitmapScaling(result, reqWidth, reqHeight, mode);
     }
 
     /**
@@ -380,7 +345,7 @@ public final class ImageUtil {
         return res.getResourceEntryName(resId);
     }
 
-    private static final String[] WRONG_EXTENSIONS = new String[] {".jpeg", ".jpg", ".bmp", ".gif", ".png"};
+    private static final String[] EXTENSIONS = new String[] {".jpeg", ".jpg", ".bmp", ".gif", ".png"};
     public static String ensureFileExtension(String imageName, String ensureExtension) {
         if (TextUtils.isEmpty(imageName)) {
             return ensureExtension;
@@ -389,7 +354,7 @@ public final class ImageUtil {
         if (lowercaseName.endsWith(ensureExtension)) {
             return imageName;
         }
-        for (String ext : WRONG_EXTENSIONS) {
+        for (String ext : EXTENSIONS) {
             if (lowercaseName.endsWith(ext) && imageName.length() >= ext.length()) {
                 return imageName.substring(0, imageName.length() - ext.length()) + ensureExtension;
             }
@@ -424,114 +389,5 @@ public final class ImageUtil {
 	iioImage.setMetadata( metadata ); // Attach the metadata
 	imagewriter.write( null, iioImage, null );
 	 writer.dispose();*/
-
-    /* private static class Triangle {
-        private static final RectF BOUND = new RectF();
-        private static final Path LINES = new Path();
-        float x1, x2, x3, y1, y2, y3;
-        private int rgb;
-        private int childrenStartIndex = -1;
-
-        public Triangle(float x1, float y1, float x2, float y2, float x3, float y3, Bitmap forColor) {
-            this.x1 = x1;
-            this.x2 = x2;
-            this.x3 = x3;
-            this.y1 = y1;
-            this.y2 = y2;
-            this.y3 = y3;
-            calculateColor(forColor);
-        }
-
-        private void calculateColor(Bitmap forColor) {
-            initPath();
-            LINES.computeBounds(BOUND, true);
-            int red = 0;
-            int green = 0;
-            int blue = 0;
-            int alpha = 0;
-            int pixelInTriangle = 0;
-            for (int x = (int) BOUND.left; x < BOUND.right; x++) {
-                for (int y = (int) BOUND.top; y < BOUND.bottom; y++) {
-                    if (x < forColor.getWidth() && y < forColor.getHeight() && isInside(x, y)) {
-                        int bitmapRgb = forColor.getPixel(x, y);
-                        red += Color.red(bitmapRgb);
-                        green += Color.green(bitmapRgb);
-                        blue += Color.blue(bitmapRgb);
-                        alpha += Color.alpha(bitmapRgb);
-                        pixelInTriangle++;
-                    }
-                }
-            }
-            if (pixelInTriangle > 0) {
-                red /= pixelInTriangle;
-                green /= pixelInTriangle;
-                blue /= pixelInTriangle;
-                alpha /= pixelInTriangle;
-                rgb = Color.argb(alpha, red, green, blue);
-            } else {
-                Log.d("Riddle", "NO pixels in " + BOUND.left + " " + BOUND.right + " " + BOUND.top + " " + BOUND.bottom + " and path " + LINES);
-                rgb = Color.BLUE;
-            }
-        }
-
-        private void initPath() {
-            LINES.rewind();
-            LINES.moveTo(x1, y1);
-            LINES.lineTo(x2, y2);
-            LINES.lineTo(x3, y3);
-            LINES.close();
-        }
-
-        private static float sign(float x1, float y1, float x2, float y2, float x3, float y3) {
-            return (x1 - x3) * (y2 - y3) - (x2 - x3) * (y1 - y3);
-        }
-
-        private boolean isInside (float x, float y) {
-            boolean b1, b2, b3;
-            b1 = sign(x, y, x1, y1, x2, y2) < 0.0f;
-            b2 = sign(x, y, x2, y2, x3, y3) < 0.0f;
-            b3 = sign(x, y, x3, y3, x1, y1) < 0.0f;
-
-            return ((b1 == b2) && (b2 == b3));
-        }
-
-        public void draw(Canvas canvas, Paint paint) {
-            paint.setColor(rgb);
-            initPath();
-            canvas.drawPath(LINES, paint);
-        }
-
-
-
-        private static float calculateDistanceToLine(float x1, float y1, float x2, float y2, float x, float y, float[] coords) {
-            float alpha = x2 - x1;
-            float beta = y2 - y1;
-            float n1, n2;
-            if (Math.abs(alpha) >= 1E-4) {
-                n2 = 1;
-                n1 = -beta*n2 / alpha;
-            } else if (Math.abs(beta) >= 1E-4) {
-                n1 = 1;
-                n2 = -alpha*n1 / beta;
-            } else {
-                return 0;
-            }
-            float nNorm = (float) Math.sqrt(n1*n1 + n2*n2);
-            if (x1 * n1 + y1 * n2 >= 0) {
-                n1 /= nNorm;
-                n2 /= nNorm;
-            } else {
-                n1 /= -nNorm;
-                n2 /= -nNorm;
-            }
-            float d = x1 * n1 + y1 * n2;
-            float dist =  x * n1 + y * n2 - d;
-            coords[0] = x - n1 * dist;
-            coords[1] = y - n2 * dist;
-            Log.d("Riddle", "Dist: " + dist + " x/y: " + x + "/" + y + " coords: " + coords[0] + "/" + coords[1]);
-            return Math.abs(dist);
-        }
-    }
-    */
 	
 }

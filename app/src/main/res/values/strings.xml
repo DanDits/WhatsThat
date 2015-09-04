@@ -182,7 +182,7 @@
     <string name="bundle_creator_solution_words_hint">Separate words by commata</string>
     <string name="solution_words_for_language">for language(s)\n(at least English)</string>
     <string name="bundle_creator_author_descr">Information about image and its author</string>
-    <string name="bundle_creator_author_name_descr">Author\'s name</string>
+    <string name="bundle_creator_author_name_descr">Author\'s name\n(required)</string>
     <string name="bundle_creator_author_name_hint">Who took the photo or created the image?</string>
     <string name="author_info_apply_to_others">Apply to all other images</string>
     <string name="bundle_creator_author_source_descr">Image source</string>
@@ -192,6 +192,9 @@
     <string name="bundle_creator_save_bundle">Create bundle</string>
     <string name="select_images_from_gallery">Select images</string>
     <string name="bundle_creator_success">Bundle %1$s saved!</string>
+    <string name="bundle_creator_failed_name_exists">Bundle %1$s already exists!</string>
+    <string name="bundle_creator_failed_external_storage">External storage problem</string>
     <string name="bundle_creator_progress_saved">Bundle saved</string>
     <string name="author_info_apply_to_others_remove_connection">Separate information</string>
+    <string name="bundle_creator_progress_error_result">Error (%1$d) at saving</string>
 </resources>

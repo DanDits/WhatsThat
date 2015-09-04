@@ -23,14 +23,12 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
-import android.widget.SimpleAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
@@ -95,10 +93,11 @@ public class BundleCreator {
     private boolean mFillingImageData;
     private BitmapUtil.ByteBufferHolder mBuffer;
     private boolean mSaving;
-    private boolean mSaveResult;
+    private int mSaveResult;
     private boolean mApplyToOthersStateRemoveConnection;
 
     public BundleCreator(Activity activity) {
+        mSaveResult = ImageXmlWriter.RESULT_NONE;
         mActivity = activity;
         mBuffer = new BitmapUtil.ByteBufferHolder();
         mSelectedBitmaps = new ArrayList<>();
@@ -186,6 +185,9 @@ public class BundleCreator {
         mNextImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (mSaving) {
+                    return;
+                }
                 mDisplayedImageIndex++;
                 fillImageData();
                 updateStatus();
@@ -195,6 +197,9 @@ public class BundleCreator {
         mPreviousImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (mSaving) {
+                    return;
+                }
                 mDisplayedImageIndex--;
                 fillImageData();
                 updateStatus();
@@ -295,6 +300,13 @@ public class BundleCreator {
         mSave.setEnabled(false);
         mBitmapsSelect.setEnabled(false);
         mBundleName.setEnabled(false);
+        mAuthorExtras.setEnabled(false);
+        mAuthorName.setEnabled(false);
+        mAuthorSource.setEnabled(false);
+        mBundleName.setEnabled(false);
+        mOriginName.setEnabled(false);
+        mSolutionWords.setEnabled(false);
+        mSolutionLanguages.setEnabled(false);
         final List<SelectedBitmap> toSave = new ArrayList<>(mSelectedBitmaps.size());
         synchronized (mSelectedBitmaps) {
             toSave.addAll(mSelectedBitmaps);
@@ -311,25 +323,50 @@ public class BundleCreator {
 
             @Override
             public void onPostExecute(Void nothing) {
-                if (mSaveResult) {
+                if (mSaveResult == ImageXmlWriter.RESULT_SUCCESS) {
                     synchronized (mSelectedBitmaps) {
                         mSelectedBitmaps.clear();
                     }
                     Toast.makeText(mActivity, mActivity.getResources().getString(R.string.bundle_creator_success, mBundleNameText), Toast.LENGTH_LONG).show();
 
                     mBundleName.setText("");
+                } else if (mSaveResult == ImageXmlWriter.RESULT_TARGET_BUNDLE_EXISTS) {
+
+                    Toast.makeText(mActivity, mActivity.getResources().getString(R.string.bundle_creator_failed_name_exists, mBundleNameText), Toast.LENGTH_LONG).show();
+
+                    mBundleName.setText("");
+                } else if (mSaveResult == ImageXmlWriter.RESULT_EXTERNAL_STORAGE_PROBLEM || mSaveResult == ImageXmlWriter.RESULT_NO_TEMP_DIRECTORY) {
+                    Toast.makeText(mActivity, R.string.bundle_creator_failed_external_storage, Toast.LENGTH_LONG).show();
                 }
+                reenable();
+            }
+
+            @Override
+            public void onCancelled(Void obj) {
+                reenable();
+            }
+
+            private void reenable() {
                 mSaving = false;
                 mBitmapsSelect.setEnabled(true);
                 mBundleName.setEnabled(true);
                 mAuthorApplyToOthers.setEnabled(true);
+                mAuthorExtras.setEnabled(true);
+                mAuthorName.setEnabled(true);
+                mAuthorSource.setEnabled(true);
+                mBundleName.setEnabled(true);
+                mOriginName.setEnabled(true);
+                mSolutionWords.setEnabled(true);
+                mSolutionLanguages.setEnabled(true);
                 fillData();
                 updateStatus();
+
             }
         }.execute();
     }
 
     private void applyAuthorInfoToOthers() {
+        mSaveResult = ImageXmlWriter.RESULT_NONE;
         boolean updateStatus = false;
         boolean updateApplyToOthers = false;
         synchronized (mSelectedBitmaps) {
@@ -447,25 +484,42 @@ public class BundleCreator {
         if (current == null) {
             return false;
         }
+        mSaveResult = ImageXmlWriter.RESULT_NONE;
         ImageAuthor author = current.mBuilder.getAuthor();
+        String authorNameText = mAuthorName.getText().toString();
         if (author == null) {
             author = new ImageAuthor();
             current.mBuilder.setAuthor(author);
             updateApplyToOthersButton(current);
-            current.checkedBuild();
             updateStatus = true;
+        } else {
+            if (TextUtils.isEmpty(author.getName()) && !TextUtils.isEmpty(authorNameText)) {
+                updateStatus = true;
+            }
         }
-        author.setName(mAuthorName.getText().toString());
+        author.setName(authorNameText);
         author.setSource(mAuthorSource.getText().toString());
         author.setExtras(mAuthorExtras.getText().toString());
+        if (updateStatus) {
+            current.checkedBuild();
+        }
+        if (TextUtils.isEmpty(author.getName())) {
+            if (TextUtils.isEmpty(author.getSource()) && TextUtils.isEmpty(author.getExtras())) {
+                current.mBuilder.setAuthor(null);
+                updateApplyToOthersButton(current);
+            }
+            current.mImage = null;
+            updateStatus = true;
+        }
         return updateStatus;
     }
 
     private void updateApplyToOthersButton(SelectedBitmap current) {
+        mAuthorApplyToOthers.setEnabled(false);
         if (current == null) {
             return;
         }
-        mAuthorApplyToOthers.setEnabled(current != null && current.mBuilder.getAuthor() != null);
+        mSaveResult = ImageXmlWriter.RESULT_NONE;
         boolean allHaveAuthor = true;
         boolean hasSharedAuthor = false;
         synchronized (mSelectedBitmaps) {
@@ -477,9 +531,10 @@ public class BundleCreator {
                     hasSharedAuthor = true;
                 }
             }
-        }
+        };
 
         mApplyToOthersStateRemoveConnection = allHaveAuthor && hasSharedAuthor;
+        mAuthorApplyToOthers.setEnabled(current.mBuilder.getAuthor() != null && (mApplyToOthersStateRemoveConnection || !allHaveAuthor));
         mAuthorApplyToOthers.setText(mApplyToOthersStateRemoveConnection ? R.string.author_info_apply_to_others_remove_connection : R.string.author_info_apply_to_others);
     }
 
@@ -514,14 +569,15 @@ public class BundleCreator {
         boolean allOk = originOk && bundleNameOk && bitmapsOk && imageInformationOk;
         mSave.setEnabled(allOk);
         if (allOk) {
-            if (mSaveResult) {
+            if (mSaveResult == ImageXmlWriter.RESULT_SUCCESS) {
                 mProgressText.setText(R.string.bundle_creator_progress_saved);
-            } else {
+            } else if (mSaveResult == ImageXmlWriter.RESULT_NONE) {
                 mProgressText.setText(R.string.bundle_creator_progress_ready_to_save);
+            } else {
+                mProgressText.setText(mProgressText.getResources().getString(R.string.bundle_creator_progress_error_result, mSaveResult));
             }
             mSave.setCompoundDrawablesWithIntrinsicBounds(0, 0, ACCEPT_RESOURCE, 0);
         } else {
-            mSaveResult = false;
             mSaving = false;
             mSave.setCompoundDrawablesWithIntrinsicBounds(0, 0, REFUSE_RESOURCE, 0);
             mProgressText.setText(R.string.bundle_creator_progress_info_missing);
@@ -541,7 +597,7 @@ public class BundleCreator {
         boolean solutionWordsOk = current.mBuilder.getSolutions() != null && !current.mBuilder.getSolutions().isEmpty();
         applyStatus(mSolutionWordsStatus, solutionWordsOk);
 
-        boolean authorOk = current.mBuilder.getAuthor() != null;
+        boolean authorOk = current.mBuilder.getAuthor() != null && !TextUtils.isEmpty(current.mBuilder.getAuthor().getName());
         applyStatus(mAuthorStatus, authorOk);
 
     }
@@ -594,6 +650,10 @@ public class BundleCreator {
     }
 
     private void fillImageData() {
+        final SelectedBitmap selected = getCurrentBitmap();
+        if (selected == null) {
+            return;
+        }
         boolean wasFilling = mFillingImageData;
         mFillingImageData = true;
         mDisplayedImageIndex = Math.max(mDisplayedImageIndex, 0);
@@ -604,8 +664,7 @@ public class BundleCreator {
         mNextImage.setVisibility(mDisplayedImageIndex < mSelectedBitmaps.size() - 1 ? View.VISIBLE : View.INVISIBLE);
         mPreviousImage.setVisibility(mDisplayedImageIndex > 0 ? View.VISIBLE : View.INVISIBLE);
 
-        final SelectedBitmap selected = getCurrentBitmap();
-        Log.d("HomeStuff", "Index " + mDisplayedImageIndex + " snapshot: " + selected.mSnapshot);
+        mSaveResult = ImageXmlWriter.RESULT_NONE;
         if (selected.mSnapshot != null) {
             mBitmapSnapshot.setImageBitmap(selected.mSnapshot);
             selected.mLoadSnapshotTask = null;
@@ -614,7 +673,7 @@ public class BundleCreator {
             selected.mLoadSnapshotTask = new AsyncTask<Void, Void, Void>() {
                 @Override
                 protected Void doInBackground(Void... params) {
-                    selected.mSnapshot = ImageUtil.loadBitmap(selected.mPathInTemp, SNAPSHOT_WIDTH, SNAPSHOT_HEIGHT, ImageUtil.LOAD_MODE_FIT_INSIDE);
+                    selected.mSnapshot = ImageUtil.loadBitmap(selected.mPathInTemp, SNAPSHOT_WIDTH, SNAPSHOT_HEIGHT, BitmapUtil.MODE_FIT_INSIDE);
                     return null;
                 }
                 @Override
@@ -759,7 +818,7 @@ public class BundleCreator {
                                 }
                                 File bitmapFileInTemp = new File(mTempDirectory, bitmapName);
 
-                                Bitmap bitmap = ImageUtil.loadBitmap(input, IMAGE_MAX_WIDTH, IMAGE_MAX_HEIGHT, ImageUtil.LOAD_MODE_FIT_NO_RESIZE);
+                                Bitmap bitmap = ImageUtil.loadBitmap(input, IMAGE_MAX_WIDTH, IMAGE_MAX_HEIGHT, BitmapUtil.MODE_FIT_NO_GROW);
                                 if (ImageUtil.saveToFile(bitmap, bitmapFileInTemp, null, COMPRESSION)) {
                                     publishProgress(new SelectedBitmap(bitmap, bitmapFileInTemp, sizeKB, mBuffer));
                                 }
@@ -770,7 +829,7 @@ public class BundleCreator {
                                     bitmapName = cursor.getString(nameIndex);
                                 }
                                 File targetPath = new File(mTempDirectory, bitmapName);
-                                Bitmap bitmap = ImageUtil.loadBitmap(path, IMAGE_MAX_WIDTH, IMAGE_MAX_HEIGHT, ImageUtil.LOAD_MODE_FIT_NO_RESIZE);
+                                Bitmap bitmap = ImageUtil.loadBitmap(path, IMAGE_MAX_WIDTH, IMAGE_MAX_HEIGHT, BitmapUtil.MODE_FIT_NO_GROW);
                                 if (ImageUtil.saveToFile(bitmap, targetPath, null, COMPRESSION)) {
                                     publishProgress(new SelectedBitmap(bitmap, targetPath, sizeKB, mBuffer));
                                 }
@@ -795,12 +854,14 @@ public class BundleCreator {
                         mSelectedBitmaps.add(bitmap[0]);
                     }
                 }
+                mSaveResult = ImageXmlWriter.RESULT_NONE;
                 fillSelectedBitmapsData();
                 updateStatus();
             }
 
             @Override
             public void onPostExecute(Void nothing) {
+                mSaveResult = ImageXmlWriter.RESULT_NONE;
                 Log.d("HomeStuff", "Finished loading bitmaps (Processes still loading: " + (mBitmapsSelectCount - 1) + ").");
                 mBitmapsSelectCount--;
                 if (mBitmapsSelectCount <= 0) {
@@ -870,7 +931,7 @@ public class BundleCreator {
         public boolean checkedBuild() {
             if (mBuilder.getOrigin() != null && !mBuilder.getOrigin().equals(Image.ORIGIN_IS_THE_APP)
                     && mBuilder.getSolutions() != null && !mBuilder.getSolutions().isEmpty()
-                    && mBuilder.getAuthor() != null) {
+                    && mBuilder.getAuthor() != null && !TextUtils.isEmpty(mBuilder.getAuthor().getName()) ) {
                 try {
                     mImage = mBuilder.build();
                 } catch (BuildException be) {

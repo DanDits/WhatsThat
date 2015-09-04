@@ -572,10 +572,10 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
         final EditText input = new EditText(getActivity());
         input.setInputType(android.text.InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
         AlertDialog dialog = new AlertDialog.Builder(getActivity())
-                .setTitle("Rätsel laden")
-                .setMessage("Bildname:")
+                .setTitle("CheatBox")
+                .setMessage("Ch34t0r's h4ckZ:")
                 .setView(input)
-                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                .setPositiveButton("YEAH BABY", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
                         String value = input.getText().toString().toLowerCase().trim();
                         Image selected = null;
