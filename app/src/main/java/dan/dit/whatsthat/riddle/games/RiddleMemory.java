@@ -326,6 +326,12 @@ public class RiddleMemory extends RiddleGame {
         }
     }
 
+    private void incrementGameAchievementValue(String key, long delta) {
+        if (mConfig.mAchievementGameData != null) {
+            mConfig.mAchievementGameData.increment(key, delta, 0L);
+        }
+    }
+
     @NonNull
     @Override
     protected String compactCurrentState() {
@@ -480,14 +486,21 @@ public class RiddleMemory extends RiddleGame {
                 mPath = mField.findPath(this, mDoppelganger, FieldElement.DIRECT_AND_DIAGONAL_NEIGHBORS);
                 setGameAchievementValue(AchievementMemory.KEY_GAME_PATH_LENGTH, mPath == null ? 0L : mPath.size());
                 if (mPath != null) {
+                    int uncoveredPairsCount = 0;
                     for (MemoryCard card : mPath) {
                         if (card.mCoverState == STATE_COVERED_GREEN) {
                             if (card.uncover()) {
                                 card.mCoverState--;
                             }
+                            if (card.isPairUncovered()) {
+                                uncoveredPairsCount++;
+                            }
                         } else {
                             card.mCoverState--;
                         }
+                    }
+                    if (uncoveredPairsCount > 0) {
+                        incrementGameAchievementValue(AchievementMemory.KEY_GAME_UNCOVERED_PAIRS_BY_PATH_COUNT, uncoveredPairsCount / 2);
                     }
                 }
             }

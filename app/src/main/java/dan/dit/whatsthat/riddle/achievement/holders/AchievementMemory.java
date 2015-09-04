@@ -30,6 +30,7 @@ public class AchievementMemory extends TypeAchievementHolder {
     public static final String KEY_GAME_UNCOVERED_PAIRS_COUNT = "uncovered_pairs";
     public static final String KEY_GAME_CARD_UNCOVERED_BY_CLICK_COUNT = "uncovered_by_click";
     public static final String KEY_GAME_UNCOVERED_PAIRS_IN_GREEN_STATE_COUNT = "uncovered_green_pairs";
+    public static final String KEY_GAME_UNCOVERED_PAIRS_BY_PATH_COUNT = "uncovered_pairs_by_path";
 
     public AchievementMemory(PracticalRiddleType type) {
         super(type);
@@ -42,6 +43,7 @@ public class AchievementMemory extends TypeAchievementHolder {
         mAchievements.put(Achievement2.NUMBER, new Achievement2(manager, mType));
         mAchievements.put(Achievement3.NUMBER, new Achievement3(manager, mType));
         mAchievements.put(Achievement4.NUMBER, new Achievement4(manager, mType));
+        mAchievements.put(Achievement5.NUMBER, new Achievement5(manager, mType));
         mAchievements.put(Achievement6.NUMBER, new Achievement6(manager, mType));
         mAchievements.put(Achievement7.NUMBER, new Achievement7(manager, mType));
         mAchievements.put(Achievement8.NUMBER, new Achievement8(manager, mType));
@@ -149,6 +151,32 @@ public class AchievementMemory extends TypeAchievementHolder {
         }
     }
 
+    //Random trail
+    private static class Achievement5 extends GameAchievement {
+        public static final int NUMBER = 5;
+        public static final int LEVEL = 0;
+        public static final int REWARD = 5;
+        public static final int REQUIRED_PAIRS = 1;
+        public static final boolean DISCOVERED = true;
+
+        public Achievement5(AchievementManager manager, PracticalRiddleType type) {
+            super(type, R.string.achievement_memory_5_name, R.string.achievement_memory_5_descr, 0, NUMBER, manager, LEVEL, REWARD, 1, DISCOVERED);
+        }
+
+        @Override
+        public CharSequence getDescription(Resources res) {
+            return res.getString(mDescrResId, REQUIRED_PAIRS);
+        }
+
+        @Override
+        public void onDataEvent(AchievementDataEvent event) {
+            if (event.getChangedData() == mGameData && event.hasChangedKey(KEY_GAME_UNCOVERED_PAIRS_BY_PATH_COUNT)) {
+                if (mGameData.getValue(KEY_GAME_UNCOVERED_PAIRS_BY_PATH_COUNT, 0L) >= REQUIRED_PAIRS) {
+                    achieveAfterDependencyCheck();
+                }
+            }
+        }
+    }
 
     private static class Achievement6 extends GameAchievement {
         public static final int NUMBER = 6;

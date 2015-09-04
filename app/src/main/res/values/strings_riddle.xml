@@ -115,4 +115,8 @@
         <item>Zellen besitzen nur teilweise Intelligenz. Daher verläuft nur jeder dritte gesetzte Punkt gefundene Konturen ab.</item>
         <item>Die Dauer der Zellen ist bei allen gleich.</item>
     </string-array>
+
+    <!-- Lazor related -->
+    <string name="riddle_type_lazor">Lazor</string>
+    <string name="riddle_type_lazor_explanation">Here be lazors</string>
 </resources>

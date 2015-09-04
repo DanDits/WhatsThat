@@ -45,6 +45,7 @@ public abstract class PracticalRiddleType extends RiddleType {
     public static final Types.Triangle TRIANGLE_INSTANCE = new Types.Triangle();
     public static final Types.Jumper JUMPER_INSTANCE = new Types.Jumper();
     public static final Types.Memory MEMORY_INSTANCE = new Types.Memory();
+    public static final Types.Lazor LAZOR_INSTANCE = new Types.Lazor();
     public static final Types.Torchlight TORCHLIGHT_INSTANCE = new Types.Torchlight();
     public static final Types.Flow FLOW_INSTANCE = new Types.Flow();
 

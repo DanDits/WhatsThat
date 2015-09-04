@@ -23,6 +23,7 @@ import dan.dit.whatsthat.riddle.games.RiddleDice;
 import dan.dit.whatsthat.riddle.games.RiddleFlow;
 import dan.dit.whatsthat.riddle.games.RiddleGame;
 import dan.dit.whatsthat.riddle.games.RiddleJumper;
+import dan.dit.whatsthat.riddle.games.RiddleLazor;
 import dan.dit.whatsthat.riddle.games.RiddleMemory;
 import dan.dit.whatsthat.riddle.games.RiddleSnow;
 import dan.dit.whatsthat.riddle.games.RiddleTorchlight;
@@ -578,6 +579,44 @@ public class Types {
         @Override
         public int getBaseScore() {
             return SCORE_MEDIUM;
+        }
+    }
+
+    /**
+     * The riddle type for the Lazor riddle.
+     */
+    public static class Lazor extends PracticalRiddleType {
+        public static final String NAME = "Lazor";
+        @Override
+        protected String getName() {return NAME;}
+
+        @Override
+        public RiddleGame makeRiddle(Riddle riddle, Image image, Bitmap bitmap, Resources res, RiddleConfig config, PercentProgressListener listener) {
+            return new RiddleLazor(riddle, image, bitmap, res, config, listener);
+        }
+        @Override
+        public int getIconResId() {
+            return R.drawable.icon_plain;
+        }
+        @Override
+        public int getNameResId() {
+            return R.string.riddle_type_lazor;
+        }
+        @Override
+        public int getExplanationResId() {
+            return R.string.riddle_type_lazor_explanation;
+        }
+
+        @Override
+        public int getInterestValue(RiddleType typeToCheck) {
+            int interest = super.getInterestValue(typeToCheck);
+            interest += typeToCheck.getInterestValueIfEqual(ContentRiddleType.CONTRAST_WEAK_INSTANCE);
+            return interest;
+        }
+
+        @Override
+        public int getBaseScore() {
+            return SCORE_HARD;
         }
     }
 }

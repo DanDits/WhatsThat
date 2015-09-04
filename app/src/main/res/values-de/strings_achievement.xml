@@ -180,7 +180,7 @@
     <string name="achievement_memory_4_name">Homunkulus</string>
     <string name="achievement_memory_4_descr">Decke das Bild komplett auf, nachdem %1$d Felder verdeckt waren.</string>
     <string name="achievement_memory_5_name">Querbeet</string>
-    <string name="achievement_memory_5_descr">X/5 wurden automatisch aufgedeckt, weil die Querbeet Spur die richtigen Karten getroffen hat.</string>
+    <string name="achievement_memory_5_descr">%1$d Paare wurden automatisch aufgedeckt, weil die Querbeet Spur die richtigen Karten getroffen hat.</string>
     <string name="achievement_memory_6_name">DEFINITIV Glück</string>
     <string name="achievement_memory_6_descr">%1$d Paare auf Anhieb richtig? Bei Angry-Cell gestehe ich dir das Geschick ein aber hier DEFINITIV NICHT!</string>
     <string name="achievement_memory_7_name">Karten versenken</string>
