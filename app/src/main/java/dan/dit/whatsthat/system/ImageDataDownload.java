@@ -382,6 +382,7 @@ public class ImageDataDownload {
                     } catch (IOException ioe) {
                         return ERROR_CODE_SYNC_NO_DATA_FILE_EXCEPTION_IOE;
                     } catch (XmlPullParserException e) {
+                        Log.e("Image", "Image data download failed: exception with data file parser exception: " + e);
                         return ERROR_CODE_SYNC_NO_DATA_FILE_EXCEPTION_PARSER;
                     }
                     if (parser != null && parser.syncToDatabase(new ImageManager.SynchronizationListener() {

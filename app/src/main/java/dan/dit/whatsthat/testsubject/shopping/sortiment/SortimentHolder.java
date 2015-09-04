@@ -35,6 +35,10 @@ public class SortimentHolder extends ShopArticleHolder {
         addHintArticles();
         addArticle(new ShopArticleDownload(mApplicationContext, mPurse, R.string.download_article_name, R.string.download_article_descr, R.drawable.icon_general, 0,
                 "daniel", "test1", 2, "https://www.dropbox.com/s/pqcigkzt0q0yqhr/bla.zip?dl=1"));
+
+        addArticle(new ShopArticleDownload(mApplicationContext, mPurse, R.string.download_article_name, R.string.download_article_descr, R.drawable.icon_general, 0,
+                "didi", "danielpix", 2, "https://www.dropbox.com/s/w3h0u9145etdb14/didi_danielpix.wtb?dl=1"));
+
         addArticle(new ShopArticleSimple(ARTICLE_KEY_JUMPER_START_FURTHER_FEATURE, mPurse, R.string.article_jumper_start_further_name, R.string.article_jumper_start_further_descr, R.drawable.icon_jumprun, 10));
 
         sortArticles();

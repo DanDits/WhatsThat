@@ -43,7 +43,7 @@ class ImageXmlWriter {
 
     private ImageXmlWriter() {}
 
-    public static int writeBundle(Context context, List<BundleCreator.SelectedBitmap> imageBundle, String bundleName) {
+    public static int writeBundle(Context context, List<BundleCreator.SelectedBitmap> imageBundle, String bundleOrigin, String bundleName) {
         if (context == null || imageBundle == null || TextUtils.isEmpty(bundleName)) {
             return RESULT_ILLEGAL_ARGUMENT;
         }
@@ -55,7 +55,7 @@ class ImageXmlWriter {
         if (!dir.mkdirs() && !dir.isDirectory()) {
             return RESULT_EXTERNAL_STORAGE_PROBLEM;
         }
-        File targetZip = new File(path + File.separator + bundleName + BUNDLE_EXTENSION);
+        File targetZip = new File(path + File.separator + bundleOrigin + "_" + bundleName + BUNDLE_EXTENSION);
         if (targetZip.exists()) {
             return RESULT_TARGET_BUNDLE_EXISTS;
         }
@@ -72,7 +72,7 @@ class ImageXmlWriter {
         }
         try {
             output = new FileOutputStream(targetDataXml);
-            success = writeXml(output, images, 0);
+            success = writeXml(output, images, bundleOrigin, 0);
         } catch (IOException ioe) {
             Log.e("Image", "Bundle XMLWRITE: Could not create file or save to file: " + ioe);
         } catch (IllegalStateException state) {
@@ -135,7 +135,7 @@ class ImageXmlWriter {
             boolean success = false;
             try {
                 output = new FileOutputStream(file);
-                success = writeXml(output, imageBundle, bundleNumber);
+                success = writeXml(output, imageBundle, null, bundleNumber);
             } catch (IOException ioe) {
                 Log.e("Image", "XMLWRITE: Could not create file or save to file: " + ioe);
             } catch (IllegalStateException state) {
@@ -160,29 +160,37 @@ class ImageXmlWriter {
         }
     }
 
-    private static boolean writeXml(FileOutputStream outputStream, List<Image> imageBundle, int bundleNumber) throws IOException{
+    private static boolean writeXml(FileOutputStream outputStream, List<Image> imageBundle, String bundleOrigin, int bundleNumber) throws IOException{
         XmlSerializer serializer = Xml.newSerializer();
         StringWriter writer = new StringWriter();
-            serializer.setOutput(writer);
-            serializer.startDocument("UTF-8", true);
-            serializer.startTag(ImageXmlParser.NAMESPACE, ImageXmlParser.TAG_BUNDLE_NAME);
-            serializer.attribute(ImageXmlParser.NAMESPACE, ImageXmlParser.BUNDLE_ATTRIBUTE_VERSION_NAME, String.valueOf(bundleNumber));
-            for (Image image: imageBundle){
-                serializer.startTag(ImageXmlParser.NAMESPACE, ImageXmlParser.TAG_IMAGE_NAME);
-                writeText(serializer, ImageTable.COLUMN_RESNAME, image.getName());
-                writeText(serializer, ImageTable.COLUMN_ORIGIN, image.getOrigin());
-                writeText(serializer, ImageTable.COLUMN_HASH, image.getHash());
-                writeText(serializer, ImageTable.COLUMN_OBFUSCATION, String.valueOf(image.getObfuscation()));
-                writeText(serializer, ImageTable.COLUMN_AVERAGE_COLOR, String.valueOf(image.getAverageColor()));
-                writeText(serializer, ImageTable.COLUMN_SAVELOC, image.getRelativePath());
-                writeSolutions(serializer, ImageTable.COLUMN_SOLUTIONS, image.getSolutions());
-                writeAuthor(serializer, ImageTable.COLUMN_AUTHOR, image.getAuthor());
-                writeTypes(serializer, ImageTable.COLUMN_RIDDLEPREFTYPES, image.getPreferredRiddleTypes());
-                writeTypes(serializer, ImageTable.COLUMN_RIDDLEREFUSEDTYPES, image.getRefusedRiddleTypes());
-                serializer.endTag(ImageXmlParser.NAMESPACE, ImageXmlParser.TAG_IMAGE_NAME);
-            }
-            serializer.endTag(ImageXmlParser.NAMESPACE, ImageXmlParser.TAG_BUNDLE_NAME);
-            serializer.endDocument();
+        serializer.setOutput(writer);
+        serializer.startDocument("UTF-8", true);
+
+        serializer.startTag(ImageXmlParser.NAMESPACE, ImageXmlParser.TAG_ALL_BUNDLES_NAME);
+
+        serializer.startTag(ImageXmlParser.NAMESPACE, ImageXmlParser.TAG_BUNDLE_NAME);
+        if (bundleOrigin != null) {
+            serializer.attribute(ImageXmlParser.NAMESPACE, ImageTable.COLUMN_ORIGIN, bundleOrigin);
+        }
+        serializer.attribute(ImageXmlParser.NAMESPACE, ImageXmlParser.BUNDLE_ATTRIBUTE_VERSION_NAME, String.valueOf(bundleNumber));
+        for (Image image: imageBundle){
+            serializer.startTag(ImageXmlParser.NAMESPACE, ImageXmlParser.TAG_IMAGE_NAME);
+            writeText(serializer, ImageTable.COLUMN_RESNAME, image.getName());
+            writeText(serializer, ImageTable.COLUMN_ORIGIN, image.getOrigin());
+            writeText(serializer, ImageTable.COLUMN_HASH, image.getHash());
+            writeText(serializer, ImageTable.COLUMN_OBFUSCATION, String.valueOf(image.getObfuscation()));
+            writeText(serializer, ImageTable.COLUMN_AVERAGE_COLOR, String.valueOf(image.getAverageColor()));
+            writeText(serializer, ImageTable.COLUMN_SAVELOC, image.getRelativePath());
+            writeSolutions(serializer, ImageTable.COLUMN_SOLUTIONS, image.getSolutions());
+            writeAuthor(serializer, ImageTable.COLUMN_AUTHOR, image.getAuthor());
+            writeTypes(serializer, ImageTable.COLUMN_RIDDLEPREFTYPES, image.getPreferredRiddleTypes());
+            writeTypes(serializer, ImageTable.COLUMN_RIDDLEREFUSEDTYPES, image.getRefusedRiddleTypes());
+            serializer.endTag(ImageXmlParser.NAMESPACE, ImageXmlParser.TAG_IMAGE_NAME);
+        }
+        serializer.endTag(ImageXmlParser.NAMESPACE, ImageXmlParser.TAG_BUNDLE_NAME);
+        serializer.endTag(ImageXmlParser.NAMESPACE, ImageXmlParser.TAG_ALL_BUNDLES_NAME);
+        serializer.endDocument();
+
         serializer.flush();
         String dataWrite = writer.toString();
         outputStream.write(dataWrite.getBytes());

@@ -54,6 +54,9 @@
                 android:layout_alignParentTop="true"
                 android:layout_toRightOf="@+id/origin_name_descr"
                 android:id="@+id/bundle_origin"
+                android:imeOptions="actionNext"
+                android:nextFocusForward="@+id/bundle_name"
+                android:nextFocusDown="@+id/bundle_name"
                 android:hint="@string/origin_hint"
                 android:layout_marginLeft="5dp" />
         </RelativeLayout>
@@ -81,6 +84,9 @@
                 android:layout_alignParentTop="true"
                 android:layout_toRightOf="@+id/bundle_name_descr"
                 android:id="@+id/bundle_name"
+                android:imeOptions="actionNext"
+                android:nextFocusForward="@+id/solution_words"
+                android:nextFocusDown="@+id/solution_words"
                 android:hint="@string/bundle_creator_bundle_name_hint"
                 android:layout_marginLeft="5dp" />
         </RelativeLayout>
@@ -188,6 +194,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/solution_words"
+                    android:imeOptions="actionNext"
+                    android:nextFocusForward="@+id/author_name"
+                    android:nextFocusDown="@+id/author_name"
                     android:hint="@string/bundle_creator_solution_words_hint"
                     android:layout_toRightOf="@id/solution_words_descr"/>
             </RelativeLayout>
@@ -247,6 +256,9 @@
                     android:layout_height="wrap_content"
                     android:layout_toRightOf="@+id/author_name_descr"
                     android:id="@+id/author_name"
+                    android:imeOptions="actionNext"
+                    android:nextFocusForward="@+id/author_source"
+                    android:nextFocusDown="@+id/author_source"
                     android:hint="@string/bundle_creator_author_name_hint"/>
             </RelativeLayout>
             <RelativeLayout
@@ -286,6 +298,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/author_extras"
+                    android:imeOptions="actionDone"
+                    android:nextFocusForward="@+id/solution_words"
+                    android:nextFocusDown="@+id/solution_words"
                     android:layout_toRightOf="@+id/author_extras_descr"
                     android:hint="@string/bundle_creator_author_extras_hint"/>
             </RelativeLayout>

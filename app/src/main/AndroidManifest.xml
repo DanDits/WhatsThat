@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="dan.dit.whatsthat" >/>
 
-    <!-- Required for donations by Flattr.com -->
+    <!-- Required for donations by Flattr.com and downloads of image bundles-->
     <uses-permission android:name="android.permission.INTERNET" />
 
     <!-- Required for donations (and in app purchases) over the PlayStore -->
@@ -11,10 +11,12 @@
     <!-- Required by the uncaught exception handler -->
     <uses-permission android:name="android.permission.READ_LOGS" />
 
+    <!-- Required by various tasks, but only operates in app's external storage directory -->
     <uses-permission
         android:name="android.permission.READ_EXTERNAL_STORAGE"
         android:maxSdkVersion="18" />
 
+    <!-- Required by various tasks, but only operates in app's external storage directory -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <!-- Required for the download task for image data. Maybe this will be changed to use a system service sometime -->

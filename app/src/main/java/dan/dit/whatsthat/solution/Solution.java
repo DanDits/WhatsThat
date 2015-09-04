@@ -70,7 +70,7 @@ public class Solution implements Compactable {
         }
     }
 
-    public Solution(Tongue tongue, String[] words) {
+    private Solution(Tongue tongue, String[] words) {
         mTongue = tongue;
         for (String word : words) {
             if (!TextUtils.isEmpty(word)) {
@@ -80,6 +80,22 @@ public class Solution implements Compactable {
         if (tongue == null || mSolutionWords.isEmpty()) {
             throw new IllegalArgumentException("Null tongue or no valid words given.");
         }
+    }
+
+    public static Solution makeSolution(Tongue tongue, String[] words) {
+        if (tongue == null || words == null || words.length == 0) {
+            return null;
+        }
+        boolean foundNotEmptyWord = false;
+        for (String word : words) {
+            if (!TextUtils.isEmpty(word)) {
+                foundNotEmptyWord = true;
+            }
+        }
+        if (foundNotEmptyWord) {
+            return new Solution(tongue, words);
+        }
+        return null;
     }
 
     private void addWord(@NonNull String word) {

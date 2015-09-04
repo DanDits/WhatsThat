@@ -73,7 +73,7 @@ public class ImageXmlParser {
     // We don't use namespaces
     public static final String NAMESPACE = null;
 
-    private static final String TAG_ALL_BUNDLES_NAME = "imagedata";
+    public static final String TAG_ALL_BUNDLES_NAME = "imagedata";
     public static final String TAG_BUNDLE_NAME = "bundle";
     public static final String TAG_IMAGE_NAME = "image";
     public static final String BUNDLE_ATTRIBUTE_VERSION_NAME = "version";

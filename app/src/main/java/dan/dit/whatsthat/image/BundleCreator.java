@@ -43,18 +43,32 @@ import dan.dit.whatsthat.util.image.BitmapUtil;
 import dan.dit.whatsthat.util.image.ImageUtil;
 
 /**
+ * A class used by the workshop to allow relatively easily building an image
+ * bundle of images on the phone by selecting images from default galleries.
+ * It requires at least one Solution for each image and author information (at least a name).
+ * It offers the possibility to enter multiple solution words and multiple solutions for the supported
+ * languages. The interface is not the most pretty one but relatively robust and helpful, so it can be used
+ * by advanced users, though the primary use would be developers or for fan :) art.
+ * It does not support custom preferred or refused RiddleTypes, though the default ones belonging to the image
+ * are being calculated. It fits images inside square of 700x700 pixels, keeping aspect ratio to prevent
+ * too big images. It keeps the image's format.
+ * A bundle requires an origin which is the bundle's author, the one generating the bundle
+ * and a bundle name which is the file name and needs to be relatively unique (at least on the operating device)
  * Created by daniel on 02.09.15.
  */
 public class BundleCreator {
 
+    // Hi there. As this view controller offers on the fly validation and fast feedback for given inputs
+    // and was written in two days, the code is not really nice, I'm sorry.
     private static final int ACCEPT_RESOURCE = R.drawable.a_green;
     private static final int REFUSE_RESOURCE = R.drawable.x_red;
-    private static final int PICK_IMAGES = 1338;
-    private static final int IMAGE_MAX_WIDTH = 500;
-    private static final int IMAGE_MAX_HEIGHT = 500;
-    private static final int COMPRESSION = 20;
-    private static final int SNAPSHOT_WIDTH = 100;
+    private static final int PICK_IMAGES = 1338; // intent to pick images
+    private static final int IMAGE_MAX_WIDTH = 700; // max dimensions of images in new bundle
+    private static final int IMAGE_MAX_HEIGHT = 700;
+    private static final int COMPRESSION = 20; // compression level between 0 and 100 (especially for .jpg images)
+    private static final int SNAPSHOT_WIDTH = 100; // displayed snapshot of currently selected bitmap
     private static final int SNAPSHOT_HEIGHT = 100;
+
     private final View mView;
     private final ImageView mOriginStatus;
     private final EditText mOriginName;
@@ -315,7 +329,7 @@ public class BundleCreator {
 
             @Override
             protected Void doInBackground(Void... params) {
-                mSaveResult = ImageXmlWriter.writeBundle(mActivity, toSave, mBundleNameText);
+                mSaveResult = ImageXmlWriter.writeBundle(mActivity, toSave, User.getInstance().getOriginName(), mBundleNameText);
                 Log.d("Image", "Write bundle, result: " + mSaveResult);
                 mSaving = false;
                 return null;
@@ -453,7 +467,6 @@ public class BundleCreator {
         if (TextUtils.isEmpty(solutionWords)) {
             if (currentSolution != null) {
                 solutions.remove(currentSolutionIndex);
-                Log.d("HomeStuff", "Removed solution " + currentSolution + " from " + solutions);
                 if (solutions.isEmpty()) {
                     currentBitmap.mBuilder.setSolutions(null);
                     currentBitmap.mImage = null;
@@ -461,17 +474,23 @@ public class BundleCreator {
                 }
             }
         } else {
-            if (solutions == null) {
+            Solution newSolution = Solution.makeSolution(currentTongue, solutionWords.split(","));
+            if (newSolution != null && solutions == null) {
                 solutions = new ArrayList<>(mTongues.length);
                 updateStatus = true;
-            } else if (currentSolution != null) {
+            } else if (solutions != null && currentSolution != null) {
                 solutions.remove(currentSolutionIndex);
             }
-            solutions.add(new Solution(currentTongue, solutionWords.split(",")));
+            if (newSolution != null) {
+                solutions.add(newSolution);
 
-            Log.d("HomeStuff", "Added/Updated solution " + currentSolution + " to " + solutions);
-            currentBitmap.mBuilder.setSolutions(solutions);
-            if (currentBitmap.checkedBuild()) {
+                currentBitmap.mBuilder.setSolutions(solutions);
+                if (currentBitmap.checkedBuild()) {
+                    updateStatus = true;
+                }
+            } else if (solutions != null && solutions.isEmpty()) {
+                currentBitmap.mBuilder.setSolutions(null);
+                currentBitmap.mImage = null;
                 updateStatus = true;
             }
         }
@@ -502,13 +521,30 @@ public class BundleCreator {
         author.setExtras(mAuthorExtras.getText().toString());
         if (updateStatus) {
             current.checkedBuild();
+            synchronized (mSelectedBitmaps) {
+                for (SelectedBitmap bitmap : mSelectedBitmaps) {
+                    if (bitmap.mBuilder.getAuthor() == author) {
+                        bitmap.checkedBuild();
+                    }
+                }
+            }
         }
         if (TextUtils.isEmpty(author.getName())) {
-            if (TextUtils.isEmpty(author.getSource()) && TextUtils.isEmpty(author.getExtras())) {
-                current.mBuilder.setAuthor(null);
-                updateApplyToOthersButton(current);
+            boolean authorCleared = TextUtils.isEmpty(author.getSource()) && TextUtils.isEmpty(author.getExtras());
+            // if author data cleared, remove author from this and connected bitmaps
+            // in any case clear image as name is required
+            synchronized (mSelectedBitmaps) {
+                for (SelectedBitmap bitmap : mSelectedBitmaps) {
+                    if (bitmap.mBuilder.getAuthor() == author) {
+                        if (authorCleared) {
+                            bitmap.mBuilder.setAuthor(null);
+                        }
+                        bitmap.mImage = null;
+                    }
+                }
             }
-            current.mImage = null;
+            updateApplyToOthersButton(current);
+
             updateStatus = true;
         }
         return updateStatus;
@@ -555,6 +591,10 @@ public class BundleCreator {
         mActivity.startActivityForResult(chooserIntent, PICK_IMAGES);
     }
 
+    /**
+     * Checks and updates all status indicators, updates current image's status indicators.
+     * If all checks are passed, the bundle is allowed to save.
+     */
     private void updateStatus() {
         String userOrigin = User.getInstance().getOriginName();
         boolean originOk = userOrigin != null && userOrigin.equals(mOriginName.getText().toString().trim());
@@ -606,6 +646,9 @@ public class BundleCreator {
         statusView.setImageResource(accept ? ACCEPT_RESOURCE : REFUSE_RESOURCE);
     }
 
+    /**
+     * Fills the data currently available into the views. Fills selected bitmaps data.
+     */
     private void fillData() {
         String origin = User.getInstance().getOriginName();
         if (origin != null) {
@@ -622,6 +665,11 @@ public class BundleCreator {
         fillSelectedBitmapsData();
     }
 
+    /**
+     * Fills selected bitmaps data, showing amount of loaded bitmaps
+     * and setting image data container visibility accordingly.
+     * Updates image data header.
+     */
     private void fillSelectedBitmapsData() {
         int count;
         int sizeMB;
@@ -634,8 +682,8 @@ public class BundleCreator {
         }
         sizeMB /= 1024;
         if (count > 0) {
-            if (mImageInformationContainer.getVisibility() != View.INVISIBLE) {
-                fillImageData();
+            fillImageData();
+            if (mImageInformationContainer.getVisibility() != View.VISIBLE) {
                 mImageInformationContainer.setVisibility(View.VISIBLE);
             }
             // would be strange to have 0MB even though there are images selected
@@ -649,16 +697,19 @@ public class BundleCreator {
         fillImageHeaderData();
     }
 
+    /**
+     * Fills all image data of the currently selected bitmap if any.
+     */
     private void fillImageData() {
-        final SelectedBitmap selected = getCurrentBitmap();
-        if (selected == null) {
-            return;
-        }
         boolean wasFilling = mFillingImageData;
         mFillingImageData = true;
         mDisplayedImageIndex = Math.max(mDisplayedImageIndex, 0);
         mDisplayedImageIndex = Math.min(mDisplayedImageIndex, mSelectedBitmaps.size() - 1);
         if (mDisplayedImageIndex < 0) {
+            return;
+        }
+        final SelectedBitmap selected = getCurrentBitmap();
+        if (selected == null) {
             return;
         }
         mNextImage.setVisibility(mDisplayedImageIndex < mSelectedBitmaps.size() - 1 ? View.VISIBLE : View.INVISIBLE);
@@ -755,8 +806,15 @@ public class BundleCreator {
         mImageDescr.setText(mImageDescr.getResources().getString(R.string.bundle_creator_image_descr, completedCount, mSelectedBitmaps.size()));
     }
 
+    /**
+     * Required for reacting to selected bitmaps from galleries. Loads and prepares
+     * bitmaps asynchronously, showing progress on the fly and an indeterminate progress bar.
+     * @param requestCode The request code of the activity result started for intent.
+     * @param resultCode The result code. Does nothing if not ok.
+     * @param data The returned data.
+     */
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (resultCode != Activity.RESULT_OK || requestCode != PICK_IMAGES) {
+        if (resultCode != Activity.RESULT_OK || requestCode != PICK_IMAGES || data == null) {
             return;
         }
         ClipData clipData = data.getClipData();
@@ -875,6 +933,9 @@ public class BundleCreator {
 
     }
 
+    /**
+     * Applies origin to all selected bitmaps.
+     */
     private void applyOrigin() {
         String origin = User.getInstance().getOriginName();
         if (origin == null) {

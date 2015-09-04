@@ -205,7 +205,6 @@ public class Intro {
             return next;
         }
         Episode next = mMainEpisodes.get(mCurrentMainEpisode);
-        Log.d("HomeStuff", "Getting main episode with number " + mCurrentMainEpisode + " of total " + mMainEpisodes.size());
         startEpisode(next);
         onInteraction(INTERACTION_NEXT_MAIN_EPISODE);
         return next;

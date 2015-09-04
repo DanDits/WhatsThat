@@ -678,33 +678,35 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
         return new CursorLoader(getActivity(), ImagesContentProvider.CONTENT_URI_IMAGE, ImageTable.ALL_COLUMNS, null, null, ImageTable.COLUMN_TIMESTAMP);
     }
 
-    private transient Cursor mLoadedImagesCursor;
     private transient AsyncTask mLoadedImagesTask;
     public synchronized void onLoadFinished(Loader<Cursor> loader, Cursor data) {
-        // Swap the new cursor in.  (The framework will take care of closing the
-        // old cursor once we return.)
         Log.d("Image", "Loaded images with loader: " + data.getCount());
-        mLoadedImagesCursor = data;
-        mLoadedImagesTask = new AsyncTask<Void, Void, Map<String, Image>>() {
+        if (mLoadedImagesTask != null) {
+            mLoadedImagesTask.cancel(true);
+        }
+        mLoadedImagesTask = new AsyncTask<Cursor, Void, Map<String, Image>>() {
+
             @Override
-            public Map<String, Image> doInBackground(Void... nothing) {
-                mLoadedImagesCursor.moveToFirst();
-                Map<String, Image> map = new HashMap<>(mLoadedImagesCursor.getCount());
-                while (!isCancelled() && !mLoadedImagesCursor.isAfterLast()) {
-                    Image curr;
+            public Map<String, Image> doInBackground(Cursor... toLoads) {
+                Cursor toLoad = toLoads[0];
+                toLoad.moveToFirst();
+                Map<String, Image> map = new HashMap<>(toLoad.getCount());
+                while (!isCancelled() && !toLoad.isAfterLast()) {
+                    Image curr = null;
                     synchronized (RiddleFragment.this) {
-                        curr = Image.loadFromCursor(getActivity().getApplicationContext(), mLoadedImagesCursor);
+                        if (!isCancelled() && !toLoad.isClosed()) {
+                            curr = Image.loadFromCursor(getActivity().getApplicationContext(), toLoad);
+                        }
                     }
                     if (!isCancelled()) {
                         if (curr != null) {
                             map.put(curr.getHash(), curr);
                         }
-                        mLoadedImagesCursor.moveToNext();
+                        toLoad.moveToNext();
                     }
                 }
                 if (isCancelled()) {
                     Log.e("Riddle", "Cancelled loaded images task, currently in map: " + map.size());
-                    mLoadedImagesCursor = null;
                 }
                 return map;
             }
@@ -719,7 +721,7 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
                 updateNextRiddleButton();
                 nextRiddleIfEmpty();
             }
-        }.execute();
+        }.execute(data);
 
     }
 
