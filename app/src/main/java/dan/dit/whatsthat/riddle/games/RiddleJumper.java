@@ -57,6 +57,7 @@ public class RiddleJumper extends RiddleGame implements FlatWorldCallback {
 
     //variable constants
     private static final long BACKGROUND_SLIDE_DURATION = 30000L; //ms
+    private static final long FRAME_DURATION_RUNNER = 90L; //ms
     private static final long FRAME_DURATION = 125L; //ms
     private static final float RUNNER_LEFT_OFFSET = 10.f; // pixel
     private static final float JUMP_RELATIVE_HEIGHT_DELTA = 1.25f;
@@ -291,7 +292,7 @@ public class RiddleJumper extends RiddleGame implements FlatWorldCallback {
         List<Obstacle> obstacles = mObstacles.get(difficulty);
         int startCount = obstacles.size();
         while (obstacles.size() - startCount < EASY_SMALL_OBSTACLES) {
-            FramesOneshot feuerFrames = new FramesOneshot(monsterFeuer, (long) ((0.4 + mRand.nextDouble() * 0.6) *  OBSTACLES_RIGHT_LEFT_DURATION) );
+            FramesOneshot feuerFrames = new FramesOneshot(monsterFeuer, (long) ((0.6 + mRand.nextDouble() * 0.7) *  OBSTACLES_RIGHT_LEFT_DURATION) );
             feuerFrames.setEndFrameIndex(monsterFeuer.length - 1);
             obstacles.add(Obstacle.makeObstacle(feuerFrames, 0.9f, 0.85f, mConfig.mWidth,
                     getTopForRelativeHeight(OBSTACLE_RELATIVE_HEIGHT_SMALL), NEXT_OBSTACLE_MIN_TIME_SMALL, mWorld, mObstaclesSpeed, 0));
@@ -386,13 +387,17 @@ public class RiddleJumper extends RiddleGame implements FlatWorldCallback {
             fallingImage,
             ImageUtil.loadBitmap(res, R.drawable.schritt2, mConfig.mWidth, mRunnerHeight, false),
             ImageUtil.loadBitmap(res, R.drawable.schritt3, mConfig.mWidth, mRunnerHeight, false),
-            ImageUtil.loadBitmap(res, R.drawable.schritt4, mConfig.mWidth, mRunnerHeight, false)}, FRAME_DURATION);
+            ImageUtil.loadBitmap(res, R.drawable.schritt4, mConfig.mWidth, mRunnerHeight, false),
+            ImageUtil.loadBitmap(res, R.drawable.schritt5, mConfig.mWidth, mRunnerHeight, false),
+            ImageUtil.loadBitmap(res, R.drawable.schritt6, mConfig.mWidth, mRunnerHeight, false),
+            ImageUtil.loadBitmap(res, R.drawable.schritt7, mConfig.mWidth, mRunnerHeight, false),
+            ImageUtil.loadBitmap(res, R.drawable.schritt8, mConfig.mWidth, mRunnerHeight, false)}, FRAME_DURATION_RUNNER);
         Look runnerFramesJumpUp = new Frames(new Bitmap[] {
-                ImageUtil.loadBitmap(res, R.drawable.schritt5, mConfig.mWidth, mRunnerHeight, false)}, FRAME_DURATION);
+                ImageUtil.loadBitmap(res, R.drawable.schrittjump, mConfig.mWidth, mRunnerHeight, false)}, FRAME_DURATION_RUNNER);
         Look runnerFramesJumpDown = new Frames(new Bitmap[] {
-                fallingImage}, FRAME_DURATION);
+                fallingImage}, FRAME_DURATION_RUNNER);
         Look runnerFramesCollision = new Frames(new Bitmap[] {
-                ImageUtil.loadBitmap(res, R.drawable.schritt6, mConfig.mWidth, mRunnerHeight, false)}, FRAME_DURATION);
+                ImageUtil.loadBitmap(res, R.drawable.schrittko, mConfig.mWidth, mRunnerHeight, false)}, FRAME_DURATION_RUNNER);
         mRunner = Runner.makeRunner(runnerFramesRun, 0.5f, 0.8f, RUNNER_LEFT_OFFSET, getTopForRelativeHeight(RELATIVE_HEIGHT_BASELINE), mWorld);
         mRunner.putStateFrames(HitboxJumpMover.STATE_JUMP_ASCENDING, runnerFramesJumpUp);
         mRunner.putStateFrames(HitboxJumpMover.STATE_JUMP_FALLING, runnerFramesJumpDown);
