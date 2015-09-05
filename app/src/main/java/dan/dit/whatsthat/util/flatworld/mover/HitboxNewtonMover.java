@@ -21,6 +21,21 @@ public class HitboxNewtonMover extends HitboxMover {
         setSpeed(speedX, speedY);
     }
 
+    /**
+     * Creates a new newton mover that moves the given delta with the given speed.
+     * The speed is in units per second! Take care that this will not stop the mover after
+     * exceeding the given delta, if this is wanted stop it after timeout defined by distance
+     * and the given speed.
+     * @param deltaX The x delta defining the x speed together with the given total speed.
+     * @param deltaY The y delta defining the y speed together with the given total speed.
+     * @param speed The total speed of the mover.
+     */
+    public HitboxNewtonMover(float deltaX, float deltaY, float speed) {
+        double dist = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+        float time = (float) (dist / speed);
+        setSpeed(deltaX / time, deltaY / time);
+    }
+
     public void setSpeed(float speedX, float speedY) {
         mSpeedX = speedX;
         mSpeedY = speedY;

@@ -192,7 +192,7 @@
     <string name="author_info_apply_to_others">Auf alle anderen Bilder übertragen</string>
     <string name="bundle_creator_author_source_descr">Bildherkunft</string>
     <string name="bundle_creator_author_source_hint">z.B. Website oder \"Privat\"</string>
-    <string name="bundle_creator_author_extras_descr">Lizenz, Title, …</string>
+    <string name="bundle_creator_author_extras_descr">Lizenz, Titel, …</string>
     <string name="bundle_creator_author_extras_hint">Alles was relevant ist</string>
     <string name="bundle_creator_save_bundle">Paket erstellen</string>
     <string name="select_images_from_gallery">Bilder wählen</string>

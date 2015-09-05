@@ -492,7 +492,7 @@ public class RiddleMemory extends RiddleGame {
                             if (card.uncover()) {
                                 card.mCoverState--;
                             }
-                            if (card.isPairUncovered()) {
+                            if (card.isPairUncovered() && card != this && card != mDoppelganger) {
                                 uncoveredPairsCount++;
                             }
                         } else {
@@ -500,7 +500,7 @@ public class RiddleMemory extends RiddleGame {
                         }
                     }
                     if (uncoveredPairsCount > 0) {
-                        incrementGameAchievementValue(AchievementMemory.KEY_GAME_UNCOVERED_PAIRS_BY_PATH_COUNT, uncoveredPairsCount / 2);
+                        incrementGameAchievementValue(AchievementMemory.KEY_GAME_UNCOVERED_PAIRS_BY_PATH_COUNT, uncoveredPairsCount);
                     }
                 }
             }
@@ -556,6 +556,11 @@ public class RiddleMemory extends RiddleGame {
                 }
                 mCoverState = Math.max(mCoverState, STATE_COVERED_GREEN); //just to make sure we are never in an illegal state, works without though
             }
+        }
+
+        @Override
+        public String toString() {
+            return "Card at " + mX + "/" + mY + " name: " + mMemoryImage.getName();
         }
     }
 

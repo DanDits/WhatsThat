@@ -33,7 +33,7 @@ public class Actor {
         }
     }
 
-    private void setMover(HitboxMover mover) {
+    protected void setMover(HitboxMover mover) {
         mMover = mover;
         if (mover == null) {
             throw new IllegalArgumentException("Illegal mover!");
@@ -74,11 +74,13 @@ public class Actor {
         }
     }
 
-    public void setStateFrames(int state) {
+    public boolean setStateFrames(int state) {
         Look newLook = mStateFrames.get(state);
         if (newLook != null) {
             mCurrentLook = newLook;
+            return true;
         }
+        return false;
     }
 
     public void onLeaveWorld() {}

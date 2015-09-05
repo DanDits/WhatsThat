@@ -12,8 +12,10 @@ public class CircleLook extends Look {
         CIRCLE_PAINT.setStyle(Paint.Style.FILL);
         CIRCLE_PAINT.setAntiAlias(true);
     }
-    private final float mRadius;
+    private float mRadius;
     private int mColor;
+    private float mOffsetX;
+    private float mOffsetY;
 
     public CircleLook(float radius, int color) {
         mRadius = radius;
@@ -47,7 +49,7 @@ public class CircleLook extends Look {
         }
         paint.setColor(mColor);
         paint.setStyle(Paint.Style.FILL);
-        canvas.drawCircle(x, y, mRadius, paint);
+        canvas.drawCircle(x + mOffsetX + mRadius, y + mOffsetY + mRadius, mRadius, paint);
         if (paint != CIRCLE_PAINT) {
             paint.setColor(oldColor);
             paint.setStyle(oldStyle);
@@ -58,5 +60,14 @@ public class CircleLook extends Look {
 
     @Override
     public void reset() {
+    }
+
+    public void setRadius(float radius) {
+        mRadius = radius;
+    }
+
+    public void setOffset(float offsetX, float offsetY) {
+        mOffsetX = offsetX;
+        mOffsetY = offsetY;
     }
 }

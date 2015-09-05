@@ -86,7 +86,7 @@ public class InitializationFragment extends Fragment implements ImageManager.Syn
     }
 
     private synchronized void checkDataState() {
-        boolean mandatoryIntroDone = mIntro == null || !mIntro.isMandatoryEpisodeMissing();
+        boolean mandatoryIntroDone = mIntro != null && !mIntro.isMandatoryEpisodeMissing(); //TODO correct?
         if (!RiddleInitializer.INSTANCE.isInitializing() && !ImageManager.isSyncing() && TestSubject.isInitialized()
                 && mandatoryIntroDone) {
             if (mState != STATE_READY) {

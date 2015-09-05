@@ -587,8 +587,17 @@ public class Types {
      */
     public static class Lazor extends PracticalRiddleType {
         public static final String NAME = "Lazor";
+        private static final double BITMAP_ASPECT_RATIO = 5. / 4.;
+
         @Override
         protected String getName() {return NAME;}
+
+        @Override
+        public double getSuggestedBitmapAspectRatio() {
+            return BITMAP_ASPECT_RATIO;
+        }
+        @Override
+        public boolean enforcesBitmapAspectRatio() {return true;}
 
         @Override
         public RiddleGame makeRiddle(Riddle riddle, Image image, Bitmap bitmap, Resources res, RiddleConfig config, PercentProgressListener listener) {
@@ -610,6 +619,7 @@ public class Types {
         @Override
         public int getInterestValue(RiddleType typeToCheck) {
             int interest = super.getInterestValue(typeToCheck);
+            interest += typeToCheck.getInterestValueIfEqual(FormatRiddleType.LANDSCAPE_INSTANCE);
             interest += typeToCheck.getInterestValueIfEqual(ContentRiddleType.CONTRAST_WEAK_INSTANCE);
             return interest;
         }

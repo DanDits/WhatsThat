@@ -37,7 +37,6 @@ public class GeneralHitboxCollider extends CollisionController {
             for (int i = 0; i < mChecksCount; i++) {
                 if (box1.checkRandomPointCollision(box2, mRand, mBoundIntersection)
                         || box2.checkRandomPointCollision(box1, mRand, mBoundIntersection)) {
-                    Log.e("HomeStuff", "Collision not found with visitor!!");
                     return true;
                 }
             }
