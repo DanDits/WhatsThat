@@ -52,10 +52,12 @@ public class RiddleLazor extends RiddleGame implements FlatWorldCallback {
     private static final float CANNON_BEAM_FRACTION_OF_SCREEN_DIAGONAL = 0.005f;
     private static final float CANNONBALL_RADIUS_FRACTION_OF_SCREEN_DIAGONAL = 0.03f;
     private static final float CANNONBALL_DIAGONAL_DURATION = 10000.f; //ms
-    private static final long CANNON_DEFAULT_RELOAD_DURATION = Cannon.LOADING_STATES_COUNT * 1000L;
+    private static final long CANNON_DEFAULT_RELOAD_DURATION = Cannon.LOADING_STATES_COUNT * 2000L;
     private static final long CANNONBALL_EXPLOSION_DURATION = 2000L;
     private static final float CANNONBALL_EXPLOSION_MAX_GROWTH_FACTOR = 2.f;
+    private static final int CANNONBALL_EXPLOSION_COLOR = 0xFFEDD2F5;
     private static final long CANNON_FRAME_DURATION = 100L;//ms
+    private static final float CANNON_RADIUS_FRACTION_OF_WIDTH = 0.09f;
 
     private FlatRectWorld mFlatWorld;
     private float mDiagonal;
@@ -184,8 +186,8 @@ public class RiddleLazor extends RiddleGame implements FlatWorldCallback {
         int size = (int) (mCannonBallRadiusPixels * 2);
         mCannonBall = ImageUtil.loadBitmap(res, R.drawable.laser_alpha, size, size, BitmapUtil.MODE_FIT_EXACT);
 
-        float cannonWallOffset = ImageUtil.convertDpToPixel(5.f, mConfig.mScreenDensity);
-        float cannonRadius = cannonWallOffset * 4;
+        float cannonWallOffsetX = ImageUtil.convertDpToPixel(2.f, mConfig.mScreenDensity);
+        float cannonRadius = CANNON_RADIUS_FRACTION_OF_WIDTH * mConfig.mWidth;
         int cannonSize = (int) (cannonRadius * 2);
         Bitmap[] loadedFrames = new Bitmap[] {ImageUtil.loadBitmap(res, R.drawable.lazor_loaded_frame1, cannonSize, cannonSize, BitmapUtil.MODE_FIT_EXACT)};
         Bitmap[] loading1Frames = new Bitmap[] {ImageUtil.loadBitmap(res, R.drawable.lazor_level1_frame1, cannonSize, cannonSize, BitmapUtil.MODE_FIT_EXACT),
@@ -195,16 +197,14 @@ public class RiddleLazor extends RiddleGame implements FlatWorldCallback {
 
         Bitmap[] firedFrames = new Bitmap[] {ImageUtil.loadBitmap(res, R.drawable.lazor_fired_frame1, cannonSize, cannonSize, BitmapUtil.MODE_FIT_EXACT)};
 
-
-
-        mCannonLeft = new Cannon(new HitboxCircle(cannonWallOffset + cannonRadius, mConfig.mHeight - cannonRadius - cannonWallOffset, cannonRadius),
+        mCannonLeft = new Cannon(new HitboxCircle(cannonRadius + cannonWallOffsetX, mConfig.mHeight, cannonRadius),
                 HitboxNoMover.INSTANCE, loadedFrames,
-                (int) cannonRadius, - (int) cannonRadius);
+                0, - (int) cannonRadius);
         mCannonLeft.initLoadingLooks(loading1Frames, loading2Frames, firedFrames);
         mFlatWorld.addActor(mCannonLeft);
-        mCannonRight = new Cannon(new HitboxCircle(mConfig.mWidth - cannonRadius - cannonWallOffset, mConfig.mHeight - cannonRadius - cannonWallOffset, cannonRadius),
+        mCannonRight = new Cannon(new HitboxCircle(mConfig.mWidth - cannonRadius - cannonWallOffsetX, mConfig.mHeight, cannonRadius),
                 HitboxNoMover.INSTANCE, loadedFrames,
-                - (int) cannonRadius, - (int) cannonRadius);
+                 0, - (int) cannonRadius);
         mCannonRight.initLoadingLooks(loading1Frames, loading2Frames, firedFrames);
         mFlatWorld.addActor(mCannonRight);
     }
@@ -358,8 +358,8 @@ public class RiddleLazor extends RiddleGame implements FlatWorldCallback {
 
     private class Cannon extends Actor {
         private static final int STATE_LOADED = 0;
-        private static final int STATE_LOADING_1 = 1;
-        private static final int STATE_LOADING_2 = 2;
+        private static final int STATE_LOADING_2 = 1;
+        private static final int STATE_LOADING_1 = 2;
         private static final int STATE_JUST_SHOT = 3;
         private static final int LOADING_STATES_COUNT = 3;
 
@@ -374,12 +374,18 @@ public class RiddleLazor extends RiddleGame implements FlatWorldCallback {
             putStateFrames(STATE_LOADED, mCurrentLook);
             mCannonShootStartOffsetX = shootStartOffsetX;
             mCannonShootStartOffsetY = shootStartOffsetY;
+            offsetLook(mCurrentLook);
+        }
+
+        private Look offsetLook(Look look) {
+            look.setOffset(0, -getHitbox().getBoundingRect().height() / 2);
+            return look;
         }
 
         private void initLoadingLooks(Bitmap[] loading1, Bitmap[] loading2, Bitmap[] loadingJustShot) {
-            putStateFrames(STATE_LOADING_1, new Frames(loading1, CANNON_FRAME_DURATION));
-            putStateFrames(STATE_LOADING_2, new Frames(loading2, CANNON_FRAME_DURATION));
-            putStateFrames(STATE_JUST_SHOT, new Frames(loadingJustShot, CANNON_FRAME_DURATION));
+            putStateFrames(STATE_LOADING_1, offsetLook(new Frames(loading1, CANNON_FRAME_DURATION)));
+            putStateFrames(STATE_LOADING_2, offsetLook(new Frames(loading2, CANNON_FRAME_DURATION)));
+            putStateFrames(STATE_JUST_SHOT, offsetLook(new Frames(loadingJustShot, CANNON_FRAME_DURATION)));
         }
 
         @Override
@@ -488,7 +494,7 @@ public class RiddleLazor extends RiddleGame implements FlatWorldCallback {
                 Log.d("Riddle", "Started exploding cannon ball.");
                 mTimeout = 0L;
                 mExplosionDuration = CANNONBALL_EXPLOSION_DURATION;
-                mExplosionLook = new CircleLook(mHitbox.getRadius(), Color.GRAY);
+                mExplosionLook = new CircleLook(mHitbox.getRadius(), CANNONBALL_EXPLOSION_COLOR);
                 setMover(HitboxNoMover.INSTANCE);
                 putStateFrames(0, mExplosionLook);
                 setStateFrames(0);
@@ -564,7 +570,14 @@ public class RiddleLazor extends RiddleGame implements FlatWorldCallback {
         @Override
         public void onLeaveWorld() {
             mFlatWorld.removeActor(this);
-            mLayersCanvas[mColorType].drawLine(mStartX, mStartY, mHitbox.getCenterX(), mHitbox.getCenterY(), mClearColorTypePaint);
+            if (mColorType == COLOR_TYPE_BONUS) {
+                //clear from all layers
+                for (int type : COLOR_TYPES) {
+                    mLayersCanvas[type].drawLine(mStartX, mStartY, mHitbox.getCenterX(), mHitbox.getCenterY(), mClearColorTypePaint);
+                }
+            } else {
+                mLayersCanvas[mColorType].drawLine(mStartX, mStartY, mHitbox.getCenterX(), mHitbox.getCenterY(), mClearColorTypePaint);
+            }
             mRefreshLayers = true;
         }
     }

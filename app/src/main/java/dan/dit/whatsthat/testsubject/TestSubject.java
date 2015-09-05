@@ -204,7 +204,10 @@ public class TestSubject {
         if (typesData != null) {
             for (String typeRaw : typesData) {
                 try {
-                    mTypes.add(new TestSubjectRiddleType(new Compacter(typeRaw)));
+                    TestSubjectRiddleType type = new TestSubjectRiddleType(new Compacter(typeRaw));
+                    if (!mTypes.contains(type)) {
+                        mTypes.add(type);
+                    }
                 } catch (CompactedDataCorruptException e) {
                     Log.e("HomeStuff", "Could not load testsubject riddle type: " + e);
                 }

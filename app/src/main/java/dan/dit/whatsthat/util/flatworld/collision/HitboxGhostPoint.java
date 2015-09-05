@@ -5,6 +5,8 @@ import android.graphics.RectF;
 import java.util.Random;
 
 /**
+ * A hitbox without any collision and no inside that exists only at exactly one coordinate
+ * which is its center.
  * Created by daniel on 26.06.15.
  */
 public class HitboxGhostPoint extends Hitbox {
@@ -26,12 +28,12 @@ public class HitboxGhostPoint extends Hitbox {
 
     @Override
     public boolean isInside(float x, float y) {
-        return mX == x && mY == y;
+        return false;
     }
 
     @Override
     public boolean checkRandomPointCollision(Hitbox other, Random rand, RectF pointInRect) {
-        return other.isInside(mX, mY);
+        return false;
     }
 
     private void updateBounds() {
