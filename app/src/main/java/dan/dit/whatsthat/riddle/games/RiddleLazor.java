@@ -43,19 +43,20 @@ import dan.dit.whatsthat.util.image.ImageUtil;
  * Created by daniel on 04.09.15.
  */
 public class RiddleLazor extends RiddleGame implements FlatWorldCallback {
-    private static final long TIME_TILL_NEXT_METEOR = 5000L; //ms, temporary solution
-    private static final float METEOR_BEAM_WIDTH_FRACTION_OF_SCREEN_DIAGONAL = 0.015f;
-    private static final float METEOR_RADIUS_FRACTION_OF_SCREEN_DIAGONAL = 0.02f;
-    private static final float METEOR_DIAGONAL_DURATION = 10000.f; //ms, time for a meteor that moves directly from top left to bottom right
+    private static final long TIME_TILL_NEXT_METEOR = 2750L; //ms, temporary solution
+    private static final float METEOR_BEAM_WIDTH_FRACTION_OF_SCREEN_DIAGONAL = 0.018f; //meteor trail width
+    private static final float METEOR_RADIUS_FRACTION_OF_SCREEN_DIAGONAL = 0.025f; //meteor head radius
+    private static final float METEOR_DIAGONAL_DURATION = 9000.f; //ms, time for a meteor that moves directly from top left to bottom right
     private static final float ONE_SECOND = 1000.f; // ms, one second, fixed
-    private static final double CHANCE_FOR_BONUS_BEAM = 0.1;
+    private static final double CHANCE_FOR_BONUS_BEAM = 0.15; //chance for super beam
     private static final float CANNON_BEAM_FRACTION_OF_SCREEN_DIAGONAL = 0.005f;
     private static final float CANNONBALL_RADIUS_FRACTION_OF_SCREEN_DIAGONAL = 0.03f;
-    private static final float CANNONBALL_DIAGONAL_DURATION = 10000.f; //ms
-    private static final long CANNON_DEFAULT_RELOAD_DURATION = Cannon.LOADING_STATES_COUNT * 2000L;
+    private static final float CANNONBALL_DIAGONAL_DURATION = 9000.f; //ms
+    private static final long CANNON_DEFAULT_RELOAD_DURATION = Cannon.LOADING_STATES_COUNT * 1500L; //for each loading state (3atm) wait x ms
     private static final long CANNONBALL_EXPLOSION_DURATION = 2000L;
-    private static final float CANNONBALL_EXPLOSION_MAX_GROWTH_FACTOR = 2.f;
-    private static final int CANNONBALL_EXPLOSION_COLOR = 0xFFEDD2F5;
+    private static final float CANNONBALL_EXPLOSION_MAX_GROWTH_FACTOR = 2.3f;
+    private static final int CANNONBALL_EXPLOSION_COLOR = 0xFFa6a6a6;
+    private static final long CANNON_LOADED_FRAME_DURATION = 150L;//ms
     private static final long CANNON_FRAME_DURATION = 100L;//ms
     private static final float CANNON_RADIUS_FRACTION_OF_WIDTH = 0.09f;
 
@@ -189,7 +190,11 @@ public class RiddleLazor extends RiddleGame implements FlatWorldCallback {
         float cannonWallOffsetX = ImageUtil.convertDpToPixel(2.f, mConfig.mScreenDensity);
         float cannonRadius = CANNON_RADIUS_FRACTION_OF_WIDTH * mConfig.mWidth;
         int cannonSize = (int) (cannonRadius * 2);
-        Bitmap[] loadedFrames = new Bitmap[] {ImageUtil.loadBitmap(res, R.drawable.lazor_loaded_frame1, cannonSize, cannonSize, BitmapUtil.MODE_FIT_EXACT)};
+        Bitmap[] loadedFrames = new Bitmap[] {ImageUtil.loadBitmap(res, R.drawable.lazor_loaded_frame1, cannonSize, cannonSize, BitmapUtil.MODE_FIT_EXACT),
+                ImageUtil.loadBitmap(res, R.drawable.lazor_loaded_frame2, cannonSize, cannonSize, BitmapUtil.MODE_FIT_EXACT),
+                ImageUtil.loadBitmap(res, R.drawable.lazor_loaded_frame3, cannonSize, cannonSize, BitmapUtil.MODE_FIT_EXACT),
+                null};
+        loadedFrames[3] = loadedFrames[1];
         Bitmap[] loading1Frames = new Bitmap[] {ImageUtil.loadBitmap(res, R.drawable.lazor_level1_frame1, cannonSize, cannonSize, BitmapUtil.MODE_FIT_EXACT),
                 ImageUtil.loadBitmap(res, R.drawable.lazor_level1_frame2, cannonSize, cannonSize, BitmapUtil.MODE_FIT_EXACT)};
         Bitmap[] loading2Frames = new Bitmap[] {ImageUtil.loadBitmap(res, R.drawable.lazor_level2_frame1, cannonSize, cannonSize, BitmapUtil.MODE_FIT_EXACT),
@@ -369,7 +374,7 @@ public class RiddleLazor extends RiddleGame implements FlatWorldCallback {
         private long mLoadingStateCounter;
 
         public Cannon(Hitbox hitbox, HitboxMover mover, Bitmap[] lookLoaded, int shootStartOffsetX, int shootStartOffsetY) {
-            super(hitbox, mover, new Frames(lookLoaded, CANNON_FRAME_DURATION));
+            super(hitbox, mover, new Frames(lookLoaded, CANNON_LOADED_FRAME_DURATION));
             setActive(true);
             putStateFrames(STATE_LOADED, mCurrentLook);
             mCannonShootStartOffsetX = shootStartOffsetX;
