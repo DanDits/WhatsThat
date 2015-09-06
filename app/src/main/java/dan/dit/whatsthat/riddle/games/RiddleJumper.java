@@ -293,7 +293,6 @@ public class RiddleJumper extends RiddleGame implements FlatWorldCallback {
         int startCount = obstacles.size();
         while (obstacles.size() - startCount < EASY_SMALL_OBSTACLES) {
             FramesOneshot feuerFrames = new FramesOneshot(monsterFeuer, (long) ((0.6 + mRand.nextDouble() * 0.7) *  OBSTACLES_RIGHT_LEFT_DURATION) );
-            feuerFrames.setEndFrameIndex(monsterFeuer.length - 1);
             obstacles.add(Obstacle.makeObstacle(feuerFrames, 0.9f, 0.85f, mConfig.mWidth,
                     getTopForRelativeHeight(OBSTACLE_RELATIVE_HEIGHT_SMALL), NEXT_OBSTACLE_MIN_TIME_SMALL, mWorld, mObstaclesSpeed, 0));
             Look teufelFrames = new Frames(monsterTeufel, FRAME_DURATION);

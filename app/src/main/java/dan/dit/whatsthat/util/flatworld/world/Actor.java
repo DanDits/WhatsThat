@@ -105,4 +105,7 @@ public class Actor {
         mCurrentLook.reset();
     }
 
+    public void onReachedEndOfWorld() {
+
+    }
 }

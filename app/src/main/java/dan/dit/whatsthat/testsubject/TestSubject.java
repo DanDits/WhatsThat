@@ -89,7 +89,10 @@ public class TestSubject {
     private TestSubject() {
     }
 
-    public static TestSubject initialize(Context context) {
+    public static synchronized TestSubject initialize(Context context) {
+        if (isInitialized()) {
+            return INSTANCE;
+        }
         INSTANCE.mApplicationContext = context.getApplicationContext();
         AchievementManager.initialize(INSTANCE.mApplicationContext);
         INSTANCE.initPreferences();

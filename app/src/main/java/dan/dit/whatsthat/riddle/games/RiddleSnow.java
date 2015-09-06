@@ -33,6 +33,7 @@ import dan.dit.whatsthat.util.flatworld.collision.GeneralHitboxCollider;
 import dan.dit.whatsthat.util.flatworld.collision.Hitbox;
 import dan.dit.whatsthat.util.flatworld.collision.HitboxCircle;
 import dan.dit.whatsthat.util.flatworld.effects.WorldEffect;
+import dan.dit.whatsthat.util.flatworld.look.BitmapLook;
 import dan.dit.whatsthat.util.flatworld.look.CircleLook;
 import dan.dit.whatsthat.util.flatworld.look.Frames;
 import dan.dit.whatsthat.util.flatworld.look.Look;
@@ -693,8 +694,8 @@ public class RiddleSnow extends RiddleGame implements FlatWorldCallback {
 
     private Idea makeIdea(float x, float y, float radius, Bitmap candy, Bitmap toxic) {
         HitboxCircle hitbox = new HitboxCircle(x, y, radius);
-        Look candyLook = new Frames(candy);
-        Look toxicLook = new Frames(toxic);
+        Look candyLook = new BitmapLook(candy);
+        Look toxicLook = new BitmapLook(toxic);
         return new Idea(hitbox, candyLook, toxicLook);
     }
 
@@ -790,7 +791,7 @@ public class RiddleSnow extends RiddleGame implements FlatWorldCallback {
         HitboxCircle hitbox = new HitboxCircle(x, y, radius);
         Look[] looks = new Look[stateImages.length];
         for (int i = 0; i < stateImages.length; i++) {
-            looks[i] = new Frames(stateImages[i]);
+            looks[i] = new BitmapLook(stateImages[i]);
         }
         HitboxMoonMover moonMover = new HitboxMoonMover(cell.getHitbox(), 1, ImageUtil.convertDpToPixel(7.f, mConfig.mScreenDensity));
         return new Devil(hitbox, moonMover, state, looks, res);

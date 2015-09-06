@@ -28,14 +28,12 @@ public class Frames extends Look {
         }
     }
 
-    public Frames(Bitmap singleImage) {
-        this(new Bitmap[] {singleImage}, 0L);
-    }
-
+    @Override
     public int getWidth() {
         return mFrames[0].getWidth();
     }
 
+    @Override
     public int getHeight() {
         return mFrames[0].getHeight();
     }

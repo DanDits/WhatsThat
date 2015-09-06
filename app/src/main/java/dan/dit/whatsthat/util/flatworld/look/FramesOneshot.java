@@ -7,14 +7,9 @@ import android.graphics.Bitmap;
  */
 public class FramesOneshot extends Frames {
     private boolean mAnimationDone;
-    private int mEndFrameIndex;
 
     public FramesOneshot(Bitmap[] frames, long animationDuration) {
         super(frames, animationDuration / (frames.length > 1 ? frames.length - 1 : 1));
-    }
-
-    public void setEndFrameIndex(int index) {
-        mEndFrameIndex = index;
     }
 
     @Override
@@ -23,7 +18,7 @@ public class FramesOneshot extends Frames {
             boolean updated = super.update(updatePeriod);
             if (updated && mFrameIndex == 0) {
                 mAnimationDone = true;
-                mFrameIndex = mEndFrameIndex;
+                mFrameIndex = getCount() - 1;
             }
             return updated;
         }

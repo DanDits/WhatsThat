@@ -16,7 +16,7 @@ public class LayerFrames extends Frames {
         super(frames, frameDuration);
         mLayers = backgroundLayers;
         if (backgroundLayers < 1) {
-            throw new IllegalArgumentException("Use HitboxFrames for no background layers.");
+            throw new IllegalArgumentException("Use Frames for no background layers.");
         }
         mFrameLayers = new Bitmap[frames.length][mLayers];
     }
