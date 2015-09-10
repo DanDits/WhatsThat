@@ -13,16 +13,19 @@ import android.widget.TabHost;
 
 import dan.dit.whatsthat.R;
 import dan.dit.whatsthat.image.BundleCreator;
+import dan.dit.whatsthat.image.BundleManager;
 import dan.dit.whatsthat.util.ui.UiStyleUtil;
 
 /**
  * Created by daniel on 02.09.15.
  */
 public class WorkshopView extends FrameLayout implements StoreContainer {
+    private static final String TAB_BUNDLE_MANAGER = "bundle_manager";
     private static final String TAB_BUNDLE_CREATOR = "bundle_creator";
     private static final String TAB_MOSAIC = "mosaic";
     private TabHost mTabHost;
     private BundleCreator mBundleCreator;
+    private BundleManager mBundleManager;
 
     public WorkshopView(Context context) {
         super(context);
@@ -48,6 +51,7 @@ public class WorkshopView extends FrameLayout implements StoreContainer {
     private void initializeTabHost(FragmentActivity activity) {
         mTabHost.setup();
         TabFactory factory = new TabFactory(activity);
+        addTab(mTabHost, factory, mTabHost.newTabSpec(TAB_BUNDLE_MANAGER).setIndicator(getResources().getString(R.string.workshop_tab_bundle_manager)));
         addTab(mTabHost, factory, mTabHost.newTabSpec(TAB_BUNDLE_CREATOR).setIndicator(getResources().getString(R.string.workshop_tab_bundle_creator)));
         addTab(mTabHost, factory, mTabHost.newTabSpec(TAB_MOSAIC).setIndicator(getResources().getString(R.string.workshop_tab_mosaic)));
 
@@ -85,13 +89,24 @@ public class WorkshopView extends FrameLayout implements StoreContainer {
         public View createTabContent(String tag) {
             if (tag.equals(TAB_BUNDLE_CREATOR)) {
                 mBundleCreator = new BundleCreator(mActivity);
+                assureManagerListens();
                 return mBundleCreator.getView();
             } else if (tag.equals(TAB_MOSAIC)) {
                 return mInflater.inflate(R.layout.workshop_mosaic, null);
+            } else if (tag.equals(TAB_BUNDLE_MANAGER)) {
+                mBundleManager = new BundleManager(mActivity);
+                assureManagerListens();
+                return mBundleManager.getView();
             }
             return null;
         }
 
+    }
+
+    private void assureManagerListens() {
+        if (mBundleManager != null && mBundleCreator != null) {
+            mBundleCreator.addOnBundleCreatedListener(mBundleManager);
+        }
     }
 
     @Override

@@ -171,7 +171,8 @@
     <string name="send_log_title">Sorry, die App ist abgestürzt</string>
     <string name="article_hint_no_translation">Hinweis für diese Sprache nicht verfügbar.</string>
 
-    <string name="workshop_tab_bundle_creator">Bilderpaket erstellen</string>
+    <string name="workshop_tab_bundle_creator">Paket Ersteller</string>
+    <string name="workshop_tab_bundle_manager">Pakete Manager</string>
     <string name="workshop_tab_mosaic">Mosaik Generator</string>
     <string name="bundle_creator_bundle_name_descr">Neuer Paket Name</string>
     <string name="bundle_creator_bundle_name_hint">z.B. \"CoolPix\"</string>

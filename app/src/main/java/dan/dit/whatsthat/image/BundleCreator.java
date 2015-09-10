@@ -109,6 +109,7 @@ public class BundleCreator {
     private boolean mSaving;
     private int mSaveResult;
     private boolean mApplyToOthersStateRemoveConnection;
+    private BundleManager mBundleManger;
 
     public BundleCreator(Activity activity) {
         mSaveResult = ImageXmlWriter.RESULT_NONE;
@@ -326,10 +327,13 @@ public class BundleCreator {
             toSave.addAll(mSelectedBitmaps);
         }
         new AsyncTask<Void, Void, Void>() {
-
+            public String mmBundleName;
+            private String mmOrigin;
             @Override
             protected Void doInBackground(Void... params) {
-                mSaveResult = ImageXmlWriter.writeBundle(mActivity, toSave, User.getInstance().getOriginName(), mBundleNameText);
+                mmOrigin = User.getInstance().getOriginName();
+                mmBundleName = mBundleNameText;
+                mSaveResult = ImageXmlWriter.writeBundle(mActivity, toSave, mmOrigin, mmBundleName);
                 Log.d("Image", "Write bundle, result: " + mSaveResult);
                 mSaving = false;
                 return null;
@@ -341,9 +345,12 @@ public class BundleCreator {
                     synchronized (mSelectedBitmaps) {
                         mSelectedBitmaps.clear();
                     }
-                    Toast.makeText(mActivity, mActivity.getResources().getString(R.string.bundle_creator_success, mBundleNameText), Toast.LENGTH_LONG).show();
+                    Toast.makeText(mActivity, mActivity.getResources().getString(R.string.bundle_creator_success, mmBundleName), Toast.LENGTH_LONG).show();
 
                     mBundleName.setText("");
+                    if (mBundleManger != null) {
+                        mBundleManger.onBundleCreated(mmOrigin, mmBundleName);
+                    }
                 } else if (mSaveResult == ImageXmlWriter.RESULT_TARGET_BUNDLE_EXISTS) {
 
                     Toast.makeText(mActivity, mActivity.getResources().getString(R.string.bundle_creator_failed_name_exists, mBundleNameText), Toast.LENGTH_LONG).show();
@@ -567,7 +574,7 @@ public class BundleCreator {
                     hasSharedAuthor = true;
                 }
             }
-        };
+        }
 
         mApplyToOthersStateRemoveConnection = allHaveAuthor && hasSharedAuthor;
         mAuthorApplyToOthers.setEnabled(current.mBuilder.getAuthor() != null && (mApplyToOthersStateRemoveConnection || !allHaveAuthor));
@@ -747,6 +754,9 @@ public class BundleCreator {
             return;
         }
         SelectedBitmap bitmap = getCurrentBitmap();
+        if (bitmap == null) {
+            return;
+        }
         List<Solution> solutions = bitmap.mBuilder.getSolutions();
         mSolutionWords.setText("");
         if (solutions != null) {
@@ -966,6 +976,10 @@ public class BundleCreator {
                 throw new IllegalStateException("No temp directory available");
             }
         }
+    }
+
+    public void addOnBundleCreatedListener(BundleManager bundleManager) {
+        mBundleManger = bundleManager;
     }
 
     public static class SelectedBitmap {

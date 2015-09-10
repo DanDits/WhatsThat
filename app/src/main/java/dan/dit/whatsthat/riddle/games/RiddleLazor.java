@@ -48,12 +48,12 @@ public class RiddleLazor extends RiddleGame implements FlatWorldCallback {
     private static final float METEOR_RADIUS_FRACTION_OF_SCREEN_DIAGONAL = 0.025f; //meteor head radius
     private static final float METEOR_DIAGONAL_DURATION = 9000.f; //ms, time for a meteor that moves directly from top left to bottom right
     private static final float ONE_SECOND = 1000.f; // ms, one second, fixed
-    private static final double CHANCE_FOR_BONUS_BEAM = 0.15; //chance for super beam
+    private static final double CHANCE_FOR_BONUS_BEAM = 0.12; //chance for super beam in percent
     private static final float CANNON_BEAM_FRACTION_OF_SCREEN_DIAGONAL = 0.005f;
     private static final float CANNONBALL_RADIUS_FRACTION_OF_SCREEN_DIAGONAL = 0.03f;
     private static final float CANNONBALL_DIAGONAL_DURATION = 9000.f; //ms
-    private static final long CANNON_RELOAD_DURATION_START = Cannon.LOADING_STATES_COUNT * 2100L; //for each loading state (3atm) wait x ms
-    private static final long CANNON_RELOAD_DURATION_DIFFICULTY_ULTRA = Cannon.LOADING_STATES_COUNT * 1100L;
+    private static final long CANNON_RELOAD_DURATION_START = Cannon.LOADING_STATES_COUNT * 1600L; //for each loading state (3atm) wait x ms
+    private static final long CANNON_RELOAD_DURATION_DIFFICULTY_ULTRA = Cannon.LOADING_STATES_COUNT * 500L;
 
     private static final long CANNONBALL_EXPLOSION_DURATION = 2000L;
     private static final float CANNONBALL_EXPLOSION_MAX_GROWTH_FACTOR = 2.3f;
@@ -64,11 +64,11 @@ public class RiddleLazor extends RiddleGame implements FlatWorldCallback {
     private static final float METEOR_EXPLOSION_RADIUS_FACTOR = 1.5f; // the factor on the radius of the meteor ball when exploding in the city
 
     private static final int DIFFICULTY_POINTS_GAIN_ON_METEOR_KILL = 1;
-    private static final int DIFFICULTY_POINTS_LOSS_ON_METEOR_EXPLOSION = 2;
+    private static final int DIFFICULTY_POINTS_LOSS_PER_DIFFICULTY = 1;
+    private static final int DIFFICULTY_AT_BEGINNING = 20;
     private static final float DIFFICULTY_ULTRA_AT = 100;
-    private static final float METEOR_SPAWN_TIME_START = 3500;;
-    private static final float METEOR_SPAWN_TIME_DIFFICULTY_ULTRA = 2000;
-    private static final int PROTECT_CITY_AT_DIFFICULTY = 40;
+    private static final float METEOR_SPAWN_TIME_START = 3800;;
+    private static final float METEOR_SPAWN_TIME_DIFFICULTY_ULTRA = 300;
 
     private FlatRectWorld mFlatWorld;
     private int mDifficulty;
@@ -206,6 +206,7 @@ public class RiddleLazor extends RiddleGame implements FlatWorldCallback {
         mDifficultyTextPaint.setAntiAlias(true);
         mDifficultyTextPaint.setColor(Color.YELLOW);
 
+        initDifficulty();
         initMeteorData(res);
         initCannonData(res);
 
@@ -222,6 +223,11 @@ public class RiddleLazor extends RiddleGame implements FlatWorldCallback {
         }
     }
 
+    private void initDifficulty() {
+        mDifficulty = DIFFICULTY_AT_BEGINNING;
+        onDifficultyUpdated();
+    }
+
     private void initMeteorData(Resources res) {
         mMeteorBeamWidthPixels = (int) (mDiagonal * METEOR_BEAM_WIDTH_FRACTION_OF_SCREEN_DIAGONAL);
         setMeteorBeamWidthPixels(mMeteorBeamWidthPixels);
@@ -233,7 +239,7 @@ public class RiddleLazor extends RiddleGame implements FlatWorldCallback {
         mMeteorBalls[COLOR_TYPE_RED] = ImageUtil.loadBitmap(res, R.drawable.laser_red, size, size, BitmapUtil.MODE_FIT_EXACT);
         mMeteorBalls[COLOR_TYPE_GREEN] = ImageUtil.loadBitmap(res, R.drawable.laser_green, size, size, BitmapUtil.MODE_FIT_EXACT);
         mMeteorBalls[COLOR_TYPE_BLUE] = ImageUtil.loadBitmap(res, R.drawable.laser_blue, size, size, BitmapUtil.MODE_FIT_EXACT);
-        mMeteorBalls[COLOR_TYPE_BONUS] = ImageUtil.loadBitmap(res, R.drawable.laser_alpha, size, size, BitmapUtil.MODE_FIT_EXACT);
+        mMeteorBalls[COLOR_TYPE_BONUS] = ImageUtil.loadBitmap(res, R.drawable.lazor_white, size, size, BitmapUtil.MODE_FIT_EXACT);
         Log.d("Riddle", "Meteor data initialized: beam width=" + mMeteorBeamWidthPixels + " , speed=" + mMeteorSpeedPixels + " , radius=" + mMeteorRadiusPixels);
     }
 
@@ -344,7 +350,7 @@ public class RiddleLazor extends RiddleGame implements FlatWorldCallback {
 
     @Override
     public void onReachedEndOfWorld(Actor columbus, float x, float y, int borderFlags) {
-        if (borderFlags == FlatRectWorld.BORDER_FLAG_BOTTOM) {
+        if ((borderFlags & FlatRectWorld.BORDER_FLAG_BOTTOM) != 0) {
             columbus.onReachedEndOfWorld();
         }
     }
@@ -424,10 +430,16 @@ public class RiddleLazor extends RiddleGame implements FlatWorldCallback {
         }
     }
 
+    private void addToDrawLog(int paintId, int paintGeometry, int mainX, int mainY, int secondX, int secondY) {
+
+    }
+
     //TODO make explosion also show the corresponding layer for the current explosion size (only if generator working)
     //TODO difficulty counter, generator that generates shield at certain value (protects from white beams total reconstruction and city destruction)
     // TODO save and load for this make a meteor log that registers changes to background layer,
     // TODO save cannon and current meteor states too so no punishment is needed like in jumper
+
+    //TODO make green beam clear green part of bonus layer too (e.t.c)
     private class Cannon extends Actor {
         private static final int STATE_LOADED = 0;
         private static final int STATE_LOADING_2 = 1;
@@ -612,7 +624,6 @@ public class RiddleLazor extends RiddleGame implements FlatWorldCallback {
 
     private class Meteor extends BeamBall {
         private final int mColorType;
-        private boolean mStateDestroyed;
         private Meteor(HitboxCircle hitbox, HitboxNewtonMover mover, BeamBallLook defaultLook, int startX, int startY, int colorType) {
             super(hitbox, mover, defaultLook, startX, startY);
             setActive(true);
@@ -625,7 +636,6 @@ public class RiddleLazor extends RiddleGame implements FlatWorldCallback {
             if (with instanceof CannonBall) {
                 mLayersCanvas[mColorType].drawLine(mStartX, mStartY, mHitbox.getCenterX(), mHitbox.getCenterY(), mColorTypePaints[mColorType]);
                 mRefreshLayers = true;
-                mStateDestroyed = true;
                 mFlatWorld.removeActor(this);
                 onMeteorDestroyed();
                 return true;
@@ -664,20 +674,24 @@ public class RiddleLazor extends RiddleGame implements FlatWorldCallback {
     }
 
     private void onMeteorClearedItsTrail() {
-        mDifficulty -= DIFFICULTY_POINTS_LOSS_ON_METEOR_EXPLOSION;
+        mDifficulty -= DIFFICULTY_POINTS_LOSS_PER_DIFFICULTY * (int) ((mDifficulty - 1.) / 10. + 1.);
         if (mDifficulty < 0) {
             mDifficulty = 0;
         }
-        if (mDifficulty < PROTECT_CITY_AT_DIFFICULTY) {
+        onDifficultyUpdated();
+    }
+
+    private void onDifficultyUpdated() {
+        if (mDifficulty >= DIFFICULTY_AT_BEGINNING && !mProtected) {
+            setCityProtected(true);
+        } else if (mDifficulty < DIFFICULTY_AT_BEGINNING && mProtected) {
             setCityProtected(false);
         }
     }
 
     private void onMeteorDestroyed() {
         mDifficulty += DIFFICULTY_POINTS_GAIN_ON_METEOR_KILL;
-        if (mDifficulty >= PROTECT_CITY_AT_DIFFICULTY) {
-            setCityProtected(true);
-        }
+        onDifficultyUpdated();
     }
 
     private void setCityProtected(boolean protect) {

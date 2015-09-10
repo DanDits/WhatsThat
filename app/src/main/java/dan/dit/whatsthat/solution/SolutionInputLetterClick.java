@@ -258,23 +258,35 @@ public class SolutionInputLetterClick extends SolutionInput {
             allLetters.add(mainWord.charAt(i));
         }
 
-        // then init the alternative word as far as possible
+        boolean[] usedMarker = new boolean[minLetterCount + (TextUtils.isEmpty(alternativeWord) ? 0 : alternativeWord.length())];
+        // then init the alternative word as far as possible, but try to use letters already present to make the alternative word
+        // only if too little or the wrong letters in main word we add the letters of the alternative word
         if (!TextUtils.isEmpty(alternativeWord)) {
             for (int i = 0; i < alternativeWord.length() && allLetters.size() < mAllLetters.length; i++) {
-                minLetterCount++;
-                allLetters.add(alternativeWord.charAt(i));
+                char requiredChar = alternativeWord.charAt(i);
+                boolean foundUnused = false;
+                for (int j = 0; j < mainWord.length() && !foundUnused; j++) {
+                    if (!usedMarker[j] && allLetters.get(j) == requiredChar) {
+                        foundUnused = true;
+                        usedMarker[j] = true;
+                    }
+                }
+                if (!foundUnused) {
+                    minLetterCount++;
+                    allLetters.add(requiredChar);
+                }
             }
         }
 
         // fill allLetters with remaining random letters, approximating the
         // distribution of letters in the used tongue
-        boolean[] randomlyDrawn = new boolean[minLetterCount];
+        Arrays.fill(usedMarker, false);
         while (allLetters.size() < mAllLetters.length) {
             char nextRandom = mSolution.getTongue().getRandomLetter();
             boolean nextRandomMatchedSolutionLetter = false;
             for (int j = 0; j < minLetterCount; j++) {
-                if (allLetters.get(j) == nextRandom && !randomlyDrawn[j]) {
-                    randomlyDrawn[j] = true;
+                if (allLetters.get(j) == nextRandom && !usedMarker[j]) {
+                    usedMarker[j] = true;
                     nextRandomMatchedSolutionLetter = true;
                     break;
                 }
