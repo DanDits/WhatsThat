@@ -206,5 +206,35 @@
     <string name="achievement_flow_7_name">Ameisenstaat</string>
     <string name="achievement_flow_7_descr">Es wuselt und wuselt. Bisher haben xxx/2000 Zellis gearbeitet, bis ihre Arbeit erledigt war.</string>
 
-
+    <!-- Lazor achievements -->
+    <string name="achievement_lazor_1_name">Drei mit einem Streich</string>
+    <string name="achievement_lazor_1_descr">Treffe drei Kometen mit einem Streich.</string>
+    <string name="achievement_lazor_2_name">Stadt Beschützer</string>
+    <string name="achievement_lazor_2_descr">Fange alle Kometen ab, bis das Schild die Stadt beschützt.</string>
+    <string name="achievement_lazor_3_name">Resignation</string>
+    <string name="achievement_lazor_3_descr">Nachdem das Schild 150 Aufladungen hatte, lass es auf 45 zurück fallen. Aber nicht mehr oder weniger!</string>
+    <string name="achievement_lazor_4_name">Blackout</string>
+    <string name="achievement_lazor_4_descr">Woah, zum Glück bin ich kein Einwohner deiner Stadt. Siehst du wie sie zerstört ist? Schlechter Beschützer!</string>
+    <string name="achievement_lazor_5_name">Abfangjäger</string>
+    <string name="achievement_lazor_5_descr">Schieße 30 Kometen im ersten Viertel des Bildes ab.</string>
+    <string name="achievement_lazor_6_name">Präzisionsschütze</string>
+    <string name="achievement_lazor_6_descr">Treffe mit jedem Schuss. Wie viele? Nun, mehr als 5 und weniger als 100. Die Stadt muss am Ende mindestens zu 75% erhalten sein</string>
+    <string name="achievement_lazor_7_name">Schild Schutz</string>
+    <string name="achievement_lazor_7_descr">Das Schild ist ganz nett, aber 300 Aufladungen sind auch nicht notwendig. Du musst das Bild erraten!</string>
+    <string name="achievement_lazor_8_name">Eingeholt</string>
+    <string name="achievement_lazor_8_descr">Daneben schießen ist nicht unbedingt tragisch. Manchmal holt die Explosion den Kometen sogar noch ein.</string>
+    <string name="achievement_lazor_9_name">Schießwütig</string>
+    <string name="achievement_lazor_9_descr">Na, schaffst du es mit jeder Kanone 300 mal zu schießen und dabei dein Schild aufrechtzuerhalten?</string>
+    <string name="achievement_lazor_10_name">Farbenblind</string>
+    <string name="achievement_lazor_10_descr">Lass alle roten Kometen durchgehen und löse das Bild oder bis das Schild aktiv ist.</string>
+    <string name="achievement_lazor_11_name">Kalkuliert</string>
+    <string name="achievement_lazor_11_descr">Treffe in einem Spiel 15 Kometen mit dem Rand der Explosionen. Deine Stadt muss aber noch zu 75% bestehen.</string>
+    <string name="achievement_lazor_12_name">Unterbrochen</string>
+    <string name="achievement_lazor_12_descr">Schieße 100 mal, wobei der Schuss weiter gesetzt aber von einem Kometen unterbrochen wurde.</string>
+    <string name="achievement_lazor_13_name">Kurzstreckenschüsse</string>
+    <string name="achievement_lazor_13_descr">Alle Schüsse, die kürzer als 1,5 Sekunden geflogen sind.</string>
+    <string name="achievement_lazor_14_name">Langstreckenschüsse</string>
+    <string name="achievement_lazor_14_descr">Alle Schüsse, die länger als 5,5 Sekunden geflogen sind</string>
+    
+    
 </resources>

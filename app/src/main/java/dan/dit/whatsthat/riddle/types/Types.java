@@ -605,7 +605,7 @@ public class Types {
         }
         @Override
         public int getIconResId() {
-            return R.drawable.icon_plain;
+            return R.drawable.icon_lazor;
         }
         @Override
         public int getNameResId() {
