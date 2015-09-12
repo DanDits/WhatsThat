@@ -128,7 +128,8 @@
     <string name="achievement_jumper_4_name">Multitasking</string>
     <string name="achievement_jumper_4_descr">Beende ein Spiel ab Schwierigkeit \"Schwer\" ohne zu kollidieren.</string>
     <string name="achievement_jumper_5_name">Ausweichmanöver</string>
-    <string name="achievement_jumper_5_descr">Gratulation. Du hast mehr als %1$d Hindernisse überwunden.</string>
+    <string name="achievement_jumper_5_descr">Na, was glaubst du wie viele Hindernisse du überwinden musst?</string>
+    <string name="achievement_jumper_5_descr_claimed">Gratulation. Es waren %1$d Hindernisse.</string>
     <string name="achievement_jumper_6_name">Die Schöpfer schlagen</string>
     <string name="achievement_jumper_6_descr">Wow. Du hast den Rekord meiner Schöpfer geschlagen. Schreibe via Mail deine Punkte mit dem Betreff \"Monstarathon Rekord\".</string>
     <string name="achievement_jumper_7_name">Manomnoms Geschichte</string>

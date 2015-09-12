@@ -128,7 +128,8 @@
     <string name="achievement_jumper_4_name">Multitasking</string>
     <string name="achievement_jumper_4_descr">Finish a game after reaching \"hard\" without colliding.</string>
     <string name="achievement_jumper_5_name">Avoiding manoeuvres</string>
-    <string name="achievement_jumper_5_descr">Congratulations. You dodged more than %1$d obstacles.</string>
+    <string name="achievement_jumper_5_descr">Well, what do you think how many obstacles do you need to dodge?</string>
+    <string name="achievement_jumper_5_descr_claimed">Congratulations. You dodged more than %1$d obstacles.</string>
     <string name="achievement_jumper_6_name">Beating the creators</string>
     <string name="achievement_jumper_6_descr">Wow. You beat my creators records. Write your record via mail as \"Monstarathon record\" in the subject line.</string>
     <string name="achievement_jumper_7_name">Knuffbum\'s story</string>

@@ -60,8 +60,8 @@ public class AchievementJumper extends TypeAchievementHolder {
     private static class Achievement1 extends GameAchievement {
         public static final int NUMBER = 1;
         public static final int LEVEL = 0;
-        public static final int REWARD = 5;
-        public static final boolean DISCOVERED = false;
+        public static final int REWARD = 80;
+        public static final boolean DISCOVERED = true;
         public static final int SOLUTION = 43;
 
         public Achievement1(AchievementManager manager, PracticalRiddleType type) {
@@ -91,7 +91,7 @@ public class AchievementJumper extends TypeAchievementHolder {
     private static class Achievement2 extends GameAchievement {
         public static final int NUMBER = 2;
         public static final int LEVEL = 0;
-        public static final int REWARD = 5;
+        public static final int REWARD = 150;
         public static final boolean DISCOVERED = false;
         public static final int FAIL_COUNT = 30;
 
@@ -118,7 +118,7 @@ public class AchievementJumper extends TypeAchievementHolder {
     private static class Achievement3 extends GameAchievement {
         public static final int NUMBER = 3;
         public static final int LEVEL = 0;
-        public static final int REWARD = 5;
+        public static final int REWARD = 175;
         public static final boolean DISCOVERED = true;
         public static final int REQUIRED_DOUBLE_JUMPS = 30;
         public static final String KEY_GAME_DOUBLE_JUMPS_BEFORE_MEDIUM = NUMBER + "jumps_before_medium";
@@ -159,7 +159,7 @@ public class AchievementJumper extends TypeAchievementHolder {
     private static class Achievement4 extends GameAchievement {
         public static final int NUMBER = 4;
         public static final int LEVEL = 0;
-        public static final int REWARD = 5;
+        public static final int REWARD = 250;
         public static final boolean DISCOVERED = true;
 
         public Achievement4(AchievementManager manager, PracticalRiddleType type) {
@@ -182,9 +182,9 @@ public class AchievementJumper extends TypeAchievementHolder {
     private static class Achievement5 extends GameAchievement {
         public static final int NUMBER = 5;
         public static final int LEVEL = 0;
-        public static final int REWARD = 5;
-        public static final boolean DISCOVERED = false;
-        public static final int OBSTACLES_TO_DODGE = 400;
+        public static final int REWARD = 150;
+        public static final boolean DISCOVERED = true;
+        public static final int OBSTACLES_TO_DODGE = 350;
 
         public Achievement5(AchievementManager manager, PracticalRiddleType type) {
             super(type, R.string.achievement_jumper_5_name, R.string.achievement_jumper_5_descr, 0, NUMBER, manager, LEVEL, REWARD, 1, DISCOVERED);
@@ -209,7 +209,7 @@ public class AchievementJumper extends TypeAchievementHolder {
     private static class Achievement6 extends GameAchievement {
         public static final int NUMBER = 6;
         public static final int LEVEL = 0;
-        public static final int REWARD = 5;
+        public static final int REWARD = 250;
         public static final boolean DISCOVERED = false;
         public static final long OUR_DISTANCE_RUN = (long) RiddleJumper.meterToDistanceRun(1996);
 
@@ -238,11 +238,11 @@ public class AchievementJumper extends TypeAchievementHolder {
         }
     }
 
-    //Knuffbum's story
+    //Manomnom's story
     private static class Achievement7 extends GameAchievement {
         public static final int NUMBER = 7;
         public static final int LEVEL = 0;
-        public static final int REWARD = 5;
+        public static final int REWARD = 350;
         public static final boolean DISCOVERED = true;
         private static final Long REQUIRED_HINT_NUMBER = 11L;
         private AchievementPropertiesMapped<String> mMiscData;
@@ -281,9 +281,9 @@ public class AchievementJumper extends TypeAchievementHolder {
     private static class Achievement8 extends GameAchievement {
         public static final int NUMBER = 8;
         public static final int LEVEL = 0;
-        public static final int REWARD = 5;
+        public static final int REWARD = 125;
         public static final boolean DISCOVERED = false;
-        public static final int REQUIRED_KNUFFBUFF_COLLISIONS = 6;
+        public static final int REQUIRED_KNUFFBUFF_COLLISIONS = 4;
 
         public Achievement8(AchievementManager manager, PracticalRiddleType type) {
             super(type, R.string.achievement_jumper_8_name, R.string.achievement_jumper_8_descr, 0, NUMBER, manager, LEVEL, REWARD, REQUIRED_KNUFFBUFF_COLLISIONS, DISCOVERED);
@@ -313,7 +313,7 @@ public class AchievementJumper extends TypeAchievementHolder {
     private static class Achievement9 extends GameAchievement {
         public static final int NUMBER = 9;
         public static final int LEVEL = 0;
-        public static final int REWARD = 5;
+        public static final int REWARD = 400;
         public static final boolean DISCOVERED = true;
         public static final int REQUIRED_RUN_DISTANCE = (int) RiddleJumper.meterToDistanceRun(42195);
         public static final String KEY_TYPE_DISTANCE_RUN = NUMBER + "marathon_distance_run";
@@ -353,7 +353,7 @@ public class AchievementJumper extends TypeAchievementHolder {
     private static class Achievement10 extends GameAchievement {
         public static final int NUMBER = 10;
         public static final int LEVEL = 0;
-        public static final int REWARD = 5;
+        public static final int REWARD = 60;
         public static final boolean DISCOVERED = true;
         private AchievementPropertiesMapped<String> mMiscData;
 
@@ -389,7 +389,7 @@ public class AchievementJumper extends TypeAchievementHolder {
     private static class Achievement11 extends GameAchievement {
         public static final int NUMBER = 11;
         public static final int LEVEL = 0;
-        public static final int REWARD = 5;
+        public static final int REWARD = 300;
         public static final boolean DISCOVERED = true;
         private static final int REQUIRED_SUCCESSIVE_GAMES = 3;
         private static final long REQUIRED_RUN_DISTANCE = (long) RiddleJumper.meterToDistanceRun(1000);

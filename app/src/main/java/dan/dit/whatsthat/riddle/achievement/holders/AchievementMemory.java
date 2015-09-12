@@ -54,7 +54,7 @@ public class AchievementMemory extends TypeAchievementHolder {
     private static class Achievement1 extends GameAchievement {
         public static final int NUMBER = 1;
         public static final int LEVEL = 0;
-        public static final int REWARD = 5;
+        public static final int REWARD = 100;
         public static final boolean DISCOVERED = false;
         private static final long GLACIER_CLICK_PATIENCE = 200L; // clicks required till achieved or
         private static final long GLACIER_MELT_DURATION = 12L * 60L * 1000L; // 10 minutes in ms
@@ -79,7 +79,7 @@ public class AchievementMemory extends TypeAchievementHolder {
     private static class Achievement2 extends GameAchievement {
         public static final int NUMBER = 2;
         public static final int LEVEL = 0;
-        public static final int REWARD = 5;
+        public static final int REWARD = 120;
         public static final boolean DISCOVERED = true;
         private static final long REQUIRED_PATH_LENGTH = 11L;
 
@@ -101,7 +101,7 @@ public class AchievementMemory extends TypeAchievementHolder {
     private static class Achievement3 extends GameAchievement {
         public static final int NUMBER = 3;
         public static final int LEVEL = 0;
-        public static final int REWARD = 5;
+        public static final int REWARD = 95;
         public static final boolean DISCOVERED = true;
         private static final long MAX_UNCOVERED_PAIRS = 2L;
 
@@ -124,7 +124,7 @@ public class AchievementMemory extends TypeAchievementHolder {
     private static class Achievement4 extends GameAchievement {
         public static final int NUMBER = 4;
         public static final int LEVEL = 0;
-        public static final int REWARD = 5;
+        public static final int REWARD = 200;
         public static final boolean DISCOVERED = true;
         public static final int REQUIRED_COVERED_FIELDS = 32;
         private static final String KEY_GAME_HAD_ENOUGH_COVERED_FIELDS = NUMBER + "_enough_covered_fields";
@@ -155,7 +155,7 @@ public class AchievementMemory extends TypeAchievementHolder {
     private static class Achievement5 extends GameAchievement {
         public static final int NUMBER = 5;
         public static final int LEVEL = 0;
-        public static final int REWARD = 5;
+        public static final int REWARD = 150;
         public static final int REQUIRED_PAIRS = 4;
         public static final boolean DISCOVERED = true;
 
@@ -180,8 +180,8 @@ public class AchievementMemory extends TypeAchievementHolder {
 
     private static class Achievement6 extends GameAchievement {
         public static final int NUMBER = 6;
-        public static final int LEVEL = 0;
-        public static final int REWARD = 5;
+        public static final int LEVEL = 1;
+        public static final int REWARD = 120;
         public static final boolean DISCOVERED = true;
         public static final int REQUIRED_BLIND_FOUND_PAIRS = 3;
 
@@ -217,8 +217,8 @@ public class AchievementMemory extends TypeAchievementHolder {
 
     private static class Achievement7 extends GameAchievement {
         public static final int NUMBER = 7;
-        public static final int LEVEL = 0;
-        public static final int REWARD = 5;
+        public static final int LEVEL = 1;
+        public static final int REWARD = 120;
         public static final boolean DISCOVERED = false;
         public static final int REQUIRED_BLIND_FOUND_PAIRS = 3;
         public static final int REQUIRED_BLIND_GAMES = 5;
@@ -254,8 +254,8 @@ public class AchievementMemory extends TypeAchievementHolder {
 
     private static class Achievement8 extends GameAchievement {
         public static final int NUMBER = 8;
-        public static final int LEVEL = 0;
-        public static final int REWARD = 5;
+        public static final int LEVEL = 1;
+        public static final int REWARD = 200;
         public static final boolean DISCOVERED = true;
 
         public Achievement8(AchievementManager manager, PracticalRiddleType type) {
@@ -287,9 +287,9 @@ public class AchievementMemory extends TypeAchievementHolder {
     private static class Achievement9 extends GameAchievement {
         public static final int NUMBER = 9;
         public static final int LEVEL = 0;
-        public static final int REWARD = 5;
+        public static final int REWARD = 250;
         public static final boolean DISCOVERED = true;
-        private static final int REQUIRED_CARDS = 2038;
+        private static final int REQUIRED_CARDS = 976;
         private static final String KEY_GAME_UNCOVERED_PAIRS_CONSUMED = NUMBER + "_uncovered_pairs_consumed";
 
         public Achievement9(AchievementManager manager, PracticalRiddleType type) {
