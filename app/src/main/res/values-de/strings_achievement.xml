@@ -236,7 +236,4 @@
     <string name="achievement_lazor_13_descr">Alle Schüsse, die kürzer als 1,5 Sekunden geflogen sind.</string>
     <string name="achievement_lazor_14_name">Langstreckenschüsse</string>
     <string name="achievement_lazor_14_descr">Alle Schüsse, die länger als 5,5 Sekunden geflogen sind</string>
-
-    <!-- Lazor achievements -->
-
 </resources>

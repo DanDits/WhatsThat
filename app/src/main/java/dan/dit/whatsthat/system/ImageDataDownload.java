@@ -2,6 +2,7 @@ package dan.dit.whatsthat.system;
 
 import android.content.Context;
 import android.os.AsyncTask;
+import android.os.Bundle;
 import android.os.PowerManager;
 import android.text.TextUtils;
 import android.util.Log;
@@ -20,6 +21,8 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 import dan.dit.whatsthat.R;
+import dan.dit.whatsthat.image.BundleCreator;
+import dan.dit.whatsthat.image.BundleManager;
 import dan.dit.whatsthat.image.Image;
 import dan.dit.whatsthat.image.ImageManager;
 import dan.dit.whatsthat.image.ImageXmlParser;
@@ -31,7 +34,6 @@ import dan.dit.whatsthat.util.image.ExternalStorage;
  * Created by daniel on 06.07.15.
  */
 public class ImageDataDownload {
-    private static final String TEMP_DATA_NAME_PREFIX = "temp_data_";
     private static final int ERROR_CODE_NONE = 0;
     private static final int ERROR_CODE_DOWNLOAD_RESPONSE_NOT_OK = 1001;
     private static final int ERROR_CODE_DOWNLOAD_FILE_ILLEGAL = 1002;
@@ -54,10 +56,15 @@ public class ImageDataDownload {
     private Context mContext;
     private boolean mIsDownloaded;
     private SyncTask mSyncTask;
+    private boolean mKeepBundleAfterSync;
 
     public boolean isWorking() {
         return (mDownloadTask != null && !mDownloadTask.isCancelled())
             || (mSyncTask != null && !mSyncTask.isCancelled());
+    }
+
+    public void setKeepBundleAfterSync() {
+        mKeepBundleAfterSync = true;
     }
 
     public boolean isDownloaded() {
@@ -85,10 +92,15 @@ public class ImageDataDownload {
             mDownloadTask.cancel(true);
             mDownloadTask = null;
         }
-        if (mSyncTask != null) {
-            mSyncTask.cancel(true);
-            mSyncTask = null;
-        }
+        //only allow to cancel download, not syncing
+        //if (mSyncTask != null) {
+        //    mSyncTask.cancel(true);
+        //    mSyncTask = null;
+        //}
+    }
+
+    public int getEstimatedImages() {
+        return -1;
     }
 
     public interface Feedback extends PercentProgressListener {
@@ -107,11 +119,12 @@ public class ImageDataDownload {
      * @param dataName A (better) unique name for all image data available that can be used to create a file name.
      * @param estimatedSizeMB The estimated size of the data in mb in case the data is not available from the connection
      *                        or to show the size before downloading even started.
-     * @param url The url to the zip.
+     * @param url The url to the zip. Can only be null if you are sure that the file to use is already downloaded and existent! Else this
+     *            class does nothing.
      * @param feedback The progress of the downloading, parsing and syncing. Reference will be held forever by this object.
      */
     public ImageDataDownload(Context context, String origin, String dataName, int estimatedSizeMB, String url, Feedback feedback) {
-        if (context == null || TextUtils.isEmpty(origin) || TextUtils.isEmpty(dataName) || TextUtils.isEmpty(url) || feedback == null) {
+        if (context == null || TextUtils.isEmpty(origin) || TextUtils.isEmpty(dataName) || feedback == null) {
             throw new IllegalArgumentException("Null or empty parameter given for " + dataName + " in " + origin + " and url " + url);
         }
         mContext = context.getApplicationContext();
@@ -120,7 +133,8 @@ public class ImageDataDownload {
         mDataName = dataName;
         mURL = url;
         mListener = feedback;
-        checkIfIsDownloaded();
+        File downloaded = checkIfIsDownloaded();
+        Log.d("Image", "Data download is downloaded file: " + downloaded);
     }
 
     public void start() {
@@ -130,6 +144,7 @@ public class ImageDataDownload {
         }
         if (!mIsDownloaded) {
             // Step 0: download
+            Log.d("Image", "Is not downloaded, download required first of url " + mURL);
             startDownload(mURL);
         } else {
             // Step 1: sync
@@ -160,12 +175,15 @@ public class ImageDataDownload {
      * and downloaded completely, but this will be found out when trying to unzip and parse.
      */
     private File checkIfIsDownloaded() {
-        File storageFile = getStorageFile();
+        File storageFile = getTempDownloadFile();
         mIsDownloaded = storageFile != null && storageFile.exists();
         return storageFile;
     }
 
     private void startDownload(String url) {
+        if (url == null) {
+            return;
+        }
         mListener.setIndeterminate(true);
         mDownloadTask = new DownloadTask();
         mDownloadTask.execute(url);
@@ -192,12 +210,14 @@ public class ImageDataDownload {
         return storageDirectory;
     }
 
-    private File getStorageFile() {
-        File storageDirectory = getStorageDirectory();
+    private File getTempDownloadFile() {
+        File storageDirectory = BundleManager.ensureBundleDirectory();
         if (storageDirectory == null) {
+            Log.e("Image", "External storage unavailable? " + ExternalStorage.isMounted() + " for " + BundleManager.BUNDLES_DIRECTORY_NAME);
             return null;
         }
-        return new File(storageDirectory, TEMP_DATA_NAME_PREFIX + mDataName);
+
+        return BundleManager.makeBundleFile(storageDirectory, mOrigin, mDataName);
     }
 
     private class DownloadTask extends AsyncTask<String, Integer, Integer> {
@@ -274,7 +294,7 @@ public class ImageDataDownload {
                     return null;
                 }
 
-                File storageFile = getStorageFile();
+                File storageFile = getTempDownloadFile();
                 if (storageFile == null) {
                     Log.e("Image", "No storage directory or file available");
                     return ERROR_CODE_STORAGE_NOT_AVAILABLE;
@@ -333,8 +353,8 @@ public class ImageDataDownload {
         @Override
         protected void onPostExecute(Integer errorCode) {
             mSyncTask = null;
-            File storageFile = getStorageFile();
-            if (storageFile != null &&  storageFile.delete()) {
+            File storageFile = getTempDownloadFile();
+            if (storageFile != null && !mKeepBundleAfterSync && storageFile.delete()) {
                 mIsDownloaded = false;
             }
             if (errorCode != ERROR_CODE_NONE) {

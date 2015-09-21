@@ -10,6 +10,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import dan.dit.whatsthat.R;
+import dan.dit.whatsthat.image.BundleManager;
 import dan.dit.whatsthat.system.ImageDataDownload;
 import dan.dit.whatsthat.testsubject.ForeignPurse;
 import dan.dit.whatsthat.testsubject.shopping.ConfirmProduct;
@@ -111,15 +112,20 @@ public class ShopArticleDownload extends ShopArticle implements ImageDataDownloa
             if (mConfirmProduct.hasNoView()) {
                 mConfirmProduct.inflateView(inflater);
             }
-            mConfirmProduct.setConfirmable(isPurchasable(subProductIndex), getCostText(mContext.getResources(), subProductIndex), makeMissingDependenciesText(mContext.getResources(), subProductIndex));
+            int purchasable = isPurchasable(subProductIndex);
+            mConfirmProduct.setConfirmable(purchasable, getCostText(mContext.getResources(), subProductIndex), makeMissingDependenciesText(mContext.getResources(), subProductIndex),
+                    mCost > 0 && (purchasable == HINT_PURCHASABLE || purchasable == HINT_NOT_PURCHASABLE_TOO_EXPENSIVE) ? R.drawable.think_currency_small : 0);
             return mConfirmProduct;
         }
     }
 
     @Override
     public void onChildClick(SubProduct product) {
-        if (product == mConfirmProduct && isPurchasable(-1) == HINT_PURCHASABLE && mPurse.purchaseFeature(mKey, mCost) && mListener != null) {
-            mListener.onArticleChanged(this);
+        if (product == mConfirmProduct && isPurchasable(-1) == HINT_PURCHASABLE && mPurse.purchaseFeature(mKey, mCost)) {
+            if (mListener != null) {
+                mListener.onArticleChanged(this);
+            }
+            BundleManager.onBundleCreated(mContext, mDownload.getOrigin(), mDownload.getDataName(), mDownload.getEstimatedImages(), mDownload.getEstimatedSize(), false, getKey());
         }
     }
 
@@ -157,6 +163,7 @@ public class ShopArticleDownload extends ShopArticle implements ImageDataDownloa
 
     @Override
     public void onDownloadComplete() {
+        BundleManager.onBundleCreated(mContext, mDownload.getOrigin(), mDownload.getDataName(), mDownload.getEstimatedImages(), mDownload.getEstimatedSize(), false, null);
         Toast.makeText(mContext, R.string.download_article_toast_download_complete, Toast.LENGTH_SHORT).show();
         if (mDownloadProduct != null) {
             mDownloadProduct.updateDescription();
@@ -167,6 +174,8 @@ public class ShopArticleDownload extends ShopArticle implements ImageDataDownloa
     public void onComplete() {
         mPurse.purchase(mKey, 0, 1);
         Toast.makeText(mContext, R.string.download_article_toast_complete, Toast.LENGTH_SHORT).show();
+        BundleManager.onBundleCreated(mContext, mDownload.getOrigin(), mDownload.getDataName(), mDownload.getEstimatedImages(), mDownload.getEstimatedSize(), true, null);
+
         if (mDownloadProduct != null) {
             mDownloadProduct.updateDescription();
         }
@@ -212,7 +221,7 @@ public class ShopArticleDownload extends ShopArticle implements ImageDataDownloa
                     mProgress.setVisibility(View.GONE);
                 }
                 if (mPurse.getShopValue(mKey) >= SHOP_VALUE_DOWNLOADED_AND_SYNCED) {
-                    mDescription.setTextColor(Color.GREEN);
+                    mDescription.setTextColor(mView.getResources().getColor(R.color.important_on_main_background));
                     mDescription.setText(mContext.getString(R.string.download_article_descr_synced, mDownload.getOrigin(), mDownload.getDataName()));
                 } else if (mDownload.isDownloaded()) {
                     mDescription.setText(mContext.getString(R.string.download_article_descr_downloaded, mDownload.getOrigin(), mDownload.getDataName()));
@@ -238,11 +247,15 @@ public class ShopArticleDownload extends ShopArticle implements ImageDataDownloa
 
         @Override
         public void onClick() {
-            if (!mDownload.isWorking() && mPurse.getShopValue(mKey) < SHOP_VALUE_DOWNLOADED_AND_SYNCED) {
-                mDownload.start();
-            } else if (mDownload.isWorking()) {
-                mDownload.cancel();
-            }
+            start();
+        }
+    }
+
+    public void start() {
+        if (!mDownload.isWorking() && mPurse.getShopValue(mKey) < SHOP_VALUE_DOWNLOADED_AND_SYNCED) {
+            mDownload.start();
+        } else if (mDownload.isWorking()) {
+            mDownload.cancel();
         }
     }
 }

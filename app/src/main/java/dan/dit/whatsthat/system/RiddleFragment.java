@@ -46,6 +46,7 @@ import dan.dit.whatsthat.R;
 import dan.dit.whatsthat.achievement.AchievementManager;
 import dan.dit.whatsthat.image.Image;
 import dan.dit.whatsthat.image.ImageManager;
+import dan.dit.whatsthat.preferences.User;
 import dan.dit.whatsthat.riddle.Riddle;
 import dan.dit.whatsthat.riddle.RiddleInitializer;
 import dan.dit.whatsthat.riddle.RiddleMaker;
@@ -611,6 +612,10 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
                                 mBtnCheat.setVisibility(View.GONE);
                             } else if (value.equalsIgnoreCase("boom")) {
                                 throw new IllegalArgumentException("Boom.");
+                            } else if (value.equalsIgnoreCase("sudo")) {
+                                User.getInstance().givePermission(User.PERMISSION_SUPER_USER);
+                            } else if (value.equalsIgnoreCase("sodu")) {
+                                User.getInstance().removePermission(User.PERMISSION_SUPER_USER);
                             } else {
                                 Toast.makeText(getActivity(), "Bild nicht gefunden.", Toast.LENGTH_SHORT).show();
                             }

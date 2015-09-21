@@ -19,6 +19,9 @@ public class User {
     private static final String PREFERENCES_USER = "dan.dit.whatsthat.user_preferences";
     private static final String KEY_ORIGIN_NAME = "dan.dit.whatsthat.origin_name";
     private static final int MAX_FILE_NAME_LENGTH = 32; // amount of characters
+    public static final String PERMISSION_SUPER_USER = "dan.dit.whatsthat.permission_super_user";
+    public static final String PERMISSION_BUNDLE_SYNC_ALLOWED = "dan.dit.whatsthat.permission_bundle_sync";
+
     private SharedPreferences mPreferences;
 
     public static void makeInstance(Context context) {
@@ -32,10 +35,22 @@ public class User {
         return INSTANCE;
     }
 
+    public void givePermission(String permission) {
+        mPreferences.edit().putBoolean(permission, true).apply();
+    }
+
+    public void removePermission(String permission) {
+        mPreferences.edit().remove(permission).apply();
+    }
+
+    public boolean hasPermission(String permission) {
+        return mPreferences.getBoolean(permission, false) || mPreferences.getBoolean(PERMISSION_SUPER_USER, false);
+    }
+
     /**
-     * We restrict to basic characters since the origin name will be used as file or directory name
+     * We restrict to basic characters since the origin name will be used as file or directory name (_ not allowed)
      */
-    private static final char[] ALLOWED_CHARS = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ-.,;_ ".toCharArray();
+    private static final char[] ALLOWED_CHARS = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ-.,; ".toCharArray();
     public  boolean saveOriginName(String origin) {
         origin = isValidFileName(origin);
         if (origin == null) {

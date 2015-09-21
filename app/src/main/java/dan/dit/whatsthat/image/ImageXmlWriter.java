@@ -38,8 +38,6 @@ class ImageXmlWriter {
     public static final int RESULT_ZIP_FAILED = 7;
 
     private static final String BUILD_DIRECTORY_NAME = ".build";
-    private static final String BUNDLES_DIRECTORY_NAME = "bundles";
-    private static final String BUNDLE_EXTENSION = ".wtb";
 
     private ImageXmlWriter() {}
 
@@ -47,15 +45,12 @@ class ImageXmlWriter {
         if (context == null || imageBundle == null || TextUtils.isEmpty(bundleName)) {
             return RESULT_ILLEGAL_ARGUMENT;
         }
-        String path = ExternalStorage.getExternalStoragePathIfMounted(BUNDLES_DIRECTORY_NAME);
-        if (path == null) {
+        File dir = BundleManager.ensureBundleDirectory();
+        if (dir == null) {
             return RESULT_EXTERNAL_STORAGE_PROBLEM;
         }
-        File dir = new File(path);
-        if (!dir.mkdirs() && !dir.isDirectory()) {
-            return RESULT_EXTERNAL_STORAGE_PROBLEM;
-        }
-        File targetZip = new File(path + File.separator + bundleOrigin + "_" + bundleName + BUNDLE_EXTENSION);
+
+        File targetZip = BundleManager.makeBundleFile(dir, bundleOrigin, bundleName);
         if (targetZip.exists()) {
             return RESULT_TARGET_BUNDLE_EXISTS;
         }

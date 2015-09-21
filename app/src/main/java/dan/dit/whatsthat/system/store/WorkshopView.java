@@ -46,10 +46,21 @@ public class WorkshopView extends FrameLayout implements StoreContainer {
             mTabHost = (TabHost) getRootView().findViewById(android.R.id.tabhost);
             initializeTabHost(activity);
         }
+        if (mBundleManager != null) {
+            mBundleManager.refresh();
+        }
     }
 
     private void initializeTabHost(FragmentActivity activity) {
         mTabHost.setup();
+        mTabHost.setOnTabChangedListener(new TabHost.OnTabChangeListener() {
+            @Override
+            public void onTabChanged(String tabId) {
+                if (mBundleManager != null && tabId != null && tabId.equalsIgnoreCase(TAB_BUNDLE_MANAGER)) {
+                    mBundleManager.refresh();
+                }
+            }
+        });
         TabFactory factory = new TabFactory(activity);
         addTab(mTabHost, factory, mTabHost.newTabSpec(TAB_BUNDLE_MANAGER).setIndicator(getResources().getString(R.string.workshop_tab_bundle_manager)));
         addTab(mTabHost, factory, mTabHost.newTabSpec(TAB_BUNDLE_CREATOR).setIndicator(getResources().getString(R.string.workshop_tab_bundle_creator)));
@@ -89,24 +100,16 @@ public class WorkshopView extends FrameLayout implements StoreContainer {
         public View createTabContent(String tag) {
             if (tag.equals(TAB_BUNDLE_CREATOR)) {
                 mBundleCreator = new BundleCreator(mActivity);
-                assureManagerListens();
                 return mBundleCreator.getView();
             } else if (tag.equals(TAB_MOSAIC)) {
                 return mInflater.inflate(R.layout.workshop_mosaic, null);
             } else if (tag.equals(TAB_BUNDLE_MANAGER)) {
                 mBundleManager = new BundleManager(mActivity);
-                assureManagerListens();
                 return mBundleManager.getView();
             }
             return null;
         }
 
-    }
-
-    private void assureManagerListens() {
-        if (mBundleManager != null && mBundleCreator != null) {
-            mBundleCreator.addOnBundleCreatedListener(mBundleManager);
-        }
     }
 
     @Override

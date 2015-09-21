@@ -109,7 +109,6 @@ public class BundleCreator {
     private boolean mSaving;
     private int mSaveResult;
     private boolean mApplyToOthersStateRemoveConnection;
-    private BundleManager mBundleManger;
 
     public BundleCreator(Activity activity) {
         mSaveResult = ImageXmlWriter.RESULT_NONE;
@@ -342,15 +341,15 @@ public class BundleCreator {
             @Override
             public void onPostExecute(Void nothing) {
                 if (mSaveResult == ImageXmlWriter.RESULT_SUCCESS) {
+                    int estimatedSizeMB = getEstimatedSizeMB();
+                    int count = mSelectedBitmaps.size();
                     synchronized (mSelectedBitmaps) {
                         mSelectedBitmaps.clear();
                     }
                     Toast.makeText(mActivity, mActivity.getResources().getString(R.string.bundle_creator_success, mmBundleName), Toast.LENGTH_LONG).show();
 
                     mBundleName.setText("");
-                    if (mBundleManger != null) {
-                        mBundleManger.onBundleCreated(mmOrigin, mmBundleName);
-                    }
+                    BundleManager.onBundleCreated(mActivity, mmOrigin, mmBundleName, count, estimatedSizeMB, false, null);
                 } else if (mSaveResult == ImageXmlWriter.RESULT_TARGET_BUNDLE_EXISTS) {
 
                     Toast.makeText(mActivity, mActivity.getResources().getString(R.string.bundle_creator_failed_name_exists, mBundleNameText), Toast.LENGTH_LONG).show();
@@ -672,22 +671,26 @@ public class BundleCreator {
         fillSelectedBitmapsData();
     }
 
-    /**
-     * Fills selected bitmaps data, showing amount of loaded bitmaps
-     * and setting image data container visibility accordingly.
-     * Updates image data header.
-     */
-    private void fillSelectedBitmapsData() {
-        int count;
+    private int getEstimatedSizeMB() {
         int sizeMB;
         synchronized (mSelectedBitmaps) {
-            count = mSelectedBitmaps.size();
             sizeMB = 0;
             for (SelectedBitmap bitmap : mSelectedBitmaps) {
                 sizeMB += bitmap.mEstimatedSizeKB;
             }
         }
         sizeMB /= 1024;
+        return sizeMB;
+    }
+
+    /**
+     * Fills selected bitmaps data, showing amount of loaded bitmaps
+     * and setting image data container visibility accordingly.
+     * Updates image data header.
+     */
+    private void fillSelectedBitmapsData() {
+        int count = mSelectedBitmaps.size();
+        int sizeMB = getEstimatedSizeMB();
         if (count > 0) {
             fillImageData();
             if (mImageInformationContainer.getVisibility() != View.VISIBLE) {
@@ -976,10 +979,6 @@ public class BundleCreator {
                 throw new IllegalStateException("No temp directory available");
             }
         }
-    }
-
-    public void addOnBundleCreatedListener(BundleManager bundleManager) {
-        mBundleManger = bundleManager;
     }
 
     public static class SelectedBitmap {

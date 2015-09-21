@@ -198,5 +198,10 @@
     <string name="bundle_creator_progress_saved">Bundle saved</string>
     <string name="author_info_apply_to_others_remove_connection">Separate information</string>
     <string name="bundle_creator_progress_error_result">Error (%1$d) at saving</string>
+    <string name="share_failed">Could not share</string>
 
+    <plurals name="images_in_bundle">
+        <item quantity="one">%1$d image</item>
+        <item quantity="other">%1$d images</item>
+    </plurals>
 </resources>

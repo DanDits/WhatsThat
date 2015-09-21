@@ -220,7 +220,13 @@ public class ShopView extends ExpandableListView implements  StoreContainer, Sho
                 ((ImageView) convertView.findViewById(R.id.shop_article_image)).setImageResource(imageResId);
             }
             ((TextView) convertView.findViewById(R.id.shop_article_descr)).setText(article.getDescription(getResources()));
-            ((TextView) convertView.findViewById(R.id.shop_article_cost)).setText(article.getSpentScore(getResources()));
+            TextView costView = ((TextView) convertView.findViewById(R.id.shop_article_cost));
+            costView.setText(article.getSpentScore(getResources()));
+            if (costView.getText().length()  > 0) {
+                costView.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.think_currency_small, 0);
+            } else {
+                costView.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
+            }
 
             LinearLayoutProgressBar progressListener = ((LinearLayoutProgressBar) convertView.findViewById(R.id.progress_bar));
             int progressPercent = article.getPurchaseProgressPercent();

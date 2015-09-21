@@ -60,7 +60,8 @@ public class ShopArticleSimple extends ShopArticle {
             costText = getCostText(res, index);
             depText = makeMissingDependenciesText(res, index);
         }
-        mConfirmProduct.setConfirmable(isPurchasable(index), costText, depText);
+        int purchasable = isPurchasable(index);
+        mConfirmProduct.setConfirmable(purchasable, costText, depText, mCost > 0 && (purchasable == HINT_PURCHASABLE || purchasable == HINT_NOT_PURCHASABLE_TOO_EXPENSIVE) ? R.drawable.think_currency_small : 0);
         return mConfirmProduct;
     }
 

@@ -203,4 +203,10 @@
     <string name="bundle_creator_progress_saved">Paket gespeichert</string>
     <string name="author_info_apply_to_others_remove_connection">Informationen separieren</string>
     <string name="bundle_creator_progress_error_result">Fehler (%1$d) beim Speichern</string>
+    <string name="share_failed">Teilen fehlgeschlagen</string>
+
+    <plurals name="images_in_bundle">
+        <item quantity="one">%1$d Bild</item>
+        <item quantity="other">%1$d Bilder</item>
+    </plurals>
 </resources>

@@ -40,7 +40,7 @@ public class ConfirmProduct extends SubProduct {
         }
     }
 
-    public void setConfirmable(int purchasableHint, CharSequence costText, CharSequence depText) {
+    public void setConfirmable(int purchasableHint, CharSequence costText, CharSequence depText, int icon) {
         if (mView != null) {
             TextView view = ((TextView) mView.findViewById(R.id.shop_confirm_title));
             view.setTextColor(purchasableHint == ShopArticle.HINT_PURCHASABLE ? view.getResources().getColor(R.color.important_on_main_background) : Color.RED);
@@ -53,6 +53,7 @@ public class ConfirmProduct extends SubProduct {
             } else {
                 view.setText(R.string.article_product_confirm_purchase_unavailable);
             }
+            view.setCompoundDrawablesWithIntrinsicBounds(0, 0, icon, 0);
         }
     }
 }

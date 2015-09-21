@@ -130,7 +130,8 @@ public class ShopArticleRiddleHints extends ShopArticle {
                 costText = getCostText(res, subProductIndex);
                 depText = makeMissingDependenciesText(res, subProductIndex);
             }
-            mConfirmProduct.setConfirmable(purchasableHint, costText, depText);
+            mConfirmProduct.setConfirmable(purchasableHint, costText, depText,
+                    getSpentScore(subProductIndex) > 0 && (purchasableHint == HINT_PURCHASABLE || purchasableHint == HINT_NOT_PURCHASABLE_TOO_EXPENSIVE) ? R.drawable.think_currency_small : 0);
             return mConfirmProduct;
         } else if (purchasableHint == HINT_NOT_PURCHASABLE_ALREADY_PURCHASED) {
             HintProduct hint = mHints.get(subProductIndex);
