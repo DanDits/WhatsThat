@@ -12,7 +12,7 @@ import dan.dit.whatsthat.util.wallet.WalletEntry;
 class Purse {
     private static final String SCORE_WALLET = "score";
     private static final String SHOP_WALLET = "shop";
-    static final String SHW_KEY_TESTSUBJECT_LEVEL = "testsubject_level";
+    public static final String SHW_KEY_TESTSUBJECT_LEVEL = "testsubject_level";
     static final String SHW_KEY_SKIPABLE_GAMES = "skipable_games";
     private static final String SW_KEY_SPENT_SCORE = "testsubject_spent_score";
     static final String SW_KEY_SOLVED_RIDDLE_SCORE = "solved_riddle_score";

@@ -199,6 +199,12 @@
     <string name="author_info_apply_to_others_remove_connection">Separate information</string>
     <string name="bundle_creator_progress_error_result">Error (%1$d) at saving</string>
     <string name="share_failed">Could not share</string>
+    <string name="article_level_up_name">Brain level boost</string>
+    <string name="article_level_up_descr">Enables you to take hold of more experiments and unlocks achievements.</string>
+    <string name="article_level_up_dep_new_riddle">Choose a new experiment first!</string>
+    <string name="article_choose_riddle_name">Choose new experiment</string>
+    <string name="article_choose_riddle_descr">Challenge your mind with a new puzzle!</string>
+    <string name="article_level_up_dep_new_level">Boost your brain first!</string>
 
     <plurals name="images_in_bundle">
         <item quantity="one">%1$d image</item>

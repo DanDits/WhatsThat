@@ -15,7 +15,6 @@ import dan.dit.whatsthat.testsubject.TestSubject;
 import dan.dit.whatsthat.testsubject.shopping.ConfirmProduct;
 import dan.dit.whatsthat.testsubject.shopping.ShopArticle;
 import dan.dit.whatsthat.testsubject.shopping.SubProduct;
-import dan.dit.whatsthat.testsubject.shopping.sortiment.HintProduct;
 
 /**
  * Created by daniel on 29.07.15.
@@ -163,6 +162,6 @@ public class ShopArticleRiddleHints extends ShopArticle {
 
     @Override
     public void makeDependencies() {
-        addDependency(TestSubject.getInstance().getRiddleTypeDependency(mType), GENERAL_DEPENDENCY_INDEX);
+        addDependency(TestSubject.getInstance().getRiddleTypeDependency(mType), GENERAL_PRODUCT_INDEX);
     }
 }

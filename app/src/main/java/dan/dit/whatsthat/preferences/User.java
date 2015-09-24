@@ -133,7 +133,7 @@ public class User {
         if (dir.isDirectory()) {
             for (File child : dir.listFiles()) {
                 if (!child.getName().equals(".nomedia")) {
-                    deleteRecursivly(child);
+                    deleteRecursively(child);
                 }
             }
             return dir;
@@ -144,10 +144,10 @@ public class User {
         return null;
     }
 
-    private static void deleteRecursivly(File file) {
+    private static void deleteRecursively(File file) {
         if (file.isDirectory()) {
             for (File child : file.listFiles()) {
-                deleteRecursivly(child);
+                deleteRecursively(child);
             }
         }
         file.delete();

@@ -1,7 +1,6 @@
 package dan.dit.whatsthat.system.store;
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.support.v4.app.FragmentActivity;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -22,10 +21,12 @@ import dan.dit.whatsthat.riddle.types.PracticalRiddleType;
 import dan.dit.whatsthat.testsubject.TestSubject;
 import dan.dit.whatsthat.testsubject.shopping.ShopArticle;
 import dan.dit.whatsthat.testsubject.shopping.filter.ShopArticleFilter;
+import dan.dit.whatsthat.testsubject.shopping.filter.ShopArticleFilterImportant;
 import dan.dit.whatsthat.testsubject.shopping.filter.ShopArticleFilterIcon;
 import dan.dit.whatsthat.testsubject.shopping.filter.ShopArticleFilterPurchased;
 import dan.dit.whatsthat.testsubject.shopping.ShopArticleHolder;
 import dan.dit.whatsthat.testsubject.shopping.SubProduct;
+import dan.dit.whatsthat.testsubject.shopping.sortiment.LevelUpArticle;
 import dan.dit.whatsthat.util.PercentProgressListener;
 import dan.dit.whatsthat.util.ui.LinearLayoutProgressBar;
 
@@ -111,11 +112,15 @@ public class ShopView extends ExpandableListView implements  StoreContainer, Sho
         }
         filters.add(new ShopArticleFilterPurchased(R.drawable.icon_filter_progress_complete, true, false));
         filters.add(new ShopArticleFilterPurchased(R.drawable.icon_filter_progress, false, false));
+        filters.add(new ShopArticleFilterImportant());
 
         // init filters and filter views and listeners
         mArticleHolder.setFilters(filters);
         mFilterHolder.removeAllViews();
         for (ShopArticleFilter filter : filters) {
+            if (!filter.isVisible()) {
+                continue;
+            }
             ImageView image = new ImageView(getContext());
             image.setImageResource(filter.getIcon());
             applyFilterToImage(image, filter);

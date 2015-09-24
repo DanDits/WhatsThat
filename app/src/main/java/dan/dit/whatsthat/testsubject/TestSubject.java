@@ -67,6 +67,9 @@ public class TestSubject {
     public static final int GENDER_FEMALE = 1;
     public static final int GENDER_WHATEVER = 2;
     public static final int GENDER_ALIEN = 3; // :o
+    public static final String SHW_KEY_CAN_CHOOSE_NEW_RIDDLE = "shw_key_can_choose_new_riddle";
+    public static final String SHW_KEY_SPENT_SCORE_ON_LEVEL_UP = "shw_level_up_spent_score";
+    public static final String SHW_KEY_NEXT_LEVEL_UP_COST = "shw_next_level_up_cost";
 
 
     private boolean mInitialized;
@@ -144,6 +147,14 @@ public class TestSubject {
             intro.startUnmanagedEpisode(intro.getCurrentEpisode());
         }
         return intro;
+    }
+
+    public int getCurrentLevel() {
+        return mPurse.mShopWallet.getEntryValue(Purse.SHW_KEY_TESTSUBJECT_LEVEL, TestSubjectLevel.LEVEL_NONE);
+    }
+
+    public int getMaximumLevel() {
+        return mLevels.length - 1; // since level numbers start with zero
     }
 
     public Dependable getLevelDependency() {
@@ -229,10 +240,33 @@ public class TestSubject {
         }
     }
 
+    public synchronized boolean purchaseLevelUp() {
+        if (mCurrLevel >= mLevels.length -1) {
+            return false; // already at max level
+        }
+        int cost = mPurse.mShopWallet.getEntryValue(SHW_KEY_NEXT_LEVEL_UP_COST, -1);
+        if (cost < 0) {
+            return false; // no cost initialized
+        }
+        if (mPurse.getCurrentScore() < cost) {
+            return false; // too little score
+        }
+        if (levelUp()) {
+            mPurse.spentScore(cost);
+            mPurse.mShopWallet.editEntry(SHW_KEY_SPENT_SCORE_ON_LEVEL_UP).add(cost);
+            return true;
+        }
+        return false;
+    }
+
     public boolean levelUp() {
         if (mCurrLevel >= mLevels.length - 1) {
             return false;
         }
+        if (mPurse.mShopWallet.getEntryValue(SHW_KEY_CAN_CHOOSE_NEW_RIDDLE) == WalletEntry.TRUE) {
+            return false; // first user needs to choose a new riddle
+        }
+        mPurse.mShopWallet.editEntry(SHW_KEY_CAN_CHOOSE_NEW_RIDDLE).setTrue();
         mPurse.mShopWallet.editEntry(Purse.SHW_KEY_TESTSUBJECT_LEVEL).add(1);
         mCurrLevel = mPurse.mShopWallet.getEntryValue(Purse.SHW_KEY_TESTSUBJECT_LEVEL);
         TestSubjectLevel currLevel = mLevels[mCurrLevel];

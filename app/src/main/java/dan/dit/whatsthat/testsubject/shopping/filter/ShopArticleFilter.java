@@ -8,6 +8,7 @@ import dan.dit.whatsthat.testsubject.shopping.ShopArticle;
 public abstract class ShopArticleFilter {
     private final int mIcon;
     private boolean mActive;
+    protected boolean mVisible = true;
 
     ShopArticleFilter(int iconResId) {
         mIcon = iconResId;
@@ -17,6 +18,12 @@ public abstract class ShopArticleFilter {
         mActive = active;
     }
 
+    /**
+     * Check if the article should be shown in the list.
+     * @param article The article to check.
+     * @return True if the article is to be displayed. False if this filter
+     * does not require the article be be shown. It might be shown by some other filter though.
+     */
     public abstract boolean check(ShopArticle article);
 
     public int getIcon() {
@@ -25,5 +32,9 @@ public abstract class ShopArticleFilter {
 
     public boolean isActive() {
         return mActive;
+    }
+
+    public boolean isVisible() {
+        return mVisible;
     }
 }

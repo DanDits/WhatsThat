@@ -25,7 +25,7 @@ public class ShopArticleSimple extends ShopArticle {
 
     @Override
     public int getSpentScore(int subProductIndex) {
-        return mCost;
+        return !mPurse.hasShopValue(mKey) ? 0 : mCost;
     }
 
     @Override
@@ -67,7 +67,7 @@ public class ShopArticleSimple extends ShopArticle {
 
     @Override
     public void onChildClick(SubProduct product) {
-        if (product == mConfirmProduct && isPurchasable(-1) == HINT_PURCHASABLE && mPurse.purchaseFeature(mKey, mCost) && mListener != null) {
+        if (product == mConfirmProduct && isPurchasable(GENERAL_PRODUCT_INDEX) == HINT_PURCHASABLE && mPurse.purchaseFeature(mKey, mCost) && mListener != null) {
             mListener.onArticleChanged(this);
         }
     }
@@ -75,14 +75,6 @@ public class ShopArticleSimple extends ShopArticle {
     @Override
     public int getPurchaseProgressPercent() {
         return mPurse.hasShopValue(mKey) ? PercentProgressListener.PROGRESS_COMPLETE : 0;
-    }
-
-    @Override
-    public CharSequence getSpentScore(Resources resources) {
-        if (mCost == 0 || !mPurse.hasShopValue(mKey)) {
-            return "";
-        }
-        return resources.getString(R.string.shop_article_spent, mCost);
     }
 
     @Override

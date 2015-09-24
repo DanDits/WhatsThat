@@ -17,7 +17,7 @@ import dan.dit.whatsthat.util.dependencies.Dependency;
  * Created by daniel on 29.07.15.
  */
 public abstract class ShopArticle {
-    public static final int GENERAL_DEPENDENCY_INDEX = -1;
+    public static final int GENERAL_PRODUCT_INDEX = -1;
     public static final int HINT_PURCHASABLE = 1;
     public static final int HINT_NOT_PURCHASABLE_TOO_EXPENSIVE = 0;
     public static final int HINT_NOT_PURCHASABLE_DEPENDENCIES_MISSING = -1;
@@ -50,7 +50,14 @@ public abstract class ShopArticle {
 
     public abstract int isPurchasable(int subProductIndex);
 
-    public abstract CharSequence getSpentScore(Resources resources);
+    public CharSequence getSpentScore(Resources resources) {
+        int spentScore = getSpentScore(GENERAL_PRODUCT_INDEX);
+        if (spentScore == 0) {
+            return "";
+        }
+        return resources.getString(R.string.shop_article_spent, spentScore);
+    }
+
     public abstract int getSpentScore(int subProductIndex);
     public abstract CharSequence getCostText(Resources resources, int subProductIndex);
 
@@ -93,7 +100,7 @@ public abstract class ShopArticle {
         List<Dependency> deps = mDependencies.get(subProductIndex);
         if (deps == null) {
             deps = new ArrayList<>(1);
-            mDependencies.put(subProductIndex < 0 ? GENERAL_DEPENDENCY_INDEX : subProductIndex, deps);
+            mDependencies.put(subProductIndex < 0 ? GENERAL_PRODUCT_INDEX : subProductIndex, deps);
         }
         deps.add(dep);
         return this;
@@ -113,9 +120,9 @@ public abstract class ShopArticle {
 
     protected boolean areDependenciesMissing(int subProductIndex) {
         if (subProductIndex < 0) {
-            return isDependencyNotFulfilled(mDependencies.get(GENERAL_DEPENDENCY_INDEX));
+            return isDependencyNotFulfilled(mDependencies.get(GENERAL_PRODUCT_INDEX));
         } else {
-            if (isDependencyNotFulfilled(mDependencies.get(GENERAL_DEPENDENCY_INDEX)) || isDependencyNotFulfilled(mDependencies.get(subProductIndex))) {
+            if (isDependencyNotFulfilled(mDependencies.get(GENERAL_PRODUCT_INDEX)) || isDependencyNotFulfilled(mDependencies.get(subProductIndex))) {
                 return true;
             }
         }
@@ -142,10 +149,10 @@ public abstract class ShopArticle {
     protected CharSequence makeMissingDependenciesText(Resources res, int subProductIndex) {
         StringBuilder builder = new StringBuilder();
         if (subProductIndex < 0) {
-            appendMissingDependencies(builder, res, mDependencies.get(GENERAL_DEPENDENCY_INDEX), false);
+            appendMissingDependencies(builder, res, mDependencies.get(GENERAL_PRODUCT_INDEX), false);
         } else {
             boolean addSeparator;
-            addSeparator = appendMissingDependencies(builder, res, mDependencies.get(GENERAL_DEPENDENCY_INDEX), false);
+            addSeparator = appendMissingDependencies(builder, res, mDependencies.get(GENERAL_PRODUCT_INDEX), false);
             appendMissingDependencies(builder, res, mDependencies.get(subProductIndex), addSeparator);
         }
         return builder.toString();
@@ -155,7 +162,11 @@ public abstract class ShopArticle {
 
     }
 
-    public String getKey() {
+    public final String getKey() {
         return mKey;
+    }
+
+    public boolean isImportant() {
+        return false;
     }
 }

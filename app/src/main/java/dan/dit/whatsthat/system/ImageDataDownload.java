@@ -18,6 +18,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 
 import dan.dit.whatsthat.R;
@@ -81,6 +82,17 @@ public class ImageDataDownload {
 
     public String getUrl() {
         return mURL;
+    }
+
+    public String getURLHost() {
+        if (TextUtils.isEmpty(mURL)) {
+            return null;
+        }
+        try {
+            return new URL(mURL).getHost();
+        } catch (MalformedURLException e) {
+            return null;
+        }
     }
 
     public int getEstimatedSize() {

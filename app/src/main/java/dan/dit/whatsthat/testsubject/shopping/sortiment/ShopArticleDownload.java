@@ -63,16 +63,8 @@ public class ShopArticleDownload extends ShopArticle implements ImageDataDownloa
     }
 
     @Override
-    public CharSequence getSpentScore(Resources resources) {
-        if (mCost == 0 || !mPurse.hasShopValue(mKey)) {
-            return "";
-        }
-        return resources.getString(R.string.shop_article_spent, mCost);
-    }
-
-    @Override
     public int getSpentScore(int subProductIndex) {
-        return mCost;
+        return !mPurse.hasShopValue(mKey) ? 0 : mCost;
     }
 
     @Override
@@ -227,7 +219,7 @@ public class ShopArticleDownload extends ShopArticle implements ImageDataDownloa
                     mDescription.setText(mContext.getString(R.string.download_article_descr_downloaded, mDownload.getOrigin(), mDownload.getDataName()));
                 } else {
                     int estimatedSizeMB = mDownload.getEstimatedSize();
-                    mDescription.setText(mContext.getString(R.string.download_article_descr_ready, mDownload.getUrl(), estimatedSizeMB <= 0 ? 1 : estimatedSizeMB));
+                    mDescription.setText(mContext.getString(R.string.download_article_descr_ready, mDownload.getURLHost(), estimatedSizeMB <= 0 ? 1 : estimatedSizeMB));
                 }
             }
         }
