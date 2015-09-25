@@ -578,7 +578,8 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
                 .setView(input)
                 .setPositiveButton("YEAH BABY", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
-                        String value = input.getText().toString().toLowerCase().trim();
+                        String trimmedText = input.getText().toString().trim();
+                        String value = trimmedText.toLowerCase();
                         Image selected = null;
                         for (Image image : ALL_IMAGES.values()) {
                             if (image.getName().equalsIgnoreCase(value)) {
@@ -614,10 +615,19 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
                                 throw new IllegalArgumentException("Boom.");
                             } else if (value.equalsIgnoreCase("sudo")) {
                                 User.getInstance().givePermission(User.PERMISSION_SUPER_USER);
+                                Toast.makeText(getActivity(), "You are now a local god", Toast.LENGTH_SHORT).show();
                             } else if (value.equalsIgnoreCase("sodu")) {
                                 User.getInstance().removePermission(User.PERMISSION_SUPER_USER);
+                                Toast.makeText(getActivity(), "Local god mode disabled", Toast.LENGTH_SHORT).show();
+                            } else if (PracticalRiddleType.getInstance(trimmedText) != null) {
+                                if (TestSubject.getInstance().addNewType(PracticalRiddleType.getInstance(trimmedText))) {
+                                    TestSubject.getInstance().saveTypes();
+                                    Toast.makeText(getActivity(), "Experiment " + trimmedText + " jetzt verfügbar.", Toast.LENGTH_LONG).show();
+                                } else {
+                                    Toast.makeText(getActivity(), "Experiment " + trimmedText + " bereits vorhanden!", Toast.LENGTH_LONG).show();
+                                }
                             } else {
-                                Toast.makeText(getActivity(), "Bild nicht gefunden.", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getActivity(), "'" + value + "' nicht gefunden.", Toast.LENGTH_SHORT).show();
                             }
                         }
                     }
@@ -756,5 +766,8 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
     @Override
     public void onEntryChanged(WalletEntry entry) {
         updateScoreInfo();
+    }
+    @Override
+    public void onEntryRemoved(WalletEntry entry) {
     }
 }

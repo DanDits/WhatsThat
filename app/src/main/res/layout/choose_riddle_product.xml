@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="5dp">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_toLeftOf="@+id/riddle_icon"
+        android:layout_alignParentLeft="true"
+        android:gravity="center"
+        android:textAppearance="@android:style/TextAppearance.Medium"
+        android:id="@+id/riddle_name"
+        android:textStyle="bold" />
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:id="@+id/riddle_icon"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/riddle_icon"
+        android:id="@+id/riddle_advertising"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="5dp"
+        android:layout_centerHorizontal="true"
+        style="@style/button_important"
+        android:id="@+id/riddle_confirm"
+        android:layout_below="@+id/riddle_advertising"
+        android:text="@string/article_choose_riddle_confirm"/>
+</RelativeLayout>

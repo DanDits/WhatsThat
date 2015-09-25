@@ -25,6 +25,7 @@ public class Wallet {
 
     public interface OnEntryChangedListener {
         void onEntryChanged(WalletEntry entry);
+        void onEntryRemoved(WalletEntry entry);
     }
 
     public Wallet(Context context, String name) {
@@ -32,6 +33,15 @@ public class Wallet {
         mPrefs = context.getSharedPreferences(WALLET_FILE_NAME, Context.MODE_PRIVATE);
         mEntries = new HashMap<>();
         mEditor = new Editor();
+    }
+
+    public void removeEntry(String key) {
+        WalletEntry entry = mEntries.remove(key);
+        if (entry != null) {
+            SharedPreferences.Editor editor = mPrefs.edit();
+            editor.remove(mName + key).apply();
+            notifyRemovedListeners(entry);
+        }
     }
 
     public WalletEntry assureEntry(String key) {
@@ -134,6 +144,14 @@ public class Wallet {
         if (mListeners != null) {
             for (int i = 0; i < mListeners.size(); i++) {
                 mListeners.get(i).onEntryChanged(entry);
+            }
+        }
+    }
+
+    private void notifyRemovedListeners(WalletEntry entry) {
+        if (mListeners != null) {
+            for (int i = 0; i < mListeners.size(); i++) {
+                mListeners.get(i).onEntryRemoved(entry);
             }
         }
     }

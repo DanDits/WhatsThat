@@ -7,7 +7,7 @@ import android.view.View;
  * Created by daniel on 29.07.15.
  */
 public abstract class SubProduct {
-    ShopArticle mParentArticle;
+    protected ShopArticle mParentArticle;
 
     public abstract View getView();
 
@@ -16,7 +16,9 @@ public abstract class SubProduct {
     }
 
     public abstract void inflateView(LayoutInflater inflater);
-    public abstract boolean hasNoView();
+    public boolean hasNoView() {
+        return getView() == null;
+    }
 
     public abstract void onClick();
 }

@@ -2,6 +2,7 @@
 <resources>
     <!-- Circle related -->
     <string name="riddle_type_circle">Graue Zellen</string>
+    <string name="riddle_type_circle_advertising">Ein einfaches Experiment, das darauf abzielt, deine grauen Zellen durch graue Kreise zu stimulieren.</string>
     <string name="riddle_type_circle_explanation">Berühre einen Kreis, um diesen in vier kleinere aufzuteilen. Dadurch wird die Kontur des versteckten Bildes sichtbar.</string>
     <string-array name="riddle_type_circle_hints">
         <item>Teile bei unserem ersten Experiment einen Kreis, so wie Mose das Wasser. Nur nicht in zwei Hälften, sondern in vier neue Kreise. Irgendwann erkennst du durch die feineren Konturen ein Bild. Falls nicht, führe ich die Versuchsreihe mit Pantoffeltierchen weiter, die diese Tests mit Bravour bestanden haben.</item>
@@ -16,6 +17,7 @@
 
     <!-- Snow related -->
     <string name="riddle_type_snow">Zorny Zell</string>
+    <string name="riddle_type_snow_advertising">Ein anspruchsvolleres Experiment, du steuerst eine verwirrte und seltsame Zelle durch die wirren Schleier deines Geistes.</string>
     <string name="riddle_type_snow_explanation">Beschleunige die Zelle durch Kippen des Gerätes. Sammle Süßigkeiten, wachse und explodiere das Bild frei.</string>
     <string-array name="riddle_type_snow_hints">
         <item>Ein neuer Test. In der Umgebung der Zelle platzieren wir kontaminierte biologische Stoffe einer anderen Spezies, um die Reaktion der Zelle darauf zu testen. Achte auf die Partikel, die von dem Stoff ausgehen und deiner Zelle schaden. Den Rest werden wir, wie in der Politik, mit einer Lüge bestmöglich verschleiern.</item>
@@ -78,6 +80,7 @@
 
     <!-- Triangle related -->
     <string name="riddle_type_triangle">Triluminati</string>
+    <string name="riddle_type_triangle_advertising">Ein einfaches Experiment, deine grauen Zellen haben an Farbe gewonnen und das Rätsel an Ecken.</string>
     <string name="riddle_type_triangle_explanation">Berühre ein Dreieck, um es in kleinere Dreiecke aufzuteilen. Dadurch wird das versteckte Bild immer besser erkenntlich.</string>
     <string-array name="riddle_type_triangle_hints">
         <item>WiseMind meint, ich rede zu viel. Ich halte mich deshalb kurz: Ein farbliches Pendant zum Kreis-Test. Klickst du auf ein Dreieck, teilt sich dieses in zwei kleinere. Wozu das ganze? Zum Testen eurer Farbwahrnehmung.</item>
@@ -92,6 +95,7 @@
 
     <!-- Dice related -->
     <string name="riddle_type_dice">Alien-Cube</string>
+    <string name="riddle_type_dice_advertising">Ein anspruchsvolles Experiment… und seltsam. Werfe Würfel und bewege sie auf einem Gitter möglichst geschickt.</string>
     <string name="riddle_type_dice_explanation">Berühre ein leeres Feld, damit ein neuer Würfel erscheint. Bewege und kombiniere Würfel gleicher Augenzahl und Farbe, um das Bild aufzudecken.</string>
     <string-array name="riddle_type_dice_hints">
         <item>Ein komplizierter Test. Kombiniere  Würfel gleicher Zahl und Farbe. In den angezeigten Bereichen entsteht Transparenz. Es gibt drei Basiswürfel rot, gelb und grün sowie die Sonderwürfel lila und den Alien Cube. Der Alien-Cube hat auf jeden Basiswürfel unterschiedliche Effekte.</item>
@@ -107,6 +111,7 @@
 
     <!-- Jumper related -->
     <string name="riddle_type_jumper">Monstarathon</string>
+    <string name="riddle_type_jumper_advertising">Ein vielseitiges Jump and Run Experiment. Springe über Hindernisse und bleibe bloß nicht hängen!</string>
     <string name="riddle_type_jumper_explanation">Berühre das Feld, um über Hindernisse zu springen. Halte länger gedrückt um höher zu springen.</string>
     <string-array name="riddle_type_jumper_hints">
         <item>Ihr Menschen seid ein merkwürdisches Völkchen. Ein Esel lässt sich mit einer Karotte zum Laufen animieren, bei euch Homo-Sapiens bedarf es einem Bündel Geld, obwohl das nicht mal essbar ist.</item>
@@ -135,6 +140,7 @@
 
     <!-- Memory related -->
     <string name="riddle_type_memory">Memory</string>
+    <string name="riddle_type_memory_advertising">Ein anspruchsvolleres Experiment, zumindest für Erwachsene. Man muss sich Karten merken!</string>
     <string name="riddle_type_memory_explanation">Finde Kartenpaare mit gleichen Bildern und decke diese durch Klicken auf.</string>
     <string-array name="riddle_type_memory_hints">
         <item>Memory ist cool.</item>
@@ -150,6 +156,7 @@
 
     <!-- Flow related -->
     <string name="riddle_type_flow">Chaosfluss</string>
+    <string name="riddle_type_flow_advertising">Ein einfaches aber komisches Experiment. Alles fließt, beobachte und erkenne das versteckte Bild.</string>
     <string name="riddle_type_flow_explanation">Berühre das Feld, wodurch Pixelflüsse entstehen. Versuche Puntke nahe an Konturen zu setzen, damit Linien im Bild absuchen.</string>
     <string-array name="riddle_type_flow_hints">
         <item>Zellen besitzen nur teilweise Intelligenz. Daher verläuft nur jeder dritte gesetzte Punkt gefundene Konturen ab.</item>
@@ -158,5 +165,6 @@
 
     <!-- Lazor related -->
     <string name="riddle_type_lazor">Lazor</string>
+    <string name="riddle_type_lazor_advertising">Sehr sehr geiles Experiment.</string>
     <string name="riddle_type_lazor_explanation">Here be lazors</string>
 </resources>

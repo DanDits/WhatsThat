@@ -92,7 +92,7 @@ public class ShopArticleDownload extends ShopArticle implements ImageDataDownloa
             if (mDownloadProduct == null) {
                 mDownloadProduct = new DownloadProduct();
             }
-            if (mDownloadProduct.hasNoView()) {
+            if (mDownloadProduct.getView() == null) {
                 mDownloadProduct.inflateView(inflater);
             }
             mDownloadProduct.updateDescription();
@@ -230,11 +230,6 @@ public class ShopArticleDownload extends ShopArticle implements ImageDataDownloa
             mProgress = (ProgressBar) mView.findViewById(R.id.progress_bar);
             mProgress.setMax(PROGRESS_COMPLETE);
             mDescription = (TextView) mView.findViewById(R.id.download_descr);
-        }
-
-        @Override
-        public boolean hasNoView() {
-            return mView == null;
         }
 
         @Override

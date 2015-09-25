@@ -210,6 +210,7 @@
     <string name="article_choose_riddle_name">Wähle ein neues Experiment</string>
     <string name="article_choose_riddle_descr">Fordere deinen Geist mit einer neuen Aufgabe heraus!</string>
     <string name="article_level_up_dep_new_level">Zuerst dein Gehirn boosten!</string>
+    <string name="article_choose_riddle_confirm">Wähle dieses Experiment. Nicht rückgängig machbar!</string>
 
     <plurals name="images_in_bundle">
         <item quantity="one">%1$d Bild</item>

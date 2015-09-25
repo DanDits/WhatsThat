@@ -616,6 +616,11 @@ public class AchievementCircle extends TypeAchievementHolder {
         }
 
         @Override
+        public int getMaxScoreReward() {
+            return PERFECT_REWARD;
+        }
+
+        @Override
         public void onDataEvent(AchievementDataEvent event) {
             if (!isDiscovered() && event.getChangedData() == mGameData && mGameData.isSolved()
                     && event.getEventType() == AchievementDataEvent.EVENT_TYPE_DATA_CLOSE) {

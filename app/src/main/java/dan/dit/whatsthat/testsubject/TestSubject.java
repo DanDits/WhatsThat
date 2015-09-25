@@ -17,7 +17,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -30,7 +29,6 @@ import dan.dit.whatsthat.achievement.Achievement;
 import dan.dit.whatsthat.achievement.AchievementManager;
 import dan.dit.whatsthat.achievement.AchievementProperties;
 import dan.dit.whatsthat.riddle.RiddleInitializer;
-import dan.dit.whatsthat.riddle.achievement.MiscAchievement;
 import dan.dit.whatsthat.riddle.achievement.holders.MiscAchievementHolder;
 import dan.dit.whatsthat.riddle.achievement.holders.TestSubjectAchievementHolder;
 import dan.dit.whatsthat.riddle.achievement.holders.TypeAchievementHolder;
@@ -67,9 +65,9 @@ public class TestSubject {
     public static final int GENDER_FEMALE = 1;
     public static final int GENDER_WHATEVER = 2;
     public static final int GENDER_ALIEN = 3; // :o
-    public static final String SHW_KEY_CAN_CHOOSE_NEW_RIDDLE = "shw_key_can_choose_new_riddle";
+    public static final String SHW_KEY_MAX_AVAILABLE_RIDDLE_TYPES = "shw_key_can_choose_new_riddle";
     public static final String SHW_KEY_SPENT_SCORE_ON_LEVEL_UP = "shw_level_up_spent_score";
-    public static final String SHW_KEY_NEXT_LEVEL_UP_COST = "shw_next_level_up_cost";
+    private static final int AVAILABLE_RIDDLES_AT_GAME_START = 1; // one additional riddle type is granted per level up (also on level 0)
 
 
     private boolean mInitialized;
@@ -240,13 +238,36 @@ public class TestSubject {
         }
     }
 
+    public int getNextLevelUpCost() {
+        if (mCurrLevel >= mLevels.length -1) {
+            return -1; // already at max level
+        }
+        double fraction = mLevels[mCurrLevel + 1].getLevelUpAchievementScoreFraction();
+        int maxAchievementScore = 0;
+        for (TestSubjectRiddleType type : mTypes) {
+            TypeAchievementHolder holder = mAchievementHolder.getTypeAchievementHolder(type.getType());
+            if (holder == null) {
+                continue;
+            }
+            List<? extends Achievement> achievements = holder.getAchievements();
+            if (achievements != null) {
+                for (Achievement achievement : achievements) {
+                    if (achievement.getLevel() <= mCurrLevel) {
+                        maxAchievementScore += achievement.getMaxScoreReward();
+                    }
+                }
+            }
+        }
+        return (int) (maxAchievementScore * fraction) - mPurse.mShopWallet.getEntryValue(SHW_KEY_SPENT_SCORE_ON_LEVEL_UP);
+    }
+
     public synchronized boolean purchaseLevelUp() {
         if (mCurrLevel >= mLevels.length -1) {
             return false; // already at max level
         }
-        int cost = mPurse.mShopWallet.getEntryValue(SHW_KEY_NEXT_LEVEL_UP_COST, -1);
+        int cost = getNextLevelUpCost();
         if (cost < 0) {
-            return false; // no cost initialized
+            return false; // no cost initialized or no level available
         }
         if (mPurse.getCurrentScore() < cost) {
             return false; // too little score
@@ -263,15 +284,16 @@ public class TestSubject {
         if (mCurrLevel >= mLevels.length - 1) {
             return false;
         }
-        if (mPurse.mShopWallet.getEntryValue(SHW_KEY_CAN_CHOOSE_NEW_RIDDLE) == WalletEntry.TRUE) {
+        if (mCurrLevel != TestSubjectLevel.LEVEL_NONE && canChooseNewRiddle()) {
             return false; // first user needs to choose a new riddle
         }
-        mPurse.mShopWallet.editEntry(SHW_KEY_CAN_CHOOSE_NEW_RIDDLE).setTrue();
+        mPurse.mShopWallet.editEntry(SHW_KEY_MAX_AVAILABLE_RIDDLE_TYPES, AVAILABLE_RIDDLES_AT_GAME_START).add(1);
         mPurse.mShopWallet.editEntry(Purse.SHW_KEY_TESTSUBJECT_LEVEL).add(1);
         mCurrLevel = mPurse.mShopWallet.getEntryValue(Purse.SHW_KEY_TESTSUBJECT_LEVEL);
         TestSubjectLevel currLevel = mLevels[mCurrLevel];
         currLevel.onLeveledUp();
         currLevel.applyLevel(mApplicationContext.getResources());
+
         return true;
     }
 
@@ -310,14 +332,27 @@ public class TestSubject {
         mAchievementHolder.getMiscData().updateMappedValue(MiscAchievementHolder.KEY_ACHIEVEMENTS_EARNED_COUNT, achievement.getId());
     }
 
-    protected void addNewType(PracticalRiddleType type) {
+    public boolean addNewType(PracticalRiddleType type) {
         for (TestSubjectRiddleType currType : mTypes) {
             if (currType.getType().equals(type)) {
-                return;
+                return false;
             }
         }
         mTypes.add(new TestSubjectRiddleType(type));
         mPurse.setAvailableRiddleHintsAtStartCount(type);
+        return true;
+    }
+
+    public boolean isTypeAvailable(PracticalRiddleType type) {
+        if (type == null) {
+            return false;
+        }
+        for (TestSubjectRiddleType testType : mTypes) {
+            if (testType.getType().equals(type)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public List<TestSubjectRiddleType> getAvailableTypes() {
@@ -327,6 +362,22 @@ public class TestSubject {
     public boolean canSkip() {
         return mPurse.mShopWallet.assureEntry(Purse.SHW_KEY_SKIPABLE_GAMES, DEFAULT_SKIPABLE_GAMES).getValue()
                 > RiddleInitializer.INSTANCE.getRiddleManager().getUnsolvedRiddleCount();
+    }
+
+    public boolean canChooseNewRiddle() {
+        return mPurse.mShopWallet.getEntryValue(SHW_KEY_MAX_AVAILABLE_RIDDLE_TYPES, AVAILABLE_RIDDLES_AT_GAME_START) > mTypes.size();
+    }
+
+    public synchronized boolean chooseNewRiddle(PracticalRiddleType type) {
+        if (isTypeAvailable(type) || !canChooseNewRiddle()) {
+            return false;
+        }
+        if (addNewType(type)) {
+            saveTypes();
+            Log.d("Riddle", "Added and saved new type: " + type);
+            return true;
+        }
+        return false;
     }
 
     public PracticalRiddleType findNextRiddleType() {

@@ -229,6 +229,10 @@ public abstract class Achievement implements AchievementDataEventListener, Depen
         return mScoreReward;
     }
 
+    public int getMaxScoreReward() {
+        return getScoreReward();
+    }
+
     /**
      * Checks if the reward is claimable. This is when the achievement is
      * achieved and the reward was not yet claimed.

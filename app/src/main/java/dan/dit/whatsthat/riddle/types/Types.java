@@ -131,6 +131,11 @@ public class Types {
         public int getBaseScore() {
             return SCORE_SIMPLE;
         }
+
+        @Override
+        public int getAdvertisingResId() {
+            return R.string.riddle_type_circle_advertising;
+        }
     }
 
     /**
@@ -141,6 +146,11 @@ public class Types {
         public TypeAchievementHolder mHolder = new AchievementSnow(this);
         @Override
         protected String getName() {return NAME;}
+
+        @Override
+        public int getAdvertisingResId() {
+            return R.string.riddle_type_snow_advertising;
+        }
 
         @Override
         public RiddleGame makeRiddle(Riddle riddle, Image image, Bitmap bitmap, Resources res, RiddleConfig config, PercentProgressListener listener) {
@@ -200,6 +210,11 @@ public class Types {
         public TypeAchievementHolder mHolder = new AchievementDice(this);
         @Override
         protected String getName() {return NAME;}
+
+        @Override
+        public int getAdvertisingResId() {
+            return R.string.riddle_type_dice_advertising;
+        }
 
         @Override
         public boolean enforcesBitmapAspectRatio() {
@@ -271,6 +286,11 @@ public class Types {
         public TypeAchievementHolder mHolder = new AchievementTriangle(this);
         @Override
         protected String getName() {return NAME;}
+
+        @Override
+        public int getAdvertisingResId() {
+            return R.string.riddle_type_triangle_advertising;
+        }
         @Override
         public boolean enforcesBitmapAspectRatio() {return true;}
 
@@ -339,6 +359,10 @@ public class Types {
         @Override
         protected String getName() {return NAME;}
 
+        @Override
+        public int getAdvertisingResId() {
+            return R.string.riddle_type_jumper_advertising;
+        }
         @Override
         public RiddleGame makeRiddle(Riddle riddle, Image image, Bitmap bitmap, Resources res, RiddleConfig config, PercentProgressListener listener) {
             return new RiddleJumper(riddle, image, bitmap, res, config, listener);
@@ -409,6 +433,10 @@ public class Types {
         protected String getName() {return NAME;}
 
         @Override
+        public int getAdvertisingResId() {
+            return R.string.riddle_type_memory_advertising;
+        }
+        @Override
         public TypeAchievementHolder getAchievementHolder() {
         return mHolder;
     }
@@ -469,6 +497,11 @@ public class Types {
         protected String getName() {return NAME;}
 
         @Override
+        public int getAdvertisingResId() {
+            return 0;
+        }
+
+        @Override
         public RiddleGame makeRiddle(Riddle riddle, Image image, Bitmap bitmap, Resources res, RiddleConfig config, PercentProgressListener listener) {
             return new RiddleDeveloper(riddle, image, bitmap, res, config, listener);
         }
@@ -500,6 +533,10 @@ public class Types {
         protected String getName() {return NAME;}
 
         @Override
+        public int getAdvertisingResId() {
+            return 0;
+        }
+        @Override
         public RiddleGame makeRiddle(Riddle riddle, Image image, Bitmap bitmap, Resources res, RiddleConfig config, PercentProgressListener listener) {
             return new RiddleTorchlight(riddle, image, bitmap, res, config, listener);
         }
@@ -530,6 +567,10 @@ public class Types {
         @Override
         protected String getName() {return NAME;}
 
+        @Override
+        public int getAdvertisingResId() {
+            return R.string.riddle_type_flow_advertising;
+        }
         @Override
         public RiddleGame makeRiddle(Riddle riddle, Image image, Bitmap bitmap, Resources res, RiddleConfig config, PercentProgressListener listener) {
             return new RiddleFlow(riddle, image, bitmap, res, config, listener);
@@ -592,6 +633,10 @@ public class Types {
         @Override
         protected String getName() {return NAME;}
 
+        @Override
+        public int getAdvertisingResId() {
+            return R.string.riddle_type_lazor_advertising;
+        }
         @Override
         public double getSuggestedBitmapAspectRatio() {
             return BITMAP_ASPECT_RATIO;

@@ -23,7 +23,7 @@ public class LevelUpArticle extends ShopArticle {
         addDependency(new Dependency() {
             @Override
             public boolean isNotFulfilled() {
-                return mPurse.hasShopValue(TestSubject.SHW_KEY_CAN_CHOOSE_NEW_RIDDLE);
+                return TestSubject.getInstance().canChooseNewRiddle();
             }
 
             @Override
@@ -45,7 +45,8 @@ public class LevelUpArticle extends ShopArticle {
         if (areDependenciesMissing(subProductIndex)) {
             return HINT_NOT_PURCHASABLE_DEPENDENCIES_MISSING;
         }
-        return mPurse.getCurrentScore() >= mPurse.getShopValue(TestSubject.SHW_KEY_NEXT_LEVEL_UP_COST) ? HINT_PURCHASABLE : HINT_NOT_PURCHASABLE_TOO_EXPENSIVE;
+        int cost = TestSubject.getInstance().getNextLevelUpCost();
+        return mPurse.getCurrentScore() >= cost ? HINT_PURCHASABLE : HINT_NOT_PURCHASABLE_TOO_EXPENSIVE;
     }
 
     @Override
@@ -61,7 +62,7 @@ public class LevelUpArticle extends ShopArticle {
 
     @Override
     public CharSequence getCostText(Resources resources, int subProductIndex) {
-        int cost = mPurse.getShopValue(TestSubject.SHW_KEY_NEXT_LEVEL_UP_COST);
+        int cost = TestSubject.getInstance().getNextLevelUpCost();
         if (cost > 0) {
             return String.valueOf(cost);
         } else {
@@ -85,7 +86,7 @@ public class LevelUpArticle extends ShopArticle {
         }
         CharSequence costText;
         CharSequence depText;
-        int cost = mPurse.getShopValue(TestSubject.SHW_KEY_NEXT_LEVEL_UP_COST);
+        int cost = TestSubject.getInstance().getNextLevelUpCost();
         if (mConfirmProduct.hasNoView()) {
             costText = String.valueOf(cost);
             depText = "---";

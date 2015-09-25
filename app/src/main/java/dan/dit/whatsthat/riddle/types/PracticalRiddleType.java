@@ -49,6 +49,18 @@ public abstract class PracticalRiddleType extends RiddleType {
     public static final Types.Torchlight TORCHLIGHT_INSTANCE = new Types.Torchlight();
     public static final Types.Flow FLOW_INSTANCE = new Types.Flow();
 
+    public static final List<PracticalRiddleType> ALL_PLAYABLE_TYPES = new ArrayList<>();
+    static {
+        ALL_PLAYABLE_TYPES.add(CIRCLE_INSTANCE);
+        ALL_PLAYABLE_TYPES.add(LAZOR_INSTANCE);
+        ALL_PLAYABLE_TYPES.add(JUMPER_INSTANCE);
+        ALL_PLAYABLE_TYPES.add(MEMORY_INSTANCE);
+        ALL_PLAYABLE_TYPES.add(SNOW_INSTANCE);
+        ALL_PLAYABLE_TYPES.add(TRIANGLE_INSTANCE);
+        ALL_PLAYABLE_TYPES.add(DICE_INSTANCE);
+        ALL_PLAYABLE_TYPES.add(FLOW_INSTANCE);
+    }
+
     private SoftReference<Drawable> mIcon;
     private volatile AchievementDataRiddleType mAchievementData;
     private final AchievementDataRiddleGame mAchievementDataGame = new AchievementDataRiddleGame(this);
@@ -62,7 +74,6 @@ public abstract class PracticalRiddleType extends RiddleType {
         }
         if (res != null) {
             Drawable icon = res.getDrawable(getIconResId());
-            Log.d("Riddle", "Remaking icon for type: " + getName());
             mIcon = new SoftReference<>(icon);
             return icon;
         }
@@ -214,4 +225,6 @@ public abstract class PracticalRiddleType extends RiddleType {
     }
 
     public abstract int getBaseScore();
+
+    public abstract int getAdvertisingResId();
 }

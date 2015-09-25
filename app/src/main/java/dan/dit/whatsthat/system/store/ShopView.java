@@ -228,7 +228,7 @@ public class ShopView extends ExpandableListView implements  StoreContainer, Sho
             TextView costView = ((TextView) convertView.findViewById(R.id.shop_article_cost));
             costView.setText(article.getSpentScore(getResources()));
             if (costView.getText().length()  > 0) {
-                costView.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.think_currency_small, 0);
+                costView.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.think_currency_small, 0, 0);
             } else {
                 costView.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
             }
