@@ -56,8 +56,8 @@ public class AchievementMemory extends TypeAchievementHolder {
         public static final int LEVEL = 0;
         public static final int REWARD = 100;
         public static final boolean DISCOVERED = false;
-        private static final long GLACIER_CLICK_PATIENCE = 200L; // clicks required till achieved or
-        private static final long GLACIER_MELT_DURATION = 12L * 60L * 1000L; // 10 minutes in ms
+        private static final long GLACIER_CLICK_PATIENCE = 225L; // clicks required till achieved or
+        private static final long GLACIER_MELT_DURATION = 12L * 60L * 1000L; // x minutes in ms
 
         public Achievement1(AchievementManager manager, PracticalRiddleType type) {
             super(type, R.string.achievement_memory_1_name, R.string.achievement_memory_1_descr, 0, NUMBER, manager, LEVEL, REWARD, 1, DISCOVERED);

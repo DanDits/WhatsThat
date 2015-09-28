@@ -10,6 +10,7 @@ import dan.dit.whatsthat.R;
 import dan.dit.whatsthat.achievement.Achievement;
 import dan.dit.whatsthat.achievement.AchievementManager;
 import dan.dit.whatsthat.riddle.types.PracticalRiddleType;
+import dan.dit.whatsthat.testsubject.LevelDependency;
 import dan.dit.whatsthat.testsubject.TestSubject;
 import dan.dit.whatsthat.util.dependencies.MinValueDependency;
 
@@ -73,27 +74,6 @@ public abstract class GameAchievement extends Achievement {
 
     private void addLevelDependency() {
         mDependencies.add(LevelDependency.getInstance(mLevel));
-    }
-
-    private static class LevelDependency extends MinValueDependency {
-        private static Map<Integer, LevelDependency> LEVEL_DEPENDENCIES = new HashMap<>();
-        private LevelDependency(int level) {
-            super(TestSubject.getInstance().getLevelDependency(), level);
-        }
-
-        public static LevelDependency getInstance(int level) {
-            LevelDependency dep = LEVEL_DEPENDENCIES.get(level);
-            if (dep == null) {
-                dep = new LevelDependency(level);
-                LEVEL_DEPENDENCIES.put(level, dep);
-            }
-            return dep;
-        }
-
-        @Override
-        public CharSequence getName(Resources res) {
-            return res.getString(R.string.level_dependency, getMinValue() + 1);
-        }
     }
 
     @Override
