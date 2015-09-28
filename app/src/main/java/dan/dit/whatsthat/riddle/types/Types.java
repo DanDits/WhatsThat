@@ -499,7 +499,7 @@ public class Types {
 
         @Override
         public int getAdvertisingResId() {
-            return 0;
+            return R.string.riddle_type_developer_advertising;
         }
 
         @Override
@@ -535,7 +535,7 @@ public class Types {
 
         @Override
         public int getAdvertisingResId() {
-            return 0;
+            return R.string.riddle_type_torchlight_advertising;
         }
         @Override
         public RiddleGame makeRiddle(Riddle riddle, Image image, Bitmap bitmap, Resources res, RiddleConfig config, PercentProgressListener listener) {

@@ -171,7 +171,7 @@ public class RiddleArticle extends ShopArticle {
                     confirm.setEnabled(false);
                 } else {
                     confirm.setText(R.string.article_choose_riddle_confirm);
-                    confirm.setTextColor(Color.BLACK);
+                    confirm.setTextColor(0xFFcf9700); // orangeish
                     confirm.setEnabled(true);
                 }
 

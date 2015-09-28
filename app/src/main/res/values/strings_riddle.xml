@@ -102,10 +102,12 @@
 
     <!-- Developer related -->
     <string name="riddle_type_developer">Developer</string>
+    <string name="riddle_type_developer_advertising">COOOL?!</string>
     <string name="riddle_type_developer_explanation">Hi self or brother.</string>
 
     <!-- Torchlight related -->
     <string name="riddle_type_torchlight">Torchlight</string>
+    <string name="riddle_type_torchlight_advertising">COOOL?!</string>
     <string name="riddle_type_torchlight_explanation">Something happens later</string>
 
     <!-- Flow related -->
