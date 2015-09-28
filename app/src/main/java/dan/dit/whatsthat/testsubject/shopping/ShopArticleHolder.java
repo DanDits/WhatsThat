@@ -14,6 +14,7 @@ import dan.dit.whatsthat.riddle.types.PracticalRiddleType;
 import dan.dit.whatsthat.testsubject.ForeignPurse;
 import dan.dit.whatsthat.testsubject.TestSubject;
 import dan.dit.whatsthat.testsubject.shopping.filter.ShopArticleFilter;
+import dan.dit.whatsthat.testsubject.shopping.filter.ShopArticleGroupFilter;
 
 /**
  * Created by daniel on 29.07.15.
@@ -24,32 +25,21 @@ public abstract class ShopArticleHolder {
     protected ForeignPurse mPurse;
     protected List<ShopArticle> mFilteredArticles;
     protected List<ShopArticle> mAllArticles;
-    private List<ShopArticleFilter> mFilters;
+    private ShopArticleGroupFilter mRootFilter;
 
-    public List<ShopArticleFilter> getFilters() {
-        return mFilters;
-    }
 
-    public void setFilters(List<ShopArticleFilter> filters) {
-        mFilters = filters;
+    public void setFilter(ShopArticleGroupFilter rootFilter) {
+        mRootFilter = rootFilter;
         applyFilters();
     }
 
     public void applyFilters() {
         mFilteredArticles.clear();
         mFilteredArticles.addAll(mAllArticles);
-        if (mFilters != null && !mFilters.isEmpty()) {
+        if (mRootFilter != null) {
             Iterator<ShopArticle> artIt = mFilteredArticles.iterator();
             while (artIt.hasNext()) {
-                ShopArticle art = artIt.next();
-                boolean positiveFilterFound = false;
-                for (ShopArticleFilter filter : mFilters) {
-                    if (filter.isActive() && filter.check(art)) {
-                        positiveFilterFound = true;
-                        break;
-                    }
-                }
-                if (!positiveFilterFound) {
+                if (!mRootFilter.check(artIt.next())) {
                     artIt.remove();
                 }
             }

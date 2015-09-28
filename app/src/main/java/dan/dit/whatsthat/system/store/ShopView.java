@@ -26,6 +26,7 @@ import dan.dit.whatsthat.testsubject.shopping.filter.ShopArticleFilterIcon;
 import dan.dit.whatsthat.testsubject.shopping.filter.ShopArticleFilterPurchased;
 import dan.dit.whatsthat.testsubject.shopping.ShopArticleHolder;
 import dan.dit.whatsthat.testsubject.shopping.SubProduct;
+import dan.dit.whatsthat.testsubject.shopping.filter.ShopArticleGroupFilter;
 import dan.dit.whatsthat.testsubject.shopping.sortiment.LevelUpArticle;
 import dan.dit.whatsthat.util.PercentProgressListener;
 import dan.dit.whatsthat.util.ui.LinearLayoutProgressBar;
@@ -33,25 +34,37 @@ import dan.dit.whatsthat.util.ui.LinearLayoutProgressBar;
 /**
  * Created by daniel on 12.06.15.
  */
-public class ShopView extends ExpandableListView implements  StoreContainer, ShopArticleHolder.OnArticleChangedListener {
+public class ShopView extends ExpandableListView implements  StoreContainer, ShopArticleHolder.OnArticleChangedListener, ShopArticleGroupFilter.OnFilterUpdateListener {
     private Button mTitleBackButton;
     private ShopArticleAdapter mAdapter;
     private ShopArticleHolder mArticleHolder;
     private final LayoutInflater mInflater;
     private ViewGroup mFilterHolder;
     private TextView mCurrency;
+    private ViewGroup mChildrenFilterHolder;
+    private int mExpandedGroup;
 
     public ShopView(Context context, AttributeSet attrs) {
         super(context, attrs);
         mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         setGroupIndicator(null);
+        mExpandedGroup = -1;
         setOnGroupExpandListener(new OnGroupExpandListener() {
             @Override
             public void onGroupExpand(int groupIndex) {
+                mExpandedGroup = groupIndex;
                 for (int i = 0; i < mArticleHolder.getArticlesCount(); i++) {
                     if (i != groupIndex) {
                         collapseGroup(i);
                     }
+                }
+            }
+        });
+        setOnGroupCollapseListener(new OnGroupCollapseListener() {
+            @Override
+            public void onGroupCollapse(int groupPosition) {
+                if (groupPosition == mExpandedGroup) {
+                    mExpandedGroup = -1;
                 }
             }
         });
@@ -94,60 +107,50 @@ public class ShopView extends ExpandableListView implements  StoreContainer, Sho
 
     private void initFilters() {
         mFilterHolder = (ViewGroup) getRootView().findViewById(R.id.shop_filters);
-
+        mChildrenFilterHolder = (ViewGroup) getRootView().findViewById(R.id.shop_child_filters);
         //determine the set of the articles' icons
-        List<Integer> iconIds = new ArrayList<>();
+        List<Integer> riddleIconIds = new ArrayList<>();
+        List<Integer> otherIconIds = new ArrayList<>();
         for (ShopArticle article : mArticleHolder.getAllArticles()) {
             int id = article.getIconResId();
-            if (!iconIds.contains(id)) {
-                iconIds.add(id);
+            boolean isRiddleIcon = false;
+            for (PracticalRiddleType type : PracticalRiddleType.ALL_PLAYABLE_TYPES) {
+                if (type.getIconResId() == id) {
+                    isRiddleIcon = true;
+                    break;
+                }
+            }
+            if (isRiddleIcon) {
+                if (!riddleIconIds.contains(id)) {
+                    riddleIconIds.add(id);
+                }
+            } else {
+                if (!otherIconIds.contains(id)) {
+                    otherIconIds.add(id);
+                }
             }
         }
 
-        // add icon filters and filter for not purchased articles only
-        List<ShopArticleFilter> filters = new ArrayList<>();
-        for (Integer iconId : iconIds) {
+
+        List<ShopArticleFilter> riddleFilters = new ArrayList<>();
+        for (Integer iconId : riddleIconIds) {
             PracticalRiddleType lastVisibleType = Riddle.getLastVisibleRiddleType(getContext());
-            filters.add(new ShopArticleFilterIcon(iconId, iconId, lastVisibleType != null && lastVisibleType.getIconResId() == iconId));
+            riddleFilters.add(new ShopArticleFilterIcon(iconId, iconId, lastVisibleType != null && lastVisibleType.getIconResId() == iconId));
         }
-        filters.add(new ShopArticleFilterPurchased(R.drawable.icon_filter_progress_complete, true, false));
-        filters.add(new ShopArticleFilterPurchased(R.drawable.icon_filter_progress, false, false));
-        filters.add(new ShopArticleFilterImportant());
+        ShopArticleGroupFilter riddleGroupFilter = new ShopArticleGroupFilter(mChildrenFilterHolder, R.drawable.icon_plain, riddleFilters, false, this);
+
+        List<ShopArticleFilter> rootFilters = new ArrayList<>();
+        rootFilters.add(new ShopArticleFilterImportant(R.drawable.icon_important));
+        rootFilters.add(riddleGroupFilter);
+        for (Integer iconId : otherIconIds) {
+            rootFilters.add(new ShopArticleFilterIcon(iconId, iconId, false));
+        }
+        rootFilters.add(new ShopArticleFilterPurchased(R.drawable.icon_filter_progress_complete, true, false));
+        rootFilters.add(new ShopArticleFilterPurchased(R.drawable.icon_filter_progress, false, false));
+        ShopArticleGroupFilter rootFilter = new ShopArticleGroupFilter(mFilterHolder, 0, rootFilters, true, this);
 
         // init filters and filter views and listeners
-        mArticleHolder.setFilters(filters);
-        mFilterHolder.removeAllViews();
-        for (ShopArticleFilter filter : filters) {
-            if (!filter.isVisible()) {
-                continue;
-            }
-            ImageView image = new ImageView(getContext());
-            image.setImageResource(filter.getIcon());
-            applyFilterToImage(image, filter);
-            image.setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    int index = mFilterHolder.indexOfChild(view);
-                    List<ShopArticleFilter> filters = mArticleHolder.getFilters();
-                    if (filters != null && index >= 0 && index < filters.size()) {
-                        ShopArticleFilter filter = filters.get(index);
-                        filter.setActive(!filter.isActive());
-                        ImageView image = (ImageView) view;
-                        applyFilterToImage(image, filter);
-                        applyFilters();
-                    }
-                }
-            });
-            mFilterHolder.addView(image);
-        }
-    }
-
-    private void applyFilterToImage(ImageView image, ShopArticleFilter filter) {
-        if (filter.isActive()) {
-            image.setImageAlpha(255);
-        } else {
-            image.setImageAlpha(70);
-        }
+        mArticleHolder.setFilter(rootFilter);
     }
 
     private void applyFilters() {
@@ -172,6 +175,11 @@ public class ShopView extends ExpandableListView implements  StoreContainer, Sho
             applyFilters();
             updateCurrency();
         }
+    }
+
+    @Override
+    public void onFilterUpdate() {
+        applyFilters();
     }
 
     private class ShopArticleAdapter extends BaseExpandableListAdapter {
@@ -217,6 +225,11 @@ public class ShopView extends ExpandableListView implements  StoreContainer, Sho
             if (name == null) {
                 convertView = mInflater.inflate(R.layout.shop_article, null);
                 name = convertView.findViewById(R.id.shop_article_name);
+            }
+            if (mExpandedGroup == -1 || isExpanded) {
+                convertView.setAlpha(1.f);
+            } else {
+                convertView.setAlpha(0.25f);
             }
             ShopArticle article = mArticleHolder.getArticle(groupPosition);
             ((TextView) name).setText(article.getName(getResources()));

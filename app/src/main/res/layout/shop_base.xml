@@ -32,6 +32,31 @@
                     android:src="@drawable/icon_dice" />
             </LinearLayout>
         </HorizontalScrollView>
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/scrollView"
+            android:id="@+id/childScrollView">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:id="@+id/shop_child_filters">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/imageView4"
+                    android:src="@drawable/icon_circle" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/imageView5"
+                    android:src="@drawable/icon_dice" />
+            </LinearLayout>
+        </HorizontalScrollView>
 
         <TextView
             android:layout_width="wrap_content"
@@ -50,6 +75,7 @@
         class="dan.dit.whatsthat.system.store.ShopView"
         android:orientation="vertical" android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginTop="10dp"
         android:smoothScrollbar="false"
         android:id="@+id/store_container">
 

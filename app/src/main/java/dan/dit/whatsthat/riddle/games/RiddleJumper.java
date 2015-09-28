@@ -79,9 +79,9 @@ public class RiddleJumper extends RiddleGame implements FlatWorldCallback {
     private static final float DISTANCE_RUN_START_FURTHER_FEATURE = meterToDistanceRun(200);
     private static final int[] DISTANCE_RUN_THRESHOLDS = new int[] {0, (int) (meterToDistanceRun(150)), (int) (meterToDistanceRun(400)), (int) (meterToDistanceRun(800))};
     private static final long[] NEXT_OBSTACLE_MIN_TIME_SMALL = new long[] {930L, 740L, 580L, 570L, 540L};
-    private static final long[] NEXT_OBSTACLE_MIN_TIME_BIG = new long[] {1000L, 1200L, 1075L, 1025L, 905L};
+    private static final long[] NEXT_OBSTACLE_MIN_TIME_BIG = new long[] {1000L, 1200L, 1075L, 1000L, 905L};
     private static final long[] NEXT_OBSTACLE_MAX_TIME = new long[] {2000L, 1700L, 1400L, 1250L, 1150L}; //ms, maximum time until the next obstacle appears
-    private static final long[] NEXT_OBSTACLE_MIN_TIME_SMALL_WIDTH = new long[] {1200L, 1100L, 1100L, 1025L, 860L};
+    private static final long[] NEXT_OBSTACLE_MIN_TIME_SMALL_WIDTH = new long[] {1200L, 1100L, 1100L, 950L, 860L};
     private static final double NEXT_OBSTACLE_PREVIOUS_MIN_TIME_WEIGHT = 0.7;
     private static final int[] DIFFICULTY_COLORS = new int[] {Color.GREEN, Color.YELLOW, Color.RED, Color.WHITE, Color.CYAN};
     private static final int EASY_SMALL_OBSTACLES = 6;
@@ -92,7 +92,7 @@ public class RiddleJumper extends RiddleGame implements FlatWorldCallback {
     private static final float MAX_SOLUTION_SCALE = 0.5f;
     private static final float BUBBLE_CENTER_Y_ESTIMATE = 0.765f * 0.5f;
     private static final float DISTANCE_RUN_PENALTY_ON_SAVE_FRACTION = 0.75f; // mainly required so that it is not worth closing the riddle (or app) when you know you are going to collide
-    private static final float[] CLEAR_MIND_SIZE_FRACTION = new float[] {0.05f, 0.13f, 0.3f, 0.7f};
+    private static final float[] CLEAR_MIND_SIZE_FRACTION = new float[] {0.07f, 0.13f, 0.3f, 0.7f};
     private static final int FOGGED_MIND_COLOR = Color.DKGRAY;
     private static final int[] MIND_CLEARED_EVERY_K_OBSTACLES = new int[] {2, 3, 5, 8};
     private static final int MAX_COLLISIONS_FOR_SCORE_BONUS = 1;

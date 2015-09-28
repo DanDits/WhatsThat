@@ -91,9 +91,10 @@ public class ImageXmlParser {
     private Context mContext;
     private int mHighestReadBundleNumber = Integer.MIN_VALUE;
     private Map<Integer, List<Image>> mReadBundles = new HashMap<>();
+    private Map<Integer, String> mReadBundlesOrigin = new HashMap<>();
     private boolean mModeAbortOnImageBuildFailure;
-    private String mBundleOrigin;
     private BitmapUtil.ByteBufferHolder mBuffer = new BitmapUtil.ByteBufferHolder();
+    private String mCurrOrigin;
 
     public List<Image> getBundle(int bundleNumber) {
         return mReadBundles.get(bundleNumber);
@@ -190,10 +191,12 @@ public class ImageXmlParser {
                 } catch (NumberFormatException nfe) {
                     throw new XmlPullParserException("Bundle version number not a number: " + bundleNumberRaw);
                 }
-                mBundleOrigin = parser.getAttributeValue(NAMESPACE, BUNDLE_ATTRIBUTE_ORIGIN);
+                String origin = parser.getAttributeValue(NAMESPACE, BUNDLE_ATTRIBUTE_ORIGIN);
+                mCurrOrigin = origin;
                 if (bundleNumber >= startBundleNumber) {
                     List<Image> bundleImages = readBundle(parser);
                     mReadBundles.put(bundleNumber, bundleImages);
+                    mReadBundlesOrigin.put(bundleNumber, origin);
                     mHighestReadBundleNumber = Math.max(mHighestReadBundleNumber, bundleNumber); // so the bundles should be in ascending order in case of exceptions
                 } else {
                     skip(parser);
@@ -227,7 +230,7 @@ public class ImageXmlParser {
     private Image readImage(XmlPullParser parser) throws XmlPullParserException, IOException {
         parser.require(XmlPullParser.START_TAG, NAMESPACE, TAG_IMAGE_NAME);
         Image.Builder builder = new Image.Builder();
-        builder.setOrigin(mBundleOrigin);
+        builder.setOrigin(mCurrOrigin);
         while (parser.next() != XmlPullParser.END_TAG) {
             if (parser.getEventType() != XmlPullParser.START_TAG) {
                 continue;
@@ -436,5 +439,9 @@ public class ImageXmlParser {
 
     public int getHighestReadBundleNumber() {
         return mHighestReadBundleNumber;
+    }
+
+    public String getOrigin(Integer bundleNumber) {
+        return mReadBundlesOrigin.get(bundleNumber);
     }
 }

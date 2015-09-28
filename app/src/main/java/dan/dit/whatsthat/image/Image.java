@@ -541,7 +541,6 @@ public class Image implements MosaicTile<String> {
         }
 
         public Image build(Context context, BitmapUtil.ByteBufferHolder buffer) throws BuildException {
-            build();
             if (TextUtils.isEmpty(mImage.mHash)) {
                 if (context == null) {
                     throw new BuildException("Source: " + mImage.mName).setMissingData("Image", "No context and no hash.");
@@ -549,6 +548,7 @@ public class Image implements MosaicTile<String> {
                 Log.d("Image", "Building image with no hash yet: " + mImage.mName);
                 calculateHashAndPreferences(context, buffer);
             }
+            build();
 
             return mImage;
         }

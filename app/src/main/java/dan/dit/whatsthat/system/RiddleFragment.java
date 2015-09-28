@@ -626,6 +626,18 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
                                 } else {
                                     Toast.makeText(getActivity(), "Experiment " + trimmedText + " bereits vorhanden!", Toast.LENGTH_LONG).show();
                                 }
+                            } else if (trimmedText.endsWith(".xml")) {
+                                if (ImageManager.calculateImagedataDeveloperFromFile(getActivity(), trimmedText)) {
+                                    Toast.makeText(getActivity(), "XML Berechnung erfolgreich!", Toast.LENGTH_LONG).show();
+                                } else {
+                                    Toast.makeText(getActivity(), "XML Berechnung fehlgeschlagen!", Toast.LENGTH_LONG).show();
+                                }
+                            } else if (trimmedText.equalsIgnoreCase("calculate imagedata")) {
+                                if (ImageManager.calculateImagedataDeveloper(getActivity())) {
+                                    Toast.makeText(getActivity(), "XML Berechnung erfolgreich!!", Toast.LENGTH_LONG).show();
+                                } else {
+                                    Toast.makeText(getActivity(), "XML Berechnung fehlgeschlagen!!", Toast.LENGTH_LONG).show();
+                                }
                             } else {
                                 Toast.makeText(getActivity(), "'" + value + "' nicht gefunden.", Toast.LENGTH_SHORT).show();
                             }

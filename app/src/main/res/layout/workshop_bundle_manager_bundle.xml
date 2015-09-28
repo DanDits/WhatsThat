@@ -12,14 +12,14 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toLeftOf="@+id/image_count"
-        android:id="@+id/image_size_mb"/>
+        android:layout_toLeftOf="@+id/image_size_mb"
+        android:id="@+id/image_count"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
-        android:id="@+id/image_count"/>
+        android:id="@+id/image_size_mb"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

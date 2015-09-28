@@ -12,6 +12,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import dan.dit.whatsthat.preferences.User;
@@ -67,7 +68,7 @@ class ImageXmlWriter {
         }
         try {
             output = new FileOutputStream(targetDataXml);
-            success = writeXml(output, images, bundleOrigin, 0);
+            success = writeXml(output, Collections.singletonList(images), Collections.singletonList(bundleOrigin), Collections.singletonList(0));
         } catch (IOException ioe) {
             Log.e("Image", "Bundle XMLWRITE: Could not create file or save to file: " + ioe);
         } catch (IllegalStateException state) {
@@ -109,28 +110,33 @@ class ImageXmlWriter {
      * WhatsThat/build, suffixed with the given bundle number. Does nothing if given bundle number is null
      * or empty or if there is no context given.
      * @param context The context.
-     * @param imageBundle The list of images to write to xml.
-     * @param bundleNumber The number of the bundle, suffix of the file name.
+     * @param imageBundles The list of bundles to write to xml.
+     * @param bundleNumbers The number of the bundles, suffix of the file name if no outFile given.
      */
-    public static void writeBundle(Context context, List<Image> imageBundle, int bundleNumber) {
-        if (context == null || imageBundle == null || imageBundle.isEmpty()) {
+    public static void writeBundle(Context context, List<List<Image>> imageBundles, List<Integer> bundleNumbers, String origin, File outFile) {
+        if (context == null || imageBundles == null || imageBundles.isEmpty()) {
             return;
         }
-        String path = ExternalStorage.getExternalStoragePathIfMounted(BUILD_DIRECTORY_NAME);
-        if (path == null) {
-            return;
-        }
-        File dir = new File(path);
-        if (dir.mkdirs() || dir.isDirectory()) {
-            String fullName = path + "/imagedata" + bundleNumber + ".xml";
+        if (outFile == null) {
+            String path = ExternalStorage.getExternalStoragePathIfMounted(BUILD_DIRECTORY_NAME);
+            if (path == null) {
+                return;
+            }
+            File dir = new File(path);
+            if (dir.mkdirs() || dir.isDirectory()) {
+                String fullName = path + "/imagedata" + (bundleNumbers != null && bundleNumbers.size() == 1 ? bundleNumbers.get(0) : "") + ".xml";
 
-            // Write to file.
-            File file = new File(fullName);
+                // Write to file.
+                File file = new File(fullName);
+                outFile = file;
+            }
+        }
+        if (outFile != null) {
             FileOutputStream output = null;
             boolean success = false;
             try {
-                output = new FileOutputStream(file);
-                success = writeXml(output, imageBundle, null, bundleNumber);
+                output = new FileOutputStream(outFile);
+                success = writeXml(output, imageBundles, Collections.singletonList(origin), bundleNumbers);
             } catch (IOException ioe) {
                 Log.e("Image", "XMLWRITE: Could not create file or save to file: " + ioe);
             } catch (IllegalStateException state) {
@@ -147,15 +153,15 @@ class ImageXmlWriter {
                 }
             }
             if (success) {
-                Log.d("Image", "Bundle created for " + imageBundle.size() + " images, number " + bundleNumber
-                        + " at " + file.getAbsolutePath());
+                Log.d("Image", "Bundle created for " + imageBundles.size() + " bundles, numbers " + bundleNumbers
+                        + " at " + outFile.getAbsolutePath());
             }
         } else {
-            Log.e("Image", "Failed writing bundle " + bundleNumber + " dir not available: " + dir);
+            Log.e("Image", "Failed writing bundle outFile/dir not available: " + outFile);
         }
     }
 
-    private static boolean writeXml(FileOutputStream outputStream, List<Image> imageBundle, String bundleOrigin, int bundleNumber) throws IOException{
+    private static boolean writeXml(FileOutputStream outputStream, List<List<Image>> imageBundles, List<String> bundleOrigins, List<Integer> bundleNumbers) throws IOException{
         XmlSerializer serializer = Xml.newSerializer();
         StringWriter writer = new StringWriter();
         serializer.setOutput(writer);
@@ -163,26 +169,35 @@ class ImageXmlWriter {
 
         serializer.startTag(ImageXmlParser.NAMESPACE, ImageXmlParser.TAG_ALL_BUNDLES_NAME);
 
-        serializer.startTag(ImageXmlParser.NAMESPACE, ImageXmlParser.TAG_BUNDLE_NAME);
-        if (bundleOrigin != null) {
-            serializer.attribute(ImageXmlParser.NAMESPACE, ImageTable.COLUMN_ORIGIN, bundleOrigin);
+        for (int i = 0; i < imageBundles.size(); i++) {
+            String origin = bundleOrigins == null || bundleOrigins.isEmpty() ? null : i < bundleOrigins.size() ? bundleOrigins.get(i) : bundleOrigins.get(bundleOrigins.size() - 1);
+            int number = bundleNumbers == null || bundleNumbers.isEmpty() ? 0 : i < bundleNumbers.size() ? bundleNumbers.get(i) : bundleNumbers.get(bundleNumbers.size() - 1);
+
+            serializer.startTag(ImageXmlParser.NAMESPACE, ImageXmlParser.TAG_BUNDLE_NAME);
+            if (origin != null) {
+                serializer.attribute(ImageXmlParser.NAMESPACE, ImageTable.COLUMN_ORIGIN, origin);
+            }
+            serializer.attribute(ImageXmlParser.NAMESPACE, ImageXmlParser.BUNDLE_ATTRIBUTE_VERSION_NAME, String.valueOf(number));
+            for (Image image : imageBundles.get(i)) {
+                serializer.startTag(ImageXmlParser.NAMESPACE, ImageXmlParser.TAG_IMAGE_NAME);
+                String relativePath = image.getRelativePath();
+                if (!TextUtils.isEmpty(relativePath)) {
+                    writeText(serializer, ImageTable.COLUMN_SAVELOC, relativePath);
+                } else {
+                    writeText(serializer, ImageTable.COLUMN_RESNAME, image.getName());
+                }
+                writeText(serializer, ImageTable.COLUMN_ORIGIN, image.getOrigin());
+                writeText(serializer, ImageTable.COLUMN_HASH, image.getHash());
+                writeText(serializer, ImageTable.COLUMN_OBFUSCATION, String.valueOf(image.getObfuscation()));
+                writeText(serializer, ImageTable.COLUMN_AVERAGE_COLOR, String.valueOf(image.getAverageColor()));
+                writeSolutions(serializer, ImageTable.COLUMN_SOLUTIONS, image.getSolutions());
+                writeAuthor(serializer, ImageTable.COLUMN_AUTHOR, image.getAuthor());
+                writeTypes(serializer, ImageTable.COLUMN_RIDDLEPREFTYPES, image.getPreferredRiddleTypes());
+                writeTypes(serializer, ImageTable.COLUMN_RIDDLEREFUSEDTYPES, image.getRefusedRiddleTypes());
+                serializer.endTag(ImageXmlParser.NAMESPACE, ImageXmlParser.TAG_IMAGE_NAME);
+            }
+            serializer.endTag(ImageXmlParser.NAMESPACE, ImageXmlParser.TAG_BUNDLE_NAME);
         }
-        serializer.attribute(ImageXmlParser.NAMESPACE, ImageXmlParser.BUNDLE_ATTRIBUTE_VERSION_NAME, String.valueOf(bundleNumber));
-        for (Image image: imageBundle){
-            serializer.startTag(ImageXmlParser.NAMESPACE, ImageXmlParser.TAG_IMAGE_NAME);
-            writeText(serializer, ImageTable.COLUMN_RESNAME, image.getName());
-            writeText(serializer, ImageTable.COLUMN_ORIGIN, image.getOrigin());
-            writeText(serializer, ImageTable.COLUMN_HASH, image.getHash());
-            writeText(serializer, ImageTable.COLUMN_OBFUSCATION, String.valueOf(image.getObfuscation()));
-            writeText(serializer, ImageTable.COLUMN_AVERAGE_COLOR, String.valueOf(image.getAverageColor()));
-            writeText(serializer, ImageTable.COLUMN_SAVELOC, image.getRelativePath());
-            writeSolutions(serializer, ImageTable.COLUMN_SOLUTIONS, image.getSolutions());
-            writeAuthor(serializer, ImageTable.COLUMN_AUTHOR, image.getAuthor());
-            writeTypes(serializer, ImageTable.COLUMN_RIDDLEPREFTYPES, image.getPreferredRiddleTypes());
-            writeTypes(serializer, ImageTable.COLUMN_RIDDLEREFUSEDTYPES, image.getRefusedRiddleTypes());
-            serializer.endTag(ImageXmlParser.NAMESPACE, ImageXmlParser.TAG_IMAGE_NAME);
-        }
-        serializer.endTag(ImageXmlParser.NAMESPACE, ImageXmlParser.TAG_BUNDLE_NAME);
         serializer.endTag(ImageXmlParser.NAMESPACE, ImageXmlParser.TAG_ALL_BUNDLES_NAME);
         serializer.endDocument();
 

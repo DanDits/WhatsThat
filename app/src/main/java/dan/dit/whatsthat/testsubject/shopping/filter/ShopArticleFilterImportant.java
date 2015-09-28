@@ -1,5 +1,6 @@
 package dan.dit.whatsthat.testsubject.shopping.filter;
 
+import dan.dit.whatsthat.R;
 import dan.dit.whatsthat.testsubject.shopping.ShopArticle;
 
 /**
@@ -7,10 +8,10 @@ import dan.dit.whatsthat.testsubject.shopping.ShopArticle;
  */
 public class ShopArticleFilterImportant extends ShopArticleFilter {
 
-    public ShopArticleFilterImportant() {
-        super(0);
+    public ShopArticleFilterImportant(int iconResId) {
+        super(iconResId);
         setActive(true);
-        mVisible = false;
+        mVisible = true;
     }
 
     @Override

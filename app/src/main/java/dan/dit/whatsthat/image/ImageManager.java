@@ -7,10 +7,17 @@ import android.util.Log;
 
 import org.xmlpull.v1.XmlPullParserException;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 import dan.dit.whatsthat.BuildConfig;
 import dan.dit.whatsthat.R;
+import dan.dit.whatsthat.util.image.ExternalStorage;
 
 /**
  * Manager class for image related things.
@@ -28,16 +35,52 @@ public class ImageManager {
 
     private static SyncingTask SYNCING_TASK;
 
+    public static boolean calculateImagedataDeveloperFromFile(Context context, String fileName) {
+        if (!BuildConfig.DEBUG) {
+            Log.e("HomeStuff", "Using developer method in non debug build: calculateImagedataDeveloperFromFile");
+            return false;
+        }
+        //Step1: Load new images from XML and calculate their hash and preferences
+        ImageXmlParser parser = null;
+        File file = new File(ExternalStorage.getExternalStoragePathIfMounted(null), fileName);
+        Log.d("Image", "Starting calculating imagedata from file: " + file);
+        try {
+            Log.d("Image", "Starting parsing uncompiled images and compiling them.");
+            parser = ImageXmlParser.parseInput(context, new FileInputStream(file), Integer.MIN_VALUE, true);
+            Log.d("Image", "Loaded bundles: " + parser.getReadBundlesCount());
+        } catch (IOException e) {
+            Log.d("Image", "IOEXCEPTION: " + e);
+        } catch (XmlPullParserException e) {
+            Log.d("Image", "XML EXCEPTION " + e);
+        }
+        if (parser != null && parser.getReadBundlesCount() > 0) {
+            //Step 2: Save the updated images to new xml for future use
+            Log.d("Image", "Loaded " + parser.getReadBundlesCount() + " bundles, now writing again to compiled file.");
+            List<Integer> bundleNumers = new ArrayList<>(parser.getReadBundleNumbers());
+            Collections.sort(bundleNumers);
+            List<List<Image>> bundleImages = new ArrayList<>();
+            List<String> bundleOrigins = new ArrayList<>();
+            for (Integer bundleNumber : bundleNumers) {
+                bundleImages.add(parser.getBundle(bundleNumber));
+                bundleOrigins.add(parser.getOrigin(bundleNumber));
+            }
+            if (bundleImages.size() > 0) {
+                ImageXmlWriter.writeBundle(context, bundleImages, bundleNumers, bundleOrigins.get(0), file);
+                return true;
+            }
+        }
+        return false;
+    }
     /**
      * DEVELOPER METHOD; NOT FOR RELEASE.
      * <br>Parses the imagedata_uncompiled xml file, calculates hashs and preferences if required
      * and writes each read bundle to its own file. Will terminate the program with an Exception.
      * @param context A context.
      */
-    public static void calculateImagedataDeveloper(Context context) {
+    public static boolean calculateImagedataDeveloper(Context context) {
         if (!BuildConfig.DEBUG) {
             Log.e("HomeStuff", "Using developer method in non debug build:  calculateImagedataDeveloper");
-            return; // do nothing, but better this should never be called
+            return false; // do nothing, but better this should never be called
         }
         //Step1: Load new images from XML and calculate their hash and preferences
         ImageXmlParser parser = null;
@@ -54,10 +97,11 @@ public class ImageManager {
             //Step 2: Save the updated images to new xml for future use
             Log.d("Image", "Loaded " + parser.getReadBundlesCount() + " bundles, now writing again to compiled file.");
             for (Integer bundleNumber : parser.getReadBundleNumbers()) {
-                ImageXmlWriter.writeBundle(context, parser.getBundle(bundleNumber), bundleNumber);
+                ImageXmlWriter.writeBundle(context, Collections.singletonList(parser.getBundle(bundleNumber)), Collections.singletonList(bundleNumber), parser.getOrigin(bundleNumber), null);
             }
+            return true;
         }
-        throw new UnsupportedOperationException("WE ARE DONE BUILDING IMAGES; GTFO.");
+        return false;
     }
 
     public static void sync(Context context, SynchronizationListener listener) {
