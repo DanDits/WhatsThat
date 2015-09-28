@@ -25,3 +25,4 @@ angle from https://pixabay.com/en/pacman-pac-man-game-computer-game-145844/
 candy from https://pixabay.com/en/lollipop-candy-sweet-stripes-25396/
 chocolate from https://pixabay.com/en/chocolate-bar-sweet-candy-brown-309609/
 workshop manager icons from http://www.icons4android.com/icon/851, http://www.icons4android.com/icon/1144, http://www.icons4android.com/icon/1218, http://www.icons4android.com/icon/1174
+icon_laboratory from https://pixabay.com/en/chemistry-chemical-flask-glass-155121/
