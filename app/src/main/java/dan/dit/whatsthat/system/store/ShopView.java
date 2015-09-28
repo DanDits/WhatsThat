@@ -139,7 +139,7 @@ public class ShopView extends ExpandableListView implements  StoreContainer, Sho
             PracticalRiddleType lastVisibleType = Riddle.getLastVisibleRiddleType(getContext());
             riddleFilters.add(new ShopArticleFilterIcon(iconId, iconId, lastVisibleType != null && lastVisibleType.getIconResId() == iconId));
         }
-        ShopArticleGroupFilter riddleGroupFilter = new ShopArticleGroupFilter(mChildrenFilterHolder, R.drawable.icon_plain, riddleFilters, false, this);
+        ShopArticleGroupFilter riddleGroupFilter = new ShopArticleGroupFilter(mChildrenFilterHolder, R.drawable.icon_laboratory, riddleFilters, false, this);
 
         List<ShopArticleFilter> rootFilters = new ArrayList<>();
         rootFilters.add(new ShopArticleFilterImportant(R.drawable.icon_important));
