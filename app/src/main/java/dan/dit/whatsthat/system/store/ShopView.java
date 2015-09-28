@@ -3,6 +3,7 @@ package dan.dit.whatsthat.system.store;
 import android.content.Context;
 import android.support.v4.app.FragmentActivity;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -71,6 +72,7 @@ public class ShopView extends ExpandableListView implements  StoreContainer, Sho
         setOnChildClickListener(new OnChildClickListener() {
             @Override
             public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
+                Log.d("Riddle", "OnChild click: " + groupPosition + " child " + childPosition + " total articles: " + mArticleHolder.getArticlesCount());
                 if (groupPosition >= 0 && groupPosition < mArticleHolder.getArticlesCount()) {
                     mArticleHolder.getArticle(groupPosition).getSubProduct(mInflater, childPosition).onClick();
                     return true;
@@ -171,6 +173,7 @@ public class ShopView extends ExpandableListView implements  StoreContainer, Sho
 
     @Override
     public void onArticleChanged(ShopArticle article) {
+        Log.d("Riddle", "OnArticleChanged: " + article + " adapter= " + mAdapter);
         if (mAdapter != null) {
             applyFilters();
             updateCurrency();

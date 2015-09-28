@@ -4,7 +4,9 @@ import android.content.res.Resources;
 import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -39,11 +41,6 @@ public class RiddleArticle extends ShopArticle {
                 return res.getString(R.string.article_level_up_dep_new_level);
             }
         }, GENERAL_PRODUCT_INDEX);
-    }
-
-    @Override
-    public boolean isClickable(int subProductIndex) {
-        return false;
     }
 
     @Override
@@ -124,13 +121,15 @@ public class RiddleArticle extends ShopArticle {
     @Override
     public void onChildClick(SubProduct product) {
         int index = getChildIndex(product);
+        Log.d("Riddle", "On child click of riddle article  index: " + index + " of types " + mProducts);
         if (index < 0) {
             return;
         }
-        Log.d("Riddle", "Purchasable: " + isPurchasable(index));
+        Log.d("Riddle", "Purchasable: " + isPurchasable(index) + " listener: " + mListener);
         if (isPurchasable(index) == HINT_PURCHASABLE
                 && TestSubject.getInstance().chooseNewRiddle(((RiddleProduct) product).mType)
                 && mListener != null) {
+            Log.d("Riddle", "Chose new riddle " + ((RiddleProduct) product).mType);
             mListener.onArticleChanged(this);
         }
     }
@@ -162,7 +161,7 @@ public class RiddleArticle extends ShopArticle {
             } else {
 
                 TextView confirm = (TextView) mView.findViewById(R.id.riddle_confirm);
-                mView.setBackgroundColor(Color.TRANSPARENT);
+                mView.setBackgroundResource(R.drawable.button_important_background);
                 confirm.setVisibility(View.VISIBLE);
                 int index = getChildIndex(this);
                 int purchasable = isPurchasable(index);
@@ -170,17 +169,10 @@ public class RiddleArticle extends ShopArticle {
                     confirm.setText(makeMissingDependenciesText(confirm.getResources(), index));
                     confirm.setTextColor(Color.RED);
                     confirm.setEnabled(false);
-                    confirm.setOnClickListener(null);
                 } else {
                     confirm.setText(R.string.article_choose_riddle_confirm);
                     confirm.setTextColor(Color.BLACK);
                     confirm.setEnabled(true);
-                    confirm.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            RiddleProduct.this.onClick();
-                        }
-                    });
                 }
 
             }
@@ -197,6 +189,7 @@ public class RiddleArticle extends ShopArticle {
 
         @Override
         public void onClick() {
+            Log.d("Riddle", "OnClick on RiddleProduct: " + mType + " parent article: " + mParentArticle);
             if (mParentArticle != null) {
                 mParentArticle.onChildClick(this);
             }

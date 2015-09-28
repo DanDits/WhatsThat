@@ -193,9 +193,9 @@
 
     <!-- Flow achievements -->
     <string name="achievement_flow_1_name">Einer nach dem anderen</string>
-    <string name="achievement_flow_1_descr">Setzte 15 Zellis. Aber beachte bitte den Titel…</string>
+    <string name="achievement_flow_1_descr">Setze %1$d Zellis. Aber beachte bitte den Titel…</string>
     <string name="achievement_flow_2_name">Snake</string>
-    <string name="achievement_flow_2_descr">Setzte 20 Zellis und schau ihnen bei der Arbeit zu. Aber keines darf vor Beendigung der Arbeit Pause machen!</string>
+    <string name="achievement_flow_2_descr">Setze %1$d Zellis und schau ihnen bei der Arbeit zu. Aber keines darf vor Beendigung der Arbeit Pause machen!</string>
     <string name="achievement_flow_3_name">Entlarvt</string>
     <string name="achievement_flow_3_descr">Decke 75% des Bildes auf.</string>
     <string name="achievement_flow_4_name">Aberglaube</string>

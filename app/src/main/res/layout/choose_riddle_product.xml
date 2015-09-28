@@ -25,14 +25,13 @@
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/riddle_icon"
         android:id="@+id/riddle_advertising"/>
-    <Button
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:layout_marginBottom="5dp"
         android:layout_centerHorizontal="true"
-        style="@style/button_important"
         android:id="@+id/riddle_confirm"
         android:layout_below="@+id/riddle_advertising"
         android:text="@string/article_choose_riddle_confirm"/>

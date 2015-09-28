@@ -38,9 +38,9 @@ public abstract class TestSubjectLevel {
                 new TestSubjectLevel4(testSubject),
                 new TestSubjectLevel5(testSubject),
                 new TestSubjectLevel6(testSubject),
-                new TestSubjectLevel7(testSubject),
-                new TestSubjectLevel8(testSubject),
-                new TestSubjectLevel9(testSubject)
+                new TestSubjectLevel7(testSubject)
+                //new TestSubjectLevel8(testSubject),
+                //new TestSubjectLevel9(testSubject)
         };
     }
 

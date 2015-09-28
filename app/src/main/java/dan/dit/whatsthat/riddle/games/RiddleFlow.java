@@ -15,9 +15,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import dan.dit.whatsthat.achievement.AchievementDataEvent;
+import dan.dit.whatsthat.achievement.AchievementProperties;
 import dan.dit.whatsthat.image.Image;
 import dan.dit.whatsthat.riddle.Riddle;
 import dan.dit.whatsthat.riddle.RiddleConfig;
+import dan.dit.whatsthat.riddle.achievement.holders.AchievementFlow;
 import dan.dit.whatsthat.riddle.types.Types;
 import dan.dit.whatsthat.util.PercentProgressListener;
 import dan.dit.whatsthat.util.compaction.CompactedDataCorruptException;
@@ -56,6 +59,7 @@ public class RiddleFlow extends RiddleGame {
     private Random mRand;
     private float mOffsetX;
     private float mOffsetY;
+    private int mRevealedPixelsCount;
 
     private enum FlowDirection {
         TOP_LEFT(-1, -1), TOP(0, -1), TOP_RIGHT(1, -1),
@@ -86,7 +90,9 @@ public class RiddleFlow extends RiddleGame {
 
     @Override
     protected void initAchievementData() {
-
+        if (mConfig.mAchievementGameData != null) {
+            mConfig.mAchievementGameData.putValue(AchievementFlow.KEY_GAME_TOTAL_PIXELS_COUNT, (long) mOutputRaster.length, AchievementProperties.UPDATE_POLICY_ALWAYS);
+        }
     }
     @Override
     public Bitmap makeSnapshot() {
@@ -204,17 +210,34 @@ public class RiddleFlow extends RiddleGame {
             Flow curr = mFlows.get(i);
             curr.spread(updatePeriod);
         }
+        int diedOfTimeout = 0;
+        int diedOfCollision = 0;
         for (int i = 0; i < mFlows.size(); i++) {
-            if (mFlows.get(i).mIntensity <= 0.) {
+            Flow current = mFlows.get(i);
+            if (current.mIntensity <= 0.) {
+                if (current.mTimeOut) {
+                    diedOfTimeout++;
+                } else {
+                    diedOfCollision++;
+                }
                 mFlows.remove(i);
                 i--;
             }
+        }
+        if (mConfig.mAchievementGameData != null) {
+            mConfig.mAchievementGameData.enableSilentChanges(AchievementDataEvent.EVENT_TYPE_DATA_UPDATE);
+            mConfig.mAchievementGameData.putValue(AchievementFlow.KEY_GAME_CELLI_ACTIVE_COUNT, (long) mFlows.size(), AchievementProperties.UPDATE_POLICY_ALWAYS);
+            mConfig.mAchievementGameData.increment(AchievementFlow.KEY_GAME_CELLI_TIMED_COUNT_COUNT, (long) diedOfTimeout, 0L);
+            mConfig.mAchievementGameData.increment(AchievementFlow.KEY_GAME_CELLI_COLLIDED_COUNT, (long) diedOfCollision, 0L);
+            mConfig.mAchievementGameData.putValue(AchievementFlow.KEY_GAME_REVEALED_PIXELS_COUNT, (long) mRevealedPixelsCount, AchievementProperties.UPDATE_POLICY_ALWAYS);
+            mConfig.mAchievementGameData.disableSilentChanges();
         }
     }
 
     private class Flow {
         private final int mColor;
         private final double mStartPressure;
+        private boolean mTimeOut;
         private double mIntensity;
         private int mX;
         private int mY;
@@ -231,6 +254,7 @@ public class RiddleFlow extends RiddleGame {
             mStartPressure = mPressureRaster[mY][mX];
             mSearchEdges = mFlows.size() % SEARCH_EDGES_EACH_X_FLOWS == 0;
             mIntensity = 1.0;
+            mTimeOut = true;
         }
 
 
@@ -254,6 +278,7 @@ public class RiddleFlow extends RiddleGame {
             }
             if (candidatesCount == 0) {
                 mIntensity = 0; //die
+                mTimeOut = false;
             } else {
                 if (SEARCH_RANDOMLY_FOR_EQUAL_PRESSURES) {
                     shuffleArray(mFlowDirectionCandidates, candidatesCount);
@@ -284,6 +309,9 @@ public class RiddleFlow extends RiddleGame {
                 }
                 mOutputRaster[mX + mWidth * mY] = colorToApply;
                 mIntensity -= updatePeriod / (double) FLOW_MAX_DURATION;
+                if (mFlowIntensityRaster[mY][mX] == 0) {
+                    mRevealedPixelsCount++;
+                }
                 mFlowIntensityRaster[mY][mX] = mIntensity;
             }
         }
@@ -311,6 +339,9 @@ public class RiddleFlow extends RiddleGame {
             int x = (int) (event.getX() - mOffsetX);
             int y = (int) (event.getY() - mOffsetY);
             addFlow(x, y);
+            if (mConfig.mAchievementGameData != null) {
+                mConfig.mAchievementGameData.increment(AchievementFlow.KEY_GAME_CELLI_CREATED, 1L, 0L);
+            }
         }
         return false;
     }

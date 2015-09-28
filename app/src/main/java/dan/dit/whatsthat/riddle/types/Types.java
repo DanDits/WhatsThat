@@ -12,6 +12,7 @@ import dan.dit.whatsthat.riddle.Riddle;
 import dan.dit.whatsthat.riddle.RiddleConfig;
 import dan.dit.whatsthat.riddle.achievement.holders.AchievementCircle;
 import dan.dit.whatsthat.riddle.achievement.holders.AchievementDice;
+import dan.dit.whatsthat.riddle.achievement.holders.AchievementFlow;
 import dan.dit.whatsthat.riddle.achievement.holders.AchievementJumper;
 import dan.dit.whatsthat.riddle.achievement.holders.AchievementMemory;
 import dan.dit.whatsthat.riddle.achievement.holders.AchievementSnow;
@@ -564,12 +565,18 @@ public class Types {
      */
     public static class Flow extends PracticalRiddleType {
         public static final String NAME = "Flow";
+        private TypeAchievementHolder mHolder = new AchievementFlow(this);
+
         @Override
         protected String getName() {return NAME;}
 
         @Override
         public int getAdvertisingResId() {
             return R.string.riddle_type_flow_advertising;
+        }
+        @Override
+        public TypeAchievementHolder getAchievementHolder() {
+            return mHolder;
         }
         @Override
         public RiddleGame makeRiddle(Riddle riddle, Image image, Bitmap bitmap, Resources res, RiddleConfig config, PercentProgressListener listener) {

@@ -193,9 +193,9 @@
 
     <!-- Flow achievements -->
     <string name="achievement_flow_1_name">One after each other</string>
-    <string name="achievement_flow_1_descr">Place 15 Cellis. Please respect the titel too …</string>
+    <string name="achievement_flow_1_descr">Place %1$d Cellis. Please respect the titel too …</string>
     <string name="achievement_flow_2_name">Snake</string>
-    <string name="achievement_flow_2_descr">Place 20 Cellis and watch them work. But no one of it may take a break before work is done!</string>
+    <string name="achievement_flow_2_descr">Place %1$d Cellis and watch them work. But no one of it may take a break before work is done!</string>
     <string name="achievement_flow_3_name">Unmasked</string>
     <string name="achievement_flow_3_descr">Reveal 75 of the picture.</string>
     <string name="achievement_flow_4_name">Superstition</string>
