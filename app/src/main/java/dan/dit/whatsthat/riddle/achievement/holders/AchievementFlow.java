@@ -86,7 +86,7 @@ public class AchievementFlow extends  TypeAchievementHolder {
         public static final int LEVEL = 0;
         public static final int REWARD = 50;
         public static final boolean DISCOVERED = true;
-        private static final int REQUIRED_CELLIS = 20;
+        private static final int REQUIRED_CELLIS = 11;
 
         public Achievement2(AchievementManager manager, PracticalRiddleType type) {
             super(type, R.string.achievement_flow_2_name, R.string.achievement_flow_2_descr, 0, NUMBER, manager, LEVEL, REWARD, 1, DISCOVERED);
@@ -113,7 +113,7 @@ public class AchievementFlow extends  TypeAchievementHolder {
         public static final int LEVEL = 0;
         public static final int REWARD = 50;
         public static final boolean DISCOVERED = true;
-        private static final int REQUIRED_VISIBLE_PERCENT = 75;
+        private static final int REQUIRED_VISIBLE_PERCENT = 50;
 
         public Achievement3(AchievementManager manager, PracticalRiddleType type) {
             super(type, R.string.achievement_flow_3_name, R.string.achievement_flow_3_descr, 0, NUMBER, manager, LEVEL, REWARD, 1, DISCOVERED);
@@ -140,7 +140,7 @@ public class AchievementFlow extends  TypeAchievementHolder {
         public static final int LEVEL = 0;
         public static final int REWARD = 50;
         public static final boolean DISCOVERED = true;
-        private static final int REQUIRED_ACTIVE_CELLIS = 36;
+        private static final int REQUIRED_ACTIVE_CELLIS = 50;
         private static final int AVAILABLE_TIME = 13000; // ms
         private long mStartTime;
 
@@ -184,6 +184,7 @@ public class AchievementFlow extends  TypeAchievementHolder {
         public static final int REWARD = 50;
         public static final boolean DISCOVERED = false;
         private static final int REQUIRED_CELLIS = 300;
+        private static final int MAX_TIME_OUTS = 3;
 
         public Achievement5(AchievementManager manager, PracticalRiddleType type) {
             super(type, R.string.achievement_flow_5_name, R.string.achievement_flow_5_descr, 0, NUMBER, manager, LEVEL, REWARD, 1, DISCOVERED);
@@ -197,7 +198,7 @@ public class AchievementFlow extends  TypeAchievementHolder {
         @Override
         public void onDataEvent(AchievementDataEvent event) {
             if (event.getChangedData() == mGameData && event.hasChangedKey(KEY_GAME_CELLI_CREATED)) {
-               if (mGameData.getValue(KEY_GAME_CELLI_ACTIVE_COUNT, 0L) >= REQUIRED_CELLIS) {
+               if (mGameData.getValue(KEY_GAME_CELLI_CREATED, 0L) >= REQUIRED_CELLIS && mGameData.getValue(KEY_GAME_CELLI_TIMED_OUT_COUNT, 0L) <= MAX_TIME_OUTS) {
                    achieveAfterDependencyCheck();
                }
             }
@@ -232,7 +233,7 @@ public class AchievementFlow extends  TypeAchievementHolder {
         public static final int LEVEL = 0;
         public static final int REWARD = 50;
         public static final boolean DISCOVERED = true;
-        private static final int TOTAL_TIMED_OUT_CELLIS = 2000;
+        private static final int TOTAL_TIMED_OUT_CELLIS = 400;
 
         public Achievement7(AchievementManager manager, PracticalRiddleType type) {
             super(type, R.string.achievement_flow_7_name, R.string.achievement_flow_7_descr, 0, NUMBER, manager, LEVEL, REWARD, TOTAL_TIMED_OUT_CELLIS, DISCOVERED);
@@ -246,14 +247,16 @@ public class AchievementFlow extends  TypeAchievementHolder {
         @Override
         public void onDataEvent(AchievementDataEvent event) {
             if (event.getChangedData() == mGameData && event.hasChangedKey(KEY_GAME_CELLI_TIMED_OUT_COUNT)) {
-                Log.d("Achievement", "Celli timed out: active" + mGameData.getValue(KEY_GAME_CELLI_ACTIVE_COUNT, 0L)
-                    + " created " + mGameData.getValue(KEY_GAME_CELLI_CREATED, 0L)
-                    + " collided " + mGameData.getValue(KEY_GAME_CELLI_COLLIDED_COUNT, 0L)
-                    + " timed out " + mGameData.getValue(KEY_GAME_CELLI_TIMED_OUT_COUNT, 0L)
-                    + "  " + mGameData.getValue(KEY_GAME_REVEALED_PIXELS_COUNT, 0L) + "/" + mGameData.getValue(KEY_GAME_TOTAL_PIXELS_COUNT, 0L));
                 if (areDependenciesFulfilled()) {
                     achieveDelta(1);
                 }
+            }
+            if (event.getChangedData() == mGameData && event.hasChangedKey(KEY_GAME_CELLI_CREATED)) {
+                Log.d("Achievement", "CELLI CREATED BY CLICK: active" + mGameData.getValue(KEY_GAME_CELLI_ACTIVE_COUNT, 0L)
+                        + " created " + mGameData.getValue(KEY_GAME_CELLI_CREATED, 0L)
+                        + " collided " + mGameData.getValue(KEY_GAME_CELLI_COLLIDED_COUNT, 0L)
+                        + " timed out " + mGameData.getValue(KEY_GAME_CELLI_TIMED_OUT_COUNT, 0L)
+                        + "  " + mGameData.getValue(KEY_GAME_REVEALED_PIXELS_COUNT, 0L) + "/" + mGameData.getValue(KEY_GAME_TOTAL_PIXELS_COUNT, 0L));
             }
         }
     }

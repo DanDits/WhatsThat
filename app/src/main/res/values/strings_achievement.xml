@@ -195,7 +195,7 @@
     <string name="achievement_flow_1_name">One after each other</string>
     <string name="achievement_flow_1_descr">Place %1$d Cellis. Please respect the titel too …</string>
     <string name="achievement_flow_2_name">Snake</string>
-    <string name="achievement_flow_2_descr">Place %1$d Cellis and watch them work. But no one of it may take a break before work is done!</string>
+    <string name="achievement_flow_2_descr">Watch %1$d Cellis finishing their work. Some lazy Cellis will take a break even tough they should finish their work…</string>
     <string name="achievement_flow_3_name">Unmasked</string>
     <string name="achievement_flow_3_descr">Reveal %1$d%% of the picture.</string>
     <string name="achievement_flow_4_name">Superstition</string>
@@ -205,7 +205,9 @@
     <string name="achievement_flow_6_name">Stunning</string>
     <string name="achievement_flow_6_descr">Isn\'t it amazing to watch all these placed Cellis doing crazy stuff? Just say yes.</string>
     <string name="achievement_flow_7_name">Ant colony</string>
-    <string name="achievement_flow_7_descr">It\'s bustling. So far %1$d/%2$d Cellis worked until their job was done</string>
+    <string name="achievement_flow_7_descr">It\'s bustling. So far %1$d/%2$d Cellis worked until their job was done.</string>
+    <string name="achievement_flow_8_name">Bean counter</string>
+    <string name="achievement_flow_8_descr">Solve the picture with max 10 placed Cellis.</string>
 
     <!-- Lazor achievements -->
     <string name="achievement_lazor_1_descr">Hit three comets at once (within 0,5 seconds?)</string>
