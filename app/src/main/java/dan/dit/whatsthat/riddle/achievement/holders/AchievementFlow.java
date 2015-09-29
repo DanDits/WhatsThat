@@ -41,6 +41,7 @@ public class AchievementFlow extends  TypeAchievementHolder {
         mAchievements.put(Achievement5.NUMBER, new Achievement5(manager, mType));
         mAchievements.put(Achievement6.NUMBER, new Achievement6(manager, mType));
         mAchievements.put(Achievement7.NUMBER, new Achievement7(manager, mType));
+        mAchievements.put(Achievement8.NUMBER, new Achievement8(manager, mType));
     }
 
     private static class Achievement1 extends GameAchievement {
@@ -257,6 +258,34 @@ public class AchievementFlow extends  TypeAchievementHolder {
                         + " collided " + mGameData.getValue(KEY_GAME_CELLI_COLLIDED_COUNT, 0L)
                         + " timed out " + mGameData.getValue(KEY_GAME_CELLI_TIMED_OUT_COUNT, 0L)
                         + "  " + mGameData.getValue(KEY_GAME_REVEALED_PIXELS_COUNT, 0L) + "/" + mGameData.getValue(KEY_GAME_TOTAL_PIXELS_COUNT, 0L));
+            }
+        }
+    }
+
+
+    private static class Achievement8 extends GameAchievement {
+        public static final int NUMBER = 8;
+        public static final int LEVEL = 0;
+        public static final int REWARD = 50;
+        public static final boolean DISCOVERED = true;
+        public static final int MAX_CELLIS_FOR_SOLVING = 10;
+
+        public Achievement8(AchievementManager manager, PracticalRiddleType type) {
+            super(type, R.string.achievement_flow_8_name, R.string.achievement_flow_8_descr, 0, NUMBER, manager, LEVEL, REWARD, 1, DISCOVERED);
+        }
+
+        @Override
+        public CharSequence getDescription(Resources res) {
+            return res.getString(mDescrResId, getValue(), MAX_CELLIS_FOR_SOLVING);
+        }
+
+        @Override
+        public void onDataEvent(AchievementDataEvent event) {
+            if (event.getChangedData() == mGameData && event.getEventType() == AchievementDataEvent.EVENT_TYPE_DATA_CLOSE
+                    && mGameData.isSolved()) {
+                if (mGameData.getValue(KEY_GAME_CELLI_CREATED, 0L) <= MAX_CELLIS_FOR_SOLVING) {
+                    achieveAfterDependencyCheck();
+                }
             }
         }
     }

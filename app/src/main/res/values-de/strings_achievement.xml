@@ -207,7 +207,7 @@
     <string name="achievement_flow_7_name">Ameisenstaat</string>
     <string name="achievement_flow_7_descr">Es wuselt und wuselt. Bisher haben %1$d/%2$d Zellis gearbeitet, bis ihre Arbeit erledigt war.</string>
     <string name="achievement_flow_8_name">Erbsenzähler</string>
-    <string name="achievement_flow_8_descr">Löse das Bild mit maximal 10 gesetzen Zellis.</string>
+    <string name="achievement_flow_8_descr">Löse das Bild mit maximal %1$d gesetzen Zellis.</string>
 
     <!-- Lazor achievements -->
     <string name="achievement_lazor_1_name">Drei mit einem Streich</string>

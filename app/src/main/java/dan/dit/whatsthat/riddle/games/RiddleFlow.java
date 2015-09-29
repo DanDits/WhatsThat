@@ -335,10 +335,12 @@ public class RiddleFlow extends RiddleGame {
         }
     }
 
-    private void addFlow(int x, int y, boolean silentDeath) {
+    private boolean addFlow(int x, int y, boolean silentDeath) {
         if (x >= 0 && y >= 0 && x < mWidth && y < mHeight) {
             mFlows.add(new Flow(x, y, silentDeath));
+            return true;
         }
+        return false;
     }
 
     @Override
@@ -346,8 +348,7 @@ public class RiddleFlow extends RiddleGame {
         if (event.getActionMasked() == MotionEvent.ACTION_DOWN) {
             int x = (int) (event.getX() - mOffsetX);
             int y = (int) (event.getY() - mOffsetY);
-            addFlow(x, y, false);
-            if (mConfig.mAchievementGameData != null) {
+            if (addFlow(x, y, false) && mConfig.mAchievementGameData != null) {
                 mConfig.mAchievementGameData.increment(AchievementFlow.KEY_GAME_CELLI_CREATED, 1L, 0L);
             }
         }

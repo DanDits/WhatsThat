@@ -207,7 +207,7 @@
     <string name="achievement_flow_7_name">Ant colony</string>
     <string name="achievement_flow_7_descr">It\'s bustling. So far %1$d/%2$d Cellis worked until their job was done.</string>
     <string name="achievement_flow_8_name">Bean counter</string>
-    <string name="achievement_flow_8_descr">Solve the picture with max 10 placed Cellis.</string>
+    <string name="achievement_flow_8_descr">Solve the picture with max %1$d placed Cellis.</string>
 
     <!-- Lazor achievements -->
     <string name="achievement_lazor_1_descr">Hit three comets at once (within 0,5 seconds?)</string>
