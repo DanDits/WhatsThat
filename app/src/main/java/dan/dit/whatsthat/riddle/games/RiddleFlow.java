@@ -229,8 +229,12 @@ public class RiddleFlow extends RiddleGame {
         if (mConfig.mAchievementGameData != null) {
             mConfig.mAchievementGameData.enableSilentChanges(AchievementDataEvent.EVENT_TYPE_DATA_UPDATE);
             mConfig.mAchievementGameData.putValue(AchievementFlow.KEY_GAME_CELLI_ACTIVE_COUNT, (long) mFlows.size(), AchievementProperties.UPDATE_POLICY_ALWAYS);
-            mConfig.mAchievementGameData.increment(AchievementFlow.KEY_GAME_CELLI_TIMED_OUT_COUNT, (long) diedOfTimeout, 0L);
-            mConfig.mAchievementGameData.increment(AchievementFlow.KEY_GAME_CELLI_COLLIDED_COUNT, (long) diedOfCollision, 0L);
+            if (diedOfTimeout > 0) {
+                mConfig.mAchievementGameData.increment(AchievementFlow.KEY_GAME_CELLI_TIMED_OUT_COUNT, (long) diedOfTimeout, 0L);
+            }
+            if (diedOfCollision > 0) {
+                mConfig.mAchievementGameData.increment(AchievementFlow.KEY_GAME_CELLI_COLLIDED_COUNT, (long) diedOfCollision, 0L);
+            }
             mConfig.mAchievementGameData.putValue(AchievementFlow.KEY_GAME_REVEALED_PIXELS_COUNT, (long) mRevealedPixelsCount, AchievementProperties.UPDATE_POLICY_ALWAYS);
             mConfig.mAchievementGameData.disableSilentChanges();
         }

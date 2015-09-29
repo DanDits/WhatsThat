@@ -246,6 +246,11 @@ public class AchievementFlow extends  TypeAchievementHolder {
         @Override
         public void onDataEvent(AchievementDataEvent event) {
             if (event.getChangedData() == mGameData && event.hasChangedKey(KEY_GAME_CELLI_TIMED_OUT_COUNT)) {
+                Log.d("Achievement", "Celli timed out: active" + mGameData.getValue(KEY_GAME_CELLI_ACTIVE_COUNT, 0L)
+                    + " created " + mGameData.getValue(KEY_GAME_CELLI_CREATED, 0L)
+                    + " collided " + mGameData.getValue(KEY_GAME_CELLI_COLLIDED_COUNT, 0L)
+                    + " timed out " + mGameData.getValue(KEY_GAME_CELLI_TIMED_OUT_COUNT, 0L)
+                    + "  " + mGameData.getValue(KEY_GAME_REVEALED_PIXELS_COUNT, 0L) + "/" + mGameData.getValue(KEY_GAME_TOTAL_PIXELS_COUNT, 0L));
                 if (areDependenciesFulfilled()) {
                     achieveDelta(1);
                 }
