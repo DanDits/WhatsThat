@@ -126,7 +126,7 @@ public class AchievementTriangle extends TypeAchievementHolder {
         }
     }
 
-    private static class Achievement3 extends GameAchievement {
+    public static class Achievement3 extends GameAchievement {
         public static final int NUMBER = 3;
         public static final int LEVEL = 0;
         public static final int REWARD = 80;

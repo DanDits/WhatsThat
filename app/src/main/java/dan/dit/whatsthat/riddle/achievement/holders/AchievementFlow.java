@@ -11,6 +11,8 @@ import dan.dit.whatsthat.achievement.AchievementManager;
 import dan.dit.whatsthat.achievement.AchievementProperties;
 import dan.dit.whatsthat.riddle.achievement.GameAchievement;
 import dan.dit.whatsthat.riddle.types.PracticalRiddleType;
+import dan.dit.whatsthat.testsubject.TestSubject;
+import dan.dit.whatsthat.util.dependencies.Dependency;
 
 /**
  * Created by daniel on 28.09.15.
@@ -21,7 +23,7 @@ public class AchievementFlow extends  TypeAchievementHolder {
     public static final String KEY_GAME_CELLI_CREATED = "celli_created";
     public static final String KEY_GAME_CELLI_ACTIVE_COUNT = "celli_active_count";
     public static final String KEY_GAME_CELLI_COLLIDED_COUNT = "celli_collided";
-    public static final String KEY_GAME_CELLI_TIMED_COUNT_COUNT = "celli_timed_out";
+    public static final String KEY_GAME_CELLI_TIMED_OUT_COUNT = "celli_timed_out";
 
 
 
@@ -33,6 +35,12 @@ public class AchievementFlow extends  TypeAchievementHolder {
     public void makeAchievements(AchievementManager manager) {
         mAchievements = new TreeMap<>();
         mAchievements.put(Achievement1.NUMBER, new Achievement1(manager, mType));
+        mAchievements.put(Achievement2.NUMBER, new Achievement2(manager, mType));
+        mAchievements.put(Achievement3.NUMBER, new Achievement3(manager, mType));
+        mAchievements.put(Achievement4.NUMBER, new Achievement4(manager, mType));
+        mAchievements.put(Achievement5.NUMBER, new Achievement5(manager, mType));
+        mAchievements.put(Achievement6.NUMBER, new Achievement6(manager, mType));
+        mAchievements.put(Achievement7.NUMBER, new Achievement7(manager, mType));
     }
 
     private static class Achievement1 extends GameAchievement {
@@ -91,7 +99,12 @@ public class AchievementFlow extends  TypeAchievementHolder {
 
         @Override
         public void onDataEvent(AchievementDataEvent event) {
-
+            if (event.getChangedData() == mGameData &&
+                    event.hasChangedKey(KEY_GAME_CELLI_TIMED_OUT_COUNT)) {
+                if (mGameData.getValue(KEY_GAME_CELLI_TIMED_OUT_COUNT, 0L) >= REQUIRED_CELLIS) {
+                    achieveAfterDependencyCheck();
+                }
+            }
         }
     }
 
@@ -100,14 +113,143 @@ public class AchievementFlow extends  TypeAchievementHolder {
         public static final int LEVEL = 0;
         public static final int REWARD = 50;
         public static final boolean DISCOVERED = true;
+        private static final int REQUIRED_VISIBLE_PERCENT = 75;
 
         public Achievement3(AchievementManager manager, PracticalRiddleType type) {
             super(type, R.string.achievement_flow_3_name, R.string.achievement_flow_3_descr, 0, NUMBER, manager, LEVEL, REWARD, 1, DISCOVERED);
         }
 
         @Override
-        public void onDataEvent(AchievementDataEvent event) {
+        public CharSequence getDescription(Resources res) {
+            return res.getString(mDescrResId, REQUIRED_VISIBLE_PERCENT);
+        }
 
+        @Override
+        public void onDataEvent(AchievementDataEvent event) {
+            if (event.getChangedData() == mGameData && event.hasChangedKey(KEY_GAME_REVEALED_PIXELS_COUNT)) {
+                if (mGameData.getValue(KEY_GAME_CELLI_TIMED_OUT_COUNT, 0L) >= REQUIRED_VISIBLE_PERCENT / 100. * mGameData.getValue(KEY_GAME_TOTAL_PIXELS_COUNT, 0L)) {
+                    achieveAfterDependencyCheck();
+                }
+            }
+        }
+    }
+
+
+    private static class Achievement4 extends GameAchievement {
+        public static final int NUMBER = 4;
+        public static final int LEVEL = 0;
+        public static final int REWARD = 50;
+        public static final boolean DISCOVERED = true;
+        private static final int REQUIRED_ACTIVE_CELLIS = 36;
+        private static final int AVAILABLE_TIME = 13000; // ms
+        private long mStartTime;
+
+        public Achievement4(AchievementManager manager, PracticalRiddleType type) {
+            super(type, R.string.achievement_flow_4_name, R.string.achievement_flow_4_descr, 0, NUMBER, manager, LEVEL, REWARD, 1, DISCOVERED);
+        }
+
+        @Override
+        public CharSequence getDescription(Resources res) {
+            return res.getString(mDescrResId, REQUIRED_ACTIVE_CELLIS, AVAILABLE_TIME / 1000);
+        }
+
+        @Override
+        public void onDataEvent(AchievementDataEvent event) {
+            if (event.getChangedData() == mGameData && event.hasChangedKey(KEY_GAME_CELLI_CREATED)) {
+                long active = mGameData.getValue(KEY_GAME_CELLI_ACTIVE_COUNT, 0L);
+                if (active == 0L && areDependenciesFulfilled()) {
+                    mStartTime = System.currentTimeMillis();
+                }
+            } else if (event.getChangedData() == mGameData && event.getEventType() == AchievementDataEvent.EVENT_TYPE_DATA_CLOSE) {
+                if (mStartTime > 0L && System.currentTimeMillis() - mStartTime <= AVAILABLE_TIME && mGameData.getValue(KEY_GAME_CELLI_ACTIVE_COUNT, 0L) >= REQUIRED_ACTIVE_CELLIS) {
+                    achieveAfterDependencyCheck();
+                }
+            }
+        }
+
+        @Override
+        public void setDependencies() {
+            super.setDependencies();
+            Dependency dep = TestSubject.getInstance().makeAchievementDependency(PracticalRiddleType.TRIANGLE_INSTANCE, AchievementTriangle.Achievement3.NUMBER);
+            if (dep != null) {
+                mDependencies.add(dep);// effizienzklicks
+            }
+        }
+    }
+
+
+    private static class Achievement5 extends GameAchievement {
+        public static final int NUMBER = 5;
+        public static final int LEVEL = 0;
+        public static final int REWARD = 50;
+        public static final boolean DISCOVERED = false;
+        private static final int REQUIRED_CELLIS = 300;
+
+        public Achievement5(AchievementManager manager, PracticalRiddleType type) {
+            super(type, R.string.achievement_flow_5_name, R.string.achievement_flow_5_descr, 0, NUMBER, manager, LEVEL, REWARD, 1, DISCOVERED);
+        }
+
+        @Override
+        public CharSequence getDescription(Resources res) {
+            return res.getString(mDescrResId, REQUIRED_CELLIS);
+        }
+
+        @Override
+        public void onDataEvent(AchievementDataEvent event) {
+            if (event.getChangedData() == mGameData && event.hasChangedKey(KEY_GAME_CELLI_CREATED)) {
+               if (mGameData.getValue(KEY_GAME_CELLI_ACTIVE_COUNT, 0L) >= REQUIRED_CELLIS) {
+                   achieveAfterDependencyCheck();
+               }
+            }
+        }
+    }
+
+
+    private static class Achievement6 extends GameAchievement {
+        public static final int NUMBER = 6;
+        public static final int LEVEL = 0;
+        public static final int REWARD = 50;
+        public static final boolean DISCOVERED = true;
+        private static final int REQUIRED_CELLIS_AFTER_REOPENING = 100;
+
+        public Achievement6(AchievementManager manager, PracticalRiddleType type) {
+            super(type, R.string.achievement_flow_6_name, R.string.achievement_flow_6_descr, 0, NUMBER, manager, LEVEL, REWARD, 1, DISCOVERED);
+        }
+
+        @Override
+        public void onDataEvent(AchievementDataEvent event) {
+            if (event.getChangedData() == mGameData && event.hasChangedKey(KEY_GAME_CELLI_ACTIVE_COUNT)) {
+                if (mGameData.getValue(KEY_GAME_CELLI_ACTIVE_COUNT, 0L) >= REQUIRED_CELLIS_AFTER_REOPENING) {
+                    achieveAfterDependencyCheck();
+                }
+            }
+        }
+    }
+
+
+    private static class Achievement7 extends GameAchievement {
+        public static final int NUMBER = 7;
+        public static final int LEVEL = 0;
+        public static final int REWARD = 50;
+        public static final boolean DISCOVERED = true;
+        private static final int TOTAL_TIMED_OUT_CELLIS = 2000;
+
+        public Achievement7(AchievementManager manager, PracticalRiddleType type) {
+            super(type, R.string.achievement_flow_7_name, R.string.achievement_flow_7_descr, 0, NUMBER, manager, LEVEL, REWARD, TOTAL_TIMED_OUT_CELLIS, DISCOVERED);
+        }
+
+        @Override
+        public CharSequence getDescription(Resources res) {
+            return res.getString(mDescrResId, getValue(), TOTAL_TIMED_OUT_CELLIS);
+        }
+
+        @Override
+        public void onDataEvent(AchievementDataEvent event) {
+            if (event.getChangedData() == mGameData && event.hasChangedKey(KEY_GAME_CELLI_TIMED_OUT_COUNT)) {
+                if (areDependenciesFulfilled()) {
+                    achieveDelta(1);
+                }
+            }
         }
     }
 }

@@ -197,15 +197,15 @@
     <string name="achievement_flow_2_name">Snake</string>
     <string name="achievement_flow_2_descr">Place %1$d Cellis and watch them work. But no one of it may take a break before work is done!</string>
     <string name="achievement_flow_3_name">Unmasked</string>
-    <string name="achievement_flow_3_descr">Reveal 75 of the picture.</string>
+    <string name="achievement_flow_3_descr">Reveal %1$d%% of the picture.</string>
     <string name="achievement_flow_4_name">Superstition</string>
-    <string name="achievement_flow_4_descr">Place 36 active Cellis and get off, before the unlucky number 13 hits you! (requires efficientclicks)</string>
+    <string name="achievement_flow_4_descr">Place %1$d active Cellis and get off, before the unlucky number %2$d hits you!</string>
     <string name="achievement_flow_5_name">Mass, not class</string>
-    <string name="achievement_flow_5_descr">Well, what you had to do was pretty clear. The question was, how many Cellis you needed. I can tell you: 300.(blind, 300 Puntke in einem Spiel setzen)</string>
+    <string name="achievement_flow_5_descr">Well, what you had to do was pretty clear. The question was, how many Cellis you needed. I can tell you: %1$d</string>
     <string name="achievement_flow_6_name">Stunning</string>
-    <string name="achievement_flow_6_descr">Isn\'t it amazing to watch all these placed Cellis doing crazy stuff? Just say yes. (75 Zellen in einem Spiel setzen und beenden)</string>
+    <string name="achievement_flow_6_descr">Isn\'t it amazing to watch all these placed Cellis doing crazy stuff? Just say yes.</string>
     <string name="achievement_flow_7_name">Ant colony</string>
-    <string name="achievement_flow_7_descr">It\'s bustling. So far 2000 Cellis worked until their job was done</string>
+    <string name="achievement_flow_7_descr">It\'s bustling. So far %1$d/%2$d Cellis worked until their job was done</string>
 
     <!-- Lazor achievements -->
     <string name="achievement_lazor_1_descr">Hit three comets at once (within 0,5 seconds?)</string>

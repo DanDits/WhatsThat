@@ -197,15 +197,15 @@
     <string name="achievement_flow_2_name">Snake</string>
     <string name="achievement_flow_2_descr">Setze %1$d Zellis und schau ihnen bei der Arbeit zu. Aber keines darf vor Beendigung der Arbeit Pause machen!</string>
     <string name="achievement_flow_3_name">Entlarvt</string>
-    <string name="achievement_flow_3_descr">Decke 75% des Bildes auf.</string>
+    <string name="achievement_flow_3_descr">Decke %1$d%% des Bildes auf.</string>
     <string name="achievement_flow_4_name">Aberglaube</string>
-    <string name="achievement_flow_4_descr">Setze 36 aktive Zellis und verschwinde, bevor der Sekundenzeiger die Unglückszahl 13 erreicht!</string>
+    <string name="achievement_flow_4_descr">Setze %1$d aktive Zellis und verschwinde, bevor der Sekundenzeiger die Unglückszahl %2$d erreicht!</string>
     <string name="achievement_flow_5_name">Masse statt Klasse</string>
-    <string name="achievement_flow_5_descr">Was zu tun war, das war ja selbstsprechend. Die Frage war nur, wie viel. Ich sags dir: 300.</string>
+    <string name="achievement_flow_5_descr">Was zu tun war, das war ja selbstsprechend. Die Frage war nur, wie viel. Ich sags dir: %1$d.</string>
     <string name="achievement_flow_6_name">Atemberaubend</string>
     <string name="achievement_flow_6_descr">All den gesetzten Zellis auf einmal zuzusehen ist doch faszinierend, nicht wahr? Sag einfach ja.</string>
     <string name="achievement_flow_7_name">Ameisenstaat</string>
-    <string name="achievement_flow_7_descr">Es wuselt und wuselt. Bisher haben xxx/2000 Zellis gearbeitet, bis ihre Arbeit erledigt war.</string>
+    <string name="achievement_flow_7_descr">Es wuselt und wuselt. Bisher haben %1$d/%2$d Zellis gearbeitet, bis ihre Arbeit erledigt war.</string>
 
     <!-- Lazor achievements -->
     <string name="achievement_lazor_1_name">Drei mit einem Streich</string>
