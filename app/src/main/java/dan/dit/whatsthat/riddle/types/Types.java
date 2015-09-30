@@ -116,15 +116,18 @@ public class Types {
         }
         @Override
         public int getTotalAvailableHintsCount() {
-            return 6;
+            return 9;
         }
 
         public List<Integer> getHintCosts() {
             List<Integer> costs = new ArrayList<>(getTotalAvailableHintsCount());
             costs.add(0);
             costs.add(0);
-            costs.add(0);
-            costs.add(10);
+            costs.add(5);
+            costs.add(5);
+            costs.add(15);
+            costs.add(15);
+            costs.add(30);
             return costs;
         }
 
@@ -192,6 +195,8 @@ public class Types {
         public List<Integer> getHintCosts() {
             List<Integer> costs = new ArrayList<>(getTotalAvailableHintsCount());
             costs.add(0);
+            costs.add(0);
+            costs.add(15);
             return costs;
         }
 
@@ -267,7 +272,12 @@ public class Types {
 
         public List<Integer> getHintCosts() {
             List<Integer> costs = new ArrayList<>(getTotalAvailableHintsCount());
-            costs.add(10);
+            costs.add(0);
+            costs.add(0);
+            costs.add(15);
+            costs.add(15);
+            costs.add(15);
+            costs.add(25);
             return costs;
         }
 
@@ -339,6 +349,9 @@ public class Types {
         public List<Integer> getHintCosts() {
             List<Integer> costs = new ArrayList<>(getTotalAvailableHintsCount());
             costs.add(0);
+            costs.add(20);
+            costs.add(10);
+            costs.add(15);
             return costs;
         }
         @Override
@@ -407,7 +420,17 @@ public class Types {
         public List<Integer> getHintCosts() {
             List<Integer> costs = new ArrayList<>(getTotalAvailableHintsCount());
             costs.add(0);
-            costs.add(1);
+            costs.add(0);
+            costs.add(5);
+            costs.add(10);
+            costs.add(15);
+            costs.add(15);
+            costs.add(20);
+            costs.add(25);
+            costs.add(30);
+            costs.add(40);
+            costs.add(45);
+            costs.add(50);
             return costs;
         }
         @Override
@@ -470,12 +493,14 @@ public class Types {
             return 1;
         }
         @Override
-        public int getTotalAvailableHintsCount() {
-            return 4;
-        }
+        public int getTotalAvailableHintsCount() {return 5;}
         public List<Integer> getHintCosts() {
             List<Integer> costs = new ArrayList<>(getTotalAvailableHintsCount());
             costs.add(0);
+            costs.add(10);
+            costs.add(10);
+            costs.add(30);
+            costs.add(30);
             return costs;
         }
 
@@ -615,11 +640,13 @@ public class Types {
         }
         @Override
         public int getTotalAvailableHintsCount() {
-            return 2;
+            return 4;
         }
         public List<Integer> getHintCosts() {
             List<Integer> costs = new ArrayList<>(getTotalAvailableHintsCount());
             costs.add(0);
+            costs.add(20);
+            costs.add(30);
             return costs;
         }
         @Override
@@ -664,6 +691,26 @@ public class Types {
         @Override
         public int getExplanationResId() {
             return R.string.riddle_type_lazor_explanation;
+        }
+
+        @Override
+        public CharSequence getRiddleHint(Resources res, int hintNumber){
+            String[] hints = res.getStringArray(R.array.riddle_type_lazor_hints);
+            if (hintNumber >=0 && hintNumber < hints.length) {
+                return hints[hintNumber];
+            }
+            return null;
+        }
+        @Override
+        public int getAvailableHintsAtStartCount() {return 1;}
+        @Override
+        public int getTotalAvailableHintsCount() {return 3;}
+        public List<Integer> getHintCosts(){
+            List<Integer> costs = new ArrayList<>(getTotalAvailableHintsCount());
+            costs.add(0);
+            costs.add(30);
+            costs.add(50);
+            return costs;
         }
 
         @Override

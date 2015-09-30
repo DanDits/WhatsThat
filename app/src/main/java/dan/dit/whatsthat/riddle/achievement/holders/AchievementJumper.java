@@ -242,7 +242,7 @@ public class AchievementJumper extends TypeAchievementHolder {
     private static class Achievement7 extends GameAchievement {
         public static final int NUMBER = 7;
         public static final int LEVEL = 0;
-        public static final int REWARD = 350;
+        public static final int REWARD = 300;
         public static final boolean DISCOVERED = true;
         private static final Long REQUIRED_HINT_NUMBER = 11L;
         private AchievementPropertiesMapped<String> mMiscData;

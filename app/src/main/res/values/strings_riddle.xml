@@ -96,7 +96,11 @@
     <string name="riddle_type_memory">Memory</string>
     <string name="riddle_type_memory_explanation">Find a matching pair</string>
     <string-array name="riddle_type_memory_hints">
-        <item>dummy</item>
+        <item>\"Wie mächtig katastrophal ist das irdische Gedächtnis beim Thema Erinnerung?\". Dieser Frage wollen wir mit diesem Experiment nachgehen. Und die Anleitung ist für dich extra simpel gehalten: Decke identische Kartenpaare auf!</item>
+        <item>Deckst du ein Paar auf so bildet sich ein Pfad zwischen dem Paar, was kurzzeitig alle Karten unter dem Pfad aufdeckt.</item>
+        <item>Der Pfad macht aus roten Karten wieder gelbe und aus gelben wieder grüne.</item>
+        <item>Die verschiedenen Kartenfarben können als Gedächtnisstütze dienen. Und von grauen Karten kann jeweils nur eine aufgedeckt sein.</item>
+        <item>Nichts hält dich davon ab alle Karten auf einem Zettel zu notieren. Außer dein Stolz. Denn kleine Kinder schaffen das auch so!</item>
     </string-array>
 
 
@@ -114,17 +118,19 @@
     <string name="riddle_type_flow">Flow</string>
     <string name="riddle_type_flow_explanation">Click to create pixel flows which follow lines in the hidden image.</string>
     <string-array name="riddle_type_flow_hints">
-        <item>Zellen besitzen nur teilweise Intelligenz. Daher verläuft nur jeder dritte gesetzte Punkt gefundene Konturen ab.</item>
-        <item>Die Dauer der Zellen ist bei allen gleich.</item>
+        <item>So verworren du dieses Experiment auch findest, so lässt sich im groben euer Geist beschreiben: Konfus und leer. Zumindest am Anfang! Wir haben daher euren Verstand nachgebaut.\nTippe auf das Feld, um Zellis zu platzieren und die Kontur des Bildes aufzudecken!</item>
+        <item>Zellis besitzen nur teilweise Intelligenz. Daher wird die Kontur nur von jeder dritten gesetzten Zelli abgesucht.</item>
+        <item>Die Lebensdauer der Zellis ist bei allen gleich.</item>
+        <item>Nur wenige der Zellis werden bis zum Ende ihres Lebens arbeiten. Die meisten kollidieren irgendwann in einer Sackgasse.</item>
     </string-array>
 
     <!-- Lazor related -->
     <string name="riddle_type_lazor">Lazor</string>
     <string name="riddle_type_lazor_advertising">Ein arkades Experiment mit futuristischen Aspekten. Verteidige die Stadt gegen bedrohliche Kometen.</string>
     <string name="riddle_type_lazor_explanation">Der nächste aufgeladene Lazor wird an den gewählten Punkt schießen und dort -oder bei Kollision- explodieren. Stoppe die Zerstörung!</string>
-    <string name="riddle_Type_lazor_hints">
+    <string-array name="riddle_type_lazor_hints">
         <item>Eine Simulation, um deine Reaktion auf außerplanetarische Bedrohungen zu messen. Schieße mit den Lazorn auf die Bedrohung. Bei Kollision oder Erreichen des geklickten Punktes wird der Lazor explodieren. Entlang des Kometenschweifes wird die entsprechende Farbe aufgedeckt.</item>
         <item>Das grüne Schild schützt deine Stadt vor Einschlägen. Ohne Schild wird die Farbe entlang des Schweifes zugedeckt.</item>
         <item>Weiße Kometen decken den Bereich vollständig auf, aber auch wieder zu. Priorisiere sie vor allen anderen Farben!</item>
-    </string>
+    </string-array>
 </resources>
