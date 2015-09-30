@@ -206,6 +206,7 @@
     <string name="article_choose_riddle_descr">Challenge your mind with a new puzzle!</string>
     <string name="article_level_up_dep_new_level">Boost your brain first!</string>
     <string name="article_choose_riddle_confirm">Choose this experiment. Cannot be undone!</string>
+    <string name="dependency_or">or</string>
 
     <plurals name="images_in_bundle">
         <item quantity="one">%1$d image</item>

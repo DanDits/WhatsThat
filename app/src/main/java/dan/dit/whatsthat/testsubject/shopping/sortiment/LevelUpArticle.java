@@ -42,7 +42,7 @@ public class LevelUpArticle extends ShopArticle {
         if (hasReachedMaximumLevel()) {
             return HINT_NOT_PURCHASABLE_ALREADY_PURCHASED;
         }
-        if (areDependenciesMissing(subProductIndex)) {
+        if (areDependenciesMissing(TestSubject.getInstance().getCurrentLevel() + 1)) {
             return HINT_NOT_PURCHASABLE_DEPENDENCIES_MISSING;
         }
         int cost = TestSubject.getInstance().getNextLevelUpCost();
@@ -92,8 +92,8 @@ public class LevelUpArticle extends ShopArticle {
             depText = "---";
         } else {
             Resources res = mConfirmProduct.getView().getResources();
-            costText = getCostText(res, cost);
-            depText = makeMissingDependenciesText(res, subProductIndex);
+            costText = getCostText(res, subProductIndex);
+            depText = makeMissingDependenciesText(res, TestSubject.getInstance().getCurrentLevel() + 1);
         }
         int purchasable = isPurchasable(subProductIndex);
         mConfirmProduct.setConfirmable(purchasable, costText, depText, cost > 0 && (purchasable == HINT_PURCHASABLE || purchasable == HINT_NOT_PURCHASABLE_TOO_EXPENSIVE) ? R.drawable.think_currency_small : 0);

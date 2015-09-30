@@ -194,4 +194,5 @@
         <item quantity="one">%1$d Bild</item>
         <item quantity="other">%1$d Bilder</item>
     </plurals>
+    <string name="dependency_or">oder</string>
 </resources>

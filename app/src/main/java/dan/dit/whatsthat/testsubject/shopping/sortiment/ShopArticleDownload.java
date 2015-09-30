@@ -21,7 +21,7 @@ import dan.dit.whatsthat.testsubject.shopping.SubProduct;
  * Created by daniel on 03.08.15.
  */
 public class ShopArticleDownload extends ShopArticle implements ImageDataDownload.Feedback {
-    private static final String KEY_PREFIX = "download_article_";
+    public static final String KEY_PREFIX = "a_download_article_";
     private static final int SHOP_VALUE_DOWNLOADED_AND_SYNCED = 2;
     private ImageDataDownload mDownload;
     private int mCost;
