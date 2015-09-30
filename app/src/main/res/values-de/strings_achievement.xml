@@ -74,8 +74,8 @@
     <string name="achievement_dice_1_descr">Fusioniere den Alien-Cube auf jede Farbe in einem Spiel. Lasst die Spiele beginnen!</string>
     <string name="achievement_dice_2_name">Bunte Vielfalt</string>
     <string name="achievement_dice_2_descr">Horte grüne, gelbe und rote 1–6 und lila 7–9. Keine Resets!</string>
-    <string name="achievement_dice_3_name">Mensch ist das kompliziert</string>
-    <string name="achievement_dice_3_descr">Kauf dir alle Tipps für das Experiment. Warum? Weil der Versuch kompliziert ist und wenn sich mein Meister diese Sachen mit viel Liebe geschrieben hat, also bitte einmal lesen!</string>
+    <string name="achievement_dice_3_name">Dummy</string>
+    <string name="achievement_dice_3_descr">Dummy</string>
     <string name="achievement_dice_4_name">Los Ecke! Entdecke!</string>
     <string name="achievement_dice_4_descr">Kombiniere in jeder Ecke %1$d gelbe Würfel.</string>
     <string name="achievement_dice_5_name">Übersetzungsfehler</string>

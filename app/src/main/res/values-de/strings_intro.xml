@@ -21,9 +21,9 @@
         <item>Erdling, ich heiße dich auf einer Reise in die Untiefen deines Geistes willkommen.</item>
         <item>Ich bin Meister Minion Xiaros Blu Equaris Zubatro Venalo der 364k.</item>
         <item>Es reicht aber, wenn du mich ganz zwanglos mit \"Erhabener\" anredest.</item>
-        <item>Du kannst mich natürlich auch mit anderen Ehrentiteln anreden.</item>
-        <item>Beispielsweise \"Eure Durchlauchtheit\", \"Erhabenes Wesen aus Sonnenstrahlen\"</item>
-        <item>Oder \"Oh ruhmreiches und unübertreffliches Wesen aller Galaxien\". Entschuldige. Ich schweife schnell ab. </item>
+        <item>Andere Ehrentitel wie \"Eure Durchlauchtheit\", \"Erhabenes Wesen aus Sonnenstrahlen\"..</item>
+        <item>..oder \"Oh ruhmreiches und unübertreffliches Wesen aller Galaxien\" sind natürlich auch in Ordnung.</item>
+        <item>Entschuldige. Ich weife schnell ab.</item>
     </string-array>
     <string-array name="test_subject_0_1_intro_main">
         <item>Das hier ist Dr. Kulg.</item>
@@ -38,6 +38,7 @@
         <item>Wir wollen die menschliche Spezies besser verstehen.</item>
         <item>Unsere Wahl ist dabei auf dich gefallen.</item>
         <item>Du wirst unser Versuchsobjekt sein</item>
+        <item>Deswegen haben wir dich mit dem Traktorstrahl aufgesammelt.</item>
         <item>Wir werden dich beobachten und im Hintergrund die gewonnen Daten auswerten.</item>
         <item>Wir hoffen, du hast das Potential, das wir in dir sahen.</item>
         <item>Zumindest sahst du aus der Ferne vielversprechend aus…</item>
@@ -63,8 +64,8 @@
         <item>Erdling, wie bei allen zukünftigen Experimenten der Versuchsreihe 272, geht es darum, das Bild zu erraten.</item>
         <item>Wenn du einmal nicht weiterkommst, dann schiebe bitte "keine Panik".</item>
         <item>WiseMind wird eine für dich maßgeschneiderte Hilfe geben, wenn unser Intellekt den irdischen übersteigt.</item>
-        <item>Und nun, wie man bei euch so schön sagt: Kopf in Mülleimer!</item>
-        <item>Oh, hoppla, Verzeihung ich meinte natürlich: Viel Erfolg!</item>
+        <item>Und nun, wie man bei euch so schön sagt: Auf ins Getümmel mit Glanz und Gloria!</item>
+        <item>Und natürlich: Viel Erfolg!</item>
     </string-array>
     <string-array name="test_subject_0_riddle_solved_candy">
         <item>Gut gemacht</item>

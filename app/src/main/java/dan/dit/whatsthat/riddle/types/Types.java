@@ -467,11 +467,11 @@ public class Types {
         }
         @Override
         public int getAvailableHintsAtStartCount() {
-            return 0;
+            return 1;
         }
         @Override
         public int getTotalAvailableHintsCount() {
-            return 1;
+            return 4;
         }
         public List<Integer> getHintCosts() {
             List<Integer> costs = new ArrayList<>(getTotalAvailableHintsCount());

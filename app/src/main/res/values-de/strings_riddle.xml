@@ -8,23 +8,26 @@
         <item>Teile bei unserem ersten Experiment einen Kreis, so wie Mose das Wasser. Nur nicht in zwei Hälften, sondern in vier neue Kreise. Irgendwann erkennst du durch die feineren Konturen ein Bild. Falls nicht, führe ich die Versuchsreihe mit Pantoffeltierchen weiter, die diese Tests mit Bravour bestanden haben.</item>
         <item>Demo Version beendet. Kaufe die Vollversion für nur 59,99€. Just kidding. Geh trotzdem mal in den Shop. Dort finden sich praktische Dinge, wie zum Beispiel der intergalaktische Kreislaser-Turbo-Schneider…</item>
         <item>Eine Schnellanleitung findest du oben rechts. Dort kannst du auch ein Bild überspringen, solltest du mal nicht weiter kommen.</item>
-        <item>Sollte dieses Experiment einigermaßen erfolgreich verlaufen, kannst du später in der Mitte zwischen verschiedenen Versuchen wählen. Oder zurückgestellte Exerimente fortführen.</item>
+        <item>Sollte dieser Experimenttyp einigermaßen erfolgreich verlaufen, kannst du später in der Mitte zwischen verschiedenen Versuchen wählen. Oder zurückgestellte Exerimente fortführen.</item>
         <item>Manche menschliche Augen erkennen manche Bilder manchmal erst aus manch einer Entfernung. Manchmal hilft auch ein Screenshot.</item>
-        <item>So, jetzt hast du mich genug belästigt. Das wars für den Anfang.</item>
+        <item>Einen Nachschub an Bildern kannst du dir von WiseMind geben lassen. Per Download hast du umgehend neue zur Verfügung!</item>
+        <item>Hast du dich schon gewundert, warum WiseMInds Lob manchmal grün ist? Dann hast du das Rätsel schneller oder besser gelöst als standardmäßig erwartet.</item>
+        <item>Du bekommst täglich für die ersten paar gelösten Rätsel Bonus Zellen. Der Bonusfaktor nimmt langsam ab. Wie viele du bekommst, ist abhängig von der Dauer und Schwierigkeit des Rätseltyps.</item>
+        <item>Je mehr Ausrufezeichen, desto größer der Bonusfaktor.</item>
     </string-array>
     <string name="article_circle_divide_by_move_feature_name">Intergalaktischer Kreislaser-Turbo-Schneider</string>
-    <string name="article_circle_divide_by_move_feature_descr">Erlaubt Kreise mit dem Finger zu zerschneiden ohne abzusetzen!</string>
+    <string name="article_circle_divide_by_move_feature_descr">Per Wischen Kreise mit dem Finger zerschneiden. Sehr entspannend!</string>
 
     <!-- Snow related -->
     <string name="riddle_type_snow">Zorny Zell</string>
-    <string name="riddle_type_snow_advertising">Ein anspruchsvolleres Experiment, du steuerst eine verwirrte und seltsame Zelle durch die wirren Schleier deines Geistes.</string>
-    <string name="riddle_type_snow_explanation">Beschleunige die Zelle zu deinem Finger oder durch Kippen des Gerätes. Sammle Süßigkeiten, wachse und explodiere das Bild frei.</string>
+    <string name="riddle_type_snow_advertising">Ein anspruchsvolleres Experiment, in dem du eine seltsame Zelle durch die wirren Schleier deines Geistes steuerst und merkwürdige Dinge einsammeln musst.</string>
+    <string name="riddle_type_snow_explanation">Beschleunige die Zelle hin zu deinem Finger, oder später durch Kippen des Gerätes. Sammle Süßigkeiten, wachse und explodiere das Bild frei.</string>
     <string-array name="riddle_type_snow_hints">
         <item>Ein neuer Test. In der Umgebung der Zelle platzieren wir kontaminierte biologische Stoffe einer anderen Spezies, um die Reaktion der Zelle darauf zu testen. Achte auf die Partikel, die von dem Stoff ausgehen und deiner Zelle schaden. Den Rest werden wir, wie in der Politik, mit einer Lüge bestmöglich verschleiern.</item>
-        <item>Durch den Versuch erhoffen wir uns tiefere Einblicke in die irdische graue Substanz, ein Bestandteil deines Zentralnervensystems. Dazu mussten wir aus deinem Gehirn eine Zelle entfernen. Die entfernte Gehirnzelle wirst du kaum merken.</item>
+        <item>Durch den Versuch erhoffen wir uns tiefere Einblicke in die irdische graue Substanz, ein Bestandteil deines Zentralnervensystems. Dazu mussten wir aus deinem Gehirn eine Zelle entfernen.</item>
         <item>Woher Engelchen kommt? Wir haben einer Zelle Tätrhaw injiziert. Das zeigt der Zelle die blanke Realität.  Als wir das Zeug der Zelle eines Politiker gegeben haben, ist die Zelle augenblicklich geplatzt.</item>
+        <item>Engelchen schützt dich vor Partikeln oder Wandkollisionen. Der Effekt lässt nach, wenn Engelchen durch giftige Süßigkeiten benommen wird.</item>
         <item>Engelchen ist manchmal etwas übermütig. Versuche es loszuwerden indem du es gut fütterst oder aus dem Kontrollbereich drängst.</item>
-        <item>Jedes Partikel lässt dich prozentual schrumpfen. Engelchen schützt dich etwas vor durchgehenden Partikel oder Wandkollisionen.</item>
         <item>Du kannst Engelchen auch aus dem Spielfeld drücken. Dann wird deine Zelle temporär wieder in den Narrheits-Zustand versetzt und du verlierst sämtlichen Schutz.</item>
     </string-array>
     <string name="article_snow_feature_orientation_sensor_name">Balanceakt</string>
@@ -72,7 +75,7 @@
     </string-array>
     <string-array name="devil_talk_cell_eat_candy_explosive">
         <item>Wooah, bleib ruhig, schön ruhig.</item>
-        <item>Wann warst du dsa letzte Mal so richtig glücklich?</item>
+        <item>Wann warst du das letzte Mal so richtig glücklich?</item>
         <item>Schnell, küss die Wand!</item>
         <item>Das wird gleich wehtun.</item>
     </string-array>
@@ -90,22 +93,21 @@
         <item>WiseMind meint, ich rede zu viel. Ich halte mich deshalb kurz: Ein farbliches Pendant zum Kreis-Test. Klickst du auf ein Dreieck, teilt sich dieses in zwei kleinere. Wozu das ganze? Zum Testen eurer Farbwahrnehmung.</item>
         <item>Wenn du mehrere Dreiecke berührst, teilst du alle auf einmal. Magic! Ansonsten gleiche Punkte wie beim Kreis-Experiment.</item>
         <item>Ich bin ein angesehener Wissenschaftler. Wenn du mich zu solch einfachen Dingen fragst könnte ich genervt reagieren…</item>
-        <item>Willst du dich mit mir unterhalten oder nur zeigen wie toll du bist?</item>
         <item>Du kannst deine kurze Lebenszeit gerne weiter verschwenden und Buttons drücken.</item>
         <item>Bist du verliebt in mich oder wieso willst du nicht loslassen?</item>
         <item>Menschenskind! Jetzt habe ich genug! 300 Milliliter von dieser Spritze. Das haut sogar einen Elefanten um. Und Tschüss.</item>
     </string-array>
     <string name="article_triangle_divide_by_move_feature_name">Intergalaktischer Turbolaser-Dreieck-Schneider</string>
-    <string name="article_triangle_divide_by_move_feature_descr">Dr. Drams hat sämtliche Mitarbeiter einen ganzen Monat gequält um den Kreislaser weiter zu entwicklen!</string>
+    <string name="article_triangle_divide_by_move_feature_descr">Dr. Kulg hat sämtliche Mitarbeiter einen ganzen Monat gequält, um den Kreislaser weiterzuentwicklen!</string>
 
     <!-- Dice related -->
     <string name="riddle_type_dice">Alien-Cube</string>
-    <string name="riddle_type_dice_advertising">Ein anspruchsvolles Experiment für die Logistiker und Geduldigen. Es müssen Würfel auf einem Gitter bewegt und kombiniert werden.</string>
+    <string name="riddle_type_dice_advertising">Ein verzwicktes und kompliziertes Experiment für die Logistiker und Geduldigen. Es müssen Würfel auf einem Gitter bewegt und kombiniert werden.</string>
     <string name="riddle_type_dice_explanation">Berühre ein leeres Feld, damit ein neuer Würfel erscheint. Bewege und kombiniere Würfel gleicher Augenzahl und Farbe, um das ausgeblasste Bild sichtbarer zu machen.</string>
     <string-array name="riddle_type_dice_hints">
         <item>Ein komplizierter Test. Kombiniere  Würfel gleicher Zahl und Farbe. In den angezeigten Bereichen entsteht Transparenz. Es gibt drei Basiswürfel rot, gelb und grün sowie die Sonderwürfel lila und den Alien Cube. Der Alien-Cube hat auf jeden Basiswürfel unterschiedliche Effekte.</item>
         <item>Grund für diesen komplizierten Versuch ist eine Anomalie, die wir bei euch festgestellt: Euren irdischen Würfel fehlt eine Dimension. Sie haben fälschlicherweise 6 Seiten, obwohl es 9 sind. Wir testen dein Gedächtnis daher auf Realitätsbasis hinsichtlich Kombination, Zahlen, Taktik, Logik, Farbe, Bewegung, Logistik und Schnelligkeit. Ja, ich halte es auch für einen Fehler, weil dich das ziemlich überfordert, aber Befehl ist Befehl.</item>
-        <item>Alien-Cube auf Rot ergibt den gleichen Würfel in grün.</item>
+        <item>Nun zum Alien-Cube. Alien-Cube auf Rot ergibt den gleichen Würfel in grün. Plus Transparenz im entsprechenden Bereich.</item>
         <item>Alien-Cube auf Gelb deckt das Feld zu 100% auf und lässt die Würfel verschwinden.</item>
         <item>Alien-Cube auf Grün ergibt lila. Die aufgedeckten Felder sind beweglich aber die Transparenz ist abhängig von der Augenzahl.</item>
         <item>Was ich empfehle?  Wenn du bereits einen grünen Würfel hast, kannst du mit rot sofort einen zweiten grünen Würfel mit geschenkter Transparenz bekommen.\nAls Glücksspieler empfehle ich gelb. Möchtest das ganze Bild scannen, würde ich einen grünen Würfel nehmen.</item>
@@ -116,11 +118,11 @@
 
     <!-- Jumper related -->
     <string name="riddle_type_jumper">Monstarathon</string>
-    <string name="riddle_type_jumper_advertising">Ein vielseitiges Jump and Run Experiment. Springe über Hindernisse und bleibe bloß nicht hängen!</string>
-    <string name="riddle_type_jumper_explanation">Berühre das Feld, um über Hindernisse zu springen. Halte länger gedrückt um höher zu springen.</string>
+    <string name="riddle_type_jumper_advertising">Ein bewegendes Experiment als Jump and Run. Springe über Hindernisse und bleibe bloß nicht hängen!</string>
+    <string name="riddle_type_jumper_explanation">Berühre das Feld, um über Hindernisse zu springen. Halte länger gedrückt, um höher zu springen.</string>
     <string-array name="riddle_type_jumper_hints">
         <item>Ihr Menschen seid ein merkwürdisches Völkchen. Ein Esel lässt sich mit einer Karotte zum Laufen animieren, bei euch Homo-Sapiens bedarf es einem Bündel Geld, obwohl das nicht mal essbar ist.</item>
-        <item>Wie dem auch sei. Wir haben an einem Geschäftsmann einige Versuche durchgeführt und dazu die Erinnerungen blockiert. Du kannst diese wieder lösen, indem du über Hindernisse springst. Mit einem einfachen Gedanken konnten wir unseren Kaufmann zu einem Marathon mit Hindernissen motivieren: \"Am Ende des Regenbogens steht ein Topf voller Geld.\" Zu schade, dass es nachts keinen Regenbogen gibt.</item>
+        <item>Wie dem auch sei. Wir haben an einem Geschäftsmann einige Versuche durchgeführt und dazu die Erinnerungen blockiert. Du kannst die Blockade lösen, indem du über Hindernisse springst. Mit einem einfachen Gedanken konnten wir unseren Kaufmann zu einem Marathon mit Hindernissen motivieren: \"Am Ende des Regenbogens steht ein Topf voller Geld.\" Zu schade, dass es nachts keinen Regenbogen gibt.</item>
         <item>Einmal klicken: Jump, zweimal klicken oder gedrückt halten: Double Jump. Kapiert?</item>
         <item>Es gibt vier Bereiche. Je nach Schwierigkeit wird die Erinnerung unterschiedlich groß ausfallen.</item>
         <item>Nach jeden x-überwundenen Hindernissen wird sich unser Geschäftsmann erinnern. Manchmal aber an irrelevante Dinge, der Bereich bleibt dann unverändert.</item>
@@ -145,7 +147,7 @@
 
     <!-- Memory related -->
     <string name="riddle_type_memory">Memory</string>
-    <string name="riddle_type_memory_advertising">Ein anspruchsvolleres Experiment, zumindest für Erwachsene. Man muss sich Karten merken!</string>
+    <string name="riddle_type_memory_advertising">Für manche ein leichtes Experiment. Für andere, meist Erwachsene, oft schwierig. Man muss sich Karten merken!</string>
     <string name="riddle_type_memory_explanation">Finde Kartenpaare mit gleichen Bildern und decke diese durch Klicken auf.</string>
     <string-array name="riddle_type_memory_hints">
         <item>Deckst du ein Paar auf so bildet sich ein Pfad zwischen dem Paar, was kurzzeitig alle Karten unter dem Pfad aufdeckt.</item>
@@ -164,16 +166,22 @@
 
     <!-- Flow related -->
     <string name="riddle_type_flow">Chaosfluss</string>
-    <string name="riddle_type_flow_advertising">Ein einfaches Rätsel für Chaoten. Denn hier geht es darum im unbekannten Chaos genau die wichtigen Punkte zu treffen, die das Bild fließend aufdecken.</string>
-    <string name="riddle_type_flow_explanation">Berühre das Feld, wodurch Pixelflüsse entstehen. Versuche Puntke nahe an Konturen zu setzen, damit Linien im Bild abgesucht werden.</string>
+    <string name="riddle_type_flow_advertising">Ein einfaches Rätsel für Chaoten. Decke mit gesetzten Zellen im unbekannten Chaos bekannte Punkte und Bilder auf!</string>
+    <string name="riddle_type_flow_explanation">Berühre das Feld, wodurch Zellflüsse entstehen. Versuche Puntke nahe an Konturen zu setzen, damit Linien im Bild abgesucht werden.</string>
     <string-array name="riddle_type_flow_hints">
-        <item>Zellis besitzen nur teilweise Intelligenz. Daher verläuft nur jeder dritte gesetzte Punkt gefundene Konturen ab.</item>
+        <item>So verworren du dieses Experiment auch findest, so lässt sich im groben euer Geist beschreiben: Konfus und leer. Zumindest am Anfang! Wir haben daher euren Verstand nachgebaut.\nTippe auf das Feld, um Zellis zu platzieren und die Kontur des Bildes aufzudecken!</item>
+        <item>Zellis besitzen nur teilweise Intelligenz. Daher wird die Kontur nur von jeder dritten gesetzten Zelli abgesucht.</item>
         <item>Die Lebensdauer der Zellis ist bei allen gleich.</item>
-        <item>Nur wenige der Zellis werden bis zum Ende ihres Lebens arbeiten, die meisten kollidieren irgendwann in einer Sackgasse.</item>
+        <item>Nur wenige der Zellis werden bis zum Ende ihres Lebens arbeiten. Die meisten kollidieren irgendwann in einer Sackgasse.</item>
     </string-array>
 
     <!-- Lazor related -->
     <string name="riddle_type_lazor">Lazor</string>
-    <string name="riddle_type_lazor_advertising">Ein arkades Experiment mit futuristischen Aspekten. Verteidige die Stadt gegen farbige Kometen.</string>
-    <string name="riddle_type_lazor_explanation">Der nächste aufgeladene Lazor wird an den gewählten Punkt schießen und dort -oder bei Kollision- explodieren. Stoppe die Kometen!</string>
+    <string name="riddle_type_lazor_advertising">Ein arkades Experiment mit futuristischen Aspekten. Verteidige die Stadt gegen bedrohliche Kometen.</string>
+    <string name="riddle_type_lazor_explanation">Der nächste aufgeladene Lazor wird an den gewählten Punkt schießen und dort -oder bei Kollision- explodieren. Stoppe die Zerstörung!</string>
+    <string name="riddle_Type_lazor_hints">
+        <item>Eine Simulation, um deine Reaktion auf außerplanetarische Bedrohungen zu messen. Schieße mit den Lazorn auf die Bedrohung. Bei Kollision oder Erreichen des geklickten Punktes wird der Lazor explodieren. Entlang des Kometenschweifes wird die entsprechende Farbe aufgedeckt.</item>
+        <item>Das grüne Schild schützt deine Stadt vor Einschlägen. Ohne Schild wird die Farbe entlang des Schweifes zugedeckt.</item>
+        <item>Weiße Kometen decken den Bereich vollständig auf, aber auch wieder zu. Priorisiere sie vor allen anderen Farben!</item>
+    </string>
 </resources>

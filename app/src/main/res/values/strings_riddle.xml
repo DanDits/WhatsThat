@@ -120,5 +120,11 @@
 
     <!-- Lazor related -->
     <string name="riddle_type_lazor">Lazor</string>
-    <string name="riddle_type_lazor_explanation">Here be lazors</string>
+    <string name="riddle_type_lazor_advertising">Ein arkades Experiment mit futuristischen Aspekten. Verteidige die Stadt gegen bedrohliche Kometen.</string>
+    <string name="riddle_type_lazor_explanation">Der nächste aufgeladene Lazor wird an den gewählten Punkt schießen und dort -oder bei Kollision- explodieren. Stoppe die Zerstörung!</string>
+    <string name="riddle_Type_lazor_hints">
+        <item>Eine Simulation, um deine Reaktion auf außerplanetarische Bedrohungen zu messen. Schieße mit den Lazorn auf die Bedrohung. Bei Kollision oder Erreichen des geklickten Punktes wird der Lazor explodieren. Entlang des Kometenschweifes wird die entsprechende Farbe aufgedeckt.</item>
+        <item>Das grüne Schild schützt deine Stadt vor Einschlägen. Ohne Schild wird die Farbe entlang des Schweifes zugedeckt.</item>
+        <item>Weiße Kometen decken den Bereich vollständig auf, aber auch wieder zu. Priorisiere sie vor allen anderen Farben!</item>
+    </string>
 </resources>
