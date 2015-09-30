@@ -177,6 +177,19 @@ public class ShopView extends ExpandableListView implements  StoreContainer, Sho
         if (mAdapter != null) {
             applyFilters();
             updateCurrency();
+            // check if the current article isnt visible anymore, if yes then make sure all other articles are collapsed
+            boolean isVisible = false;
+            for (int i = 0; i < mArticleHolder.getArticlesCount(); i++) {
+                if (mArticleHolder.getArticle(i) == article) {
+                    isVisible = true;
+                    break;
+                }
+            }
+            if (!isVisible) {
+                for (int i = 0; i < mAdapter.getGroupCount(); i++) {
+                    collapseGroup(i);
+                }
+            }
         }
     }
 
