@@ -271,4 +271,7 @@ public abstract class RiddleGame {
         solutionView.setSolutionInput(mSolutionInput, listener);
     }
 
+    public boolean requiresOrientationSensor() {
+        return false;
+    }
 }

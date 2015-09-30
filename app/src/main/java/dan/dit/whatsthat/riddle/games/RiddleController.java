@@ -165,7 +165,7 @@ public class RiddleController {
      * @return If the orientation sensor is required.
      */
     public boolean requiresOrientationSensor() {
-        return riddleAvailable() && mRiddle.getType().requiresOrientationSensor();
+        return riddleAvailable() && mRiddleGame.requiresOrientationSensor();
     }
 
     /**

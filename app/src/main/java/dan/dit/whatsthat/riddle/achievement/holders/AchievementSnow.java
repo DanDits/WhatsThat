@@ -22,6 +22,8 @@ import dan.dit.whatsthat.util.dependencies.Dependency;
  * Created by daniel on 21.05.15.
  */
 public class AchievementSnow extends TypeAchievementHolder {
+    public static final String KEY_GAME_FEATURE_ORIENTATION_SENSOR_ENABLED = "feature_orientation_sensor";
+    public static final String KEY_GAME_FEATURE_ORIENTATION_SENSOR_CHANGED = "feature_orientation_sensor_changed";
     public static final String KEY_GAME_IDEAS_COLLECTED = "ideas_collected"; // when the cell collects an idea, can trigger a cell_state event afterwards
     public static final String KEY_GAME_COLLISION_COUNT = "collision_count";
     public static final String KEY_GAME_CELL_STATE = "cell_state"; // current size = ideas collected (maybe explosive)

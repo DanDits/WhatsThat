@@ -62,6 +62,28 @@ public class ForeignPurse {
         return true;
     }
 
+    public synchronized boolean toggleFeature(final String key) {
+        if (TextUtils.isEmpty(key)) {
+            throw new IllegalArgumentException("No key to toggleFeature.");
+        }
+        int currValue = mPurse.mShopWallet.getEntryValue(key);
+        if (currValue == WalletEntry.FALSE) {
+            return false; // not yet owned
+        }
+        boolean wasEven = currValue % 2 == 0;
+        currValue++;
+        if (currValue < 0) {
+            // overflow case
+            currValue = wasEven ? 1 : 2;
+            mPurse.mShopWallet.removeEntry(key);
+        }
+        mPurse.mShopWallet.editEntry(key, 1).set(currValue);
+        return true;
+    }
+
+    public boolean hasToggleableFeature(final String key) {
+        return mPurse.hasToggleableFeature(key);
+    }
 
     public int getAvailableRiddleHintsCount(PracticalRiddleType type) {
         return mPurse.getAvailableRiddleHintsCount(type);

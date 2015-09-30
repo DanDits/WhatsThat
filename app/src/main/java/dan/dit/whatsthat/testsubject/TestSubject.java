@@ -466,6 +466,10 @@ public class TestSubject {
         return mPurse.mShopWallet.getEntryValue(featureKey) != WalletEntry.FALSE;
     }
 
+    public boolean hasToggleableFeature(String featureKey) {
+        return mPurse.hasToggleableFeature(featureKey);
+    }
+
     public Dependency makeProductPurchasedDependency(String articleKey, int productIndex) {
         return new ProductPurchasedDependency(mShopArticleHolder.getArticle(articleKey), productIndex);
     }

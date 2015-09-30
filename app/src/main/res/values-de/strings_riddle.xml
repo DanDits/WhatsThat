@@ -27,6 +27,10 @@
         <item>Jedes Partikel lässt dich prozentual schrumpfen. Engelchen schützt dich etwas vor durchgehenden Partikel oder Wandkollisionen.</item>
         <item>Du kannst Engelchen auch aus dem Spielfeld drücken. Dann wird deine Zelle temporär wieder in den Narrheits-Zustand versetzt.</item>
     </string-array>
+    <string name="article_snow_feature_orientation_sensor_name">Balanceakt</string>
+    <string name="article_snow_feature_orientation_sensor_descr">Ermöglicht die Wahlmöglichkeit, die Zelle durch Kippen des Geräts zu steuern!</string>
+    <string name="article_snow_feature_orientation_sensor_on">Kippen</string>
+    <string name="article_snow_feature_orientation_sensor_off">Drücken</string>
 
     <string-array name="devil_talk_recovering_start">
         <item>Aah mein Magen</item>

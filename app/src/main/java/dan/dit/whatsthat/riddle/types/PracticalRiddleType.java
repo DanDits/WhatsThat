@@ -119,18 +119,6 @@ public abstract class PracticalRiddleType extends RiddleType {
         return false;
     }
 
-    /**
-     * If this riddle type requires the device's orientation sensor, that is
-     * the accelerometer and magnetometer. These, especially latter, isn't available
-     * on all devices.
-     * <br>If the type requires these sensors and they can't be used, the riddle
-     * type must not be chosen.
-     * @return If the orientation sensor is used by the riddle.
-     */
-    public boolean requiresOrientationSensor() {
-        return false;
-    }
-
     public abstract int getNameResId();
 
     public abstract int getExplanationResId();

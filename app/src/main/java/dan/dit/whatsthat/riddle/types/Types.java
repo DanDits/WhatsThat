@@ -158,8 +158,6 @@ public class Types {
             return new RiddleSnow(riddle, image, bitmap, res, config, listener);
         }
         @Override
-        public boolean requiresOrientationSensor() {return true;}
-        @Override
         public int getIconResId() {
             return R.drawable.icon_snow;
         }

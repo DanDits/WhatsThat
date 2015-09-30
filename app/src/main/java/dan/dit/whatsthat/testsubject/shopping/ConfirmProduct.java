@@ -29,11 +29,6 @@ public class ConfirmProduct extends SubProduct {
     }
 
     @Override
-    public boolean hasNoView() {
-        return mView == null;
-    }
-
-    @Override
     public void onClick() {
         if (mParentArticle != null) {
             mParentArticle.onChildClick(this);

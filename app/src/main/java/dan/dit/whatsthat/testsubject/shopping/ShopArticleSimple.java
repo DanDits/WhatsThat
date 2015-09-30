@@ -18,7 +18,7 @@ public class ShopArticleSimple extends ShopArticle {
     public ShopArticleSimple(String key, ForeignPurse purse, int nameResId, int descrResId, int iconResId, int cost) {
         super(key, purse, nameResId, descrResId, iconResId);
         mCost = cost;
-        if (getSubProductCount() > 0) {
+        if (!mPurse.hasShopValue(mKey)) {
             mConfirmProduct = new ConfirmProduct(this);
         }
     }

@@ -66,4 +66,9 @@ class Purse {
     public void setAvailableRiddleHintsAtStartCount(PracticalRiddleType type) {
         mShopWallet.editEntry(SHW_KEY_AVAILABLE_RIDDLE_HINT_COUNT + type.getFullName()).set(Math.min(type.getAvailableHintsAtStartCount(), type.getTotalAvailableHintsCount()));
     }
+
+    public boolean hasToggleableFeature(String featureKey) {
+        int entryValue = mShopWallet.getEntryValue(featureKey);
+        return entryValue > WalletEntry.FALSE && entryValue % 2 == 1;
+    }
 }

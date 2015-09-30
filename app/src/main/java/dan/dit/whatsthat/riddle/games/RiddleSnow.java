@@ -19,6 +19,7 @@ import java.util.List;
 import java.util.Random;
 
 import dan.dit.whatsthat.R;
+import dan.dit.whatsthat.achievement.Achievement;
 import dan.dit.whatsthat.achievement.AchievementProperties;
 import dan.dit.whatsthat.image.Image;
 import dan.dit.whatsthat.riddle.Riddle;
@@ -26,6 +27,8 @@ import dan.dit.whatsthat.riddle.RiddleConfig;
 import dan.dit.whatsthat.riddle.achievement.AchievementDataRiddleType;
 import dan.dit.whatsthat.riddle.achievement.holders.AchievementSnow;
 import dan.dit.whatsthat.riddle.types.Types;
+import dan.dit.whatsthat.testsubject.TestSubject;
+import dan.dit.whatsthat.testsubject.shopping.sortiment.SortimentHolder;
 import dan.dit.whatsthat.util.PercentProgressListener;
 import dan.dit.whatsthat.util.compaction.CompactedDataCorruptException;
 import dan.dit.whatsthat.util.compaction.Compacter;
@@ -138,6 +141,8 @@ public class RiddleSnow extends RiddleGame implements FlatWorldCallback {
 
     @Override
     protected void initBitmap(Resources res, PercentProgressListener listener) {
+        setTouchControl(!TestSubject.getInstance().hasToggleableFeature(SortimentHolder.ARTICLE_KEY_SNOW_FEATURE_ORIENTATION_SENSOR));
+
         mWorld = new FlatRectWorld(new RectF(0, 0, mConfig.mWidth, mConfig.mHeight), new GeneralHitboxCollider(), this);
         mRand = new Random();
         mClearPaint = new Paint();
@@ -375,9 +380,24 @@ public class RiddleSnow extends RiddleGame implements FlatWorldCallback {
         return false;
     }
 
+    private void setTouchControl(boolean enable) {
+        mFeatureTouchGravity = enable;
+        if (mConfig.mAchievementGameData != null) {
+            long wasEnabled = mConfig.mAchievementGameData.getValue(AchievementSnow.KEY_GAME_FEATURE_ORIENTATION_SENSOR_ENABLED, 0L);
+            mConfig.mAchievementGameData.putValue(AchievementSnow.KEY_GAME_FEATURE_ORIENTATION_SENSOR_ENABLED, enable ? 1L : 0L, AchievementProperties.UPDATE_POLICY_ALWAYS);
+            if ((wasEnabled == 0L) == enable) {
+                mConfig.mAchievementGameData.increment(AchievementSnow.KEY_GAME_FEATURE_ORIENTATION_SENSOR_CHANGED, 1L, 0L);
+            }
+        }
+    }
+
+    public boolean requiresOrientationSensor() {
+        return !mFeatureTouchGravity;
+    }
+
     @Override
     public void enableNoOrientationSensorAlternative() {
-        mFeatureTouchGravity = true;
+        setTouchControl(true);
     }
 
     @NonNull
