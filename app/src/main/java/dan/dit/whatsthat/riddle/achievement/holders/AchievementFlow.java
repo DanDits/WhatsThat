@@ -276,7 +276,7 @@ public class AchievementFlow extends  TypeAchievementHolder {
 
         @Override
         public CharSequence getDescription(Resources res) {
-            return res.getString(mDescrResId, getValue(), MAX_CELLIS_FOR_SOLVING);
+            return res.getString(mDescrResId, MAX_CELLIS_FOR_SOLVING);
         }
 
         @Override
