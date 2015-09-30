@@ -43,6 +43,7 @@
         android:id="@+id/shop_article_cost"
         android:text="10$"
         android:layout_weight="1"
-        android:layout_gravity="center" />
+        android:layout_gravity="center"
+        android:gravity="center" />
 
 </view>
