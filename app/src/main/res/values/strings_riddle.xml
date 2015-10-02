@@ -2,6 +2,7 @@
 <resources>
     <!-- Circle related -->
     <string name="riddle_type_circle">Grey Matter</string>
+    <string name="riddle_type_circle_advertising">A simple experiment that aims to stimulate your grey matter by grey circles.</string>
     <string name="riddle_type_circle_explanation">Touch one circle to pop them into 4 smaller ones until the image is visible.</string>
     <string-array name="riddle_type_circle_hints">
         <item>Touch circles to divide them.</item>
@@ -11,9 +12,14 @@
 
     <!-- Snow related -->
     <string name="riddle_type_snow">Angry Cell</string>
+    <string name="riddle_type_snow_advertising">A more complex experiment where you guide an angry cell through the foggy parts of your mind.</string>
     <string name="riddle_type_snow_explanation">Tilt the device and thus move the cell. Collect toxic candies, grow bigger, don\'t touch walls and EXPLODE.</string>
     <string-array name="riddle_type_snow_hints">
     </string-array>
+    <string name="article_snow_feature_orientation_sensor_name">Balancing act</string>
+    <string name="article_snow_feature_orientation_sensor_descr">Enables choosing to control the cell by tilting the phone!</string>
+    <string name="article_snow_feature_orientation_sensor_on">Tilting</string>
+    <string name="article_snow_feature_orientation_sensor_off">Pressing</string>
 
     <string-array name="devil_talk_recovering_start">
         <item>My stomach hurts…</item>
@@ -72,12 +78,14 @@
 
     <!-- Dice related -->
     <string name="riddle_type_dice">Alien-Cube</string>
+    <string name="riddle_type_dice_advertising">A tricky and more complicated experiment. You need to move dices on a grid and combine them.</string>
     <string name="riddle_type_dice_explanation">Create dices by touching an empty field. Move and combine dices with equal numbers to reveal the image.</string>
     <string-array name="riddle_type_dice_hints">
     </string-array>
 
     <!-- Jumper related -->
     <string name="riddle_type_jumper">Monstarathon</string>
+    <string name="riddle_type_jumper_advertising">A moving experiment. You jump and run and need to avoid touching obstacles!</string>
     <string name="riddle_type_jumper_explanation">Touch to jump or keep pressed to doublejump over obstacles. Each one will slowly reveal the image</string>
     <string-array name="riddle_type_jumper_hints">
     </string-array>
@@ -94,6 +102,7 @@
 
     <!-- Memory related -->
     <string name="riddle_type_memory">Memory</string>
+    <string name="riddle_type_memory_advertising">For some it\'s a simple experiment. For most, mostly adults, somehow difficult. You need to remember cards!</string>
     <string name="riddle_type_memory_explanation">Find a matching pair</string>
     <string-array name="riddle_type_memory_hints">
         <item>\"Wie mächtig katastrophal ist das irdische Gedächtnis beim Thema Erinnerung?\". Dieser Frage wollen wir mit diesem Experiment nachgehen. Und die Anleitung ist für dich extra simpel gehalten: Decke identische Kartenpaare auf!</item>
@@ -106,16 +115,17 @@
 
     <!-- Developer related -->
     <string name="riddle_type_developer">Developer</string>
-    <string name="riddle_type_developer_advertising">COOOL?!</string>
+    <string name="riddle_type_developer_advertising" translatable="false">COOOL?!</string>
     <string name="riddle_type_developer_explanation">Hi self or brother.</string>
 
     <!-- Torchlight related -->
     <string name="riddle_type_torchlight">Torchlight</string>
-    <string name="riddle_type_torchlight_advertising">COOOL?!</string>
+    <string name="riddle_type_torchlight_advertising" translatable="false">COOOL?!</string>
     <string name="riddle_type_torchlight_explanation">Something happens later</string>
 
     <!-- Flow related -->
     <string name="riddle_type_flow">Flow</string>
+    <string name="riddle_type_flow_advertising">A simple experiment for slobs. Put down cells in the unknown chaos to discover images!</string>
     <string name="riddle_type_flow_explanation">Click to create pixel flows which follow lines in the hidden image.</string>
     <string-array name="riddle_type_flow_hints">
         <item>So verworren du dieses Experiment auch findest, so lässt sich im groben euer Geist beschreiben: Konfus und leer. Zumindest am Anfang! Wir haben daher euren Verstand nachgebaut.\nTippe auf das Feld, um Zellis zu platzieren und die Kontur des Bildes aufzudecken!</item>
@@ -126,7 +136,7 @@
 
     <!-- Lazor related -->
     <string name="riddle_type_lazor">Lazor</string>
-    <string name="riddle_type_lazor_advertising">Ein arkades Experiment mit futuristischen Aspekten. Verteidige die Stadt gegen bedrohliche Kometen.</string>
+    <string name="riddle_type_lazor_advertising">An arcade experiment with some futuristic aspects. Defend your city against descending meteors.</string>
     <string name="riddle_type_lazor_explanation">Der nächste aufgeladene Lazor wird an den gewählten Punkt schießen und dort -oder bei Kollision- explodieren. Stoppe die Zerstörung!</string>
     <string-array name="riddle_type_lazor_hints">
         <item>Eine Simulation, um deine Reaktion auf außerplanetarische Bedrohungen zu messen. Schieße mit den Lazorn auf die Bedrohung. Bei Kollision oder Erreichen des geklickten Punktes wird der Lazor explodieren. Entlang des Kometenschweifes wird die entsprechende Farbe aufgedeckt.</item>

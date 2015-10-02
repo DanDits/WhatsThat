@@ -1,8 +1,24 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 
-<resources>
-    <string name="credits_text"></string>
-
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="credits_text" tools:ignore="TypographyEllipsis"><![CDATA[
+        <p>Jedes große Projekt braucht einen Platz, um den Leuten zu danken, die es möglich gemacht haben. Dies hier ist der Platz. So viele brilliante Leute, so viele brilliante und kreative Köpfe fund die meisten wissen noch nicht einmal, dass sie hierzu beigetragen haben.</p>
+        <p><strong>Zuallerst möchte ich meinem Bruder Fabian für inspirierende Diskussionen, kreative Kreationen und detailverliebte Begeisterung vom Anfang bis zum Ende. Ohne dich wäre das alles hier nicht möglich gewesen.</strong></p>
+        <ul>
+        <li>Dieses Projekt benutzt das <a href="https://github.com/SufficientlySecure/donations">DonationsFragment</a> von <em>SufficientlySecure</em> für die Spendenseite.</li>
+        <li>Die ganzen netten Popup Meldungen werden ermöglicht von <a href="https://github.com/JohnPersano/SuperToasts">SuperToasts</a> erstellt von <em>JohnPersano</em>.</li>
+        <li>Manche Teile der Mosaikerstellung benötigen <a href="http://math.nist.gov/javanumerics/jama">JAMA</a> für mathematisch knifflige Operationen.</li>
+        </ul>
+        <p>Weiterhin möchten wir all jenen danken, die Interesse gezeigt haben, während das Projekt noch in den Kinderschuhen steckte. Beim Testen und Ideen einbringen, immer kam irgendwo ein neuer Wind her. Falls ihr euren Namen (oder Pseudonym) hier geschrieben sehen wollt, nehmt Kontakt mit uns auf! Dann werdet ihr entweder ein neuer Tester oder ihr bekommt die wohlverdiente Anerkennung dafür, dass ihr so große Klasse seid!</p>
+        <p>Schlussendlich ist hier eine Liste aller Autoren und Quellen, die ihre Bilder unter freier Lizenz im Internet angeboten haben, die wir in unser Projekt an der einen oder anderen Stelle verwendet haben.</p>
+        <ul>
+        <li>Für PNG Kompression die Programme OptiPNG, PNGcrush und <a href="https://tinypng.com">TinyPNG</a></li>
+        <li>Die Website <a href="pixabay.com">pixabay.com</a>, insbesondere die folgenden Autoren: <em>Nemo</em>, <em>OpenClips</em>,<br />
+        <em>PublicDomainPictures</em>, <em>OpenClipartVectors</em>,...</li>
+        <li>Die Website <a href="icons4android.com">icons4android.com</a> für die Icons <a href="http://www.icons4android.com/icon/1144">in</a> <a href="http://www.icons4android.com/icon/1218">dem</a> <a href="http://www.icons4android.com/icon/1174">Pakete</a> <a href="http://www.icons4android.com/icon/851">Manager</a></li>
+        <li>Die Autoren der jeweiligen Bilder zu den Experimenten werden für jedes Bild im NoPanic Dialog genannt. Der vollständige Link zum Bild mit Titel und Autor kann von uns angefragt werden unter whatsthat.contact@gmail.com</li>
+        </ul>
+    ]]></string>
     <string name="store_category_menu">Zurück zum Experiment</string>
     <string name="store_category_shop">Laden</string>
     <string name="store_category_achievement">Erfolge</string>

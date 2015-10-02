@@ -14,6 +14,7 @@ import dan.dit.whatsthat.riddle.achievement.holders.AchievementCircle;
 import dan.dit.whatsthat.riddle.achievement.holders.AchievementDice;
 import dan.dit.whatsthat.riddle.achievement.holders.AchievementFlow;
 import dan.dit.whatsthat.riddle.achievement.holders.AchievementJumper;
+import dan.dit.whatsthat.riddle.achievement.holders.AchievementLazor;
 import dan.dit.whatsthat.riddle.achievement.holders.AchievementMemory;
 import dan.dit.whatsthat.riddle.achievement.holders.AchievementSnow;
 import dan.dit.whatsthat.riddle.achievement.holders.AchievementTriangle;
@@ -661,6 +662,7 @@ public class Types {
     public static class Lazor extends PracticalRiddleType {
         public static final String NAME = "Lazor";
         private static final double BITMAP_ASPECT_RATIO = 5. / 4.;
+        private TypeAchievementHolder mHolder = new AchievementLazor(this);
 
         @Override
         protected String getName() {return NAME;}
@@ -675,6 +677,10 @@ public class Types {
         }
         @Override
         public boolean enforcesBitmapAspectRatio() {return true;}
+        @Override
+        public TypeAchievementHolder getAchievementHolder() {
+            return mHolder;
+        }
 
         @Override
         public RiddleGame makeRiddle(Riddle riddle, Image image, Bitmap bitmap, Resources res, RiddleConfig config, PercentProgressListener listener) {
