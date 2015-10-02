@@ -37,11 +37,11 @@
             android:layout_gravity="center" />
     </LinearLayout>
 
-    <TextView
+    <dan.dit.whatsthat.util.ui.ImageViewWithText
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:id="@+id/shop_article_cost"
-        android:text="10$"
+        android:src="@drawable/think_currency"
         android:layout_weight="1"
         android:layout_gravity="center"
         android:gravity="center" />

@@ -42,6 +42,7 @@ public class ImageViewWithNumber extends ImageView implements ViewWithNumber{
     public void setNumber(int number) {
         mNumber = String.valueOf(number);
         invalidate();
+        requestLayout();
     }
 
     @Override
@@ -49,6 +50,7 @@ public class ImageViewWithNumber extends ImageView implements ViewWithNumber{
         mRelX = relX;
         mRelY = relY;
         invalidate();
+        requestLayout();
     }
 
     @Override

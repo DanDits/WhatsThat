@@ -3,6 +3,13 @@
     <attr name="numberSize" format="dimension" />
     <attr name="numberBold" format="boolean" />
 
+    <declare-styleable name="ImageViewWithText">
+        <attr name="text" format="string"/>
+        <attr name="textColor" format="color"/>
+        <attr name="textSize" format="dimension"/>
+        <attr name="textBold" format="boolean"/>
+    </declare-styleable>
+
     <declare-styleable name="ImageViewWithNumber">
         <attr name="numberColor" />
         <attr name="numberSize" />
