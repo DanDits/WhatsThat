@@ -41,7 +41,7 @@ import dan.dit.whatsthat.util.image.Dimension;
 public abstract class RiddleGame {
 
     /**
-     * The width for a snapshot bitmap for unsolved RiddleGame's that get closed.
+     * The dimension for a snapshot bitmap for unsolved RiddleGames that get closed.
      */
     static final Dimension SNAPSHOT_DIMENSION = new Dimension(32, 32);
     /**

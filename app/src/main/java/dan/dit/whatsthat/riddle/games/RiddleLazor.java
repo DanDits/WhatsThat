@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapShader;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
@@ -281,7 +282,6 @@ public class RiddleLazor extends RiddleGame implements FlatWorldCallback {
         if (data != null && data.getSize() > 0) {
             try {
                 mDifficulty = data.getInt(0);
-                Log.d("Riddle", "Difficutly restored: " + mDifficulty);
             } catch (CompactedDataCorruptException e) {
                 Log.e("Riddle", "Error loading difficulty from saved state.");
             }
@@ -368,7 +368,6 @@ public class RiddleLazor extends RiddleGame implements FlatWorldCallback {
     @NonNull
     @Override
     protected String compactCurrentState() {
-        Log.d("Riddle", "Difficutly at compacting start: " + mDifficulty);
         synchronized (this) {
             // first clear off every falling meteor to prevent cheating by closing before a meteors hits
             // synchronize access to mMeteors since periodic event can still be running when closing riddle
@@ -376,7 +375,6 @@ public class RiddleLazor extends RiddleGame implements FlatWorldCallback {
                 meteor.onLeaveWorld();
             }
         }
-        Log.d("Riddle", "Difficutly at compacting after clearing meteors: " + mDifficulty);
         Compacter data = new Compacter();
         data.appendData(mDifficulty);
         Compacter drawLogData = new Compacter();
@@ -827,5 +825,25 @@ public class RiddleLazor extends RiddleGame implements FlatWorldCallback {
         } else if (mProtected && !protect) {
             mProtected = false;
         }
+    }
+
+    @Override
+    public Bitmap makeSnapshot() {
+        int width = SNAPSHOT_DIMENSION.getWidthForDensity(mConfig.mScreenDensity);
+        int height = SNAPSHOT_DIMENSION.getHeightForDensity(mConfig.mScreenDensity);
+        Matrix matrix = new Matrix();
+        float yScale = height/ (float) mConfig.mHeight;
+        matrix.preScale(width / (float) mVisibleLayer.getWidth(), yScale);
+        Bitmap snapshot = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(snapshot);
+        canvas.drawBitmap(mVisibleLayer, matrix, null);
+        matrix.preTranslate(0, mCityOffsetY);
+        canvas.drawBitmap(mCityLayer, matrix, null);
+
+        canvas.drawBitmap(mCityDestructionMask, matrix, mCityDestructionOverlayPaint);
+        if (mProtected) {
+            canvas.drawBitmap(mProtectedCity, matrix, null);
+        }
+        return snapshot;
     }
 }

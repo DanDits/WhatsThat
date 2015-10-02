@@ -211,7 +211,7 @@
 
     <!-- Lazor achievements -->
     <string name="achievement_lazor_1_name">Drei mit einem Streich</string>
-    <string name="achievement_lazor_1_descr">Treffe drei Kometen mit einem Streich.</string>
+    <string name="achievement_lazor_1_descr">Treffe drei Kometen mit einem Schuss.</string>
     <string name="achievement_lazor_2_name">Stadt Beschützer</string>
     <string name="achievement_lazor_2_descr">Fange alle Kometen ab, bis das Schild die Stadt beschützt.</string>
     <string name="achievement_lazor_3_name">Resignation</string>
