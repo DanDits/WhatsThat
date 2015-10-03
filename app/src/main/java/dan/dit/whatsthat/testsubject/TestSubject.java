@@ -547,6 +547,10 @@ public class TestSubject {
         mPurse.mScoreWallet.removeChangedListener(listener);
     }
 
+    public int getShopValue(String key) {
+        return mPurse.mShopWallet.getEntryValue(key);
+    }
+
     private static class ProductPurchasedDependency extends Dependency {
         private final int mProduct;
         private final ShopArticle mArticle;

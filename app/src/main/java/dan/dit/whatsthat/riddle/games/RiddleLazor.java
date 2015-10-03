@@ -26,6 +26,9 @@ import dan.dit.whatsthat.R;
 import dan.dit.whatsthat.image.Image;
 import dan.dit.whatsthat.riddle.Riddle;
 import dan.dit.whatsthat.riddle.RiddleConfig;
+import dan.dit.whatsthat.testsubject.TestSubject;
+import dan.dit.whatsthat.testsubject.shopping.ShopArticleMulti;
+import dan.dit.whatsthat.testsubject.shopping.sortiment.SortimentHolder;
 import dan.dit.whatsthat.util.PercentProgressListener;
 import dan.dit.whatsthat.util.SimpleInterpolation;
 import dan.dit.whatsthat.util.compaction.CompactedDataCorruptException;
@@ -88,6 +91,7 @@ public class RiddleLazor extends RiddleGame implements FlatWorldCallback {
     private static final float DIFFICULTY_ULTRA_AT = 100;
     private static final float METEOR_SPAWN_TIME_START = 3800;;
     private static final float METEOR_SPAWN_TIME_DIFFICULTY_ULTRA = 300;
+    private static final int[] DIFFICULTY_FOR_PROTECTION_ARTICLE_VALUES = new int[]{40, 30, 25, 20}; // if updating this, update string resources!!
 
     private FlatRectWorld mFlatWorld;
     private int mDifficulty;
@@ -140,6 +144,7 @@ public class RiddleLazor extends RiddleGame implements FlatWorldCallback {
     private List<Float> mDrawLogSecondX;
     private List<Float> mDrawLogSecondY;
     private List<Meteor> mMeteors;
+    private int mReactorImprovements;
 
 
     public RiddleLazor(Riddle riddle, Image image, Bitmap bitmap, Resources res, RiddleConfig config, PercentProgressListener listener) {
@@ -172,6 +177,8 @@ public class RiddleLazor extends RiddleGame implements FlatWorldCallback {
 
     @Override
     protected void initBitmap(Resources res, PercentProgressListener listener) {
+        mReactorImprovements = TestSubject.getInstance().getShopValue(SortimentHolder.ARTICLE_KEY_LAZOR_PROTECTION_AT_DIFFICULTY);
+
         mDiagonal = (float) Math.sqrt(mConfig.mWidth * mConfig.mWidth + mConfig.mHeight * mConfig.mHeight);
         mCityOffsetY = mBitmap.getHeight();
         mRand = new Random();
@@ -289,6 +296,11 @@ public class RiddleLazor extends RiddleGame implements FlatWorldCallback {
             mDifficulty = DIFFICULTY_AT_BEGINNING;
         }
         mDifficultyForProtection = DIFFICULTY_FOR_PROTECTION_BASE;
+        for (int i = 0; i < DIFFICULTY_FOR_PROTECTION_ARTICLE_VALUES.length; i++) {
+            if (ShopArticleMulti.hasPurchased(mReactorImprovements, i)) {
+                mDifficultyForProtection = DIFFICULTY_FOR_PROTECTION_ARTICLE_VALUES[i];
+            }
+        }
         onDifficultyUpdated();
     }
 

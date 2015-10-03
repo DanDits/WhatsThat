@@ -186,13 +186,5 @@ public class RiddleArticle extends ShopArticle {
             ((TextView) mView.findViewById(R.id.riddle_advertising)).setText(mType.getAdvertisingResId());
             updateState();
         }
-
-        @Override
-        public void onClick() {
-            Log.d("Riddle", "OnClick on RiddleProduct: " + mType + " parent article: " + mParentArticle);
-            if (mParentArticle != null) {
-                mParentArticle.onChildClick(this);
-            }
-        }
     }
 }

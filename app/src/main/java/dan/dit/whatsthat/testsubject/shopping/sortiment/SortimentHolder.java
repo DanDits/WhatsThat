@@ -15,6 +15,7 @@ import dan.dit.whatsthat.testsubject.LevelDependency;
 import dan.dit.whatsthat.testsubject.TestSubject;
 import dan.dit.whatsthat.testsubject.shopping.ShopArticle;
 import dan.dit.whatsthat.testsubject.shopping.ShopArticleHolder;
+import dan.dit.whatsthat.testsubject.shopping.ShopArticleMulti;
 import dan.dit.whatsthat.testsubject.shopping.ShopArticleSimple;
 import dan.dit.whatsthat.testsubject.shopping.ShopArticleToggleable;
 import dan.dit.whatsthat.util.dependencies.Dependency;
@@ -29,6 +30,7 @@ public class SortimentHolder extends ShopArticleHolder {
     public static final String ARTICLE_KEY_CIRCLE_DIVIDE_BY_MOVE_FEATURE = PracticalRiddleType.CIRCLE_INSTANCE.getFullName() + "_divide_by_move_feature";
     public static final String ARTICLE_KEY_TRIANGLE_DIVIDE_BY_MOVE_FEATURE = PracticalRiddleType.TRIANGLE_INSTANCE.getFullName() + "_divided_by_move_feature";
     public static final String ARTICLE_KEY_SNOW_FEATURE_ORIENTATION_SENSOR = PracticalRiddleType.SNOW_INSTANCE.getFullName() + "_control_by_orientation_sensor";
+    public static final String ARTICLE_KEY_LAZOR_PROTECTION_AT_DIFFICULTY = PracticalRiddleType.LAZOR_INSTANCE.getFullName() + "_protection_at_difficulty";
     private Dependency mAnyDownloadProductPurchasedDependency;
     public SortimentHolder(Context applicationContext, ForeignPurse purse) {
         super(applicationContext, purse);
@@ -52,7 +54,8 @@ public class SortimentHolder extends ShopArticleHolder {
                 "didi", "danielpix", 2, "https://www.dropbox.com/s/w3h0u9145etdb14/didi_danielpix.wtb?dl=1"));
 
         addArticle(new ShopArticleSimple(ARTICLE_KEY_JUMPER_START_FURTHER_FEATURE, mPurse, R.string.article_jumper_start_further_name, R.string.article_jumper_start_further_descr, R.drawable.icon_jumprun, 700));
-
+        addArticle(new ShopArticleMulti(ARTICLE_KEY_LAZOR_PROTECTION_AT_DIFFICULTY, mPurse, R.string.riddle_type_lazor_article_protection_at_name, R.string.riddle_type_lazor_article_protection_at_descr, R.drawable.icon_lazor, R.array.riddle_type_lazor_article_protection_at_products,
+                new int[] {25, 50, 100, 300}));
         sortArticles();
     }
 
@@ -96,5 +99,7 @@ public class SortimentHolder extends ShopArticleHolder {
                 .addDependency(TestSubject.getInstance().makeAchievementDependency(PracticalRiddleType.JUMPER_INSTANCE, AchievementJumper.ACHIEVEMENT_SUPER_MARIO), ShopArticle.GENERAL_PRODUCT_INDEX)
                 .addDependency(TestSubject.getInstance().makeAchievementDependency(PracticalRiddleType.JUMPER_INSTANCE, AchievementJumper.ACHIEVEMENT_LACK_OF_TALENT), ShopArticle.GENERAL_PRODUCT_INDEX)
                 .addDependency(LevelDependency.getInstance(3), ShopArticle.GENERAL_PRODUCT_INDEX);
+        getArticle(ARTICLE_KEY_LAZOR_PROTECTION_AT_DIFFICULTY)
+                .addDependency(TestSubject.getInstance().getRiddleTypeDependency(PracticalRiddleType.LAZOR_INSTANCE), ShopArticle.GENERAL_PRODUCT_INDEX);
     }
 }

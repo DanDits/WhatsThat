@@ -28,13 +28,6 @@ public class ConfirmProduct extends SubProduct {
         return mView;
     }
 
-    @Override
-    public void onClick() {
-        if (mParentArticle != null) {
-            mParentArticle.onChildClick(this);
-        }
-    }
-
     public void setConfirmable(int purchasableHint, CharSequence costText, CharSequence depText, int icon) {
         if (mView != null) {
             TextView view = ((TextView) mView.findViewById(R.id.shop_confirm_title));

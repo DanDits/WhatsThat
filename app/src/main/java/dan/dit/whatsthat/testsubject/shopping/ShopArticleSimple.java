@@ -11,8 +11,8 @@ import dan.dit.whatsthat.util.PercentProgressListener;
  * Created by daniel on 29.07.15.
  */
 public class ShopArticleSimple extends ShopArticle {
-    private int mCost;
-    private ConfirmProduct mConfirmProduct;
+    protected int mCost;
+    protected ConfirmProduct mConfirmProduct;
 
 
     public ShopArticleSimple(String key, ForeignPurse purse, int nameResId, int descrResId, int iconResId, int cost) {

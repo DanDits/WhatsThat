@@ -50,6 +50,20 @@ public class ForeignPurse {
         return true;
     }
 
+    public synchronized boolean purchaseHigherValue(final String key, final int cost, final int newValue) {
+        if (TextUtils.isEmpty(key) || cost < 0) {
+            throw new IllegalArgumentException("No key or illegal cost to purchaseFeature: " + key + ": " + cost);
+        }
+        if (mPurse.getCurrentScore() < cost) {
+            return false;
+        }
+        if (mPurse.mShopWallet.editEntry(key).set(newValue)) {
+            mPurse.spentScore(cost);
+            return true;
+        }
+        return false;
+    }
+
     public synchronized boolean purchase(final String key, final int cost, final int amount) {
         if (TextUtils.isEmpty(key) || cost < 0) {
             throw new IllegalArgumentException("No key or illegal cost to purchaseFeature: " + key + ": " + cost);

@@ -93,25 +93,31 @@ public class Wallet {
             return this;
         }
 
-        public void add(int delta) {
+        public boolean add(int delta) {
             if (delta > 0) {
                 mValue = mEntry.getValue() + delta;
                 apply();
+                return true;
             }
+            return false;
         }
 
-        public void set(int value) {
+        public boolean set(int value) {
             if (value > mValue) {
                 mValue = value;
                 apply();
+                return true;
             }
+            return false;
         }
 
-        public void setTrue() {
+        public boolean setTrue() {
             if (mValue != WalletEntry.TRUE && mValue < WalletEntry.TRUE) {
                 mValue = WalletEntry.TRUE;
                 apply();
+                return true;
             }
+            return false;
         }
 
         private void apply() {

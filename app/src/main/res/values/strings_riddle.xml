@@ -140,7 +140,15 @@
     <string name="riddle_type_lazor_explanation">Der nächste aufgeladene Lazor wird an den gewählten Punkt schießen und dort -oder bei Kollision- explodieren. Stoppe die Zerstörung!</string>
     <string-array name="riddle_type_lazor_hints">
         <item>Eine Simulation, um deine Reaktion auf außerplanetarische Bedrohungen zu messen. Schieße mit den Lazorn auf die Bedrohung. Bei Kollision oder Erreichen des geklickten Punktes wird der Lazor explodieren. Entlang des Kometenschweifes wird die entsprechende Farbe aufgedeckt.</item>
-        <item>Das grüne Schild schützt deine Stadt vor Einschlägen. Ohne Schild wird die Farbe entlang des Schweifes zugedeckt.</item>
+        <item>Das grüne Schild schützt deine Stadt vor Einschlägen.</item>
         <item>Weiße Kometen decken den Bereich vollständig auf, aber auch wieder zu. Priorisiere sie vor allen anderen Farben!</item>
+    </string-array>
+    <string name="riddle_type_lazor_article_protection_at_name">Reactor improvements</string>
+    <string name="riddle_type_lazor_article_protection_at_descr">The protective barrier will be available with less energy required.</string>
+    <string-array name="riddle_type_lazor_article_protection_at_products">
+        <item>Protects if reactor on 40%.</item>
+        <item>Protects if reactor on 30%</item>
+        <item>Protects if reactor on 25%</item>
+        <item>Protects if reactor on 20%</item>
     </string-array>
 </resources>

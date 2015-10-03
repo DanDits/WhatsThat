@@ -81,12 +81,5 @@ public class ShopArticleToggleable extends ShopArticleSimple {
             toggler.setTextOn(toggler.getResources().getString(mToggleTextOnResId));
             toggler.setTextOff(toggler.getResources().getString(mToggleTextOffResId));
         }
-
-        @Override
-        public void onClick() {
-            if (mParentArticle != null) {
-                mParentArticle.onChildClick(this);
-            }
-        }
     }
 }

@@ -20,5 +20,9 @@ public abstract class SubProduct {
         return getView() == null;
     }
 
-    public abstract void onClick();
+    public void onClick() {
+        if (mParentArticle != null) {
+            mParentArticle.onChildClick(this);
+        }
+    }
 }
