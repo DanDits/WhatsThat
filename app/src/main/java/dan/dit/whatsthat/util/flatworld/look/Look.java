@@ -5,6 +5,11 @@ import android.graphics.Paint;
 import android.support.annotation.Nullable;
 
 /**
+ * A look is some visual representation of an Actor in a FlatWorld. Usually it matches
+ * the actor's hitbox. The look can be offset, set visible and be reset. The behavior for these methods
+ * is up to the implementation. The look will be updated periodically with a small update period and required
+ * to draw itself on the given canvas to accurately match the actor's position in the world. By default a look
+ * will be visible.
  * Created by daniel on 30.05.15.
  */
 public abstract class Look {

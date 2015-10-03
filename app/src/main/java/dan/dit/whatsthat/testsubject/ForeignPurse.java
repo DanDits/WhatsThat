@@ -9,6 +9,10 @@ import dan.dit.whatsthat.riddle.types.PracticalRiddleType;
 import dan.dit.whatsthat.util.wallet.WalletEntry;
 
 /**
+ * Wraps a Purse object and offers some more high level access functions to it. This prevents accidental
+ * changes and inconsistencies. The methods provided are thread safe and will make sure that something
+ * can only be purchased if there is enough current score. Methods will throw an exception if the given cost is negative
+ * or if an empty key is given to them.
  * Created by daniel on 29.07.15.
  */
 public class ForeignPurse {
