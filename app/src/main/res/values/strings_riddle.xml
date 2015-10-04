@@ -70,6 +70,7 @@
 
     <!-- Triangle related -->
     <string name="riddle_type_triangle">Triluminati</string>
+    <string name="riddle_type_triangle_advertising">A simple experiment. Your grey matter became colorful and the riddle grew more edges.</string>
     <string name="riddle_type_triangle_explanation">Press inside a triangle to create smaller ones.</string>
     <string-array name="riddle_type_triangle_hints">
     </string-array>
@@ -149,6 +150,6 @@
         <item>Protects if reactor on 40%.</item>
         <item>Protects if reactor on 30%</item>
         <item>Protects if reactor on 25%</item>
-        <item>Protects if reactor on 20%</item>
+        <item>Protects if reactor on 20%. If the shield is active there will be 3% more white meteors.</item>
     </string-array>
 </resources>

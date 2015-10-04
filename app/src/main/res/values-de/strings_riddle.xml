@@ -188,9 +188,9 @@
     <string name="riddle_type_lazor_article_protection_at_name">Reaktor Verbesserung</string>
     <string name="riddle_type_lazor_article_protection_at_descr">Die schützende Barriere wird in Zukunft weniger Energie benötigen.</string>
     <string-array name="riddle_type_lazor_article_protection_at_products">
-        <item>Schützt, wenn Reaktor auf 40%.</item>
-        <item>Schützt, wenn Reaktor auf 30%</item>
-        <item>Schützt, wenn Reaktor auf 25%</item>
-        <item>Schützt, wenn Reaktor auf 20%</item>
+        <item>Schützt, wenn Reaktor auf 40% ist.</item>
+        <item>Schützt, wenn Reaktor auf 30% ist.</item>
+        <item>Schützt, wenn Reaktor auf 25% ist.</item>
+        <item>Schützt, wenn Reaktor auf 20% ist. Während das Schild aktiv ist werden 3% mehr weiße Meteoriten kommen.</item>
     </string-array>
 </resources>

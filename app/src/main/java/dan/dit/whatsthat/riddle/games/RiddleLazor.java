@@ -57,7 +57,8 @@ public class RiddleLazor extends RiddleGame implements FlatWorldCallback {
     private static final float METEOR_RADIUS_FRACTION_OF_SCREEN_DIAGONAL = 0.025f; //meteor head radius
     private static final float METEOR_DIAGONAL_DURATION = 9000.f; //ms, time for a meteor that moves directly from top left to bottom right
     private static final float ONE_SECOND = 1000.f; // ms, one second, fixed
-    private static final double CHANCE_FOR_BONUS_BEAM = 0.12; //chance for super beam in percent
+    private static final double CHANCE_FOR_BONUS_BEAM_BASE = 0.12; // basic chance for super beam in percent
+    private static final double ADDITIONAL_CHANCE_FOR_BONUS_BEAM_ARTICLE = 0.03; // when the third article is purchased the chance increases
     private static final float CANNON_BEAM_FRACTION_OF_SCREEN_DIAGONAL = 0.005f;
     private static final float CANNONBALL_RADIUS_FRACTION_OF_SCREEN_DIAGONAL = 0.03f;
     private static final float CANNONBALL_DIAGONAL_DURATION = 9000.f; //ms
@@ -145,6 +146,7 @@ public class RiddleLazor extends RiddleGame implements FlatWorldCallback {
     private List<Float> mDrawLogSecondY;
     private List<Meteor> mMeteors;
     private int mReactorImprovements;
+    private double mAdditionalChanceForBonusMeteorIfProtected;
 
 
     public RiddleLazor(Riddle riddle, Image image, Bitmap bitmap, Resources res, RiddleConfig config, PercentProgressListener listener) {
@@ -223,6 +225,8 @@ public class RiddleLazor extends RiddleGame implements FlatWorldCallback {
         mClearPaint = new Paint();
         mClearPaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.CLEAR));
 
+        listener.onProgressUpdate(33);
+
         mCityLayer = Bitmap.createBitmap(mConfig.mWidth, mConfig.mHeight - mBitmap.getHeight(), Bitmap.Config.ARGB_8888);
         mCityLayerCanvas = new Canvas(mCityLayer);
         mProtectedCity = ImageUtil.loadBitmap(res, R.drawable.skylinecity_protected, mCityLayer.getWidth(), mCityLayer.getHeight(), BitmapUtil.MODE_FIT_EXACT);
@@ -247,7 +251,8 @@ public class RiddleLazor extends RiddleGame implements FlatWorldCallback {
         initDifficulty(cmp);
         initMeteorData(res);
         initCannonData(res);
-        initDrawLog(cmp);
+        listener.onProgressUpdate(50);
+        initDrawLog(cmp, listener);
 
         mMeteorPointLossInterpolator = new SimpleInterpolation.QuadraticInterpolation(0, DIFFICULTY_POINTS_LOSS_ON_METEOR_MINIMAL, DIFFICULTY_ULTRA_AT, DIFFICULTY_POINTS_LOSS_ON_METEOR_MAXIMAL);
         mMeteorSpawnTimeInterpolator = new SimpleInterpolation.LinearInterpolation(0.f, METEOR_SPAWN_TIME_START, DIFFICULTY_ULTRA_AT, METEOR_SPAWN_TIME_DIFFICULTY_ULTRA);
@@ -263,7 +268,7 @@ public class RiddleLazor extends RiddleGame implements FlatWorldCallback {
         }
     }
 
-    private void initDrawLog(Compacter data) {
+    private void initDrawLog(Compacter data, PercentProgressListener listener) {
         mDrawLogPaintId = new ArrayList<>();
         mDrawLogGeometryId = new ArrayList<>();
         mDrawLogMainX = new ArrayList<>();
@@ -280,6 +285,7 @@ public class RiddleLazor extends RiddleGame implements FlatWorldCallback {
                     Log.e("Riddle", "Error reading draw log: " + e);
                     break;
                 }
+                listener.onProgressUpdate(50 + (int) (50 * i / (double) drawLogData.getSize()));
             }
             mRefreshLayers = true;
         }
@@ -305,6 +311,7 @@ public class RiddleLazor extends RiddleGame implements FlatWorldCallback {
     }
 
     private void initMeteorData(Resources res) {
+        mAdditionalChanceForBonusMeteorIfProtected = ShopArticleMulti.hasPurchased(mReactorImprovements, 3) ? ADDITIONAL_CHANCE_FOR_BONUS_BEAM_ARTICLE : 0.;
         mMeteors = new LinkedList<>();
         mMeteorBeamWidthPixels = (int) (mDiagonal * METEOR_BEAM_WIDTH_FRACTION_OF_SCREEN_DIAGONAL);
         setMeteorBeamWidthPixels(mMeteorBeamWidthPixels);
@@ -437,7 +444,7 @@ public class RiddleLazor extends RiddleGame implements FlatWorldCallback {
     }
 
     private int nextColorType() {
-        if (mRand.nextDouble() < CHANCE_FOR_BONUS_BEAM) {
+        if (mRand.nextDouble() < CHANCE_FOR_BONUS_BEAM_BASE + (mProtected ? mAdditionalChanceForBonusMeteorIfProtected : 0)) {
             return COLOR_TYPE_BONUS;
         } else {
             return mRand.nextInt(COLOR_TYPES_COUNT - 1);
@@ -774,13 +781,16 @@ public class RiddleLazor extends RiddleGame implements FlatWorldCallback {
                 addToDrawLog(METEOR_DESTRUCTION_PAINT_ID, DRAW_LOG_CIRCLE_ID, mHitbox.getCenterX(), mHitbox.getCenterY() - mCityOffsetY, mHitbox.getRadius() * METEOR_EXPLOSION_RADIUS_FACTOR, 0.f);
 
             }
-            onLeaveWorld();
+            cleanUp();
+            clearTrail();
+            onMeteorCrashed(true);
         }
 
         @Override
         public void onLeaveWorld() {
             cleanUp();
             clearTrail();
+            onMeteorCrashed(false);
         }
 
         private void cleanUp() {
@@ -798,14 +808,17 @@ public class RiddleLazor extends RiddleGame implements FlatWorldCallback {
                 addToDrawLog(mColorType, DRAW_LOG_LINE_ID, mStartX, mStartY, mHitbox.getCenterX(), mHitbox.getCenterY());
             }
             mRefreshLayers = true;
-            onMeteorClearedItsTrail();
+        }
+
+        private void onMeteorCrashed(boolean intoCity) {
+            int loss = (int) -mMeteorPointLossInterpolator.interpolate(mDifficulty);
+            if (mColorType == COLOR_TYPE_BONUS && mProtected) {
+                loss -= 1; // bonus meteors require more energy to protect from, as they are much worse if not in protected state
+            }
+            updateDifficulty(loss);
         }
     }
 
-    private void onMeteorClearedItsTrail() {
-        int loss = (int) -mMeteorPointLossInterpolator.interpolate(mDifficulty);
-        updateDifficulty(loss);
-    }
 
     private void onMeteorDestroyed() {
         updateDifficulty(DIFFICULTY_POINTS_GAIN_ON_METEOR_KILL);
@@ -822,7 +835,6 @@ public class RiddleLazor extends RiddleGame implements FlatWorldCallback {
     }
 
     private void onDifficultyUpdated() {
-        Log.d("Riddle", "Difficulty: " + mDifficulty);
         mDifficultyText = String.valueOf(mDifficulty) + '%';
         if (mDifficulty >= mDifficultyForProtection && !mProtected) {
             setCityProtected(true);
