@@ -87,7 +87,7 @@
 
     <!-- Triangle related -->
     <string name="riddle_type_triangle">Triluminati</string>
-    <string name="riddle_type_triangle_advertising">Ein einfaches Experiment, deine grauen Zellen haben an Farbe gewonnen und das Rätsel an Ecken.</string>
+    <string name="riddle_type_triangle_advertising">Ein einfaches Experiment. Deine grauen Zellen haben an Farbe gewonnen und das Experiment an Ecken.</string>
     <string name="riddle_type_triangle_explanation">Berühre ein Dreieck, um es in kleinere Dreiecke aufzuteilen. Dadurch wird das versteckte Bild immer besser erkenntlich.</string>
     <string-array name="riddle_type_triangle_hints">
         <item>WiseMind meint, ich rede zu viel. Ich halte mich deshalb kurz: Ein farbliches Pendant zum Kreis-Test. Klickst du auf ein Dreieck, teilt sich dieses in zwei kleinere. Wozu das ganze? Zum Testen eurer Farbwahrnehmung.</item>

@@ -68,14 +68,20 @@
     <string name="achievement_snow_13_descr">Catch %1$d/%2$d poke… sorry I meant candies.</string>
     <string name="achievement_snow_14_name">Allergy</string>
     <string name="achievement_snow_14_descr">Grow and explode without hitting more than %1$d spores.</string>
+    <string name="achievement_snow_15_name">Efficient clicks 2.0</string>
+    <string name="achievement_snow_15_descr">Finish a game with … only one click, hehe</string>
+    <string name="achievement_snow_16_name">Why not both?</string>
+    <string name="achievement_snow_16_descr">You know that you can change the way of moving your cell during the game, too?</string>
+    <string name="achievement_snow_17_name">Both as well as</string>
+    <string name="achievement_snow_17_descr">Finish 10 games using the click system, 10 using the other and 5 using both during a game.</string>
 
     <!-- Dice achievements -->
     <string name="achievement_dice_1_name">Unpleasant beginning</string>
     <string name="achievement_dice_1_descr">Combine the Alien-Cube on each colour in a game. Let the games begin!</string>
     <string name="achievement_dice_2_name">Colour diversity</string>
     <string name="achievement_dice_2_descr">Gather geen, yellow and red 1–6 and purple 7–9. No resets!</string>
-    <string name="achievement_dice_3_name">That\'s complicated</string>
-    <string name="achievement_dice_3_descr">Get all hints for this experiment. Why? Because it is very complicated and my master wrote these things with love, so you have to read it!</string>
+    <string name="achievement_dice_3_name">Dummy</string>
+    <string name="achievement_dice_3_descr">Dummy</string>
     <string name="achievement_dice_4_name">Powerful corner</string>
     <string name="achievement_dice_4_descr">Combine %1$d yellow dices in each corner.</string>
     <string name="achievement_dice_5_name">Translation error</string>
@@ -161,14 +167,20 @@
     <string name="achievement_triangle_5_name">Progressive progress</string>
 
     <!-- Misc achievements -->
-    <string name="achievement_misc_1_descr">Did you see the menu \"About and Contact\" yet? There you can read my creator names!</string>
     <string name="achievement_misc_1_name">Creator names</string>
-    <string name="achievement_misc_2_descr">You skipped an experiment for more than %1$d days.</string>
+    <string name="achievement_misc_1_descr">Did you see the menu \"About and Contact\" yet? There you can read my creator names!</string>
     <string name="achievement_misc_2_name">Need my friends</string>
-    <string name="achievement_misc_3_descr">You have been busy with one experiment for more than %1$d hours.</string>
+    <string name="achievement_misc_2_descr">You skipped an experiment for more than %1$d days.</string>
     <string name="achievement_misc_3_name">Stockholm syndrome</string>
-    <string name="achievement_misc_4_descr">Complete %1$d/%2$d achievements</string>
+    <string name="achievement_misc_3_descr">You have been busy with one experiment for more than %1$d hours.</string>
     <string name="achievement_misc_4_name">Achievement hunter</string>
+    <string name="achievement_misc_4_descr">Complete %1$d/%2$d achievements</string>
+
+    <string name="achievement_misc_5_name">So long, and thanks for all the fish</string>
+    <string name="achievement_misc_5_descr">You made someone really, really happy.</string>
+    <string name="achievement_misc_6_name">Creature of habbit</string>
+    <string name="achievement_misc_6_descr">Play any type of experiment one hundred times.</string>
+
 
     <!-- Memory achievements -->
     <string name="achievement_memory_1_name">Short-term memory</string>
@@ -210,32 +222,36 @@
     <string name="achievement_flow_8_descr">Solve the picture with max %1$d placed Cellis.</string>
 
     <!-- Lazor achievements -->
-    <string name="achievement_lazor_1_descr">Hit three comets at once (within 0,5 seconds?)</string>
     <string name="achievement_lazor_1_name">Trible hit</string>
-    <string name="achievement_lazor_2_descr">Catch all comets until the shield protects your city</string>
+    <string name="achievement_lazor_1_descr">Hit three comets at once (within 0,5 seconds?)</string>
     <string name="achievement_lazor_2_name">City protector</string>
-    <string name="achievement_lazor_3_descr">Get 150 charges for the shield. After that let the charges go back for exactly 45!</string>
-    <string name="achievement_lazor_3_name">Resignation</string>
-    <string name="achievement_lazor_4_descr">Woah, luckily I\'m not a citizien of your city. You see the destruction? Bad protector! (90% of city &amp; nuclear power plant destroyed, blind)</string>
+    <string name="achievement_lazor_2_descr">Catch all comets until the shield protects your city (Kauf Schild bei 40% wird frei)</string>
+    <string name="achievement_lazor_3_name">Superman</string>
+    <string name="achievement_lazor_3_descr">Get 100% shield charge.</string>
     <string name="achievement_lazor_4_name">Blackout</string>
-    <string name="achievement_lazor_5_descr">Catch 30 comets in the first quarter of the picture</string>
+    <string name="achievement_lazor_4_descr">Woah, luckily I'm not a citizien of your city. You see the destruction? Bad protector! (Blind, 10 Stadttreffer aber min. 3 normale Treffer dazwischen, dass kein "nichts-tu" abuse???)</string>
     <string name="achievement_lazor_5_name">Interceptor</string>
-    <string name="achievement_lazor_6_descr">All shoots must hit a target. How many? Well, more than 5 but less than 100. In the end the city must remain intact for at least 75% (50 shots)</string>
+    <string name="achievement_lazor_5_descr">Catch 30 comets in the first quarter of the picture</string>
     <string name="achievement_lazor_6_name">Sniper</string>
-    <string name="achievement_lazor_7_descr">The shield is quite nice, but 300 charges are not necessary. You have to guess the picture! (requires City protector)</string>
+    <string name="achievement_lazor_6_descr">All shoots must hit a target after your shield is activated. How many? Well, more than 5 but less than 100. (62 shots)</string>
     <string name="achievement_lazor_7_name">Shield protection</string>
+    <string name="achievement_lazor_7_descr">Keep the shield charge above 70% for 1 minute.(Kauf Schild bei 30% wird frei)</string>
     <string name="achievement_lazor_8_name">Catched up</string>
-    <string name="achievement_lazor_8_descr">If you miss your target, it isn\'t even a tragedy. Sometimes the explosion even catches up the comet.</string>
-    <string name="achievement_lazor_9_descr">So, can you shoot 300 times with each canon and keep the shield up? (300 shots after the shield is active. Maybe time limit too?)</string>
+    <string name="achievement_lazor_8_descr">If you miss your target, it isn\'t even a tragedy. Sometimes the explosion even catches up the comet.(3 in einem Spiel)</string>
     <string name="achievement_lazor_9_name">Fire master</string>
-    <string name="achievement_lazor_10_descr">Do not hit any red comets and solve the pictore or until the shiled is ready</string>
-    <string name="achievement_lazor_10_name">Colour blind</string>
-    <string name="achievement_lazor_11_descr">Hit 15 comets in a game with the last "edge" of the explosions. Your city musst remain intact for at least 75%</string>
+    <string name="achievement_lazor_9_descr">So, can you shoot 75 times with each canon and keep the shield up? (Benötigt City protector, Schild muss aktiv sein)</string>
+    <string name="achievement_lazor_10_name">Not colour blind</string>
+    <string name="achievement_lazor_10_descr">Complete the level without hitting any red comet.</string>
     <string name="achievement_lazor_11_name">Calculated</string>
-    <string name="achievement_lazor_12_descr">Shoot 100 times. The shot has to been placed far away but gets interrupted of a comet. (Fortschrittserfolg)</string>
-    <string name="achievement_lazor_12_name">Interrupted</string>
-    <string name="achievement_lazor_13_descr">All shots, which travelled less than 1,5 seconds (200)</string>
-    <string name="achievement_lazor_13_name">Short distance shots</string>
-    <string name="achievement_lazor_14_name">Long distance shots</string>
-    <string name="achievement_lazor_14_descr">All shots, which travelled more than 5,5 seconds (125)</string>
+    <string name="achievement_lazor_11_descr">Hit 8 comets in an experiment with the last "edge" of the explosions. Your shield MUST NOT be active!</string>
+    <string name="achievement_lazor_12_name">Cross fire</string>
+    <string name="achievement_lazor_12_descr">Cross your canon shoots 15 times in a game after your shield has reached 40% charge and without losing the shield. (benötigt 40% Schild Kauf, Schild darf auch nicht mehr unter 40% fallen)</string>
+    <string name="achievement_lazor_13_name">Last second</string>
+    <string name="achievement_lazor_13_descr">Stop a few comets in the last second. (9 Treffer, Kein Schild, keine Stadttreffer)</string>
+    <string name="achievement_lazor_14_name">Interrupted</string>
+    <string name="achievement_lazor_14_descr">Shoot 100 times. The shot has to been placed far away but gets interrupted of a comet. (Fortschrittserfolg, benötigt Interceptor. Gemein ist, dass der tatsächliche Explosionspunkt eine Distanz d zum ursprünglich gesetzten Punkt hat.)</string>
+    <string name="achievement_lazor_15_name">Short distance shots</string>
+    <string name="achievement_lazor_15_descr">All shots, which travelled less than 1,0 seconds (Fortschritt xxx/200. ggf. auch mind. >0,3?)</string>
+    <string name="achievement_lazor_16_name">Long distance shots</string>
+    <string name="achievement_lazor_16_descr">All shots, which travelled more than 5,5 seconds (Fortschritt xxx/125)</string>
 </resources>

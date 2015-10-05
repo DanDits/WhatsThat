@@ -54,7 +54,7 @@
     <string name="init_skip_state_init_missing">Testsubjekt wird initialisiert</string>
     <string name="init_skip_state_none">Testsubjekt wird geladen</string>
 
-    <string name="about_contact_descr">Die App ist ein Freizeitprojekt von den Brüdern Fabian und Daniel, die ich stolz meine Schöpfer nennen darf. Daniel, mein Professor, und Fabian, mein Meister, haben ein Anti-Werbungs-Wurmloch installiert, das dich vor Pop-ups und Müll schützt. Über anderweitige Unterstützung freuen sie sich trotzdem!\nSchreib ihnen, schau dir das Projekt an unter \"https://github.com/DanDits/WhatsThat\" oder setze eine anonyme Spende ab.\n\nStay awesome! :)</string>
+    <string name="about_contact_descr">Die App ist ein Freizeitprojekt von den Brüdern Daniel und Fabian, die ich stolz meine Schöpfer nennen darf. Daniel, mein Professor, und Fabian, mein Meister, haben ein Anti-Werbungs-Wurmloch installiert, das dich vor Pop-ups und Müll schützt. Um sie bei weiteren Verbesserungen und Neuerungen zu unterstützen, freuen sie sich über jegliche Unterstützung!\nSchreib ihnen, schau dir das Projekt an unter \"https://github.com/DanDits/WhatsThat\" oder setze eine anonyme Spende ab.\n\nBleib großartig! :)</string>
 
     <string-array name="contact_headings">
         <item>Bild vorschlagen</item>
@@ -204,7 +204,7 @@
     <string name="article_choose_riddle_name">Wähle ein neues Experiment</string>
     <string name="article_choose_riddle_descr">Fordere deinen Geist mit einer neuen Aufgabe heraus!</string>
     <string name="article_level_up_dep_new_level">Zuerst dein Gehirn boosten!</string>
-    <string name="article_choose_riddle_confirm">Garantiert für dieses Experiment entscheiden!</string>
+    <string name="article_choose_riddle_confirm">Dieses Experiment freischalten. Andere später holen!</string>
 
     <plurals name="images_in_bundle">
         <item quantity="one">%1$d Bild</item>

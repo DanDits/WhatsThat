@@ -7,8 +7,8 @@
     <string-array name="riddle_type_circle_hints">
         <item>Touch circles to divide them.</item>
     </string-array>
-    <string name="article_circle_divide_by_move_feature_name">Lazor Cutter</string>
-    <string name="article_circle_divide_by_move_feature_descr">Allows dividing of circles by moving the finger. Very relaxing!</string>
+    <string name="article_circle_divide_by_move_feature_name">Intergalactical Circlelazser-Turbo-Cutter</string>
+    <string name="article_circle_divide_by_move_feature_descr">Divide circles by moving the finger. Very relaxing!</string>
 
     <!-- Snow related -->
     <string name="riddle_type_snow">Angry Cell</string>
@@ -70,11 +70,11 @@
 
     <!-- Triangle related -->
     <string name="riddle_type_triangle">Triluminati</string>
-    <string name="riddle_type_triangle_advertising">A simple experiment. Your grey matter became colorful and the riddle grew more edges.</string>
+    <string name="riddle_type_triangle_advertising">A simple experiment. Your grey cells have gained some colour and the experiment some edges.</string>
     <string name="riddle_type_triangle_explanation">Press inside a triangle to create smaller ones.</string>
     <string-array name="riddle_type_triangle_hints">
     </string-array>
-    <string name="article_triangle_divide_by_move_feature_name">More Lazor</string>
+    <string name="article_triangle_divide_by_move_feature_name">Intergalactical Turbolaser-Triangel-Cutter</string>
     <string name="article_triangle_divide_by_move_feature_descr">Allows dividing of triangles by moving the finger. Even more relaxing!</string>
 
     <!-- Dice related -->

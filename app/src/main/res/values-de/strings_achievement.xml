@@ -69,6 +69,13 @@
     <string name="achievement_snow_14_name">Allergie</string>
     <string name="achievement_snow_14_descr">Wachse und explodiere, ohne dabei mehr als %1$d Sporen einzusammeln.</string>
 
+    <string name="achievement_snow_15_name">Effizienzklicks 2.0</string>
+    <string name="achievement_snow_15_descr">Beende ein Spiel mit … nur einem Klick (benötigt Effizienzklicks)</string>
+    <string name="achievement_snow_16_name">Warum nicht beide?</string>
+    <string name="achievement_snow_16_descr">Dir ist bewusst, dass du die Steuerung der Zelle auch während des Spiels ändern kannst?(Spiel beenden und beide Systeme aktiv gewesen)</string>
+    <string name="achievement_snow_17_name">Sowohl als auch</string>
+    <string name="achievement_snow_17_descr">Beende 10 Spiele mit Klick-System, 10 mit Kippen und 5 in denen du während eines Spiels beide benutzt.</string>
+
     <!-- Dice achievements -->
     <string name="achievement_dice_1_name">Ein harter Anfang</string>
     <string name="achievement_dice_1_descr">Fusioniere den Alien-Cube auf jede Farbe in einem Spiel. Lasst die Spiele beginnen!</string>
@@ -170,6 +177,11 @@
     <string name="achievement_misc_4_name">Erfolgsjäger</string>
     <string name="achievement_misc_4_descr">Schließe %1$d/%2$d Erfolge ab.</string>
 
+    <string name="achievement_misc_5_name">So long, and thanks for all the fish</string>
+    <string name="achievement_misc_5_descr">Du hast jemanden sehr, sehr glücklich gemacht.</string>
+    <string name="achievement_misc_6_name">Gewohnheitstier</string>
+    <string name="achievement_misc_6_descr">Löse einhundert Bilder bei einem Experimenttypen.</string>
+
     <!-- Memory achievements -->
     <string name="achievement_memory_1_name">Kurzzeitgedächtnis</string>
     <string name="achievement_memory_1_descr">Schon Gletscher sind schneller vorangekommen als du bei diesem Experiment.</string>
@@ -214,28 +226,32 @@
     <string name="achievement_lazor_1_descr">Treffe drei Kometen mit einem Schuss.</string>
     <string name="achievement_lazor_2_name">Stadt Beschützer</string>
     <string name="achievement_lazor_2_descr">Fange alle Kometen ab, bis das Schild die Stadt beschützt.</string>
-    <string name="achievement_lazor_3_name">Resignation</string>
-    <string name="achievement_lazor_3_descr">Nachdem das Schild 150 Aufladungen hatte, lass es auf 45 zurück fallen. Aber nicht mehr oder weniger!</string>
+    <string name="achievement_lazor_3_name">Superman</string>
+    <string name="achievement_lazor_3_descr">Erreiche 100% Schild Aufladung.</string>
     <string name="achievement_lazor_4_name">Blackout</string>
-    <string name="achievement_lazor_4_descr">Woah, zum Glück bin ich kein Einwohner deiner Stadt. Siehst du wie sie zerstört ist? Schlechter Beschützer!</string>
+    <string name="achievement_lazor_4_descr">Woah, zum Glück bin ich kein Einwohner deiner Stadt. Siehst du wie sie zerstört wurde? Schlechter Beschützer!</string>
     <string name="achievement_lazor_5_name">Abfangjäger</string>
     <string name="achievement_lazor_5_descr">Schieße 30 Kometen im ersten Viertel des Bildes ab.</string>
     <string name="achievement_lazor_6_name">Präzisionsschütze</string>
-    <string name="achievement_lazor_6_descr">Treffe mit jedem Schuss. Wie viele? Nun, mehr als 5 und weniger als 100. Die Stadt muss am Ende mindestens zu 75% erhalten sein</string>
+    <string name="achievement_lazor_6_descr">Treffe mit jedem Schuss nachdem dein Schild aktiv ist. Wie viele? Nun, mehr als 5 und weniger als 100.</string>
     <string name="achievement_lazor_7_name">Schild Schutz</string>
-    <string name="achievement_lazor_7_descr">Das Schild ist ganz nett, aber 300 Aufladungen sind auch nicht notwendig. Du musst das Bild erraten!</string>
+    <string name="achievement_lazor_7_descr">Halte die Schild Aufladung über 70% für 1 Minute</string>
     <string name="achievement_lazor_8_name">Eingeholt</string>
     <string name="achievement_lazor_8_descr">Daneben schießen ist nicht unbedingt tragisch. Manchmal holt die Explosion den Kometen sogar noch ein.</string>
     <string name="achievement_lazor_9_name">Schießwütig</string>
-    <string name="achievement_lazor_9_descr">Na, schaffst du es mit jeder Kanone 300 mal zu schießen und dabei dein Schild aufrechtzuerhalten?</string>
-    <string name="achievement_lazor_10_name">Farbenblind</string>
-    <string name="achievement_lazor_10_descr">Lass alle roten Kometen durchgehen und löse das Bild oder bis das Schild aktiv ist.</string>
+    <string name="achievement_lazor_9_descr">Na, schaffst du es mit jeder Kanone 75 mal zu schießen und dabei dein Schild aufrechtzuerhalten?</string>
+    <string name="achievement_lazor_10_name">Nicht farbenblind</string>
+    <string name="achievement_lazor_10_descr">Beende das Experiment ohne einen roten Kometen zu treffen.</string>
     <string name="achievement_lazor_11_name">Kalkuliert</string>
-    <string name="achievement_lazor_11_descr">Treffe in einem Spiel 15 Kometen mit dem Rand der Explosionen. Deine Stadt muss aber noch zu 75% bestehen.</string>
-    <string name="achievement_lazor_12_name">Unterbrochen</string>
-    <string name="achievement_lazor_12_descr">Schieße 100 mal, wobei der Schuss weiter gesetzt aber von einem Kometen unterbrochen wurde.</string>
-    <string name="achievement_lazor_13_name">Kurzstreckenschüsse</string>
-    <string name="achievement_lazor_13_descr">Alle Schüsse, die kürzer als 1,5 Sekunden geflogen sind.</string>
-    <string name="achievement_lazor_14_name">Langstreckenschüsse</string>
-    <string name="achievement_lazor_14_descr">Alle Schüsse, die länger als 5,5 Sekunden geflogen sind</string>
+    <string name="achievement_lazor_11_descr">Treffe in einem Experiment 8 Kometen mit dem Rand der Explosionen. Das Schild darf NICHT aktiv sein!</string>
+    <string name="achievement_lazor_12_name">Kreuzfeuer</string>
+    <string name="achievement_lazor_12_descr">Kreuze die Kanonen Schüsse 15 mal in einem Experiment sobald dein Schild 40% Aufladungen hat und ohne das Schild zu verlieren.</string>
+    <string name="achievement_lazor_13_name">In letzter Sekunde</string>
+    <string name="achievement_lazor_13_descr">Halte ein paar Kometen in allerletzter Sekunde auf.</string>
+    <string name="achievement_lazor_14_name">Unterbrochen</string>
+    <string name="achievement_lazor_14_descr">Schieße 100 mal, wobei der Schuss weiter gesetzt aber von einem Kometen unterbrochen wurde.</string>
+    <string name="achievement_lazor_15_name">Kurzsstrecken-Schüsse</string>
+    <string name="achievement_lazor_15_descr">Alle Schüsse, die kürzer als 1,0 Sekunden geflogen sind.</string>
+    <string name="achievement_lazor_16_name">Langstrecken-Schüsse</string>
+    <string name="achievement_lazor_16_descr">Alle Schüsse, die länger als 5,5 Sekunden geflogen sind.</string>
 </resources>
