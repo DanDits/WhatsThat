@@ -1,7 +1,9 @@
 package dan.dit.whatsthat.achievement;
 
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.Map;
+import java.util.Queue;
 
 import dan.dit.whatsthat.util.compaction.CompactedDataCorruptException;
 import dan.dit.whatsthat.util.compaction.Compacter;
@@ -21,7 +23,7 @@ public class AchievementProperties extends AchievementData {
 
     private final Map<String, Long> mValues = new HashMap<>();
     private boolean mSilentChangeMode;
-    private AchievementDataEvent mEvent = new AchievementDataEvent();
+    private AchievementDataEvent mCurrEvent;
 
     protected AchievementProperties(String name, Compacter data) throws CompactedDataCorruptException {
         super(name);
@@ -32,17 +34,21 @@ public class AchievementProperties extends AchievementData {
         return mSilentChangeMode;
     }
 
+
     public void enableSilentChanges(int eventType) {
         if (!mSilentChangeMode) {
             mSilentChangeMode = true;
-            mEvent.init(this, eventType, null);
+            mCurrEvent = obtainNewEvent();
+            mCurrEvent.init(this, eventType, null);
         }
     }
 
     public void disableSilentChanges() {
         if (mSilentChangeMode) {
             mSilentChangeMode = false;
-            notifyListeners(mEvent);
+            AchievementDataEvent event = mCurrEvent;
+            mCurrEvent = null;
+            notifyListeners(event);
         }
     }
 
@@ -57,7 +63,7 @@ public class AchievementProperties extends AchievementData {
     @Override
     protected synchronized void resetData() {
         mValues.clear();
-        notifyListeners(mEvent.initReset(this));
+        notifyListeners(obtainNewEvent().initReset(this));
     }
 
     public synchronized void putValue(String key, Long value, long requiredValueToOldDelta) {
@@ -83,11 +89,13 @@ public class AchievementProperties extends AchievementData {
                 }
             }
         }
-        mEvent.addChangedKey(key);
+        if (mCurrEvent != null) {
+            mCurrEvent.addChangedKey(key);
+        }
         // if there previously was no value or the value changed, notify listeners
         if (!mSilentChangeMode && ((value != null && old == null) || (old != null && !old.equals(value)))) {
-            mEvent.init(this, AchievementDataEvent.EVENT_TYPE_DATA_UPDATE, key);
-            notifyListeners(mEvent);
+            AchievementDataEvent event = obtainNewEvent().init(this, AchievementDataEvent.EVENT_TYPE_DATA_UPDATE, key);
+            notifyListeners(event);
         }
     }
 
@@ -102,10 +110,12 @@ public class AchievementProperties extends AchievementData {
             value += delta;
         }
         mValues.put(key, value);
-        mEvent.addChangedKey(key);
+        if (mCurrEvent != null) {
+            mCurrEvent.addChangedKey(key);
+        }
         if (!mSilentChangeMode) {
-            mEvent.init(this, AchievementDataEvent.EVENT_TYPE_DATA_UPDATE, key);
-            notifyListeners(mEvent);
+            AchievementDataEvent event = obtainNewEvent().init(this, AchievementDataEvent.EVENT_TYPE_DATA_UPDATE, key);
+            notifyListeners(event);
         }
         return value;
     }

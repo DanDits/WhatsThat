@@ -70,4 +70,8 @@ public class CircleLook extends Look {
         mOffsetX = offsetX;
         mOffsetY = offsetY;
     }
+
+    public void setColor(int color) {
+        mColor = color;
+    }
 }

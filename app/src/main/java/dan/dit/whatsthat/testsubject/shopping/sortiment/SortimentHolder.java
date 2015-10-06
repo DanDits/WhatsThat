@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import dan.dit.whatsthat.R;
 import dan.dit.whatsthat.riddle.achievement.holders.AchievementCircle;
 import dan.dit.whatsthat.riddle.achievement.holders.AchievementJumper;
+import dan.dit.whatsthat.riddle.achievement.holders.AchievementLazor;
 import dan.dit.whatsthat.riddle.types.PracticalRiddleType;
 import dan.dit.whatsthat.testsubject.ForeignPurse;
 import dan.dit.whatsthat.testsubject.LevelDependency;
@@ -100,6 +101,8 @@ public class SortimentHolder extends ShopArticleHolder {
                 .addDependency(TestSubject.getInstance().makeAchievementDependency(PracticalRiddleType.JUMPER_INSTANCE, AchievementJumper.ACHIEVEMENT_LACK_OF_TALENT), ShopArticle.GENERAL_PRODUCT_INDEX)
                 .addDependency(LevelDependency.getInstance(3), ShopArticle.GENERAL_PRODUCT_INDEX);
         getArticle(ARTICLE_KEY_LAZOR_PROTECTION_AT_DIFFICULTY)
-                .addDependency(TestSubject.getInstance().getRiddleTypeDependency(PracticalRiddleType.LAZOR_INSTANCE), ShopArticle.GENERAL_PRODUCT_INDEX);
+                .addDependency(TestSubject.getInstance().getRiddleTypeDependency(PracticalRiddleType.LAZOR_INSTANCE), ShopArticle.GENERAL_PRODUCT_INDEX)
+                .addDependency(TestSubject.getInstance().makeAchievementDependency(PracticalRiddleType.LAZOR_INSTANCE, AchievementLazor.Achievement2.NUMBER), 0) // City protector
+                .addDependency(TestSubject.getInstance().makeAchievementDependency(PracticalRiddleType.LAZOR_INSTANCE, AchievementLazor.Achievement7.NUMBER), 1); // Shield protection
     }
 }

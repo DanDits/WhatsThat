@@ -36,6 +36,10 @@ public class AchievementDataEvent {
     private List<String> mChangedKeys = new ArrayList<>(5);
     private int mEventType;
 
+    @Override
+    public String toString() {
+        return mEventType + ", " + mChangedData + ", " + mChangedKeys;
+    }
     /**
      * Initializes this event with the given AchievementData, type and a single valid changed key.
      * @param changedData The changing data.

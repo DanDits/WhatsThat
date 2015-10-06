@@ -1,9 +1,12 @@
 package dan.dit.whatsthat.achievement;
 
 import android.text.TextUtils;
+import android.util.Log;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 
 import dan.dit.whatsthat.util.compaction.Compactable;
 
@@ -19,12 +22,21 @@ public abstract class AchievementData implements Compactable {
     private List<AchievementDataEventListener> mAddedListeners = new ArrayList<>(4);
     private List<AchievementDataEventListener> mRemovedListeners = new ArrayList<>(4);
     protected final String mName;
-    private boolean mIsProcessingEvent;
+    private int mIsProcessingEventDepth;
+    private Queue<AchievementDataEvent> mEventFactory = new LinkedList<>();
 
     AchievementData(String dataName) {
         mName = dataName;
         if (TextUtils.isEmpty(mName)) {
             throw new IllegalArgumentException("Null name given for achievement data.");
+        }
+    }
+
+    protected AchievementDataEvent obtainNewEvent() {
+        if (mEventFactory == null || mEventFactory.isEmpty()) {
+            return new AchievementDataEvent();
+        } else {
+            return mEventFactory.poll();
         }
     }
 
@@ -75,7 +87,7 @@ public abstract class AchievementData implements Compactable {
      * @param event The event to notify listeners of.
      */
     synchronized void notifyListeners(AchievementDataEvent event) {
-        if (!mIsProcessingEvent) {
+        if (mIsProcessingEventDepth == 0) {
             for (int i = 0; i < mAddedListeners.size(); i++) {
                 mListeners.add(mAddedListeners.get(i));
             }
@@ -85,10 +97,11 @@ public abstract class AchievementData implements Compactable {
             mAddedListeners.clear();
             mRemovedListeners.clear();
         }
-        mIsProcessingEvent = true;
+        mIsProcessingEventDepth++;
         for (int i = 0; i < mListeners.size(); i++) {
             mListeners.get(i).onDataEvent(event);
         }
-        mIsProcessingEvent = false;
+        mIsProcessingEventDepth--;
+        mEventFactory.add(event);
     }
 }

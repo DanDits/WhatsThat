@@ -43,7 +43,7 @@
     <string name="btn_credits">Danksagungen</string>
 
     <string name="riddle_hint_dialog_title">Informationen</string>
-    <string name="riddle_hint_image_refused">Schlechtes Bild für Rätsel</string>
+    <string name="riddle_hint_image_refused">Schlechtes Bild für Experiment</string>
     <string name="image_author_name">Autor Name: %1$s</string>
     <string name="image_author_source">Quelle: %1$s</string>
     <string name="image_author_license">Lizenz: %1$s</string>
@@ -58,7 +58,7 @@
 
     <string-array name="contact_headings">
         <item>Bild vorschlagen</item>
-        <item>Rätsel vorschlagen</item>
+        <item>Experiment vorschlagen</item>
         <item>Bug melden</item>
         <item>Feedback geben</item>
         <item>Nur Hallo sagen</item>
@@ -67,7 +67,7 @@
     </string-array>
     <string-array name="contact_mail_subject">
         <item>Bild Vorschlag</item>
-        <item>Rätsel Vorschlag</item>
+        <item>Experiment Vorschlag</item>
         <item>Bug gefunden</item>
         <item>Feedback</item>
         <item>Nur mal Hallo sagen</item>
@@ -75,7 +75,7 @@
         <item>Sprache und Übersetzungen</item>
     </string-array>
     <string-array name="contact_mail_body">
-        <item>Erdlinge und Urheberrechte: eine Katastrophe.\nMeine Schöpfer benutzen daher nur Bilder mit freier Lizenz. Gib für dein Bild, das du in den Anhang gesetzt hast oder noch tun musst, folgende Punkte an:\n\nAutorname oder Psyeudonym:\nEvtl. Bildtitel:\nQuelle (z.B. Website):\nLösungswort:\nBevorzugtes Rätsel:</item>
+        <item>Erdlinge und Urheberrechte: eine Katastrophe.\nMeine Schöpfer benutzen daher nur Bilder mit freier Lizenz. Gib für dein Bild, das du in den Anhang gesetzt hast oder noch tun musst, folgende Punkte an:\n\nAutorname oder Psyeudonym:\nEvtl. Bildtitel:\nQuelle (z.B. Website):\nLösungswort:\nBevorzugtes Experiment:</item>
         <item>Das hier ist nur für hyperintelligente und bescheidene Wesen wie beispielsweise mich!\nSolltest du meinem Meister einen Vorschlag schicken, präzisiere deine Beschreibung, insbesondere:\nWas ist die Idee? Wie ist das Feld aufgebaut? Wie kann ich etwas verändern? Wie wird das Bild sichtbar? Usw.\nEine Skizze im Anhang hilft meinem Meister, deine wirren Gedanken zu verstehen.\nVielleicht nimmt er sogar Kontakt mit dir auf, wenn dein Vorschlag gut ist und noch Fragen im Detail aufwirft.</item>
         <item>Glückwunsch, ich dachte ich hätte die meisten Käfer vernichtet :(\n\nWo ist der Fehler aufgetreten?\nIst die App abgestürzt?\nWas hast du getan?\nWas ist (nicht) passiert?\nWas sollte passieren?</item>
         <item>Meine Schöpfer freuen sich über positives Feedback oder sonstige Verbesserungsvorschläge aller Art.\nNegatives Feedback wird höchstwahrscheinlich vom Wurmloch verschlungen werden.</item>
@@ -92,7 +92,7 @@
     <string name="panic_ask_author">Wessen Bild ist das</string>
     <string name="panic_skip">Experiment aussetzen… später weitermachen</string>
     <string name="panic_complain">Aaaah, was ist das?! Krum und schief! Beschwerde!!!!11</string>
-    <string name="panic_cannot_skip">Gehirn .. überladen … kann nicht .. weitere Rätsel . merken …</string>
+    <string name="panic_cannot_skip">Gehirn überladen … kann nicht .. weitere Experimente. merken …</string>
 
     <string-array name="panic_author_credit_title">
         <item>Bewundere den Künstler des Bildes!</item>
@@ -133,7 +133,7 @@
     <string name="download_article_toast_error_syncing">Bilder speichern fehlgeschlagen (%1$d)</string>
     <string name="panic_complain_nothing">Nur Geduld</string>
     <string name="panic_complain_dummy_toast">Beschwerde registriert</string>
-    <string name="panic_complain_content">SAG UNS WAS DIR BEI DEM RÄTSEL UND BILD NICHT PASST! :)</string>
+    <string name="panic_complain_content">SAG UNS WAS DIR BEI DEM EXPERIMENT UND BILD NICHT PASST! :)</string>
 
     <string name="send_log_confirm">Log senden</string>
     <string name="intro_starting_episode">Willkommen %1$s</string>

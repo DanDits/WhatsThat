@@ -23,9 +23,12 @@ import java.util.List;
 import java.util.Random;
 
 import dan.dit.whatsthat.R;
+import dan.dit.whatsthat.achievement.AchievementDataEvent;
+import dan.dit.whatsthat.achievement.AchievementProperties;
 import dan.dit.whatsthat.image.Image;
 import dan.dit.whatsthat.riddle.Riddle;
 import dan.dit.whatsthat.riddle.RiddleConfig;
+import dan.dit.whatsthat.riddle.achievement.holders.AchievementLazor;
 import dan.dit.whatsthat.testsubject.TestSubject;
 import dan.dit.whatsthat.testsubject.shopping.ShopArticleMulti;
 import dan.dit.whatsthat.testsubject.shopping.sortiment.SortimentHolder;
@@ -46,6 +49,7 @@ import dan.dit.whatsthat.util.flatworld.world.Actor;
 import dan.dit.whatsthat.util.flatworld.world.FlatRectWorld;
 import dan.dit.whatsthat.util.flatworld.world.FlatWorldCallback;
 import dan.dit.whatsthat.util.image.BitmapUtil;
+import dan.dit.whatsthat.util.image.ColorAnalysisUtil;
 import dan.dit.whatsthat.util.image.ImageUtil;
 
 /**
@@ -67,7 +71,8 @@ public class RiddleLazor extends RiddleGame implements FlatWorldCallback {
 
     private static final long CANNONBALL_EXPLOSION_DURATION = 2000L;
     private static final float CANNONBALL_EXPLOSION_MAX_GROWTH_FACTOR = 2.3f;
-    private static final int CANNONBALL_EXPLOSION_COLOR = 0xFFa6a6a6;
+    private static final int CANNONBALL_EXPLOSION_COLOR_START = 0xFFfbdc2e;
+    private static final int CANNONBALL_EXPLOSION_COLOR_END = 0x66ff6023;
     private static final long CANNON_LOADED_FRAME_DURATION = 150L;//ms
     private static final long CANNON_FRAME_DURATION = 100L;//ms
     private static final float CANNON_RADIUS_FRACTION_OF_WIDTH = 0.09f;
@@ -77,15 +82,16 @@ public class RiddleLazor extends RiddleGame implements FlatWorldCallback {
     private static final int DIFFICULTY_POINTS_LOSS_ON_METEOR_MINIMAL = 1;
     private static final int DIFFICULTY_POINTS_LOSS_ON_METEOR_MAXIMAL = 9;
     private static final int DIFFICULTY_POINTS_LOSS_ON_SHOOTING = 1;
+    private static final int DIFFICULTY_POINTS_LOSS_ON_BONUS_METEOR_CRASHED_IF_PROTECTED = 1;
 
     private static final int DIFFICULTY_AT_BEGINNING = 10;
     private static final int DIFFICULTY_FOR_PROTECTION_BASE = 50;
 
 
-    private static final int COLOR_TYPE_RED = 0;
+    public static final int COLOR_TYPE_RED = 0;
     private static final int COLOR_TYPE_GREEN = 1;
     private static final int COLOR_TYPE_BLUE = 2;
-    private static final int COLOR_TYPE_BONUS = 3; // bonus always as last type index as it is treated differently in some cases
+    public static final int COLOR_TYPE_BONUS = 3; // bonus always as last type index as it is treated differently in some cases
     private static final int COLOR_TYPES_COUNT = 4;
     private static final int[] COLOR_TYPES = new int[] {COLOR_TYPE_RED, COLOR_TYPE_GREEN, COLOR_TYPE_BLUE, COLOR_TYPE_BONUS};
 
@@ -93,6 +99,8 @@ public class RiddleLazor extends RiddleGame implements FlatWorldCallback {
     private static final float METEOR_SPAWN_TIME_START = 3800;;
     private static final float METEOR_SPAWN_TIME_DIFFICULTY_ULTRA = 300;
     private static final int[] DIFFICULTY_FOR_PROTECTION_ARTICLE_VALUES = new int[]{40, 30, 25, 20}; // if updating this, update string resources!!
+    public static final Long RIGHT_CANNON_ID = 1L;
+    public static final Long LEFT_CANNON_ID = 0L;
 
     private FlatRectWorld mFlatWorld;
     private int mDifficulty;
@@ -663,11 +671,16 @@ public class RiddleLazor extends RiddleGame implements FlatWorldCallback {
         private CircleLook mExplosionLook;
         private final float mBaseRadius;
 
+        //needed for achievement data
+        private long mFlyDuration;
+        private int mCollisionCount;
+
         private CannonBall(Cannon cannon, HitboxCircle hitbox, HitboxNewtonMover mover, BeamBallLook defaultLook, int startX, int startY, long timeout) {
             super(hitbox, mover, defaultLook, startX, startY);
             defaultLook.mBeamBall = this;
             mCannon = cannon;
             mTimeout = timeout;
+            mFlyDuration = mTimeout;
             mBaseRadius = mHitbox.getRadius();
             setActive(true);
         }
@@ -675,7 +688,8 @@ public class RiddleLazor extends RiddleGame implements FlatWorldCallback {
         @Override
         public boolean onCollision(Actor with) {
             if (with instanceof Meteor) {
-                startExplode();
+                mCollisionCount++;
+                startExplode(true);
                 return true;
             }
             return false;
@@ -687,13 +701,13 @@ public class RiddleLazor extends RiddleGame implements FlatWorldCallback {
             if (mTimeout > 0L) {
                 mTimeout -= updatePeriod;
                 if (mTimeout <= 0L) {
-                    startExplode();
+                    startExplode(false);
                 }
             }
             if (mExplosionDuration > 0L) {
                 mExplosionDuration -= updatePeriod;
                 if (mExplosionDuration <= 0L) {
-                    mFlatWorld.removeActor(this);
+                    onExplosionEnd();
                 } else {
                     expandExplosion();
                 }
@@ -701,23 +715,40 @@ public class RiddleLazor extends RiddleGame implements FlatWorldCallback {
             return result;
         }
 
-        private void startExplode() {
+        private void onExplosionEnd() {
+            mFlatWorld.removeActor(this);
+            if (mConfig.mAchievementGameData != null) {
+                mConfig.mAchievementGameData.enableSilentChanges(AchievementDataEvent.EVENT_TYPE_DATA_UPDATE);
+                mConfig.mAchievementGameData.increment(AchievementLazor.KEY_GAME_CANNON_BALL_EXPLOSION_END_COUNT, 1L, 0L);
+                mConfig.mAchievementGameData.putValue(AchievementLazor.KEY_GAME_CANNON_BALL_ENDED_DESTROY_COUNT, (long) mCollisionCount, AchievementProperties.UPDATE_POLICY_ALWAYS);
+                mConfig.mAchievementGameData.putValue(AchievementLazor.KEY_GAME_CANNON_BALL_ENDED_CANNON_ID, mCannon == mCannonLeft ? LEFT_CANNON_ID : RIGHT_CANNON_ID, AchievementProperties.UPDATE_POLICY_ALWAYS);
+                mConfig.mAchievementGameData.disableSilentChanges();
+            }
+        }
+
+        private void startExplode(boolean collided) {
             if (mExplosionDuration == 0L) {
+                mFlyDuration -= mTimeout;
                 mTimeout = 0L;
                 mExplosionDuration = CANNONBALL_EXPLOSION_DURATION;
-                mExplosionLook = new CircleLook(mHitbox.getRadius(), CANNONBALL_EXPLOSION_COLOR);
+                mExplosionLook = new CircleLook(mHitbox.getRadius(), CANNONBALL_EXPLOSION_COLOR_START);
                 setMover(HitboxNoMover.INSTANCE);
                 putStateFrames(0, mExplosionLook);
                 setStateFrames(0);
+                if (collided && mConfig.mAchievementGameData != null) {
+                    mConfig.mAchievementGameData.increment(AchievementLazor.KEY_GAME_LAZOR_CANNON_COLLIDED_EARLY, 1L, 0L);
+                }
             }
         }
 
         private void expandExplosion() {
+            float fraction = (1.f - mExplosionDuration / (float) CANNONBALL_EXPLOSION_DURATION);
             float currRadius = mBaseRadius
                     * (1.f +
                         (CANNONBALL_EXPLOSION_MAX_GROWTH_FACTOR - 1.f)
-                                * (1.f - mExplosionDuration / (float) CANNONBALL_EXPLOSION_DURATION));
+                                * fraction);
             mExplosionLook.setRadius(currRadius);
+            mExplosionLook.setColor(ColorAnalysisUtil.interpolateColorLinear(CANNONBALL_EXPLOSION_COLOR_START, CANNONBALL_EXPLOSION_COLOR_END, fraction));
             mHitbox.setRadius(currRadius);
         }
 
@@ -767,10 +798,24 @@ public class RiddleLazor extends RiddleGame implements FlatWorldCallback {
                 addToDrawLog(mColorType + COLOR_TYPES_COUNT, DRAW_LOG_LINE_ID, mStartX, mStartY, mHitbox.getCenterX(), mHitbox.getCenterY());
                 mRefreshLayers = true;
                 cleanUp();
-                onMeteorDestroyed();
+                onMeteorDestroyed((CannonBall) with);
                 return true;
             }
             return false;
+        }
+
+        private void onMeteorDestroyed(CannonBall ball) {
+            if (mConfig.mAchievementGameData != null) {
+                mConfig.mAchievementGameData.enableSilentChanges(AchievementDataEvent.EVENT_TYPE_DATA_UPDATE);
+                mConfig.mAchievementGameData.increment(AchievementLazor.KEY_GAME_METEOR_DESTROYED_COUNT, 1L, 0L);
+                mConfig.mAchievementGameData.putValue(AchievementLazor.KEY_GAME_LAST_METEOR_DESTROYED_Y_PERCENT, (long) (100 * mHitbox.getCenterY() / (double) mFlatWorld.getHeight()), AchievementProperties.UPDATE_POLICY_ALWAYS);
+                mConfig.mAchievementGameData.putValue(AchievementLazor.KEY_GAME_LAST_METEOR_DESTROYED_CANNONBALL_Y_PERCENT, (long) (100 * ball.getHitbox().getCenterY() / (double) mFlatWorld.getHeight()), AchievementProperties.UPDATE_POLICY_ALWAYS);
+                mConfig.mAchievementGameData.putValue(AchievementLazor.KEY_GAME_LAST_METEOR_DESTROYED_COLOR_TYPE, (long) mColorType, AchievementProperties.UPDATE_POLICY_ALWAYS);
+                mConfig.mAchievementGameData.putValue(AchievementLazor.KEY_GAME_LAST_METEOR_DESTROYED_LAZOR_CANNON_FLY_DURATION, ball.mFlyDuration, AchievementProperties.UPDATE_POLICY_ALWAYS);
+                mConfig.mAchievementGameData.putValue(AchievementLazor.KEY_GAME_LAST_METEOR_DESTROYED_CANNONBALL_DESTROY_COUNT, (long) ball.mCollisionCount, AchievementProperties.UPDATE_POLICY_ALWAYS);
+                mConfig.mAchievementGameData.disableSilentChanges();
+            }
+            updateDifficulty(DIFFICULTY_POINTS_GAIN_ON_METEOR_KILL);
         }
 
         @Override
@@ -813,15 +858,15 @@ public class RiddleLazor extends RiddleGame implements FlatWorldCallback {
         private void onMeteorCrashed(boolean intoCity) {
             int loss = (int) -mMeteorPointLossInterpolator.interpolate(mDifficulty);
             if (mColorType == COLOR_TYPE_BONUS && mProtected) {
-                loss -= 1; // bonus meteors require more energy to protect from, as they are much worse if not in protected state
+                loss -= DIFFICULTY_POINTS_LOSS_ON_BONUS_METEOR_CRASHED_IF_PROTECTED; // bonus meteors require more energy to protect from, as they are much worse if not in protected state
+            }
+
+            if (mConfig.mAchievementGameData != null) {
+                mConfig.mAchievementGameData.increment(intoCity ? AchievementLazor.KEY_GAME_METEOR_CRASHED_IN_CITY_COUNT : AchievementLazor.KEY_GAME_METEOR_CRASHED_NOT_CITY_COUNT
+                        , 1L, 0L);
             }
             updateDifficulty(loss);
         }
-    }
-
-
-    private void onMeteorDestroyed() {
-        updateDifficulty(DIFFICULTY_POINTS_GAIN_ON_METEOR_KILL);
     }
 
     private void updateDifficulty(int delta) {
@@ -835,6 +880,9 @@ public class RiddleLazor extends RiddleGame implements FlatWorldCallback {
     }
 
     private void onDifficultyUpdated() {
+        if (mConfig.mAchievementGameData != null) {
+            mConfig.mAchievementGameData.putValue(AchievementLazor.KEY_GAME_DIFFICULTY, (long) mDifficulty, AchievementProperties.UPDATE_POLICY_ALWAYS);
+        }
         mDifficultyText = String.valueOf(mDifficulty) + '%';
         if (mDifficulty >= mDifficultyForProtection && !mProtected) {
             setCityProtected(true);
@@ -844,10 +892,11 @@ public class RiddleLazor extends RiddleGame implements FlatWorldCallback {
     }
 
     private void setCityProtected(boolean protect) {
-        if (!mProtected && protect) {
-            mProtected = true;
-        } else if (mProtected && !protect) {
-            mProtected = false;
+        if (protect != mProtected) {
+            mProtected = protect;
+            if (mConfig.mAchievementGameData != null) {
+                mConfig.mAchievementGameData.putValue(AchievementLazor.KEY_GAME_IS_PROTECTED, mProtected ? 1L : 0L, AchievementProperties.UPDATE_POLICY_ALWAYS);
+            }
         }
     }
 
