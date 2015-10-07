@@ -243,17 +243,17 @@
     <string name="achievement_lazor_10_name">Colour blind</string>
     <string name="achievement_lazor_10_descr">Do not reveal any red and solve the picture.</string>
     <string name="achievement_lazor_11_name">Calculated</string>
-    <string name="achievement_lazor_11_descr">Hit 15 meteors in a game with the last "edge" of the explosions. Your city must remain intact for at least 75%</string>
+    <string name="achievement_lazor_11_descr">Hit %1$d meteors with the last "edge" of the explosion. The shield must NOT be active.</string>
     <string name="achievement_lazor_12_name">Quadruple hit</string>
     <string name="achievement_lazor_12_descr">Hit four meteors with one shot.</string>
     <string name="achievement_lazor_13_name">In the last second</string>
     <string name="achievement_lazor_13_descr">Stop some meteors just before they are about to crash into the city.</string>
     <string name="achievement_lazor_14_name">Interrupted</string>
-    <string name="achievement_lazor_14_descr">Shoot 100 times. The shot has to been placed far away but gets interrupted of a comet. (Fortschrittserfolg)</string>
+    <string name="achievement_lazor_14_descr">Shoot %1$d times. The shot has to been placed far away but gets interrupted of a comet.</string>
     <string name="achievement_lazor_15_name">Short distance shots</string>
-    <string name="achievement_lazor_15_descr">All shots, which travelled less than 1,5 seconds (200)</string>
+    <string name="achievement_lazor_15_descr">All successful shots, which travelled less than %1$d seconds.</string>
     <string name="achievement_lazor_16_name">Long distance shots</string>
-    <string name="achievement_lazor_16_descr">All shots, which travelled more than 5,5 seconds (125)</string>
+    <string name="achievement_lazor_16_descr">All successful shots, which travelled more than %1$d seconds.</string>
     <string name="achievement_lazor_17_name">Superman</string>
     <string name="achievement_lazor_17_descr">Get 100% shield charge.</string>
 </resources>

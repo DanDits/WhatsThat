@@ -23,6 +23,7 @@ import java.util.List;
 import java.util.Random;
 
 import dan.dit.whatsthat.R;
+import dan.dit.whatsthat.achievement.Achievement;
 import dan.dit.whatsthat.achievement.AchievementDataEvent;
 import dan.dit.whatsthat.achievement.AchievementProperties;
 import dan.dit.whatsthat.image.Image;
@@ -69,7 +70,7 @@ public class RiddleLazor extends RiddleGame implements FlatWorldCallback {
     private static final long CANNON_RELOAD_DURATION_START = Cannon.LOADING_STATES_COUNT * 1600L; //for each loading state (3atm) wait x ms
     private static final long CANNON_RELOAD_DURATION_DIFFICULTY_ULTRA = Cannon.LOADING_STATES_COUNT * 500L;
 
-    private static final long CANNONBALL_EXPLOSION_DURATION = 2000L;
+    public static final long CANNONBALL_EXPLOSION_DURATION = 2000L;
     private static final float CANNONBALL_EXPLOSION_MAX_GROWTH_FACTOR = 2.3f;
     private static final int CANNONBALL_EXPLOSION_COLOR_START = 0xFFfbdc2e;
     private static final int CANNONBALL_EXPLOSION_COLOR_END = 0x66ff6023;
@@ -688,7 +689,6 @@ public class RiddleLazor extends RiddleGame implements FlatWorldCallback {
         @Override
         public boolean onCollision(Actor with) {
             if (with instanceof Meteor) {
-                mCollisionCount++;
                 startExplode(true);
                 return true;
             }
@@ -798,7 +798,9 @@ public class RiddleLazor extends RiddleGame implements FlatWorldCallback {
                 addToDrawLog(mColorType + COLOR_TYPES_COUNT, DRAW_LOG_LINE_ID, mStartX, mStartY, mHitbox.getCenterX(), mHitbox.getCenterY());
                 mRefreshLayers = true;
                 cleanUp();
-                onMeteorDestroyed((CannonBall) with);
+                CannonBall ball = (CannonBall) with;
+                ball.mCollisionCount++; // done here since order of onCollision is not fixed and onMeteorDestroyed needs that data
+                onMeteorDestroyed(ball);
                 return true;
             }
             return false;
@@ -813,6 +815,7 @@ public class RiddleLazor extends RiddleGame implements FlatWorldCallback {
                 mConfig.mAchievementGameData.putValue(AchievementLazor.KEY_GAME_LAST_METEOR_DESTROYED_COLOR_TYPE, (long) mColorType, AchievementProperties.UPDATE_POLICY_ALWAYS);
                 mConfig.mAchievementGameData.putValue(AchievementLazor.KEY_GAME_LAST_METEOR_DESTROYED_LAZOR_CANNON_FLY_DURATION, ball.mFlyDuration, AchievementProperties.UPDATE_POLICY_ALWAYS);
                 mConfig.mAchievementGameData.putValue(AchievementLazor.KEY_GAME_LAST_METEOR_DESTROYED_CANNONBALL_DESTROY_COUNT, (long) ball.mCollisionCount, AchievementProperties.UPDATE_POLICY_ALWAYS);
+                mConfig.mAchievementGameData.putValue(AchievementLazor.KEY_GAME_LAST_METEOR_DESTROYED_CANNONBALL_EXPAND_TIME, CANNONBALL_EXPLOSION_DURATION - ball.mExplosionDuration, AchievementProperties.UPDATE_POLICY_ALWAYS);
                 mConfig.mAchievementGameData.disableSilentChanges();
             }
             updateDifficulty(DIFFICULTY_POINTS_GAIN_ON_METEOR_KILL);

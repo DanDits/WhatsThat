@@ -243,17 +243,17 @@
     <string name="achievement_lazor_10_name">Nicht farbenblind</string>
     <string name="achievement_lazor_10_descr">Beende das Experiment ohne irgendwelchen Rotanteil aufzudecken.</string>
     <string name="achievement_lazor_11_name">Kalkuliert</string>
-    <string name="achievement_lazor_11_descr">Treffe in einem Experiment 8 Kometen mit dem Rand der Explosionen. Das Schild darf NICHT aktiv sein!</string>
+    <string name="achievement_lazor_11_descr">Treffe in einem Experiment %1$d Kometen mit dem Rand der Explosionen. Das Schild darf NICHT aktiv sein!</string>
     <string name="achievement_lazor_12_name">Vier mit einem Streich</string>
     <string name="achievement_lazor_12_descr">Treffe vier Kometen mit einem Schuss.</string>
     <string name="achievement_lazor_13_name">In letzter Sekunde</string>
     <string name="achievement_lazor_13_descr">Halte ein paar Kometen in allerletzter Sekunde auf.</string>
     <string name="achievement_lazor_14_name">Unterbrochen</string>
-    <string name="achievement_lazor_14_descr">Schieße 100 mal, wobei der Schuss weiter gesetzt aber von einem Kometen unterbrochen wurde.</string>
+    <string name="achievement_lazor_14_descr">Schieße %1$d mal, wobei der Schuss weiter gesetzt aber von einem Kometen unterbrochen wurde.</string>
     <string name="achievement_lazor_15_name">Kurzsstrecken-Schüsse</string>
-    <string name="achievement_lazor_15_descr">Alle Schüsse, die kürzer als 1,0 Sekunden geflogen sind.</string>
+    <string name="achievement_lazor_15_descr">Alle erfolgreichen Schüsse, die kürzer als %1$d Sekunden geflogen sind.</string>
     <string name="achievement_lazor_16_name">Langstrecken-Schüsse</string>
-    <string name="achievement_lazor_16_descr">Alle Schüsse, die länger als 5,5 Sekunden geflogen sind.</string>
+    <string name="achievement_lazor_16_descr">Alle erfolgreichen Schüsse, die länger als %1$d Sekunden geflogen sind.</string>
     <string name="achievement_lazor_17_name">Superman</string>
     <string name="achievement_lazor_17_descr">Bringe den Generator auf 100%.</string>
 </resources>
