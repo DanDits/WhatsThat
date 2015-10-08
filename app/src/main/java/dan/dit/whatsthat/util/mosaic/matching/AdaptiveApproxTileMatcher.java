@@ -109,4 +109,14 @@ public class AdaptiveApproxTileMatcher<S> extends TileMatcher<S> {
     public int getUsedTilesCount() {
         return mData.size();
     }
+
+    @Override
+    public void setColorMetric(ColorMetric metric) {
+        if (metric == null || metric.equals(mColorMetric)) {
+            return;
+        }
+        mColorMetric = metric;
+        init(mData.values());
+        resetHashMatches();
+    }
 }

@@ -61,7 +61,7 @@ public class DonationsView extends FrameLayout implements StoreContainer {
     }
 
     @Override
-    public void stop(FragmentActivity activity) {
+    public void stop(FragmentActivity activity, boolean pausedOnly) {
         FragmentTransaction t = activity.getSupportFragmentManager().beginTransaction();
         t.remove(mFragment);
         t.commit();

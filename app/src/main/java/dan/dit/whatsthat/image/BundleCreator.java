@@ -38,6 +38,7 @@ import dan.dit.whatsthat.preferences.Language;
 import dan.dit.whatsthat.preferences.Tongue;
 import dan.dit.whatsthat.preferences.User;
 import dan.dit.whatsthat.solution.Solution;
+import dan.dit.whatsthat.system.store.WorkshopView;
 import dan.dit.whatsthat.util.BuildException;
 import dan.dit.whatsthat.util.image.BitmapUtil;
 import dan.dit.whatsthat.util.image.ImageUtil;
@@ -62,7 +63,6 @@ public class BundleCreator {
     // and was written in two days, the code is not really nice, I'm sorry.
     private static final int ACCEPT_RESOURCE = R.drawable.a_green;
     private static final int REFUSE_RESOURCE = R.drawable.x_red;
-    private static final int PICK_IMAGES = 1338; // intent to pick images
     private static final int IMAGE_MAX_WIDTH = 700; // max dimensions of images in new bundle
     private static final int IMAGE_MAX_HEIGHT = 700;
     private static final int COMPRESSION = 20; // compression level between 0 and 100 (especially for .jpg images)
@@ -594,7 +594,7 @@ public class BundleCreator {
         Intent chooserIntent = Intent.createChooser(getIntent, mActivity.getResources().getString(R.string.select_images_from_gallery));
         chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, new Intent[]{pickIntent});
 
-        mActivity.startActivityForResult(chooserIntent, PICK_IMAGES);
+        mActivity.startActivityForResult(chooserIntent, WorkshopView.PICK_IMAGES_FOR_BUNDLE);
     }
 
     /**
@@ -827,7 +827,7 @@ public class BundleCreator {
      * @param data The returned data.
      */
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (resultCode != Activity.RESULT_OK || requestCode != PICK_IMAGES || data == null) {
+        if (resultCode != Activity.RESULT_OK || requestCode != WorkshopView.PICK_IMAGES_FOR_BUNDLE || data == null) {
             return;
         }
         ClipData clipData = data.getClipData();

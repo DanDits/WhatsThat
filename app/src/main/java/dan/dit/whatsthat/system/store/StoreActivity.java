@@ -21,7 +21,6 @@ import android.view.animation.ScaleAnimation;
 import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -58,7 +57,7 @@ public class StoreActivity extends FragmentActivity {
 
     private void showMenu() {
         mCurrCategory = CATEGORY_MENU;
-        closeVisibleCategory();
+        closeVisibleCategory(false);
         mCategoriesContainer.setVisibility(View.GONE);
         for (Button view : mMenuButtons) {
             view.clearAnimation();
@@ -66,9 +65,9 @@ public class StoreActivity extends FragmentActivity {
         mMenuContainer.setVisibility(View.VISIBLE);
     }
 
-    private void closeVisibleCategory() {
+    private void closeVisibleCategory(boolean pausedOnly) {
         if (mVisibleCategory != null) {
-            mVisibleCategory.stop(this);
+            mVisibleCategory.stop(this, pausedOnly);
             mVisibleCategory = null;
         }
     }
@@ -78,7 +77,7 @@ public class StoreActivity extends FragmentActivity {
             Log.e("HomeStuff", "Trying to prepare menu category!");
             return;
         }
-        closeVisibleCategory();
+        closeVisibleCategory(false);
         mMenuContainer.setVisibility(View.GONE);
         mCategoriesContainer.removeAllViews();
         mCategoriesContainer.setVisibility(View.VISIBLE);
@@ -171,7 +170,7 @@ public class StoreActivity extends FragmentActivity {
     public void onPause() {
         super.onPause();
         if (mCategoriesContainer != null) {
-            closeVisibleCategory();
+            closeVisibleCategory(true);
             mCategoriesContainer.removeAllViews();
         }
     }

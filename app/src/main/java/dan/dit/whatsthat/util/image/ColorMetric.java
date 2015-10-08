@@ -2,12 +2,26 @@ package dan.dit.whatsthat.util.image;
 
 import android.graphics.Color;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by daniel on 03.07.15.
  */
 public abstract class ColorMetric {
+
     public abstract double getDistance(int color1, int color2, boolean useAlpha);
     public abstract double maxValue(boolean useAlpha);
+
+    public static List<ColorMetric> makeAll() {
+        List<ColorMetric> list = new ArrayList<>(5);
+        list.add(Euclid2.INSTANCE);
+        list.add(Absolute.INSTANCE);
+        list.add(Greyness.INSTANCE);
+        list.add(AbsoluteRed.INSTANCE);
+        list.add(Brightness.INSTANCE);
+        return list;
+    }
 
     public static class Euclid2 extends ColorMetric {	/**
          * This value indicates the greatest possible value for two colors
@@ -52,6 +66,10 @@ public abstract class ColorMetric {
         public double maxValue(boolean useAlpha) {
             return useAlpha ? GREATEST_VALUE_ALPHA : GREATEST_VALUE_NO_ALPHA;
         }
+        @Override
+        public String toString() {
+            return "Euclid2";
+        }
     }
 
     public static class Absolute extends ColorMetric {
@@ -72,6 +90,10 @@ public abstract class ColorMetric {
         public double maxValue(boolean useAlpha) {
             return useAlpha ? GREATEST_VALUE_ALPHA : GREATEST_VALUE_NO_ALPHA;
         }
+        @Override
+        public String toString() {
+            return "Absolute";
+        }
     }
 
     public static class Greyness extends ColorMetric {
@@ -87,6 +109,10 @@ public abstract class ColorMetric {
         public double maxValue(boolean useAlpha) {
             return 1.0;
         }
+        @Override
+        public String toString() {
+            return "Greyness";
+        }
     }
 
     public static class AbsoluteRed extends ColorMetric {
@@ -100,6 +126,11 @@ public abstract class ColorMetric {
         @Override
         public double maxValue(boolean useAlpha) {
             return useAlpha ? 255 * 2 : 255;
+        }
+
+        @Override
+        public String toString() {
+            return "AbsolutRed";
         }
     }
 
@@ -118,6 +149,11 @@ public abstract class ColorMetric {
         @Override
         public double maxValue(boolean useAlpha) {
             return 1.0;
+        }
+
+        @Override
+        public String toString() {
+            return "Brightness";
         }
     }
 }

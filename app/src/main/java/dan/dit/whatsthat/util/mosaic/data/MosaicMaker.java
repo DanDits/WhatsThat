@@ -22,8 +22,12 @@ import dan.dit.whatsthat.util.mosaic.reconstruction.RectReconstructor;
 public class MosaicMaker<S> {
 	private final BitmapSource<S> mBitmapSource;
 	private TileMatcher<S> mMatcher;
-	private final boolean mUseAlpha;
+	private boolean mUseAlpha;
 	private ColorMetric mColorMetric;
+
+    public interface ProgressCallback extends PercentProgressListener {
+        boolean isCancelled();
+    }
 
 	public MosaicMaker(TileMatcher<S> tileMatcher, BitmapSource<S> bitmapSource, boolean useAlpha, ColorMetric metric) {
 		if (tileMatcher == null || bitmapSource == null) {
@@ -32,22 +36,35 @@ public class MosaicMaker<S> {
 		mMatcher = tileMatcher;
 		mBitmapSource = bitmapSource;
         mUseAlpha = useAlpha;
-		mColorMetric = metric;
+        setColorMetric(metric);
 	}
 
-    public Bitmap makeMultiRect(Bitmap source, int wantedRows, int wantedColumns, double mergeFactor, PercentProgressListener progress) {
+	public void setUseAlpha(boolean useAlpha) {
+		mUseAlpha = useAlpha;
+		mMatcher.setUseAlpha(useAlpha);
+	}
+
+    public void setColorMetric(ColorMetric metric) {
+        mColorMetric = metric;
+        if (mColorMetric == null) {
+            throw new IllegalArgumentException("No color metric given.");
+        }
+        mMatcher.setColorMetric(metric);
+    }
+
+    public Bitmap makeMultiRect(Bitmap source, int wantedRows, int wantedColumns, double mergeFactor, ProgressCallback progress) {
         Reconstructor reconstructor = new MultiRectReconstructor(source,
                 wantedRows, wantedColumns, mergeFactor, mUseAlpha, mColorMetric);
         return make(reconstructor, progress);
     }
 
-    public Bitmap makeRect(Bitmap source, int wantedRows, int wantedColumns, PercentProgressListener progress) {
+    public Bitmap makeRect(Bitmap source, int wantedRows, int wantedColumns, ProgressCallback progress) {
         Reconstructor reconstructor = new RectReconstructor(source,
                 wantedRows, wantedColumns);
         return make(reconstructor, progress);
     }
 
-    public Bitmap makeAutoLayer(Bitmap source, double mergeFactor, PercentProgressListener progress) {
+    public Bitmap makeAutoLayer(Bitmap source, double mergeFactor, ProgressCallback progress) {
 		MultistepPercentProgressListener multiProgress = new MultistepPercentProgressListener(progress, 2);
         Reconstructor reconstructor = new AutoLayerReconstructor(source, mergeFactor, mUseAlpha, mColorMetric, progress);
 		multiProgress.nextStep();
@@ -56,7 +73,7 @@ public class MosaicMaker<S> {
         return result;
     }
 
-    public Bitmap makeFixedLayer(Bitmap source, int clusterCount, PercentProgressListener progress) {
+    public Bitmap makeFixedLayer(Bitmap source, int clusterCount, ProgressCallback progress) {
         MultistepPercentProgressListener multiProgress = new MultistepPercentProgressListener(progress, 2);
         Reconstructor reconstructor = new FixedLayerReconstructor(source, clusterCount, mUseAlpha, mColorMetric, progress);
         multiProgress.nextStep();
@@ -65,12 +82,12 @@ public class MosaicMaker<S> {
         return result;
     }
 
-	private Bitmap make(Reconstructor reconstructor, PercentProgressListener progress) {
+	private Bitmap make(Reconstructor reconstructor, ProgressCallback progress) {
 		if (reconstructor == null) {
 			throw new IllegalArgumentException("No reconstructor given to make mosaic.");
 		}
 
-		while (!reconstructor.hasAll()) {
+		while (!reconstructor.hasAll() && (progress == null || !progress.isCancelled())) {
 			MosaicFragment nextFrag = reconstructor.nextFragment();
 			Bitmap nextImage;
 			do {
@@ -104,9 +121,20 @@ public class MosaicMaker<S> {
                 progress.onProgressUpdate(reconstructor.estimatedProgressPercent());
             }
 		}
-		if (progress != null) {
+		if (progress != null && !progress.isCancelled()) {
 			progress.onProgressUpdate(PercentProgressListener.PROGRESS_COMPLETE);
 		}
+        if (progress != null && progress.isCancelled()) {
+            return null;
+        }
 		return reconstructor.getReconstructed();
 	}
+
+    public boolean usesAlpha() {
+        return mUseAlpha;
+    }
+
+    public ColorMetric getColorMetric() {
+        return mColorMetric;
+    }
 }

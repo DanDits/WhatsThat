@@ -158,7 +158,7 @@ public class AboutView extends View implements StoreContainer {
     }
 
     @Override
-    public void stop(FragmentActivity activity) {
+    public void stop(FragmentActivity activity, boolean pausedOnly) {
 
     }
 

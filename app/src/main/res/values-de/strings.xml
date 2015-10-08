@@ -191,6 +191,7 @@
     <string name="bundle_creator_author_extras_hint">Alles was relevant ist</string>
     <string name="bundle_creator_save_bundle">Paket erstellen</string>
     <string name="select_images_from_gallery">Bilder wählen</string>
+    <string name="select_mosaic_image_from_gallery">Wähle ein Bild fürs Mosaik</string>
     <string name="bundle_creator_success">Paket %1$s gespeichert!</string>
     <string name="bundle_creator_failed_name_exists">Paket %1$s existiert bereits!</string>
     <string name="bundle_creator_failed_external_storage">Problem mit externem Speicher</string>
@@ -205,6 +206,23 @@
     <string name="article_choose_riddle_descr">Fordere deinen Geist mit einer neuen Aufgabe heraus!</string>
     <string name="article_level_up_dep_new_level">Zuerst dein Gehirn boosten!</string>
     <string name="article_choose_riddle_confirm">Dieses Experiment freischalten. Andere später holen!</string>
+
+    <string name="mosaic_generator_mosaic_type">Mosaik Art</string>
+    <string name="mosaic_generator_mosaic_parameter">Konfiguration</string>
+    <string name="mosaic_generator_select_image">Wähle ein Bild</string>
+    <string name="mosaic_generator_param_color_metric">Farbmetrik</string>
+    <string name="mosaic_generator_param_use_alpha">Beachte Transparenz</string>
+    <string name="mosaic_generator_mosaic_type_rect">Rechtecke</string>
+    <string name="mosaic_generator_param_rows">%1$.0f Zeilen</string>
+    <string name="mosaic_generator_param_columns">%1$.0f Spalten</string>
+    <string name="mosaic_generator_mosaic_type_multirect">Multi Rechtecke</string>
+    <string name="mosaic_generator_param_merge_factor">Schmelzfaktor %1$.2f</string>
+    <string name="mosaic_generator_mosaic_type_fixedlayer">Umrisse</string>
+    <string name="mosaic_generator_param_layer_count">Bilder Anzahl %1$.0f</string>
+    <string name="mosaic_generator_memory_error">Zu wenig Arbeitsspeicher :(</string>
+    <string name="mosaic_generator_image_save_success">Mosaic gespeichert!</string>
+    <string name="mosaic_generator_image_save_failed">Speichern fehlgeschlagen</string>
+    <string name="mosaic_generator_share_mosaic">Mosaik teilen</string>
 
     <plurals name="images_in_bundle">
         <item quantity="one">%1$d Bild</item>

@@ -112,6 +112,7 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
 
     private void nextRiddleIfEmpty() {
         if (!mRiddleView.hasController()) {
+            Log.d("Riddle", "Next riddle as it is empty.");
             long suggestedId = Riddle.getLastVisibleRiddleId(getActivity().getApplicationContext());
             if (suggestedId != Riddle.NO_ID || (mManager.getUnsolvedRiddleCount() > 0)) {
                 nextUnsolvedRiddle(suggestedId);
@@ -344,6 +345,7 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
     }
 
     private void findSomeRiddle() {
+        Log.d("Riddle", "Find some riddle.");
         if (mOpenUnsolvedRiddlesId != null && mOpenUnsolvedRiddlesId.hasNext()) {
             long nextId = mOpenUnsolvedRiddlesId.next();
             mOpenUnsolvedRiddlesId.remove();

@@ -197,11 +197,11 @@ public class RiddleDeveloper extends RiddleGame {
         for (double param : params) {
             tic = System.currentTimeMillis();
             if (mCurrMosaicMode == 0) {
-                mMosaicGalleries[mCurrMosaicMode][index] = maker.makeRect(mBitmap, (int) param, (int) param, multistepProgress);
+                mMosaicGalleries[mCurrMosaicMode][index] = maker.makeRect(mBitmap, (int) param, (int) param, null);
             } else if (mCurrMosaicMode == 1) {
-                mMosaicGalleries[mCurrMosaicMode][index] = maker.makeMultiRect(mBitmap, 30, 30, param, multistepProgress);
+                mMosaicGalleries[mCurrMosaicMode][index] = maker.makeMultiRect(mBitmap, 30, 30, param, null);
             } else if ((int) param > 0) {
-                mMosaicGalleries[mCurrMosaicMode][index] = maker.makeFixedLayer(mBitmap, (int) param, multistepProgress);
+                mMosaicGalleries[mCurrMosaicMode][index] = maker.makeFixedLayer(mBitmap, (int) param, null);
             }
             Log.d("Riddle", "Next step with param" + param + " of " + Arrays.toString(params) + " index " + index + " mode " +mCurrMosaicMode);
             multistepProgress.nextStep();

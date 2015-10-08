@@ -1,9 +1,12 @@
 package dan.dit.whatsthat.util.image;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
+import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -32,7 +35,7 @@ public final class ImageUtil {
     private static final String IMAGE_FILE_PREFIX = "WTH_";
     private static final String IMAGE_FILE_EXTENSION = ".png";
     private static final double SIMILARITY_SCALING_THRESHOLD = 0.5; // 0 would mean only exactly the same aspect ratio
-    private static final String MEDIA_DIRECTORY_NAME = "Media";
+    private static final String MEDIA_DIRECTORY_NAME = "WhatsThat Media";
     private static MessageDigest DIGEST;
 
     private ImageUtil() {
@@ -58,6 +61,7 @@ public final class ImageUtil {
                 format = Bitmap.CompressFormat.WEBP;
             } else {
                 format = Bitmap.CompressFormat.PNG;
+                target = new File(target.getParentFile(), ensureFileExtension(target.getName(), ".png"));
             }
         }
         if (compression < 0) {
@@ -80,29 +84,47 @@ public final class ImageUtil {
     }
 
 	/**
-	 * Saves the given image to the given file in png format.
+	 * Saves the given image to the given file. If the name doesn't imply an image format
+     * @param context An optional context required to broadcast the successful saving of the media file to the system.
 	 * @param image The image to be saved.
 	 * @param fileName null-ok; The basic part of the output file name.
-	 * @return <code>true</code> if the image was successfully saved,
+	 * @return A valid file if the image was successfully saved,
 	 * if context or image parameter is <code>null</code> or there was an error accessing the external storage
-     * or saving the file this returns <code>false</code>.
+     * or saving the file this returns <code>null</code>.
 	 */
-	public static boolean saveToMediaFile(Bitmap image, String fileName) {
+	public static File saveToMediaFile(@Nullable Context context, Bitmap image, String fileName) {
 		// create new File for the new Image
         if (image == null) {
-            return false;
+            return null;
         }
-        File pictureFile = getOutputMediaFile(fileName);
+        File pictureFile;
+        if (TextUtils.isEmpty(fileName)) {
+            pictureFile = getOutputMediaFile(fileName);
+        } else {
+            pictureFile = new File(getMediaDirectory(), ensureFileExtension(fileName, getFileExtension(fileName)));
+        }
         if (pictureFile == null) {
             Log.e("Image",
                     "Error creating media file, check storage permissions: ");// e.getMessage());
-            return false;
+            return null;
         }
-        return saveToFile(image, pictureFile, Bitmap.CompressFormat.PNG, 100);
+        boolean result = saveToFile(image, pictureFile, null, 100);
+
+        //broadcast to system to make media directory and file known
+        if (context != null && result) {
+            try {
+                Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+                Uri uri = Uri.fromFile(pictureFile);
+                mediaScanIntent.setData(uri);
+                context.sendBroadcast(mediaScanIntent);
+            } catch (Exception e) {
+                Log.e("Image", "Error broadcasting file " + pictureFile + ": " + e);
+            }
+        }
+        return result ? pictureFile : null;
     }
 
-    /* Create a File for saving a png image */
-    private static File getOutputMediaFile(String pImageName){
+    public static File getMediaDirectory() {
         String path = ExternalStorage.getExternalStoragePathIfMounted(MEDIA_DIRECTORY_NAME);
         if (path == null) {
             return null; // external storage not available
@@ -114,6 +136,15 @@ public final class ImageUtil {
 
         // Create the storage directory if it does not exist
         if (!mediaStorageDir.mkdirs() && !mediaStorageDir.isDirectory()){
+            return null;
+        }
+        return mediaStorageDir;
+    }
+
+    /* Create a File for saving a png image */
+    private static File getOutputMediaFile(String pImageName){
+        File mediaStorageDir = getMediaDirectory();
+        if (mediaStorageDir == null) {
             return null;
         }
         // Create a media file name
@@ -346,6 +377,19 @@ public final class ImageUtil {
     }
 
     private static final String[] EXTENSIONS = new String[] {".jpeg", ".jpg", ".bmp", ".gif", ".png"};
+
+    private static String getFileExtension(String name) {
+        if (name == null) {
+            return null;
+        }
+        for (String ext : EXTENSIONS) {
+            if (name.endsWith(ext)) {
+                return ext;
+            }
+        }
+        return IMAGE_FILE_EXTENSION; // default extension
+    }
+
     public static String ensureFileExtension(String imageName, String ensureExtension) {
         if (TextUtils.isEmpty(imageName)) {
             return ensureExtension;

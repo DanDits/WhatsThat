@@ -14,6 +14,7 @@ import android.widget.TabHost;
 import dan.dit.whatsthat.R;
 import dan.dit.whatsthat.image.BundleCreator;
 import dan.dit.whatsthat.image.BundleManager;
+import dan.dit.whatsthat.util.mosaic.MosaicGeneratorUi;
 import dan.dit.whatsthat.util.ui.UiStyleUtil;
 
 /**
@@ -23,9 +24,12 @@ public class WorkshopView extends FrameLayout implements StoreContainer {
     private static final String TAB_BUNDLE_MANAGER = "bundle_manager";
     private static final String TAB_BUNDLE_CREATOR = "bundle_creator";
     private static final String TAB_MOSAIC = "mosaic";
+    public static final int PICK_IMAGES_FOR_BUNDLE = 1338; // intent to pick images for bundle
+    public static final int PICK_IMAGE_FOR_MOSAIC = 1339; // intent to pick image to generate a mosaic of
     private TabHost mTabHost;
     private BundleCreator mBundleCreator;
     private BundleManager mBundleManager;
+    private MosaicGeneratorUi mMosaicGenerator;
 
     public WorkshopView(Context context) {
         super(context);
@@ -84,6 +88,9 @@ public class WorkshopView extends FrameLayout implements StoreContainer {
         if (mBundleCreator != null) {
             mBundleCreator.onActivityResult(requestCode, resultCode, data);
         }
+        if (mMosaicGenerator != null) {
+            mMosaicGenerator.onActivityResult(requestCode, resultCode, data);
+        }
     }
 
     private class TabFactory implements TabHost.TabContentFactory {
@@ -101,11 +108,12 @@ public class WorkshopView extends FrameLayout implements StoreContainer {
             if (tag.equals(TAB_BUNDLE_CREATOR)) {
                 mBundleCreator = new BundleCreator(mActivity);
                 return mBundleCreator.getView();
-            } else if (tag.equals(TAB_MOSAIC)) {
-                return mInflater.inflate(R.layout.workshop_mosaic, null);
             } else if (tag.equals(TAB_BUNDLE_MANAGER)) {
                 mBundleManager = new BundleManager(mActivity);
                 return mBundleManager.getView();
+            } else if (tag.equals(TAB_MOSAIC)) {
+                mMosaicGenerator = new MosaicGeneratorUi(mActivity);
+                return mMosaicGenerator.getView();
             }
             return null;
         }
@@ -113,8 +121,10 @@ public class WorkshopView extends FrameLayout implements StoreContainer {
     }
 
     @Override
-    public void stop(FragmentActivity activity) {
-
+    public void stop(FragmentActivity activity, boolean pausedOnly) {
+        if (!pausedOnly && mMosaicGenerator != null) {
+            mMosaicGenerator.clear();
+        }
     }
 
     @Override

@@ -188,6 +188,7 @@
     <string name="bundle_creator_author_extras_hint">Anything relevant</string>
     <string name="bundle_creator_save_bundle">Create bundle</string>
     <string name="select_images_from_gallery">Select images</string>
+    <string name="select_mosaic_image_from_gallery">Select an image for the mosaic</string>
     <string name="bundle_creator_success">Bundle %1$s saved!</string>
     <string name="bundle_creator_failed_name_exists">Bundle %1$s already exists!</string>
     <string name="bundle_creator_failed_external_storage">External storage problem</string>
@@ -203,7 +204,22 @@
     <string name="article_level_up_dep_new_level">Boost your brain first!</string>
     <string name="article_choose_riddle_confirm">Unlock this experiment. Get the others later!</string>
     <string name="dependency_or">or</string>
-
+    <string name="mosaic_generator_mosaic_type">Mosaic type</string>
+    <string name="mosaic_generator_mosaic_parameter">Configuration</string>
+    <string name="mosaic_generator_select_image">Select an image</string>
+    <string name="mosaic_generator_param_color_metric">Colormetric</string>
+    <string name="mosaic_generator_param_use_alpha">Consider transparency</string>
+    <string name="mosaic_generator_mosaic_type_rect">Rectangles</string>
+    <string name="mosaic_generator_param_rows">%1$.0f rows</string>
+    <string name="mosaic_generator_param_columns">%1$.0f columns</string>
+    <string name="mosaic_generator_mosaic_type_multirect">Multi rectangles</string>
+    <string name="mosaic_generator_param_merge_factor">Merge factor %1$.2f</string>
+    <string name="mosaic_generator_mosaic_type_fixedlayer">Layered</string>
+    <string name="mosaic_generator_param_layer_count">Images amount %1$.0f</string>
+    <string name="mosaic_generator_memory_error">Too little working memory :(</string>
+    <string name="mosaic_generator_image_save_success">Mosaic saved!</string>
+    <string name="mosaic_generator_image_save_failed">Saving failed</string>
+    <string name="mosaic_generator_share_mosaic">Share mosaic</string>
     <plurals name="images_in_bundle">
         <item quantity="one">%1$d image</item>
         <item quantity="other">%1$d images</item>

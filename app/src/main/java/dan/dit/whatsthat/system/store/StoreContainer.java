@@ -9,6 +9,6 @@ import android.widget.Button;
  */
 interface StoreContainer {
     void refresh(FragmentActivity activity, Button titleBackButton);
-    void stop(FragmentActivity activity);
+    void stop(FragmentActivity activity, boolean pausedOnly);
     View getView();
 }

@@ -65,4 +65,9 @@ public class SimpleLinearTileMatcher<S> extends TileMatcher<S> {
 		return this.tiles.size();
 	}
 
+	@Override
+	public void setColorMetric(ColorMetric metric) {
+		mColorMetric = metric;
+	}
+
 }

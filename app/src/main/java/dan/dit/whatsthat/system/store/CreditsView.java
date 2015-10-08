@@ -29,7 +29,7 @@ public class CreditsView extends WebView implements StoreContainer {
     }
 
     @Override
-    public void stop(FragmentActivity activity) {
+    public void stop(FragmentActivity activity, boolean pausedOnly) {
 
     }
 

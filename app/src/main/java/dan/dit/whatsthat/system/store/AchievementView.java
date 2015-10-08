@@ -136,7 +136,7 @@ public class AchievementView extends ExpandableListView implements StoreContaine
     }
 
     @Override
-    public void stop(FragmentActivity activity) {
+    public void stop(FragmentActivity activity, boolean pausedOnly) {
     }
 
     @Override

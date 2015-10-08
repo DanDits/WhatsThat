@@ -15,7 +15,7 @@ import dan.dit.whatsthat.util.mosaic.data.MosaicTile;
  */
 public abstract class TileMatcher<S> {
 
-    final ColorMetric mColorMetric;
+    ColorMetric mColorMetric;
     private Map<Integer, MosaicTile<S>> mBestMatches;
 
     public void setHashMatches(boolean hashMatches) {
@@ -49,8 +49,13 @@ public abstract class TileMatcher<S> {
 	/**
 	 * If the TileMatcher uses the alpha value of the rgb values for matching.
 	 */
-	final boolean useAlpha;
-	
+	boolean useAlpha;
+
+
+    public void setUseAlpha(boolean useAlpha) {
+        this.useAlpha = useAlpha;
+    }
+
 	/**
 	 * Creates a new tile matcher, the given flag simply signals
 	 * if the implementing tile matcher uses alpha for matching.
@@ -114,4 +119,5 @@ public abstract class TileMatcher<S> {
 		return this.useAlpha;
 	}
 
+    public abstract void setColorMetric(ColorMetric metric);
 }
