@@ -3,6 +3,7 @@ package dan.dit.whatsthat.testsubject.shopping.sortiment;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.util.Log;
+import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -26,10 +27,10 @@ import dan.dit.whatsthat.util.dependencies.Dependency;
  */
 public class RiddleArticle extends ShopArticle {
     public static final String KEY_CHOOSE_RIDDLE_ARTICLE = "key_choose_riddle_article";
-    private Map<Integer, RiddleProduct> mProducts;
+    private SparseArray<RiddleProduct> mProducts;
     protected RiddleArticle(ForeignPurse purse) {
         super(KEY_CHOOSE_RIDDLE_ARTICLE, purse, R.string.article_choose_riddle_name, R.string.article_choose_riddle_descr, R.drawable.icon_general);
-        mProducts = new HashMap<>(PracticalRiddleType.ALL_PLAYABLE_TYPES.size());
+        mProducts = new SparseArray<>(PracticalRiddleType.ALL_PLAYABLE_TYPES.size());
         addDependency(new Dependency() {
             @Override
             public boolean isNotFulfilled() {
@@ -109,9 +110,9 @@ public class RiddleArticle extends ShopArticle {
 
     private int getChildIndex(SubProduct product) {
         int index = -1;
-        for (Integer key : mProducts.keySet()) {
-            if (mProducts.get(key).equals(product)) {
-                index = key;
+        for (int i = 0; i < mProducts.size(); i++) {
+            if (mProducts.valueAt(i).equals(product)) {
+                index = mProducts.keyAt(i);
                 break;
             }
         }

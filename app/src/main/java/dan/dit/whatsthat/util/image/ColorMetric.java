@@ -19,6 +19,8 @@ public abstract class ColorMetric {
         list.add(Absolute.INSTANCE);
         list.add(Greyness.INSTANCE);
         list.add(AbsoluteRed.INSTANCE);
+        list.add(AbsoluteGreen.INSTANCE);
+        list.add(AbsoluteBlue.INSTANCE);
         list.add(Brightness.INSTANCE);
         return list;
     }
@@ -131,6 +133,45 @@ public abstract class ColorMetric {
         @Override
         public String toString() {
             return "AbsolutRed";
+        }
+    }
+
+
+    public static class AbsoluteGreen extends ColorMetric {
+        public static final AbsoluteGreen INSTANCE = new AbsoluteGreen();
+        private AbsoluteGreen() {}
+        @Override
+        public double getDistance(int color1, int color2, boolean useAlpha) {
+            return Math.abs(Color.green(color1) - Color.green(color2)) + (useAlpha ? Math.abs(Color.alpha(color1) - Color.alpha(color2)) : 0);
+        }
+
+        @Override
+        public double maxValue(boolean useAlpha) {
+            return useAlpha ? 255 * 2 : 255;
+        }
+
+        @Override
+        public String toString() {
+            return "AbsolutGreen";
+        }
+    }
+
+    public static class AbsoluteBlue extends ColorMetric {
+        public static final AbsoluteBlue INSTANCE = new AbsoluteBlue();
+        private AbsoluteBlue() {}
+        @Override
+        public double getDistance(int color1, int color2, boolean useAlpha) {
+            return Math.abs(Color.blue(color1) - Color.blue(color2)) + (useAlpha ? Math.abs(Color.alpha(color1) - Color.alpha(color2)) : 0);
+        }
+
+        @Override
+        public double maxValue(boolean useAlpha) {
+            return useAlpha ? 255 * 2 : 255;
+        }
+
+        @Override
+        public String toString() {
+            return "AbsolutBlue";
         }
     }
 

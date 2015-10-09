@@ -1,6 +1,8 @@
 package dan.dit.whatsthat.util.mosaic.matching;
 
 
+import android.util.SparseArray;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -16,11 +18,11 @@ import dan.dit.whatsthat.util.mosaic.data.MosaicTile;
 public abstract class TileMatcher<S> {
 
     ColorMetric mColorMetric;
-    private Map<Integer, MosaicTile<S>> mBestMatches;
+    private SparseArray<MosaicTile<S>> mBestMatches;
 
     public void setHashMatches(boolean hashMatches) {
         if (hashMatches && mBestMatches == null) {
-            mBestMatches = new HashMap<>();
+            mBestMatches = new SparseArray<>();
         } else if (!hashMatches) {
             mBestMatches = null;
         }

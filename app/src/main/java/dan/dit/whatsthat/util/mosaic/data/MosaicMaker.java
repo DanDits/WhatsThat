@@ -29,6 +29,22 @@ public class MosaicMaker<S> {
         boolean isCancelled();
     }
 
+    private static class MultiStepPercentProgressCallback extends MultistepPercentProgressListener implements ProgressCallback {
+
+        private final ProgressCallback mCallback;
+
+        public MultiStepPercentProgressCallback(ProgressCallback callback, int steps) {
+            super(callback, steps);
+            mCallback = callback;
+        }
+
+
+        @Override
+        public boolean isCancelled() {
+            return mCallback.isCancelled();
+        }
+    }
+
 	public MosaicMaker(TileMatcher<S> tileMatcher, BitmapSource<S> bitmapSource, boolean useAlpha, ColorMetric metric) {
 		if (tileMatcher == null || bitmapSource == null) {
 			throw new IllegalArgumentException("No matcher or source given.");
@@ -65,19 +81,19 @@ public class MosaicMaker<S> {
     }
 
     public Bitmap makeAutoLayer(Bitmap source, double mergeFactor, ProgressCallback progress) {
-		MultistepPercentProgressListener multiProgress = new MultistepPercentProgressListener(progress, 2);
-        Reconstructor reconstructor = new AutoLayerReconstructor(source, mergeFactor, mUseAlpha, mColorMetric, progress);
+        MultiStepPercentProgressCallback multiProgress = new MultiStepPercentProgressCallback(progress, 2);
+        Reconstructor reconstructor = new AutoLayerReconstructor(source, mergeFactor, mUseAlpha, mColorMetric, multiProgress);
 		multiProgress.nextStep();
-        Bitmap result = make(reconstructor, progress);
+        Bitmap result = make(reconstructor, multiProgress);
 		multiProgress.nextStep();
         return result;
     }
 
     public Bitmap makeFixedLayer(Bitmap source, int clusterCount, ProgressCallback progress) {
-        MultistepPercentProgressListener multiProgress = new MultistepPercentProgressListener(progress, 2);
-        Reconstructor reconstructor = new FixedLayerReconstructor(source, clusterCount, mUseAlpha, mColorMetric, progress);
+        MultiStepPercentProgressCallback multiProgress = new MultiStepPercentProgressCallback(progress, 2);
+        Reconstructor reconstructor = new FixedLayerReconstructor(source, clusterCount, mUseAlpha, mColorMetric, multiProgress);
         multiProgress.nextStep();
-        Bitmap result = make(reconstructor, progress);
+        Bitmap result = make(reconstructor, multiProgress);
         multiProgress.nextStep();
         return result;
     }

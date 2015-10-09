@@ -43,6 +43,7 @@ import dan.dit.whatsthat.system.store.WorkshopView;
 import dan.dit.whatsthat.util.PercentProgressListener;
 import dan.dit.whatsthat.util.image.BitmapUtil;
 import dan.dit.whatsthat.util.image.ColorMetric;
+import dan.dit.whatsthat.util.image.Dimension;
 import dan.dit.whatsthat.util.image.ImageUtil;
 import dan.dit.whatsthat.util.mosaic.data.MosaicMaker;
 import dan.dit.whatsthat.util.mosaic.matching.SimpleLinearTileMatcher;
@@ -193,6 +194,9 @@ public class MosaicGeneratorUi {
         mParameterColorMetric.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if (mMetrics.get(position).equals(mMosaicMaker.getColorMetric())) {
+                    return;
+                }
                 mMosaicMaker.setColorMetric(mMetrics.get(position));
                 onParameterChanged(true);
             }
@@ -288,6 +292,7 @@ public class MosaicGeneratorUi {
         if (mIgnoreParameterChange > 0) {
             return;
         }
+        Log.d("Riddle", "On Parameter changed: " + mIgnoreParameterChange);
         MosaicType type = getCurrentMosaicType();
         if (type != null) {
             type.applyUi();
@@ -304,8 +309,14 @@ public class MosaicGeneratorUi {
     public void clear() {
         // to release memory
         mSelectedBitmapName = null;
+        if (mSelectedBitmap != null) {
+            mSelectedBitmap.recycle();
+        }
         mSelectedBitmap = null;
         mMosaicImageView.setImageResource(0);
+        if (mMosaicBitmap != null) {
+            mMosaicBitmap.recycle();
+        }
         mMosaicBitmap = null;
     }
 
@@ -343,7 +354,6 @@ public class MosaicGeneratorUi {
         private void valueToBar(SeekBar bar, double minValue, double maxValue, double value) {
             // interval [minValue, maxValue] mapped to [0, bar.max()]
             int progress = (int) ((value - minValue) / (maxValue - minValue) * bar.getMax());
-            Log.d("HomeStuff", "Bar min " + minValue + " max " + maxValue + " value " + value + " mapped to progress " + progress);
             bar.setProgress(progress);
         }
 
@@ -352,7 +362,6 @@ public class MosaicGeneratorUi {
             if (mOnlyIntegers.get(index)) {
                 value = Math.round(value);
             }
-            Log.d("HomeStuff", "Bar " + index + " min " + mMinValues.get(index) + " max " + mMaxValues.get(index) + " value " + value + " mapped from progress " + bar.getProgress());
             mValues.set(index, value);
         }
 
@@ -415,7 +424,21 @@ public class MosaicGeneratorUi {
                     if (base == null) {
                         return null;
                     }
-                    //TODO make sure that image dimensions are dividable by the given columns/rows values by resizing
+                    int rows = 0, columns = 0;
+                    if (mType == RECT || mType == MULTI_RECT) {
+                        //make sure that image dimensions are dividable by the given columns/rows values by resizing
+                        rows = (int) Math.round(mValues.get(0));
+                        columns = (int) Math.round(mValues.get(1));
+                        Dimension targetDim = new Dimension(base.getWidth(), base.getHeight());
+                        targetDim.ensureDivisibleBy(columns, rows, true);
+                        if (base.getWidth() != targetDim.getWidth() || base.getHeight() != targetDim.getHeight()) {
+                            Log.d("Riddle", "Need to resize base image before doing rect or multirect mosaic: " + base + " and " + targetDim);
+                            base = BitmapUtil.resize(base, targetDim.getWidth(), targetDim.getHeight());
+                        }
+                    }
+                    if (isCancelled()) {
+                        return null;
+                    }
                     Bitmap result = null;
                     Log.d("Riddle", "Really starting to make mosaic " + mType + " task was: " + mMosaicTask);
                     MosaicMaker.ProgressCallback callback = new MosaicMaker.ProgressCallback() {
@@ -432,17 +455,17 @@ public class MosaicGeneratorUi {
                     try {
                         switch (mType) {
                             case RECT:
-                                result = mMosaicMaker.makeRect(base, (int) Math.round(mValues.get(0)), (int) Math.round(mValues.get(1)), callback);
+                                result = mMosaicMaker.makeRect(base, rows, columns, callback);
                                 break;
                             case MULTI_RECT:
-                                result = mMosaicMaker.makeMultiRect(base, (int) Math.round(mValues.get(0)), (int) Math.round(mValues.get(1)), mValues.get(2), callback);
+                                result = mMosaicMaker.makeMultiRect(base, rows, columns, mValues.get(2), callback);
                                 break;
                             case FIXED_LAYER:
                                 result = mMosaicMaker.makeFixedLayer(base, (int) Math.round(mValues.get(0)), callback);
                                 break;
                         }
                     } catch (OutOfMemoryError error) {
-                        // well I know I am catching an error, but since there is this stupid 50mb restriction we move at the edge of what is possible
+                        // well I know I am catching an error, but since there is this stupid (50mb) restriction we move at the edge of what is possible
                         clear();
                         Toast.makeText(mActivity, R.string.mosaic_generator_memory_error, Toast.LENGTH_LONG).show();
                     }

@@ -214,7 +214,7 @@
     <string name="mosaic_generator_param_columns">%1$.0f columns</string>
     <string name="mosaic_generator_mosaic_type_multirect">Multi rectangles</string>
     <string name="mosaic_generator_param_merge_factor">Merge factor %1$.2f</string>
-    <string name="mosaic_generator_mosaic_type_fixedlayer">Layered</string>
+    <string name="mosaic_generator_mosaic_type_fixedlayer">Collage</string>
     <string name="mosaic_generator_param_layer_count">Images amount %1$.0f</string>
     <string name="mosaic_generator_memory_error">Too little working memory :(</string>
     <string name="mosaic_generator_image_save_success">Mosaic saved!</string>

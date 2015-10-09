@@ -83,7 +83,6 @@ public class FixedLayerReconstructor extends Reconstructor {
             }
         }
 
-        boolean changed;
         int[] clusterCenterRed = new int[clusterCount];
         int[] clusterCenterGreen = new int[clusterCount];
         int[] clusterCenterBlue = new int[clusterCount];
@@ -91,8 +90,12 @@ public class FixedLayerReconstructor extends Reconstructor {
         int[] clusterSize = new int[clusterCount];
         int redistributionCount = 0;
         int maxRedistributions = MAX_RECALCULATIONS_BASE + MAX_RECALCULATIONS_LINEAR_GROWTH * clusterCount;
+        int changed = Integer.MAX_VALUE;
+        int lastChanged;
         do {
-            changed = false;
+            // for improved speed we expect monotonous convergence in the amount of pixels changed, if this ever increases again we stop
+            lastChanged = changed;
+            changed = 0;
             // redistribute into clusters
             Arrays.fill(clusterWeights, 0.);
             for (int i = 0; i < pixelColors.length; i++) {
@@ -109,7 +112,9 @@ public class FixedLayerReconstructor extends Reconstructor {
                 clusterWeights[minWeightIncreaseIndex] += minWeightIncrease;
                 int oldNumber = mPixelClusterNumber[i];
                 mPixelClusterNumber[i] = minWeightIncreaseIndex;
-                changed |= oldNumber != minWeightIncreaseIndex;
+                if (oldNumber != minWeightIncreaseIndex) {
+                    changed++;
+                }
             }
             redistributionCount++;
 
@@ -143,7 +148,8 @@ public class FixedLayerReconstructor extends Reconstructor {
                 }
             }
             progress.onProgressUpdate((int) (PercentProgressListener.PROGRESS_COMPLETE * redistributionCount / (double) maxRedistributions));
-        } while (changed && redistributionCount < maxRedistributions);
+            Log.d("HomeStuff", "ClusterLayerReconstructor changed pixels: " + changed + " in run " + redistributionCount);
+        } while (changed <= lastChanged && redistributionCount < maxRedistributions);
         Log.d("HomeStuff", "Finished ClusteredLayerReconstructor with " + redistributionCount + " recalculations for " + clusterCount + " clusters.");
         mClusterColors = clusterCenters;
         progress.onProgressUpdate(PercentProgressListener.PROGRESS_COMPLETE);

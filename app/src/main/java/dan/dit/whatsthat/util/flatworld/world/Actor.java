@@ -3,6 +3,7 @@ package dan.dit.whatsthat.util.flatworld.world;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.RectF;
+import android.util.SparseArray;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -17,7 +18,7 @@ import dan.dit.whatsthat.util.flatworld.mover.HitboxMover;
 public class Actor {
     private Hitbox mHitbox;
     private HitboxMover mMover;
-    private final Map<Integer, Look> mStateFrames = new HashMap<>();
+    private final SparseArray<Look> mStateFrames = new SparseArray<>();
     protected Look mCurrentLook;
     private boolean mActive;
 

@@ -2,6 +2,7 @@ package dan.dit.whatsthat.util.image;
 
 import android.graphics.Bitmap;
 import android.util.Log;
+import android.util.SparseArray;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -34,7 +35,7 @@ class IndexedBitmap {
 
     private void makeIndexedMatrix(Bitmap source) {
         mColors = new ArrayList<>();
-        Map<Integer, Integer> colorToIndex = new HashMap<>();
+        SparseArray<Integer> colorToIndex = new SparseArray<>();
         mMatrix = new Matrix(source.getHeight(), source.getWidth());
 
         for (int y = 0; y < source.getHeight(); y++) {

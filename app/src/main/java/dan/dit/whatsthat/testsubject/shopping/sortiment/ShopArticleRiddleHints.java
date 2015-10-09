@@ -2,6 +2,7 @@ package dan.dit.whatsthat.testsubject.shopping.sortiment;
 
 import android.content.res.Resources;
 import android.util.Log;
+import android.util.SparseArray;
 import android.view.LayoutInflater;
 
 import java.util.HashMap;
@@ -24,7 +25,7 @@ public class ShopArticleRiddleHints extends ShopArticle {
     private PracticalRiddleType mType;
     private List<Integer> mCosts;
     private ConfirmProduct mConfirmProduct;
-    private Map<Integer, HintProduct> mHints;
+    private SparseArray<HintProduct> mHints;
 
     public static String makeKey(PracticalRiddleType type) {
         return type.getFullName() + KEY_SUFFIX;
@@ -34,7 +35,7 @@ public class ShopArticleRiddleHints extends ShopArticle {
         super(makeKey(type), purse, nameResId, descrResId, type.getIconResId());
         mType = type;
         mCosts = mType.getHintCosts();
-        mHints = new HashMap<>();
+        mHints = new SparseArray<>();
         if (mCosts == null || mCosts.isEmpty()) {
             throw new IllegalArgumentException("No costs given.");
         }

@@ -76,4 +76,32 @@ public class Dimension {
     public int hashCode() {
         return mWidth + (mWidth + mHeight)*(mWidth + mHeight + 1) / 2; // cantor's bijection (though not for values of zero)
     }
+
+    /**
+     * Ensures that both dimensions are divisible by the given positive divisors and greater than zero.
+     * @param widthDivisor The width divisor.
+     * @param heightDivisor The height divisor.
+     * @param preferSmaller If true then the smaller resulting dimension will be smaller than previously
+     *                      if this is possible.
+     */
+    public void ensureDivisibleBy(int widthDivisor, int heightDivisor, boolean preferSmaller) {
+        // make sure that both dimension are divisible by the given divisor and greater than zero
+        int widthDelta = -mWidth;
+        if (preferSmaller) {
+            widthDelta = -(mWidth % widthDivisor);
+        }
+        if (mWidth + widthDelta <= 0) {
+            widthDelta = widthDivisor + mWidth % widthDivisor;
+        }
+        mWidth += widthDelta;
+
+        int heightDelta = -mHeight;
+        if (preferSmaller) {
+            heightDelta = -(mHeight % heightDivisor);
+        }
+        if (mHeight + heightDelta <= 0) {
+            heightDelta = heightDivisor + mHeight % heightDivisor;
+        }
+        mHeight += heightDelta;
+    }
 }

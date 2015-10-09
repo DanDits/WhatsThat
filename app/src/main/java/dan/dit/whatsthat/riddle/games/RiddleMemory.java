@@ -11,6 +11,7 @@ import android.graphics.Rect;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.util.Log;
+import android.util.SparseArray;
 import android.view.MotionEvent;
 
 import java.util.ArrayList;
@@ -55,7 +56,7 @@ public class RiddleMemory extends RiddleGame {
     private int mPeakedCards;
     private int mFieldX;
     private int mFieldY;
-    private Map<Integer, Bitmap> mCoveredCardBitmap;
+    private SparseArray<Bitmap> mCoveredCardBitmap;
     private Bitmap mFieldBitmap;
     private Canvas mFieldCanvas;
     private Bitmap mBlackUncoveredCardBitmap;
@@ -137,7 +138,7 @@ public class RiddleMemory extends RiddleGame {
         mTileInPathPaint.setColor(TILE_IN_PATH_COLOR);
         mTileInPathPaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.MULTIPLY));
 
-        mCoveredCardBitmap = new HashMap<>(5);
+        mCoveredCardBitmap = new SparseArray<>(5);
         mCoveredCardBitmap.put(MemoryCard.STATE_COVERED_GREEN, ImageUtil.loadBitmap(res, R.drawable.memory_card_covered_green, mFieldDimension.getWidth(), mFieldDimension.getHeight(), true));
         mCoveredCardBitmap.put(MemoryCard.STATE_COVERED_YELLOW, ImageUtil.loadBitmap(res, R.drawable.memory_card_covered_yellow, mFieldDimension.getWidth(), mFieldDimension.getHeight(), true));
         mCoveredCardBitmap.put(MemoryCard.STATE_COVERED_RED, ImageUtil.loadBitmap(res, R.drawable.memory_card_covered_red, mFieldDimension.getWidth(), mFieldDimension.getHeight(), true));

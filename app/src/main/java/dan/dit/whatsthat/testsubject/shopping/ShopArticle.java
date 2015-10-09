@@ -2,6 +2,7 @@ package dan.dit.whatsthat.testsubject.shopping;
 
 import android.content.res.Resources;
 import android.text.TextUtils;
+import android.util.SparseArray;
 import android.view.LayoutInflater;
 
 import java.util.ArrayList;
@@ -31,7 +32,7 @@ public abstract class ShopArticle {
     protected final ForeignPurse mPurse;
     protected final int mIconResId;
     protected ShopArticleHolder.OnArticleChangedListener mListener;
-    private Map<Integer, List<Dependency>> mDependencies;
+    private SparseArray<List<Dependency>> mDependencies;
 
     protected ShopArticle(String key, ForeignPurse purse, int nameResId, int descrResId, int iconResId) {
         mPurse = purse;
@@ -39,7 +40,7 @@ public abstract class ShopArticle {
         mNameResId = nameResId;
         mDescrResId = descrResId;
         mIconResId = iconResId;
-        mDependencies = new HashMap<>();
+        mDependencies = new SparseArray<>();
         if (mPurse== null) {
             throw new IllegalArgumentException("No purse given.");
         }

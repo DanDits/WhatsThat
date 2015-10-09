@@ -3,6 +3,7 @@ package dan.dit.whatsthat.image;
 import android.content.Context;
 import android.text.TextUtils;
 import android.util.Log;
+import android.util.SparseArray;
 import android.util.Xml;
 
 import org.xmlpull.v1.XmlPullParser;
@@ -13,6 +14,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -90,8 +92,8 @@ public class ImageXmlParser {
 
     private Context mContext;
     private int mHighestReadBundleNumber = Integer.MIN_VALUE;
-    private Map<Integer, List<Image>> mReadBundles = new HashMap<>();
-    private Map<Integer, String> mReadBundlesOrigin = new HashMap<>();
+    private SparseArray<List<Image>> mReadBundles = new SparseArray<>();
+    private SparseArray<String> mReadBundlesOrigin = new SparseArray<>();
     private boolean mModeAbortOnImageBuildFailure;
     private BitmapUtil.ByteBufferHolder mBuffer = new BitmapUtil.ByteBufferHolder();
     private String mCurrOrigin;
@@ -101,7 +103,11 @@ public class ImageXmlParser {
     }
 
     public Set<Integer> getReadBundleNumbers() {
-        return mReadBundles.keySet();
+        Set<Integer> keys = new HashSet<>(mReadBundles.size());
+        for (int i = 0; i < mReadBundles.size(); i++) {
+            keys.add(mReadBundles.keyAt(i));
+        }
+        return keys;
     }
 
     private ImageXmlParser() {}
@@ -132,7 +138,7 @@ public class ImageXmlParser {
         if (mReadBundles == null || mReadBundles.size() == 0) {
             return false;
         }
-        List<Integer> keyList = new ArrayList<>(mReadBundles.keySet());
+        List<Integer> keyList = new ArrayList<>(getReadBundleNumbers());
         Collections.sort(keyList); // ascending order so that higher version bundles can overwrite older images
         int imageCount = 0;
         for (Integer k : keyList) {

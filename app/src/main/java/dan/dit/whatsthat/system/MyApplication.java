@@ -2,6 +2,7 @@ package dan.dit.whatsthat.system;
 
 import android.app.Application;
 import android.content.Intent;
+import android.util.Log;
 
 import dan.dit.whatsthat.preferences.User;
 
@@ -21,6 +22,8 @@ public class MyApplication extends Application {
         super.onCreate();
         User.makeInstance(this);
         mApplicationCreated = true;
+        // 50331648 bytes max memory by default on my phone (48 mb)
+        // 134217728 bytes max memory if largeHeap = true set in manifest (128 mb)!!!
     }
 
 

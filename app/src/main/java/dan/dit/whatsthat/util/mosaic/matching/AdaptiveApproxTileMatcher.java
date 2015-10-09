@@ -1,9 +1,12 @@
 package dan.dit.whatsthat.util.mosaic.matching;
 
 import android.util.Log;
+import android.util.SparseArray;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.SortedMap;
 import java.util.TreeMap;
@@ -25,8 +28,8 @@ public class AdaptiveApproxTileMatcher<S> extends TileMatcher<S> {
 
 
     private double mAccuracy;
-    private Map<Integer, SortedMap<Double, Integer>> mDataDistances;
-    private Map<Integer, MosaicTile<S>> mData;
+    private SparseArray<SortedMap<Double, Integer>> mDataDistances;
+    private SparseArray<MosaicTile<S>> mData;
     private int mCurrentColorApprox;
 
     public AdaptiveApproxTileMatcher(Collection<? extends MosaicTile<S>> data, double accuracy, boolean useAlpha, ColorMetric metric) {
@@ -55,11 +58,11 @@ public class AdaptiveApproxTileMatcher<S> extends TileMatcher<S> {
     }
 
     private void init(Collection<? extends MosaicTile<S>> data) {
-        mData = new HashMap<>();
+        mData = new SparseArray<>();
         for (MosaicTile<S> tile : data) {
             mData.put(tile.getAverageARGB(), tile);
         }
-        mDataDistances = new HashMap<>(data.size());
+        mDataDistances = new SparseArray<>(data.size());
         for (MosaicTile<S> tile : data) {
             int tileColor = tile.getAverageARGB();
             SortedMap<Double, Integer> distanceMap = new TreeMap<>();
@@ -69,7 +72,7 @@ public class AdaptiveApproxTileMatcher<S> extends TileMatcher<S> {
             }
             mDataDistances.put(tileColor, distanceMap);
         }
-        mCurrentColorApprox = mData.keySet().iterator().next();
+        mCurrentColorApprox = mData.keyAt(0);
     }
 
     @Override
@@ -102,7 +105,10 @@ public class AdaptiveApproxTileMatcher<S> extends TileMatcher<S> {
     @Override
     public boolean removeTile(MosaicTile<S> toRemove) {
         Log.d("HomeStuff", "Removing tile : " + toRemove);
-        return mData.remove(toRemove.getAverageARGB()) != null && mDataDistances.remove(toRemove.getAverageARGB()) != null;
+        boolean hadTile = mData.get(toRemove.getAverageARGB(), null) != null;
+        mData.remove(toRemove.getAverageARGB());
+        mDataDistances.remove(toRemove.getAverageARGB());
+        return hadTile;
     }
 
     @Override
@@ -116,7 +122,11 @@ public class AdaptiveApproxTileMatcher<S> extends TileMatcher<S> {
             return;
         }
         mColorMetric = metric;
-        init(mData.values());
+        List<MosaicTile<S>> tiles = new ArrayList<>(mData.size());
+        for (int i = 0; i < mData.size(); i++) {
+            tiles.add(mData.valueAt(i));
+        }
+        init(tiles);
         resetHashMatches();
     }
 }
