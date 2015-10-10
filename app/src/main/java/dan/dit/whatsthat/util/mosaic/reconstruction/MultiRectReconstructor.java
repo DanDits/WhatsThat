@@ -157,7 +157,7 @@ public class MultiRectReconstructor extends ShapeReconstructor {
 			// given image was valid and has correct height and width
 			if (this.resultImage == null) {
 				// if resulting image not yet created, do so now
-				this.resultImage = Bitmap.createBitmap(this.getTotalWidth(), this.getTotalHeight(),
+				this.resultImage = obtainBaseBitmap(this.getTotalWidth(), this.getTotalHeight(),
 						Bitmap.Config.ARGB_8888);
 				mResultCanvas = new Canvas(resultImage);
 			}

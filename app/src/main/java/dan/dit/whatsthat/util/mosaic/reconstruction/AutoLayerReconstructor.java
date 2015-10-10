@@ -39,8 +39,8 @@ public class AutoLayerReconstructor extends Reconstructor {
         final int width = source.getWidth();
         final int height = source.getHeight();
         mFragment = new MosaicFragment(0, 0, 0);
-        mResult = Bitmap.createBitmap(width, height,
-                source.getConfig());
+        mResult = obtainBaseBitmap(width, height,
+                Bitmap.Config.ARGB_8888);
         final int[] colors = new int[width * height];
         final int[] deltas = new int[width * height];
         for (int x = 0; x < width; x++) {

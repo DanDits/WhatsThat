@@ -26,6 +26,7 @@ import dan.dit.whatsthat.image.Image;
 import dan.dit.whatsthat.riddle.Riddle;
 import dan.dit.whatsthat.riddle.RiddleConfig;
 import dan.dit.whatsthat.riddle.achievement.holders.AchievementJumper;
+import dan.dit.whatsthat.riddle.types.PracticalRiddleType;
 import dan.dit.whatsthat.riddle.types.Types;
 import dan.dit.whatsthat.testsubject.TestSubject;
 import dan.dit.whatsthat.testsubject.shopping.sortiment.SortimentHolder;
@@ -96,6 +97,8 @@ public class RiddleJumper extends RiddleGame implements FlatWorldCallback {
     private static final int FOGGED_MIND_COLOR = Color.DKGRAY;
     private static final int[] MIND_CLEARED_EVERY_K_OBSTACLES = new int[] {2, 3, 5, 8};
     private static final int MAX_COLLISIONS_FOR_SCORE_BONUS = 1;
+    private static final String CACHE_BIG_BEAM = Types.Jumper.NAME + "BigBeam";
+    private static final String CACHE_BACKGROUND = Types.Jumper.NAME + "Background";
 
 
     private Bitmap mThoughtbubble;
@@ -147,6 +150,7 @@ public class RiddleJumper extends RiddleGame implements FlatWorldCallback {
     private String mCurrentDistanceRunMeterText;
     private int mLastDrawnDistanceRun;
     private float mDistanceRunStart;
+    private Bitmap mBigBeam;
 
     public RiddleJumper(Riddle riddle, Image image, Bitmap bitmap, Resources res, RiddleConfig config, PercentProgressListener listener) {
         super(riddle, image, bitmap, res, config, listener);
@@ -201,6 +205,13 @@ public class RiddleJumper extends RiddleGame implements FlatWorldCallback {
 
     public static float meterToDistanceRun(int meter) {
         return meter * ONE_SECOND;
+    }
+
+    @Override
+    public void onClose() {
+        super.onClose();
+        ImageUtil.CACHE.freeImage(CACHE_BIG_BEAM, mBigBeam);
+        ImageUtil.CACHE.freeImage(CACHE_BACKGROUND, mBackgroundImage);
     }
 
     @Override
@@ -361,7 +372,7 @@ public class RiddleJumper extends RiddleGame implements FlatWorldCallback {
                 ImageUtil.loadBitmap(res, R.drawable.monstercrazy3, width, heightBig, false),
                 ImageUtil.loadBitmap(res, R.drawable.monstercrazy4, width, heightBig, false),
                 ImageUtil.loadBitmap(res, R.drawable.monstercrazy5, width, heightBig, false)};
-        Bitmap bigBeam = ImageUtil.loadBitmap(res, R.drawable.monstercrazy6, width, mForeground.getHeight(), false);
+        mBigBeam = ImageUtil.CACHE.obtainImage(CACHE_BIG_BEAM, res, R.drawable.monstercrazy6, width, mForeground.getHeight(), false);
         mObstacles.get(difficulty).addAll(mObstacles.get(DIFFICULTY_HARD));
         List<Obstacle> obstacles = mObstacles.get(difficulty);
         int startCount = obstacles.size();
@@ -372,7 +383,7 @@ public class RiddleJumper extends RiddleGame implements FlatWorldCallback {
 
         }
         LayerFrames crazyFrames = new LayerFrames(crazyBig, OBSTACLES_RIGHT_LEFT_DURATION / (crazyBig.length - 1), 1);
-        crazyFrames.setBackgroundLayerBitmap(4, 0, bigBeam);
+        crazyFrames.setBackgroundLayerBitmap(4, 0, mBigBeam);
         mBoss = Obstacle.makeObstacle(crazyFrames, 0.7f, 0.85f,
                 mConfig.mWidth, getTopForRelativeHeight(OBSTACLE_RELATIVE_HEIGHT_BIG), NEXT_OBSTACLE_MIN_TIME_BIG, mWorld, mObstaclesSpeed, 0);
         obstacles.add(mBoss);
@@ -406,7 +417,7 @@ public class RiddleJumper extends RiddleGame implements FlatWorldCallback {
 
         //background related
         mRunnerBackground = Bitmap.createBitmap(mConfig.mWidth, mConfig.mHeight, mBitmap.getConfig());
-        mBackgroundImage = ImageUtil.loadBitmap(res, R.drawable.skyline, mRunnerBackground.getWidth(), mRunnerBackground.getHeight(), true);
+        mBackgroundImage = ImageUtil.CACHE.obtainImage(CACHE_BACKGROUND, res, R.drawable.skyline, mRunnerBackground.getWidth(), mRunnerBackground.getHeight(), true);
         mRunnerBackgroundCanvas = new Canvas(mRunnerBackground);
         mRunnerBackgroundRect = new Rect();
         mRunnerBackgroundRectDest = new Rect();

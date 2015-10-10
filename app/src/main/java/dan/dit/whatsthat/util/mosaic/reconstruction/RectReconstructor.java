@@ -48,8 +48,8 @@ public class RectReconstructor extends Reconstructor {
 		this.rectWidth = source.getWidth() / actualColumns;
 		this.resultingRGBA = new int[actualRows][actualColumns];
 		this.nextImageIndex = 0;
-		this.result = Bitmap.createBitmap(this.rectWidth * this.getColumns(), this.rectHeight * this.getRows(),
-				source.getConfig());
+		this.result = obtainBaseBitmap(this.rectWidth * this.getColumns(), this.rectHeight * this.getRows(),
+				Bitmap.Config.ARGB_8888);
         Log.d("HomeStuff", "RectReconstructor: Source " + source.getWidth() + "/" + source.getHeight() + " result " + result.getWidth() + "/" + result.getHeight() + " actual rows/columns" + actualRows + "/" + actualColumns);
         mResultCanvas = new Canvas(result);
 		

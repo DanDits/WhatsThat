@@ -734,6 +734,7 @@ public class BundleCreator {
             selected.mLoadSnapshotTask = new AsyncTask<Void, Void, Void>() {
                 @Override
                 protected Void doInBackground(Void... params) {
+                    ImageUtil.CACHE.makeReusable(selected.mSnapshot);
                     selected.mSnapshot = ImageUtil.loadBitmap(selected.mPathInTemp, SNAPSHOT_WIDTH, SNAPSHOT_HEIGHT, BitmapUtil.MODE_FIT_INSIDE);
                     return null;
                 }

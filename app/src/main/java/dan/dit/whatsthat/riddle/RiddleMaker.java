@@ -304,7 +304,7 @@ public class RiddleMaker {
             RiddleGame riddleGame = mType.makeRiddle(mUseRiddle, mUseImage, bitmap, mContext.getResources(), mMakeRiddleConfig, Worker.this);
             publishProgress(PROGRESS_INITIALIZED_RIDDLE_BITMAP);
             if (isCancelled()) {
-                riddleGame.onClose();
+                riddleGame.close();
                 return null;
             }
             return riddleGame;

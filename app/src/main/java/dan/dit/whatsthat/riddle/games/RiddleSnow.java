@@ -26,6 +26,7 @@ import dan.dit.whatsthat.riddle.Riddle;
 import dan.dit.whatsthat.riddle.RiddleConfig;
 import dan.dit.whatsthat.riddle.achievement.AchievementDataRiddleType;
 import dan.dit.whatsthat.riddle.achievement.holders.AchievementSnow;
+import dan.dit.whatsthat.riddle.types.PracticalRiddleType;
 import dan.dit.whatsthat.riddle.types.Types;
 import dan.dit.whatsthat.testsubject.TestSubject;
 import dan.dit.whatsthat.testsubject.shopping.sortiment.SortimentHolder;
@@ -74,6 +75,11 @@ public class RiddleSnow extends RiddleGame implements FlatWorldCallback {
     private static final float DEVIL_RADIUS_FRACTION_OF_CELL_MAX_RADIUS = 0.25f;
     public static final boolean DEFAULT_DEVIL_IS_VISIBLE = true;
     private static final int MAX_WALL_COLLISONS_FOR_SCORE_BONUS = 0;
+    private static final String CACHE_FULL_EXPLOSION0 = Types.Snow.NAME + "FullExplosion0";
+    private static final String CACHE_FULL_EXPLOSION1 = Types.Snow.NAME + "FullExplosion1";
+    private static final String CACHE_FULL_EXPLOSION2 = Types.Snow.NAME + "FullExplosion2";
+    private static final String CACHE_FULL_EXPLOSION3 = Types.Snow.NAME + "FullExplosion3";
+    private static final String CACHE_FULL_EXPLOSION4 = Types.Snow.NAME + "FullExplosion4";
 
     private long mReloadRiddleMoveBlockDuration;
 
@@ -119,6 +125,11 @@ public class RiddleSnow extends RiddleGame implements FlatWorldCallback {
         mBackgroundSnowCanvas = null;
         mFogLayer = null;
         mFogLayerCanvas = null;
+        ImageUtil.CACHE.freeImage(CACHE_FULL_EXPLOSION0, mFullExplosion[0]);
+        ImageUtil.CACHE.freeImage(CACHE_FULL_EXPLOSION1, mFullExplosion[1]);
+        ImageUtil.CACHE.freeImage(CACHE_FULL_EXPLOSION2, mFullExplosion[2]);
+        ImageUtil.CACHE.freeImage(CACHE_FULL_EXPLOSION3, mFullExplosion[3]);
+        ImageUtil.CACHE.freeImage(CACHE_FULL_EXPLOSION4, mFullExplosion[4]);
         mFullExplosion = null;
         mExplosionPaint = null;
         mExplosionHistoryX = null;
@@ -156,6 +167,8 @@ public class RiddleSnow extends RiddleGame implements FlatWorldCallback {
 
         listener.onProgressUpdate(30);
         mGravity = ImageUtil.convertDpToPixel(GRAVITY, mConfig.mScreenDensity);
+
+        // fog layer bitmap will be changed in progress so caching it makes no sense
         mFogLayer = ImageUtil.loadBitmap(res, R.drawable.nebel, mConfig.mWidth, mConfig.mHeight, BitmapUtil.MODE_FIT_EXACT);
         mFogLayer.setHasAlpha(true);
         mFogLayerCanvas = new Canvas(mFogLayer);
@@ -197,11 +210,11 @@ public class RiddleSnow extends RiddleGame implements FlatWorldCallback {
 
         int explosionSize = (int) (2 * mCell.mMaxRadius * SNOW_EXPLOSION_SIZE_MULTIPLIER);
         mFullExplosion = new Bitmap[5];
-        mFullExplosion[0] = ImageUtil.loadBitmap(res, R.drawable.explosion1, explosionSize, explosionSize, false);
-        mFullExplosion[1] = ImageUtil.loadBitmap(res, R.drawable.explosion2, explosionSize, explosionSize, false);
-        mFullExplosion[2] = ImageUtil.loadBitmap(res, R.drawable.explosion3, explosionSize, explosionSize, false);
-        mFullExplosion[3] = ImageUtil.loadBitmap(res, R.drawable.explosion4, explosionSize, explosionSize, false);
-        mFullExplosion[4] = ImageUtil.loadBitmap(res, R.drawable.explosion5, explosionSize, explosionSize, false);
+        mFullExplosion[0] = ImageUtil.CACHE.obtainImage(CACHE_FULL_EXPLOSION0, res, R.drawable.explosion1, explosionSize, explosionSize, false);
+        mFullExplosion[1] = ImageUtil.CACHE.obtainImage(CACHE_FULL_EXPLOSION1, res, R.drawable.explosion2, explosionSize, explosionSize, false);
+        mFullExplosion[2] = ImageUtil.CACHE.obtainImage(CACHE_FULL_EXPLOSION2, res, R.drawable.explosion3, explosionSize, explosionSize, false);
+        mFullExplosion[3] = ImageUtil.CACHE.obtainImage(CACHE_FULL_EXPLOSION3, res, R.drawable.explosion4, explosionSize, explosionSize, false);
+        mFullExplosion[4] = ImageUtil.CACHE.obtainImage(CACHE_FULL_EXPLOSION4, res, R.drawable.explosion5, explosionSize, explosionSize, false);
         mExplosionPaint = new Paint();
         mExplosionPaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.DST_OUT));
 

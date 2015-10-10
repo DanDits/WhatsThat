@@ -37,6 +37,7 @@ public final class ImageUtil {
     private static final double SIMILARITY_SCALING_THRESHOLD = 0.5; // 0 would mean only exactly the same aspect ratio
     private static final String MEDIA_DIRECTORY_NAME = "WhatsThat Media";
     private static MessageDigest DIGEST;
+    public static final ImageCache CACHE = new ImageCache();
 
     private ImageUtil() {
 	}
@@ -229,7 +230,7 @@ public final class ImageUtil {
         return inSampleSize;
     }
 
-    public static boolean areAspectRatiosSimilar(int width1, int height1, int width2, int height2) {
+    protected static boolean areAspectRatiosSimilar(int width1, int height1, int width2, int height2) {
         // using absolute differences of the aspect ratios where height and width are interchangable
         // similarity of 0 means that the aspect ratios are equal
         // examples: 9:16 to 3:4 => similarity = 0.583 , ok'ish
@@ -246,6 +247,7 @@ public final class ImageUtil {
     }
 
     public static Bitmap loadBitmap(InputStream input, int reqWidth, int reqHeight, int mode) {
+
         if (reqWidth <= 0 || reqHeight <= 0) {
             // load unscaled image
             final BitmapFactory.Options options = new BitmapFactory.Options();
@@ -266,6 +268,7 @@ public final class ImageUtil {
             }
             // Calculate inSampleSize
             options.inSampleSize = calculateInSampleSize(options, reqWidth, reqHeight);
+            CACHE.addInBitmapOptions(options);
         }
         // Decode bitmap with inSampleSize set
         options.inJustDecodeBounds = false;
@@ -292,6 +295,7 @@ public final class ImageUtil {
 
         // Calculate inSampleSize
         options.inSampleSize = calculateInSampleSize(options, reqWidth, reqHeight);
+        CACHE.addInBitmapOptions(options);
 
         // Decode bitmap with inSampleSize set
         options.inJustDecodeBounds = false;
@@ -344,6 +348,7 @@ public final class ImageUtil {
 
         // Calculate inSampleSize
         options.inSampleSize = calculateInSampleSize(options, reqWidth, reqHeight);
+        CACHE.addInBitmapOptions(options);
 
         // Decode bitmap with inSampleSize set
         options.inJustDecodeBounds = false;
