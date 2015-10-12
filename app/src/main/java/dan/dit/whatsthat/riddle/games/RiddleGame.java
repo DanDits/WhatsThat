@@ -28,6 +28,7 @@ import dan.dit.whatsthat.util.PercentProgressListener;
 import dan.dit.whatsthat.util.compaction.CompactedDataCorruptException;
 import dan.dit.whatsthat.util.compaction.Compacter;
 import dan.dit.whatsthat.util.image.Dimension;
+import dan.dit.whatsthat.util.image.ImageUtil;
 
 /**
  * The "important" base type for the things that can be actually played! Decorates a Riddle object
@@ -166,7 +167,7 @@ public abstract class RiddleGame {
     }
 
     private final int[] mScores = new int[4];
-    public synchronized void onClose() {
+    public final synchronized void close() {
         int solved = mSolutionInput.estimateSolvedValue();
         int score = 0;
         String currentState = null;
@@ -194,7 +195,12 @@ public abstract class RiddleGame {
 
         mRiddle.onClose(solved, score, currentState, achievementData, solutionData);
 
+        ImageUtil.CACHE.makeReusable(mBitmap);
         mBitmap = null;
+        onClose();
+    }
+
+    protected void onClose() {
     }
 
     /**

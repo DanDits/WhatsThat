@@ -43,8 +43,8 @@ public class FixedLayerReconstructor extends Reconstructor {
         final int width = source.getWidth();
         final int height = source.getHeight();
         mFragment = new MosaicFragment(0, 0, 0);
-        mResult = Bitmap.createBitmap(width, height,
-                source.getConfig());
+        mResult = obtainBaseBitmap(width, height,
+                Bitmap.Config.ARGB_8888);
         mClusterBitmaps = new Bitmap[clusterCount];
         int[] pixelColors = new int[width * height];
         mPixelClusterNumber = new int[width * height];

@@ -3,6 +3,8 @@ package dan.dit.whatsthat.util.mosaic.reconstruction;
 
 import android.graphics.Bitmap;
 
+import dan.dit.whatsthat.util.image.ImageUtil;
+
 /**
  * This class models an abstract Reconstructor which is used to reconstruct
  * a provided image. How the image is fragmented can be defined by the
@@ -14,7 +16,15 @@ import android.graphics.Bitmap;
  *
  */
 public abstract class Reconstructor {
-	
+
+	protected static Bitmap obtainBaseBitmap(int width, int height, Bitmap.Config config) {
+        Bitmap base = ImageUtil.CACHE.getReusableBitmap(width, height, config);
+        if (base != null) {
+            return base;
+        }
+        return Bitmap.createBitmap(width, height, config);
+    }
+
 	/**
 	 * Gives the Reconstructor the next image for the next missing Fragment.
 	 * The given image must match the requirements of the Fragment provided by 

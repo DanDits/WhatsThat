@@ -23,6 +23,7 @@ import dan.dit.whatsthat.image.Image;
 import dan.dit.whatsthat.riddle.Riddle;
 import dan.dit.whatsthat.riddle.RiddleConfig;
 import dan.dit.whatsthat.riddle.achievement.holders.AchievementDice;
+import dan.dit.whatsthat.riddle.types.PracticalRiddleType;
 import dan.dit.whatsthat.riddle.types.Types;
 import dan.dit.whatsthat.util.BuildException;
 import dan.dit.whatsthat.util.PercentProgressListener;
@@ -64,6 +65,7 @@ public class RiddleDice extends RiddleGame {
             new FieldElement.Neighbor[] {FieldElement.Neighbor.TOP_LEFT, FieldElement.Neighbor.BOTTOM_RIGHT, FieldElement.Neighbor.TOP_RIGHT, FieldElement.Neighbor.BOTTOM_LEFT, FieldElement.Neighbor.LEFT, FieldElement.Neighbor.RIGHT, FieldElement.Neighbor.TOP, FieldElement.Neighbor.BOTTOM, FieldElement.Neighbor.SELF}, //9
 
     };
+    private static final String CACHE_DICE_ALIEN = Types.Dice.NAME + "DiceAlien";
     private Random mRand;
     private Field2D<DicePosition> mField;
     private Paint mBorderPaint;
@@ -98,6 +100,8 @@ public class RiddleDice extends RiddleGame {
     @Override
     public void onClose() {
         super.onClose();
+        ImageUtil.CACHE.freeImage(CACHE_DICE_ALIEN, mDiceAlien);
+        mDiceAlien = null;
         mBorderPaint = null;
         mRand = null;
         mFieldAreaCanvas = null;
@@ -148,7 +152,7 @@ public class RiddleDice extends RiddleGame {
         } catch (BuildException build) {
             throw new IllegalStateException("Could not build dice field! " + build);
         }
-        mDiceAlien = ImageUtil.loadBitmap(res, R.drawable.dice_alien, (int) (mField.getFieldWidth() * 0.7f), (int) (mField.getFieldHeight() * 0.7f), false);
+        mDiceAlien = ImageUtil.CACHE.obtainImage(CACHE_DICE_ALIEN, res, R.drawable.dice_alien, (int) (mField.getFieldWidth() * 0.7f), (int) (mField.getFieldHeight() * 0.7f), false);
         mDiceToMove = null;
         if (loadedData != null) {
             final int dataOffset = 1;

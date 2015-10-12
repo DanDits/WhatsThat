@@ -54,7 +54,7 @@ public class RiddleController {
             public void run() {
                 if (riddleAvailable()) {
                     onPreRiddleClose();
-                    mRiddleGame.onClose();
+                    mRiddleGame.close();
                     mRiddleGame = null;
                     onRiddleClosed(context);
                 }

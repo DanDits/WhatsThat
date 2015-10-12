@@ -44,6 +44,7 @@ import dan.dit.whatsthat.util.PercentProgressListener;
 import dan.dit.whatsthat.util.image.BitmapUtil;
 import dan.dit.whatsthat.util.image.ColorMetric;
 import dan.dit.whatsthat.util.image.Dimension;
+import dan.dit.whatsthat.util.image.ImageCache;
 import dan.dit.whatsthat.util.image.ImageUtil;
 import dan.dit.whatsthat.util.mosaic.data.MosaicMaker;
 import dan.dit.whatsthat.util.mosaic.matching.SimpleLinearTileMatcher;
@@ -403,6 +404,7 @@ public class MosaicGeneratorUi {
                 public void onPreExecute() {
                     mWorkingIndicator.setVisibility(View.VISIBLE);
                     mProgress.onProgressUpdate(0);
+                    ImageUtil.CACHE.makeReusable(mMosaicBitmap);
                     mMosaicBitmap = null;
                     mMosaicBitmapName = null;
                     mMosaicFile = null;
@@ -432,7 +434,7 @@ public class MosaicGeneratorUi {
                         Dimension targetDim = new Dimension(base.getWidth(), base.getHeight());
                         targetDim.ensureDivisibleBy(columns, rows, true);
                         if (base.getWidth() != targetDim.getWidth() || base.getHeight() != targetDim.getHeight()) {
-                            Log.d("Riddle", "Need to resize base image before doing rect or multirect mosaic: " + base + " and " + targetDim);
+                            Log.d("Riddle", "Need to resize base image before doing rect or multirect mosaic: rows=" + rows + ", columns=" + columns + " and bitmap was "  + base.getWidth() + "/" + base.getHeight() + " and now is " + targetDim);
                             base = BitmapUtil.resize(base, targetDim.getWidth(), targetDim.getHeight());
                         }
                     }
@@ -440,7 +442,7 @@ public class MosaicGeneratorUi {
                         return null;
                     }
                     Bitmap result = null;
-                    Log.d("Riddle", "Really starting to make mosaic " + mType + " task was: " + mMosaicTask);
+                    Log.d("Riddle", "Really starting to make mosaic " + mType + " task was: " + mMosaicTask + " for bitmap dimension " + base.getWidth() + "/" + base.getHeight());
                     MosaicMaker.ProgressCallback callback = new MosaicMaker.ProgressCallback() {
                         @Override
                         public void onProgressUpdate(int progress) {
@@ -580,7 +582,7 @@ public class MosaicGeneratorUi {
                                     mSelectedBitmapName = String.valueOf(System.currentTimeMillis());
                                 }
 
-                                publishProgress(ImageUtil.loadBitmap(input, 0, 0, BitmapUtil.MODE_FIT_NO_GROW));
+                                publishProgress(ImageUtil.loadBitmap(input, MAX_IMAGE_WIDTH_HEIGHT, MAX_IMAGE_WIDTH_HEIGHT, BitmapUtil.MODE_FIT_NO_GROW));
 
                             } else {
                                 File path = new File(picturePath);
@@ -608,6 +610,7 @@ public class MosaicGeneratorUi {
 
             @Override
             public void onProgressUpdate(Bitmap... bitmap) {
+                ImageUtil.CACHE.makeReusable(mSelectedBitmap);
                 mSelectedBitmap = bitmap[0];
                 mWorkingIndicator.setVisibility(View.INVISIBLE);
                 onBitmapSelected();
