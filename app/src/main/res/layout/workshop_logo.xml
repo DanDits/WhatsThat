@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:id="@+id/title"
+        android:gravity="center_horizontal"
+        android:text="@string/logo_explanation_title" />
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/origin_hint"
+        android:layout_below="@+id/title"
+        android:id="@+id/origin" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/origin"
+        android:orientation="horizontal"
+        android:id="@+id/toolbar">
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_light_redo"
+            android:id="@+id/logo_redo" />
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_light_save"
+            android:id="@+id/logo_save"/>
+    </LinearLayout>
+    <dan.dit.whatsthat.image.LogoView
+        android:layout_width="match_parent"
+        android:layout_below="@+id/toolbar"
+        android:layout_height="match_parent"
+        android:id="@+id/logo">
+    </dan.dit.whatsthat.image.LogoView>
+</RelativeLayout>

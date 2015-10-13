@@ -76,7 +76,7 @@ public class AchievementCircle extends TypeAchievementHolder {
         }
 
         @Override
-        public void onDataEvent(AchievementDataEvent event) {
+        public void onNonCustomDataEvent(AchievementDataEvent event) {
             if (event.getChangedData() == mTypeData && event.hasChangedKey(AchievementDataRiddleType.KEY_GAMES_SOLVED)) {
                 if (areDependenciesFulfilled()) {
                     achieveDelta(1);
@@ -103,7 +103,7 @@ public class AchievementCircle extends TypeAchievementHolder {
         }
 
         @Override
-        public void onDataEvent(AchievementDataEvent event) {
+        public void onNonCustomDataEvent(AchievementDataEvent event) {
             if (event.getChangedData() == mGameData && event.getEventType() == AchievementDataEvent.EVENT_TYPE_DATA_CLOSE
                     && mGameData.isSolved()) {
                 if (areDependenciesFulfilled() && mGameData.getValue(KEY_CIRCLE_COUNT, 0L) <= MAX_CIRCLES) {
@@ -140,7 +140,7 @@ public class AchievementCircle extends TypeAchievementHolder {
         }
 
         @Override
-        public void onDataEvent(AchievementDataEvent event) {
+        public void onNonCustomDataEvent(AchievementDataEvent event) {
             if (event.getChangedData() == mMiscData && event.hasChangedKey(MiscAchievementHolder.KEY_ADMIRED_IMAGE_AUTHOR)
                     && mGameData.getState() == AchievementDataRiddleGame.STATE_OPENED) {
                 if (mGameData.getValue(KEY_CIRCLE_COUNT, 0L) >= MIN_CIRCLES) {
@@ -185,7 +185,7 @@ public class AchievementCircle extends TypeAchievementHolder {
         }
 
         @Override
-        public void onDataEvent(AchievementDataEvent event) {
+        public void onNonCustomDataEvent(AchievementDataEvent event) {
             if (event.getChangedData() == mMiscData && event.hasChangedKey(MiscAchievementHolder.KEY_ADMIRED_IMAGE_AUTHOR)
                     && mGameData.getState() == AchievementDataRiddleGame.STATE_OPENED) {
                 Log.d("Achievement", "Admired achievement3: " + mMiscData.getValue(MiscAchievementHolder.KEY_ADMIRED_IMAGE_AUTHOR, 0L) + " circles " + mGameData.getValue(KEY_CIRCLE_COUNT, 0L));
@@ -226,7 +226,7 @@ public class AchievementCircle extends TypeAchievementHolder {
         }
 
         @Override
-        public void onDataEvent(AchievementDataEvent event) {
+        public void onNonCustomDataEvent(AchievementDataEvent event) {
             if (event.getChangedData() == mGameData && event.getEventType() == AchievementDataEvent.EVENT_TYPE_DATA_CLOSE
                     && mGameData.isSolved()) {
                 if (areDependenciesFulfilled()
@@ -252,7 +252,7 @@ public class AchievementCircle extends TypeAchievementHolder {
         }
 
         @Override
-        public void onDataEvent(AchievementDataEvent event) {
+        public void onNonCustomDataEvent(AchievementDataEvent event) {
             if (event.getChangedData() == mGameData && event.getEventType() == AchievementDataEvent.EVENT_TYPE_DATA_CLOSE
                     && mGameData.isSolved()) {
                 if (areDependenciesFulfilled()
@@ -298,7 +298,7 @@ public class AchievementCircle extends TypeAchievementHolder {
         }
 
         @Override
-        public void onDataEvent(AchievementDataEvent event) {
+        public void onNonCustomDataEvent(AchievementDataEvent event) {
             if (event.getChangedData() == mGameData && event.getEventType() == AchievementDataEvent.EVENT_TYPE_DATA_CLOSE
                     && mGameData.isSolved()) {
                 if (areDependenciesFulfilled()
@@ -343,7 +343,7 @@ public class AchievementCircle extends TypeAchievementHolder {
         }
 
         @Override
-        public void onDataEvent(AchievementDataEvent event) {
+        public void onNonCustomDataEvent(AchievementDataEvent event) {
             if (event.getChangedData() == mGameData
                     && event.getEventType() == AchievementDataEvent.EVENT_TYPE_DATA_CLOSE
                     && mGameData.isSolved()
@@ -406,7 +406,7 @@ public class AchievementCircle extends TypeAchievementHolder {
         }
 
         @Override
-        public void onDataEvent(AchievementDataEvent event) {
+        public void onNonCustomDataEvent(AchievementDataEvent event) {
             long talkValue = 0L;
             if (mMiscData == event.getChangedData() && event.hasChangedKey(MiscAchievementHolder.KEY_SOLUTION_INPUT_CURRENT_TEXT)
                     && mGameData.getValue(KEY_CIRCLE_COUNT, 0L) == 1L
@@ -484,7 +484,7 @@ public class AchievementCircle extends TypeAchievementHolder {
         }
 
         @Override
-        public void onDataEvent(AchievementDataEvent event) {
+        public void onNonCustomDataEvent(AchievementDataEvent event) {
             if (event.getChangedData() == mGameData && event.getEventType() == AchievementDataEvent.EVENT_TYPE_DATA_UPDATE
                     && event.hasChangedKey(KEY_ACHIEVE_ME)) {
                 long talkStyle = mGameData.getValue(KEY_ACHIEVE_ME, 0L);
@@ -538,7 +538,7 @@ public class AchievementCircle extends TypeAchievementHolder {
         }
 
         @Override
-        public void onDataEvent(AchievementDataEvent event) {
+        public void onNonCustomDataEvent(AchievementDataEvent event) {
             if (event.getChangedData() == mGameData && event.getEventType() == AchievementDataEvent.EVENT_TYPE_DATA_UPDATE
                     && (event.hasChangedKey(KEY_CIRCLE_DIVIDED_BY_CLICK) || event.hasChangedKey(KEY_CIRCLE_DIVIDED_BY_MOVE))) {
                 if (areDependenciesFulfilled()) {
@@ -561,7 +561,7 @@ public class AchievementCircle extends TypeAchievementHolder {
         }
 
         @Override
-        public void onDataEvent(AchievementDataEvent event) {
+        public void onNonCustomDataEvent(AchievementDataEvent event) {
             if (event.getChangedData() == mGameData && event.hasChangedKey(KEY_CIRCLE_COUNT)) {
                 if (areDependenciesFulfilled() && mGameData.getValue(KEY_CIRCLE_COUNT, 0L) == 4L
                         && (System.currentTimeMillis() - mGameData.getValue(AchievementDataRiddleGame.KEY_LAST_OPENED, 0L)) <= TIME_TO_BE_FAST) {
@@ -621,7 +621,7 @@ public class AchievementCircle extends TypeAchievementHolder {
         }
 
         @Override
-        public void onDataEvent(AchievementDataEvent event) {
+        public void onNonCustomDataEvent(AchievementDataEvent event) {
             if (!isDiscovered() && event.getChangedData() == mGameData && mGameData.isSolved()
                     && event.getEventType() == AchievementDataEvent.EVENT_TYPE_DATA_CLOSE) {
                 if (areDependenciesFulfilled()) {

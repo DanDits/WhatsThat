@@ -265,6 +265,7 @@ public class ImageDataDownload {
             if (errorCode != ERROR_CODE_NONE) {
                 mListener.onError(R.string.download_article_toast_error_download, errorCode);
             } else {
+                Log.d("Image", "Download complete : " + mDataName + " of " + mOrigin + " url " + mURL);
                 mListener.onDownloadComplete();
                 startSync();
             }
@@ -327,6 +328,7 @@ public class ImageDataDownload {
                 while ((count = input.read(data)) > 0) {
                     if (isCancelled()) {
                         input.close();
+                        output.close();
                         return null;
                     }
                     total += count;
@@ -357,8 +359,7 @@ public class ImageDataDownload {
     private class SyncTask extends AsyncTask<Void, Integer, Integer> {
 
         @Override
-        protected void onCancelled() {
-            super.onCancelled();
+        protected void onCancelled(Integer result) {
             mSyncTask = null;
         }
 
@@ -394,6 +395,7 @@ public class ImageDataDownload {
 
             // Step 1: unzip into storage directory
             File storageDirectory = getStorageDirectory();
+            Log.d("Image", "Starting to unzip " + mOrigin + " bundle " + mDataName + " url " + mURL + " storage: " + storage);
             if (storageDirectory != null && IOUtil.unzip(storage, storageDirectory)) {
                 publishProgress(25);
                 // Step 2: find the xml holding required information to parse data
@@ -404,6 +406,8 @@ public class ImageDataDownload {
                         break;
                     }
                 }
+                Log.d("Image", "Unzipped success, dataholder: " + dataHolder);
+
                 if (dataHolder != null) {
                     ImageXmlParser parser;
                     try {
@@ -417,6 +421,7 @@ public class ImageDataDownload {
                         Log.e("Image", "Image data download failed: exception with data file parser exception: " + e);
                         return ERROR_CODE_SYNC_NO_DATA_FILE_EXCEPTION_PARSER;
                     }
+                    Log.d("Image", "Syncing image data in progress: parser=" + parser);
                     if (parser != null && parser.syncToDatabase(new ImageManager.SynchronizationListener() {
                             @Override
                             public void onSyncProgress(int progress) {

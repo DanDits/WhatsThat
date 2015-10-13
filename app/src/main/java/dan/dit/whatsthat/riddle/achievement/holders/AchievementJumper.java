@@ -77,7 +77,7 @@ public class AchievementJumper extends TypeAchievementHolder {
         }
 
         @Override
-        public void onDataEvent(AchievementDataEvent event) {
+        public void onNonCustomDataEvent(AchievementDataEvent event) {
             if (event.getChangedData() == mGameData && event.hasChangedKey(KEY_GAME_COLLISION_COUNT)) {
                 if (mGameData.getValue(KEY_GAME_OBSTACLE_DODGED_COUNT, 0L) == SOLUTION - 1
                         && mGameData.getValue(KEY_GAME_COLLISION_COUNT, 0L) == 1L) {
@@ -105,7 +105,7 @@ public class AchievementJumper extends TypeAchievementHolder {
         }
 
         @Override
-        public void onDataEvent(AchievementDataEvent event) {
+        public void onNonCustomDataEvent(AchievementDataEvent event) {
             if (event.getChangedData() == mGameData && event.hasChangedKey(KEY_GAME_COLLISION_COUNT) && areDependenciesFulfilled()) {
                 if (mGameData.getValue(KEY_GAME_CURRENT_DIFFICULTY, RiddleJumper.DIFFICULTY_EASY + 1) == RiddleJumper.DIFFICULTY_EASY) {
                     achieveDelta(1);
@@ -139,7 +139,7 @@ public class AchievementJumper extends TypeAchievementHolder {
         }
 
         @Override
-        public void onDataEvent(AchievementDataEvent event) {
+        public void onNonCustomDataEvent(AchievementDataEvent event) {
             if (event.getChangedData() == mGameData && event.hasChangedKey(KEY_GAME_DOUBLE_JUMP_COUNT) && areDependenciesFulfilled()) {
                 if (mGameData.getValue(KEY_GAME_CURRENT_DIFFICULTY, RiddleJumper.DIFFICULTY_EASY) < RiddleJumper.DIFFICULTY_MEDIUM) {
                     long jumpsDone = mGameData.increment(KEY_GAME_DOUBLE_JUMPS_BEFORE_MEDIUM, 1L, 0L);
@@ -167,7 +167,7 @@ public class AchievementJumper extends TypeAchievementHolder {
         }
 
         @Override
-        public void onDataEvent(AchievementDataEvent event) {
+        public void onNonCustomDataEvent(AchievementDataEvent event) {
             if (event.getChangedData() == mGameData && event.getEventType() == AchievementDataEvent.EVENT_TYPE_DATA_CLOSE
                     && mGameData.isSolved() && mGameData.getState() == AchievementDataRiddleGame.STATE_CLOSED) {
                 if (mGameData.getValue(KEY_GAME_CURRENT_DIFFICULTY, RiddleJumper.DIFFICULTY_EASY) >= RiddleJumper.DIFFICULTY_HARD
@@ -196,7 +196,7 @@ public class AchievementJumper extends TypeAchievementHolder {
         }
 
         @Override
-        public void onDataEvent(AchievementDataEvent event) {
+        public void onNonCustomDataEvent(AchievementDataEvent event) {
             if (event.getChangedData() == mGameData && event.hasChangedKey(KEY_GAME_OBSTACLE_DODGED_COUNT)) {
                 if (mGameData.getValue(KEY_GAME_OBSTACLE_DODGED_COUNT, 0L) >= OBSTACLES_TO_DODGE) {
                     achieveAfterDependencyCheck();
@@ -218,7 +218,7 @@ public class AchievementJumper extends TypeAchievementHolder {
         }
 
         @Override
-        public void onDataEvent(AchievementDataEvent event) {
+        public void onNonCustomDataEvent(AchievementDataEvent event) {
             if (event.getChangedData() == mGameData && event.hasChangedKey(KEY_GAME_CURRENT_DISTANCE_RUN)) {
                 if (mGameData.getValue(KEY_GAME_CURRENT_DISTANCE_RUN, 0L) >= OUR_DISTANCE_RUN - DISTANCE_RUN_THRESHOLD) {
                     achieveAfterDependencyCheck();
@@ -267,7 +267,7 @@ public class AchievementJumper extends TypeAchievementHolder {
         }
 
         @Override
-        public void onDataEvent(AchievementDataEvent event) {
+        public void onNonCustomDataEvent(AchievementDataEvent event) {
             if (event.getChangedData() == mMiscData) {
                 String key = ShopArticleRiddleHints.makeKey(PracticalRiddleType.JUMPER_INSTANCE);
                 if (event.hasChangedKey(key) && mMiscData.getValue(key, -1L) >= REQUIRED_HINT_NUMBER) {
@@ -290,7 +290,7 @@ public class AchievementJumper extends TypeAchievementHolder {
         }
 
         @Override
-        public void onDataEvent(AchievementDataEvent event) {
+        public void onNonCustomDataEvent(AchievementDataEvent event) {
             if (event.getChangedData() == mGameData && event.hasChangedKey(KEY_GAME_COLLIDED_WITH_KNUFFBUFF)) {
                 if (areDependenciesFulfilled() && mGameData.getValue(KEY_GAME_CURRENT_DIFFICULTY, RiddleJumper.DIFFICULTY_EASY) >= RiddleJumper.DIFFICULTY_ULTRA) {
                     achieveDelta(1);
@@ -334,7 +334,7 @@ public class AchievementJumper extends TypeAchievementHolder {
         }
 
         @Override
-        public void onDataEvent(AchievementDataEvent event) {
+        public void onNonCustomDataEvent(AchievementDataEvent event) {
             if (event.getChangedData() == mGameData && event.getEventType() == AchievementDataEvent.EVENT_TYPE_DATA_CLOSE
                     && mGameData.isSolved() && mGameData.getState() == AchievementDataRiddleGame.STATE_CLOSED
                     && areDependenciesFulfilled()) {
@@ -375,7 +375,7 @@ public class AchievementJumper extends TypeAchievementHolder {
         }
 
         @Override
-        public void onDataEvent(AchievementDataEvent event) {
+        public void onNonCustomDataEvent(AchievementDataEvent event) {
             if (event.getChangedData() == mMiscData && event.hasChangedKey(MiscAchievementHolder.KEY_FEATURES_PURCHASED)) {
                 String featureKey = mMiscData.getMappedValue(MiscAchievementHolder.KEY_FEATURES_PURCHASED);
                 if (SortimentHolder.ARTICLE_KEY_JUMPER_START_FURTHER_FEATURE.equalsIgnoreCase(featureKey)) {
@@ -405,7 +405,7 @@ public class AchievementJumper extends TypeAchievementHolder {
         }
 
         @Override
-        public void onDataEvent(AchievementDataEvent event) {
+        public void onNonCustomDataEvent(AchievementDataEvent event) {
             if (event.getChangedData() == mGameData && event.getEventType() == AchievementDataEvent.EVENT_TYPE_DATA_CLOSE
                     && mGameData.isSolved() && mGameData.getState() == AchievementDataRiddleGame.STATE_CLOSED
                     && areDependenciesFulfilled()) {

@@ -2,13 +2,19 @@ package dan.dit.whatsthat.preferences;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
 import android.text.TextUtils;
 import android.util.Log;
 
 import java.io.File;
 import java.io.IOException;
 
+import dan.dit.whatsthat.R;
+import dan.dit.whatsthat.image.Logo;
+import dan.dit.whatsthat.util.image.BitmapUtil;
 import dan.dit.whatsthat.util.image.ExternalStorage;
+import dan.dit.whatsthat.util.image.ImageUtil;
 
 /**
  * Created by daniel on 03.09.15.
@@ -21,6 +27,8 @@ public class User {
     private static final int MAX_FILE_NAME_LENGTH = 32; // amount of characters
     public static final String PERMISSION_SUPER_USER = "dan.dit.whatsthat.permission_super_user";
     public static final String PERMISSION_BUNDLE_SYNC_ALLOWED = "dan.dit.whatsthat.permission_bundle_sync";
+    public static final String USER_DIRECTORY = "user";
+    private static final File LOGO_PATH = new File(ExternalStorage.getExternalStoragePathIfMounted(USER_DIRECTORY), "Logo.png");
 
     private SharedPreferences mPreferences;
 
@@ -33,6 +41,20 @@ public class User {
             throw new IllegalStateException("No User initialized.");
         }
         return INSTANCE;
+    }
+
+    public Logo getLogo(Resources res) {
+        if (LOGO_PATH.exists()) {
+            Bitmap image = ImageUtil.loadBitmap(LOGO_PATH, Logo.BASE_WIDTH_HEIGHT, Logo.BASE_WIDTH_HEIGHT, BitmapUtil.MODE_FIT_NO_GROW);
+            if (image != null) {
+                return new Logo(image);
+            }
+        }
+        if (res == null) {
+            return null;
+        }
+        // no custom logo, use default
+        return new Logo(ImageUtil.loadBitmap(res, R.drawable.logo1, Logo.BASE_WIDTH_HEIGHT, Logo.BASE_WIDTH_HEIGHT, BitmapUtil.MODE_FIT_NO_GROW));
     }
 
     public void givePermission(String permission) {
@@ -88,6 +110,31 @@ public class User {
             }
         }
         return fileName;
+    }
+
+    public static File getLogoFile() {
+        getUserDirectory();
+        return LOGO_PATH;
+    }
+
+    public static File getUserDirectory() {
+        String path = ExternalStorage.getExternalStoragePathIfMounted(USER_DIRECTORY);
+        if (path == null) {
+            return null;
+        }
+        File dir = new File(path);
+        if (dir.isDirectory() || dir.mkdirs()) {
+            File noMedia = new File(dir, ".nomedia");
+            if (!noMedia.exists()) {
+                try {
+                    noMedia.createNewFile();
+                } catch (IOException e) {
+                    Log.e("HomeStuff", "Failed creating .nomedia file in user directory.");
+                }
+            }
+            return dir;
+        }
+        return null;
     }
 
     public static File getTempDirectory() {

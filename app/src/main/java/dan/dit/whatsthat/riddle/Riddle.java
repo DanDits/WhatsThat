@@ -60,7 +60,7 @@ public class Riddle {
     private String mCurrentState; // the current state after closing
     private String mAchievementData; // the achievement data after closing
 
-    Riddle(String hash, PracticalRiddleType type, String origin) {
+    public Riddle(String hash, PracticalRiddleType type, String origin) {
         mCore = new Core(origin, hash, type);
         mSolved = Solution.SOLVED_NOTHING;
     }
@@ -177,6 +177,10 @@ public class Riddle {
 
     public String getAchievementData() {
         return mAchievementData;
+    }
+
+    public String getOrigin() {
+        return mCore.mOrigin;
     }
 
     /****************** CORE ****************************/

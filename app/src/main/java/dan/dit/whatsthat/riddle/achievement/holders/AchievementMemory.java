@@ -64,7 +64,7 @@ public class AchievementMemory extends TypeAchievementHolder {
         }
 
         @Override
-        public void onDataEvent(AchievementDataEvent event) {
+        public void onNonCustomDataEvent(AchievementDataEvent event) {
             if (event.getChangedData() == mGameData && event.hasChangedKey(KEY_GAME_CARD_UNCOVERED_BY_CLICK_COUNT)) {
                 long currentPlayed = mGameData.getValue(AchievementDataRiddleGame.KEY_PLAYED_TIME, 0L)
                                         + System.currentTimeMillis() - mGameData.getValue(AchievementDataRiddleGame.KEY_LAST_OPENED, 0L);
@@ -88,7 +88,7 @@ public class AchievementMemory extends TypeAchievementHolder {
         }
 
         @Override
-        public void onDataEvent(AchievementDataEvent event) {
+        public void onNonCustomDataEvent(AchievementDataEvent event) {
             if (event.getChangedData() == mGameData && event.hasChangedKey(KEY_GAME_PATH_LENGTH)) {
                 if (mGameData.getValue(KEY_GAME_PATH_LENGTH, 0L) >= REQUIRED_PATH_LENGTH) {
                     achieveAfterDependencyCheck();
@@ -110,7 +110,7 @@ public class AchievementMemory extends TypeAchievementHolder {
         }
 
         @Override
-        public void onDataEvent(AchievementDataEvent event) {
+        public void onNonCustomDataEvent(AchievementDataEvent event) {
             if (event.getChangedData() == mGameData && event.getEventType() == AchievementDataEvent.EVENT_TYPE_DATA_CLOSE
                     && mGameData.isSolved()) {
                 if (mGameData.getValue(KEY_GAME_UNCOVERED_PAIRS_COUNT, 0L) <= MAX_UNCOVERED_PAIRS) {
@@ -139,7 +139,7 @@ public class AchievementMemory extends TypeAchievementHolder {
         }
 
         @Override
-        public void onDataEvent(AchievementDataEvent event) {
+        public void onNonCustomDataEvent(AchievementDataEvent event) {
             if (event.getChangedData() == mGameData && event.hasChangedKey(KEY_GAME_STATE_BLACK_COUNT) && mGameData.getValue(KEY_GAME_HAD_ENOUGH_COVERED_FIELDS, 0L) == 0L) {
                 if (mGameData.getValue(KEY_GAME_STATE_BLACK_COUNT, 0L) >= REQUIRED_COVERED_FIELDS && areDependenciesFulfilled()) {
                     mGameData.putValue(KEY_GAME_HAD_ENOUGH_COVERED_FIELDS, 1L, AchievementProperties.UPDATE_POLICY_ALWAYS);
@@ -169,7 +169,7 @@ public class AchievementMemory extends TypeAchievementHolder {
         }
 
         @Override
-        public void onDataEvent(AchievementDataEvent event) {
+        public void onNonCustomDataEvent(AchievementDataEvent event) {
             if (event.getChangedData() == mGameData && event.hasChangedKey(KEY_GAME_UNCOVERED_PAIRS_BY_PATH_COUNT)) {
                 if (mGameData.getValue(KEY_GAME_UNCOVERED_PAIRS_BY_PATH_COUNT, 0L) >= REQUIRED_PAIRS) {
                     achieveAfterDependencyCheck();
@@ -195,7 +195,7 @@ public class AchievementMemory extends TypeAchievementHolder {
         }
 
         @Override
-        public void onDataEvent(AchievementDataEvent event) {
+        public void onNonCustomDataEvent(AchievementDataEvent event) {
             if (event.getChangedData() == mGameData && event.hasChangedKey(KEY_GAME_UNCOVERED_PAIRS_IN_GREEN_STATE_COUNT)) {
                 if (mGameData.getValue(KEY_GAME_UNCOVERED_PAIRS_IN_GREEN_STATE_COUNT, 0L) >= REQUIRED_BLIND_FOUND_PAIRS) {
                     achieveAfterDependencyCheck();
@@ -229,7 +229,7 @@ public class AchievementMemory extends TypeAchievementHolder {
         }
 
         @Override
-        public void onDataEvent(AchievementDataEvent event) {
+        public void onNonCustomDataEvent(AchievementDataEvent event) {
             if (event.getChangedData() == mGameData && event.hasChangedKey(KEY_GAME_UNCOVERED_PAIRS_IN_GREEN_STATE_COUNT)) {
                 if (mGameData.getValue(KEY_GAME_UNCOVERED_PAIRS_IN_GREEN_STATE_COUNT, 0L) >= REQUIRED_BLIND_FOUND_PAIRS
                         && areDependenciesFulfilled()
@@ -263,7 +263,7 @@ public class AchievementMemory extends TypeAchievementHolder {
         }
 
         @Override
-        public void onDataEvent(AchievementDataEvent event) {
+        public void onNonCustomDataEvent(AchievementDataEvent event) {
             if (event.getChangedData() == mGameData && event.getEventType() == AchievementDataEvent.EVENT_TYPE_DATA_CLOSE
                     && mGameData.isSolved()) {
                 if (mGameData.getValue(KEY_GAME_STATE_RED_COUNT, 0L) == 0L && mGameData.getValue(KEY_GAME_STATE_BLACK_COUNT, 0L) == 0L) {
@@ -302,7 +302,7 @@ public class AchievementMemory extends TypeAchievementHolder {
         }
 
         @Override
-        public void onDataEvent(AchievementDataEvent event) {
+        public void onNonCustomDataEvent(AchievementDataEvent event) {
             if (event.getChangedData() == mGameData && event.hasChangedKey(KEY_GAME_UNCOVERED_PAIRS_COUNT)) {
                 long uncoveredPairs = mGameData.getValue(KEY_GAME_UNCOVERED_PAIRS_COUNT, 0L);
                 long consumed = mGameData.getValue(KEY_GAME_UNCOVERED_PAIRS_CONSUMED, 0L);

@@ -51,6 +51,9 @@
     <string name="panic_dialog_positive">All right</string>
     <string name="panic_ask_type">How does this work</string>
     <string name="panic_skip">Skip experiment ... come back later</string>
+    <string name="panic_share">Share experiment as image</string>
+    <string name="panic_share_dialog">Share experiment image with…</string>
+    <string name="panic_share_failed">Sharing failed.</string>
     <string name="panic_cannot_skip">Brain .. full ... cannot .. remember more . riddles ...</string>
     <string name="panic_complain">Ahhh, what is that?! Twisted and wryly! Complaint!!!11</string>
     <string-array name="panic_author_credit_title">
@@ -164,6 +167,7 @@
     <string name="panic_ask_author">Whose image is this</string>
     <string name="workshop_tab_bundle_creator">Create image bundle</string>
     <string name="workshop_tab_bundle_manager">Manage image bundles</string>
+    <string name="workshop_tab_logo">Create logo</string>
     <string name="workshop_tab_mosaic">Create mosaic</string>
     <string name="bundle_creator_bundle_name_descr">New bundle\'s name</string>
     <string name="bundle_creator_bundle_name_hint">e.g. \"CoolPix\"</string>
@@ -220,6 +224,14 @@
     <string name="mosaic_generator_image_save_success">Mosaic saved!</string>
     <string name="mosaic_generator_image_save_failed">Saving failed</string>
     <string name="mosaic_generator_share_mosaic">Share mosaic</string>
+    <string name="obfuscated_accept">Accept experiment</string>
+    <string name="obfuscated_refuse">Refuse experiment</string>
+    <string name="obfuscated_not_valid_when_loading">Not a valid obfuscated experiment.</string>
+    <string name="obfuscated_loading_success_no_riddle">Image included without experiment</string>
+    <string name="obfuscated_loading_success_with_riddle">New experiment ready!</string>
+    <string name="obfuscated_loading_failed">Error reading obfuscated image</string>
+    <string name="logo_explanation_title">Logo for sharing experiments as images</string>
+    <string name="logo_saved">Logo saved!</string>
     <plurals name="images_in_bundle">
         <item quantity="one">%1$d image</item>
         <item quantity="other">%1$d images</item>

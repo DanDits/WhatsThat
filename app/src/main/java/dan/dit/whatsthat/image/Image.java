@@ -10,11 +10,9 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import java.io.File;
-import java.nio.ByteBuffer;
 import java.util.LinkedList;
 import java.util.List;
 
-import dan.dit.whatsthat.obfuscation.ImageObfuscator;
 import dan.dit.whatsthat.preferences.Tongue;
 import dan.dit.whatsthat.riddle.types.ContentRiddleType;
 import dan.dit.whatsthat.riddle.types.FormatRiddleType;

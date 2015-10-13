@@ -310,14 +310,8 @@ public class MosaicGeneratorUi {
     public void clear() {
         // to release memory
         mSelectedBitmapName = null;
-        if (mSelectedBitmap != null) {
-            mSelectedBitmap.recycle();
-        }
         mSelectedBitmap = null;
         mMosaicImageView.setImageResource(0);
-        if (mMosaicBitmap != null) {
-            mMosaicBitmap.recycle();
-        }
         mMosaicBitmap = null;
     }
 
@@ -405,6 +399,7 @@ public class MosaicGeneratorUi {
                     mWorkingIndicator.setVisibility(View.VISIBLE);
                     mProgress.onProgressUpdate(0);
                     ImageUtil.CACHE.makeReusable(mMosaicBitmap);
+                    mMosaicImageView.setImageBitmap(mSelectedBitmap);
                     mMosaicBitmap = null;
                     mMosaicBitmapName = null;
                     mMosaicFile = null;
@@ -467,7 +462,7 @@ public class MosaicGeneratorUi {
                                 break;
                         }
                     } catch (OutOfMemoryError error) {
-                        // well I know I am catching an error, but since there is this stupid (50mb) restriction we move at the edge of what is possible
+                        // well I know I am catching an error, but since there is this stupid (48mb to 128mb) restriction we move at the edge of what is possible
                         clear();
                         Toast.makeText(mActivity, R.string.mosaic_generator_memory_error, Toast.LENGTH_LONG).show();
                     }
@@ -485,6 +480,7 @@ public class MosaicGeneratorUi {
                         mMosaicBitmapName = name.toString();
                         onMosaicDone(result);
                     }
+                    Runtime.getRuntime().gc();
                 }
             }.execute();
         }
@@ -504,6 +500,8 @@ public class MosaicGeneratorUi {
                     builder.append(NumberFormat.getInstance().format(mValues.get(i)));
                 }
             }
+            builder.append(mMosaicMaker.usesAlpha() ? "A" : "-")
+                    .append(mMosaicMaker.getColorMetric());
         }
     }
 

@@ -36,4 +36,7 @@ public class AchievementDataRiddleType extends AchievementProperties {
         Log.d("Achievement", "onSolvedGame: " + mName + ", count=" + newValue);
     }
 
+    public boolean isCustom() {
+        return getValue(AchievementDataRiddleGame.KEY_CUSTOM, 0L) == 1L;
+    }
 }

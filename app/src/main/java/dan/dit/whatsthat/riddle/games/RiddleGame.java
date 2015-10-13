@@ -11,10 +11,12 @@ import android.view.MotionEvent;
 import dan.dit.whatsthat.BuildConfig;
 import dan.dit.whatsthat.achievement.AchievementData;
 import dan.dit.whatsthat.achievement.AchievementDataEventListener;
+import dan.dit.whatsthat.achievement.AchievementProperties;
 import dan.dit.whatsthat.image.Image;
 import dan.dit.whatsthat.preferences.Language;
 import dan.dit.whatsthat.riddle.Riddle;
 import dan.dit.whatsthat.riddle.RiddleConfig;
+import dan.dit.whatsthat.riddle.RiddleInitializer;
 import dan.dit.whatsthat.riddle.RiddleView;
 import dan.dit.whatsthat.riddle.achievement.AchievementDataRiddleGame;
 import dan.dit.whatsthat.riddle.achievement.AchievementDataRiddleType;
@@ -215,6 +217,13 @@ public abstract class RiddleGame {
         String achievementData = mRiddle.getAchievementData();
         Compacter achievementCmp = TextUtils.isEmpty(achievementData) ? null : new Compacter(achievementData);
         mRiddle.getType().getAchievementDataGame().loadGame(achievementCmp);
+        Long customValue = Image.ORIGIN_IS_THE_APP.equalsIgnoreCase(mRiddle.getOrigin()) ? 0L : 1L;
+        mRiddle.getType().getAchievementDataGame().putValue(AchievementDataRiddleGame.KEY_CUSTOM, customValue, AchievementProperties.UPDATE_POLICY_ALWAYS);
+        AchievementDataRiddleType dataType = mRiddle.getType().getAchievementData(null);
+        if (dataType != null) {
+            dataType.putValue(AchievementDataRiddleGame.KEY_CUSTOM, customValue, AchievementProperties.UPDATE_POLICY_ALWAYS);
+        }
+
         initAchievementData();
     }
 
@@ -229,16 +238,21 @@ public abstract class RiddleGame {
      *               values [TotalGainedScore, BaseScore, BaseScoreMultiplicator, BonusScore].
      */
     protected synchronized void calculateGainedScore(int[] scores) {
+        boolean isCustom = !Image.ORIGIN_IS_THE_APP.equalsIgnoreCase(mRiddle.getOrigin());
         if (mScoreMultiplicator <= 0) {
             mScoreMultiplicator = BASE_SCORE_MULTIPLIER;
             long now = System.currentTimeMillis();
-            if (mConfig.mAchievementGameData != null && (now - mRiddle.getTimestamp()) < SCORE_BONUS_MAX_RIDDLE_TIME && TestSubject.isInitialized()) {
+            if (!isCustom
+                    && mConfig.mAchievementGameData != null && (now - mRiddle.getTimestamp()) < SCORE_BONUS_MAX_RIDDLE_TIME && TestSubject.isInitialized()) {
                 int bonusCount = TestSubject.getInstance().getAndIncrementTodaysScoreBonusCount();
                 mScoreMultiplicator = (int) ((MAX_SCORE_MULTIPLIER - BASE_SCORE_MULTIPLIER) * Math.exp(- SCORE_EXP_FACTOR * bonusCount) + BASE_SCORE_MULTIPLIER);
                 mScoreMultiplicator = Math.max(1, mScoreMultiplicator); // to be sure score will never be zero or negativly multiplied (which cannot happen for exp(x) but this might change)
             }
         }
         int base = mRiddle.getType().getBaseScore();
+        if (isCustom) {
+            base = 0; // do not grant points for custom riddles by default (only bonus points possible)
+        }
         int total = base * mScoreMultiplicator;
         scores[0] = total;
         scores[1] = base;

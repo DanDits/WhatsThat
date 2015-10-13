@@ -82,7 +82,7 @@ public class AchievementDice extends TypeAchievementHolder {
         }
 
         @Override
-        public void onDataEvent(AchievementDataEvent event) {
+        public void onNonCustomDataEvent(AchievementDataEvent event) {
             if (event.getChangedData() == mGameData
                     && (event.hasChangedKey(KEY_GAME_ALIEN_FUSED_WITH_RED) || event.hasChangedKey(KEY_GAME_ALIEN_FUSED_WITH_YELLOW)
                             || event.hasChangedKey(KEY_GAME_ALIEN_FUSED_WITH_GREEN))) {
@@ -107,7 +107,7 @@ public class AchievementDice extends TypeAchievementHolder {
         }
 
         @Override
-        public void onDataEvent(AchievementDataEvent event) {
+        public void onNonCustomDataEvent(AchievementDataEvent event) {
             if (event.getChangedData() == mGameData
                     && (event.hasChangedKey(KEY_GAME_GREEN_NUMBERS_AVAILABLE)
                             || event.hasChangedKey(KEY_GAME_YELLOW_NUMBERS_AVAILABLE)
@@ -175,7 +175,7 @@ public class AchievementDice extends TypeAchievementHolder {
         }
 
         @Override
-        public void onDataEvent(AchievementDataEvent event) {
+        public void onNonCustomDataEvent(AchievementDataEvent event) {
             if (event.getChangedData() == mGameData
                     && event.hasChangedKey(KEY_GAME_LAST_DICE_COMBINED_POSITION)) {
                 int number = mGameData.getValue(KEY_GAME_LAST_DICE_COMBINED_POSITION, -1L).intValue();
@@ -236,7 +236,7 @@ public class AchievementDice extends TypeAchievementHolder {
         }
 
         @Override
-        public void onDataEvent(AchievementDataEvent event) {
+        public void onNonCustomDataEvent(AchievementDataEvent event) {
             if (event.getChangedData() == mGameData
                     && event.hasChangedKey(KEY_GAME_RESET_COUNT)) {
                 if (mGameData.getValue(KEY_GAME_RESET_COUNT, 0L) >= REQUIRED_RESETS) {
@@ -271,7 +271,7 @@ public class AchievementDice extends TypeAchievementHolder {
         }
 
         @Override
-        public void onDataEvent(AchievementDataEvent event) {
+        public void onNonCustomDataEvent(AchievementDataEvent event) {
             if (event.getChangedData() == mGameData
                     && event.hasChangedKey(KEY_GAME_GREEN_COUNT)) {
                 if (mGameData.getValue(KEY_GAME_GREEN_COUNT, 0L) >= ENOUGH_GREENS) {
@@ -307,7 +307,7 @@ public class AchievementDice extends TypeAchievementHolder {
         }
 
         @Override
-        public void onDataEvent(AchievementDataEvent event) {
+        public void onNonCustomDataEvent(AchievementDataEvent event) {
             if (event.getChangedData() == mGameData
                     && (event.hasChangedKey(KEY_GAME_GREEN_NUMBERS_AVAILABLE)
                     || event.hasChangedKey(KEY_GAME_YELLOW_NUMBERS_AVAILABLE)
@@ -353,7 +353,7 @@ public class AchievementDice extends TypeAchievementHolder {
         }
 
         @Override
-        public void onDataEvent(AchievementDataEvent event) {
+        public void onNonCustomDataEvent(AchievementDataEvent event) {
             if (event.getChangedData() == mGameData
                     && event.hasChangedKey(KEY_GAME_FIELDS_COMPLETELY_VISIBLE_COUNT)) {
                 if (mGameData.getValue(KEY_GAME_FIELDS_COMPLETELY_VISIBLE_COUNT, 0L) >= FIELDS_TO_REVEAL_COUNT) {
@@ -390,7 +390,7 @@ public class AchievementDice extends TypeAchievementHolder {
         }
 
         @Override
-        public void onDataEvent(AchievementDataEvent event) {
+        public void onNonCustomDataEvent(AchievementDataEvent event) {
             if (event.getChangedData() == mGameData
                     && (event.hasChangedKey(KEY_GAME_GREEN_COUNT)
                         || event.hasChangedKey(KEY_GAME_PURPLE_COUNT)
@@ -424,7 +424,7 @@ public class AchievementDice extends TypeAchievementHolder {
         }
 
         @Override
-        public void onDataEvent(AchievementDataEvent event) {
+        public void onNonCustomDataEvent(AchievementDataEvent event) {
             if (event.getChangedData() == mGameData
                     && event.getEventType() == AchievementDataEvent.EVENT_TYPE_DATA_CLOSE
                     && mGameData.isSolved()) {
@@ -468,7 +468,7 @@ public class AchievementDice extends TypeAchievementHolder {
         }
 
         @Override
-        public void onDataEvent(AchievementDataEvent event) {
+        public void onNonCustomDataEvent(AchievementDataEvent event) {
             if (areDependenciesFulfilled() && event.getChangedData() == mGameData && event.hasChangedKey(KEY_GAME_LAST_DICE_MOVED_DISTANCE)) {
                 int state = mGameData.getValue(KEY_GAME_LAST_DICE_MOVED_STATE, RiddleDice.STATE_RED).intValue();
                 int number = mGameData.getValue(KEY_GAME_LAST_DICE_MOVED_NUMBER, 0L).intValue();
@@ -513,7 +513,7 @@ public class AchievementDice extends TypeAchievementHolder {
         }
 
         @Override
-        public void onDataEvent(AchievementDataEvent event) {
+        public void onNonCustomDataEvent(AchievementDataEvent event) {
             if (event.getChangedData() == mGameData && event.hasChangedKey(KEY_GAME_LAST_DICE_COMBINED_STATE)) {
                 if (areDependenciesFulfilled() && mGameData.getValue(KEY_GAME_LAST_DICE_COMBINED_STATE, RiddleDice.STATE_GREEN) == RiddleDice.STATE_RED) {
                     achieveDelta(1);
@@ -541,7 +541,7 @@ public class AchievementDice extends TypeAchievementHolder {
         }
 
         @Override
-        public void onDataEvent(AchievementDataEvent event) {
+        public void onNonCustomDataEvent(AchievementDataEvent event) {
             if (event.getChangedData() == mGameData && event.hasChangedKey(KEY_GAME_LAST_DICE_COMBINED_STATE)) {
                 if (areDependenciesFulfilled() && mGameData.getValue(KEY_GAME_LAST_DICE_COMBINED_STATE, RiddleDice.STATE_RED) == RiddleDice.STATE_YELLOW) {
                     achieveDelta(1);
@@ -581,7 +581,7 @@ public class AchievementDice extends TypeAchievementHolder {
         }
 
         @Override
-        public void onDataEvent(AchievementDataEvent event) {
+        public void onNonCustomDataEvent(AchievementDataEvent event) {
             if (event.getChangedData() == mGameData && event.hasChangedKey(KEY_GAME_LAST_DICE_COMBINED_STATE)) {
                 if (areDependenciesFulfilled() && mGameData.getValue(KEY_GAME_LAST_DICE_COMBINED_STATE, RiddleDice.STATE_RED) == RiddleDice.STATE_GREEN) {
                     achieveDelta(1);
@@ -651,7 +651,7 @@ public class AchievementDice extends TypeAchievementHolder {
         }
 
         @Override
-        public void onDataEvent(AchievementDataEvent event) {
+        public void onNonCustomDataEvent(AchievementDataEvent event) {
             if (event.getChangedData() == mGameData && event.hasChangedKey(KEY_GAME_LAST_DICE_COMBINED_STATE)) {
                 if (areDependenciesFulfilled() && mGameData.getValue(KEY_GAME_LAST_DICE_COMBINED_STATE, RiddleDice.STATE_RED) == RiddleDice.STATE_ALIEN) {
                     achieveDelta(1);
@@ -686,7 +686,7 @@ public class AchievementDice extends TypeAchievementHolder {
         }
 
         @Override
-        public void onDataEvent(AchievementDataEvent event) {
+        public void onNonCustomDataEvent(AchievementDataEvent event) {
             if (event.getChangedData() == mGameData && event.hasChangedKey(KEY_GAME_LAST_DICE_MOVED_DISTANCE)) {
                 Long walked = mGameData.getValue(KEY_GAME_LAST_DICE_MOVED_DISTANCE, 0L);
                 if (walked >= JUMP_DISTANCE) {
@@ -716,7 +716,7 @@ public class AchievementDice extends TypeAchievementHolder {
         }
 
         @Override
-        public void onDataEvent(AchievementDataEvent event) {
+        public void onNonCustomDataEvent(AchievementDataEvent event) {
             if (event.getChangedData() == mGameData && event.hasChangedKey(KEY_GAME_ALIEN_COUNT)) {
                 if (mGameData.getValue(KEY_GAME_ALIEN_COUNT, 0L) >= REQUIRED_ALIENS) {
                     achieveAfterDependencyCheck();
@@ -752,7 +752,7 @@ public class AchievementDice extends TypeAchievementHolder {
         }
 
         @Override
-        public void onDataEvent(AchievementDataEvent event) {
+        public void onNonCustomDataEvent(AchievementDataEvent event) {
             if (event.getChangedData() == mGameData
                     && event.getEventType() == AchievementDataEvent.EVENT_TYPE_DATA_CLOSE) {
                 if (mGameData.getValue(KEY_GAME_FIELDS_COMPLETELY_VISIBLE_COUNT, 0L) == 1
@@ -787,7 +787,7 @@ public class AchievementDice extends TypeAchievementHolder {
         }
 
         @Override
-        public void onDataEvent(AchievementDataEvent event) {
+        public void onNonCustomDataEvent(AchievementDataEvent event) {
             if (event.getChangedData() == mGameData
                     && event.hasChangedKey(KEY_GAME_FIELDS_COMPLETELY_VISIBLE_COUNT)) {
                 if (mGameData.getValue(KEY_GAME_FIELDS_COMPLETELY_VISIBLE_COUNT, 0L) == RiddleDice.FIELD_X * RiddleDice.FIELD_Y) {
@@ -836,7 +836,7 @@ public class AchievementDice extends TypeAchievementHolder {
         }
 
         @Override
-        public void onDataEvent(AchievementDataEvent event) {
+        public void onNonCustomDataEvent(AchievementDataEvent event) {
             if (event.getChangedData() == mGameData
                     && event.hasChangedKey(KEY_GAME_LAST_DICE_COMBINED_POSITION)) {
                 int number = mGameData.getValue(KEY_GAME_LAST_DICE_COMBINED_POSITION, -1L).intValue();
@@ -905,7 +905,7 @@ public class AchievementDice extends TypeAchievementHolder {
         }
 
         @Override
-        public void onDataEvent(AchievementDataEvent event) {
+        public void onNonCustomDataEvent(AchievementDataEvent event) {
             if (event.getChangedData() == mGameData
                     && event.getEventType() == AchievementDataEvent.EVENT_TYPE_DATA_CLOSE
                     && mGameData.isSolved()

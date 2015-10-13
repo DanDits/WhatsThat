@@ -50,6 +50,8 @@ public abstract class PracticalRiddleType extends RiddleType {
     public static final Types.Flow FLOW_INSTANCE = new Types.Flow();
 
     public static final List<PracticalRiddleType> ALL_PLAYABLE_TYPES = new ArrayList<>();
+    public static final int NO_ID = 0;
+
     static {
         ALL_PLAYABLE_TYPES.add(CIRCLE_INSTANCE);
         ALL_PLAYABLE_TYPES.add(LAZOR_INSTANCE);
@@ -217,4 +219,6 @@ public abstract class PracticalRiddleType extends RiddleType {
     public abstract int getBaseScore();
 
     public abstract int getAdvertisingResId();
+
+    public abstract int getId();
 }

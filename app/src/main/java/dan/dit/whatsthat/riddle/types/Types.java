@@ -141,6 +141,11 @@ public class Types {
         public int getAdvertisingResId() {
             return R.string.riddle_type_circle_advertising;
         }
+
+        @Override
+        public int getId() {
+            return 1;
+        }
     }
 
     /**
@@ -204,6 +209,11 @@ public class Types {
         @Override
         public int getBaseScore() {
             return SCORE_MEDIUM;
+        }
+
+        @Override
+        public int getId() {
+            return 2;
         }
     }
 
@@ -286,6 +296,11 @@ public class Types {
         public int getBaseScore() {
             return SCORE_VERY_HARD;
         }
+
+        @Override
+        public int getId() {
+            return 3;
+        }
     }
 
     /**
@@ -358,6 +373,11 @@ public class Types {
         @Override
         public int getBaseScore() {
             return SCORE_SIMPLE;
+        }
+
+        @Override
+        public int getId() {
+            return 4;
         }
     }
 
@@ -444,6 +464,11 @@ public class Types {
         public int getBaseScore() {
             return SCORE_ULTRA;
         }
+
+        @Override
+        public int getId() {
+            return 5;
+        }
     }
 
     /**
@@ -510,6 +535,11 @@ public class Types {
             return SCORE_HARD;
         }
 
+        @Override
+        public int getId() {
+            return 6;
+        }
+
     }
 
     /**
@@ -547,6 +577,11 @@ public class Types {
         public int getBaseScore() {
             return SCORE_SIMPLE;
         }
+
+        @Override
+        public int getId() {
+            return 7;
+        }
     }
 
     /**
@@ -581,6 +616,11 @@ public class Types {
         @Override
         public int getBaseScore() {
             return SCORE_SIMPLE;
+        }
+
+        @Override
+        public int getId() {
+            return 8;
         }
     }
 
@@ -653,6 +693,11 @@ public class Types {
         @Override
         public int getBaseScore() {
             return SCORE_MEDIUM;
+        }
+
+        @Override
+        public int getId() {
+            return 9;
         }
     }
 
@@ -730,6 +775,11 @@ public class Types {
         @Override
         public int getBaseScore() {
             return SCORE_HARD;
+        }
+
+        @Override
+        public int getId() {
+            return 10;
         }
     }
 }

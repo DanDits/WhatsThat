@@ -4,16 +4,21 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.TabHost;
 
 import dan.dit.whatsthat.R;
 import dan.dit.whatsthat.image.BundleCreator;
 import dan.dit.whatsthat.image.BundleManager;
+import dan.dit.whatsthat.image.LogoView;
+import dan.dit.whatsthat.preferences.User;
 import dan.dit.whatsthat.util.mosaic.MosaicGeneratorUi;
 import dan.dit.whatsthat.util.ui.UiStyleUtil;
 
@@ -24,12 +29,14 @@ public class WorkshopView extends FrameLayout implements StoreContainer {
     private static final String TAB_BUNDLE_MANAGER = "bundle_manager";
     private static final String TAB_BUNDLE_CREATOR = "bundle_creator";
     private static final String TAB_MOSAIC = "mosaic";
+    private static final String TAB_LOGO = "logo";
     public static final int PICK_IMAGES_FOR_BUNDLE = 1338; // intent to pick images for bundle
     public static final int PICK_IMAGE_FOR_MOSAIC = 1339; // intent to pick image to generate a mosaic of
     private TabHost mTabHost;
     private BundleCreator mBundleCreator;
     private BundleManager mBundleManager;
     private MosaicGeneratorUi mMosaicGenerator;
+    private View mLogoView;
 
     public WorkshopView(Context context) {
         super(context);
@@ -53,6 +60,7 @@ public class WorkshopView extends FrameLayout implements StoreContainer {
         if (mBundleManager != null) {
             mBundleManager.refresh();
         }
+        syncOrigin();
     }
 
     private void initializeTabHost(FragmentActivity activity) {
@@ -67,8 +75,9 @@ public class WorkshopView extends FrameLayout implements StoreContainer {
         });
         TabFactory factory = new TabFactory(activity);
         addTab(mTabHost, factory, mTabHost.newTabSpec(TAB_BUNDLE_MANAGER).setIndicator(getResources().getString(R.string.workshop_tab_bundle_manager)));
-        addTab(mTabHost, factory, mTabHost.newTabSpec(TAB_BUNDLE_CREATOR).setIndicator(getResources().getString(R.string.workshop_tab_bundle_creator)));
+        addTab(mTabHost, factory, mTabHost.newTabSpec(TAB_LOGO).setIndicator(getResources().getString(R.string.workshop_tab_logo)));
         addTab(mTabHost, factory, mTabHost.newTabSpec(TAB_MOSAIC).setIndicator(getResources().getString(R.string.workshop_tab_mosaic)));
+        addTab(mTabHost, factory, mTabHost.newTabSpec(TAB_BUNDLE_CREATOR).setIndicator(getResources().getString(R.string.workshop_tab_bundle_creator)));
 
         UiStyleUtil.setTabHostSelector(mTabHost, R.drawable.tab_widget_selector_alien);
     }
@@ -114,10 +123,57 @@ public class WorkshopView extends FrameLayout implements StoreContainer {
             } else if (tag.equals(TAB_MOSAIC)) {
                 mMosaicGenerator = new MosaicGeneratorUi(mActivity);
                 return mMosaicGenerator.getView();
+            } else if (tag.equalsIgnoreCase(TAB_LOGO)) {
+                mLogoView = mActivity.getLayoutInflater().inflate(R.layout.workshop_logo, null);
+                initLogoUiControl();
+                return mLogoView;
             }
             return null;
         }
 
+    }
+
+    private void syncOrigin() {
+        if (mLogoView == null) {
+            return;
+        }
+        ((EditText) mLogoView.findViewById(R.id.origin)).setText(User.getInstance().getOriginName());
+    }
+
+    private void initLogoUiControl() {
+        if (mLogoView == null) {
+            return;
+        }
+        syncOrigin();
+        ((EditText) mLogoView.findViewById(R.id.origin)).addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                User.getInstance().saveOriginName(s.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+        mLogoView.findViewById(R.id.logo_redo).setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((LogoView) mLogoView.findViewById(R.id.logo)).onRedo();
+            }
+        });
+
+        mLogoView.findViewById(R.id.logo_save).setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((LogoView) mLogoView.findViewById(R.id.logo)).onSave();
+            }
+        });
     }
 
     @Override

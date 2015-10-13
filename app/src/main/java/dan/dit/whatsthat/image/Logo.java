@@ -1,4 +1,4 @@
-package dan.dit.whatsthat.obfuscation;
+package dan.dit.whatsthat.image;
 
 import android.graphics.Bitmap;
 
@@ -7,7 +7,8 @@ import dan.dit.whatsthat.util.image.BitmapUtil;
 /**
  * Created by daniel on 21.01.15.
  */
-class Logo {
+public class Logo {
+    public static final int BASE_WIDTH_HEIGHT = 1024;
     private static final double BRIGHTNESS_IS_LOGO_THRESHOLD_DEFAULT = 0.5; // threshold when a pixel is considered to be in the logo
 
     private Bitmap mLogo;

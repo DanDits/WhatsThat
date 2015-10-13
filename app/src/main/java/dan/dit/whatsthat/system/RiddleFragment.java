@@ -754,6 +754,7 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
 
     }
 
+    @Override
     public synchronized void onLoaderReset(Loader<Cursor> loader) {
         // This is called when the last Cursor provided to onLoadFinished()
         // above is about to be closed.  We need to make sure we are no

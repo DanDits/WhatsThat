@@ -84,7 +84,7 @@ public class AchievementSnow extends TypeAchievementHolder {
         }
 
         @Override
-        public void onDataEvent(AchievementDataEvent event) {
+        public void onNonCustomDataEvent(AchievementDataEvent event) {
             if (event.getChangedData() == mTypeData && event.hasChangedKey(KEY_TYPE_MAX_SPEED)) {
                 if (areDependenciesFulfilled()) {
                     long achievedSpeed = mTypeData.getValue(KEY_TYPE_MAX_SPEED, 0L);
@@ -131,7 +131,7 @@ public class AchievementSnow extends TypeAchievementHolder {
         }
 
         @Override
-        public void onDataEvent(AchievementDataEvent event) {
+        public void onNonCustomDataEvent(AchievementDataEvent event) {
             if (event.getChangedData() == mGameData
                     && event.getEventType() == AchievementDataEvent.EVENT_TYPE_DATA_CLOSE
                     && mGameData.isSolved()
@@ -166,7 +166,7 @@ public class AchievementSnow extends TypeAchievementHolder {
         }
 
         @Override
-        public void onDataEvent(AchievementDataEvent event) {
+        public void onNonCustomDataEvent(AchievementDataEvent event) {
             if (event.getChangedData() == mGameData
                     && event.getEventType() == AchievementDataEvent.EVENT_TYPE_DATA_CLOSE
                     && mGameData.getValue(AchievementDataRiddleGame.KEY_SOLVED, Solution.SOLVED_NOTHING) == Solution.SOLVED_COMPLETELY
@@ -216,7 +216,7 @@ public class AchievementSnow extends TypeAchievementHolder {
         }
 
         @Override
-        public void onDataEvent(AchievementDataEvent event) {
+        public void onNonCustomDataEvent(AchievementDataEvent event) {
             if (areDependenciesFulfilled()) {
                 if (event.getChangedData() == mGameData
                         && event.getEventType() == AchievementDataEvent.EVENT_TYPE_DATA_UPDATE
@@ -256,7 +256,7 @@ public class AchievementSnow extends TypeAchievementHolder {
         }
 
         @Override
-        public void onDataEvent(AchievementDataEvent event) {
+        public void onNonCustomDataEvent(AchievementDataEvent event) {
             if (event.getChangedData() == mGameData && event.getEventType() == AchievementDataEvent.EVENT_TYPE_DATA_UPDATE
                     && event.hasChangedKey(KEY_GAME_BIG_EXPLOSION)) {
                 long bigExplosions = mGameData.getValue(KEY_GAME_BIG_EXPLOSION, 0L);
@@ -287,7 +287,7 @@ public class AchievementSnow extends TypeAchievementHolder {
         }
 
         @Override
-        public void onDataEvent(AchievementDataEvent event) {
+        public void onNonCustomDataEvent(AchievementDataEvent event) {
             if (event.getChangedData() == mGameData && event.getEventType() == AchievementDataEvent.EVENT_TYPE_DATA_UPDATE
                     && event.hasChangedKey(KEY_GAME_PRE_COLLISION_CELL_STATE)) {
                 long oldState = mGameData.getValue(KEY_GAME_PRE_COLLISION_CELL_STATE, 0L);
@@ -320,7 +320,7 @@ public class AchievementSnow extends TypeAchievementHolder {
         }
 
         @Override
-        public void onDataEvent(AchievementDataEvent event) {
+        public void onNonCustomDataEvent(AchievementDataEvent event) {
                 if (event.getChangedData() == mGameData
                         && event.getEventType() == AchievementDataEvent.EVENT_TYPE_DATA_CLOSE
                         && mGameData.getValue(AchievementDataRiddleGame.KEY_SOLVED, Solution.SOLVED_NOTHING) == Solution.SOLVED_COMPLETELY
@@ -371,7 +371,7 @@ public class AchievementSnow extends TypeAchievementHolder {
         }
 
         @Override
-        public void onDataEvent(AchievementDataEvent event) {
+        public void onNonCustomDataEvent(AchievementDataEvent event) {
             if (event.getChangedData() == mGameData
                     && event.hasChangedKey(KEY_IDLE_TIME_PASSED)) {
                 if (mGameData.getValue(KEY_GAME_BIG_EXPLOSION, 0L) == 0L
@@ -405,7 +405,7 @@ public class AchievementSnow extends TypeAchievementHolder {
         }
 
         @Override
-        public void onDataEvent(AchievementDataEvent event) {
+        public void onNonCustomDataEvent(AchievementDataEvent event) {
             if (event.getChangedData() == mGameData
                     && event.hasChangedKey(KEY_GAME_IDEAS_COLLECTED)) {
                 achieveDelta(1);
@@ -435,7 +435,7 @@ public class AchievementSnow extends TypeAchievementHolder {
         }
 
         @Override
-        public void onDataEvent(AchievementDataEvent event) {
+        public void onNonCustomDataEvent(AchievementDataEvent event) {
             if (event.getChangedData() == mGameData
                     && (event.hasChangedKey(KEY_GAME_COLLISION_SPEED))) {
                 if (areDependenciesFulfilled() && mGameData.getValue(KEY_GAME_COLLISION_SPEED, 0L) >= MIN_COLLISION_SPEED) {
@@ -475,7 +475,7 @@ public class AchievementSnow extends TypeAchievementHolder {
         }
 
         @Override
-        public void onDataEvent(AchievementDataEvent event) {
+        public void onNonCustomDataEvent(AchievementDataEvent event) {
             if (areDependenciesFulfilled() && event.getChangedData() == mGameData && (event.hasChangedKey(KEY_GAME_BIG_EXPLOSION) || event.hasChangedKey(KEY_GAME_WALL_EXPLOSION))) {
                 long currTime = System.currentTimeMillis();
                 if (mExplosionTimestamp == 0L || !isInTime(currTime)) {
@@ -530,7 +530,7 @@ public class AchievementSnow extends TypeAchievementHolder {
         }
 
         @Override
-        public void onDataEvent(AchievementDataEvent event) {
+        public void onNonCustomDataEvent(AchievementDataEvent event) {
             if (areDependenciesFulfilled() &&
                     event.getChangedData() == mGameData && event.hasChangedKey(KEY_GAME_DEVIL_VISIBLE_STATE)) {
                 if (mGameData.getValue(KEY_GAME_DEVIL_VISIBLE_STATE, RiddleSnow.DEFAULT_DEVIL_IS_VISIBLE ? 1L : 0L) == 0L) {
@@ -564,7 +564,7 @@ public class AchievementSnow extends TypeAchievementHolder {
         }
 
         @Override
-        public void onDataEvent(AchievementDataEvent event) {
+        public void onNonCustomDataEvent(AchievementDataEvent event) {
             if (areDependenciesFulfilled() && event.getChangedData() == mGameData && event.hasChangedKey(KEY_GAME_CELL_STATE) ) {
                 if (mGameData.getValue(KEY_GAME_CELL_STATE, 0L) == RiddleSnow.IDEAS_REQUIRED_FOR_MAX_SIZE) {
                     mOverkillCount = 0;
@@ -606,7 +606,7 @@ public class AchievementSnow extends TypeAchievementHolder {
         }
 
         @Override
-        public void onDataEvent(AchievementDataEvent event) {
+        public void onNonCustomDataEvent(AchievementDataEvent event) {
             if (event.getChangedData() == mGameData
                     && areDependenciesFulfilled()
                     && event.hasChangedKey(KEY_GAME_BIG_EXPLOSION)) {

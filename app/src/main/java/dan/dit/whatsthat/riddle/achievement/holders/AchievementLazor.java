@@ -71,7 +71,7 @@ public class AchievementLazor extends TypeAchievementHolder {
         }
 
         @Override
-        public void onDataEvent(AchievementDataEvent event) {
+        public void onNonCustomDataEvent(AchievementDataEvent event) {
             if (event.getChangedData() == mGameData && event.hasChangedKey(KEY_GAME_LAST_METEOR_DESTROYED_CANNONBALL_DESTROY_COUNT)) {
                 if (mGameData.getValue(KEY_GAME_LAST_METEOR_DESTROYED_CANNONBALL_DESTROY_COUNT, 0L) >= REQUIRED_HITS) {
                     achieveAfterDependencyCheck();
@@ -98,7 +98,7 @@ public class AchievementLazor extends TypeAchievementHolder {
         }
 
         @Override
-        public void onDataEvent(AchievementDataEvent event) {
+        public void onNonCustomDataEvent(AchievementDataEvent event) {
             if (event.getChangedData() == mGameData
                     && (event.hasChangedKey(KEY_GAME_METEOR_CRASHED_IN_CITY_COUNT) || event.hasChangedKey(KEY_GAME_METEOR_CRASHED_NOT_CITY_COUNT))) {
                 if (mGameData.getValue(KEY_GAME_IS_PROTECTED, 0L) == 0L) {
@@ -131,7 +131,7 @@ public class AchievementLazor extends TypeAchievementHolder {
         }
 
         @Override
-        public void onDataEvent(AchievementDataEvent event) {
+        public void onNonCustomDataEvent(AchievementDataEvent event) {
             if (event.getChangedData() == mGameData && event.hasChangedKey(KEY_GAME_DIFFICULTY)) {
                 long diff = mGameData.getValue(KEY_GAME_DIFFICULTY, 0L);
                 if (diff >= MAX_REQUIRED_DIFFICULTY) {
@@ -166,7 +166,7 @@ public class AchievementLazor extends TypeAchievementHolder {
         }
 
         @Override
-        public void onDataEvent(AchievementDataEvent event) {
+        public void onNonCustomDataEvent(AchievementDataEvent event) {
             if (event.getChangedData() == mGameData && event.hasChangedKey(KEY_GAME_METEOR_CRASHED_IN_CITY_COUNT)) {
                 if (mGameData.getValue(KEY_GAME_IS_PROTECTED, 0L) == 0L) {
                     long crashCount = mGameData.increment(KEY_GAME_UNPROTECTED_CITY_CRASHES, 1L, 0L);
@@ -196,7 +196,7 @@ public class AchievementLazor extends TypeAchievementHolder {
         }
 
         @Override
-        public void onDataEvent(AchievementDataEvent event) {
+        public void onNonCustomDataEvent(AchievementDataEvent event) {
             if (event.getChangedData() == mGameData && event.hasChangedKey(KEY_GAME_LAST_METEOR_DESTROYED_Y_PERCENT)) {
                 if (areDependenciesFulfilled() &&
                         mGameData.getValue(KEY_GAME_LAST_METEOR_DESTROYED_Y_PERCENT, 100L) <= MAX_METEOR_Y_PERCENT) {
@@ -232,7 +232,7 @@ public class AchievementLazor extends TypeAchievementHolder {
         }
 
         @Override
-        public void onDataEvent(AchievementDataEvent event) {
+        public void onNonCustomDataEvent(AchievementDataEvent event) {
 
             if (event.getChangedData() == mGameData && (event.hasChangedKey(KEY_GAME_METEOR_CRASHED_IN_CITY_COUNT)
                     || event.hasChangedKey(KEY_GAME_METEOR_CRASHED_NOT_CITY_COUNT))) {
@@ -277,7 +277,7 @@ public class AchievementLazor extends TypeAchievementHolder {
         }
 
         @Override
-        public void onDataEvent(AchievementDataEvent event) {
+        public void onNonCustomDataEvent(AchievementDataEvent event) {
             if (event.getChangedData() == mGameData && event.hasChangedKey(KEY_GAME_DIFFICULTY)) {
                 if (mGameData.getValue(KEY_GAME_DIFFICULTY, 0L) >= REQUIRED_MIN_GENERATOR_PERCENT) {
                     mGameData.putValue(KEY_SPAWN_COUNTER, 0L, AchievementProperties.UPDATE_POLICY_ALWAYS);
@@ -309,7 +309,7 @@ public class AchievementLazor extends TypeAchievementHolder {
         }
 
         @Override
-        public void onDataEvent(AchievementDataEvent event) {
+        public void onNonCustomDataEvent(AchievementDataEvent event) {
             if (event.getChangedData() == mGameData && event.hasChangedKey(KEY_GAME_METEOR_DESTROYED_COUNT)) {
                 if (mGameData.getValue(KEY_GAME_LAST_METEOR_DESTROYED_Y_PERCENT, 0L) >= PERCENT_DELTA + mGameData.getValue(KEY_GAME_LAST_METEOR_DESTROYED_CANNONBALL_Y_PERCENT, 0L)) {
                     achieveAfterDependencyCheck();
@@ -344,7 +344,7 @@ public class AchievementLazor extends TypeAchievementHolder {
         }
 
         @Override
-        public void onDataEvent(AchievementDataEvent event) {
+        public void onNonCustomDataEvent(AchievementDataEvent event) {
             if (event.getChangedData() == mGameData && event.hasChangedKey(KEY_GAME_IS_PROTECTED)) {
                 if (mGameData.getValue(KEY_GAME_IS_PROTECTED, 0L) == 0L) {
                     //unprotected, clear shot count
@@ -391,7 +391,7 @@ public class AchievementLazor extends TypeAchievementHolder {
         }
 
         @Override
-        public void onDataEvent(AchievementDataEvent event) {
+        public void onNonCustomDataEvent(AchievementDataEvent event) {
             if (event.getChangedData() == mGameData && event.hasChangedKey(KEY_GAME_METEOR_DESTROYED_COUNT)) {
                 if (mGameData.getValue(KEY_GAME_LAST_METEOR_DESTROYED_COLOR_TYPE, 0L) == RiddleLazor.COLOR_TYPE_RED
                         || mGameData.getValue(KEY_GAME_LAST_METEOR_DESTROYED_COLOR_TYPE, 0L) == RiddleLazor.COLOR_TYPE_BONUS) {
@@ -430,7 +430,7 @@ public class AchievementLazor extends TypeAchievementHolder {
             mGameData.removeKey(KEY_GAME_METEOR_COUNT);
         }
         @Override
-        public void onDataEvent(AchievementDataEvent event) {
+        public void onNonCustomDataEvent(AchievementDataEvent event) {
             if (event.getChangedData() == mGameData && event.hasChangedKey(KEY_GAME_METEOR_DESTROYED_COUNT)) {
                 if (mGameData.getValue(KEY_GAME_IS_PROTECTED, 0L) == 0L
                         && mGameData.getValue(KEY_GAME_LAST_METEOR_DESTROYED_CANNONBALL_EXPAND_TIME, 0L) >= LAST_SECOND_FACTOR * RiddleLazor.CANNONBALL_EXPLOSION_DURATION) {
@@ -454,7 +454,7 @@ public class AchievementLazor extends TypeAchievementHolder {
         }
 
         @Override
-        public void onDataEvent(AchievementDataEvent event) {
+        public void onNonCustomDataEvent(AchievementDataEvent event) {
             if (event.getChangedData() == mGameData && event.hasChangedKey(KEY_GAME_LAST_METEOR_DESTROYED_CANNONBALL_DESTROY_COUNT)) {
                 if (mGameData.getValue(KEY_GAME_LAST_METEOR_DESTROYED_CANNONBALL_DESTROY_COUNT, 0L) >= REQUIRED_HITS) {
                     achieveAfterDependencyCheck();
@@ -482,7 +482,7 @@ public class AchievementLazor extends TypeAchievementHolder {
             mGameData.removeKey(KEY_GAME_METEOR_COUNT);
         }
         @Override
-        public void onDataEvent(AchievementDataEvent event) {
+        public void onNonCustomDataEvent(AchievementDataEvent event) {
             if (event.getChangedData() == mGameData && event.hasChangedKey(KEY_GAME_METEOR_DESTROYED_COUNT)) {
                 if (mGameData.getValue(KEY_GAME_LAST_METEOR_DESTROYED_Y_PERCENT, 0L) >= LAST_SECOND_Y_PERCENT) {
                     if (mGameData.increment(KEY_GAME_METEOR_COUNT, 1L, 0L) >= METEORS_TO_HIT_COUNT) {
@@ -509,7 +509,7 @@ public class AchievementLazor extends TypeAchievementHolder {
         }
 
         @Override
-        public void onDataEvent(AchievementDataEvent event) {
+        public void onNonCustomDataEvent(AchievementDataEvent event) {
             if (event.getChangedData() == mGameData && event.hasChangedKey(KEY_GAME_LAZOR_CANNON_COLLIDED_EARLY)) {
                 if (areDependenciesFulfilled()) {
                     achieveDelta(1);
@@ -536,7 +536,7 @@ public class AchievementLazor extends TypeAchievementHolder {
         }
 
         @Override
-        public void onDataEvent(AchievementDataEvent event) {
+        public void onNonCustomDataEvent(AchievementDataEvent event) {
             if (event.getChangedData() == mGameData && event.hasChangedKey(KEY_GAME_METEOR_DESTROYED_COUNT)) {
                 if (mGameData.getValue(KEY_GAME_LAST_METEOR_DESTROYED_CANNONBALL_DESTROY_COUNT, 0L) == 1L) {
                     // only count one hit meteor per cannonball
@@ -567,7 +567,7 @@ public class AchievementLazor extends TypeAchievementHolder {
         }
 
         @Override
-        public void onDataEvent(AchievementDataEvent event) {
+        public void onNonCustomDataEvent(AchievementDataEvent event) {
             if (event.getChangedData() == mGameData && event.hasChangedKey(KEY_GAME_METEOR_DESTROYED_COUNT)) {
                 if (mGameData.getValue(KEY_GAME_LAST_METEOR_DESTROYED_CANNONBALL_DESTROY_COUNT, 0L) == 1L) {
                     // only count one hit meteor per cannonball
@@ -593,7 +593,7 @@ public class AchievementLazor extends TypeAchievementHolder {
         }
 
         @Override
-        public void onDataEvent(AchievementDataEvent event) {
+        public void onNonCustomDataEvent(AchievementDataEvent event) {
             if (event.getChangedData() == mGameData && event.hasChangedKey(KEY_GAME_DIFFICULTY)) {
                 if (mGameData.getValue(KEY_GAME_DIFFICULTY, 0L) >= DIFFICULTY_TO_REACH) {
                     achieveAfterDependencyCheck();

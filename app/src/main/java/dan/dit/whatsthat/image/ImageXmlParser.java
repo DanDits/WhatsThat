@@ -185,6 +185,9 @@ public class ImageXmlParser {
     private void readImageBundles(XmlPullParser parser, int startBundleNumber)  throws XmlPullParserException, IOException {
         parser.require(XmlPullParser.START_TAG, NAMESPACE, TAG_ALL_BUNDLES_NAME);
         while (parser.next() != XmlPullParser.END_TAG) {
+            if (parser.getEventType() == XmlPullParser.END_DOCUMENT) {
+                throw new XmlPullParserException("Unexpected end of file.");
+            }
             if (parser.getEventType() != XmlPullParser.START_TAG) {
                 continue;
             }
@@ -217,6 +220,9 @@ public class ImageXmlParser {
         parser.require(XmlPullParser.START_TAG, NAMESPACE, TAG_BUNDLE_NAME);
         List<Image> bundleImages = new ArrayList<>();
         while (parser.next() != XmlPullParser.END_TAG) {
+            if (parser.getEventType() == XmlPullParser.END_DOCUMENT) {
+                throw new XmlPullParserException("Unexpected end of file.");
+            }
             if (parser.getEventType() != XmlPullParser.START_TAG) {
                 continue;
             }
@@ -238,6 +244,9 @@ public class ImageXmlParser {
         Image.Builder builder = new Image.Builder();
         builder.setOrigin(mCurrOrigin);
         while (parser.next() != XmlPullParser.END_TAG) {
+            if (parser.getEventType() == XmlPullParser.END_DOCUMENT) {
+                throw new XmlPullParserException("Unexpected end of file.");
+            }
             if (parser.getEventType() != XmlPullParser.START_TAG) {
                 continue;
             }
@@ -293,6 +302,9 @@ public class ImageXmlParser {
         parser.require(XmlPullParser.START_TAG, NAMESPACE, ImageTable.COLUMN_SOLUTIONS);
         List<Solution> solutions = new ArrayList<>();
         while (parser.next() != XmlPullParser.END_TAG) {
+            if (parser.getEventType() == XmlPullParser.END_DOCUMENT) {
+                throw new XmlPullParserException("Unexpected end of file.");
+            }
             if (parser.getEventType() != XmlPullParser.START_TAG) {
                 continue;
             }
@@ -311,6 +323,9 @@ public class ImageXmlParser {
         Tongue tongue = null;
         List<String> solutionWords = new ArrayList<>();
         while (parser.next() != XmlPullParser.END_TAG) {
+            if (parser.getEventType() == XmlPullParser.END_DOCUMENT) {
+                throw new XmlPullParserException("Unexpected end of file.");
+            }
             if (parser.getEventType() != XmlPullParser.START_TAG) {
                 continue;
             }
@@ -339,6 +354,9 @@ public class ImageXmlParser {
         String title = null;
         String extras = null;
         while (parser.next() != XmlPullParser.END_TAG) {
+            if (parser.getEventType() == XmlPullParser.END_DOCUMENT) {
+                throw new XmlPullParserException("Unexpected end of file.");
+            }
             if (parser.getEventType() != XmlPullParser.START_TAG) {
                 continue;
             }
@@ -366,6 +384,9 @@ public class ImageXmlParser {
         parser.require(XmlPullParser.START_TAG, NAMESPACE, ImageTable.COLUMN_RIDDLEPREFTYPES);
         List<RiddleType> types = new ArrayList<>();
         while (parser.next() != XmlPullParser.END_TAG) {
+            if (parser.getEventType() == XmlPullParser.END_DOCUMENT) {
+                throw new XmlPullParserException("Unexpected end of file.");
+            }
             if (parser.getEventType() != XmlPullParser.START_TAG) {
                 continue;
             }
@@ -388,6 +409,9 @@ public class ImageXmlParser {
         parser.require(XmlPullParser.START_TAG, NAMESPACE, ImageTable.COLUMN_RIDDLEREFUSEDTYPES);
         List<RiddleType> types = new ArrayList<>();
         while (parser.next() != XmlPullParser.END_TAG) {
+            if (parser.getEventType() == XmlPullParser.END_DOCUMENT) {
+                throw new XmlPullParserException("Unexpected end of file.");
+            }
             if (parser.getEventType() != XmlPullParser.START_TAG) {
                 continue;
             }

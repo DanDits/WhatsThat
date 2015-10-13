@@ -115,7 +115,15 @@
         android:id="@+id/panic_skip"
         android:layout_gravity="center_horizontal" />
 
-    <Button
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/panic_share"
+            android:id="@+id/panic_share"
+            android:drawableLeft="@drawable/share_experiment"
+            android:drawableRight="@drawable/share_experiment"/>
+
+        <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/panic_complain"

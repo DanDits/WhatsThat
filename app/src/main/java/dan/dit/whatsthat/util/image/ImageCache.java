@@ -97,23 +97,19 @@ public class ImageCache {
                 while (iterator.hasNext()) {
                     item = iterator.next().get();
 
-                    if (null != item && item.isMutable()) {
+                    if (item != null && item.isMutable()) {
                         // Check to see it the item can be used
-                        if (item.getWidth() >= width && item.getHeight() >= height) {
+                        if (canReconfigure(item, config, width, height)) {
                             bitmap = item;
-                            if (config != null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
                                 try {
-                                    bitmap.setConfig(config);
-                                } catch (IllegalStateException e) {
-                                    // was a native bitmap that could not be reconfigured
-                                    bitmap = null;
+                                    bitmap.reconfigure(width, height, config == null ? item.getConfig() : config);
+                                } catch (Exception e) {
+                                    bitmap = null; // happens when the bitmap is a native bitmap that can't be reconfigured
+                                    iterator.remove();
                                 }
-                            } else if (item.getWidth() != width || item.getHeight() != height
-                                    || (config != null && !config.equals(bitmap.getConfig()))) {
-                                // we could not reconfigure and the dimensions do not fit exactly or config is different
-                                Log.d("Image", "Bitmap not fitting: " + item.getWidth() + "/" + item.getHeight() + " config: " + item.getConfig());
-                                bitmap = null;
-                            }
+                            } // else the config and dimensions already match exactly
+
                             if (bitmap != null) {
                                 // Remove from reusable set so it can't be used again.
                                 iterator.remove();
@@ -185,6 +181,15 @@ public class ImageCache {
             }
         }
         return bitmap;
+    }
+
+    private static boolean canReconfigure(Bitmap toConfigure, Bitmap.Config targetConfig, int width, int height) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            int byteCount = width * height * getBytesPerPixel(targetConfig == null ? toConfigure.getConfig() : targetConfig);
+            return byteCount <= toConfigure.getAllocationByteCount();
+        }
+        return width == toConfigure.getWidth() && height == toConfigure.getHeight()
+                && (targetConfig == null || targetConfig.equals(toConfigure.getConfig()));
     }
 
     private static boolean canUseForInBitmap(

@@ -16,6 +16,7 @@ import java.util.Map;
 import java.util.Set;
 
 import dan.dit.whatsthat.BuildConfig;
+import dan.dit.whatsthat.riddle.types.PracticalRiddleType;
 import dan.dit.whatsthat.riddle.types.RiddleType;
 import dan.dit.whatsthat.util.PercentProgressListener;
 
@@ -111,8 +112,7 @@ public final class RiddleInitializer {
 
         public List<Riddle> doInBackground(Void... voids) {
             mBaseProgress = 0;
-            mPrefs = mContext.getSharedPreferences(IMPORTANT_PREFERENCES_FILE, Context.MODE_PRIVATE);
-            mHighestUsedId = loadHighestUsedId();
+            checkedIdsInit(mContext);
             List<Riddle> unsolved = Riddle.loadUnsolvedRiddles(mContext, this);
             if (isCancelled()) {
                 return null;
@@ -185,6 +185,13 @@ public final class RiddleInitializer {
         }
     }
 
+    public void checkedIdsInit(Context context) {
+        if (mPrefs == null && context != null) {
+            mPrefs = context.getSharedPreferences(IMPORTANT_PREFERENCES_FILE, Context.MODE_PRIVATE);
+            mHighestUsedId = loadHighestUsedId();
+        }
+    }
+
     /**
      * Unregisters previously registered listeners.
      * @param listener The listener to unregister. Does nothing if null.
@@ -246,5 +253,4 @@ public final class RiddleInitializer {
         }
         return usedImagesForType;
     }
-
 }

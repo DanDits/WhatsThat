@@ -67,7 +67,7 @@ public class AchievementFlow extends  TypeAchievementHolder {
         }
 
         @Override
-        public void onDataEvent(AchievementDataEvent event) {
+        public void onNonCustomDataEvent(AchievementDataEvent event) {
             if (event.getChangedData() == mGameData && event.hasChangedKey(KEY_GAME_CELLI_CREATED)) {
                 if (mGameData.getValue(KEY_GAME_CELLI_ACTIVE_COUNT, 0L) > 0L) {
                     mGameData.putValue(KEY_GAME_SINGLE_CELLIS_SET, 0L, AchievementProperties.UPDATE_POLICY_ALWAYS);
@@ -99,7 +99,7 @@ public class AchievementFlow extends  TypeAchievementHolder {
         }
 
         @Override
-        public void onDataEvent(AchievementDataEvent event) {
+        public void onNonCustomDataEvent(AchievementDataEvent event) {
             if (event.getChangedData() == mGameData &&
                     event.hasChangedKey(KEY_GAME_CELLI_TIMED_OUT_COUNT)) {
                 if (mGameData.getValue(KEY_GAME_CELLI_TIMED_OUT_COUNT, 0L) >= REQUIRED_CELLIS) {
@@ -126,7 +126,7 @@ public class AchievementFlow extends  TypeAchievementHolder {
         }
 
         @Override
-        public void onDataEvent(AchievementDataEvent event) {
+        public void onNonCustomDataEvent(AchievementDataEvent event) {
             if (event.getChangedData() == mGameData && event.hasChangedKey(KEY_GAME_REVEALED_PIXELS_COUNT)) {
                 if (mGameData.getValue(KEY_GAME_CELLI_TIMED_OUT_COUNT, 0L) >= REQUIRED_VISIBLE_PERCENT / 100. * mGameData.getValue(KEY_GAME_TOTAL_PIXELS_COUNT, 0L)) {
                     achieveAfterDependencyCheck();
@@ -155,7 +155,7 @@ public class AchievementFlow extends  TypeAchievementHolder {
         }
 
         @Override
-        public void onDataEvent(AchievementDataEvent event) {
+        public void onNonCustomDataEvent(AchievementDataEvent event) {
             if (event.getChangedData() == mGameData && event.hasChangedKey(KEY_GAME_CELLI_CREATED)) {
                 long active = mGameData.getValue(KEY_GAME_CELLI_ACTIVE_COUNT, 0L);
                 if (active == 0L && areDependenciesFulfilled()) {
@@ -197,7 +197,7 @@ public class AchievementFlow extends  TypeAchievementHolder {
         }
 
         @Override
-        public void onDataEvent(AchievementDataEvent event) {
+        public void onNonCustomDataEvent(AchievementDataEvent event) {
             if (event.getChangedData() == mGameData && event.hasChangedKey(KEY_GAME_CELLI_CREATED)) {
                if (mGameData.getValue(KEY_GAME_CELLI_CREATED, 0L) >= REQUIRED_CELLIS && mGameData.getValue(KEY_GAME_CELLI_TIMED_OUT_COUNT, 0L) <= MAX_TIME_OUTS) {
                    achieveAfterDependencyCheck();
@@ -219,7 +219,7 @@ public class AchievementFlow extends  TypeAchievementHolder {
         }
 
         @Override
-        public void onDataEvent(AchievementDataEvent event) {
+        public void onNonCustomDataEvent(AchievementDataEvent event) {
             if (event.getChangedData() == mGameData && event.hasChangedKey(KEY_GAME_CELLI_ACTIVE_COUNT)) {
                 if (mGameData.getValue(KEY_GAME_CELLI_ACTIVE_COUNT, 0L) >= REQUIRED_CELLIS_AFTER_REOPENING) {
                     achieveAfterDependencyCheck();
@@ -246,7 +246,7 @@ public class AchievementFlow extends  TypeAchievementHolder {
         }
 
         @Override
-        public void onDataEvent(AchievementDataEvent event) {
+        public void onNonCustomDataEvent(AchievementDataEvent event) {
             if (event.getChangedData() == mGameData && event.hasChangedKey(KEY_GAME_CELLI_TIMED_OUT_COUNT)) {
                 if (areDependenciesFulfilled()) {
                     achieveDelta(1);
@@ -280,7 +280,7 @@ public class AchievementFlow extends  TypeAchievementHolder {
         }
 
         @Override
-        public void onDataEvent(AchievementDataEvent event) {
+        public void onNonCustomDataEvent(AchievementDataEvent event) {
             if (event.getChangedData() == mGameData && event.getEventType() == AchievementDataEvent.EVENT_TYPE_DATA_CLOSE
                     && mGameData.isSolved()) {
                 if (mGameData.getValue(KEY_GAME_CELLI_CREATED, 0L) <= MAX_CELLIS_FOR_SOLVING) {

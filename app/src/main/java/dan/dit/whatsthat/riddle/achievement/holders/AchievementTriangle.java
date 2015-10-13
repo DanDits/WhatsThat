@@ -71,7 +71,7 @@ public class AchievementTriangle extends TypeAchievementHolder {
         }
 
         @Override
-        public void onDataEvent(AchievementDataEvent event) {
+        public void onNonCustomDataEvent(AchievementDataEvent event) {
             if (event.getChangedData() == mGameData
                     && event.getEventType() == AchievementDataEvent.EVENT_TYPE_DATA_CLOSE
                     && mGameData.isSolved()
@@ -115,7 +115,7 @@ public class AchievementTriangle extends TypeAchievementHolder {
         }
 
         @Override
-        public void onDataEvent(AchievementDataEvent event) {
+        public void onNonCustomDataEvent(AchievementDataEvent event) {
            if (event.getChangedData() == mGameData && event.hasChangedKey(KEY_TRIANGLE_COUNT)) {
                long totalTriangles = mGameData.getValue(KEY_TRIANGLE_COUNT, 0L);
                long changedAmount = totalTriangles - mGameData.getValue(KEY_TRIANGLE_COUNT_BEFORE_LAST_INTERACTION, 0L);
@@ -146,7 +146,7 @@ public class AchievementTriangle extends TypeAchievementHolder {
         }
 
         @Override
-        public void onDataEvent(AchievementDataEvent event) {
+        public void onNonCustomDataEvent(AchievementDataEvent event) {
             if (event.getChangedData() == mGameData  && event.getEventType() == AchievementDataEvent.EVENT_TYPE_DATA_CLOSE
                     && mGameData.isSolved() && mGameData.getState() == AchievementDataRiddleGame.STATE_CLOSED) {
                 if (mGameData.getValue(KEY_TRIANGLE_COUNT, MAX_TRIANGLES + 1) <= MAX_TRIANGLES) {
@@ -176,7 +176,7 @@ public class AchievementTriangle extends TypeAchievementHolder {
         }
 
         @Override
-        public void onDataEvent(AchievementDataEvent event) {
+        public void onNonCustomDataEvent(AchievementDataEvent event) {
             if (event.getChangedData() == mGameData  && event.getEventType() == AchievementDataEvent.EVENT_TYPE_DATA_CLOSE
                     && mGameData.isSolved() && mGameData.getState() == AchievementDataRiddleGame.STATE_CLOSED) {
                 if (mGameData.getValue(KEY_TRIANGLE_COUNT, MIN_TRIANGLES - 1) >= MIN_TRIANGLES) {
@@ -206,7 +206,7 @@ public class AchievementTriangle extends TypeAchievementHolder {
         }
 
         @Override
-        public void onDataEvent(AchievementDataEvent event) {
+        public void onNonCustomDataEvent(AchievementDataEvent event) {
             if (event.getChangedData() == mGameData  && event.getEventType() == AchievementDataEvent.EVENT_TYPE_DATA_CLOSE
                     && mGameData.isSolved() && mGameData.getState() == AchievementDataRiddleGame.STATE_CLOSED
                     && areDependenciesFulfilled()) {

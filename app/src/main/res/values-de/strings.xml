@@ -91,6 +91,7 @@
     <string name="panic_ask_type">Wie funktioniert das Experiment</string>
     <string name="panic_ask_author">Wessen Bild ist das</string>
     <string name="panic_skip">Experiment aussetzen… später weitermachen</string>
+    <string name="panic_share">Experiment als Bild teilen</string>
     <string name="panic_complain">Aaaah, was ist das?! Krum und schief! Beschwerde!!!!11</string>
     <string name="panic_cannot_skip">Gehirn überladen … kann nicht .. weitere Experimente. merken …</string>
 
@@ -168,6 +169,7 @@
     <string name="workshop_tab_bundle_creator">Paket Ersteller</string>
     <string name="workshop_tab_bundle_manager">Pakete Manager</string>
     <string name="workshop_tab_mosaic">Mosaik Generator</string>
+    <string name="workshop_tab_logo">Logo erstellen</string>
     <string name="bundle_creator_bundle_name_descr">Neuer Paket Name</string>
     <string name="bundle_creator_bundle_name_hint">z.B. \"CoolPix\"</string>
     <string name="bundle_creator_origin_name_descr">Paket Herkunft</string>
@@ -223,6 +225,14 @@
     <string name="mosaic_generator_image_save_success">Mosaic gespeichert!</string>
     <string name="mosaic_generator_image_save_failed">Speichern fehlgeschlagen</string>
     <string name="mosaic_generator_share_mosaic">Mosaik teilen</string>
+    <string name="obfuscated_accept">Experiment akzeptieren</string>
+    <string name="obfuscated_refuse">Experiment ablehnen</string>
+    <string name="obfuscated_not_valid_when_loading">Kein gültiges Experiment.</string>
+    <string name="obfuscated_loading_success_no_riddle">Bild eingebunden ohne Experiment</string>
+    <string name="obfuscated_loading_success_with_riddle">Neues Experiment bereit!</string>
+    <string name="obfuscated_loading_failed">Fehler beim Lesen des versteckten Bildes</string>
+    <string name="logo_explanation_title">Logo um Experimente als Bilder zu teilen</string>
+    <string name="logo_saved">Logo gespeichert!</string>
 
     <plurals name="images_in_bundle">
         <item quantity="one">%1$d Bild</item>

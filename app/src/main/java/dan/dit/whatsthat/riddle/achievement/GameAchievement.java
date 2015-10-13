@@ -8,6 +8,7 @@ import java.util.Map;
 
 import dan.dit.whatsthat.R;
 import dan.dit.whatsthat.achievement.Achievement;
+import dan.dit.whatsthat.achievement.AchievementDataEvent;
 import dan.dit.whatsthat.achievement.AchievementManager;
 import dan.dit.whatsthat.riddle.types.PracticalRiddleType;
 import dan.dit.whatsthat.testsubject.LevelDependency;
@@ -100,6 +101,18 @@ public abstract class GameAchievement extends Achievement {
     public void onInit() {
 
     }
+
+    @Override
+    public void onDataEvent(AchievementDataEvent event) {
+        if ((event.getChangedData() == mGameData && mGameData.isCustom())
+            || (event.getChangedData() == mTypeData && mTypeData.isCustom())) {
+            return;
+        }
+        onNonCustomDataEvent(event);
+    }
+
+    protected abstract void onNonCustomDataEvent(AchievementDataEvent event);
+
 
     private static String makeId(PracticalRiddleType type, int number) {
         return type.getFullName() + number;
