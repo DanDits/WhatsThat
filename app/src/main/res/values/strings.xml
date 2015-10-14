@@ -128,11 +128,18 @@
     <string name="download_article_descr_synced">%1$s\'s images (%2$s) are now in the pool!</string>
     <string name="download_article_descr_ready">Confirm download from %1$s (~%2$dMB)</string>
     <string name="download_article_name">Download image bundle \"%1$s\"</string>
+
     <string name="download_article_descr">Grow the image pool with fresh cool images.</string>
+    <string name="download_article_descr_nature">Grow the image pool with nature pictures and nature objects! For Experts!</string>
+    <string name="download_article_descr_animal">Grow the image pool with pictures of (Non-) animals!</string>
+    <string name="download_article_descr_housing">Grow the image pool with house and garden pictures!</string>
+    <string name="download_article_descr_general">Grow the image pool with different kinds of pictures :)!</string>
+    <string name="download_article_descr_technical">Grow the image pool with technical pictures!</string>
+    <string name="download_article_descr_superlative">Grow the image pool with sport, vehicle and job pictures!</string>
 
     <string name="panic_complain_nothing">Keep calm and wait on</string>
     <string name="panic_complain_dummy_toast">Complain has been noted</string>
-    <string name="panic_complain_content">I want to complain about this riddle and image...TELL US WHAT YOU THINK IS BAD :)</string>
+    <string name="panic_complain_content">I want to complain about this riddle and image…TELL US WHAT YOU THINK IS BAD :)</string>
 
     <string name="article_hint_no_translation">Hint not available for this language.</string>
 

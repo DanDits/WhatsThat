@@ -48,29 +48,24 @@ public class SortimentHolder extends ShopArticleHolder {
         addArticle(new ShopArticleToggleable(ARTICLE_KEY_SNOW_FEATURE_ORIENTATION_SENSOR, mPurse, R.string.article_snow_feature_orientation_sensor_name, R.string.article_snow_feature_orientation_sensor_descr, R.drawable.icon_snow,
                 R.string.article_snow_feature_orientation_sensor_on, R.string.article_snow_feature_orientation_sensor_off, 400));
         addHintArticles();
-        addArticle(new ShopArticleDownload(mApplicationContext, mPurse, R.string.download_article_name, R.string.download_article_descr, R.drawable.ic_download, 0,
-                "daniel", "test1", 2, "https://www.dropbox.com/s/pqcigkzt0q0yqhr/bla.zip?dl=1"));
 
-        addArticle(new ShopArticleDownload(mApplicationContext, mPurse, R.string.download_article_name, R.string.download_article_descr, R.drawable.ic_download, 0,
-                "didi", "danielpix", 2, "https://www.dropbox.com/s/w3h0u9145etdb14/didi_danielpix.wtb?dl=1"));
-
-        //TODO die xml ist fehlerhaft! abgeschnitten?
-        addArticle(new ShopArticleDownload(mApplicationContext, mPurse, R.string.download_article_name, R.string.download_article_descr, R.drawable.ic_download, 25,
+        //TODO xml teilweise fehlerhaft! Abgeschnitten und/oder Ü/Ä/Ö werden nicht angezeigt
+        addArticle(new ShopArticleDownload(mApplicationContext, mPurse, R.string.download_article_name, R.string.download_article_descr_technical, R.drawable.ic_download, 25,
                 "fabian", "crackle42_pics", 5, "https://www.dropbox.com/s/b5nydme8eg1lq8e/fabian_crackle42_pics.wtb?dl=1"));
 
-        addArticle(new ShopArticleDownload(mApplicationContext, mPurse, R.string.download_article_name, R.string.download_article_descr, R.drawable.ic_download, 25,
+        addArticle(new ShopArticleDownload(mApplicationContext, mPurse, R.string.download_article_name, R.string.download_article_descr_general, R.drawable.ic_download, 25,
                 "fabian", "FaDi_pics", 8, "https://www.dropbox.com/s/drvqyfc9s9ar8j6/fabian_FaDi_pics.wtb?dl=1"));
 
-        addArticle(new ShopArticleDownload(mApplicationContext, mPurse, R.string.download_article_name, R.string.download_article_descr, R.drawable.ic_download, 40,
+        addArticle(new ShopArticleDownload(mApplicationContext, mPurse, R.string.download_article_name, R.string.download_article_descr_housing, R.drawable.ic_download, 40,
                 "fabian", "housing", 8, "https://www.dropbox.com/s/4b28so70j5jugpo/fabian_housing.wtb?dl=1"));
 
-        addArticle(new ShopArticleDownload(mApplicationContext, mPurse, R.string.download_article_name, R.string.download_article_descr, R.drawable.ic_download, 60,
+        addArticle(new ShopArticleDownload(mApplicationContext, mPurse, R.string.download_article_name, R.string.download_article_descr_nature, R.drawable.ic_download, 60,
                 "fabian", "nature", 9, "https://www.dropbox.com/s/6pgvwdyfvbp95n2/fabian_nature.wtb?dl=1"));
 
-        addArticle(new ShopArticleDownload(mApplicationContext, mPurse, R.string.download_article_name, R.string.download_article_descr, R.drawable.ic_download, 25,
+        addArticle(new ShopArticleDownload(mApplicationContext, mPurse, R.string.download_article_name, R.string.download_article_descr_animal, R.drawable.ic_download, 25,
                 "fabian", "NoAnimal", 5, "https://www.dropbox.com/s/j6ofjcberhvt6tz/fabian_NoAnimal.wtb?dl=1"));
 
-        addArticle(new ShopArticleDownload(mApplicationContext, mPurse, R.string.download_article_name, R.string.download_article_descr, R.drawable.ic_download, 60,
+        addArticle(new ShopArticleDownload(mApplicationContext, mPurse, R.string.download_article_name, R.string.download_article_descr_superlative, R.drawable.ic_download, 50,
                 "fabian", "superlative", 8, "https://www.dropbox.com/s/vx5f7lkim0jja4j/fabian_superlative.wtb?dl=1"));
 
         addArticle(new ShopArticleSimple(ARTICLE_KEY_JUMPER_START_FURTHER_FEATURE, mPurse, R.string.article_jumper_start_further_name, R.string.article_jumper_start_further_descr, R.drawable.icon_jumprun, 700));

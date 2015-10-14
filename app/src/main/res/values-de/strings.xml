@@ -122,6 +122,13 @@
     <string name="article_hint_not_yet_read">Neuer Hinweis im nächsten Spiel</string>
 
     <string name="download_article_descr">Erweitere den Bilderpool mit neuen coolen Bildern.</string>
+    <string name="download_article_descr_nature">Erweitere den Bilderpool mit Bildern rund um die Natur! Für Experten!</string>
+    <string name="download_article_descr_animal">Erweitere den Bilderpool mit (Nicht-) tierischen Bildern!</string>
+    <string name="download_article_descr_housing">Erweitere den Bilderpool mit Bildern rund ums Haus und Garten!</string>
+    <string name="download_article_descr_general">Erweitere den Bilderpool mit diversen Allerlei-Bildern :)!</string>
+    <string name="download_article_descr_technical">Erweitere den Bilderpool mit technischen Bildern!</string>
+    <string name="download_article_descr_superlative">Erweitere den Bilderpool mit Sport-, Fahrzeug- und Berufsbilder!</string>
+
     <string name="download_article_descr_downloading">%2$s Bilder von %1$s werden heruntergeladen…</string>
     <string name="download_article_descr_downloaded">%2$s Bilder von %1$s wurden heruntergeladen!</string>
     <string name="download_article_descr_ready">Herunterladen von %1$s (~%2$dMB) bestätigen</string>
