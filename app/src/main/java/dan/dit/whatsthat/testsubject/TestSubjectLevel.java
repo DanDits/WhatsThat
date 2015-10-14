@@ -66,6 +66,9 @@ public abstract class TestSubjectLevel {
     protected abstract void onLeveledUp();
 
     public int getImageResourceId() {
+        if (TestSubject.getInstance().getGender() == TestSubject.GENDER_NOT_CHOSEN) {
+            return R.drawable.kid_abduction;
+        }
         return mImageResId;
     }
 
