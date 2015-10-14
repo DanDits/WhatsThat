@@ -33,6 +33,7 @@ import dan.dit.whatsthat.preferences.User;
 import dan.dit.whatsthat.riddle.achievement.holders.MiscAchievementHolder;
 import dan.dit.whatsthat.riddle.types.PracticalRiddleType;
 import dan.dit.whatsthat.testsubject.TestSubject;
+import dan.dit.whatsthat.testsubject.shopping.sortiment.SortimentHolder;
 import dan.dit.whatsthat.util.image.ImageUtil;
 import dan.dit.whatsthat.util.ui.GlasDialog;
 
@@ -187,7 +188,7 @@ public class NoPanicDialog extends DialogFragment {
             }
         });
         mShareExperiment = (Button) baseView.findViewById(R.id.panic_share);
-        if (mImage == null) {
+        if (mImage == null || !TestSubject.getInstance().hasFeature(SortimentHolder.ARTICLE_KEY_SHARE_AS_IMAGE_FEATURE)) {
             mShareExperiment.setVisibility(View.GONE);
         } else {
             mShareExperiment.setVisibility(View.VISIBLE);

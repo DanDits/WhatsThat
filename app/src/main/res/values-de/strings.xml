@@ -241,6 +241,9 @@
     <string name="obfuscated_loading_failed">Fehler beim Lesen des versteckten Bildes</string>
     <string name="logo_explanation_title">Logo um Experimente als Bilder zu teilen</string>
     <string name="logo_saved">Logo gespeichert!</string>
+    <string name="obfuscated_not_valid_explanation">Vermutlich wurde das Bild komprimiert und kleiner gemacht. Dies ist leider bei manchen Apps wie WhatsApp oder Telegram der Fall. Benutze eine verlustfreie Methode wie Email!</string>
+    <string name="article_share_as_image_feature_name">Teile Experimente als Bilder an Freunde</string>
+    <string name="article_share_as_image_feature_descr">Erlaubt dein momentanes Experiment als Bild an Freunde zu verschicken! Leider darf dabei das Bild nicht komprimiert oder verändert werden, also kannst du dafür nicht WhatsApp benutzen sondern beispielsweise Email oder Dropbox.</string>
 
     <plurals name="images_in_bundle">
         <item quantity="one">%1$d Bild</item>

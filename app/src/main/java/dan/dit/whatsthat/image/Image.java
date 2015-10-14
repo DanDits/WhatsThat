@@ -543,7 +543,7 @@ public class Image implements MosaicTile<String> {
                 if (context == null) {
                     throw new BuildException("Source: " + mImage.mName).setMissingData("Image", "No context and no hash.");
                 }
-                Log.d("Image", "Building image with no hash yet: " + mImage.mName);
+                Log.d("Image", "Building image with no hash yet: " + mImage.mName + " solutions " + mImage.mSolutions);
                 calculateHashAndPreferences(context, buffer);
             }
             build();
