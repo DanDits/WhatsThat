@@ -365,7 +365,8 @@ public class TestSubject {
     }
 
     public boolean canChooseNewRiddle() {
-        return mPurse.mShopWallet.getEntryValue(SHW_KEY_MAX_AVAILABLE_RIDDLE_TYPES, AVAILABLE_RIDDLES_AT_GAME_START) > mTypes.size();
+        return mPurse.mShopWallet.getEntryValue(SHW_KEY_MAX_AVAILABLE_RIDDLE_TYPES, AVAILABLE_RIDDLES_AT_GAME_START) > mTypes.size()
+                && mTypes.size() < PracticalRiddleType.ALL_PLAYABLE_TYPES.size();
     }
 
     public synchronized boolean chooseNewRiddle(PracticalRiddleType type) {

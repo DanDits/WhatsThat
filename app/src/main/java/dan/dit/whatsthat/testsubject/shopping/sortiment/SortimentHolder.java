@@ -49,8 +49,8 @@ public class SortimentHolder extends ShopArticleHolder {
         addArticle(new ShopArticleToggleable(ARTICLE_KEY_SNOW_FEATURE_ORIENTATION_SENSOR, mPurse, R.string.article_snow_feature_orientation_sensor_name, R.string.article_snow_feature_orientation_sensor_descr, R.drawable.icon_snow,
                 R.string.article_snow_feature_orientation_sensor_on, R.string.article_snow_feature_orientation_sensor_off, 400));
         addHintArticles();
+        addArticle(new ShopArticleSimple(ARTICLE_KEY_SHARE_AS_IMAGE_FEATURE, mPurse, R.string.article_share_as_image_feature_name, R.string.article_share_as_image_feature_descr, R.drawable.icon_general, 150));
 
-        //TODO xml teilweise fehlerhaft! Abgeschnitten und/oder Ü/Ä/Ö werden nicht angezeigt
         addArticle(new ShopArticleDownload(mApplicationContext, mPurse, R.string.download_article_name, R.string.download_article_descr_technical, R.drawable.ic_download, 25,
                 "fabian", "crackle42_pics", 5, "https://www.dropbox.com/s/b5nydme8eg1lq8e/fabian_crackle42_pics.wtb?dl=1"));
 

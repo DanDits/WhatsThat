@@ -18,7 +18,6 @@ public class InitActivity extends Activity implements InitializationFragment.OnI
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.d("HomeStuff", "onCreate of InitActivity.");
-        //ImageManager.calculateImagedataDeveloper(this);
         setContentView(R.layout.init_activity);
     }
 
