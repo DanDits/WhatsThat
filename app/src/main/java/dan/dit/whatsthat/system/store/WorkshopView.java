@@ -19,6 +19,8 @@ import dan.dit.whatsthat.image.BundleCreator;
 import dan.dit.whatsthat.image.BundleManager;
 import dan.dit.whatsthat.image.LogoView;
 import dan.dit.whatsthat.preferences.User;
+import dan.dit.whatsthat.testsubject.TestSubject;
+import dan.dit.whatsthat.testsubject.shopping.sortiment.SortimentHolder;
 import dan.dit.whatsthat.util.mosaic.MosaicGeneratorUi;
 import dan.dit.whatsthat.util.ui.UiStyleUtil;
 
@@ -75,7 +77,9 @@ public class WorkshopView extends FrameLayout implements StoreContainer {
         });
         TabFactory factory = new TabFactory(activity);
         addTab(mTabHost, factory, mTabHost.newTabSpec(TAB_BUNDLE_MANAGER).setIndicator(getResources().getString(R.string.workshop_tab_bundle_manager)));
-        addTab(mTabHost, factory, mTabHost.newTabSpec(TAB_LOGO).setIndicator(getResources().getString(R.string.workshop_tab_logo)));
+        if (TestSubject.getInstance().hasFeature(SortimentHolder.ARTICLE_KEY_SHARE_AS_IMAGE_FEATURE)) {
+            addTab(mTabHost, factory, mTabHost.newTabSpec(TAB_LOGO).setIndicator(getResources().getString(R.string.workshop_tab_logo)));
+        }
         addTab(mTabHost, factory, mTabHost.newTabSpec(TAB_MOSAIC).setIndicator(getResources().getString(R.string.workshop_tab_mosaic)));
         addTab(mTabHost, factory, mTabHost.newTabSpec(TAB_BUNDLE_CREATOR).setIndicator(getResources().getString(R.string.workshop_tab_bundle_creator)));
 

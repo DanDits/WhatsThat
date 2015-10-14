@@ -32,6 +32,7 @@ public class SortimentHolder extends ShopArticleHolder {
     public static final String ARTICLE_KEY_TRIANGLE_DIVIDE_BY_MOVE_FEATURE = PracticalRiddleType.TRIANGLE_INSTANCE.getFullName() + "_divided_by_move_feature";
     public static final String ARTICLE_KEY_SNOW_FEATURE_ORIENTATION_SENSOR = PracticalRiddleType.SNOW_INSTANCE.getFullName() + "_control_by_orientation_sensor";
     public static final String ARTICLE_KEY_LAZOR_PROTECTION_AT_DIFFICULTY = PracticalRiddleType.LAZOR_INSTANCE.getFullName() + "_protection_at_difficulty";
+    public static final String ARTICLE_KEY_SHARE_AS_IMAGE_FEATURE = "share_experiment_as_image";
     private Dependency mAnyDownloadProductPurchasedDependency;
     public SortimentHolder(Context applicationContext, ForeignPurse purse) {
         super(applicationContext, purse);
@@ -48,6 +49,8 @@ public class SortimentHolder extends ShopArticleHolder {
         addArticle(new ShopArticleToggleable(ARTICLE_KEY_SNOW_FEATURE_ORIENTATION_SENSOR, mPurse, R.string.article_snow_feature_orientation_sensor_name, R.string.article_snow_feature_orientation_sensor_descr, R.drawable.icon_snow,
                 R.string.article_snow_feature_orientation_sensor_on, R.string.article_snow_feature_orientation_sensor_off, 400));
         addHintArticles();
+        addArticle(new ShopArticleSimple(ARTICLE_KEY_SHARE_AS_IMAGE_FEATURE, mPurse, R.string.article_share_as_image_feature_name, R.string.article_share_as_image_feature_descr, R.drawable.icon_general, 150));
+
         addArticle(new ShopArticleDownload(mApplicationContext, mPurse, R.string.download_article_name, R.string.download_article_descr, R.drawable.ic_download, 0,
                 "daniel", "test1", 2, "https://www.dropbox.com/s/pqcigkzt0q0yqhr/bla.zip?dl=1"));
 
@@ -111,6 +114,8 @@ public class SortimentHolder extends ShopArticleHolder {
         getArticle(ARTICLE_KEY_TRIANGLE_DIVIDE_BY_MOVE_FEATURE)
                 .addDependency(TestSubject.getInstance().getRiddleTypeDependency(PracticalRiddleType.TRIANGLE_INSTANCE), ShopArticle.GENERAL_PRODUCT_INDEX)
                 .addDependency(TestSubject.getInstance().makeProductPurchasedDependency(ARTICLE_KEY_CIRCLE_DIVIDE_BY_MOVE_FEATURE, ShopArticle.GENERAL_PRODUCT_INDEX), ShopArticle.GENERAL_PRODUCT_INDEX);
+        getArticle(ARTICLE_KEY_SHARE_AS_IMAGE_FEATURE)
+                .addDependency(LevelDependency.getInstance(3), ShopArticle.GENERAL_PRODUCT_INDEX);
         getArticle(ARTICLE_KEY_SNOW_FEATURE_ORIENTATION_SENSOR)
                 .addDependency(TestSubject.getInstance().getRiddleTypeDependency(PracticalRiddleType.SNOW_INSTANCE), ShopArticle.GENERAL_PRODUCT_INDEX);
         getArticle(ShopArticleRiddleHints.makeKey(PracticalRiddleType.CIRCLE_INSTANCE))

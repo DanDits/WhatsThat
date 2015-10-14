@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.File;
@@ -35,6 +36,7 @@ public class ReceiveObfuscatedActivity extends Activity {
     private AsyncTask<Void, Integer, Object> mPrepareTask;
     private Button mRefuse;
     private ProgressBar mProgressWorking;
+    private View mFailExplanation;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -57,6 +59,8 @@ public class ReceiveObfuscatedActivity extends Activity {
         super.onCreate(savedInstanceState);
         if (hasValidData) {
             setContentView(R.layout.receive_obfuscated_image);
+            mFailExplanation = findViewById(R.id.obfuscated_fail_explanation);
+            mFailExplanation.setVisibility(View.GONE);
             mRefuse = (Button) findViewById(R.id.obfuscated_refuse);
             mRefuse.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -179,6 +183,7 @@ public class ReceiveObfuscatedActivity extends Activity {
                 if (mObfuscated != null) {
                     mAccept.setEnabled(true);
                 } else {
+                    mFailExplanation.setVisibility(View.VISIBLE);
                     Toast.makeText(getApplicationContext(), R.string.obfuscated_not_valid_when_loading, Toast.LENGTH_LONG).show();
                 }
             }

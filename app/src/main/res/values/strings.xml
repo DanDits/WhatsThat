@@ -233,6 +233,9 @@
     <string name="obfuscated_loading_failed">Error reading obfuscated image</string>
     <string name="logo_explanation_title">Logo for sharing experiments as images</string>
     <string name="logo_saved">Logo saved!</string>
+    <string name="obfuscated_not_valid_explanation">Potentially the image was compressed to make it smaller. Unfortunately this is done by some sharing apps like WhatsApp or Telegram. Use a lossless way of sharing like email!</string>
+    <string name="article_share_as_image_feature_name">Share experiments as image to friends</string>
+    <string name="article_share_as_image_feature_descr">Allows sharing your current experiment as a simple image file! Unfortunately the image must not be compressed or resized, so you cannot use WhatsApp but need to use something like email or dropbox.</string>
     <plurals name="images_in_bundle">
         <item quantity="one">%1$d image</item>
         <item quantity="other">%1$d images</item>
