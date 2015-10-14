@@ -42,7 +42,9 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
+import dan.dit.whatsthat.BuildConfig;
 import dan.dit.whatsthat.R;
+import dan.dit.whatsthat.achievement.AchievementDataTimer;
 import dan.dit.whatsthat.achievement.AchievementManager;
 import dan.dit.whatsthat.image.Image;
 import dan.dit.whatsthat.image.ImageManager;
@@ -90,6 +92,8 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
     private boolean mErrorHandlingAttempted;
     private ImageButton mBtnCheat;
     private TextView mScoreInfo;
+    private long mFirstClickTime;
+    private int mClickCount;
 
     public void onProgressUpdate(int progress) {
         mProgressBar.onProgressUpdate(progress);
@@ -388,6 +392,19 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
         });
         mBtnRiddles = (ImageButton) getView().findViewById(R.id.riddle_make_next);
         mScoreInfo = (TextView) getView().findViewById(R.id.currency);
+        mScoreInfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mClickCount == 0 || System.currentTimeMillis() - mFirstClickTime > 2000L) {
+                    mClickCount = 0;
+                    mFirstClickTime = System.currentTimeMillis();
+                }
+                mClickCount++;
+                if (mClickCount >= 10) {
+                    mBtnCheat.setVisibility(View.VISIBLE);
+                }
+            }
+        });
         mBtnRiddles.setEnabled(false);
         mBtnRiddles.setImageResource(TestSubject.getInstance().getImageResId());
         mBtnRiddles.setOnClickListener(new View.OnClickListener() {
@@ -405,9 +422,14 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
             }
         });
         mBtnCheat = (ImageButton) getView().findViewById(R.id.riddle_cheat);
+        mBtnCheat.setVisibility(View.GONE);
         mBtnCheat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (!BuildConfig.DEBUG) {
+                    Log.e("HomeStuff", "Using cheats in non debug build!");
+                    return;
+                }
                 onCheat();
             }
         });

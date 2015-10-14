@@ -30,6 +30,7 @@ import dan.dit.whatsthat.image.Image;
 import dan.dit.whatsthat.riddle.Riddle;
 import dan.dit.whatsthat.riddle.RiddleConfig;
 import dan.dit.whatsthat.riddle.achievement.holders.AchievementLazor;
+import dan.dit.whatsthat.riddle.types.Types;
 import dan.dit.whatsthat.testsubject.TestSubject;
 import dan.dit.whatsthat.testsubject.shopping.ShopArticleMulti;
 import dan.dit.whatsthat.testsubject.shopping.sortiment.SortimentHolder;
@@ -165,6 +166,18 @@ public class RiddleLazor extends RiddleGame implements FlatWorldCallback {
     @Override
     protected void initAchievementData() {
 
+    }
+
+    @Override
+    protected void calculateGainedScore(int[] scores) {
+        int bonus = 0;
+        if (mConfig.mAchievementGameData != null
+                && mConfig.mAchievementGameData.getValue(AchievementLazor.KEY_GAME_METEOR_CRASHED_IN_CITY_COUNT, 0L) == 0L) {
+            bonus = Types.SCORE_HARD;
+        }
+        super.calculateGainedScore(scores);
+        scores[3] += bonus;
+        scores[0] += bonus;
     }
 
     @Override

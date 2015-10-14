@@ -69,9 +69,7 @@ public abstract class TestSubjectLevel {
         return mImageResId;
     }
 
-    public double getLevelUpAchievementScoreFraction() {
-        return 0.5;
-    }
+    public abstract double getLevelUpAchievementScoreFraction();
 
 
     private static class TestSubjectLevel0 extends TestSubjectLevel {
@@ -174,6 +172,11 @@ public abstract class TestSubjectLevel {
             mTestSubject.addNewType(PracticalRiddleType.CIRCLE_INSTANCE);
             mTestSubject.saveTypes();
         }
+
+        @Override
+        public double getLevelUpAchievementScoreFraction() {
+            return 0.5;
+        }
     }
 
     private static class TestSubjectLevel1 extends TestSubjectLevel {
@@ -203,6 +206,11 @@ public abstract class TestSubjectLevel {
         @Override
         protected void onLeveledUp() {
         }
+
+        @Override
+        public double getLevelUpAchievementScoreFraction() {
+            return 0.55;
+        }
     }
     private static class TestSubjectLevel2 extends TestSubjectLevel {
 
@@ -229,6 +237,10 @@ public abstract class TestSubjectLevel {
 
         @Override
         protected void onLeveledUp() {
+        }
+        @Override
+        public double getLevelUpAchievementScoreFraction() {
+            return 0.6;
         }
     }
 
@@ -261,6 +273,10 @@ public abstract class TestSubjectLevel {
         @Override
         protected void onLeveledUp() {
         }
+        @Override
+        public double getLevelUpAchievementScoreFraction() {
+            return 0.625;
+        }
     }
     
     private static class TestSubjectLevel4 extends TestSubjectLevel {
@@ -288,6 +304,10 @@ public abstract class TestSubjectLevel {
 
         @Override
         protected void onLeveledUp() {
+        }
+        @Override
+        public double getLevelUpAchievementScoreFraction() {
+            return 0.65;
         }
     }
 
@@ -317,6 +337,10 @@ public abstract class TestSubjectLevel {
         @Override
         protected void onLeveledUp() {
         }
+        @Override
+        public double getLevelUpAchievementScoreFraction() {
+            return 0.675;
+        }
     }
 
     private static class TestSubjectLevel6 extends TestSubjectLevel {
@@ -344,6 +368,10 @@ public abstract class TestSubjectLevel {
 
         @Override
         protected void onLeveledUp() {
+        }
+        @Override
+        public double getLevelUpAchievementScoreFraction() {
+            return 0.7;
         }
     }
 
@@ -373,6 +401,10 @@ public abstract class TestSubjectLevel {
         @Override
         protected void onLeveledUp() {
         }
+        @Override
+        public double getLevelUpAchievementScoreFraction() {
+            return 0.75;
+        }
     }
 
     private static class TestSubjectLevel8 extends TestSubjectLevel {
@@ -401,6 +433,10 @@ public abstract class TestSubjectLevel {
         @Override
         protected void onLeveledUp() {
         }
+        @Override
+        public double getLevelUpAchievementScoreFraction() {
+            return 0.8;
+        }
     }
 
     private static class TestSubjectLevel9 extends TestSubjectLevel {
@@ -428,6 +464,10 @@ public abstract class TestSubjectLevel {
 
         @Override
         protected void onLeveledUp() {
+        }
+        @Override
+        public double getLevelUpAchievementScoreFraction() {
+            return 0.85;
         }
     }
 }

@@ -52,7 +52,8 @@ public class LevelUpArticle extends ShopArticle {
     @Override
     public boolean isImportant() {
         int purchasable = isPurchasable(GENERAL_PRODUCT_INDEX);
-        return purchasable == HINT_PURCHASABLE || purchasable == HINT_NOT_PURCHASABLE_TOO_EXPENSIVE;
+        return purchasable == HINT_PURCHASABLE || purchasable == HINT_NOT_PURCHASABLE_TOO_EXPENSIVE
+                || (purchasable == HINT_NOT_PURCHASABLE_DEPENDENCIES_MISSING && !areDependenciesMissing(GENERAL_PRODUCT_INDEX));
     }
 
     @Override

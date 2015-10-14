@@ -24,6 +24,7 @@ import dan.dit.whatsthat.riddle.RiddleMaker;
 import dan.dit.whatsthat.riddle.RiddleManager;
 import dan.dit.whatsthat.riddle.TypeChooser;
 import dan.dit.whatsthat.riddle.UnsolvedRiddlesChooser;
+import dan.dit.whatsthat.testsubject.TestSubject;
 import dan.dit.whatsthat.util.ui.GlasDialog;
 import dan.dit.whatsthat.util.ui.UiStyleUtil;
 
@@ -62,6 +63,7 @@ public class RiddlePickerDialog extends DialogFragment {
 
         mChooser = new UnsolvedRiddlesChooser();
         mTypeChooser = new TypeChooser();
+        baseView.findViewById(R.id.subtitle).setVisibility(TestSubject.getInstance().canChooseNewRiddle() ? View.VISIBLE : View.GONE);
         mContainer = (ViewGroup) baseView.findViewById(R.id.unsolved_and_types_container);
         mContainer.addView(mTypeChooser.makeView(getActivity()));
         if (RiddleInitializer.INSTANCE.getRiddleManager().getUnsolvedRiddleCount() > (mIdToHide == Riddle.NO_ID ? 0 : 1)) {

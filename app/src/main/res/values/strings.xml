@@ -141,6 +141,7 @@
 
     <string name="riddle_hints_dialog_confirm">I got it!</string>
     <string name="riddle_dialog_title">Choose experiments</string>
+    <string name="riddle_dialog_subtitle">New experiment in shop!</string>
     <plurals name="riddle_dialog_confirm_unsolveds">
         <item quantity="one">Continue experiment</item>
         <item quantity="other">Continue %1$d experiments</item>

@@ -35,19 +35,6 @@ import dan.dit.whatsthat.util.mosaic.matching.TileMatcher;
  */
 public class RiddleDeveloper extends RiddleGame {
 
-    private static final int MOSAIC_MODES = 3;
-    private Bitmap[] mGallery;
-    private int mGalleryIndex;
-    private String[] mGalleryToast;
-
-    private Bitmap[] mSVDGallery;
-    private String[] mSVDGalleryToast;
-
-    private Bitmap[][] mMosaicGalleries;
-
-    private boolean mIsMosaicMode;
-    private int mCurrMosaicMode;
-
     public RiddleDeveloper(Riddle riddle, Image image, Bitmap bitmap, Resources res, RiddleConfig config, PercentProgressListener listener) {
         super(riddle, image, bitmap, res, config, listener);
     }
@@ -59,53 +46,16 @@ public class RiddleDeveloper extends RiddleGame {
 
     @Override
     public void draw(Canvas canvas) {
-        if (mGallery != null && mGalleryIndex >= 0 && mGalleryIndex < mGallery.length && mGallery[mGalleryIndex] != null) {
-            canvas.drawBitmap(mGallery[mGalleryIndex], 0, 0, null);
-        } else {
-            canvas.drawBitmap(mBitmap, 0, 0, null);
-        }
+        canvas.drawBitmap(mBitmap, 0, 0, null);
     }
 
     @Override
     protected void initBitmap(Resources res, PercentProgressListener listener) {
-        MultistepPercentProgressListener multiListener = new MultistepPercentProgressListener(listener, MOSAIC_MODES);
-        for (mCurrMosaicMode = 0; mCurrMosaicMode < MOSAIC_MODES; mCurrMosaicMode++) {
-            makeMosaics(res, multiListener);
-            multiListener.nextStep();
-        }
-        mCurrMosaicMode = 0;
-        switchToMosaicApproximation();
     }
 
-
-
-    private void switchToRankApproximation(PercentProgressListener listener) {
-        if (mSVDGallery == null) {
-            if (listener == null) {
-                listener = new PercentProgressListener() {
-                    @Override
-                    public void onProgressUpdate(int progress) {
-                        Log.d("Riddle", "Progress of rank approx when switching: " + progress);
-                    }
-                };
-            }
-            mMosaicGalleries = null;
-            makeRankApproximation(listener);
-        }
-        mIsMosaicMode = false;
-        mGallery = mSVDGallery;
-        mGalleryToast = mSVDGalleryToast;
-        mGalleryIndex = 0;
-    }
-
-    private void switchToMosaicApproximation() {
-        if (mMosaicGalleries == null) {
-            return;
-        }
-        mIsMosaicMode = true;
-        mGallery = mMosaicGalleries[mCurrMosaicMode];
-        mGalleryToast = null;
-        mGalleryIndex = 0;
+    @Override
+    public boolean onMotionEvent(MotionEvent event) {
+        return false;
     }
 
     private void makeRankApproximation(PercentProgressListener progress) {
@@ -134,9 +84,6 @@ public class RiddleDeveloper extends RiddleGame {
         Matrix VT = decomposition.getV().transpose();
 
         int index = 1;
-        mSVDGallery = new Bitmap[index + rankApproximations.length];
-        mSVDGalleryToast = new String[mSVDGallery.length];
-        mSVDGallery[0] = mBitmap;
         MultistepPercentProgressListener subProgress = new MultistepPercentProgressListener(multiProgress, rankApproximations.length);
 
         for (int rankApproximation : rankApproximations) {
@@ -148,9 +95,8 @@ public class RiddleDeveloper extends RiddleGame {
 
             //IndexedBitmap resultIndexedBitmap = new IndexedBitmap(resultMatrix, indexedBitmap.getIndexedColors());
             //mGallery[index] = resultIndexedBitmap.convertToBitmap();
-            mSVDGallery[index] = BitmapUtil.toBitmap(resultMatrix);
+            BitmapUtil.toBitmap(resultMatrix);
 
-            mSVDGalleryToast[index] = "Rank " + rankApproximation + " approx.";
             Log.d("Riddle", "Made rank " + rankApproximation + " approximation in " + (System.currentTimeMillis() - tic) + "ms.");
             subProgress.nextStep();
             index++;
@@ -158,93 +104,6 @@ public class RiddleDeveloper extends RiddleGame {
         multiProgress.nextStep();
         Log.d("Riddle", "Made rank approximation " + Arrays.toString(rankApproximations) + " of total rank " + rank + " in " + (System.currentTimeMillis() - totalTic) + "ms.");
 
-    }
-
-    private void makeMosaics(Resources res, PercentProgressListener listener) {
-        long tic;
-        long totalTic = System.currentTimeMillis();
-        Log.d("Riddle", "Making mosaic.");
-
-        Map<String, Image> images = RiddleFragment.ALL_IMAGES;
-        ImageBitmapSource source = new ImageBitmapSource(res, images);
-        ColorMetric metric = ColorMetric.Euclid2.INSTANCE;
-        boolean useAlpha = true;
-
-        tic = System.currentTimeMillis();
-        TileMatcher<String> matcher = new SimpleLinearTileMatcher<>(images.values(), useAlpha, metric);
-        Log.d("Riddle", "Matcher initialized with " + images.size() + " images in " + (System.currentTimeMillis() - tic) + "ms.");
-        matcher.setHashMatches(true);
-        MosaicMaker<String> maker = new MosaicMaker<>(matcher, source, useAlpha, metric);
-        double[] rectColumnRows = new double[] {1, 2, 5, 10, 20, 30};
-        double[] fixedLayerParams = new double[] {3, 5, 7};
-        double[] mergeFactorParams = new double[] {0.1, 0.25, 0.5, 0.75, 1.};
-
-        double[] params;
-        if (mCurrMosaicMode == 0) {
-            params = rectColumnRows;
-        } else if (mCurrMosaicMode == 1) {
-            params = mergeFactorParams;
-        } else {
-            params = fixedLayerParams;
-        }
-        if (mMosaicGalleries == null) {
-            mMosaicGalleries = new Bitmap[MOSAIC_MODES][];
-        }
-        mMosaicGalleries[mCurrMosaicMode] = new Bitmap[params.length + 1];
-        mMosaicGalleries[mCurrMosaicMode][0] = mBitmap;
-        int index = 1;
-        MultistepPercentProgressListener multistepProgress = new MultistepPercentProgressListener(listener, params.length);
-        for (double param : params) {
-            tic = System.currentTimeMillis();
-            if (mCurrMosaicMode == 0) {
-                mMosaicGalleries[mCurrMosaicMode][index] = maker.makeRect(mBitmap, (int) param, (int) param, null);
-            } else if (mCurrMosaicMode == 1) {
-                mMosaicGalleries[mCurrMosaicMode][index] = maker.makeMultiRect(mBitmap, 30, 30, param, null);
-            } else if ((int) param > 0) {
-                mMosaicGalleries[mCurrMosaicMode][index] = maker.makeFixedLayer(mBitmap, (int) param, null);
-            }
-            Log.d("Riddle", "Next step with param" + param + " of " + Arrays.toString(params) + " index " + index + " mode " +mCurrMosaicMode);
-            multistepProgress.nextStep();
-            Log.d("Riddle", "Resulting used " + matcher.getUsedTilesCount() + " with " + images.size() + " in the pool (time taken " + (System.currentTimeMillis() - tic) + "ms.)");
-            //ImageUtil.saveToMediaFile(mMosaic, "mosaic_" + String.valueOf(factor) + ".png");
-            index++;
-        }
-        listener.onProgressUpdate(PercentProgressListener.PROGRESS_COMPLETE);
-        Log.d("Riddle", "Mosaic generation finished in " + (System.currentTimeMillis() - totalTic) + "ms.");
-    }
-
-    private long mLastMoveStartTime;
-    @Override
-    public boolean onMotionEvent(MotionEvent event) {
-        if (event.getActionMasked() == MotionEvent.ACTION_MOVE) {
-            if (System.currentTimeMillis() - mLastMoveStartTime > 2000L) {
-                mLastMoveStartTime = System.currentTimeMillis();
-            } else {
-                return false;
-            }
-            if (mIsMosaicMode && mCurrMosaicMode < MOSAIC_MODES - 1) {
-                mCurrMosaicMode++;
-                switchToMosaicApproximation();
-            } else if (mIsMosaicMode) {
-                switchToRankApproximation(null);
-            } else {
-                mCurrMosaicMode = 0;
-                switchToMosaicApproximation();
-            }
-            return true;
-        }
-        if (event.getActionMasked() == MotionEvent.ACTION_DOWN && mGallery != null) {
-            mGalleryIndex++;
-            mGalleryIndex %= mGallery.length;
-            if (mGalleryToast != null && mGalleryToast[mGalleryIndex] != null) {
-                TestSubjectToast toast = new TestSubjectToast(Gravity.CENTER_HORIZONTAL | Gravity.BOTTOM,
-                        0, 0, 0, 0, 600);
-                toast.mText = mGalleryToast[mGalleryIndex];
-                TestSubject.getInstance().postToast(toast, 0);
-            }
-            return true;
-        }
-        return false;
     }
 
     @NonNull

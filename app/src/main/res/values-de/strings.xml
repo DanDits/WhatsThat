@@ -2,7 +2,7 @@
 
 <resources xmlns:tools="http://schemas.android.com/tools">
     <string name="credits_text" tools:ignore="TypographyEllipsis"><![CDATA[
-        <p>Jedes große Projekt braucht einen Platz, um den Leuten zu danken, die es möglich gemacht haben. Dies hier ist der Platz. So viele brilliante Leute, so viele brilliante und kreative Köpfe fund die meisten wissen noch nicht einmal, dass sie hierzu beigetragen haben.</p>
+        <p>Jedes große Projekt braucht einen Platz, um den Leuten zu danken, die es möglich gemacht haben. Dies hier ist der Platz. So viele brilliante Leute, so viele brilliante und kreative Köpfe und die meisten wissen noch nicht einmal, dass sie hierzu beigetragen haben.</p>
         <p><strong>Zuallerst möchte ich meinem Bruder Fabian für inspirierende Diskussionen, kreative Kreationen und detailverliebte Begeisterung vom Anfang bis zum Ende. Ohne dich wäre das alles hier nicht möglich gewesen.</strong></p>
         <ul>
         <li>Dieses Projekt benutzt das <a href="https://github.com/SufficientlySecure/donations">DonationsFragment</a> von <em>SufficientlySecure</em> für die Spendenseite.</li>
@@ -141,6 +141,7 @@
 
     <string name="riddle_hints_dialog_confirm">Habs verstanden!</string>
     <string name="riddle_dialog_title">Experimente wählen</string>
+    <string name="riddle_dialog_subtitle">Neues Experiment im Laden!</string>
     <plurals name="riddle_dialog_confirm_unsolveds">
         <item quantity="one">Ausgesetztes Experiment fortführen</item>
         <item quantity="other">%1$d Experimente fortführen</item>

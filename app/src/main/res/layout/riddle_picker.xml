@@ -16,12 +16,21 @@
         android:textColor="@color/important"
         android:text="@string/riddle_dialog_title"
         android:id="@+id/title"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/title"
+        android:textAppearance="@android:style/TextAppearance.Holo.Small"
+        android:textColor="#ff4d00"
+        android:text="@string/riddle_dialog_subtitle"
+        android:id="@+id/subtitle"/>
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_centerHorizontal="true"
-        android:layout_below="@+id/title"
+        android:layout_below="@+id/subtitle"
         android:id="@+id/unsolved_and_types_container">
 
     </LinearLayout>

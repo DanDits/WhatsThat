@@ -61,8 +61,6 @@ public abstract class PracticalRiddleType extends RiddleType {
         ALL_PLAYABLE_TYPES.add(TRIANGLE_INSTANCE);
         ALL_PLAYABLE_TYPES.add(DICE_INSTANCE);
         ALL_PLAYABLE_TYPES.add(FLOW_INSTANCE);
-        ALL_PLAYABLE_TYPES.add(DEVELOPER_INSTANCE);
-        ALL_PLAYABLE_TYPES.add(TORCHLIGHT_INSTANCE);
     }
 
     private SoftReference<Drawable> mIcon;
