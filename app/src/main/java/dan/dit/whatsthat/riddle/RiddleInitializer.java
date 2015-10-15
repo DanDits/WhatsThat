@@ -140,9 +140,6 @@ public final class RiddleInitializer {
             }
             if (highestUnsolvedId > mHighestUsedId) {
                 Log.e("Riddle", "Unsolved riddle id higher than loaded highest used id! " + mHighestUsedId + " < " + highestUnsolvedId);
-                if (BuildConfig.DEBUG) {
-                    Toast.makeText(mContext, "Error, wrong highest id.", Toast.LENGTH_LONG).show();
-                }
             }
             mUsedImagesForType.putAll(Riddle.loadUsedImagesForTypes(mContext, this));
             if (isCancelled()) {

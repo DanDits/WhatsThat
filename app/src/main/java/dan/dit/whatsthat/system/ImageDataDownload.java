@@ -416,7 +416,7 @@ public class ImageDataDownload {
             File storageDirectory = getStorageDirectory();
             Log.d("Image", "Starting to unzip " + mOrigin + " bundle " + mDataName + " url " + mURL + " storage: " + storage);
             if (storageDirectory != null && IOUtil.unzip(storage, storageDirectory)) {
-                publishProgress(25);
+                publishProgress(10);
                 // Step 2: find the xml holding required information to parse data
                 File dataHolder = null;
                 for (File subFile : storageDirectory.listFiles()) {
@@ -431,7 +431,7 @@ public class ImageDataDownload {
                     ImageXmlParser parser;
                     try {
                         parser = ImageXmlParser.parseInput(mContext, new FileInputStream(dataHolder), Integer.MIN_VALUE, false);
-                        publishProgress(35);
+                        publishProgress(15);
                     } catch (FileNotFoundException fnf) {
                         return ERROR_CODE_SYNC_NO_DATA_FILE_EXCEPTION_FNF;
                     } catch (IOException ioe) {
@@ -444,7 +444,7 @@ public class ImageDataDownload {
                     if (parser != null && parser.syncToDatabase(new ImageManager.SynchronizationListener() {
                             @Override
                             public void onSyncProgress(int progress) {
-                                publishProgress((int) (35. + progress * (65./100.)));
+                                publishProgress((int) (15. + progress * (85./100.)));
                             }
 
                             @Override
