@@ -70,11 +70,13 @@
     <string name="achievement_snow_14_descr">Wachse und explodiere, ohne dabei mehr als %1$d Sporen einzusammeln.</string>
 
     <string name="achievement_snow_15_name">Effizienzklicks 2.0</string>
-    <string name="achievement_snow_15_descr">Beende ein Spiel mit … nur einem Klick (benötigt Effizienzklicks)</string>
+    <string name="achievement_snow_15_descr">Beende ein Spiel mit … nur einem Klick.</string>
     <string name="achievement_snow_16_name">Warum nicht beide?</string>
-    <string name="achievement_snow_16_descr">Dir ist bewusst, dass du die Steuerung der Zelle auch während des Spiels ändern kannst?(Spiel beenden und beide Systeme aktiv gewesen)</string>
+    <string name="achievement_snow_16_descr">Dir ist bewusst, dass du die Steuerung der Zelle auch während des Spiels ändern kannst?</string>
     <string name="achievement_snow_17_name">Sowohl als auch</string>
-    <string name="achievement_snow_17_descr">Beende 10 Spiele mit Klick-System, 10 mit Kippen und 5 in denen du während eines Spiels beide benutzt.</string>
+    <string name="achievement_snow_17_descr">Beende %1$d Spiele mit Klick-System, %2$d mit Kippen
+        und
+        %3$d in denen du während eines Spiels beide benutzt.</string>
 
     <!-- Dice achievements -->
     <string name="achievement_dice_1_name">Ein harter Anfang</string>

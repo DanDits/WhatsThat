@@ -73,7 +73,9 @@
     <string name="achievement_snow_16_name">Why not both?</string>
     <string name="achievement_snow_16_descr">You know that you can change the way of moving your cell during the game, too?</string>
     <string name="achievement_snow_17_name">Both as well as</string>
-    <string name="achievement_snow_17_descr">Finish 10 games using the click system, 10 using the other and 5 using both during a game.</string>
+    <string name="achievement_snow_17_descr">Finish %1$d games using the click system, %2$d using
+        the
+        other and %3$d using both during a game.</string>
 
     <!-- Dice achievements -->
     <string name="achievement_dice_1_name">Unpleasant beginning</string>

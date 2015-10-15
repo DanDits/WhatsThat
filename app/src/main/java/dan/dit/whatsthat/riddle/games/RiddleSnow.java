@@ -1,3 +1,18 @@
+/*
+ * Copyright 2015 Daniel Dittmar
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
+ *
+ */
+
 package dan.dit.whatsthat.riddle.games;
 
 import android.content.res.Resources;
@@ -383,6 +398,9 @@ public class RiddleSnow extends RiddleGame implements FlatWorldCallback {
             mTouchGravityPressX = event.getX();
             mTouchGravityPressY = event.getY();
             mTouchGravityIsPressed = true;
+            if (mConfig.mAchievementGameData != null) {
+                mConfig.mAchievementGameData.increment(AchievementSnow.KEY_GAME_CLICKS_DOWN_DURING_NO_SENSOR, 1L, 0L);
+            }
         } else if (mFeatureTouchGravity && event.getActionMasked() == MotionEvent.ACTION_MOVE) {
             mTouchGravityPressX = event.getX();
             mTouchGravityPressY = event.getY();
@@ -396,9 +414,9 @@ public class RiddleSnow extends RiddleGame implements FlatWorldCallback {
     private void setTouchControl(boolean enable) {
         mFeatureTouchGravity = enable;
         if (mConfig.mAchievementGameData != null) {
-            long wasEnabled = mConfig.mAchievementGameData.getValue(AchievementSnow.KEY_GAME_FEATURE_ORIENTATION_SENSOR_ENABLED, 0L);
+            long wasEnabled = mConfig.mAchievementGameData.getValue(AchievementSnow.KEY_GAME_FEATURE_ORIENTATION_SENSOR_ENABLED, -1L);
             mConfig.mAchievementGameData.putValue(AchievementSnow.KEY_GAME_FEATURE_ORIENTATION_SENSOR_ENABLED, enable ? 1L : 0L, AchievementProperties.UPDATE_POLICY_ALWAYS);
-            if ((wasEnabled == 0L) == enable) {
+            if (wasEnabled != -1L && ((wasEnabled == 0L) == enable)) {
                 mConfig.mAchievementGameData.increment(AchievementSnow.KEY_GAME_FEATURE_ORIENTATION_SENSOR_CHANGED, 1L, 0L);
             }
         }

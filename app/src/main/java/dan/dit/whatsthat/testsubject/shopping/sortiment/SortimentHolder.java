@@ -1,3 +1,18 @@
+/*
+ * Copyright 2015 Daniel Dittmar
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
+ *
+ */
+
 package dan.dit.whatsthat.testsubject.shopping.sortiment;
 
 import android.content.Context;
@@ -102,6 +117,11 @@ public class SortimentHolder extends ShopArticleHolder {
         super.makeDependencies();
         getArticle(LevelUpArticle.KEY_LEVEL_UP_ARTICLE)
                 .addDependency(getAnyDownloadProductPurchasedDependency(), 2); // for level 2 we need to purchase any download product to know it is there
+        getArticle(RiddleArticle.KEY_CHOOSE_RIDDLE_ARTICLE)
+                .addDependency(LevelDependency.getInstance(5), PracticalRiddleType.ALL_PLAYABLE_TYPES.indexOf(PracticalRiddleType.DICE_INSTANCE))
+                .addDependency(LevelDependency.getInstance(4), PracticalRiddleType.ALL_PLAYABLE_TYPES.indexOf(PracticalRiddleType.JUMPER_INSTANCE))
+                .addDependency(LevelDependency.getInstance(4), PracticalRiddleType.ALL_PLAYABLE_TYPES.indexOf(PracticalRiddleType.MEMORY_INSTANCE))
+                .addDependency(LevelDependency.getInstance(1), PracticalRiddleType.ALL_PLAYABLE_TYPES.indexOf(PracticalRiddleType.TRIANGLE_INSTANCE));
         getArticle(ARTICLE_KEY_CIRCLE_DIVIDE_BY_MOVE_FEATURE)
                 .addDependency(TestSubject.getInstance().getRiddleTypeDependency(PracticalRiddleType.CIRCLE_INSTANCE), ShopArticle.GENERAL_PRODUCT_INDEX);
         getArticle(ARTICLE_KEY_TRIANGLE_DIVIDE_BY_MOVE_FEATURE)

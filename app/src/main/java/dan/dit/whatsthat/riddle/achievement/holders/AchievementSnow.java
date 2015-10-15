@@ -19,6 +19,20 @@ import dan.dit.whatsthat.testsubject.TestSubject;
 import dan.dit.whatsthat.util.dependencies.Dependency;
 
 /**
+ * Copyright 2015 Daniel Dittmar
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+ http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+
  * Created by daniel on 21.05.15.
  */
 public class AchievementSnow extends TypeAchievementHolder {
@@ -36,6 +50,7 @@ public class AchievementSnow extends TypeAchievementHolder {
     public static final long CELL_SPEED_REQUIRED_DELTA = 50L;
     public static final String KEY_GAME_DEVIL_VISIBLE_STATE = "devil_visible";
     public static final String KEY_GAME_CELL_COLLECTED_SPORE = "cell_collected_spore";
+    public static final String KEY_GAME_CLICKS_DOWN_DURING_NO_SENSOR ="clicks_during_no_sensor";
 
 
     public AchievementSnow(PracticalRiddleType type) {
@@ -59,6 +74,9 @@ public class AchievementSnow extends TypeAchievementHolder {
         mAchievements.put(Achievement12.NUMBER, new Achievement12(manager, mType));
         mAchievements.put(Achievement13.NUMBER, new Achievement13(manager, mType));
         mAchievements.put(Achievement14.NUMBER, new Achievement14(manager, mType));
+        mAchievements.put(Achievement15.NUMBER, new Achievement15(manager, mType));
+        mAchievements.put(Achievement16.NUMBER, new Achievement16(manager, mType));
+        mAchievements.put(Achievement17.NUMBER, new Achievement17(manager, mType));
     }
 
     //Need for speed
@@ -613,6 +631,134 @@ public class AchievementSnow extends TypeAchievementHolder {
                 if (mGameData.getValue(KEY_GAME_CELL_COLLECTED_SPORE, 0L) <= MAX_SPORES) {
                     achieve();
                 }
+            }
+        }
+    }
+
+
+
+    public static class Achievement15 extends GameAchievement {
+        public static final int NUMBER = 15;
+        public static final int LEVEL = 0;
+        public static final int REWARD = 50;
+        public static final boolean DISCOVERED = true;
+
+        public Achievement15(AchievementManager manager, PracticalRiddleType type) {
+            super(type, R.string.achievement_snow_15_name, R.string.achievement_snow_15_descr, 0, NUMBER, manager, LEVEL, REWARD, 1, DISCOVERED);
+        }
+
+        @Override
+        public void onNonCustomDataEvent(AchievementDataEvent event) {
+            if (event.getChangedData() == mGameData && event.getEventType() == AchievementDataEvent.EVENT_TYPE_DATA_CLOSE
+                     && mGameData.isSolved()) {
+                if (mGameData.getValue(KEY_GAME_FEATURE_ORIENTATION_SENSOR_ENABLED, 0L) == 0L
+                        && mGameData.getValue(KEY_GAME_FEATURE_ORIENTATION_SENSOR_CHANGED, 0L) ==
+                        0L
+                        && mGameData.getValue(KEY_GAME_CLICKS_DOWN_DURING_NO_SENSOR, 0L) == 1L) {
+                    achieveAfterDependencyCheck();
+                }
+            }
+        }
+
+        @Override
+        public void setDependencies() {
+            super.setDependencies();
+            Dependency dep = TestSubject.getInstance().makeAchievementDependency
+                    (PracticalRiddleType.TRIANGLE_INSTANCE, AchievementTriangle.Achievement3.NUMBER);
+            if (dep != null) {
+                mDependencies.add(dep);
+            }
+        }
+    }
+
+
+    public static class Achievement16 extends GameAchievement {
+        public static final int NUMBER = 16;
+        public static final int LEVEL = 0;
+        public static final int REWARD = 50;
+        public static final boolean DISCOVERED = true;
+
+        public Achievement16(AchievementManager manager, PracticalRiddleType type) {
+            super(type, R.string.achievement_snow_16_name, R.string.achievement_snow_16_descr, 0,
+                    NUMBER, manager, LEVEL, REWARD, 1, DISCOVERED);
+        }
+
+        @Override
+        public void onNonCustomDataEvent(AchievementDataEvent event) {
+            if (event.getChangedData() == mGameData && event.getEventType() == AchievementDataEvent.EVENT_TYPE_DATA_CLOSE
+                    && mGameData.isSolved()) {
+                if (mGameData.getValue(KEY_GAME_FEATURE_ORIENTATION_SENSOR_CHANGED, 0L) >= 1L) {
+                    achieveAfterDependencyCheck();
+                }
+            }
+        }
+    }
+
+
+    public static class Achievement17 extends GameAchievement {
+        public static final int NUMBER = 17;
+        public static final int LEVEL = 0;
+        public static final int REWARD = 50;
+        public static final boolean DISCOVERED = true;
+        private static final int REQUIRED_GAMES_WITH_CLICK_ONLY = 10;
+        private static final int REQUIRED_GAMES_WITH_TILT_ONLY = 10;
+        private static final int REQUIRED_GAMES_WITH_BOTH = 5;
+        public static final String KEY_TYPE_CLICK_ONLY_COUNT = NUMBER + "click_only";
+        public static final String KEY_TYPE_CLICK_TILT_ONLY = NUMBER + "tilt_only";
+        public static final String KEY_TYPE_SOLVED_BOTH = NUMBER + "solved_both";
+
+        public Achievement17(AchievementManager manager, PracticalRiddleType type) {
+            super(type, R.string.achievement_snow_17_name, R.string.achievement_snow_17_descr, 0,
+                    NUMBER, manager, LEVEL, REWARD, REQUIRED_GAMES_WITH_CLICK_ONLY +
+                            REQUIRED_GAMES_WITH_TILT_ONLY + REQUIRED_GAMES_WITH_BOTH,
+                    DISCOVERED);
+        }
+
+        @Override
+        public CharSequence getDescription(Resources res) {
+            return res.getString(mDescrResId, REQUIRED_GAMES_WITH_CLICK_ONLY,
+                    REQUIRED_GAMES_WITH_TILT_ONLY, REQUIRED_GAMES_WITH_BOTH);
+        }
+
+        @Override
+        public void onNonCustomDataEvent(AchievementDataEvent event) {
+            if (event.getChangedData() == mGameData && event.getEventType() ==
+                    AchievementDataEvent.EVENT_TYPE_DATA_CLOSE && mGameData.isSolved()) {
+                if (mGameData.getValue(KEY_GAME_FEATURE_ORIENTATION_SENSOR_ENABLED, 0L) == 0L
+                        && mGameData.getValue(KEY_GAME_FEATURE_ORIENTATION_SENSOR_CHANGED, 0L) ==
+                        0L) {
+                    // click only
+                    if (mTypeData.increment(KEY_TYPE_CLICK_ONLY_COUNT, 1L, 0L) <=
+                            REQUIRED_GAMES_WITH_CLICK_ONLY) {
+                        achieveDelta(1);
+                    }
+
+                } else if (mGameData.getValue(KEY_GAME_FEATURE_ORIENTATION_SENSOR_ENABLED, 0L) ==
+                        1L && mGameData.getValue(KEY_GAME_FEATURE_ORIENTATION_SENSOR_CHANGED, 0L)
+                        == 0L) {
+                    // tilt only
+                    if (mTypeData.increment(KEY_TYPE_CLICK_TILT_ONLY, 1L, 0L) <=
+                            REQUIRED_GAMES_WITH_TILT_ONLY) {
+                        achieveDelta(1);
+                    }
+                } else if (mGameData.getValue(KEY_GAME_FEATURE_ORIENTATION_SENSOR_CHANGED, 0L) >=
+                    1L) {
+                    // both
+                    if (mTypeData.increment(KEY_TYPE_SOLVED_BOTH, 1L, 0L) <=
+                            REQUIRED_GAMES_WITH_BOTH) {
+                        achieveDelta(1);
+                    }
+                }
+            }
+        }
+
+        @Override
+        public void setDependencies() {
+            super.setDependencies();
+            Dependency dep = TestSubject.getInstance().makeAchievementDependency
+                    (PracticalRiddleType.TRIANGLE_INSTANCE, AchievementTriangle.Achievement3.NUMBER);
+            if (dep != null) {
+                mDependencies.add(dep);
             }
         }
     }

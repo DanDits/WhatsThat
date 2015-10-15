@@ -1,3 +1,18 @@
+/*
+ * Copyright 2015 Daniel Dittmar
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
+ *
+ */
+
 package dan.dit.whatsthat.riddle.achievement.holders;
 
 import android.content.res.Resources;
@@ -498,7 +513,7 @@ public class AchievementLazor extends TypeAchievementHolder {
         public static final int LEVEL = 0;
         public static final int REWARD = 50;
         public static final boolean DISCOVERED = true;
-        private static final int REQUIRED_INTERRUPTED_SHOTS = 100;
+        private static final int REQUIRED_INTERRUPTED_SHOTS = 500;
 
         public Achievement14(AchievementManager manager, PracticalRiddleType type) {
             super(type, R.string.achievement_lazor_14_name, R.string.achievement_lazor_14_descr, 0, NUMBER, manager, LEVEL, REWARD, REQUIRED_INTERRUPTED_SHOTS, DISCOVERED);
@@ -524,7 +539,7 @@ public class AchievementLazor extends TypeAchievementHolder {
         public static final int LEVEL = 0;
         public static final int REWARD = 50;
         public static final boolean DISCOVERED = true;
-        private static final int REQUIRED_SHOTS = 200;
+        private static final int REQUIRED_SHOTS = 300;
         private static final long MAX_FLY_DURATION = 1000; //ms
 
         public Achievement15(AchievementManager manager, PracticalRiddleType type) {
@@ -555,8 +570,8 @@ public class AchievementLazor extends TypeAchievementHolder {
         public static final int LEVEL = 0;
         public static final int REWARD = 50;
         public static final boolean DISCOVERED = true;
-        private static final int REQUIRED_SHOTS = 125;
-        private static final long MIN_FLY_DURATION = 5000L;//ms
+        private static final int REQUIRED_SHOTS = 100;
+        private static final long MIN_FLY_DURATION = 4000L;//ms
 
         public Achievement16(AchievementManager manager, PracticalRiddleType type) {
             super(type, R.string.achievement_lazor_16_name, R.string.achievement_lazor_16_descr, 0, NUMBER, manager, LEVEL, REWARD, REQUIRED_SHOTS, DISCOVERED);
