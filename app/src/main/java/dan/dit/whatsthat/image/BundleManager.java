@@ -462,7 +462,7 @@ public class BundleManager {
                             v.setEnabled(false);
                             ImageDataDownload includer = new ImageDataDownload(mContext, bundle.mOrigin, bundle.mName, bundle.mEstimatedSizeMB, null, new ImageDataDownload.Feedback() {
                                 @Override
-                                public void setIndeterminate(boolean indeterminate) {
+                                public void setIsWorking(boolean isWorking) {
 
                                 }
 

@@ -251,6 +251,18 @@ public class AchievementCircle extends TypeAchievementHolder {
                 }
             }
         }
+
+
+        @Override
+        public void setDependencies() {
+            super.setDependencies();
+            Dependency dep = TestSubject.getInstance().makeProductPurchasedDependency(SortimentHolder.ARTICLE_KEY_CIRCLE_DIVIDE_BY_MOVE_FEATURE, 0);
+            if (dep != null) {
+                mDependencies.add(dep);
+            } else {
+                Log.e("Achievement", "Dependency shop circle divide by move not created.");
+            }
+        }
     }
 
     //Click domination

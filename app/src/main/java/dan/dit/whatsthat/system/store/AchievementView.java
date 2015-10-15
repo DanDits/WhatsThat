@@ -256,6 +256,8 @@ public class AchievementView extends ExpandableListView implements StoreContaine
             }
 
             TextView reward = (TextView) convertView.findViewById(R.id.achievement_reward);
+            reward.clearAnimation(); // as animation is not stopped when view gets pushed out of
+            // screen and gets recycled
             reward.setText(achievement.getRewardDescription(mContext.getResources()));
             if (achievement.isRewardClaimable()) {
                 reward.setBackgroundResource(R.drawable.star_background);

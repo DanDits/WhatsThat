@@ -490,6 +490,11 @@ public class TestSubject {
         return new ProductPurchasedDependency(mShopArticleHolder.getArticle(articleKey), productIndex);
     }
 
+    public Dependency makeFeatureAvailableDependency(String articleKey, int requiredFeatureValue) {
+        return new FeatureAvailableDependency(mShopArticleHolder.getArticle(articleKey),
+                requiredFeatureValue);
+    }
+
     private static final Comparator<PracticalRiddleType> TYPE_COMPARATOR = new Comparator<PracticalRiddleType>() {
         @Override
         public int compare(PracticalRiddleType t1, PracticalRiddleType t2) {
@@ -565,6 +570,28 @@ public class TestSubject {
 
     public int getShopValue(String key) {
         return mPurse.mShopWallet.getEntryValue(key);
+    }
+
+    private class FeatureAvailableDependency extends Dependency {
+        private ShopArticle mArticle;
+        private int mRequiredAmount;
+        public FeatureAvailableDependency(ShopArticle featureArticle, int requiredAmount) {
+            mArticle = featureArticle;
+            mRequiredAmount = requiredAmount;
+            if (mArticle == null) {
+                throw new IllegalArgumentException("No article given.");
+            }
+        }
+
+        @Override
+        public boolean isNotFulfilled() {
+            return mPurse.mShopWallet.getEntryValue(mArticle.getKey()) < mRequiredAmount;
+        }
+
+        @Override
+        public CharSequence getName(Resources res) {
+            return mArticle.getName(res) + ">" + (mRequiredAmount - 1);
+        }
     }
 
     private static class ProductPurchasedDependency extends Dependency {

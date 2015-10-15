@@ -413,13 +413,6 @@ public class RiddleSnow extends RiddleGame implements FlatWorldCallback {
 
     private void setTouchControl(boolean enable) {
         mFeatureTouchGravity = enable;
-        if (mConfig.mAchievementGameData != null) {
-            long wasEnabled = mConfig.mAchievementGameData.getValue(AchievementSnow.KEY_GAME_FEATURE_ORIENTATION_SENSOR_ENABLED, -1L);
-            mConfig.mAchievementGameData.putValue(AchievementSnow.KEY_GAME_FEATURE_ORIENTATION_SENSOR_ENABLED, enable ? 1L : 0L, AchievementProperties.UPDATE_POLICY_ALWAYS);
-            if (wasEnabled != -1L && ((wasEnabled == 0L) == enable)) {
-                mConfig.mAchievementGameData.increment(AchievementSnow.KEY_GAME_FEATURE_ORIENTATION_SENSOR_CHANGED, 1L, 0L);
-            }
-        }
     }
 
     public boolean requiresOrientationSensor() {
@@ -484,7 +477,17 @@ public class RiddleSnow extends RiddleGame implements FlatWorldCallback {
 
     @Override
     protected void initAchievementData() {
-
+        if (mConfig.mAchievementGameData != null) {
+            long wasEnabled = mConfig.mAchievementGameData.getValue(AchievementSnow.KEY_GAME_FEATURE_ORIENTATION_SENSOR_ENABLED, -1L);
+            Log.d("Riddle", "Was feature enabled: " + wasEnabled);
+            mConfig.mAchievementGameData.putValue(AchievementSnow
+                    .KEY_GAME_FEATURE_ORIENTATION_SENSOR_ENABLED, mFeatureTouchGravity ? 1L : 0L,
+                    AchievementProperties.UPDATE_POLICY_ALWAYS);
+            if (wasEnabled != -1L && ((wasEnabled == 0L) == mFeatureTouchGravity)) {
+                Log.d("Riddle", "Feature changed.");
+                mConfig.mAchievementGameData.increment(AchievementSnow.KEY_GAME_FEATURE_ORIENTATION_SENSOR_CHANGED, 1L, 0L);
+            }
+        }
     }
 
     @Override

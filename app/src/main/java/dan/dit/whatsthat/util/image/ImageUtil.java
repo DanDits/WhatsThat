@@ -57,10 +57,6 @@ public final class ImageUtil {
     private ImageUtil() {
 	}
 
-    public static boolean isValidObfuscatedImageName(String imageName) {
-        return !TextUtils.isEmpty(imageName) && imageName.endsWith(IMAGE_FILE_EXTENSION) && imageName.startsWith(IMAGE_FILE_PREFIX);
-    }
-
     public static boolean saveToFile(Bitmap image, File target, Bitmap.CompressFormat format, int compression) {
         if (image == null || target == null) {
             return false;

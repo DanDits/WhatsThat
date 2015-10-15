@@ -97,7 +97,8 @@ public class SortimentHolder extends ShopArticleHolder {
         OrDependency dep = new OrDependency();
         for (ShopArticle article : mAllArticles) {
             if (article.getKey().startsWith(ShopArticleDownload.KEY_PREFIX)) {
-                dep.add(TestSubject.getInstance().makeProductPurchasedDependency(article.getKey(), ShopArticle.GENERAL_PRODUCT_INDEX));
+                dep.add(TestSubject.getInstance().makeFeatureAvailableDependency(article.getKey()
+                        , 2));
             }
         }
         mAnyDownloadProductPurchasedDependency = dep;

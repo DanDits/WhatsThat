@@ -751,15 +751,5 @@ public class AchievementSnow extends TypeAchievementHolder {
                 }
             }
         }
-
-        @Override
-        public void setDependencies() {
-            super.setDependencies();
-            Dependency dep = TestSubject.getInstance().makeAchievementDependency
-                    (PracticalRiddleType.TRIANGLE_INSTANCE, AchievementTriangle.Achievement3.NUMBER);
-            if (dep != null) {
-                mDependencies.add(dep);
-            }
-        }
     }
 }

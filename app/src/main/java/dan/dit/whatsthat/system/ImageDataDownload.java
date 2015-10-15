@@ -131,7 +131,7 @@ public class ImageDataDownload {
     }
 
     public interface Feedback extends PercentProgressListener {
-        void setIndeterminate(boolean indeterminate);
+        void setIsWorking(boolean isWorking);
         void onError(int messageResId, int errorCode);
         void onDownloadComplete();
         void onComplete();
@@ -181,9 +181,9 @@ public class ImageDataDownload {
     }
 
     private void startSync() {
-        mListener.setIndeterminate(true);
         mSyncTask = new SyncTask();
         mSyncTask.execute();
+        mListener.setIsWorking(true);
     }
 
     public void stop() {
@@ -211,9 +211,9 @@ public class ImageDataDownload {
         if (url == null) {
             return;
         }
-        mListener.setIndeterminate(true);
         mDownloadTask = new DownloadTask();
         mDownloadTask.execute(url);
+        mListener.setIsWorking(true);
     }
 
     private File getStorageDirectory() {
@@ -269,6 +269,10 @@ public class ImageDataDownload {
                 mWakeLock.release();
             }
             mDownloadTask = null;
+            File file = getTempDownloadFile();
+            if (file != null) {
+                file.delete();
+            }
         }
 
         @Override
@@ -277,6 +281,7 @@ public class ImageDataDownload {
             if (mWakeLock != null) {
                 mWakeLock.release();
             }
+            mListener.setIsWorking(false);
             if (errorCode != ERROR_CODE_NONE) {
                 mListener.onError(R.string.download_article_toast_error_download, errorCode);
             } else {
@@ -289,7 +294,6 @@ public class ImageDataDownload {
         @Override
         protected void onProgressUpdate(Integer... values) {
             if (values != null && values.length > 0) {
-                mListener.setIndeterminate(false);
                 mListener.onProgressUpdate((int) (values[0] * PROGRESS_WEIGHT_FOR_DOWNLOAD));
             }
         }
@@ -385,6 +389,7 @@ public class ImageDataDownload {
             if (storageFile != null && !mKeepBundleAfterSync && storageFile.delete()) {
                 mIsDownloaded = false;
             }
+            mListener.setIsWorking(false);
             if (errorCode != ERROR_CODE_NONE) {
                 mListener.onError(R.string.download_article_toast_error_syncing, errorCode);
             } else {
@@ -395,7 +400,6 @@ public class ImageDataDownload {
         @Override
         protected void onProgressUpdate(Integer... values) {
             if (values != null && values.length > 0) {
-                mListener.setIndeterminate(false);
                 mListener.onProgressUpdate((int) (PercentProgressListener.PROGRESS_COMPLETE * PROGRESS_WEIGHT_FOR_DOWNLOAD + values[0] * ( 1 - PROGRESS_WEIGHT_FOR_DOWNLOAD)));
             }
         }

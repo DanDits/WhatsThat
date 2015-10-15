@@ -18,6 +18,7 @@ package dan.dit.whatsthat.testsubject.shopping.sortiment;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Color;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ProgressBar;
@@ -150,13 +151,12 @@ public class ShopArticleDownload extends ShopArticle implements ImageDataDownloa
     }
 
     @Override
-    public void setIndeterminate(boolean indeterminate) {
-        if (mDownloadProduct != null && mDownloadProduct.mProgress != null) {
-            if (indeterminate && !mDownloadProduct.mProgress.isIndeterminate()) {
-                mDownloadProduct.mProgress.setIndeterminate(true);
-            } else if (!indeterminate && mDownloadProduct.mProgress.isIndeterminate()) {
-                mDownloadProduct.mProgress.setIndeterminate(false);
-            }
+    public void setIsWorking(boolean isWorking) {
+        if (mDownloadProduct != null && mDownloadProduct.mProgressIsWorking != null) {
+            mDownloadProduct.mProgressIsWorking.setVisibility(isWorking ? View.VISIBLE : View.INVISIBLE);
+        }
+        if (mDownloadProduct != null) {
+            mDownloadProduct.updateDescription();
         }
     }
 
@@ -193,8 +193,8 @@ public class ShopArticleDownload extends ShopArticle implements ImageDataDownloa
 
     @Override
     public void onProgressUpdate(int progress) {
-        if (mDownloadProduct != null && mDownloadProduct.mProgress != null) {
-            mDownloadProduct.mProgress.setProgress(progress);
+        if (mDownloadProduct != null && mDownloadProduct.mActualProgress != null) {
+            mDownloadProduct.mActualProgress.setProgress(progress);
         }
         if (mDownloadProduct != null) {
             mDownloadProduct.updateDescription();
@@ -204,7 +204,10 @@ public class ShopArticleDownload extends ShopArticle implements ImageDataDownloa
     private class DownloadProduct extends SubProduct {
         private View mView;
         private TextView mDescription;
-        private ProgressBar mProgress;
+        private ProgressBar mProgressIsWorking;
+        private ProgressBar mActualProgress;
+        private View mProgress;
+
         @Override
         public View getView() {
             return mView;
@@ -242,8 +245,11 @@ public class ShopArticleDownload extends ShopArticle implements ImageDataDownloa
         @Override
         public void inflateView(LayoutInflater inflater) {
             mView = inflater.inflate(R.layout.download_product, null);
-            mProgress = (ProgressBar) mView.findViewById(R.id.progress_bar);
-            mProgress.setMax(PROGRESS_COMPLETE);
+            mProgress = mView.findViewById(R.id.progress);
+            mProgressIsWorking = (ProgressBar) mView.findViewById(R.id.progress_is_working);
+            mActualProgress = (ProgressBar) mView.findViewById(R.id.progress_bar);
+            mActualProgress.setMax(PROGRESS_COMPLETE);
+            mActualProgress.setProgress(0);
             mDescription = (TextView) mView.findViewById(R.id.download_descr);
         }
 
