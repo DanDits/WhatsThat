@@ -20,7 +20,6 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.util.Log;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -30,8 +29,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import dan.dit.whatsthat.BuildConfig;
-import dan.dit.whatsthat.riddle.types.PracticalRiddleType;
 import dan.dit.whatsthat.riddle.types.RiddleType;
 import dan.dit.whatsthat.util.PercentProgressListener;
 
