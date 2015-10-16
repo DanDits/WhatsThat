@@ -29,7 +29,7 @@ import dan.dit.whatsthat.util.jama.Matrix;
 /**
  * Created by daniel on 03.07.15.
  */
-class IndexedBitmap {
+public class IndexedBitmap {
 
     private Matrix mMatrix;
     private List<Integer> mColors;

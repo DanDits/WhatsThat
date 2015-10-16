@@ -76,7 +76,8 @@ public class AboutView extends View implements StoreContainer {
         setOnTouchListener(new OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
-                if (motionEvent.getActionMasked() == MotionEvent.ACTION_DOWN && mRadius > 0.f && mAngleDelta > 0.f) {
+                if (motionEvent.getActionMasked() == MotionEvent.ACTION_UP && mRadius > 0.f &&
+                        mAngleDelta > 0.f) {
                     float angle = 180.f * (float) (Math.atan2(motionEvent.getY() - mCenterY, motionEvent.getX() - mCenterX) / Math.PI);
                     angle -= mDiskAngle;
                     if (angle < 0.f) {
@@ -89,6 +90,8 @@ public class AboutView extends View implements StoreContainer {
             }
         });
     }
+
+
 
     private void startFeedback(int index) {
         if (index == AREA_51_INDEX) {

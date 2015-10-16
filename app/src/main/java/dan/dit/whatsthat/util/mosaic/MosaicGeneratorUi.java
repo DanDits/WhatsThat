@@ -73,7 +73,9 @@ public class MosaicGeneratorUi {
     private static final double MAX_ROWS_COLUMNS = 100;
     private static final ColorMetric DEFAULT_COLOR_METRIC = ColorMetric.Euclid2.INSTANCE;
     private static final boolean DEFAULT_USE_ALPHA = true;
-    private static final int MAX_IMAGE_WIDTH_HEIGHT = 1024; // else we run into out of memory errors really quick since most cameras produce high resolution images and we only get 50mb ram from JVM
+    private static final int MAX_IMAGE_WIDTH_HEIGHT = 1024; // else we run into out of memory
+    // errors really quick since most cameras produce high resolution images and we only get
+    // around 50mb ram from JVM by default
     private final Activity mActivity;
     private final View mView;
     private final Spinner mMosaicTypes;
@@ -82,6 +84,8 @@ public class MosaicGeneratorUi {
     private final ImageView mMosaicImageView;
     private final View mWorkingIndicator;
     private final PercentProgressListener mProgress;
+    private final View mParameterUseAlphaContainer;
+    private final View mParameterUseColorMetricContainer;
     private File mMediaDirectory;
     private String mSelectedBitmapName;
     private String mMosaicBitmapName;
@@ -99,6 +103,7 @@ public class MosaicGeneratorUi {
     private Bitmap mMosaicBitmap;
     private File mMosaicFile;
     private View mShare;
+    private SVDMaker mSVDMaker;
 
     public MosaicGeneratorUi(Activity activity) {
         mActivity = activity;
@@ -109,15 +114,19 @@ public class MosaicGeneratorUi {
         mMosaicMaker = new MosaicMaker<>(matcher, source, DEFAULT_USE_ALPHA, DEFAULT_COLOR_METRIC);
 
         mTypes = new ArrayList<>(3);
-        mTypes.add(new MosaicType(MosaicType.RECT, R.string.mosaic_generator_mosaic_type_rect)
+        mTypes.add(new MosaicType(MosaicType.RECT, R.string.mosaic_generator_mosaic_type_rect, true, true)
                     .addParameter(R.string.mosaic_generator_param_rows, 1, MAX_ROWS_COLUMNS, DEFAULT_ROWS_COLUMNS, true)
                     .addParameter(R.string.mosaic_generator_param_columns, 1, MAX_ROWS_COLUMNS, DEFAULT_ROWS_COLUMNS, true));
-        mTypes.add(new MosaicType(MosaicType.MULTI_RECT, R.string.mosaic_generator_mosaic_type_multirect)
+        mTypes.add(new MosaicType(MosaicType.MULTI_RECT, R.string.mosaic_generator_mosaic_type_multirect, true, true)
                 .addParameter(R.string.mosaic_generator_param_rows, 1, MAX_ROWS_COLUMNS, DEFAULT_ROWS_COLUMNS, true)
                 .addParameter(R.string.mosaic_generator_param_columns, 1, MAX_ROWS_COLUMNS, DEFAULT_ROWS_COLUMNS, true)
                 .addParameter(R.string.mosaic_generator_param_merge_factor, 0., 1., 0.5, false));
-        mTypes.add(new MosaicType(MosaicType.FIXED_LAYER, R.string.mosaic_generator_mosaic_type_fixedlayer)
+        mTypes.add(new MosaicType(MosaicType.FIXED_LAYER, R.string
+                .mosaic_generator_mosaic_type_fixedlayer, true, true)
                 .addParameter(R.string.mosaic_generator_param_layer_count, 1, 10, 3, true));
+        mTypes.add(new MosaicType(MosaicType.SVD, R.string.mosaic_generator_mosaic_type_svd,
+                false, false)
+                .addParameter(R.string.mosaic_generator_mosaic_type_svd_approx, 1, 100, 20, true));
 
         LayoutInflater inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         mView = inflater.inflate(R.layout.workshop_mosaic_generator, null);
@@ -194,7 +203,9 @@ public class MosaicGeneratorUi {
         mParameterContainer.add(mView.findViewById(R.id.parameter1));
         mParameterContainer.add(mView.findViewById(R.id.parameter2));
         mParameterContainer.add(mView.findViewById(R.id.parameter3));
+        mParameterUseAlphaContainer = mView.findViewById(R.id.parameterUseAlpha);
         mParameterUseAlpha = (CheckBox) mView.findViewById(R.id.parameterUseAlpha_value);
+        mParameterUseColorMetricContainer = mView.findViewById(R.id.parameterColorMetric);
         mParameterColorMetric = (Spinner) mView.findViewById(R.id.parameterColorMetric_value);
 
         mMetrics = ColorMetric.makeAll();
@@ -308,7 +319,6 @@ public class MosaicGeneratorUi {
         if (mIgnoreParameterChange > 0) {
             return;
         }
-        Log.d("Riddle", "On Parameter changed: " + mIgnoreParameterChange);
         MosaicType type = getCurrentMosaicType();
         if (type != null) {
             type.applyUi();
@@ -328,12 +338,14 @@ public class MosaicGeneratorUi {
         mSelectedBitmap = null;
         mMosaicImageView.setImageResource(0);
         mMosaicBitmap = null;
+        mSVDMaker = null;
     }
 
     private class MosaicType {
         public static final int RECT = 0;
         public static final int MULTI_RECT = 1;
         public static final int FIXED_LAYER = 2;
+        public static final int SVD = 3;
         private final int mNameResId;
         private final List<Double> mMinValues;
         private final List<Double> mMaxValues;
@@ -341,8 +353,10 @@ public class MosaicGeneratorUi {
         private final List<Integer> mParameterNameResIds;
         private final int mType;
         private List<Boolean> mOnlyIntegers;
+        private boolean mIsUsingAlpha;
+        private boolean mIsUsingColorMetric;
 
-        public MosaicType(int type, int nameResId) {
+        public MosaicType(int type, int nameResId, boolean isUsingAlpha, boolean useColorMetric) {
             mType = type;
             mNameResId = nameResId;
             mMinValues = new LinkedList<>();
@@ -350,6 +364,8 @@ public class MosaicGeneratorUi {
             mValues = new LinkedList<>();
             mOnlyIntegers = new LinkedList<>();
             mParameterNameResIds = new LinkedList<>();
+            mIsUsingAlpha = isUsingAlpha;
+            mIsUsingColorMetric = useColorMetric;
         }
 
         public MosaicType addParameter(int nameResId, double minValue, double maxValue, double defaultValue, boolean onlyIntegers) {
@@ -377,8 +393,18 @@ public class MosaicGeneratorUi {
 
         public void applyUi() {
             mIgnoreParameterChange++;
-            mParameterUseAlpha.setChecked(mMosaicMaker.usesAlpha());
-            mParameterColorMetric.setSelection(mMetrics.indexOf(mMosaicMaker.getColorMetric()));
+            if (mIsUsingAlpha) {
+                mParameterUseAlpha.setChecked(mMosaicMaker.usesAlpha());
+                mParameterUseAlphaContainer.setVisibility(View.VISIBLE);
+            } else {
+                mParameterUseAlphaContainer.setVisibility(View.GONE);
+            }
+            if (mIsUsingColorMetric) {
+                mParameterColorMetric.setSelection(mMetrics.indexOf(mMosaicMaker.getColorMetric()));
+                mParameterUseColorMetricContainer.setVisibility(View.VISIBLE);
+            } else {
+                mParameterUseColorMetricContainer.setVisibility(View.GONE);
+            }
             for (int i = 0; i < mParameterContainer.size(); i++) {
                 if (i < mMinValues.size()) {
                     // got that parameter
@@ -407,6 +433,9 @@ public class MosaicGeneratorUi {
             if (mMosaicTask != null) {
                 mMosaicTask.cancel(true);
                 mMosaicTask = null;
+            }
+            if (mType != SVD) {
+                mSVDMaker = null; // clear memory
             }
             mMosaicTask = new AsyncTask<Void, Integer, Bitmap>() {
                 @Override
@@ -475,10 +504,22 @@ public class MosaicGeneratorUi {
                             case FIXED_LAYER:
                                 result = mMosaicMaker.makeFixedLayer(base, (int) Math.round(mValues.get(0)), callback);
                                 break;
+                            case SVD:
+                                if (mSVDMaker == null) {
+                                    mSVDMaker = new SVDMaker(base, false, callback);
+                                }
+                                // use a logarithmic scale as the interesting effects appear in
+                                // the higher value regions
+                                result = mSVDMaker.getRankApproximation((int) (
+                                        Math.log(1. + mValues.get(0) /
+                                        100.) / Math.log(2)
+                                        * mSVDMaker.getMaxRank()));
+                                break;
                         }
                     } catch (OutOfMemoryError error) {
                         // well I know I am catching an error, but since there is this stupid (48mb to 128mb) restriction we move at the edge of what is possible
                         clear();
+                        result = null;
                         Toast.makeText(mActivity, R.string.mosaic_generator_memory_error, Toast.LENGTH_LONG).show();
                     }
                     return result;

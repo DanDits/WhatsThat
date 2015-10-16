@@ -229,6 +229,8 @@
     <string name="mosaic_generator_param_merge_factor">Schmelzfaktor %1$.2f</string>
     <string name="mosaic_generator_mosaic_type_fixedlayer">Collage</string>
     <string name="mosaic_generator_param_layer_count">Bilder Anzahl %1$.0f</string>
+    <string name="mosaic_generator_mosaic_type_svd">Geisterhaft</string>
+    <string name="mosaic_generator_mosaic_type_svd_approx">Approximation %1$.0f%%</string>
     <string name="mosaic_generator_memory_error">Zu wenig Arbeitsspeicher :(</string>
     <string name="mosaic_generator_image_save_success">Mosaic gespeichert!</string>
     <string name="mosaic_generator_image_save_failed">Speichern fehlgeschlagen</string>

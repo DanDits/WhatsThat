@@ -45,8 +45,8 @@
     <string name="dummy_content">DUMMY\nCONTENT</string>
     <string name="init_skip_state_ready">-testsubject ready-</string>
     <string name="init_skip_state_mandatory_intro_missing">-loading testsubject-</string>
-    <string name="init_skip_state_init_missing">-loading testsubject-</string>
-    <string name="init_skip_state_none">-loading testsubject-</string>
+    <string name="init_skip_state_init_missing">-requires testsubject interaction-</string>
+    <string name="init_skip_state_none">-initializing testsubject-</string>
 
     <string name="panic_dialog_positive">All right</string>
     <string name="panic_ask_type">How does this work</string>
@@ -228,6 +228,8 @@
     <string name="mosaic_generator_param_merge_factor">Merge factor %1$.2f</string>
     <string name="mosaic_generator_mosaic_type_fixedlayer">Collage</string>
     <string name="mosaic_generator_param_layer_count">Images amount %1$.0f</string>
+    <string name="mosaic_generator_mosaic_type_svd">Ghostly</string>
+    <string name="mosaic_generator_mosaic_type_svd_approx">Approximation %1$.0f%%</string>
     <string name="mosaic_generator_memory_error">Too little working memory :(</string>
     <string name="mosaic_generator_image_save_success">Mosaic saved!</string>
     <string name="mosaic_generator_image_save_failed">Saving failed</string>
