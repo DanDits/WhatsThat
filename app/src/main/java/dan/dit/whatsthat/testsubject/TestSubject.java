@@ -73,7 +73,7 @@ public class TestSubject {
     private static final String TEST_SUBJECT_PREFERENCES_FILE = "dan.dit.whatsthat.testsubject_preferences";
     private static final String TEST_SUBJECT_PREF_RIDDLE_TYPES = "key_testsubject_riddletypes";
     private static final String TEST_SUBJECT_PREF_GENDER = "key_testsubject_gender";
-    private static final int DEFAULT_SKIPABLE_GAMES = 15;
+    private static final int DEFAULT_SKIPABLE_GAMES = 5;
 
     public static final int GENDER_NOT_CHOSEN = -1;
     public static final int GENDER_MALE = 0; // genders as int, not boolean .. you never know, male = 0 chosen by fair dice role, take that feminists
