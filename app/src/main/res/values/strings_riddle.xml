@@ -125,7 +125,7 @@
     <string name="riddle_type_torchlight_explanation">Something happens later</string>
 
     <!-- Flow related -->
-    <string name="riddle_type_flow">Flow</string>
+    <string name="riddle_type_flow">Cellflow</string>
     <string name="riddle_type_flow_advertising">A simple experiment for slobs. Put down cells in the unknown chaos to discover images!</string>
     <string name="riddle_type_flow_explanation">Click to create pixel flows which follow lines in the hidden image.</string>
     <string-array name="riddle_type_flow_hints">

@@ -166,7 +166,7 @@
     <string name="riddle_type_torchlight_explanation">Geheim und mysteriös und bla bla.</string>
 
     <!-- Flow related -->
-    <string name="riddle_type_flow">Chaosfluss</string>
+    <string name="riddle_type_flow">Zellfluss</string>
     <string name="riddle_type_flow_advertising">Ein einfaches Rätsel für Chaoten. Decke mit gesetzten Zellen im unbekannten Chaos bekannte Punkte und Bilder auf!</string>
     <string name="riddle_type_flow_explanation">Berühre das Feld, wodurch Zellflüsse entstehen. Versuche Puntke nahe an Konturen zu setzen, damit Linien im Bild abgesucht werden.</string>
     <string-array name="riddle_type_flow_hints">
