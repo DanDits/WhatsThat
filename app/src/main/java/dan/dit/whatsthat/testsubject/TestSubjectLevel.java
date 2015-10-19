@@ -35,7 +35,7 @@ public abstract class TestSubjectLevel {
     protected TestSubject mTestSubject;
     protected int mNameResId;
     protected int mIntelligenceResId;
-    protected int mImageResId;
+    protected int[] mImageResId = new int[TestSubject.GENDERS_COUNT]; // indexed by gender
     protected int mRiddleSolvedCandy;
     protected String[] mTextMain;
     protected String[] mTextNuts;
@@ -81,10 +81,15 @@ public abstract class TestSubjectLevel {
     protected abstract void onLeveledUp();
 
     public int getImageResourceId() {
-        if (TestSubject.getInstance().getGender() == TestSubject.GENDER_NOT_CHOSEN) {
+        int gender = TestSubject.getInstance().getGender();
+        if (gender == TestSubject.GENDER_NOT_CHOSEN) {
             return R.drawable.kid_abduction;
         }
-        return mImageResId;
+        int resId = mImageResId[gender];
+        if (resId == 0) {
+            return R.drawable.kid_abduction; // fallback image in case some was not set
+        }
+        return resId;
     }
 
     public abstract double getLevelUpAchievementScoreFraction();
@@ -180,7 +185,8 @@ public abstract class TestSubjectLevel {
         protected void applyLevel(Resources res) {
             mNameResId = R.string.test_subject_0_name;
             mIntelligenceResId = R.string.test_subject_0_int;
-            mImageResId = R.drawable.kid00;
+            mImageResId[TestSubject.GENDER_MALE] = R.drawable.kid00;
+            mImageResId[TestSubject.GENDER_FEMALE] = R.drawable.kid_fem00;
             mTextNuts = res.getStringArray(R.array.test_subject_0_intro_nuts);
             mRiddleSolvedCandy = R.array.test_subject_0_riddle_solved_candy;
         }
@@ -193,8 +199,9 @@ public abstract class TestSubjectLevel {
 
         @Override
         public double getLevelUpAchievementScoreFraction() {
-            return 0.5;
-        }
+            return 0.0;
+        } // level is reached at
+        // game start
     }
 
     private static class TestSubjectLevel1 extends TestSubjectLevel {
@@ -216,7 +223,8 @@ public abstract class TestSubjectLevel {
         protected void applyLevel(Resources res) {
             mNameResId = R.string.test_subject_1_name;
             mIntelligenceResId = R.string.test_subject_1_int;
-            mImageResId = R.drawable.kid01;
+            mImageResId[TestSubject.GENDER_MALE] = R.drawable.kid01;
+            mImageResId[TestSubject.GENDER_FEMALE] = R.drawable.kid_fem01;
             mTextNuts = res.getStringArray(R.array.test_subject_1_intro_nuts);
             mRiddleSolvedCandy = R.array.test_subject_1_riddle_solved_candy;
         }
@@ -227,7 +235,7 @@ public abstract class TestSubjectLevel {
 
         @Override
         public double getLevelUpAchievementScoreFraction() {
-            return 0.55;
+            return 0.40;
         }
     }
     private static class TestSubjectLevel2 extends TestSubjectLevel {
@@ -248,7 +256,8 @@ public abstract class TestSubjectLevel {
         protected void applyLevel(Resources res) {
             mNameResId = R.string.test_subject_2_name;
             mIntelligenceResId = R.string.test_subject_2_int;
-            mImageResId = R.drawable.kid02;
+            mImageResId[TestSubject.GENDER_MALE] = R.drawable.kid02;
+            mImageResId[TestSubject.GENDER_FEMALE] = R.drawable.kid_fem02;
             mTextNuts = res.getStringArray(R.array.test_subject_2_intro_nuts);
             mRiddleSolvedCandy = R.array.test_subject_2_riddle_solved_candy;
         }
@@ -258,7 +267,7 @@ public abstract class TestSubjectLevel {
         }
         @Override
         public double getLevelUpAchievementScoreFraction() {
-            return 0.6;
+            return 0.5;
         }
     }
 
@@ -283,7 +292,8 @@ public abstract class TestSubjectLevel {
         protected void applyLevel(Resources res) {
             mNameResId = R.string.test_subject_3_name;
             mIntelligenceResId = R.string.test_subject_3_int;
-            mImageResId = R.drawable.kid03;
+            mImageResId[TestSubject.GENDER_MALE] = R.drawable.kid03;
+            mImageResId[TestSubject.GENDER_FEMALE] = R.drawable.kid_fem03;
             mTextNuts = res.getStringArray(R.array.test_subject_3_intro_nuts);
             mRiddleSolvedCandy = R.array.test_subject_3_riddle_solved_candy;
         }
@@ -315,7 +325,8 @@ public abstract class TestSubjectLevel {
         protected void applyLevel(Resources res) {
             mNameResId = R.string.test_subject_4_name;
             mIntelligenceResId = R.string.test_subject_4_int;
-            mImageResId = R.drawable.kid04;
+            mImageResId[TestSubject.GENDER_MALE] = R.drawable.kid04;
+            mImageResId[TestSubject.GENDER_FEMALE] = R.drawable.kid_fem04;
             mTextNuts = res.getStringArray(R.array.test_subject_4_intro_nuts);
             mRiddleSolvedCandy = R.array.test_subject_4_riddle_solved_candy;
         }
@@ -346,7 +357,8 @@ public abstract class TestSubjectLevel {
         protected void applyLevel(Resources res) {
             mNameResId = R.string.test_subject_5_name;
             mIntelligenceResId = R.string.test_subject_5_int;
-            mImageResId = R.drawable.kid05;
+            mImageResId[TestSubject.GENDER_MALE] = R.drawable.kid05;
+            mImageResId[TestSubject.GENDER_FEMALE] = R.drawable.kid_fem05;
             mTextMain = res.getStringArray(R.array.test_subject_5_intro_main);
             mTextNuts = res.getStringArray(R.array.test_subject_5_intro_nuts);
             mRiddleSolvedCandy = R.array.test_subject_5_riddle_solved_candy;
@@ -378,7 +390,8 @@ public abstract class TestSubjectLevel {
         protected void applyLevel(Resources res) {
             mNameResId = R.string.test_subject_6_name;
             mIntelligenceResId = R.string.test_subject_6_int;
-            mImageResId = R.drawable.kid06;
+            mImageResId[TestSubject.GENDER_MALE] = R.drawable.kid06;
+            mImageResId[TestSubject.GENDER_FEMALE] = R.drawable.kid_fem06;
             mTextMain = res.getStringArray(R.array.test_subject_6_intro_main);
             mTextNuts = res.getStringArray(R.array.test_subject_6_intro_nuts);
             mRiddleSolvedCandy = R.array.test_subject_6_riddle_solved_candy;
@@ -410,7 +423,8 @@ public abstract class TestSubjectLevel {
         protected void applyLevel(Resources res) {
             mNameResId = R.string.test_subject_7_name;
             mIntelligenceResId = R.string.test_subject_7_int;
-            mImageResId = R.drawable.kid07;
+            mImageResId[TestSubject.GENDER_MALE] = R.drawable.kid07;
+            mImageResId[TestSubject.GENDER_FEMALE] = R.drawable.kid_fem07;
             mTextMain = res.getStringArray(R.array.test_subject_7_intro_main);
             mTextNuts = res.getStringArray(R.array.test_subject_7_intro_nuts);
             mRiddleSolvedCandy = R.array.test_subject_7_riddle_solved_candy;
@@ -442,7 +456,8 @@ public abstract class TestSubjectLevel {
         protected void applyLevel(Resources res) {
             mNameResId = R.string.test_subject_8_name;
             mIntelligenceResId = R.string.test_subject_8_int;
-            mImageResId = R.drawable.kid08;
+            mImageResId[TestSubject.GENDER_MALE] = R.drawable.kid08;
+            mImageResId[TestSubject.GENDER_FEMALE] = R.drawable.kid_fem08;
             mTextMain = res.getStringArray(R.array.test_subject_8_intro_main);
             mTextNuts = res.getStringArray(R.array.test_subject_8_intro_nuts);
             mRiddleSolvedCandy = R.array.test_subject_8_riddle_solved_candy;
@@ -474,7 +489,8 @@ public abstract class TestSubjectLevel {
         protected void applyLevel(Resources res) {
             mNameResId = R.string.test_subject_9_name;
             mIntelligenceResId = R.string.test_subject_9_int;
-            mImageResId = R.drawable.kid09;
+            mImageResId[TestSubject.GENDER_MALE] = R.drawable.kid09;
+            mImageResId[TestSubject.GENDER_FEMALE] = R.drawable.kid_fem09;
             mTextMain = res.getStringArray(R.array.test_subject_9_intro_main);
             mTextNuts = res.getStringArray(R.array.test_subject_9_intro_nuts);
             mRiddleSolvedCandy = R.array.test_subject_9_riddle_solved_candy;
@@ -485,7 +501,7 @@ public abstract class TestSubjectLevel {
         }
         @Override
         public double getLevelUpAchievementScoreFraction() {
-            return 0.85;
+            return 0.9;
         }
     }
 }

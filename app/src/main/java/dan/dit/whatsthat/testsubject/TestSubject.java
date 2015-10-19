@@ -76,10 +76,12 @@ public class TestSubject {
     private static final int DEFAULT_SKIPABLE_GAMES = 5;
 
     public static final int GENDER_NOT_CHOSEN = -1;
+    // used for array indices
     public static final int GENDER_MALE = 0; // genders as int, not boolean .. you never know, male = 0 chosen by fair dice role, take that feminists
     public static final int GENDER_FEMALE = 1;
     public static final int GENDER_WHATEVER = 2;
     public static final int GENDER_ALIEN = 3; // :o
+    public static final int GENDERS_COUNT = 4; // amount of valid genders
     public static final String SHW_KEY_MAX_AVAILABLE_RIDDLE_TYPES = "shw_key_can_choose_new_riddle";
     public static final String SHW_KEY_SPENT_SCORE_ON_LEVEL_UP = "shw_level_up_spent_score";
     private static final int AVAILABLE_RIDDLES_AT_GAME_START = 1; // one additional riddle type is granted per level up (also on level 0)
@@ -533,7 +535,7 @@ public class TestSubject {
     }
 
     public int getImageResId() {
-        return mLevels[mCurrLevel].mImageResId;
+        return mLevels[mCurrLevel].getImageResourceId();
     }
 
     private static final String KEY_LAST_SCORE_MULTIPLIER_REFRESH_DAY_OF_YEAR = "dan.dit.whatsthat.score_multiplier_day_of_year";
