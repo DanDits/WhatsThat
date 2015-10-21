@@ -26,6 +26,7 @@ import android.graphics.Rect;
 import android.graphics.RectF;
 import android.support.v4.app.FragmentActivity;
 import android.util.AttributeSet;
+import android.util.DisplayMetrics;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
@@ -34,6 +35,7 @@ import android.widget.Toast;
 import dan.dit.whatsthat.R;
 import dan.dit.whatsthat.testsubject.TestSubject;
 import dan.dit.whatsthat.util.image.ColorAnalysisUtil;
+import dan.dit.whatsthat.util.image.ImageUtil;
 
 /**
  * Created by daniel on 13.06.15.
@@ -68,7 +70,8 @@ public class AboutView extends View implements StoreContainer {
         mDiskBound = new RectF();
         mTextPath = new Path();
         mTextPaint = new Paint();
-        mTextPaint.setTextSize(20.f);
+        mTextPaint.setTextSize(ImageUtil.convertDpToPixel(18.f, getResources().getDisplayMetrics
+                ().densityDpi));
         mTextPaint.setAntiAlias(true);
         setLayerType(View.LAYER_TYPE_SOFTWARE, null);
         mDiskAngle = 30.f;

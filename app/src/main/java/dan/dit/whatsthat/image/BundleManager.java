@@ -70,14 +70,15 @@ public class BundleManager {
         LayoutInflater inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         mView = (ExpandableListView) inflater.inflate(R.layout.workshop_bundle_manager, null);
         sBundlesDir = ensureBundleDirectory();
-        loadBundles();
         mAdapter = new BundlesAdapter(activity);
-        mView.setAdapter(mAdapter);
+        loadBundles();
     }
 
     public void refresh() {
         loadBundles();
-        mAdapter.notifyDataSetChanged();
+        if (mAdapter != null) {
+            mAdapter.notifyDataSetChanged();
+        }
     }
 
     public static File ensureBundleDirectory() {
@@ -167,6 +168,9 @@ public class BundleManager {
                     mBundles.add(curr);
                 }
             }
+        }
+        if (mBundles != null) {
+            mView.setAdapter(mAdapter);
         }
     }
 
@@ -278,7 +282,6 @@ public class BundleManager {
         public BundlesAdapter(Context context) {
             mContext = context;
             mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
         }
 
         @Override
