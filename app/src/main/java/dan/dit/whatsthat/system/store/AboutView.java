@@ -55,6 +55,7 @@ public class AboutView extends View implements StoreContainer {
     private float mRadius;
     private float mAngleDelta;
     private int mNopeCount;
+    private float mTextPaintDefaultSize;
 
 
     public AboutView(Context context, AttributeSet attrs) {
@@ -70,8 +71,9 @@ public class AboutView extends View implements StoreContainer {
         mDiskBound = new RectF();
         mTextPath = new Path();
         mTextPaint = new Paint();
-        mTextPaint.setTextSize(ImageUtil.convertDpToPixel(18.f, getResources().getDisplayMetrics
-                ().densityDpi));
+        mTextPaintDefaultSize = ImageUtil.convertDpToPixel(18.f, getResources().getDisplayMetrics
+                ().densityDpi);
+        mTextPaint.setTextSize(mTextPaintDefaultSize);
         mTextPaint.setAntiAlias(true);
         setLayerType(View.LAYER_TYPE_SOFTWARE, null);
         mDiskAngle = 30.f;
@@ -79,15 +81,21 @@ public class AboutView extends View implements StoreContainer {
         setOnTouchListener(new OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
+                final float yDelta = motionEvent.getY() - mCenterY;
+                final float xDelta = motionEvent.getX() - mCenterX;
                 if (motionEvent.getActionMasked() == MotionEvent.ACTION_UP && mRadius > 0.f &&
-                        mAngleDelta > 0.f) {
-                    float angle = 180.f * (float) (Math.atan2(motionEvent.getY() - mCenterY, motionEvent.getX() - mCenterX) / Math.PI);
+                        mAngleDelta > 0.f
+                        && xDelta * xDelta + yDelta * yDelta <= mRadius * mRadius) {
+                    float angle = 180.f * (float) (Math.atan2(yDelta, xDelta) /
+                            Math.PI);
                     angle -= mDiskAngle;
                     if (angle < 0.f) {
                         angle += 360.f;
                     }
                     int index = (int) (angle / mAngleDelta);
                     startFeedback(index);
+                } else if (motionEvent.getActionMasked() == MotionEvent.ACTION_DOWN) {
+                    return true; // else no ACTION_UP will be delivered
                 }
                 return false;
             }
@@ -144,7 +152,15 @@ public class AboutView extends View implements StoreContainer {
             mDiskPaint.setColor(color);
             canvas.drawArc(mDiskBound, currAngle, mAngleDelta, true, mDiskPaint);
             mTextPath.rewind();
-            mTextPaint.getTextBounds(s, 0, s.length(), mTextBounds);
+            mTextPaint.setTextSize(mTextPaintDefaultSize);
+            final float maxTextLengthFactor = 0.75f;
+            do {
+                mTextPaint.getTextBounds(s, 0, s.length(), mTextBounds);
+                if (mTextBounds.width() > mRadius * maxTextLengthFactor) {
+                    mTextPaint.setTextSize(mTextPaint.getTextSize() - 1.f); // linear search for
+                    // fitting size, not too important to optimize this to logarithmic
+                }
+            } while (mTextBounds.width() > mRadius * maxTextLengthFactor && mTextPaint.getTextSize() > 1.f);
             final float textStartOffset = (mRadius - mTextBounds.width()) / 2.f;
             final float textAngleRad = (float) ((currAngle + mAngleDelta / 2.f)/ 180.f * Math.PI);
             final float angleCos = (float) Math.cos(textAngleRad);
