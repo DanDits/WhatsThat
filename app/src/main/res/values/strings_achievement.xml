@@ -10,21 +10,21 @@
 
     <!-- Circle achievements -->
     <string name="achievement_circle_1_name">The beginning</string>
-    <string name="achievement_circle_1_descr">Finish %1$d/%2$d games.</string>
+    <string name="achievement_circle_1_descr">Finish %1$d/%2$d Circle experiments.</string>
     <string name="achievement_circle_2_name">I know something</string>
     <string name="achievement_circle_2_descr">You know nothing. Or do you recognize the picture with only %1$d circles?</string>
     <string name="achievement_circle_3_name">So beautiful</string>
-    <string name="achievement_circle_3_descr">Count all circles in a game and admire the artist.</string>
+    <string name="achievement_circle_3_descr">Count all circles in an experiment and admire the artist.</string>
     <string name="achievement_circle_4_name">I\'m loving it</string>
     <string name="achievement_circle_4_descr">Well then do this job again for %1$d more pictures.</string>
     <string name="achievement_circle_5_name">Mission possible</string>
-    <string name="achievement_circle_5_descr">Finish a game within %1$d seconds but more clicks than wipes.</string>
+    <string name="achievement_circle_5_descr">Finish an experiment within %1$d seconds but more clicks than wipes.</string>
     <string name="achievement_circle_6_name">Click domination</string>
-    <string name="achievement_circle_6_descr">Clicks > wipes for a few more games.</string>
+    <string name="achievement_circle_6_descr">Clicks > wipes for a few more tests.</string>
     <string name="achievement_circle_7_name">I\'m in a hurry…</string>
     <string name="achievement_circle_7_descr">Finish two…OK let\'s say one riddle in less than %1$d seconds.</string>
     <string name="achievement_circle_8_name">…still in hurry</string>
-    <string name="achievement_circle_8_descr">Sorry…Don\'t wanna bother ya. %1$d games within %2$d seconds.</string>
+    <string name="achievement_circle_8_descr">Sorry…Don\'t wanna bother ya. %1$d experiments within %2$d seconds.</string>
     <string name="achievement_circle_9_name">All we need is love</string>
     <string name="achievement_circle_9_descr">The first circle needs some attention. Talk with it for some time.</string>
     <string name="achievement_circle_10_name">All you get is work</string>
@@ -41,7 +41,7 @@
 
     <!-- Snow achievements -->
     <string name="achievement_snow_1_name">Hurry up</string>
-    <string name="achievement_snow_1_descr">Complete %1$d games within %2$d seconds.</string>
+    <string name="achievement_snow_1_descr">Complete %1$d experiments within %2$d seconds.</string>
     <string name="achievement_snow_2_name">Need for speed</string>
     <string name="achievement_snow_2_descr">Because going slow is boring: max speed %1$d/%2$d.</string>
     <string name="achievement_snow_3_name">Luck…</string>
@@ -49,7 +49,7 @@
     <string name="achievement_snow_4_name">Mission impossible</string>
     <string name="achievement_snow_4_descr">Collect %1$d candies in %2$d seconds.</string>
     <string name="achievement_snow_5_name">Bombastic</string>
-    <string name="achievement_snow_5_descr">Explode %1$d times in a game without kissing the wall.</string>
+    <string name="achievement_snow_5_descr">Explode %1$d times in an experiment without kissing the wall.</string>
     <string name="achievement_snow_6_name">Not today!</string>
     <string name="achievement_snow_6_descr">Touch the wall as Angry Cell. Again and again.</string>
     <string name="achievement_snow_7_name">They see me rollin\' they hatin\'</string>
@@ -69,17 +69,17 @@
     <string name="achievement_snow_14_name">Allergy</string>
     <string name="achievement_snow_14_descr">Grow and explode without hitting more than %1$d spores.</string>
     <string name="achievement_snow_15_name">Efficient clicks 2.0</string>
-    <string name="achievement_snow_15_descr">Finish a game with … only one click, hehe</string>
+    <string name="achievement_snow_15_descr">Finish an experiment with … only one click, hehe</string>
     <string name="achievement_snow_16_name">Why not both?</string>
-    <string name="achievement_snow_16_descr">You know that you can change the way of moving your cell during the game, too?</string>
+    <string name="achievement_snow_16_descr">You know that you can change the way of moving your cell during the experiment, too?</string>
     <string name="achievement_snow_17_name">Both as well as</string>
-    <string name="achievement_snow_17_descr">Finish %1$d games using the click system, %2$d using
+    <string name="achievement_snow_17_descr">Finish %1$d experiments using the click system, %2$d using
         the
-        other and %3$d using both during a game.</string>
+        other and %3$d using both during a test.</string>
 
     <!-- Dice achievements -->
     <string name="achievement_dice_1_name">Unpleasant beginning</string>
-    <string name="achievement_dice_1_descr">Combine the Alien-Cube on each colour in a game. Let the games begin!</string>
+    <string name="achievement_dice_1_descr">Combine the Alien-Cube on each colour in an experiment. Let the games begin!</string>
     <string name="achievement_dice_2_name">Colour diversity</string>
     <string name="achievement_dice_2_descr">Gather geen, yellow and red 1–6 and purple 7–9. No resets!</string>
     <string name="achievement_dice_3_name">Dummy</string>
@@ -92,9 +92,9 @@
     <string name="achievement_dice_6_name">Green peace</string>
     <string name="achievement_dice_6_descr">Gather %1$d green dices on the field. Just kidding. %2$d.</string>
     <string name="achievement_dice_7_name">Ludo</string>
-    <string name="achievement_dice_7_descr">Collect a purple, green, yellow and red %3$d in a game without any reset. Progress: %1$d/%2$d</string>
+    <string name="achievement_dice_7_descr">Collect a purple, green, yellow and red %3$d in an experiment without any reset. Progress: %1$d/%2$d</string>
     <string name="achievement_dice_8_name">Curious onlooker</string>
-    <string name="achievement_dice_8_descr">Reveal some fields completely in one game.</string>
+    <string name="achievement_dice_8_descr">Reveal some fields completely in an experiment.</string>
     <string name="achievement_dice_9_name">Logistic master</string>
     <string name="achievement_dice_9_descr">%1$dx Alien, %2$dx purple, %3$dx green, %4$dx yellow on the field :).</string>
     <string name="achievement_dice_10_name">X-ray vision</string>
@@ -129,12 +129,12 @@
     <string name="achievement_jumper_1_descr">…to universe and everything. Plus the number of horns of a unicorn.</string>
     <string name="achievement_jumper_1_descr_claimed">…to universe and everything. Plus the number of horns of a unicorn.43!</string>
     <string name="achievement_jumper_2_name">Lack of talent</string>
-    <string name="achievement_jumper_2_descr">You failed %1$d times in easy. Are you sure you wanna continue playing this game?</string>
+    <string name="achievement_jumper_2_descr">You failed %1$d times in easy. Are you sure you wanna continue playing this experiment?</string>
     <string name="achievement_jumper_3_name">Super Mario</string>
-    <string name="achievement_jumper_3_descr">Perform %1$d Double Jumps in a game before reaching \"medium\".</string>
+    <string name="achievement_jumper_3_descr">Perform %1$d Double Jumps in an experiment before reaching \"medium\".</string>
     <string name="achievement_jumper_3_descr_claimed">So much for the laws of physics…</string>
     <string name="achievement_jumper_4_name">Multitasking</string>
-    <string name="achievement_jumper_4_descr">Finish a game after reaching \"hard\" without colliding.</string>
+    <string name="achievement_jumper_4_descr">Finish a test after reaching \"hard\" without colliding.</string>
     <string name="achievement_jumper_5_name">Avoiding manoeuvres</string>
     <string name="achievement_jumper_5_descr">Well, what do you think how many obstacles do you need to dodge?</string>
     <string name="achievement_jumper_5_descr_claimed">Congratulations. You dodged more than %1$d obstacles.</string>
@@ -149,7 +149,7 @@
     <string name="achievement_jumper_10_name">Boring beginning</string>
     <string name="achievement_jumper_10_descr">Enough of the easy beginning? Well… get the right upgrades my friend.</string>
     <string name="achievement_jumper_11_name">Natural talent</string>
-    <string name="achievement_jumper_11_descr">Reach at least %2$d meters in %1$d successive games.</string>
+    <string name="achievement_jumper_11_descr">Reach at least %2$d meters in %1$d successive experiments.</string>
 
     <!-- Triangle achievements -->
     <string name="achievement_triangle_1_descr">This time you just get some anti-humor. For instance: How many earthlings do you need to build a spaceship?</string>
@@ -200,10 +200,10 @@
     <string name="achievement_memory_6_descr">%1$d matching pairs with the first try? Well, maybe Angry-Cell it was skill but here, DEFINITELY NOT!</string>
     <string name="achievement_memory_7_descr">That streak… Either this was brilliant or you cheated…</string>
     <string name="achievement_memory_7_name">Cardships</string>
-    <string name="achievement_memory_8_descr">You get the points if you solve the game without hitting a field twice. Get a pencil quickly!</string>
+    <string name="achievement_memory_8_descr">You get the points if you solve the test without hitting a field twice. Grab a pencil quickly!</string>
     <string name="achievement_memory_8_name">Cheating</string>
     <string name="achievement_memory_9_name">No magician</string>
-    <string name="achievement_memory_9_descr">Luckily you are no magician.</string>
+    <string name="achievement_memory_9_descr">Luckily you are no magician. Your brain wouldn\'t even keep in mind one spell. Like these %1$d/%2$d cards.</string>
 
     <!-- Flow achievements -->
     <string name="achievement_flow_1_name">One after each other</string>
@@ -247,7 +247,7 @@
     <string name="achievement_lazor_11_name">Calculated</string>
     <string name="achievement_lazor_11_descr">Hit %1$d meteors with the last "edge" of the explosion. The shield must NOT be active.</string>
     <string name="achievement_lazor_12_name">Quadruple hit</string>
-    <string name="achievement_lazor_12_descr">Hit four meteors with one shot.</string>
+    <string name="achievement_lazor_12_descr">Yeah … guess how many you need to hit with one shot :).</string>
     <string name="achievement_lazor_13_name">In the last second</string>
     <string name="achievement_lazor_13_descr">Stop some meteors just before they are about to crash into the city.</string>
     <string name="achievement_lazor_14_name">Interrupted</string>

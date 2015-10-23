@@ -2,22 +2,31 @@
 
 <resources xmlns:tools="http://schemas.android.com/tools">
     <string name="credits_text" tools:ignore="TypographyEllipsis"><![CDATA[
-        <p>Jedes große Projekt braucht einen Platz, um den Leuten zu danken, die es möglich gemacht haben. Dies hier ist der Platz. So viele brilliante Leute, so viele brilliante und kreative Köpfe und die meisten wissen noch nicht einmal, dass sie hierzu beigetragen haben.</p>
+        <p>Jedes große Projekt braucht einen Platz, um den Leuten zu danken, die es möglich gemacht haben. Dies hier ist der Platz. So viele brillante Leute, so viele brillante und kreative Köpfe und die meisten wissen noch nicht einmal, dass sie hierzu beigetragen haben.</p>
         <p><strong>Zuallerst möchte ich meinem Bruder Fabian für inspirierende Diskussionen, kreative Kreationen und detailverliebte Begeisterung vom Anfang bis zum Ende. Ohne dich wäre das alles hier nicht möglich gewesen.</strong></p>
+
+        <p>Jetzt bin ich (aka Fabian) an der Reihe. Eigentlich wird an erster Stelle immer der Schöpfer gennant. Weil dem hier nicht so ist, möchte ich dieser Person aber an zweiter Stelle danken:</p>
+        <p><strong>Meinen Bruder Daniel. Schöpfer von WhatsThat, Mastermind des Programmierens und natürlich Bruder aller Brüder. Mit Eselsgeduld hast du stundenlang Lösungen für Hindernisse gesucht, hast jede Zeile des Codes erarbeiten müssen, da ich des Programmierens nicht mächtig bin. Ich danke dir, dass du meinen Gedankenwirrwarr, neue Ideen und pingelige Wünsche zu einem facettenreichen Projekt umgesetzt hast. Ich ziehe meinen Hut vor dir, dass du mit Ausdauer eine so grandiose App geschaffen hast!</strong></p>
+        <p>Auch Meister Minion Venalo der 364k möchte sich bei dir bedanken!</p>
+        <p>Der letzte Dank gilt dem unbekannten Uploader eines Videos. Durch Anklicken eines Kreises entstanden vier kleine Kreise wodurch ein Bild sichtbar wurde. Daraus entstand sich der Wunsch, selbstständig Bilder auf diese Weise aufzudecken. Aus dem Wunsch entwickelte ein Gedanke und schlussendlich wurde die Lawine "Projekt WhatsThat" ins Rollen gebracht.</p>
         <ul>
+        <p>Was wir auch noch erwähnen wollten:</p>
         <li>Dieses Projekt benutzt das <a href="https://github.com/SufficientlySecure/donations">DonationsFragment</a> von <em>SufficientlySecure</em> für die Spendenseite.</li>
         <li>Die ganzen netten Popup Meldungen werden ermöglicht von <a href="https://github.com/JohnPersano/SuperToasts">SuperToasts</a> erstellt von <em>JohnPersano</em>.</li>
         <li>Manche Teile der Mosaikerstellung benötigen <a href="http://math.nist.gov/javanumerics/jama">JAMA</a> für mathematisch knifflige Operationen.</li>
         </ul>
-        <p>Weiterhin möchten wir all jenen danken, die Interesse gezeigt haben, während das Projekt noch in den Kinderschuhen steckte. Beim Testen und Ideen einbringen, immer kam irgendwo ein neuer Wind her. Falls ihr euren Namen (oder Pseudonym) hier geschrieben sehen wollt, nehmt Kontakt mit uns auf! Dann werdet ihr entweder ein neuer Tester oder ihr bekommt die wohlverdiente Anerkennung dafür, dass ihr so große Klasse seid!</p>
-        <p>Schlussendlich ist hier eine Liste aller Autoren und Quellen, die ihre Bilder unter freier Lizenz im Internet angeboten haben, die wir in unser Projekt an der einen oder anderen Stelle verwendet haben.</p>
+        <p>Weiterhin möchten wir all jenen danken, die Interesse gezeigt haben, während das Projekt noch in den Kinderschuhen steckte. Durch Einbringen neuer Ideen und Testen, immer kam irgendwo ein neuer Wind her. Falls ihr euren Namen (oder Pseudonym) hier geschrieben sehen wollt, nehmt Kontakt mit uns auf! Dann werdet ihr entweder ein neuer Tester oder ihr bekommt die wohlverdiente Anerkennung dafür, dass ihr so große Klasse seid!</p>
+        <p>Großartige Tester und/oder Personen mit großartigen Anregungen:</p>
+        <li>Verena V.</li>
+        <p>Zu guter Letzt ist hier eine Liste aller Autoren und Quellen, die ihre Bilder unter freier Lizenz im Internet angeboten haben, die wir in unser Projekt an der einen oder anderen Stelle verwendet haben.</p>
         <ul>
         <li>Für PNG Kompression die Programme OptiPNG, PNGcrush und <a href="https://tinypng.com">TinyPNG</a></li>
-        <li>Die Website <a href="https://pixabay.com/">pixabay.com</a>, insbesondere die folgenden Autoren: <em>Nemo</em>, <em>OpenClips</em>,<br />
-        <em>PublicDomainPictures</em>, <em>OpenClipartVectors</em>,...</li>
+        <li>Die Websiten <a href="http://piqs.de/"</a> und <a href="https://pixabay.com/">pixabay.com</a>, insbesondere die folgenden Autoren: <em>Nemo</em>, <em>OpenClips</em>,<br />
+        <em>PublicDomainPictures</em>, <em>OpenClipartVectors</em>, <em>ClkFreeVectorImages</em>...</li>
         <li>Die Website <a href="http://www.icons4android.com">icons4android.com</a> für die Icons <a href="http://www.icons4android.com/icon/1144">in</a> <a href="http://www.icons4android.com/icon/1218">dem</a> <a href="http://www.icons4android.com/icon/1174">Pakete</a> <a href="http://www.icons4android.com/icon/851">Manager</a></li>
-        <li>Die Autoren der jeweiligen Bilder zu den Experimenten werden für jedes Bild im NoPanic Dialog genannt. Der vollständige Link zum Bild mit Titel und Autor kann von uns angefragt werden unter whatsthat.contact@gmail.com</li>
+        <li>Die Autoren der jeweiligen Bilder zu den Experimenten werden für jedes Bild im NoPanic Dialog genannt.</li>
         </ul>
+        <p>Der vollständige Link zum Bild mit Titel und Autor oder ausführliche Hintergründe zu einem genannten Punkt können angefragt werden unter whatsthat.contact@gmail.com</p>
     ]]></string>
     <string name="store_category_menu">Zurück zum Experiment</string>
     <string name="store_category_shop">Laden</string>

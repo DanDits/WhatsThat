@@ -25,10 +25,10 @@
     <string-array name="riddle_type_snow_hints">
         <item>Ein neuer Test. In der Umgebung der Zelle platzieren wir kontaminierte biologische Stoffe einer anderen Spezies, um die Reaktion der Zelle darauf zu testen. Achte auf die Partikel, die von dem Stoff ausgehen und deiner Zelle schaden. Den Rest werden wir, wie in der Politik, mit einer Lüge bestmöglich verschleiern.</item>
         <item>Durch den Versuch erhoffen wir uns tiefere Einblicke in die irdische graue Substanz, ein Bestandteil deines Zentralnervensystems. Dazu mussten wir aus deinem Gehirn eine Zelle entfernen.</item>
-        <item>Woher Engelchen kommt? Wir haben einer Zelle Tätrhaw injiziert. Das zeigt der Zelle die blanke Realität.  Als wir das Zeug der Zelle eines Politiker gegeben haben, ist die Zelle augenblicklich geplatzt.</item>
-        <item>Engelchen schützt dich vor Partikeln oder Wandkollisionen. Der Effekt lässt nach, wenn Engelchen durch giftige Süßigkeiten benommen wird.</item>
-        <item>Engelchen ist manchmal etwas übermütig. Versuche es loszuwerden indem du es gut fütterst oder aus dem Kontrollbereich drängst.</item>
-        <item>Ohne Engelchen wird deine Zelle temporär in den Narrheits-Zustand versetzt. Partikel lassen dich stärker schrumpfen und Wandkollisionen solltest du komplett vermeiden…</item>
+        <item>Engelchen zeigt der Zelle Tätrhaw die blanke Realität.  Als wir das Zeug der Zelle eines Politiker gegeben haben, ist die Zelle augenblicklich geplatzt.</item>
+        <item>Engelchen besitzt drei kognitive Zustände. Im ersten schützt es dich komplett vor Partikeln oder Wandkollisionen. Durch giftige Süßigkeiten lässst der Effekt nach.</item>
+        <item>Im zweiten Zustand ist der Schutz vor Partikel oder Wandkollisionen schwächer. Im dritten fehlt er komplett.</item>
+        <item>Du kannst Engelchen aus dem Kontrollbereich drängen. Es stört dich dann nicht mehr, macht die Sammelaktion aber deutlich risikoreicher…</item>
     </string-array>
     <string name="article_snow_feature_orientation_sensor_name">Balanceakt</string>
     <string name="article_snow_feature_orientation_sensor_descr">Ermöglicht die Wahlmöglichkeit, die Zelle durch Kippen des Geräts zu steuern!</string>
@@ -90,7 +90,7 @@
     <string name="riddle_type_triangle_advertising">Ein einfaches Experiment. Deine grauen Zellen haben an Farbe gewonnen und das Experiment an Ecken.</string>
     <string name="riddle_type_triangle_explanation">Berühre ein Dreieck, um es in kleinere Dreiecke aufzuteilen. Dadurch wird das versteckte Bild immer besser erkenntlich.</string>
     <string-array name="riddle_type_triangle_hints">
-        <item>WiseMind meint, ich rede zu viel. Ich halte mich deshalb kurz: Ein farbliches Pendant zum Kreis-Test. Klickst du auf ein Dreieck, teilt sich dieses in zwei kleinere. Wozu das ganze? Zum Testen eurer Farbwahrnehmung.</item>
+        <item>WiseMind meint, ich rede zu viel. Ich fasse mich deshalb kurz: Ein farbliches Pendant zum Kreis-Test. Klickst du auf ein Dreieck, teilt sich dieses in zwei kleinere. Wozu das ganze? Zum Testen eurer Farbwahrnehmung.</item>
         <item>Wenn du mehrere Dreiecke berührst, teilst du alle auf einmal. Magic! Ansonsten gleiche Punkte wie beim Kreis-Experiment.</item>
         <item>Ich bin ein angesehener Wissenschaftler. Wenn du mich zu solch einfachen Dingen fragst könnte ich genervt reagieren…</item>
         <item>Du kannst deine kurze Lebenszeit gerne weiter verschwenden und Buttons drücken.</item>

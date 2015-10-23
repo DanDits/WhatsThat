@@ -10,19 +10,19 @@
 
     <!-- Circle achievements -->
     <string name="achievement_circle_1_name">Der Anfang</string>
-    <string name="achievement_circle_1_descr">Löse %1$d/%2$d Bilder.</string>
+    <string name="achievement_circle_1_descr">Löse %1$d/%2$d Kreis Experimente.</string>
     <string name="achievement_circle_2_name">Ich weiß was</string>
     <string name="achievement_circle_2_descr">Achja? Erkennst du das Bild mit nur %1$d Kreisen?</string>
     <string name="achievement_circle_3_name">Och wie schee</string>
-    <string name="achievement_circle_3_descr">Zähle alle Kreise eines Spieles und bewundere den Künstler.</string>
+    <string name="achievement_circle_3_descr">Zähle alle Kreise eines Experiments und bewundere den Künstler.</string>
     <string name="achievement_circle_4_name">Ich liebe es</string>
     <string name="achievement_circle_4_descr">Nun, dann mach das halt für %1$d weitere Bilder.</string>
     <string name="achievement_circle_5_name">Mission possible</string>
-    <string name="achievement_circle_5_descr">Beende ein Spiel innerhalb von %1$d Sekunden, wobei du häufiger geklickt als gewischt hast.</string>
+    <string name="achievement_circle_5_descr">Beende ein Experiment innerhalb von %1$d Sekunden, wobei du häufiger geklickt als gewischt hast.</string>
     <string name="achievement_circle_6_name">Klick Dominanz</string>
-    <string name="achievement_circle_6_descr">Mehr klicken als wischen für ein paar weitere Spiele.</string>
+    <string name="achievement_circle_6_descr">Mehr klicken als wischen für ein paar weitere Versuche.</string>
     <string name="achievement_circle_7_name">Ich habs eilig…</string>
-    <string name="achievement_circle_7_descr">Beende zwei..na gut ein Spiel in weniger als %1$d Sekunden.</string>
+    <string name="achievement_circle_7_descr">Beende zwei..na gut ein Versuch in weniger als %1$d Sekunden.</string>
     <string name="achievement_circle_8_name">…habs immer noch eilig</string>
     <string name="achievement_circle_8_descr">Tschuldige. Wollte dich nicht störe. %1$d Spiele in weniger als %2$d Sekunden.</string>
     <string name="achievement_circle_9_name">All we need is love</string>
@@ -41,7 +41,7 @@
 
     <!-- Snow achievements -->
     <string name="achievement_snow_1_name">Beeilung</string>
-    <string name="achievement_snow_1_descr">Beende %1$d Spiele in weniger als %2$d Sekunden.</string>
+    <string name="achievement_snow_1_descr">Beende %1$d Experimente in weniger als %2$d Sekunden.</string>
     <string name="achievement_snow_2_name">Need for speed</string>
     <string name="achievement_snow_2_descr">Wer bremst verliert: Max. Geschwindigkeit %1$d/%2$d.</string>
     <string name="achievement_snow_3_name">Glückstreffer…</string>
@@ -49,7 +49,7 @@
     <string name="achievement_snow_4_name">Mission impossible</string>
     <string name="achievement_snow_4_descr">Sammle %1$d Süßigkeiten in %2$d Sekunden.</string>
     <string name="achievement_snow_5_name">Bombastisch</string>
-    <string name="achievement_snow_5_descr">Explodiere %1$d mal in einem Spiel ohne dabei die Wand zu küssen.</string>
+    <string name="achievement_snow_5_descr">Explodiere %1$d mal in einem Experiment ohne dabei die Wand zu küssen.</string>
     <string name="achievement_snow_6_name">Heute nicht!</string>
     <string name="achievement_snow_6_descr">Bekuschel die Wand als Angry Cell. Wieder und wieder.</string>
     <string name="achievement_snow_7_name">They see me rollin\' they hatin\'</string>
@@ -70,17 +70,17 @@
     <string name="achievement_snow_14_descr">Wachse und explodiere, ohne dabei mehr als %1$d Sporen einzusammeln.</string>
 
     <string name="achievement_snow_15_name">Effizienzklicks 2.0</string>
-    <string name="achievement_snow_15_descr">Beende ein Spiel mit … nur einem Klick.</string>
+    <string name="achievement_snow_15_descr">Beende ein Experiment mit … nur einem Klick.</string>
     <string name="achievement_snow_16_name">Warum nicht beide?</string>
-    <string name="achievement_snow_16_descr">Dir ist bewusst, dass du die Steuerung der Zelle auch während des Spiels ändern kannst?</string>
+    <string name="achievement_snow_16_descr">Dir ist bewusst, dass du die Steuerung der Zelle auch während des Experiments ändern kannst?</string>
     <string name="achievement_snow_17_name">Sowohl als auch</string>
-    <string name="achievement_snow_17_descr">Beende %1$d Spiele mit Klick-System, %2$d mit Kippen
+    <string name="achievement_snow_17_descr">Beende %1$d Experimente mit Klick-System, %2$d mit Kippen
         und
-        %3$d in denen du während eines Spiels beide benutzt.</string>
+        %3$d in denen du während eines Tests beide benutzt.</string>
 
     <!-- Dice achievements -->
     <string name="achievement_dice_1_name">Ein harter Anfang</string>
-    <string name="achievement_dice_1_descr">Fusioniere den Alien-Cube auf jede Farbe in einem Spiel. Lasst die Spiele beginnen!</string>
+    <string name="achievement_dice_1_descr">Fusioniere den Alien-Cube auf jede Farbe in einem Experiment. Lasst die Spiele beginnen!</string>
     <string name="achievement_dice_2_name">Bunte Vielfalt</string>
     <string name="achievement_dice_2_descr">Horte grüne, gelbe und rote 1–6 und lila 7–9. Keine Resets!</string>
     <string name="achievement_dice_3_name">Dummy</string>
@@ -93,9 +93,9 @@
     <string name="achievement_dice_6_name">Green peace</string>
     <string name="achievement_dice_6_descr">Sammle %1$d grüne Würfel auf dem Spielfeld. Spaß. %2$d.</string>
     <string name="achievement_dice_7_name">Mensch ärger dich nicht</string>
-    <string name="achievement_dice_7_descr">Sammle eine lila, grüne, gelbe und rote %3$d in einem Spiel ohne Reset. Fortschritt: %1$d/%2$d</string>
+    <string name="achievement_dice_7_descr">Sammle eine lila, grüne, gelbe und rote %3$d in einem Experiment ohne Reset. Fortschritt: %1$d/%2$d</string>
     <string name="achievement_dice_8_name">Schaulustiger</string>
-    <string name="achievement_dice_8_descr">Decke ein paar Felder in einem Spiel vollständig auf.</string>
+    <string name="achievement_dice_8_descr">Decke ein paar Felder in einem Versuch vollständig auf.</string>
     <string name="achievement_dice_9_name">Logistik Meister</string>
     <string name="achievement_dice_9_descr">Bitte %1$dx Alien, %2$dx lila, %3$dx grün, %4$dx gelb auf dem Feld :).</string>
     <string name="achievement_dice_10_name">Röntgenblick</string>
@@ -122,7 +122,7 @@
     <string name="achievement_dice_20_name">Fokus</string>
     <string name="achievement_dice_20_descr">Wähle eines der vier inneren Felder, indem du zwei Würfel darauf kombinierst. Führe maximal %1$d Kombinationen durch, aber nur auf diesem Feld und ohne Resets.</string>
     <string name="achievement_dice_21_name">Minimalist</string>
-    <string name="achievement_dice_21_descr">Jetzt ist genug, das ist der letzte Erfolg. Unser Perfektionist muss ins Gleichgewicht kommen, beende daher das Spiel mit nur %1$d Kombinationen. Viel Glück.</string>
+    <string name="achievement_dice_21_descr">Jetzt ist genug, das ist der letzte Erfolg. Unser Perfektionist muss ins Gleichgewicht kommen, beende daher den Versuch mit nur %1$d Kombinationen. Viel Glück.</string>
     <string name="achievement_dice_21_descr_claimed">Eine Gegenseite zum Perfektionist. Das ist wie beim Yin-Yang. Schonmal davon gehört?</string>
 
     <!-- Jumper achievements -->
@@ -130,12 +130,12 @@
     <string name="achievement_jumper_1_descr">… das Universum und den Rest. Plus die Anzahl an Hörnern eines Einhorns.</string>
     <string name="achievement_jumper_1_descr_claimed">… das Universum und den Rest. Plus die Anzahl an Hörnern eines Einhorns. 43!</string>
     <string name="achievement_jumper_2_name">Unterbegabung</string>
-    <string name="achievement_jumper_2_descr">Sag mal, du hast nun %1$d mal im ersten Bereich versagt. Bist du sicher, dass du das hier weiterspielen möchtest?</string>
+    <string name="achievement_jumper_2_descr">Sag mal, du hast nun %1$d mal im ersten Bereich versagt. Bist du sicher, dass du das hier weiter machen möchtest?</string>
     <string name="achievement_jumper_3_name">Super Mario</string>
     <string name="achievement_jumper_3_descr">Vollführe %1$d Double Jumps in einem Spiel bevor du \"Medium\" erreichst.</string>
     <string name="achievement_jumper_3_descr_claimed">So viel zum Thema physikalische Gesetze…</string>
     <string name="achievement_jumper_4_name">Multitasking</string>
-    <string name="achievement_jumper_4_descr">Beende ein Spiel ab Schwierigkeit \"Schwer\" ohne zu kollidieren.</string>
+    <string name="achievement_jumper_4_descr">Beende ein Experiment ab Schwierigkeit \"Schwer\" ohne zu kollidieren.</string>
     <string name="achievement_jumper_5_name">Ausweichmanöver</string>
     <string name="achievement_jumper_5_descr">Na, was glaubst du wie viele Hindernisse du überwinden musst?</string>
     <string name="achievement_jumper_5_descr_claimed">Gratulation. Es waren %1$d Hindernisse.</string>
@@ -150,7 +150,7 @@
     <string name="achievement_jumper_10_name">Öder Anfang</string>
     <string name="achievement_jumper_10_descr">Der Anfang ist dir zu öde? Dann kaufe das passende Upgrade mein Freund.</string>
     <string name="achievement_jumper_11_name">Naturtalent</string>
-    <string name="achievement_jumper_11_descr">Erreiche in %1$d aufeinanderfolgenden Spielen mindestens %2$d Meter.</string>
+    <string name="achievement_jumper_11_descr">Erreiche in %1$d aufeinanderfolgenden Experimenten mindestens %2$d Meter.</string>
 
     <!-- Triangle achievements -->
     <string name="achievement_triangle_1_name">In nur einem Augenblick</string>
@@ -201,7 +201,7 @@
     <string name="achievement_memory_7_name">Karten versenken</string>
     <string name="achievement_memory_7_descr">So viel richtige Paare hintereinander… Entweder das war gerade ganz schön genial oder aber gemogelt…</string>
     <string name="achievement_memory_8_name">Gemogelt</string>
-    <string name="achievement_memory_8_descr">Die Punkte bekommst du, wenn du das Spiel löst und keines der Felder zweimal angeklickt. Einen Stift bitte!</string>
+    <string name="achievement_memory_8_descr">Die Punkte bekommst du, wenn du das Experiment löst und keines der Felder zweimal angeklickt. Einen Stift bitte!</string>
     <string name="achievement_memory_9_name">Kein Zauberer</string>
     <string name="achievement_memory_9_descr">Zum Glück bist du kein Zauberer, einen Zauberspruch hättest du dir nie gemerkt. So wie die %1$d/%2$d Karten.</string>
 
@@ -246,8 +246,8 @@
     <string name="achievement_lazor_10_descr">Beende das Experiment ohne irgendwelchen Rotanteil aufzudecken.</string>
     <string name="achievement_lazor_11_name">Kalkuliert</string>
     <string name="achievement_lazor_11_descr">Treffe in einem Experiment %1$d Kometen mit dem Rand der Explosionen. Das Schild darf NICHT aktiv sein!</string>
-    <string name="achievement_lazor_12_name">Vier mit einem Streich</string>
-    <string name="achievement_lazor_12_descr">Treffe vier Kometen mit einem Schuss.</string>
+    <string name="achievement_lazor_12_name">Vier gewinnt</string>
+    <string name="achievement_lazor_12_descr">Jaaa … rate mal wie viel du mit einem Streich treffen musst :).</string>
     <string name="achievement_lazor_13_name">In letzter Sekunde</string>
     <string name="achievement_lazor_13_descr">Halte ein paar Kometen in allerletzter Sekunde auf.</string>
     <string name="achievement_lazor_14_name">Unterbrochen</string>
