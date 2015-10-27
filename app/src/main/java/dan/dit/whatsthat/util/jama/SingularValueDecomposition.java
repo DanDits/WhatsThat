@@ -1,5 +1,9 @@
 package dan.dit.whatsthat.util.jama;
 
+import android.util.Log;
+
+import dan.dit.whatsthat.util.MultistepPercentProgressListener;
+import dan.dit.whatsthat.util.PercentProgressListener;
 import dan.dit.whatsthat.util.jama.util.Maths;
 
 /** Singular Value Decomposition.
@@ -43,18 +47,37 @@ public class SingularValueDecomposition implements java.io.Serializable {
    Constructor
  * ------------------------ */
 
+    public interface ProgressCallback extends PercentProgressListener {
+        boolean isCancelled();
+    }
+
+    /** Construct the singular value decomposition
+     Structure to access U, S and V.
+     * @param Arg    Rectangular matrix
+     *
+     */
+    public SingularValueDecomposition(Matrix Arg) {
+        this(Arg.copy(), null);
+    }
+
    /** Construct the singular value decomposition
        Structure to access U, S and V.
-   @param Arg    Rectangular matrix
-   */
-
-   public SingularValueDecomposition (Matrix Arg) {
-
+    * @param Arg    Rectangular matrix that will be owned by the decomposition from now on and be
+    *               rendered useless.
+    * @param callback The callback to use to check if making got cancelled or to report progress
+    *                 to. Note that if isCancelled is ever true, this object can be considered
+    *                 garbage and using it is undefined behavior. Can be null.
+    */
+   public SingularValueDecomposition(Matrix Arg, ProgressCallback callback) {
+       MultistepPercentProgressListener progress = callback == null ? null :
+               new MultistepPercentProgressListener(callback, 3);
       // Derived from LINPACK code.
       // Initialize.
-      double[][] A = Arg.getArrayCopy();
+      double[][] A = Arg.getArray();
       m = Arg.getRowDimension();
       n = Arg.getColumnDimension();
+       Log.d("HomeStuff", "Starting singular value decomposition for matrix of dimension " + m +
+               "x" + n);
 
       /* Apparently the failing cases are only a proper subset of (m<n), 
 	 so let's not throw error.  Correct fix to come later?
@@ -73,9 +96,14 @@ public class SingularValueDecomposition implements java.io.Serializable {
       // Reduce A to bidiagonal form, storing the diagonal elements
       // in s and the super-diagonal elements in e.
 
-      int nct = Math.min(m-1,n);
-      int nrt = Math.max(0,Math.min(n-2,m));
-      for (int k = 0; k < Math.max(nct,nrt); k++) {
+      final int nct = Math.min(m-1,n);
+      final int nrt = Math.max(0, Math.min(n - 2, m));
+       final int maxNctNrt = Math.max(nct,nrt);
+      for (int k = 0; k < maxNctNrt && (callback == null || !callback.isCancelled()); k++) {
+         if (progress != null) {
+             progress.onProgressUpdate((int) (PercentProgressListener.PROGRESS_COMPLETE * k / (double)
+                     maxNctNrt));
+         }
          if (k < nct) {
 
             // Compute the transformation for the k-th column and
@@ -174,6 +202,12 @@ public class SingularValueDecomposition implements java.io.Serializable {
             }
          }
       }
+       if (progress != null) {
+           progress.nextStep();
+       }
+      if (callback != null && callback.isCancelled()) {
+          return;
+      }
 
       // Set up the final bidiagonal matrix or order p.
 
@@ -225,6 +259,12 @@ public class SingularValueDecomposition implements java.io.Serializable {
             }
          }
       }
+       if (progress != null) {
+           progress.nextStep();
+       }
+       if (callback != null && callback.isCancelled()) {
+           return;
+       }
 
       // If required, generate V.
 
@@ -248,6 +288,9 @@ public class SingularValueDecomposition implements java.io.Serializable {
             V[k][k] = 1.0;
          }
       }
+       if (callback != null && callback.isCancelled()) {
+           return;
+       }
 
       // Main iteration loop for the singular values.
 
@@ -255,8 +298,15 @@ public class SingularValueDecomposition implements java.io.Serializable {
       int iter = 0;
       double eps = Math.pow(2.0,-52.0);
       double tiny = Math.pow(2.0,-966.0);
-      while (p > 0) {
+       final int startP = p;
+
+      while (p > 0 && (callback == null || !callback.isCancelled())) {
          int k,kase;
+          if (progress != null) {
+              progress.onProgressUpdate((int) ((startP - p) / (double) startP *
+                      PercentProgressListener.PROGRESS_COMPLETE));
+              Log.d("HomeStuff", "P ist " + p + " start p was " + startP);
+          }
 
          // Here is where a test for too many iterations would go.
 
@@ -468,6 +518,9 @@ public class SingularValueDecomposition implements java.io.Serializable {
             break;
          }
       }
+       if (progress != null) {
+           progress.nextStep();
+       }
    }
 
 /* ------------------------

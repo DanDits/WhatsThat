@@ -13,7 +13,7 @@
  *
  */
 
-package dan.dit.whatsthat.util.image;
+package dan.dit.whatsthat.util.mosaic.bitmapMatrix;
 
 import android.graphics.Bitmap;
 import android.util.Log;
@@ -29,10 +29,11 @@ import dan.dit.whatsthat.util.jama.Matrix;
 /**
  * Created by daniel on 03.07.15.
  */
-public class IndexedBitmap {
+public class IndexedBitmap implements BitmapMatrix {
 
     private Matrix mMatrix;
     private List<Integer> mColors;
+    private boolean mTransposeRequired;
 
     public IndexedBitmap(Bitmap source) {
         long tic = System.currentTimeMillis();
@@ -51,11 +52,14 @@ public class IndexedBitmap {
     private void makeIndexedMatrix(Bitmap source) {
         mColors = new ArrayList<>();
         SparseArray<Integer> colorToIndex = new SparseArray<>();
-        mMatrix = new Matrix(source.getHeight(), source.getWidth());
+        mTransposeRequired = source.getWidth() > source.getHeight();
+        int columns = Math.min(source.getWidth(), source.getHeight());
+        int rows = Math.max(source.getWidth(), source.getHeight());
+        mMatrix = new Matrix(rows, columns);
 
-        for (int y = 0; y < source.getHeight(); y++) {
-            for (int x = 0; x < source.getWidth(); x++) {
-                int color = source.getPixel(x, y);
+        for (int y = 0; y < rows; y++) {
+            for (int x = 0; x < columns; x++) {
+                int color = source.getPixel(mTransposeRequired ? y : x, mTransposeRequired ? x : y);
                 Integer index = colorToIndex.get(color);
                 if (index == null) {
                     index = mColors.size();
@@ -83,7 +87,15 @@ public class IndexedBitmap {
         return result;
     }
 
-    public List<Integer> getIndexedColors() {
-        return mColors;
+    @Override
+    public boolean updateMatrix(Matrix matrix) {
+        if (matrix == null) {
+            return false;
+        }
+        if (mTransposeRequired) {
+            matrix = matrix.transpose();
+        }
+        mMatrix = matrix;
+        return true;
     }
 }

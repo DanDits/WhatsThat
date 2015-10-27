@@ -134,27 +134,6 @@ public class BitmapUtil {
         return result;
     }
 
-    public static Matrix toMatrix(Bitmap source) {
-        Matrix matrix = new Matrix(source.getHeight(), source.getWidth());
-
-        for (int y = 0; y < source.getHeight(); y++) {
-            for (int x = 0; x < source.getWidth(); x++) {
-                matrix.set(y, x, source.getPixel(x, y));
-            }
-        }
-        return matrix;
-    }
-
-    public static Bitmap toBitmap(Matrix matrix) {
-        Bitmap result = Bitmap.createBitmap(matrix.getColumnDimension(), matrix.getRowDimension(), Bitmap.Config.ARGB_8888);
-        for (int y = 0; y < result.getHeight(); y++) {
-            for (int x = 0; x < result.getWidth(); x++) {
-                result.setPixel(x, y, (int) matrix.get(y, x));
-            }
-        }
-        return result;
-    }
-
     /**
      * Resizes the given image to the wanted height and width
      * using the specified render options.

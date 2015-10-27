@@ -104,9 +104,11 @@ public class MosaicGeneratorUi {
     private File mMosaicFile;
     private View mShare;
     private SVDMaker mSVDMaker;
+    private int mSVDLastRank;
 
     public MosaicGeneratorUi(Activity activity) {
         mActivity = activity;
+        mSVDLastRank = -1;
 
         Map<String, Image> images = RiddleFragment.ALL_IMAGES;
         ImageBitmapSource source = new ImageBitmapSource(mActivity.getResources(), images);
@@ -346,6 +348,7 @@ public class MosaicGeneratorUi {
         public static final int MULTI_RECT = 1;
         public static final int FIXED_LAYER = 2;
         public static final int SVD = 3;
+        private static final boolean SVD_RANK_PARAMETER_LOGARITHMIC_SCALE = false;
         private final int mNameResId;
         private final List<Double> mMinValues;
         private final List<Double> mMaxValues;
@@ -506,14 +509,27 @@ public class MosaicGeneratorUi {
                                 break;
                             case SVD:
                                 if (mSVDMaker == null) {
-                                    mSVDMaker = new SVDMaker(base, false, callback);
+                                    mSVDMaker = new SVDMaker(base, SVDMaker.MODE_RGB_SPLIT, callback);
                                 }
                                 // use a logarithmic scale as the interesting effects appear in
                                 // the higher value regions
-                                result = mSVDMaker.getRankApproximation((int) (
-                                        Math.log(1. + mValues.get(0) /
-                                        100.) / Math.log(2)
-                                        * mSVDMaker.getMaxRank()));
+                                int wantedRank;
+                                if (SVD_RANK_PARAMETER_LOGARITHMIC_SCALE) {
+                                    wantedRank = (int) (
+                                            Math.log(1. + mValues.get(0) /
+                                                    100.) / Math.log(2)
+                                                    * mSVDMaker.getMaxRank());
+                                } else {
+                                    wantedRank = (int) (mValues.get(0) / 100. * mSVDMaker
+                                            .getMaxRank());
+                                    wantedRank = Math.max(1, wantedRank);
+                                }
+                                if (mMosaicBitmap == null || mSVDLastRank != wantedRank) {
+                                    result = mSVDMaker.getRankApproximation(wantedRank);
+                                    if (result != null) {
+                                        mSVDLastRank = wantedRank;
+                                    }
+                                }
                                 break;
                         }
                     } catch (OutOfMemoryError error) {
