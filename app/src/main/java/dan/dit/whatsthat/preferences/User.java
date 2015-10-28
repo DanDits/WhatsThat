@@ -46,6 +46,7 @@ public class User {
     private static final File LOGO_PATH = new File(ExternalStorage.getExternalStoragePathIfMounted(USER_DIRECTORY), "Logo.png");
 
     private SharedPreferences mPreferences;
+    private WebPhotoStorage mWebPhotoStorage;
 
     public static void makeInstance(Context context) {
         INSTANCE.mPreferences = context.getSharedPreferences(PREFERENCES_USER, Context.MODE_PRIVATE);
@@ -56,6 +57,13 @@ public class User {
             throw new IllegalStateException("No User initialized.");
         }
         return INSTANCE;
+    }
+
+    public WebPhotoStorage getWebPhotoStorage() {
+        if (mWebPhotoStorage == null) {
+            mWebPhotoStorage = new WebPhotoStorage(mPreferences);
+        }
+        return mWebPhotoStorage;
     }
 
     public Logo getLogo(Resources res) {
@@ -213,5 +221,9 @@ public class User {
             }
         }
         file.delete();
+    }
+
+    public void uploadPhoto(File photo, WebPhotoStorage.UploadListener photoUploadListener) {
+        getWebPhotoStorage().uploadPhoto(mPreferences, photo, photoUploadListener);
     }
 }

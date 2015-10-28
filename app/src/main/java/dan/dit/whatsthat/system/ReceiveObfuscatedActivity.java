@@ -33,9 +33,13 @@ import android.widget.Toast;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.List;
 
 import dan.dit.whatsthat.R;
 import dan.dit.whatsthat.image.ImageObfuscator;
+import dan.dit.whatsthat.preferences.User;
 import dan.dit.whatsthat.util.image.BitmapUtil;
 import dan.dit.whatsthat.util.image.ImageUtil;
 
@@ -52,12 +56,12 @@ public class ReceiveObfuscatedActivity extends Activity {
     private Button mRefuse;
     private ProgressBar mProgressWorking;
     private View mFailExplanation;
+    private URL mDataDownloadLink;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         Log.d("HomeStuff", "Receiveobfuscated activity created.");
-        if (getIntent().getAction().equals(Intent.ACTION_VIEW)
-                || getIntent().getAction().equals(Intent.ACTION_SEND)) {
+        if (getIntent().getAction().equals(Intent.ACTION_VIEW)) {
             Uri uri = getIntent().getData();
             if (uri != null) {
                 attemptExtractFromUri(uri);
@@ -70,7 +74,8 @@ public class ReceiveObfuscatedActivity extends Activity {
             }
         }
 
-        boolean hasValidData = (mDataFile != null && mDataFile.exists()) || mDataStream != null;
+        boolean hasValidData = (mDataFile != null && mDataFile.exists()) || mDataStream != null
+                || mDataDownloadLink != null;
         super.onCreate(savedInstanceState);
         if (hasValidData) {
             setContentView(R.layout.receive_obfuscated_image);
@@ -158,6 +163,22 @@ public class ReceiveObfuscatedActivity extends Activity {
                 //bad luck
             }
 
+        } else if (uri.getScheme().equals("https")) {
+            // expected uri: https://experiment.whatsthat/photohash/photoname
+            List<String> segments = uri.getPathSegments();
+            Log.d("HomeStuff", "Got https scheme: " + uri + " with segments: " + segments);
+            if (segments.size() > 1) {
+                mName = segments.get(segments.size() - 1);
+                try {
+                    mDataDownloadLink = new URL(User.getInstance().getWebPhotoStorage()
+                            .makeDownloadLink
+                                    (segments.get(segments.size() - 2)
+                                            + "/"
+                                            + segments.get(segments.size() - 1)));
+                } catch (MalformedURLException e) {
+                    Log.e("HomeStuff", "Illegal uri: " + e);
+                }
+            }
         }
     }
 
@@ -180,6 +201,13 @@ public class ReceiveObfuscatedActivity extends Activity {
                     mObfuscated = ImageUtil.loadBitmap(mDataFile, 0, 0, true);
                 } else if (mDataStream != null) {
                     mObfuscated = ImageUtil.loadBitmap(mDataStream, 0, 0, BitmapUtil.MODE_FIT_EXACT);
+                } else if (mDataDownloadLink != null) {
+                    File tempFile = User.getInstance().getWebPhotoStorage().download
+                            (mDataDownloadLink,
+                            null);
+                    if (tempFile != null) {
+                        mObfuscated = ImageUtil.loadBitmap(tempFile, 0, 0, true);
+                    }
                 }
                 if (!ImageObfuscator.checkIfValidObfuscatedImage(mObfuscated)) {
                     mObfuscated = null;
@@ -198,10 +226,25 @@ public class ReceiveObfuscatedActivity extends Activity {
                 if (mObfuscated != null) {
                     mAccept.setEnabled(true);
                 } else {
-                    mFailExplanation.setVisibility(View.VISIBLE);
+                    if (mDataDownloadLink == null) {
+                        mFailExplanation.setVisibility(View.VISIBLE);
+                    }
                     Toast.makeText(getApplicationContext(), R.string.obfuscated_not_valid_when_loading, Toast.LENGTH_LONG).show();
                 }
             }
         }.execute();
+    }
+
+    public static URL makeDownloadLink(String photoLink) {
+        // expected photoLink = photohash/photoname
+        try {
+            return new URL("https://experiment.whatsthat/" + (photoLink.startsWith("/") ?
+                    photoLink
+                    .substring(1)
+                    : photoLink));
+        } catch (MalformedURLException e) {
+            Log.e("HomeStuff", "Failed creating URL for photolink: " + photoLink);
+            return null;
+        }
     }
 }

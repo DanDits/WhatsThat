@@ -4,6 +4,7 @@
 
     <!-- Required for donations by Flattr.com and downloads of image bundles-->
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <!-- Required for donations (and in app purchases) over the PlayStore -->
     <uses-permission android:name="com.android.vending.BILLING" />
@@ -66,6 +67,15 @@
             </intent-filter>
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <!-- Changes here need to be made in code too, like in class ReceiveObfuscatedActivity -->
+                <data android:host="experiment.whatsthat" />
+                <data android:pathPattern="/.*"/>
+                <data android:scheme="https"/>
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.BROWSABLE" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <data android:scheme="http" />
@@ -79,11 +89,6 @@
                 <data android:host="*" />
                 <data android:mimeType="*/*" />
                 <data android:pathPattern=".*\\.wte.png" />
-            </intent-filter>
-            <intent-filter>
-                <action android:name="android.intent.action.SEND"/>
-                <category android:name="android.intent.category.DEFAULT"/>
-                <data android:mimeType="image/png"/>
             </intent-filter>
 
             <intent-filter>

@@ -100,7 +100,7 @@
     <string name="panic_ask_type">Wie funktioniert das Experiment</string>
     <string name="panic_ask_author">Wessen Bild ist das</string>
     <string name="panic_skip">Experiment aussetzen… später weitermachen</string>
-    <string name="panic_share">Experiment als Bild teilen</string>
+    <string name="panic_share">Freunde zu diesem Experiment herausfordern</string>
     <string name="panic_complain">Aaaah, was ist das?! Krum und schief! Beschwerde!!!!11</string>
     <string name="panic_cannot_skip">Gehirn überladen … kann nicht .. weitere Experimente. merken …</string>
 
@@ -255,6 +255,9 @@
     <string name="obfuscated_not_valid_explanation">Vermutlich wurde das Bild komprimiert und kleiner gemacht. Dies ist leider bei manchen Apps wie WhatsApp oder Telegram der Fall. Benutze eine verlustfreie Methode wie Email!</string>
     <string name="article_share_as_image_feature_name">Teile Experimente als Bilder an Freunde</string>
     <string name="article_share_as_image_feature_descr">Erlaubt dein momentanes Experiment als Bild an Freunde zu verschicken! Leider darf dabei das Bild nicht komprimiert oder verändert werden, also kannst du dafür nicht WhatsApp benutzen, sondern Apps wie Email oder Dropbox.</string>
+    <string name="share_failed_upload">Hochladen fehlgeschlagen (Fehler: %1$d)</string>
+    <string name="share_experiment_link_subject">Hast du WhatsThat? Hier ist ein Experiment zum
+        Lösen!</string>
 
     <plurals name="images_in_bundle">
         <item quantity="one">%1$d Bild</item>

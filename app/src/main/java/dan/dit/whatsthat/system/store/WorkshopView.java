@@ -92,9 +92,7 @@ public class WorkshopView extends FrameLayout implements StoreContainer {
         });
         TabFactory factory = new TabFactory(activity);
         addTab(mTabHost, factory, mTabHost.newTabSpec(TAB_BUNDLE_MANAGER).setIndicator(getResources().getString(R.string.workshop_tab_bundle_manager)));
-        if (TestSubject.getInstance().hasFeature(SortimentHolder.ARTICLE_KEY_SHARE_AS_IMAGE_FEATURE)) {
-            addTab(mTabHost, factory, mTabHost.newTabSpec(TAB_LOGO).setIndicator(getResources().getString(R.string.workshop_tab_logo)));
-        }
+        addTab(mTabHost, factory, mTabHost.newTabSpec(TAB_LOGO).setIndicator(getResources().getString(R.string.workshop_tab_logo)));
         addTab(mTabHost, factory, mTabHost.newTabSpec(TAB_MOSAIC).setIndicator(getResources().getString(R.string.workshop_tab_mosaic)));
         addTab(mTabHost, factory, mTabHost.newTabSpec(TAB_BUNDLE_CREATOR).setIndicator(getResources().getString(R.string.workshop_tab_bundle_creator)));
 
