@@ -38,6 +38,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.File;
+import java.net.URL;
 
 import dan.dit.whatsthat.R;
 import dan.dit.whatsthat.achievement.AchievementProperties;
@@ -45,6 +46,7 @@ import dan.dit.whatsthat.image.Image;
 import dan.dit.whatsthat.image.ImageAuthor;
 import dan.dit.whatsthat.image.ImageObfuscator;
 import dan.dit.whatsthat.preferences.User;
+import dan.dit.whatsthat.preferences.WebPhotoStorage;
 import dan.dit.whatsthat.riddle.achievement.holders.MiscAchievementHolder;
 import dan.dit.whatsthat.riddle.types.PracticalRiddleType;
 import dan.dit.whatsthat.testsubject.TestSubject;
@@ -67,9 +69,9 @@ public class NoPanicDialog extends DialogFragment {
     private int mFunCounter;
     private View mAuthorContainer;
     private Button mShareExperiment;
-    private File mToShareFile;
+    private URL mToShareLink;
     private Bitmap mToShare;
-    private AsyncTask<Void, Void, Void> mShareBuildTask;
+    private AsyncTask<Void, Void, File> mShareBuildTask;
 
     public interface Callback {
         boolean canSkip();
@@ -83,7 +85,7 @@ public class NoPanicDialog extends DialogFragment {
         ImageUtil.CACHE.makeReusable(mToShare);
         mToShare = null;
         User.clearTempDirectory();
-        mToShareFile = null;
+        mToShareLink = null;
         if (mShareBuildTask != null) {
             mShareBuildTask.cancel(true);
             mShareBuildTask = null;
@@ -91,6 +93,14 @@ public class NoPanicDialog extends DialogFragment {
         this.getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL);
     }
 
+    @Override
+    public void onDetach() {
+        if (mShareBuildTask != null) {
+            mShareBuildTask.cancel(true);
+            mShareBuildTask = null;
+        }
+        super.onDetach();
+    }
     @Override
     public void onActivityCreated(Bundle arg0) {
         super.onActivityCreated(arg0);
@@ -203,7 +213,7 @@ public class NoPanicDialog extends DialogFragment {
             }
         });
         mShareExperiment = (Button) baseView.findViewById(R.id.panic_share);
-        if (mImage == null || !TestSubject.getInstance().hasFeature(SortimentHolder.ARTICLE_KEY_SHARE_AS_IMAGE_FEATURE)) {
+        if (mImage == null) {
             mShareExperiment.setVisibility(View.GONE);
         } else {
             mShareExperiment.setVisibility(View.VISIBLE);
@@ -253,18 +263,19 @@ public class NoPanicDialog extends DialogFragment {
     private void shareCurrentExperiment() {
         mShareExperiment.setEnabled(false);
         mShareExperiment.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.panic_share_progress));
-        if (mToShareFile != null) {
+        if (mToShareLink != null) {
             executeShare();
             return;
         }
         if (mImage != null) {
-            mShareBuildTask = new AsyncTask<Void, Void, Void>() {
+            mShareBuildTask = new AsyncTask<Void, Void, File>() {
 
                 @Override
-                protected Void doInBackground(Void... params) {
+                protected File doInBackground(Void... params) {
 
                     mToShare = ImageObfuscator.makeHidden(getResources(), mImage, mType, User.getInstance().getLogo(getResources()));
                     boolean success = mToShare != null;
+                    File toShare = null;
                     if (success && !isCancelled()) {
                         success = false;
                         String origin = User.getInstance().getOriginName();
@@ -283,7 +294,7 @@ public class NoPanicDialog extends DialogFragment {
                         if (tempDir != null) {
                             File target = new File(tempDir, name);
                             if (ImageUtil.saveToFile(mToShare, target, Bitmap.CompressFormat.PNG, 100)) {
-                                mToShareFile = target;
+                                toShare = target;
                                 success = true;
                             }
                         }
@@ -291,12 +302,34 @@ public class NoPanicDialog extends DialogFragment {
                     if (!success && !isCancelled()) {
                         Toast.makeText(getActivity(), R.string.panic_share_failed, Toast.LENGTH_SHORT).show();
                     }
-                    return null;
+                    return toShare;
                 }
 
                 @Override
-                public void onPostExecute(Void result) {
-                    executeShare();
+                public void onPostExecute(File result) {
+                    if (result != null) {
+                        User.getInstance().uploadPhoto(result, new WebPhotoStorage.UploadListener() {
+                            @Override
+                            public void onPhotoUploaded(String downloadLink) {
+                                if (isDetached()) {
+                                    return;
+                                }
+                                mToShareLink = ReceiveObfuscatedActivity.makeDownloadLink
+                                        (downloadLink);
+                                executeShare();
+                            }
+
+                            @Override
+                            public void onPhotoUploadFailed(int error) {
+                                if (isDetached()) {
+                                    return;
+                                }
+                                Toast.makeText(getActivity(), getResources().getString(R.string
+                                                .share_failed_upload, error),
+                                        Toast.LENGTH_SHORT).show();;
+                            }
+                        });
+                    }
                 }
             }.execute();
         } else {
@@ -308,17 +341,15 @@ public class NoPanicDialog extends DialogFragment {
     private void executeShare() {
         mShareExperiment.setEnabled(true);
         mShareExperiment.clearAnimation();
-        if (mToShareFile == null) {
-            return;
-        }
-        if (!mToShareFile.exists()) {
-            mToShareFile = null;
+        if (mToShareLink == null) {
             return;
         }
 
         Intent share = new Intent(Intent.ACTION_SEND);
-        share.setType("image/*");
-        share.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(mToShareFile));
+        share.setType("text/plain");
+        share.putExtra(Intent.EXTRA_TEXT, mToShareLink.toString());
+        share.putExtra(android.content.Intent.EXTRA_SUBJECT, getResources().getString(R.string
+                .share_experiment_link_subject));
         getActivity().startActivity(Intent.createChooser(share, getActivity().getResources().getString(R.string.panic_share_dialog)));
     }
 

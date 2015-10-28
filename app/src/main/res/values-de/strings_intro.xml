@@ -5,43 +5,44 @@
 
     <string name="intro_test_subject_gender_answer_male">Männlich</string>
     <string name="intro_test_subject_gender_answer_female">Weiblich</string>
-    <string name="intro_test_subject_gender_answer_whatever">Anderes</string>
+    <string name="intro_test_subject_gender_answer_whatever">Irgendwas anderes</string>
 
     <string name="intro_test_answer_yes">Ja</string>
     <string name="intro_test_answer_no">Nein</string>
-    <string name="intro_test_answer_bullshit">Schokolade</string>
+    <string name="intro_test_answer_bullshit">\?!?!</string>
 
     <!-- Level 0 -->
-    <string name="test_subject_0_name">Verwirrtes Kind</string>
-    <string name="test_subject_0_int">Hoffnungslos</string>
+    <string name="test_subject_0_name">Verwirrtes Etwas</string>
+    <string name="test_subject_0_int">Nur Instinkte messbar</string>
     <string-array name="test_subject_0_0_intro_main">
         <item>Hallo Du, kannst du mich verstehen?</item>
         <item>Die Neuronen reagieren auf meine liebliche Stimme. </item>
         <item>Das deute ich als ja.</item>
         <item>Erdling, ich heiße dich auf einer Reise in die Untiefen deines Geistes willkommen.</item>
-        <item>Ich bin Meister Minion Xiaros Blu Equaris Zubatro Venalo der 364k.</item>
+        <item>Ich bin Meister Xiaros Blu Equaris Zubatro Venalo der 364k.</item>
         <item>Es reicht aber, wenn du mich ganz zwanglos mit \"Erhabener\" anredest.</item>
         <item>Andere Ehrentitel wie \"Eure Durchlauchtheit\" oder \"Oh unübertreffliches Wesen aller Galaxien\" sind natürlich auch in Ordnung.</item>
-        <item>Entschuldige. Ich weife schnell ab.</item>
+        <item>Entschuldige. Ich schweife schnell ab.</item>
     </string-array>
     <string-array name="test_subject_0_1_intro_main">
         <item>Das hier ist Dr. Kulg.</item>
         <item>Ihr würdet ihn einen verrückt genialen Wissenschaftler nennen.</item>
     </string-array>
     <string-array name="test_subject_0_2_intro_main">
-        <item>Verrate mir nur vorweg bitte eins: Was bist du für ein Wesen?</item>
-        <item>Unsere hochentwickelte Kultur ist darüber zu erhaben, aber euch Menschen ist das ja wichtig.</item>
+        <item>Eine erste kleine Frage: Was für ein Wesen bist du eigentlich?</item>
+        <item>Unsere hochentwickelte Kultur kennt solche Unterschiede nicht, aber euch Erdlingen ist
+            das ja wichtig.</item>
     </string-array>
     <string-array name="test_subject_0_3_intro_main">
         <item>Meine Schöpfer und ich, oder kurz gesagt: wir.</item>
-        <item>Wir wollen die menschliche Spezies besser verstehen.</item>
+        <item>Wir wollen die Erde und das Leben besser verstehen.</item>
         <item>Unsere Wahl ist dabei auf dich gefallen.</item>
         <item>Du wirst unser Versuchsobjekt sein</item>
         <item>Deswegen haben wir dich mit dem Traktorstrahl aufgesammelt.</item>
         <item>Wir werden dich beobachten und im Hintergrund die gewonnen Daten auswerten.</item>
         <item>Wir hoffen, du hast das Potential, das wir in dir sahen.</item>
         <item>Zumindest sahst du aus der Ferne vielversprechend aus…</item>
-        <item>Aber von Nahmen betrachtet.. vermute ich ein Versagen des Zentralgehirns…</item>
+        <item>Aber von Nahem betrachtet… vermute ich ein Versagen des Zentralgehirns…</item>
         <item>Nun.. enttäusche deinen Planeten besser nicht.</item>
     </string-array>
     <string-array name="test_subject_0_intro_nuts">
@@ -59,7 +60,8 @@
         <item>Was kannst du eigentlich?</item>
         <item>Mal sehen, wie es auf Bilder reagiert.</item>
         <item>Aha.. Affinität zu Anomalien der Farbvalenz</item>
-        <item>WiseMind, bereichte Versuchsreihe 272 zur Feststellung und Messung der Intelligenz der Homo Sapiens vor.</item>
+        <item>WiseMind, bereichte Versuchsreihe 272 zur Feststellung und Messung der Intelligenz
+            des Erdlings vor.</item>
         <item>Erdling, wie bei allen zukünftigen Experimenten der Versuchsreihe 272, geht es darum, das Bild zu erraten.</item>
         <item>Wenn du einmal nicht weiterkommst, dann schiebe bitte "keine Panik".</item>
         <item>WiseMind wird eine für dich maßgeschneiderte Hilfe geben, wenn unser Intellekt den irdischen übersteigt.</item>
@@ -73,8 +75,8 @@
     </string-array>
 
     <!-- Level 1 -->
-    <string name="test_subject_1_name">Kind</string>
-    <string name="test_subject_1_int">Ein Funken</string>
+    <string name="test_subject_1_name">Kleines Ding</string>
+    <string name="test_subject_1_int">Ein Fünkchen</string>
     <string-array name="test_subject_1_0_intro_main">
         <item>WiseMind berichtet von Verbesserungen.</item>
         <item>Wenn das nicht von ihr kommen würde… wer hätte das geglaubt.</item>
@@ -96,7 +98,8 @@
         <item>Ich schreibs ins Protokoll.</item>
     </string-array>
     <string-array name="test_subject_1_intro_nuts">
-        <item>Die Reaktionen lassen vermuten, dass der menschliche IQ nur knapp über dem absoluten Gefrierpunkt liegt</item>
+        <item>Die Reaktionen lassen vermuten, dass der irdische IQ nur knapp über dem absoluten
+            Gefrierpunkt liegt</item>
         <item>Homo Sapiens, wie haben die bloß diesen Planeten so schnell kaputt gemacht mit so wenig Hirn?</item>
         <item>Steht hier nicht irgendwo so ein Satz…?</item>
         <item>Achja hier:\"denn sie wissen nicht, was sie tun…</item>
@@ -106,13 +109,13 @@
         <item>Oh du hörst mir noch zu.. ich mache nur Spaß.</item>
     </string-array>
     <string-array name="test_subject_1_riddle_solved_candy">
-        <item>Bedachter Zug</item>
-        <item>Bombastisch</item>
         <item>Bravo</item>
+        <item>Begeisternd</item>
+        <item>Bedacht</item>
     </string-array>
 
     <!-- Level 2 -->
-    <string name="test_subject_2_name">Klugscheißer</string>
+    <string name="test_subject_2_name">Kleiner Klugscheißer</string>
     <string name="test_subject_2_int">Hoffnungslos überschätzt</string>
     <string-array name="test_subject_2_0_intro_main">
         <item>WiseMind ist außer sich.. vor Begeisterung.</item>
@@ -139,13 +142,13 @@
     </string-array>
     <string-array name="test_subject_2_riddle_solved_candy">
         <item>Gratulation</item>
-        <item>Ganz passabel</item>
+        <item>Gut gemacht</item>
         <item>Gute Arbeit</item>
     </string-array>
 
     <!-- Level 3 -->
-    <string name="test_subject_3_name">Trottel</string>
-    <string name="test_subject_3_int">Utopisch debil</string>
+    <string name="test_subject_3_name">Klugscheißer</string>
+    <string name="test_subject_3_int">Überschätzt sich</string>
     <string-array name="test_subject_3_0_intro_main">
         <item>Diesmal wenden wir uns einem meiner Lieblingsthemen zu:</item>
         <item>Pi.</item>
@@ -170,7 +173,8 @@
     <string-array name="test_subject_3_intro_nuts">
         <item>Eines steht fest.</item>
         <item>Ihr müsst euch vor anderen Lebewesen nicht fürchten.</item>
-        <item>Ein geistiger Pygmäe besitzt in einem FInger mehr Intelligenz, als ihr in eurem gesamten Körper.</item>
+        <item>Ein geistiger Pygmäe besitzt in einem Finger mehr Intelligenz, als ihr in eurem
+            gesamten Körper.</item>
         <item>Solltet ihr eines Tages wieder einmal Besuch von einer anderen Hochkultur bekommen:</item>
         <item>ihr habt nichts zu befürchten.</item>
         <item>Vermutlich kehren sie mit blankem Entsetzen im Gesicht um.</item>
@@ -188,14 +192,14 @@
         <item>Hier ist das aber schwieriger als angenommen.</item>
     </string-array>
     <string-array name="test_subject_3_riddle_solved_candy">
-        <item>Beifall gibt\'s später</item>
-        <item>Bemühte sich stets</item>
+        <item>Beifall</item>
+        <item>Bewundernswert</item>
         <item>Bin fast sprachlos</item>
     </string-array>
 
     <!-- Level 4 -->
     <string name="test_subject_4_name">Einfaltspinsel</string>
-    <string name="test_subject_4_int">Unterirdisch</string>
+    <string name="test_subject_4_int">Messbar!</string>
     <string-array name="test_subject_4_0_intro_main">
         <item>Sogar WiseMind fängt langsam an zu zweifeln.</item>
         <item>Zu zweifeln, ob die Entscheidung mit dir die richtige war.</item>
@@ -227,12 +231,12 @@
     <string-array name="test_subject_4_riddle_solved_candy">
         <item>Wer hätte das gedacht</item>
         <item>Wow</item>
-        <item>Welch eine Überraschung</item>
+        <item>Wunderbar</item>
     </string-array>
 
     <!-- Level 5 -->
     <string name="test_subject_5_name">Grünschnabel</string>
-    <string name="test_subject_5_int">Ein Stein im Wasser</string>
+    <string name="test_subject_5_int">Definitiv existent</string>
     <string-array name="test_subject_5_intro_main">
         <item>Letztes Mal habe ich etwas übertrieben.</item>
         <item>Ich habe WiseMind versprochen, dass ich die Menschheit nicht pausenlos dumm nenne.</item>
@@ -263,14 +267,14 @@
         <item>Der erd-sphärische Druck schlägt aufs Gemüt.</item>
     </string-array>
     <string-array name="test_subject_5_riddle_solved_candy">
-        <item>Nochmal bitte</item>
+        <item>Na sowas</item>
         <item>Nicht schlecht</item>
         <item>Nur weiter so</item>
     </string-array>
 
     <!-- Level 6 -->
     <string name="test_subject_6_name">Entdecker</string>
-    <string name="test_subject_6_int">Ausbaufähig</string>
+    <string name="test_subject_6_int">Ein Tropfen Weisheit</string>
     <string-array name="test_subject_6_intro_main">
         <item>WiseMind hat mir für diese Atmosphäre eine Spezialcreme hergestellt!</item>
         <item>Jetzt geht es mir wesentlich besser!</item>
@@ -296,6 +300,7 @@
         <item>hmm… Das Ergebnis ist nicht weltbewegend.</item>
         <item>Es zeugt zumindest noch nicht von besonderer Intelligenz.</item>
         <item>Bist ja auch bloß ein Mensch.</item>
+        <item>Oder etwas mit ähnlich vielen Hirnzellen.</item>
         <item>Aber in Summe war es ganz passabel.</item>
         <item>So passabel, wie die Pyramide in Ägypten einem Kreis entspricht.</item>
         <item>…</item>
@@ -354,8 +359,8 @@
     </string-array>
 
     <!-- Level 8 -->
-    <string name="test_subject_8_name">Banause</string>
-    <string name="test_subject_8_int">Streichholz am Tag</string>
+    <string name="test_subject_8_name">Kleinstein</string>
+    <string name="test_subject_8_int">Hoffnungsvoll</string>
     <string-array name="test_subject_8_intro_main">
         <item>Ich muss etwas zurück schiffen.</item>
         <item>Mach dir keine falschen Hoffnungen.</item>
@@ -398,7 +403,7 @@
 
     <!-- Level 9 -->
     <string name="test_subject_9_name">Junior Talent</string>
-    <string name="test_subject_9_int">Intelligenzniveau eines Einzellers</string>
+    <string name="test_subject_9_int">Irdisch gesehen…gut</string>
     <string-array name="test_subject_9_intro_main">
         <item>Zurück von den erquickenden Myriaden gescheiter Gedanken.</item>
         <item>Zurück zu den trostlosen Forschungen bei unserem Versuchsobjekt.</item>
