@@ -258,6 +258,7 @@
     <string name="share_failed_upload">Hochladen fehlgeschlagen (Fehler: %1$d)</string>
     <string name="share_experiment_link_subject">Hast du WhatsThat? Hier ist ein Experiment zum
         Lösen!</string>
+    <string name="download_is_working">Es wird gearbeitet… Zum Abbrechen klicken</string>
 
     <plurals name="images_in_bundle">
         <item quantity="one">%1$d Bild</item>

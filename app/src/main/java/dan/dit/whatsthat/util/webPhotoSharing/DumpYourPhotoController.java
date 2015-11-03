@@ -1,5 +1,8 @@
 package dan.dit.whatsthat.util.webPhotoSharing;
 
+import android.net.Uri;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -17,6 +20,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -40,16 +44,13 @@ public class DumpYourPhotoController {
 
     private static final String BASE_DOWNLOAD_URL = "https://static.dyp.im/";
     private static final String BASE_URL = "https://api.dumpyourphoto.com/v1/";
-    private static final String DEFAULT_DOWNLOAD_PHOTO_TYPE = "full"; // must be full to get regular
-    // uploaded photo. Possible values by API are small,medium, large, full.
-    // . Size marks different links to download a photo
     
     /**
      * If the album that gets created for each user once will be public or not.
      */
     public static final boolean IS_ALBUM_PUBLIC_DEFAULT = true;
 
-    private static HttpURLConnection makeOpenConnection(String urlString) {
+    private static @Nullable HttpURLConnection makeOpenConnection(@Nullable String urlString) {
         if (TextUtils.isEmpty(urlString)) {
             return null;
         }
@@ -70,17 +71,15 @@ public class DumpYourPhotoController {
         return urlConnection;
     }
 
-    private static ResponseMap obtainResponse(String urlString) {
+    private static ResponseMap obtainResponse(String requestMethod, String urlString) {
         HttpURLConnection urlConnection = makeOpenConnection(urlString);
         if (urlConnection == null) {
             return null;
         }
         ResponseMap response = null;
         try {
-            urlConnection.setRequestMethod("GET");
+            urlConnection.setRequestMethod(requestMethod);
             urlConnection.setRequestProperty("Accept", ACCEPT_HEADER);
-
-            Log.d("DumpYourPhoto", "Starting obtaining response: " + urlConnection);
 
             InputStream in = new BufferedInputStream(urlConnection.getInputStream());
             response = new ResponseMap(in);
@@ -91,7 +90,6 @@ public class DumpYourPhotoController {
         } finally {
             urlConnection.disconnect();
         }
-        Log.d("DumpYourPhoto", "Got response: " + response);
         return response;
     }
 
@@ -105,7 +103,6 @@ public class DumpYourPhotoController {
             urlConnection.setRequestMethod(post ? "POST" : "PUT");
             urlConnection.setRequestProperty("Accept", ACCEPT_HEADER);
 
-            Log.d("DumpYourPhoto", "Starting posting/putting data: " + post + ": " + urlConnection);
             InputStream in = new BufferedInputStream(urlConnection.getInputStream());
             response = new ResponseMap(in);
 
@@ -115,7 +112,6 @@ public class DumpYourPhotoController {
         } finally {
             urlConnection.disconnect();
         }
-        Log.d("DumpYourPhoto", "Got response: " + response);
         return response;
     }
 
@@ -125,8 +121,6 @@ public class DumpYourPhotoController {
         if (urlConnection == null || bitmapFile == null || !bitmapFile.exists()) {
             return null; // no sense in trying
         }
-        Log.d("DumpYourPhoto", "Trying to post bitmap : " + bitmapFile + " to" +
-                " url " + urlString);
         ResponseMap response = null;
         try {
             urlConnection.setUseCaches(false);
@@ -153,14 +147,6 @@ public class DumpYourPhotoController {
                     + crlf + "Content-Type: image/png" + crlf + crlf).getBytes
                     ());
 
-            // send bitmap
-            /* //For sending raw bitmap:
-            ByteArrayOutputStream bos = new ByteArrayOutputStream();
-            if (!bitmap.compress(Bitmap.CompressFormat.PNG, 100, bos)) {
-                Log.e("DumpYourPhoto", "Failed compressing bitmap to stream.");
-                return null;
-            }
-            request.write(bos.toByteArray());*/
             // For sending bitmap as file
             FileInputStream fileStream = new FileInputStream(bitmapFile);
             byte[] buffer = new byte[1024];
@@ -199,13 +185,20 @@ public class DumpYourPhotoController {
         if (TextUtils.isEmpty(albumHash)) {
             return null;
         }
-        return obtainResponse(BASE_URL + "albums/" + albumHash);
+        return obtainResponse("DELETE", BASE_URL + "albums/" + albumHash);
     }
 
     private static ResponseMap getAlbums() {
-        return obtainResponse(BASE_URL + "albums" + "?" + API_KEY_PARAMETER);
+        return obtainResponse("GET", BASE_URL + "albums" + "?" + API_KEY_PARAMETER);
     }
 
+    /**
+     * Creates a new album on the website dumpyourphoto.com. Returns the album's hash
+     * to identify it. If creation fails for some reasons, null is returned.
+     * @param albumName The non empty album name to use to create the new album. Should identify
+     *                  the user.
+     * @return Null if creation fails for some reason or the hash of the newly created empty album.
+     */
     public static String makeAlbum(String albumName) {
         ResponseMap map = makeAlbumExecute(albumName);
         if (map == null) {
@@ -214,12 +207,20 @@ public class DumpYourPhotoController {
         return map.getEntry("hash", 0, null);
     }
 
+    /**
+     * Updates the album with the given hash to the new name and new public state.
+     * @param albumHash The album to update. The hash that got returned when creating the album.
+     *                  Must be non empty to actually update the album.
+     * @param newAlbumName The new album's name. Must be non empty to actually update the album.
+     * @param newIsPublic If the album should become public or private.
+     * @return The album's hash if everything went fine, else null.
+     */
     public static String updateAlbum(String albumHash, String newAlbumName, boolean newIsPublic) {
         ResponseMap map = updateAlbumExecute(albumHash, newAlbumName, newIsPublic);
         if (map == null) {
             return null;
         }
-        return map.getEntry("hash", 0, albumHash);
+        return map.getEntry("hash", 0, null);
     }
 
     private static ResponseMap updateAlbumExecute(String albumHash, String newAlbumName, boolean
@@ -293,7 +294,16 @@ public class DumpYourPhotoController {
         return response;
     }
 
-    public static String uploadPhotoToAlbum(String albumHash, File bitmapFile) {
+    /**
+     * Uploadds the given bitmap file to the given album.
+     * @param albumHash The album's hash. Album needs to be already created, must be non empty.
+     * @param bitmapFile The valid file to an image. Can be any valid supported image format.
+     * @return The hash of the uploaded photo inside the given album together with the photo's
+     * server filename. This information is required to downloading the photo from the server.
+     * Format: photohash/photofilename. Can be null if something goes wrong. Photohash or
+     * photofilename can be empty if some very unexpected server error happens.
+     */
+    public static @Nullable String uploadPhotoToAlbum(String albumHash, File bitmapFile) {
         ResponseMap map = uploadPhotoToAlbumExecute(albumHash, bitmapFile);
         if (map == null) {
             return null;
@@ -320,14 +330,53 @@ public class DumpYourPhotoController {
         return response;
     }
 
-    public static String makeDownloadLinkExecute(String photoUploadLink) {
+    /**
+     * Recreates the download link from the given photoUploadLink that was returned when the
+     * photo was successfully uploaded to the server.
+     * @param photoUploadLink The upload link of the photo, returned by uploadPhotoToAlbum().
+     * @return The download link to use to retrieve the uploaded image.
+     */
+    private static @NonNull String makeDownloadLinkExecute(@NonNull String photoUploadLink) {
         return BASE_DOWNLOAD_URL + (photoUploadLink.startsWith("/") ? photoUploadLink
                 .substring(1) : photoUploadLink);
     }
 
+    public static @Nullable URL makeShareLink(@NonNull String photoLink) {
+        try {
+            return new URL(makeDownloadLinkExecute(photoLink));
+        } catch (MalformedURLException e) {
+            Log.e("HomeStuff", "Error creating share link from " + photoLink + " : " + e);
+            return null;
+        }
+    }
+
+    public static @Nullable URL makeDownloadLink(@NonNull Uri shared) {
+        List<String> segments = shared.getPathSegments();
+        if (segments != null && segments.size() > 1) {
+            try {
+                return new URL(DumpYourPhotoController.makeDownloadLinkExecute(segments.get(segments.size() - 2)
+                        + "/"
+                        + segments.get(segments.size() - 1)));
+            } catch (MalformedURLException e) {
+                Log.e("HomeStuff", "Illegal url for making download link of shared: " + shared +
+                        " to " + e);
+                return null;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Helper class for parsing and storing the server's response to a request on a http connection.
+     */
     private static class ResponseMap {
         private Map<String, String[]> mData;
 
+        /**
+         * Creates a new ResponseMap reading the given response stream and closing it afterwards.
+         * @param response The response to read from the server.
+         * @throws IOException If some error happens while reading the response.
+         */
         public ResponseMap(InputStream response) throws IOException {
             InputStreamReader reader = new InputStreamReader(response);
             StringBuilder totalResult = new StringBuilder();
@@ -360,7 +409,6 @@ public class DumpYourPhotoController {
                 }
             }
             response.close();
-            Log.d("DumpYourPhoto", "Received data: " + totalResult.toString());
         }
 
         private static String cropQuotationMarks(String toCrop) {
@@ -407,6 +455,16 @@ public class DumpYourPhotoController {
             return builder.toString();
         }
 
+        /**
+         * Returns the entry for the given key at the given index. Index starts with 0 for the
+         * first entry.
+         * @param key The entry's key.
+         * @param index The entry's index.
+         * @param defaultValue The default value if the index is out of bounds or no data is
+         *                     available for the given key.
+         * @return The requested mapped data or the given defaultValue if not mapped or nothing
+         * mapped for given index.
+         */
         public String getEntry(String key, int index, String defaultValue) {
             String[] data = mData.get(key);
             if (data == null || index < 0 || index >= data.length) {

@@ -171,7 +171,7 @@ public class StoreActivity extends FragmentActivity {
             showCurrCategory();
         } else {
             super.onBackPressed();
-            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+            overridePendingTransition(R.anim.riddles_enter, R.anim.store_exit);
         }
     }
 

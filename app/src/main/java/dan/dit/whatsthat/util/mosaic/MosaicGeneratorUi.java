@@ -509,7 +509,7 @@ public class MosaicGeneratorUi {
                                 break;
                             case SVD:
                                 if (mSVDMaker == null) {
-                                    mSVDMaker = new SVDMaker(base, SVDMaker.MODE_RGB_SPLIT, callback);
+                                    mSVDMaker = new SVDMaker(base, SVDMaker.MODE_ARGB_BITMAP, callback);
                                 }
                                 // use a logarithmic scale as the interesting effects appear in
                                 // the higher value regions

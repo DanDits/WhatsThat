@@ -16,6 +16,7 @@
 package dan.dit.whatsthat.image;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.util.Log;
 import android.util.Xml;
@@ -109,7 +110,14 @@ class ImageXmlWriter {
             toZip.add(targetDataXml);
             result = RESULT_ZIP_FAILED;
             try {
-                if (IOUtil.zip(toZip, targetZip)) {
+                if (IOUtil.zip(toZip, targetZip, new IOUtil.RelativePathExtractor() {
+                    @NonNull
+                    @Override
+                    public String getRelativePathOfFile(@NonNull File file) {
+                        String path = User.extractRelativePathInsideTempDirectory(file);
+                        return path != null ? path : file.getName();
+                    }
+                })) {
                     result = RESULT_SUCCESS;
                     User.clearTempDirectory();
                 }

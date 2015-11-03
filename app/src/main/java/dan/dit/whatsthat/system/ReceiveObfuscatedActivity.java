@@ -21,19 +21,16 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
 
@@ -164,20 +161,11 @@ public class ReceiveObfuscatedActivity extends Activity {
             }
 
         } else if (uri.getScheme().equals("https")) {
-            // expected uri: https://experiment.whatsthat/photohash/photoname
             List<String> segments = uri.getPathSegments();
-            Log.d("HomeStuff", "Got https scheme: " + uri + " with segments: " + segments);
             if (segments.size() > 1) {
                 mName = segments.get(segments.size() - 1);
-                try {
-                    mDataDownloadLink = new URL(User.getInstance().getWebPhotoStorage()
-                            .makeDownloadLink
-                                    (segments.get(segments.size() - 2)
-                                            + "/"
-                                            + segments.get(segments.size() - 1)));
-                } catch (MalformedURLException e) {
-                    Log.e("HomeStuff", "Illegal uri: " + e);
-                }
+                mDataDownloadLink = User.getInstance().getWebPhotoStorage()
+                        .makeDownloadLink(uri);
             }
         }
     }
@@ -233,18 +221,5 @@ public class ReceiveObfuscatedActivity extends Activity {
                 }
             }
         }.execute();
-    }
-
-    public static URL makeDownloadLink(String photoLink) {
-        // expected photoLink = photohash/photoname
-        try {
-            return new URL("https://experiment.whatsthat/" + (photoLink.startsWith("/") ?
-                    photoLink
-                    .substring(1)
-                    : photoLink));
-        } catch (MalformedURLException e) {
-            Log.e("HomeStuff", "Failed creating URL for photolink: " + photoLink);
-            return null;
-        }
     }
 }

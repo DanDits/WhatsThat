@@ -637,7 +637,7 @@ public class AchievementCircle extends TypeAchievementHolder {
             } else if (bestTime <= MAX_REWARD_TIME) {
                 return PERFECT_REWARD;
             } else {
-                //"linearly" (well, the time is scaled logarithmically) interpolate bestTime for points (MAX_REWARD_TIME, MAX_REWARD) , (MIN_REWARD_TIME, MIN_REWARD)
+                //"linearly" (well, the time is scaled logarithmically) evaluate bestTime for points (MAX_REWARD_TIME, MAX_REWARD) , (MIN_REWARD_TIME, MIN_REWARD)
                 return (int) ((MIN_REWARD - MAX_REWARD) / (Math.log10(MIN_REWARD_TIME) - Math.log10(MAX_REWARD_TIME)) * (Math.log10(bestTime) - Math.log10(MAX_REWARD_TIME)) + MAX_REWARD);
             }
         }

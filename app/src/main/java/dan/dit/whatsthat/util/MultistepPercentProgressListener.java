@@ -15,10 +15,19 @@
 
 package dan.dit.whatsthat.util;
 
+import android.support.annotation.NonNull;
+
 import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * A class that wraps a PercentProgressListener. Allows to divide the progress to be divided into
+ * multiple blocks. Each block can be weighted differently. If the amount of steps is given, each
+ * block will be weighted uniformly.
+ * To advance to the next step you need to manually invoke nextStep(). This can but does not have
+ * to be invoked after the last step was completed. Each step allows invoking this progress listener
+ * from a fresh range of 0% to 100%. This progress will be added to the already reached weighted
+ * progress when notifying the wrapped listener.
  * Created by daniel on 03.07.15.
  */
 public class MultistepPercentProgressListener implements PercentProgressListener {
@@ -27,12 +36,26 @@ public class MultistepPercentProgressListener implements PercentProgressListener
     private int mCurrentStep;
     private double mCurrentWeight;
 
-    public MultistepPercentProgressListener(PercentProgressListener listener, int steps) {
+    /**
+     * Creates a new MultistepPercentProgressListener dividing the progress into the given amount
+     * of steps. These steps will be uniformly weighted.
+     * @param listener The listener to wrap.
+     * @param steps The amount of steps. Must be positive.
+     */
+    public MultistepPercentProgressListener(@NonNull PercentProgressListener listener, int steps) {
         mListener = listener;
         reset(steps);
     }
 
-    public MultistepPercentProgressListener(PercentProgressListener listener, double[] weights) {
+    /**
+     * Creates a new MultistepPercentProgressListener dividing the progress into the given weights.
+     * There must be at least one weight and each array entry must be a value between zero and
+     * one (inclusive). Should sum up to 1, this is NOT checked.
+     * @param listener The listener to wrap.
+     * @param weights The weights for each step.
+     */
+    public MultistepPercentProgressListener(@NonNull PercentProgressListener listener,
+                                            @NonNull double[] weights) {
         mListener = listener;
         reset(weights);
     }
@@ -71,6 +94,10 @@ public class MultistepPercentProgressListener implements PercentProgressListener
         return this;
     }
 
+    /**
+     * Advances the multistep listener to the next step. Updates the progress of the wrapped
+     * listener, but does not necessarily increase it, if the last step was already on 100%.
+     */
     public void nextStep() {
         mCurrentWeight += mWeights.get(mCurrentStep);
         mCurrentStep++;
@@ -89,7 +116,9 @@ public class MultistepPercentProgressListener implements PercentProgressListener
         if (mCurrentStep >= mWeights.size()) {
             mListener.onProgressUpdate(PROGRESS_COMPLETE);
         } else {
-            mListener.onProgressUpdate((int) (PROGRESS_COMPLETE * mCurrentWeight + progress * mWeights.get(mCurrentStep)));
+            mListener.onProgressUpdate((int) (PROGRESS_COMPLETE * mCurrentWeight
+                    + Math.min(progress, PercentProgressListener.PROGRESS_COMPLETE) *
+                        mWeights.get(mCurrentStep)));
         }
     }
 

@@ -16,12 +16,19 @@
 package dan.dit.whatsthat.util;
 
 import android.os.Handler;
+import android.support.annotation.NonNull;
 import android.util.Log;
 
 import java.util.LinkedList;
 import java.util.Queue;
 
 /**
+ * An queue utility class to process a Callback with some object that got appended to the queue.
+ * The processing of consecutive objects can be delayed. The processor must be started explicitly
+ * after appending a new object to the queue. Though once started all pending objects will be
+ * processed accordingly.
+ * Processing will be done on the thread that created the DelayedQueueProcessor, not on the one
+ * invoking start() or append().
  * Created by daniel on 20.06.15.
  */
 public class DelayedQueueProcessor<T> implements Runnable {
@@ -32,10 +39,10 @@ public class DelayedQueueProcessor<T> implements Runnable {
     private boolean mIsRunning;
 
     public interface Callback<T> {
-        long process(T toProcess);
+        long process(@NonNull T toProcess);
     }
 
-    public DelayedQueueProcessor(Callback<T> callback) {
+    public DelayedQueueProcessor(@NonNull Callback<T> callback) {
         mHandler = new Handler();
         mObjects = new LinkedList<>();
         mDelays = new LinkedList<>();
@@ -45,6 +52,9 @@ public class DelayedQueueProcessor<T> implements Runnable {
         }
     }
 
+    /**
+     * Starts the processing of the pending objects. Does nothing if already running.
+     */
     public synchronized void start() {
         if (!mIsRunning) {
             mIsRunning = true;
@@ -69,7 +79,13 @@ public class DelayedQueueProcessor<T> implements Runnable {
         }
     }
 
-    public void append(T toAppend, long delayToPrevious) {
+    /**
+     * Appends the given object to the queue.
+     * @param toAppend The object to process after all previous ones have been processed.
+     * @param delayToPrevious The delay to the previous object. If non positive, this will be
+     *                        ignored and processing will be done immediately.
+     */
+    public void append(@NonNull T toAppend, long delayToPrevious) {
         mObjects.add(toAppend);
         mDelays.add(delayToPrevious);
     }

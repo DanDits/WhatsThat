@@ -1,11 +1,13 @@
 package dan.dit.whatsthat.preferences;
 
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.Log;
+import android.webkit.DownloadListener;
 
 import java.io.BufferedInputStream;
 import java.io.File;
@@ -58,12 +60,8 @@ public class WebPhotoStorage {
         return mIsWorking;
     }
 
-    public String makeDownloadLink(String photoLink) {
-        return DumpYourPhotoController.makeDownloadLinkExecute(photoLink);
-    }
-
     public interface UploadListener {
-        void onPhotoUploaded(String photoLink);
+        void onPhotoUploaded(String photoLink, URL photoShareLink);
         void onPhotoUploadFailed(int error);
     }
 
@@ -72,8 +70,8 @@ public class WebPhotoStorage {
         void onPhotoDownloadError(int error);
     }
 
-    public synchronized void downloadPhoto(@NonNull final String downloadLink, final @Nullable
-            DownloadListener listener) {
+    public synchronized void downloadAsync(@NonNull final String downloadLink, final @Nullable
+    DownloadListener listener) {
         if (TextUtils.isEmpty(downloadLink)) {
             throw new IllegalArgumentException("No download link given.");
         }
@@ -245,7 +243,8 @@ public class WebPhotoStorage {
                     photoLinks.add(result);
                     prefs.edit().putStringSet(KEY_USER_UPLOADED_PHOTOS_HASHES, photoLinks).apply();
                     if (listener != null) {
-                        listener.onPhotoUploaded(result);
+                        listener.onPhotoUploaded(result, DumpYourPhotoController.makeShareLink
+                                (result));
                     }
                 } else if (listener != null) {
                     listener.onPhotoUploadFailed(ERROR_CODE_UPLOAD_FAILED);
@@ -292,5 +291,10 @@ public class WebPhotoStorage {
         if (hasAlbum()) {
             prefs.edit().putString(KEY_USER_ALBUM_HASH, mAlbumHash).apply();
         }
+    }
+
+
+    public @Nullable URL makeDownloadLink(@NonNull Uri shared) {
+        return DumpYourPhotoController.makeDownloadLink(shared);
     }
 }

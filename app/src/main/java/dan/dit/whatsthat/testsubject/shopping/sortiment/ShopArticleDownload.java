@@ -204,7 +204,7 @@ public class ShopArticleDownload extends ShopArticle implements ImageDataDownloa
     private class DownloadProduct extends SubProduct {
         private View mView;
         private TextView mDescription;
-        private ProgressBar mProgressIsWorking;
+        private View mProgressIsWorking;
         private ProgressBar mActualProgress;
         private View mProgress;
 
@@ -246,7 +246,7 @@ public class ShopArticleDownload extends ShopArticle implements ImageDataDownloa
         public void inflateView(LayoutInflater inflater) {
             mView = inflater.inflate(R.layout.download_product, null);
             mProgress = mView.findViewById(R.id.progress);
-            mProgressIsWorking = (ProgressBar) mView.findViewById(R.id.progress_is_working);
+            mProgressIsWorking = mView.findViewById(R.id.progress_is_working);
             mActualProgress = (ProgressBar) mView.findViewById(R.id.progress_bar);
             mActualProgress.setMax(PROGRESS_COMPLETE);
             mActualProgress.setProgress(0);

@@ -21,20 +21,20 @@ package dan.dit.whatsthat.util;
  * though this will be linear or quadratic functions.
  * Created by daniel on 06.09.15.
  */
-public abstract class SimpleInterpolation {
+public abstract class MathFunction {
 
     /**
-     * Interpolates this function at the given argument value.
+     * Evaluates this function at the given argument value.
      * @param at The argument value to evaluate.
      * @return The function value at the given value.
      */
-    public abstract double interpolate(double at);
+    public abstract double evaluate(double at);
 
     /**
      * A linear one dimensional function. That is f(x) = a*x + c for some double
      * values a and c.
      */
-    public static class LinearInterpolation extends  SimpleInterpolation {
+    public static class LinearInterpolation extends MathFunction {
 
         private final double mStartArg;
         private final double mStartValue;
@@ -56,7 +56,7 @@ public abstract class SimpleInterpolation {
         }
 
         @Override
-        public double interpolate(double at) {
+        public double evaluate(double at) {
             return mStartValue +  mAscend * (at - mStartArg);
         }
     }
@@ -65,7 +65,7 @@ public abstract class SimpleInterpolation {
      * A quadratic one dimensional function. That is f(x)=a*x² + b*x + c for some
      * double values a, b and c.
      */
-    public static class QuadraticInterpolation extends SimpleInterpolation {
+    public static class QuadraticInterpolation extends MathFunction {
         private final double mA;
         private final double mExtremalValue;
         private final double mExtremalArg;
@@ -87,7 +87,7 @@ public abstract class SimpleInterpolation {
         }
 
         @Override
-        public double interpolate(double at) {
+        public double evaluate(double at) {
             return mA * (at - mExtremalArg) * (at - mExtremalArg) + mExtremalValue;
         }
     }

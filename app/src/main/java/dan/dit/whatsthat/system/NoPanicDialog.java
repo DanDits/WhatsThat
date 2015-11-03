@@ -310,12 +310,11 @@ public class NoPanicDialog extends DialogFragment {
                     if (result != null) {
                         User.getInstance().uploadPhoto(result, new WebPhotoStorage.UploadListener() {
                             @Override
-                            public void onPhotoUploaded(String downloadLink) {
+                            public void onPhotoUploaded(String photoLink, URL photoShareLink) {
                                 if (isDetached()) {
                                     return;
                                 }
-                                mToShareLink = ReceiveObfuscatedActivity.makeDownloadLink
-                                        (downloadLink);
+                                mToShareLink = photoShareLink;
                                 executeShare();
                             }
 

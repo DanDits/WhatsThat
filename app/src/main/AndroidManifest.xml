@@ -69,8 +69,8 @@
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-                <!-- Changes here need to be made in code too, like in class ReceiveObfuscatedActivity -->
-                <data android:host="experiment.whatsthat" />
+                <!-- Changes here need to be made in code too, like for making the share link in class WebPhotoStorage -->
+                <data android:host="static.dyp.im" />
                 <data android:pathPattern="/.*"/>
                 <data android:scheme="https"/>
             </intent-filter>

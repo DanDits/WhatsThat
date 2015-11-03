@@ -38,7 +38,6 @@ import java.util.List;
 import java.util.Random;
 
 import dan.dit.whatsthat.R;
-import dan.dit.whatsthat.achievement.Achievement;
 import dan.dit.whatsthat.achievement.AchievementDataEvent;
 import dan.dit.whatsthat.achievement.AchievementProperties;
 import dan.dit.whatsthat.image.Image;
@@ -50,7 +49,7 @@ import dan.dit.whatsthat.testsubject.TestSubject;
 import dan.dit.whatsthat.testsubject.shopping.ShopArticleMulti;
 import dan.dit.whatsthat.testsubject.shopping.sortiment.SortimentHolder;
 import dan.dit.whatsthat.util.PercentProgressListener;
-import dan.dit.whatsthat.util.SimpleInterpolation;
+import dan.dit.whatsthat.util.MathFunction;
 import dan.dit.whatsthat.util.compaction.CompactedDataCorruptException;
 import dan.dit.whatsthat.util.compaction.Compacter;
 import dan.dit.whatsthat.util.flatworld.collision.GeneralHitboxCollider;
@@ -155,13 +154,13 @@ public class RiddleLazor extends RiddleGame implements FlatWorldCallback {
     private Paint mCityDestructionOverlayPaint;
     private Paint mMeteorDestructionPaint;
     private Paint mDifficultyTextPaint;
-    private SimpleInterpolation mMeteorSpawnTimeInterpolator;
-    private SimpleInterpolation mReloadTimeInterpolator;
+    private MathFunction mMeteorSpawnTimeInterpolator;
+    private MathFunction mReloadTimeInterpolator;
     private Bitmap mProtectedCity;
     private Bitmap mGenerator;
     private boolean mProtected;
     private String mDifficultyText;
-    private SimpleInterpolation mMeteorPointLossInterpolator;
+    private MathFunction mMeteorPointLossInterpolator;
     private int mDifficultyForProtection;
     private List<Integer> mDrawLogPaintId;
     private List<Integer> mDrawLogGeometryId;
@@ -291,9 +290,9 @@ public class RiddleLazor extends RiddleGame implements FlatWorldCallback {
         listener.onProgressUpdate(50);
         initDrawLog(cmp, listener);
 
-        mMeteorPointLossInterpolator = new SimpleInterpolation.QuadraticInterpolation(0, DIFFICULTY_POINTS_LOSS_ON_METEOR_MINIMAL, DIFFICULTY_ULTRA_AT, DIFFICULTY_POINTS_LOSS_ON_METEOR_MAXIMAL);
-        mMeteorSpawnTimeInterpolator = new SimpleInterpolation.LinearInterpolation(0.f, METEOR_SPAWN_TIME_START, DIFFICULTY_ULTRA_AT, METEOR_SPAWN_TIME_DIFFICULTY_ULTRA);
-        mReloadTimeInterpolator = new SimpleInterpolation.LinearInterpolation(0, CANNON_RELOAD_DURATION_START, DIFFICULTY_ULTRA_AT, CANNON_RELOAD_DURATION_DIFFICULTY_ULTRA);
+        mMeteorPointLossInterpolator = new MathFunction.QuadraticInterpolation(0, DIFFICULTY_POINTS_LOSS_ON_METEOR_MINIMAL, DIFFICULTY_ULTRA_AT, DIFFICULTY_POINTS_LOSS_ON_METEOR_MAXIMAL);
+        mMeteorSpawnTimeInterpolator = new MathFunction.LinearInterpolation(0.f, METEOR_SPAWN_TIME_START, DIFFICULTY_ULTRA_AT, METEOR_SPAWN_TIME_DIFFICULTY_ULTRA);
+        mReloadTimeInterpolator = new MathFunction.LinearInterpolation(0, CANNON_RELOAD_DURATION_START, DIFFICULTY_ULTRA_AT, CANNON_RELOAD_DURATION_DIFFICULTY_ULTRA);
     }
 
     private void makeCityLayer(Bitmap cityBitmap) {
@@ -475,7 +474,7 @@ public class RiddleLazor extends RiddleGame implements FlatWorldCallback {
         mNextMeteorDuration -= updatePeriod;
         if (mNextMeteorDuration <= 0L) {
             //spawn new meteor
-            mNextMeteorDuration = (long) mMeteorSpawnTimeInterpolator.interpolate(Math.min(mDifficulty, DIFFICULTY_ULTRA_AT));
+            mNextMeteorDuration = (long) mMeteorSpawnTimeInterpolator.evaluate(Math.min(mDifficulty, DIFFICULTY_ULTRA_AT));
             mFlatWorld.addActor(makeMeteor(mRand.nextInt(mConfig.mWidth), 0, mRand.nextInt(mConfig.mWidth), mConfig.mHeight, nextColorType()));
         }
     }
@@ -645,7 +644,7 @@ public class RiddleLazor extends RiddleGame implements FlatWorldCallback {
             if (mLoadedState > STATE_LOADED) {
                 mLoadingStateCounter -= updatePeriod;
                 if (mLoadingStateCounter <= 0L) {
-                    mLoadingStateCounter = (long) (mReloadTimeInterpolator.interpolate(Math.min(mDifficulty, DIFFICULTY_ULTRA_AT)) / LOADING_STATES_COUNT);
+                    mLoadingStateCounter = (long) (mReloadTimeInterpolator.evaluate(Math.min(mDifficulty, DIFFICULTY_ULTRA_AT)) / LOADING_STATES_COUNT);
                     mLoadedState--;
                     setStateFrames(mLoadedState);
                 }
@@ -887,7 +886,7 @@ public class RiddleLazor extends RiddleGame implements FlatWorldCallback {
         }
 
         private void onMeteorCrashed(boolean intoCity) {
-            int loss = (int) -mMeteorPointLossInterpolator.interpolate(mDifficulty);
+            int loss = (int) -mMeteorPointLossInterpolator.evaluate(mDifficulty);
             if (mColorType == COLOR_TYPE_BONUS && mProtected) {
                 loss -= DIFFICULTY_POINTS_LOSS_ON_BONUS_METEOR_CRASHED_IF_PROTECTED; // bonus meteors require more energy to protect from, as they are much worse if not in protected state
             }

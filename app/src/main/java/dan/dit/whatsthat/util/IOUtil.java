@@ -15,6 +15,7 @@
 
 package dan.dit.whatsthat.util;
 
+import android.support.annotation.NonNull;
 import android.util.Log;
 
 import java.io.BufferedInputStream;
@@ -30,8 +31,6 @@ import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
-
-import dan.dit.whatsthat.preferences.User;
 
 /**
  * This is an utility class which offers specialized IO methods and file
@@ -156,16 +155,40 @@ public final class IOUtil {
     	return filesInFolder;
     }
 
-	public static boolean zip(List<File> toZipInsideTempDirectory, File targetZip) throws IOException {
+    /**
+     * A small interface for zipping files. Allows to keep the file hierarchy
+     * of the given files. So if all files previously were in a folder "/home/images/"
+     * and are to be zipped into a file in "/zips/", this method could extract the relative path
+     * starting after "/home/images/" and return the rest, which is at least the file name.
+     */
+    public interface RelativePathExtractor {
+        /**
+         * The relative path of the given file in the the target zip archive. Must be at least
+         * the file's name.
+         * @param file The file to get the relative path of.
+         * @return The relative path, at least the file's name.
+         */
+        @NonNull String getRelativePathOfFile(@NonNull File file);
+    }
+
+	/**
+	 * Zips the given list of files into the given target zip file.
+	 * @param toZip The files to zip into an archive.
+	 * @param targetZip The target zip archive.
+	 * @return If zipping was successful, most likely true, see IOException.
+	 * @throws IOException Thrown on any IO related problems during the zipping process.
+	 */
+	public static boolean zip(@NonNull List<File> toZip, @NonNull File targetZip, @NonNull
+            RelativePathExtractor extractor) throws IOException {
 		FileOutputStream os = new FileOutputStream(targetZip);
 		ZipOutputStream zos = new ZipOutputStream(new BufferedOutputStream(os));
 		try {
-			for (int i = 0; i < toZipInsideTempDirectory.size(); ++i) {
-				File file = toZipInsideTempDirectory.get(i);
-				String filename = User.extractRelativePathInsideTempDirectory(file);
-                if (filename == null) {
-                    filename = file.getName();
+			for (int i = 0; i < toZip.size(); ++i) {
+				File file = toZip.get(i);
+                if (file == null) {
+                    continue;
                 }
+				String filename = extractor.getRelativePathOfFile(file);
 				ZipEntry entry = new ZipEntry(filename);
 				zos.putNextEntry(entry);
                 int n;
