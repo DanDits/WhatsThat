@@ -186,14 +186,39 @@ public class RiddleController {
     /**
      * Pause the periodic event, stopping future invocations and periodic renderings.
      */
-    public synchronized void stopPeriodicEvent(final Runnable toExecute) {
+    private synchronized void stopPeriodicEvent(final Runnable toExecute) {
         if (mPeriodicThread != null && mPeriodicThread.isRunning()) {
             Log.d("Riddle", "Stopping periodic event that is running.");
-            mPeriodicThread.stopPeriodicEvent(toExecute);
+            mPeriodicThread.stopPeriodicEvent(new Runnable() {
+                @Override
+                public void run() {
+                    if (toExecute != null) {
+                        toExecute.run();
+                    }
+                    onPeriodicThreadStopped();
+                }
+            });
         } else if (toExecute != null) {
             Log.d("Riddle", "Stopping periodic event that was not running.");
             toExecute.run();
         }
+    }
+
+    public synchronized void stopPeriodicEvent() {
+        stopPeriodicEvent(null);
+    }
+
+    private void resumePeriodicEventExecute() {
+        mPeriodicThread = new GamePeriodicThread(RiddleController.this);
+        mPeriodicThread.setUncaughtExceptionHandler(Thread.getDefaultUncaughtExceptionHandler());
+        mPeriodicThread.startPeriodicEvent();
+    }
+
+    // invoked on ui thread. periodic event stopped completely, any other code to execute after
+    // stopping was executed, so check if there is still a riddle available before doing stuff to
+    // riddle or periodic thread
+    private synchronized void onPeriodicThreadStopped() {
+
     }
 
     /**
@@ -201,14 +226,17 @@ public class RiddleController {
      */
     public synchronized void resumePeriodicEventIfRequired() {
         if (riddleAvailable() && mRiddleView != null && mRiddleGame.requiresPeriodicEvent()) {
-            stopPeriodicEvent(new Runnable() {
-                @Override
-                public void run() {
-                    mPeriodicThread = new GamePeriodicThread(RiddleController.this);
-                    mPeriodicThread.setUncaughtExceptionHandler(Thread.getDefaultUncaughtExceptionHandler());
-                    mPeriodicThread.startPeriodicEvent();
-                }
-            });
+            if (mPeriodicThread == null || !mPeriodicThread.isRunning()) {
+                // if thread is not running yet or not anymore, (re)start.
+                // use runnable that is posted by previous running thread, if any, to the ui
+                // thread to ensure that no concurrency issues can appear
+                stopPeriodicEvent(new Runnable() {
+                    @Override
+                    public void run() {
+                        resumePeriodicEventExecute();
+                    }
+                });
+            }
         }
     }
 

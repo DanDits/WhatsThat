@@ -78,7 +78,7 @@ public class RiddleView extends SurfaceView implements SensorEventListener {
             mSensorManager.unregisterListener(this);
         }
         if (hasController()) {
-            mRiddleCtr.stopPeriodicEvent(null);
+            mRiddleCtr.stopPeriodicEvent();
         }
     }
 

@@ -18,7 +18,11 @@ package dan.dit.whatsthat.util.flatworld.look;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffXfermode;
 import android.util.Log;
+
+import dan.dit.whatsthat.util.MathFunction;
 
 /**
  * Created by daniel on 26.06.15.
@@ -28,6 +32,9 @@ public class Frames extends Look {
     int mFrameIndex;
     private long mFrameCounter;
     private long mFrameDuration;
+    private boolean mBlendFrames;
+    private Paint mBlendPaint;
+    private MathFunction mBlendFunction;
 
     public Frames(Bitmap[] frames, long frameDuration) {
         mFrames = frames;
@@ -40,6 +47,15 @@ public class Frames extends Look {
         if (frames.length > 1 && mFrameDuration <= 0L) {
             Log.e("Riddle", "Illegal frame duration set to 1000ms " + mFrameDuration);
             mFrameDuration = 1000L;
+        }
+    }
+
+    public void setBlendFrames(boolean blendFrames) {
+        mBlendFrames = blendFrames;
+        if (mBlendFrames && mBlendPaint == null) {
+            mBlendFunction = new MathFunction.QuadraticInterpolation(0., 255., 1.0, 0.);
+            mBlendPaint = new Paint();
+            mBlendPaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.ADD));
         }
     }
 
@@ -74,8 +90,36 @@ public class Frames extends Look {
     @Override
     public void draw(Canvas canvas, float x, float y, Paint paint) {
         if (mVisible) {
+            int oldAlpha = 255;
+            boolean performBlending = mBlendFrames && mFrames.length > 1;
+            int blendingAlpha = 255;
             Bitmap currFrame = mFrames[mFrameIndex];
-            canvas.drawBitmap(currFrame, x - currFrame.getWidth() + getWidth() + mOffsetX, y - currFrame.getHeight() + getHeight() + mOffsetY, paint);
+            if (performBlending) {
+                // there is another bitmap and we want to blend to it, depending on time left
+                // till its visible
+                paint = mBlendPaint;
+                oldAlpha = paint.getAlpha();
+                blendingAlpha = (int) (mBlendFunction.evaluate(Math.min(mFrameCounter / (double)
+                        mFrameDuration, 1.)));
+                paint.setAlpha(blendingAlpha);
+            }
+
+            boolean currentDrawn = false;
+            if (!performBlending || blendingAlpha < 128) {
+                currentDrawn = true;
+                canvas.drawBitmap(currFrame, x - currFrame.getWidth() + getWidth() + mOffsetX, y - currFrame.getHeight() + getHeight() + mOffsetY, paint);
+            }
+            if (performBlending) {
+                Bitmap nextFrame = mFrames[(mFrameIndex + 1) % mFrames.length];
+                paint.setAlpha(255 - blendingAlpha);
+                canvas.drawBitmap(nextFrame, x - nextFrame.getWidth() + getWidth() + mOffsetX, y - nextFrame.getHeight() + getHeight() + mOffsetY, paint);
+
+                if (!currentDrawn) {
+                    paint.setAlpha(blendingAlpha);
+                    canvas.drawBitmap(currFrame, x - currFrame.getWidth() + getWidth() + mOffsetX, y - currFrame.getHeight() + getHeight() + mOffsetY, paint);
+                }
+                paint.setAlpha(oldAlpha);
+            }
         }
     }
 

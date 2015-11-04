@@ -408,7 +408,7 @@ public class RiddleJumper extends RiddleGame implements FlatWorldCallback {
         mRunnerHeight = mConfig.mHeight - mSolutionBackgroundHeight;
 
         Bitmap fallingImage = ImageUtil.loadBitmap(res, R.drawable.schritt1, mConfig.mWidth, mRunnerHeight, false);
-        Look runnerFramesRun = new Frames(new Bitmap[] {
+        Frames runnerFramesRun = new Frames(new Bitmap[] {
             fallingImage,
             ImageUtil.loadBitmap(res, R.drawable.schritt2, mConfig.mWidth, mRunnerHeight, false),
             ImageUtil.loadBitmap(res, R.drawable.schritt3, mConfig.mWidth, mRunnerHeight, false),
@@ -417,6 +417,7 @@ public class RiddleJumper extends RiddleGame implements FlatWorldCallback {
             ImageUtil.loadBitmap(res, R.drawable.schritt6, mConfig.mWidth, mRunnerHeight, false),
             ImageUtil.loadBitmap(res, R.drawable.schritt7, mConfig.mWidth, mRunnerHeight, false),
             ImageUtil.loadBitmap(res, R.drawable.schritt8, mConfig.mWidth, mRunnerHeight, false)}, FRAME_DURATION_RUNNER);
+        runnerFramesRun.setBlendFrames(true);
         Look runnerFramesJumpUp = new Frames(new Bitmap[] {
                 ImageUtil.loadBitmap(res, R.drawable.schrittjump, mConfig.mWidth, mRunnerHeight, false)}, FRAME_DURATION_RUNNER);
         Look runnerFramesJumpDown = new Frames(new Bitmap[] {
