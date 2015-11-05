@@ -17,7 +17,7 @@ package dan.dit.whatsthat.util;
 
 /**
  * Mathematical helper class to create continuous functions that can be evaluated at every given
- * double value. The functions can simply be interpolated and may be any kind of function, most likely
+ * double value. The functions are immutable objects. The functions may be any kind of function, most likely
  * though this will be linear or quadratic functions.
  * Created by daniel on 06.09.15.
  */
@@ -59,6 +59,16 @@ public abstract class MathFunction {
         public double evaluate(double at) {
             return mStartValue +  mAscend * (at - mStartArg);
         }
+
+        public static double evaluate(double startArg, double startValue, double endArg, double
+                endValue, double at) {
+            return startValue + (endValue - startValue) / (endArg - startArg) * (at - startArg);
+        }
+
+        public static float evaluate(float startArg, float startValue, float endArg, float
+                endValue,float at) {
+            return startValue + (endValue - startValue) / (endArg - startArg) * (at - startArg);
+        }
     }
 
     /**
@@ -89,6 +99,18 @@ public abstract class MathFunction {
         @Override
         public double evaluate(double at) {
             return mA * (at - mExtremalArg) * (at - mExtremalArg) + mExtremalValue;
+        }
+
+        public static float evaluate(float extremalArg, float extremalValue, float otherArg,
+                                     float otherValue, float at) {
+            return (otherValue - extremalValue) / ((otherArg - extremalArg) * (otherArg - extremalArg))
+                    * (at - extremalArg) * (at - extremalArg) + extremalValue;
+        }
+
+        public static double evaluate(double extremalArg, double extremalValue, double otherArg,
+                                      double otherValue, double at) {
+            return (otherValue - extremalValue) / ((otherArg - extremalArg) * (otherArg - extremalArg))
+                    * (at - extremalArg) * (at - extremalArg) + extremalValue;
         }
     }
 }

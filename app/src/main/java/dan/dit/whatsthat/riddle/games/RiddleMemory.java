@@ -44,6 +44,7 @@ import dan.dit.whatsthat.image.Image;
 import dan.dit.whatsthat.riddle.Riddle;
 import dan.dit.whatsthat.riddle.RiddleConfig;
 import dan.dit.whatsthat.riddle.achievement.holders.AchievementMemory;
+import dan.dit.whatsthat.riddle.control.RiddleGame;
 import dan.dit.whatsthat.riddle.types.Types;
 import dan.dit.whatsthat.system.RiddleFragment;
 import dan.dit.whatsthat.util.BuildException;

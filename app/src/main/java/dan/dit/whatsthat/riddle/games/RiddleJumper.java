@@ -35,13 +35,12 @@ import java.util.List;
 import java.util.Random;
 
 import dan.dit.whatsthat.R;
-import dan.dit.whatsthat.achievement.AchievementDataEvent;
 import dan.dit.whatsthat.achievement.AchievementProperties;
 import dan.dit.whatsthat.image.Image;
 import dan.dit.whatsthat.riddle.Riddle;
 import dan.dit.whatsthat.riddle.RiddleConfig;
 import dan.dit.whatsthat.riddle.achievement.holders.AchievementJumper;
-import dan.dit.whatsthat.riddle.types.PracticalRiddleType;
+import dan.dit.whatsthat.riddle.control.RiddleGame;
 import dan.dit.whatsthat.riddle.types.Types;
 import dan.dit.whatsthat.testsubject.TestSubject;
 import dan.dit.whatsthat.testsubject.shopping.sortiment.SortimentHolder;
@@ -319,6 +318,7 @@ public class RiddleJumper extends RiddleGame implements FlatWorldCallback {
         int startCount = obstacles.size();
         while (obstacles.size() - startCount < EASY_SMALL_OBSTACLES) {
             FramesOneshot feuerFrames = new FramesOneshot(monsterFeuer, (long) ((0.6 + mRand.nextDouble() * 0.7) *  OBSTACLES_RIGHT_LEFT_DURATION) );
+            feuerFrames.setBlendFrames(true, Frames.BLEND_MODE_LINEAR);
             obstacles.add(Obstacle.makeObstacle(feuerFrames, 0.9f, 0.85f, mConfig.mWidth,
                     getTopForRelativeHeight(OBSTACLE_RELATIVE_HEIGHT_SMALL), NEXT_OBSTACLE_MIN_TIME_SMALL, mWorld, mObstaclesSpeed, 0));
             Look teufelFrames = new Frames(monsterTeufel, FRAME_DURATION);
@@ -417,7 +417,7 @@ public class RiddleJumper extends RiddleGame implements FlatWorldCallback {
             ImageUtil.loadBitmap(res, R.drawable.schritt6, mConfig.mWidth, mRunnerHeight, false),
             ImageUtil.loadBitmap(res, R.drawable.schritt7, mConfig.mWidth, mRunnerHeight, false),
             ImageUtil.loadBitmap(res, R.drawable.schritt8, mConfig.mWidth, mRunnerHeight, false)}, FRAME_DURATION_RUNNER);
-        runnerFramesRun.setBlendFrames(true);
+        runnerFramesRun.setBlendFrames(true, Frames.BLEND_MODE_QUADRATIC);
         Look runnerFramesJumpUp = new Frames(new Bitmap[] {
                 ImageUtil.loadBitmap(res, R.drawable.schrittjump, mConfig.mWidth, mRunnerHeight, false)}, FRAME_DURATION_RUNNER);
         Look runnerFramesJumpDown = new Frames(new Bitmap[] {
@@ -425,6 +425,7 @@ public class RiddleJumper extends RiddleGame implements FlatWorldCallback {
         Look runnerFramesCollision = new Frames(new Bitmap[] {
                 ImageUtil.loadBitmap(res, R.drawable.schrittko, mConfig.mWidth, mRunnerHeight, false)}, FRAME_DURATION_RUNNER);
         mRunner = Runner.makeRunner(runnerFramesRun, 0.5f, 0.8f, RUNNER_LEFT_OFFSET, getTopForRelativeHeight(RELATIVE_HEIGHT_BASELINE), mWorld);
+
         mRunner.putStateFrames(HitboxJumpMover.STATE_JUMP_ASCENDING, runnerFramesJumpUp);
         mRunner.putStateFrames(HitboxJumpMover.STATE_JUMP_FALLING, runnerFramesJumpDown);
         mRunner.putStateFrames(HitboxJumpMover.STATE_NOT_MOVING, runnerFramesRun);

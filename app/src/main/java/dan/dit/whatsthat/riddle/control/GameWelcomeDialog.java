@@ -13,7 +13,7 @@
  *
  */
 
-package dan.dit.whatsthat.riddle.games;
+package dan.dit.whatsthat.riddle.control;
 
 import android.app.AlertDialog;
 import android.app.Dialog;

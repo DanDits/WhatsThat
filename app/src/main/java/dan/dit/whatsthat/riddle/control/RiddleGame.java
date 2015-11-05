@@ -13,7 +13,7 @@
  *
  */
 
-package dan.dit.whatsthat.riddle.games;
+package dan.dit.whatsthat.riddle.control;
 
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -25,16 +25,16 @@ import android.view.MotionEvent;
 
 import dan.dit.whatsthat.BuildConfig;
 import dan.dit.whatsthat.achievement.AchievementData;
-import dan.dit.whatsthat.achievement.AchievementDataEventListener;
 import dan.dit.whatsthat.achievement.AchievementProperties;
 import dan.dit.whatsthat.image.Image;
 import dan.dit.whatsthat.preferences.Language;
 import dan.dit.whatsthat.riddle.Riddle;
 import dan.dit.whatsthat.riddle.RiddleConfig;
-import dan.dit.whatsthat.riddle.RiddleInitializer;
 import dan.dit.whatsthat.riddle.RiddleView;
 import dan.dit.whatsthat.riddle.achievement.AchievementDataRiddleGame;
 import dan.dit.whatsthat.riddle.achievement.AchievementDataRiddleType;
+import dan.dit.whatsthat.riddle.control.RiddleController;
+import dan.dit.whatsthat.riddle.control.RiddleControllerFactory;
 import dan.dit.whatsthat.solution.Solution;
 import dan.dit.whatsthat.solution.SolutionInput;
 import dan.dit.whatsthat.solution.SolutionInputListener;
@@ -61,7 +61,7 @@ public abstract class RiddleGame {
     /**
      * The dimension for a snapshot bitmap for unsolved RiddleGames that get closed.
      */
-    static final Dimension SNAPSHOT_DIMENSION = new Dimension(32, 32);
+    protected static final Dimension SNAPSHOT_DIMENSION = new Dimension(32, 32);
     /**
      * Maximum time from creating a new riddle till solving that results in using the multiplier for score calculation
      */
@@ -70,13 +70,13 @@ public abstract class RiddleGame {
     private static final int MAX_SCORE_MULTIPLIER = 3; // > BASE_SCORE_MULTIPLIER
     private static final int SCORES_MULTIPLIED_PER_DAY_COUNT = 10;
 
-    private Riddle mRiddle; // should be hidden
-    private RiddleController mRiddleController;
-    Image mImage; // image with hash of mRiddle.mCore.imageHash
+    private final Riddle mRiddle; // should be hidden
+    private final RiddleController mRiddleController;
+    protected final Image mImage; // image with hash of mRiddle.mCore.imageHash
     private SolutionInput mSolutionInput; // input keyboard used, most likely choosing letters by clicking on them
-    Bitmap mBitmap; // the correctly scaled bitmap of the image to work with
+    protected Bitmap mBitmap; // the correctly scaled bitmap of the image to work with
     // note: full galaxy s2 display 480x800 pixel, hdpi (scaling of 1.5 by default)
-    RiddleConfig mConfig;
+    protected final RiddleConfig mConfig;
     private int mScoreMultiplicator;
 
     /**
@@ -89,7 +89,8 @@ public abstract class RiddleGame {
      * @param config The config to use or describe the riddle.
      * @param listener The listener to inform about progress (important if loading takes some time).
      */
-    RiddleGame(Riddle riddle, Image image, Bitmap bitmap, Resources res, RiddleConfig config, PercentProgressListener listener) {
+    protected RiddleGame(Riddle riddle, Image image, Bitmap bitmap, Resources res, RiddleConfig
+            config, PercentProgressListener listener) {
         if (riddle == null || bitmap == null || res == null || listener == null || config == null || image == null) {
             throw new IllegalArgumentException("Null argument for InitializedRiddle given.");
         }
@@ -120,7 +121,7 @@ public abstract class RiddleGame {
      * If this game is not yet closed, this is when the loaded bitmap object is still valid.
      * @return If the game was not yet closed.
      */
-    boolean isNotClosed() {
+    protected boolean isNotClosed() {
         return mBitmap != null;
     }
 
@@ -128,7 +129,7 @@ public abstract class RiddleGame {
      * Returns the current state associated with the riddle (probably loaded after restarting the app).
      * @return A compacter holding the current state or null if the RiddleGame has no state saved (probably new riddle).
      */
-    Compacter getCurrentState() {
+    protected Compacter getCurrentState() {
         String state = mRiddle.getCurrentState();
         if (TextUtils.isEmpty(state)) {
             return null;
@@ -183,6 +184,14 @@ public abstract class RiddleGame {
         return mImage;
     }
 
+    public void addAnimation(@NonNull RiddleAnimation animation) {
+        mRiddleController.addAnimation(animation);
+    }
+
+    public void addAnimation(@NonNull RiddleAnimation animation, long delay) {
+        mRiddleController.addAnimation(animation, delay);
+    }
+
     private final int[] mScores = new int[4];
     public final synchronized void close() {
         int solved = mSolutionInput.estimateSolvedValue();
@@ -224,7 +233,7 @@ public abstract class RiddleGame {
      * Makes a new snapshot of this RiddleGame. By default none is made.
      * @return null
      */
-    Bitmap makeSnapshot() {
+    protected Bitmap makeSnapshot() {
         return null;
     }
 

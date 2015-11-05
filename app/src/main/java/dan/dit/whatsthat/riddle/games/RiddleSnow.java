@@ -34,17 +34,19 @@ import java.util.List;
 import java.util.Random;
 
 import dan.dit.whatsthat.R;
-import dan.dit.whatsthat.achievement.Achievement;
 import dan.dit.whatsthat.achievement.AchievementProperties;
 import dan.dit.whatsthat.image.Image;
 import dan.dit.whatsthat.riddle.Riddle;
 import dan.dit.whatsthat.riddle.RiddleConfig;
 import dan.dit.whatsthat.riddle.achievement.AchievementDataRiddleType;
 import dan.dit.whatsthat.riddle.achievement.holders.AchievementSnow;
-import dan.dit.whatsthat.riddle.types.PracticalRiddleType;
+import dan.dit.whatsthat.riddle.control.RiddleAnimation;
+import dan.dit.whatsthat.riddle.control.RiddleGame;
+import dan.dit.whatsthat.riddle.control.RiddleViewAnimation;
 import dan.dit.whatsthat.riddle.types.Types;
 import dan.dit.whatsthat.testsubject.TestSubject;
 import dan.dit.whatsthat.testsubject.shopping.sortiment.SortimentHolder;
+import dan.dit.whatsthat.util.MathFunction;
 import dan.dit.whatsthat.util.PercentProgressListener;
 import dan.dit.whatsthat.util.compaction.CompactedDataCorruptException;
 import dan.dit.whatsthat.util.compaction.Compacter;
@@ -508,7 +510,8 @@ public class RiddleSnow extends RiddleGame implements FlatWorldCallback {
                     AchievementSnow.KEY_GAME_PRE_COLLISION_CELL_STATE, (long) mCell.getState(), AchievementProperties.UPDATE_POLICY_ALWAYS,
                     null, 0L, 0L);
         }
-        mCell.applyWallPhysics(mWorld, collisionLeft, collisionTop, collisionRight, collisionBottom);
+        mCell.applyWallPhysics(mWorld, collisionLeft, collisionTop, collisionRight,
+                collisionBottom, this);
         if (mConfig.mAchievementGameData != null) {
             mConfig.mAchievementGameData.increment(AchievementSnow.KEY_GAME_COLLISION_COUNT, 1L, AchievementProperties.UPDATE_POLICY_ALWAYS);
         }
@@ -675,7 +678,8 @@ public class RiddleSnow extends RiddleGame implements FlatWorldCallback {
                     accelY * (1.f - prevAccelFraction) + mCellMover.getAccelerationY() * prevAccelFraction);
         }
 
-        public void applyWallPhysics(FlatRectWorld world, boolean collisionLeft, boolean collisionTop, boolean collisionRight, boolean collisionBottom) {
+        public void applyWallPhysics(FlatRectWorld world, boolean collisionLeft, boolean
+                collisionTop, boolean collisionRight, boolean collisionBottom, RiddleGame game) {
 
             float speedMultiplier = mHitboxCircle.getRadius() > mStartRadius ? -CRASHED_WALL_BIGGER_SPEED_MULTIPLIER : -CRASHED_WALL_SMALL_SPEED_MULTIPLIER;
             if (collisionLeft) {
@@ -693,6 +697,37 @@ public class RiddleSnow extends RiddleGame implements FlatWorldCallback {
             if (collisionBottom) {
                 mHitboxCircle.setBottom(world.getBottom() - 1);
                 mCellMover.multiplySpeed(1.f, speedMultiplier);
+            }
+            if (Math.abs(speedMultiplier) > 1.f) {
+                float speed = Math.abs(mCellMover.getSpeed() * speedMultiplier);
+                final float minSpeed = 250.f;
+                final float maxSpeed = 2000.f;
+                speed += getState() * 100;
+                if (speed > minSpeed) {
+                    Log.d("Riddle", "Speed: " + speed + " of state " + getState());
+                    speed = Math.min(maxSpeed, speed);
+                    final long time = 50L;
+                    final int repeatCount = 8;
+                    final float minRotateDegrees = 1f;
+                    final float maxRotateDegrees = 3f;
+                    final float minTranslate = 5f;
+                    final float maxTranslate = 35f;
+                    final float translate = MathFunction.QuadraticInterpolation.evaluate(minSpeed,
+                            minTranslate, maxSpeed, maxTranslate, speed);
+                    final float rotateDegrees = MathFunction.QuadraticInterpolation.evaluate
+                            (minSpeed, minRotateDegrees, maxSpeed, maxRotateDegrees, speed);
+                    float dx = collisionLeft ? -translate : collisionRight ? translate : 0f;
+                    float dy = collisionTop ? -translate : collisionBottom ? translate : 0f;
+                    game.addAnimation(new RiddleViewAnimation.Builder()
+                            .setLives(repeatCount)
+                            .setInterpolator(RiddleViewAnimation.ViewAnimation.INTERPOLATOR_LINEAR)
+                            .setNextLifeMode(RiddleViewAnimation.ViewAnimation
+                                    .NEXT_LIFE_MODE_REVERSE_INVERT)
+                            .addRotate(rotateDegrees, 0.5f, 0.5f, time)
+                            .addTranslate(dx, dy, time)
+                            .build());
+                }
+
             }
         }
 

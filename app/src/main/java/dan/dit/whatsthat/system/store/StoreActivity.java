@@ -41,6 +41,7 @@ import java.util.List;
 
 import dan.dit.whatsthat.R;
 import dan.dit.whatsthat.achievement.AchievementManager;
+import dan.dit.whatsthat.preferences.User;
 import dan.dit.whatsthat.riddle.RiddleInitializer;
 import dan.dit.whatsthat.system.InitActivity;
 import dan.dit.whatsthat.testsubject.TestSubject;
@@ -249,14 +250,18 @@ public class StoreActivity extends FragmentActivity {
             }
         });
         Button workshopButton = (Button) findViewById(R.id.btn_workshop);
-        workshopButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (onMenuButtonClicked(view)) {
-                    mCurrCategory = CATEGORY_WORKSHOP;
+        if (User.getInstance().hasPermission(User.PERMISSION_WORKSHOP)) {
+            workshopButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (onMenuButtonClicked(view)) {
+                        mCurrCategory = CATEGORY_WORKSHOP;
+                    }
                 }
-            }
-        });
+            });
+        } else {
+            workshopButton.setVisibility(View.GONE);
+        }
         Button aboutButton = (Button) findViewById(R.id.btn_about);
         aboutButton.setOnClickListener(new View.OnClickListener() {
             @Override

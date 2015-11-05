@@ -13,7 +13,7 @@
  *
  */
 
-package dan.dit.whatsthat.riddle.games;
+package dan.dit.whatsthat.riddle.control;
 
 import android.content.Context;
 import android.content.res.Resources;
@@ -22,6 +22,8 @@ import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.MotionEvent;
+import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
 
 import com.github.johnpersano.supertoasts.SuperToast;
 
@@ -40,12 +42,14 @@ import dan.dit.whatsthat.testsubject.TestSubjectToast;
  * no longer be used, it is directly bound to the lifecycle of a RiddleGame.
  * Created by daniel on 05.04.15.
  */
-public class RiddleController {
+public class RiddleController implements RiddleAnimationController.OnAnimationCountChangedListener {
     private RiddleGame mRiddleGame;
     private Riddle mRiddle;
+    private ViewGroup mRiddleViewContainer;
     private RiddleView mRiddleView;
     private GamePeriodicThread mPeriodicThread;
     private long mMissingUpdateTime;
+    private RiddleAnimationController mRiddleAnimationController;
 
     /**
      * Initializes the RiddleController with the RiddleGame that decorates the given Riddle.
@@ -55,6 +59,7 @@ public class RiddleController {
     RiddleController(@NonNull RiddleGame riddleGame, @NonNull Riddle riddle) {
         mRiddleGame = riddleGame;
         mRiddle = riddle;
+        mRiddleAnimationController = new RiddleAnimationController(this);
     }
 
     /**
@@ -69,11 +74,13 @@ public class RiddleController {
             public void run() {
                 if (riddleAvailable()) {
                     onPreRiddleClose();
+                    mRiddleAnimationController.clear();
                     mRiddleGame.close();
                     mRiddleGame = null;
                     onRiddleClosed(context);
                 }
                 mRiddleView = null;
+                mRiddleViewContainer = null;
             }
         });
     }
@@ -112,8 +119,22 @@ public class RiddleController {
      */
     public void draw(Canvas canvas) {
         if (riddleAvailable()) {
+            mRiddleAnimationController.draw(canvas, null, RiddleAnimationController
+                    .LEVEL_GROUNDING);
+            mRiddleAnimationController.draw(canvas, null, RiddleAnimationController
+                    .LEVEL_BACKGROUND);
             mRiddleGame.draw(canvas);
+            mRiddleAnimationController.draw(canvas, null, RiddleAnimationController
+                    .LEVEL_ON_TOP);
         }
+    }
+
+    protected void addAnimation(@NonNull RiddleAnimation animation) {
+        mRiddleAnimationController.addAnimation(animation);
+    }
+
+    protected void addAnimation(@NonNull RiddleAnimation animation, long delay) {
+        mRiddleAnimationController.addAnimation(animation, delay);
     }
 
     /* ************ INPUT RELATED METHODS *********************************************************/
@@ -150,10 +171,11 @@ public class RiddleController {
 
     /**
      * Invoked when the RiddleView got visible and valid.
-     * @param riddleView
+     * @param riddleViewContainer The container that contains the valid RiddleView
      */
-    public final void onRiddleVisible(RiddleView riddleView) {
-        mRiddleView = riddleView;
+    public final void onRiddleVisible(@NonNull ViewGroup riddleViewContainer) {
+        mRiddleViewContainer = riddleViewContainer;
+        mRiddleView = (RiddleView) mRiddleViewContainer.findViewById(R.id.riddle_view);
         mMissingUpdateTime = 0L;
         onRiddleGotVisible();
     }
@@ -218,7 +240,8 @@ public class RiddleController {
     // stopping was executed, so check if there is still a riddle available before doing stuff to
     // riddle or periodic thread
     private synchronized void onPeriodicThreadStopped() {
-
+        onAnimationCountChanged(); // check again if we need to resume the periodic thread, can
+        // be relevant when the thread is about to be stopped when another animation is added
     }
 
     /**
@@ -276,6 +299,7 @@ public class RiddleController {
             long periodicEventStartTime = System.nanoTime();
             if (updateTime > 0) {
                 mRiddleGame.onPeriodicEvent(updateTime);
+                mRiddleAnimationController.update(updateTime);
             }
             mMissingUpdateTime = (System.nanoTime() - periodicEventStartTime) / 1000000;
         }
@@ -313,5 +337,19 @@ public class RiddleController {
         toast.mText = builder.toString();
         toast.mTextSize = 40;
         return toast;
+    }
+
+    @Override
+    public void onAnimationCountChanged() {
+        if (!riddleAvailable() || mRiddleGame.requiresPeriodicEvent()) {
+            return;
+        }
+        int count = mRiddleAnimationController.getActiveAnimationsCount();
+        if (count == 0) {
+            stopPeriodicEvent();
+        } else if (count > 0) {
+            // ensure period thread running
+            resumePeriodicEventIfRequired();
+        }
     }
 }

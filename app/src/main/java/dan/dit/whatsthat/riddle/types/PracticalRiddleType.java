@@ -15,14 +15,12 @@
 
 package dan.dit.whatsthat.riddle.types;
 
-import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.util.Log;
-import android.view.View;
 
 import java.lang.ref.SoftReference;
 import java.util.ArrayList;
@@ -37,7 +35,7 @@ import dan.dit.whatsthat.riddle.RiddleConfig;
 import dan.dit.whatsthat.riddle.achievement.AchievementDataRiddleGame;
 import dan.dit.whatsthat.riddle.achievement.AchievementDataRiddleType;
 import dan.dit.whatsthat.riddle.achievement.holders.TypeAchievementHolder;
-import dan.dit.whatsthat.riddle.games.RiddleGame;
+import dan.dit.whatsthat.riddle.control.RiddleGame;
 import dan.dit.whatsthat.testsubject.TestSubject;
 import dan.dit.whatsthat.util.PercentProgressListener;
 import dan.dit.whatsthat.util.compaction.CompactedDataCorruptException;

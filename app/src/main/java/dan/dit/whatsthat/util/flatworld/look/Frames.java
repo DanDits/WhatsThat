@@ -50,13 +50,39 @@ public class Frames extends Look {
         }
     }
 
-    public void setBlendFrames(boolean blendFrames) {
-        mBlendFrames = blendFrames;
-        if (mBlendFrames && mBlendPaint == null) {
-            mBlendFunction = new MathFunction.QuadraticInterpolation(0., 255., 1.0, 0.);
-            mBlendPaint = new Paint();
-            mBlendPaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.ADD));
+    public Frames(Frames toCopy) {
+        mFrames = new Bitmap[toCopy.mFrames.length];
+        System.arraycopy(toCopy.mFrames, 0, mFrames, 0, mFrames.length);
+        mFrameCounter = 0;
+        mFrameIndex = 0;
+        mFrameDuration = toCopy.mFrameDuration;
+        if (toCopy.mBlendFrames && toCopy.mBlendPaint != null) {
+            mBlendPaint = new Paint(toCopy.mBlendPaint);
+            mBlendFrames = true;
+            mBlendFunction = toCopy.mBlendFunction;
         }
+    }
+
+    public static final int BLEND_MODE_LINEAR = 0;
+    public static final int BLEND_MODE_QUADRATIC = 1;
+
+    public Frames setBlendFrames(boolean blendFrames, int blendInterpolation) {
+        mBlendFrames = blendFrames;
+        if (mBlendFrames) {
+            if (blendInterpolation == BLEND_MODE_LINEAR) {
+                mBlendFunction = new MathFunction.LinearInterpolation(0., 255, 1.0, 0.);
+            } else {
+                mBlendFunction = new MathFunction.QuadraticInterpolation(0., 255., 1.0, 0.);
+            }
+            if (mBlendPaint == null) {
+                mBlendPaint = new Paint();
+                mBlendPaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.ADD));
+            }
+        } else {
+            mBlendPaint = null;
+            mBlendFunction = null;
+        }
+        return this;
     }
 
     @Override
@@ -87,11 +113,15 @@ public class Frames extends Look {
         return false;
     }
 
+    protected boolean performBlending(int frameIndex) {
+        return mBlendFrames && mFrames.length > 1;
+    }
+
     @Override
     public void draw(Canvas canvas, float x, float y, Paint paint) {
         if (mVisible) {
             int oldAlpha = 255;
-            boolean performBlending = mBlendFrames && mFrames.length > 1;
+            boolean performBlending = performBlending(mFrameIndex);
             int blendingAlpha = 255;
             Bitmap currFrame = mFrames[mFrameIndex];
             if (performBlending) {

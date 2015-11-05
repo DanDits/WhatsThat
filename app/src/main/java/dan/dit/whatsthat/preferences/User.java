@@ -44,6 +44,7 @@ public class User {
     public static final String PERMISSION_BUNDLE_SYNC_ALLOWED = "dan.dit.whatsthat.permission_bundle_sync";
     public static final String USER_DIRECTORY = "user";
     private static final File LOGO_PATH = new File(ExternalStorage.getExternalStoragePathIfMounted(USER_DIRECTORY), "Logo.png");
+    public static final String PERMISSION_WORKSHOP = "dan.dit.whatsthat.permission_workshop";
 
     private SharedPreferences mPreferences;
     private WebPhotoStorage mWebPhotoStorage;

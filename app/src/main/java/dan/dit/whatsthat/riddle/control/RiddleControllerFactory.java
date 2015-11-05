@@ -13,30 +13,27 @@
  *
  */
 
-package dan.dit.whatsthat.riddle.games;
-
-import android.content.Context;
-import android.support.annotation.NonNull;
+package dan.dit.whatsthat.riddle.control;
 
 import dan.dit.whatsthat.riddle.Riddle;
 
 /**
  * Created by daniel on 08.05.15.
  */
-public class SilentRiddleController extends RiddleController {
-    SilentRiddleController(@NonNull RiddleGame riddleGame, @NonNull Riddle riddle) {
-        super(riddleGame, riddle);
+public class RiddleControllerFactory {
+    public static final RiddleControllerFactory INSTANCE = new RiddleControllerFactory();
+
+    private RiddleControllerFactory() {}
+
+    RiddleController makeController(RiddleGame game, Riddle riddle) {
+        return new RiddleController(game, riddle);
     }
 
-    protected void onPreRiddleClose() {
-        // do nothing
-    }
+    protected static class Silent extends RiddleControllerFactory {
+        private Silent() {}
 
-    protected void onRiddleClosed(final Context context) {
-        // do nothing
-    }
-
-    protected void onRiddleGotVisible() {
-        // do nothing
+        protected RiddleController makeController(RiddleGame game, Riddle riddle) {
+            return new SilentRiddleController(game, riddle);
+        }
     }
 }

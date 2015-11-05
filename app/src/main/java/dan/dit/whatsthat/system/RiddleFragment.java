@@ -16,7 +16,6 @@
 package dan.dit.whatsthat.system;
 
 import android.app.AlertDialog;
-import android.app.DialogFragment;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.app.LoaderManager;
@@ -30,7 +29,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.text.InputType;
 import android.text.TextUtils;
-import android.transition.Slide;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -59,7 +57,6 @@ import java.util.Map;
 
 import dan.dit.whatsthat.BuildConfig;
 import dan.dit.whatsthat.R;
-import dan.dit.whatsthat.achievement.AchievementDataTimer;
 import dan.dit.whatsthat.achievement.AchievementManager;
 import dan.dit.whatsthat.image.Image;
 import dan.dit.whatsthat.image.ImageManager;
@@ -70,8 +67,8 @@ import dan.dit.whatsthat.riddle.RiddleMaker;
 import dan.dit.whatsthat.riddle.RiddleManager;
 import dan.dit.whatsthat.riddle.RiddleView;
 import dan.dit.whatsthat.riddle.UnsolvedRiddlesChooser;
-import dan.dit.whatsthat.riddle.games.GameWelcomeDialog;
-import dan.dit.whatsthat.riddle.games.RiddleGame;
+import dan.dit.whatsthat.riddle.control.GameWelcomeDialog;
+import dan.dit.whatsthat.riddle.control.RiddleGame;
 import dan.dit.whatsthat.riddle.types.PracticalRiddleType;
 import dan.dit.whatsthat.solution.SolutionInputListener;
 import dan.dit.whatsthat.solution.SolutionInputView;

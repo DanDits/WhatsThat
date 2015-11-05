@@ -20,7 +20,7 @@ import android.util.Log;
 
 import dan.dit.whatsthat.riddle.achievement.AchievementDataRiddleGame;
 import dan.dit.whatsthat.riddle.achievement.AchievementDataRiddleType;
-import dan.dit.whatsthat.riddle.games.RiddleControllerFactory;
+import dan.dit.whatsthat.riddle.control.RiddleControllerFactory;
 import dan.dit.whatsthat.riddle.types.PracticalRiddleType;
 
 /**

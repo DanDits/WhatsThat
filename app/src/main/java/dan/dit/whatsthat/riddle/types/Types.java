@@ -38,7 +38,7 @@ import dan.dit.whatsthat.riddle.games.RiddleCircle;
 import dan.dit.whatsthat.riddle.games.RiddleDeveloper;
 import dan.dit.whatsthat.riddle.games.RiddleDice;
 import dan.dit.whatsthat.riddle.games.RiddleFlow;
-import dan.dit.whatsthat.riddle.games.RiddleGame;
+import dan.dit.whatsthat.riddle.control.RiddleGame;
 import dan.dit.whatsthat.riddle.games.RiddleJumper;
 import dan.dit.whatsthat.riddle.games.RiddleLazor;
 import dan.dit.whatsthat.riddle.games.RiddleMemory;

@@ -28,18 +28,15 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.util.AttributeSet;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
+import android.view.ViewGroup;
 
-import com.github.johnpersano.supertoasts.SuperToast;
-
-import dan.dit.whatsthat.riddle.games.RiddleController;
+import dan.dit.whatsthat.riddle.control.RiddleController;
 import dan.dit.whatsthat.riddle.types.PracticalRiddleType;
 import dan.dit.whatsthat.system.NoPanicDialog;
-import dan.dit.whatsthat.testsubject.TestSubject;
 import dan.dit.whatsthat.testsubject.TestSubjectToast;
 
 /**
@@ -143,7 +140,7 @@ public class RiddleView extends SurfaceView implements SensorEventListener {
             throw new IllegalStateException("Already initialized a controller!");
         }
         mRiddleCtr = controller;
-        mRiddleCtr.onRiddleVisible(this);
+        mRiddleCtr.onRiddleVisible((ViewGroup) getParent());
         if (mRiddleCtr.requiresOrientationSensor()) {
             mSensorManager = (SensorManager) getContext().getSystemService(Activity.SENSOR_SERVICE);
             mAccelerometer = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);

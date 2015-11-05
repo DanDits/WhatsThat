@@ -77,13 +77,19 @@
 
         </RelativeLayout>
     </view>
-    <view
+    <FrameLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        class="dan.dit.whatsthat.riddle.RiddleView"
-        android:id="@+id/riddle_view"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/progress_bar" />
+        android:id="@+id/riddle_container"
+        android:layout_below="@+id/progress_bar" >
+
+        <view
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            class="dan.dit.whatsthat.riddle.RiddleView"
+            android:id="@+id/riddle_view"/>
+    </FrameLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -91,7 +97,7 @@
         android:orientation="vertical"
         android:layout_alignParentLeft="true"
         android:layout_alignParentBottom="true"
-        android:layout_below="@+id/riddle_view"
+        android:layout_below="@+id/riddle_container"
         android:background="@drawable/letter_click_border">
         <view
             android:layout_width="match_parent"

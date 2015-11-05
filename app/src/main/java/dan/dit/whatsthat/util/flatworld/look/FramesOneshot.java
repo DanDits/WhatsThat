@@ -28,6 +28,11 @@ public class FramesOneshot extends Frames {
     }
 
     @Override
+    protected boolean performBlending(int frameIndex) {
+        return  frameIndex < getCount() - 1 && super.performBlending(frameIndex);
+    }
+
+    @Override
     public boolean update(long updatePeriod) {
         if (!mAnimationDone) {
             boolean updated = super.update(updatePeriod);

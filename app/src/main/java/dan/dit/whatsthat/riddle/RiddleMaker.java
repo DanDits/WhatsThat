@@ -32,7 +32,7 @@ import java.util.Random;
 import java.util.Set;
 
 import dan.dit.whatsthat.image.Image;
-import dan.dit.whatsthat.riddle.games.RiddleGame;
+import dan.dit.whatsthat.riddle.control.RiddleGame;
 import dan.dit.whatsthat.riddle.types.PracticalRiddleType;
 import dan.dit.whatsthat.riddle.types.RiddleType;
 import dan.dit.whatsthat.system.RiddleFragment;
