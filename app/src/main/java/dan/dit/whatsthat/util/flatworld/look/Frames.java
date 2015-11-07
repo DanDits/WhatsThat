@@ -32,6 +32,7 @@ public class Frames extends Look {
     int mFrameIndex;
     private long mFrameCounter;
     private long mFrameDuration;
+    private long[] mFrameDurations;
     private boolean mBlendFrames;
     private Paint mBlendPaint;
     private MathFunction mBlendFunction;
@@ -53,6 +54,11 @@ public class Frames extends Look {
     public Frames(Frames toCopy) {
         mFrames = new Bitmap[toCopy.mFrames.length];
         System.arraycopy(toCopy.mFrames, 0, mFrames, 0, mFrames.length);
+        mFrameDurations = toCopy.mFrameDurations != null ? new long[toCopy.mFrameDurations
+                .length] : null;
+        if (toCopy.mFrameDurations != null) {
+            System.arraycopy(toCopy.mFrameDurations, 0, mFrameDurations, 0, mFrameDurations.length);
+        }
         mFrameCounter = 0;
         mFrameIndex = 0;
         mFrameDuration = toCopy.mFrameDuration;
@@ -90,6 +96,14 @@ public class Frames extends Look {
         return mFrames[0].getWidth();
     }
 
+    public Frames setFrameDuration(int index, long duration) {
+        if (mFrameDurations == null) {
+            mFrameDurations = new long[mFrames.length];
+        }
+        mFrameDurations[index] = duration <= 0L ? 0L : duration;
+        return this;
+    }
+
     @Override
     public int getHeight() {
         return mFrames[0].getHeight();
@@ -103,8 +117,9 @@ public class Frames extends Look {
     public boolean update(long updatePeriod) {
         if (mFrames.length > 1) {
             mFrameCounter += updatePeriod;
-            if (mFrameCounter > mFrameDuration) {
-                mFrameCounter -= mFrameDuration;
+            long frameDuration = getCurrentFrameDuration();
+            if (mFrameCounter > frameDuration) {
+                mFrameCounter -= frameDuration;
                 mFrameIndex++;
                 mFrameIndex %= mFrames.length;
                 return true;
@@ -117,6 +132,16 @@ public class Frames extends Look {
         return mBlendFrames && mFrames.length > 1;
     }
 
+    private long getCurrentFrameDuration() {
+        if (mFrameDurations == null) {
+            return mFrameDuration;
+        }
+        long duration = mFrameDurations[mFrameIndex];
+        if (duration <= 0L) {
+            return mFrameDuration;
+        }
+        return duration;
+    }
     @Override
     public void draw(Canvas canvas, float x, float y, Paint paint) {
         if (mVisible) {
@@ -130,23 +155,25 @@ public class Frames extends Look {
                 paint = mBlendPaint;
                 oldAlpha = paint.getAlpha();
                 blendingAlpha = (int) (mBlendFunction.evaluate(Math.min(mFrameCounter / (double)
-                        mFrameDuration, 1.)));
+                        getCurrentFrameDuration(), 1.)));
                 paint.setAlpha(blendingAlpha);
             }
 
             boolean currentDrawn = false;
-            if (!performBlending || blendingAlpha < 128) {
+            if (currFrame != null && (!performBlending || blendingAlpha < 128)) {
                 currentDrawn = true;
                 canvas.drawBitmap(currFrame, x - currFrame.getWidth() + getWidth() + mOffsetX, y - currFrame.getHeight() + getHeight() + mOffsetY, paint);
             }
             if (performBlending) {
                 Bitmap nextFrame = mFrames[(mFrameIndex + 1) % mFrames.length];
-                paint.setAlpha(255 - blendingAlpha);
-                canvas.drawBitmap(nextFrame, x - nextFrame.getWidth() + getWidth() + mOffsetX, y - nextFrame.getHeight() + getHeight() + mOffsetY, paint);
+                if (nextFrame != null) {
+                    paint.setAlpha(255 - blendingAlpha);
+                    canvas.drawBitmap(nextFrame, x - nextFrame.getWidth() + getWidth() + mOffsetX, y - nextFrame.getHeight() + getHeight() + mOffsetY, paint);
 
-                if (!currentDrawn) {
-                    paint.setAlpha(blendingAlpha);
-                    canvas.drawBitmap(currFrame, x - currFrame.getWidth() + getWidth() + mOffsetX, y - currFrame.getHeight() + getHeight() + mOffsetY, paint);
+                    if (!currentDrawn && currFrame != null) {
+                        paint.setAlpha(blendingAlpha);
+                        canvas.drawBitmap(currFrame, x - currFrame.getWidth() + getWidth() + mOffsetX, y - currFrame.getHeight() + getHeight() + mOffsetY, paint);
+                    }
                 }
                 paint.setAlpha(oldAlpha);
             }

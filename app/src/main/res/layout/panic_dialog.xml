@@ -2,136 +2,143 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="match_parent">
-    <LinearLayout
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-
-
-    <ImageView
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:src="@drawable/dontpanic_big"
-        android:id="@+id/panic_dontpanic"/>
+        android:id="@+id/panic_container">
 
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/panic_ask_author"
-            android:drawableLeft="@drawable/brush"
-            android:drawableRight="@drawable/brush"
-            android:id="@+id/author_ask"
-            android:layout_gravity="center_horizontal" />
         <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+        <ImageView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/author_rahmen"
-            android:id="@+id/author_container">
-            <RelativeLayout
+            android:src="@drawable/dontpanic_big"
+            android:id="@+id/panic_dontpanic"/>
+
+            <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:background="@drawable/heart_background"
-                android:layout_marginTop="10dp">
+                android:text="@string/panic_ask_author"
+                android:drawableLeft="@drawable/brush"
+                android:drawableRight="@drawable/brush"
+                android:id="@+id/author_ask"
+                android:layout_gravity="center_horizontal" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/author_rahmen"
+                android:id="@+id/author_container">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:background="@drawable/heart_background"
+                    android:layout_marginTop="10dp">
 
-                <TextView
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:id="@+id/credits_heading"
+                        android:layout_centerHorizontal="true" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:text="Medium Text"
+                        android:id="@+id/author_name"
+                        android:layout_below="@+id/credits_heading"
+                        android:layout_centerHorizontal="true"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:text="Small Text"
+                        android:layout_below="@+id/author_name"
+                        android:id="@+id/author_license"
+                        android:layout_centerHorizontal="true"  />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:text="Small Text"
+                        android:layout_below="@+id/author_license"
+                        android:id="@+id/author_source"
+                        android:layout_centerHorizontal="true" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:text="Small Text"
+                        android:layout_below="@+id/author_source"
+                        android:id="@+id/author_details"
+                        android:layout_centerHorizontal="true" />
+                </RelativeLayout>
+            </LinearLayout>
+
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/panic_ask_type"
+                android:drawableLeft="@drawable/questionmark_green"
+                android:drawableRight="@drawable/questionmark_green"
+                android:id="@+id/panic_ask_type"
+                android:layout_gravity="center_horizontal" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:id="@+id/panic_ask_type_answer">
+                <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:id="@+id/credits_heading"
-                    android:layout_centerHorizontal="true" />
-
+                    android:src="@drawable/alien_achieved" />
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:text="Medium Text"
-                    android:id="@+id/author_name"
-                    android:layout_below="@+id/credits_heading"
-                    android:layout_centerHorizontal="true"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:text="Small Text"
-                    android:layout_below="@+id/author_name"
-                    android:id="@+id/author_license"
-                    android:layout_centerHorizontal="true"  />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:text="Small Text"
-                    android:layout_below="@+id/author_license"
-                    android:id="@+id/author_source"
-                    android:layout_centerHorizontal="true" />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:text="Small Text"
-                    android:layout_below="@+id/author_source"
-                    android:id="@+id/author_details"
-                    android:layout_centerHorizontal="true" />
-            </RelativeLayout>
-        </LinearLayout>
-
+                    android:id="@+id/panic_ask_type_answer_text"
+                    android:background="@drawable/say_alien"
+                    android:layout_gravity="center_horizontal" />
+            </LinearLayout>
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/panic_ask_type"
-            android:drawableLeft="@drawable/questionmark_green"
-            android:drawableRight="@drawable/questionmark_green"
-            android:id="@+id/panic_ask_type"
+            android:text="@string/panic_skip"
+            android:drawableLeft="@drawable/x_orange"
+            android:drawableRight="@drawable/x_orange"
+            android:id="@+id/panic_skip"
             android:layout_gravity="center_horizontal" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:id="@+id/panic_ask_type_answer">
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/alien_achieved" />
-            <TextView
+            <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="Medium Text"
-                android:id="@+id/panic_ask_type_answer_text"
-                android:background="@drawable/say_alien"
-                android:layout_gravity="center_horizontal" />
-        </LinearLayout>
+                android:text="@string/panic_share"
+                android:id="@+id/panic_share"
+                android:drawableLeft="@drawable/share_experiment"
+                android:drawableRight="@drawable/share_experiment"/>
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/panic_skip"
-        android:drawableLeft="@drawable/x_orange"
-        android:drawableRight="@drawable/x_orange"
-        android:id="@+id/panic_skip"
-        android:layout_gravity="center_horizontal" />
-
-        <Button
+            <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/panic_share"
-            android:id="@+id/panic_share"
-            android:drawableLeft="@drawable/share_experiment"
-            android:drawableRight="@drawable/share_experiment"/>
-
-        <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/panic_complain"
-        android:drawableLeft="@drawable/exlamationmark_red"
-        android:drawableRight="@drawable/exlamationmark_red"
-        android:id="@+id/panic_complain"
-        android:layout_gravity="center_horizontal" />
+            android:text="@string/panic_complain"
+            android:drawableLeft="@drawable/exlamationmark_red"
+            android:drawableRight="@drawable/exlamationmark_red"
+            android:id="@+id/panic_complain"
+            android:layout_gravity="center_horizontal" />
 
 
-</LinearLayout>
+        </LinearLayout>
+    </FrameLayout>
 </ScrollView>

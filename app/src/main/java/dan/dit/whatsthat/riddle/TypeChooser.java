@@ -17,7 +17,6 @@ package dan.dit.whatsthat.riddle;
 
 import android.app.Activity;
 import android.content.Context;
-import android.graphics.Color;
 import android.graphics.ColorFilter;
 import android.graphics.LightingColorFilter;
 import android.view.LayoutInflater;
@@ -44,22 +43,24 @@ public class TypeChooser {
     private List<TestSubjectRiddleType> mTestSubjectTypes;
 
 
-    public View makeView(Context context) {
+    public View makeView(Context context, ViewGroup parent) {
         if (mView != null) {
             return mView;
         }
 
         mTestSubjectTypes = TestSubject.getInstance().getAvailableTypes();
-        mView = ((LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.riddle_types, null);
+        mView = ((LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE))
+                .inflate(R.layout.riddle_types, parent);
         GridView grid = (GridView) mView.findViewById(R.id.riddle_types_grid);
         grid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 TestSubjectRiddleType type = mTestSubjectTypes.get(position);
                 type.setSelected(!type.isSelected());
                 mAdapter.notifyDataSetChanged();
             }
         });
+
         mAdapter = new TypesAdapter(context, R.layout.riddle_type);
         grid.setAdapter(mAdapter);
         return mView;
@@ -84,6 +85,7 @@ public class TypeChooser {
                 row = mInflater.inflate(mLayoutResourceId, parent, false);
             }
             TestSubjectRiddleType type = mTestSubjectTypes.get(position);
+            row.setTag(type);
             ImageView typeIcon = (ImageView) row.findViewById(R.id.imageView);
             typeIcon.setImageResource(type.getIconResId());
             if (type.isSelected()) {

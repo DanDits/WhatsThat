@@ -1,108 +1,113 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:custom="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <view
-        class="dan.dit.whatsthat.util.ui.LinearLayoutProgressBar"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:custom="http://schemas.android.com/apk/res-auto"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:id="@+id/progress_bar"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true">
-        <RelativeLayout
+        android:layout_height="match_parent">
+        <view
+            class="dan.dit.whatsthat.util.ui.LinearLayoutProgressBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="top">
+            android:orientation="horizontal"
+            android:id="@+id/progress_bar"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top">
 
-            <view
-                class="dan.dit.whatsthat.util.ui.ImageButtonWithNumber"
-                custom:numberColor="@color/black"
-                custom:numberSize="25dp"
-                custom:numberBold="true"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/open_store"
-                android:src="@drawable/alien_menu_enter"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentTop="true"
-                android:adjustViewBounds="false"
-                android:layout_gravity="left"
-                android:scaleType="fitCenter"
-                android:layout_alignBottom="@+id/riddle_make_next" />
-            <ImageButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/riddle_hint"
-                android:src="@drawable/dontpanic"
-                android:layout_gravity="right"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentRight="true"
-                android:adjustViewBounds="false" />
-
-            <ImageButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/riddle_cheat"
-                android:src="@drawable/cheat"
-                android:layout_alignParentTop="true"
-                android:layout_toLeftOf="@+id/riddle_make_next"
-                android:layout_toStartOf="@+id/riddle_make_next" />
-
-            <ImageButton android:id="@+id/riddle_make_next"
-                android:layout_width="wrap_content" android:layout_height="wrap_content"
-                android:src="@drawable/kid00"
-                style="@style/button_important"
-                android:layout_centerHorizontal="true"
-                android:scaleType="centerInside"
-                android:layout_alignBottom="@+id/riddle_hint" />
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignBottom="@+id/riddle_make_next"
-                android:layout_toRightOf="@+id/riddle_make_next"
-                android:layout_toLeftOf="@+id/riddle_hint"
-                android:gravity="center">
-                <TextView
+                <view
+                    class="dan.dit.whatsthat.util.ui.ImageButtonWithNumber"
+                    custom:numberColor="@color/black"
+                    custom:numberSize="25dp"
+                    custom:numberBold="true"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/currency"
-                    android:gravity="center"
-                    android:textColor="@color/black"
-                    android:background="@drawable/think_currency"
-                    />
-            </LinearLayout>
+                    android:id="@+id/open_store"
+                    android:src="@drawable/alien_menu_enter"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentTop="true"
+                    android:adjustViewBounds="false"
+                    android:layout_gravity="left"
+                    android:scaleType="fitCenter"
+                    android:layout_alignBottom="@+id/riddle_make_next" />
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/riddle_hint"
+                    android:src="@drawable/dontpanic"
+                    android:layout_gravity="right"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentRight="true"
+                    android:adjustViewBounds="false" />
 
-        </RelativeLayout>
-    </view>
-    <FrameLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:id="@+id/riddle_container"
-        android:layout_below="@+id/progress_bar" >
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/riddle_cheat"
+                    android:src="@drawable/cheat"
+                    android:layout_alignParentTop="true"
+                    android:layout_toLeftOf="@+id/riddle_make_next"
+                    android:layout_toStartOf="@+id/riddle_make_next" />
 
-        <view
+                <ImageButton android:id="@+id/riddle_make_next"
+                    android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:src="@drawable/kid00"
+                    style="@style/button_important"
+                    android:layout_centerHorizontal="true"
+                    android:scaleType="centerInside"
+                    android:layout_alignBottom="@+id/riddle_hint" />
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/riddle_make_next"
+                    android:layout_toRightOf="@+id/riddle_make_next"
+                    android:layout_toLeftOf="@+id/riddle_hint"
+                    android:gravity="center">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/currency"
+                        android:gravity="center"
+                        android:textColor="@color/black"
+                        android:background="@drawable/think_currency"
+                        />
+                </LinearLayout>
+
+            </RelativeLayout>
+        </view>
+        <FrameLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            class="dan.dit.whatsthat.riddle.RiddleView"
-            android:id="@+id/riddle_view"/>
-    </FrameLayout>
+            android:layout_alignParentLeft="true"
+            android:id="@+id/riddle_container"
+            android:layout_below="@+id/progress_bar" >
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentBottom="true"
-        android:layout_below="@+id/riddle_container"
-        android:background="@drawable/letter_click_border">
-        <view
+            <view
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                class="dan.dit.whatsthat.riddle.RiddleView"
+                android:id="@+id/riddle_view"/>
+        </FrameLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            class="dan.dit.whatsthat.solution.SolutionInputView"
-            android:id="@+id/solution_input_view"/>
-    </LinearLayout>
-</RelativeLayout>
+            android:orientation="vertical"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentBottom="true"
+            android:layout_below="@+id/riddle_container"
+            android:background="@drawable/letter_click_border">
+            <view
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                class="dan.dit.whatsthat.solution.SolutionInputView"
+                android:id="@+id/solution_input_view"/>
+        </LinearLayout>
+    </RelativeLayout>
+</FrameLayout>

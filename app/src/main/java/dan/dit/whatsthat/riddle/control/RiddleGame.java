@@ -23,6 +23,8 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.MotionEvent;
 
+import com.plattysoft.leonids.ParticleSystem;
+
 import dan.dit.whatsthat.BuildConfig;
 import dan.dit.whatsthat.achievement.AchievementData;
 import dan.dit.whatsthat.achievement.AchievementProperties;
@@ -188,6 +190,10 @@ public abstract class RiddleGame {
         mRiddleController.addAnimation(animation);
     }
 
+    public boolean prepareParticleSystem(@NonNull ParticleSystem particleSystem) {
+        return mRiddleController.prepareParticleSystem(particleSystem);
+    }
+
     public void addAnimation(@NonNull RiddleAnimation animation, long delay) {
         mRiddleController.addAnimation(animation, delay);
     }
@@ -317,5 +323,9 @@ public abstract class RiddleGame {
 
     public boolean requiresOrientationSensor() {
         return false;
+    }
+
+    public void onGotVisible() {
+
     }
 }

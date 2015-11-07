@@ -275,7 +275,11 @@ public class TestSubject {
                 }
             }
         }
-        return (int) (maxAchievementScore * fraction) - mPurse.mShopWallet.getEntryValue(SHW_KEY_SPENT_SCORE_ON_LEVEL_UP);
+        int cost =  (int) (maxAchievementScore * fraction) - mPurse.mShopWallet.getEntryValue
+                (SHW_KEY_SPENT_SCORE_ON_LEVEL_UP);
+        // now round to some decent value
+        final int roundingPrecision = 5;
+        return cost + roundingPrecision - (cost % roundingPrecision);
     }
 
     public synchronized boolean purchaseLevelUp() {

@@ -24,4 +24,5 @@ dependencies {
     compile 'com.android.support:support-v4:23.1.0'
     compile project(':supertoasts')
     compile 'org.sufficientlysecure:donations:2.4'
+    compile project(':leonidlib')
 }

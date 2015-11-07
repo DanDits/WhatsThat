@@ -31,9 +31,11 @@ import android.text.InputType;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AccelerateInterpolator;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.OvershootInterpolator;
@@ -44,6 +46,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.github.johnpersano.supertoasts.SuperToast;
+import com.plattysoft.leonids.ParticleSystem;
 
 import java.io.File;
 import java.io.FileReader;
@@ -89,7 +92,9 @@ import dan.dit.whatsthat.util.wallet.WalletEntry;
 /**
  * Created by daniel on 10.04.15.
  */
-public class RiddleFragment extends Fragment implements PercentProgressListener, Wallet.OnEntryChangedListener, LoaderManager.LoaderCallbacks<Cursor>, SolutionInputListener, UnsolvedRiddlesChooser.Callback, NoPanicDialog.Callback {
+public class RiddleFragment extends Fragment implements PercentProgressListener, Wallet
+        .OnEntryChangedListener, LoaderManager.LoaderCallbacks<Cursor>, SolutionInputListener,
+        UnsolvedRiddlesChooser.Callback, NoPanicDialog.Callback, RiddleView.PartyCallback {
     public static final Map<String, Image> ALL_IMAGES = new HashMap<>();
     private static final String PRE_ENCRYPTED_COMPLAIN = "Image: ";
     private static final String POST_ENCRYPTED_COMPLAIN = "EndImage";
@@ -337,7 +342,8 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
         mSolutionView.clearListener();
     }
 
-    private void giveCandy(TestSubjectToast candyToast) {
+    @Override
+    public void giveCandy(TestSubjectToast candyToast) {
         Animation anim = AnimationUtils.loadAnimation(getActivity(), R.anim.solution_complete);
         mSolutionView.startAnimation(anim);
 
@@ -373,13 +379,11 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
 
     @Override
     public boolean onSolutionComplete(String userWord) {
-        TestSubjectToast solvedToast = null;
         if (mRiddleView.hasController()) {
-            solvedToast = mRiddleView.makeSolvedToast(getResources());
+            mRiddleView.checkParty(getResources(), this);
             mRiddleView.removeController();
         }
         mSolutionView.clearListener();
-        giveCandy(solvedToast);
         return true;
     }
 
@@ -647,6 +651,8 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
                                 }
                             } else if (value.equalsIgnoreCase("hide")) {
                                 mBtnCheat.setVisibility(View.GONE);
+                            } else if (value.equalsIgnoreCase("party")) {
+                                doParty(0);
                             } else if (value.equalsIgnoreCase("boom")) {
                                 throw new IllegalArgumentException("Boom.");
                             } else if (value.equalsIgnoreCase("sudo")) {
@@ -687,6 +693,55 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
         UiStyleUtil.setDialogDividerColor(dialog, getResources(), getResources().getColor(R.color.alien_purple));
     }
 
+    @Override
+    public void doParty(int partyParam) {
+        final int emittingTime = 3000;
+        final long particleLifeTime = 1500L;
+        final int konfettiPerEmitterPerSecond = 8 + Math.max(partyParam, 0) * 2;
+        final int konfettiPerEmitter = (int) (particleLifeTime *
+                konfettiPerEmitterPerSecond /
+                1000L);
+        final ViewGroup parent = (ViewGroup) getView();
+        final View emitAtView = mBtnRiddles;
+        final int emitGravity = Gravity.BOTTOM;
+        if (parent == null || emitAtView == null) {
+            return;
+        }
+        new ParticleSystem(getActivity(), konfettiPerEmitter, R.drawable.konfetti_long1,
+                particleLifeTime, 0)
+                .setParentViewGroup(parent)
+                .setScaleRange(0.7f, 1.3f)
+                .setSpeedModuleAndAngleRange(0.07f, 0.12f, 0, 180)
+                .setRotationSpeedRange(-90, 90)
+                .setAcceleration(0.00013f, 90)
+                .setFadeOut(200, new AccelerateInterpolator())
+                .emitWithGravity(emitAtView, emitGravity, konfettiPerEmitterPerSecond, emittingTime);
+        new ParticleSystem(getActivity(), konfettiPerEmitter, R.drawable.konfetti_long2,
+                particleLifeTime, 0)
+                .setParentViewGroup(parent)
+                .setScaleRange(0.7f, 1.3f)
+                .setSpeedModuleAndAngleRange(0.07f, 0.12f, 0, 180)
+                .setRotationSpeedRange(-90, 90)
+                .setAcceleration(0.00013f, 90)
+                .setFadeOut(200, new AccelerateInterpolator())
+                .emitWithGravity(emitAtView, emitGravity, konfettiPerEmitterPerSecond, emittingTime);
+        new ParticleSystem(getActivity(), konfettiPerEmitter, R.drawable.konfetti_small1, particleLifeTime,
+                0)
+                .setParentViewGroup(parent)
+                .setSpeedModuleAndAngleRange(0.07f, 0.12f, 0, 180)
+                .setAcceleration(0.00013f, 90)
+                .setFadeOut(200, new AccelerateInterpolator())
+                .emitWithGravity(emitAtView, emitGravity, konfettiPerEmitterPerSecond, emittingTime);
+        new ParticleSystem(getActivity(), konfettiPerEmitter, R.drawable.konfetti_small2,
+                particleLifeTime,
+                0)
+                .setParentViewGroup(parent)
+                .setSpeedModuleAndAngleRange(0.07f, 0.12f, 0, 180)
+                .setAcceleration(0.00013f, 90)
+                .setFadeOut(200, new AccelerateInterpolator())
+                .emitWithGravity(emitAtView, emitGravity, konfettiPerEmitterPerSecond, emittingTime);
+    }
+
     private void onRiddlesClick() {
         if (!canClickNextRiddle()) {
             mBtnRiddles.setEnabled(false);
@@ -724,6 +779,8 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
         mManager.cancelMakeRiddle();
         TestSubject.getInstance().removeScoreChangedListener(this);
         if (mRiddleView != null) {
+            mRiddleView.setVisibility(View.INVISIBLE); // else it is black when being reloaded
+            // after having opened the shop
             clearRiddle();
         }
         Log.d("Riddle", "Stopping riddle fragment");

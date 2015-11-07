@@ -31,6 +31,32 @@ public abstract class MathFunction {
     public abstract double evaluate(double at);
 
     /**
+     * A modified basic sinus function. That is f(x)= a*sin(b*x)+c. The period is 2 * PI / b.
+     */
+    public static class Sinus extends MathFunction {
+        private final double mAmplitude;
+        private final double mPeriodFactor;
+        private final double mOffset;
+
+        /**
+         * Creates a new sinus function. Will take values between (-amplitue and +amplitude) +
+         * offset for any given input.
+         * @param amplitude The amplitude.
+         * @param period Sinus period.
+         * @param offset Offset of the sinus values.
+         */
+        public Sinus(double amplitude, double period, double offset) {
+            mAmplitude = amplitude;
+            mPeriodFactor = 2. * Math.PI / period;
+            mOffset = offset;
+        }
+
+        @Override
+        public double evaluate(double at) {
+            return mAmplitude * Math.sin(mPeriodFactor * at) + mOffset;
+        }
+    }
+    /**
      * A linear one dimensional function. That is f(x) = a*x + c for some double
      * values a and c.
      */

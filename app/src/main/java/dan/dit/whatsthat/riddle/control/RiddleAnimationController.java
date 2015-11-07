@@ -4,6 +4,7 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -76,6 +77,8 @@ public class RiddleAnimationController {
     public void addAnimation(@NonNull RiddleAnimation animation, long delay) {
         mAnimations.add(animation);
         animation.mBirthTime = -(mTime + Math.max(delay, 0L)); // non positive values mark not yet
+        Log.d("Riddle", "Animation added " + animation + " with delay " + delay + " birthtime is " +
+                "" + animation.mBirthTime + " current is " + mTime);
         // born animation
         synchronized (mAnimations) {
             mAnimationsIterateData = new ArrayList<>(mAnimations);

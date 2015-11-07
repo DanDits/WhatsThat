@@ -24,16 +24,23 @@ import android.graphics.PorterDuffXfermode;
 import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.MotionEvent;
+import android.view.animation.AccelerateInterpolator;
+
+import com.plattysoft.leonids.ParticleSystem;
 
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
+import dan.dit.whatsthat.R;
 import dan.dit.whatsthat.achievement.AchievementProperties;
 import dan.dit.whatsthat.image.Image;
 import dan.dit.whatsthat.riddle.Riddle;
 import dan.dit.whatsthat.riddle.RiddleConfig;
 import dan.dit.whatsthat.riddle.achievement.holders.AchievementCircle;
+import dan.dit.whatsthat.riddle.control.LookRiddleAnimation;
 import dan.dit.whatsthat.riddle.control.RiddleGame;
 import dan.dit.whatsthat.riddle.types.Types;
 import dan.dit.whatsthat.testsubject.TestSubject;
@@ -41,6 +48,8 @@ import dan.dit.whatsthat.testsubject.shopping.sortiment.SortimentHolder;
 import dan.dit.whatsthat.util.PercentProgressListener;
 import dan.dit.whatsthat.util.compaction.CompactedDataCorruptException;
 import dan.dit.whatsthat.util.compaction.Compacter;
+import dan.dit.whatsthat.util.flatworld.look.Frames;
+import dan.dit.whatsthat.util.flatworld.look.FramesOneshot;
 import dan.dit.whatsthat.util.image.ColorAnalysisUtil;
 import dan.dit.whatsthat.util.image.ImageUtil;
 import dan.dit.whatsthat.util.listlock.ListLockMaxIndex;
@@ -99,6 +108,8 @@ public class RiddleCircle extends RiddleGame {
     private ListLockMaxIndex mLock;
     private LockDistanceRefresher mLockRefresher;
     private boolean mFeatureDivideByMove;
+    private Resources mRes;
+    private Timer mTimer;
 
     public RiddleCircle(Riddle riddle, Image image, Bitmap bitmap, Resources res, RiddleConfig config, PercentProgressListener listener) {
         super(riddle, image, bitmap, res, config, listener);
@@ -107,6 +118,10 @@ public class RiddleCircle extends RiddleGame {
     @Override
     public void onClose() {
         super.onClose();
+        if (mTimer != null) {
+            mTimer.cancel();
+            mTimer = null;
+        }
         mRaster = null;
         mPaint = null;
         mFramePaint = null;
@@ -121,6 +136,7 @@ public class RiddleCircle extends RiddleGame {
 
     @Override
     public void initBitmap(Resources res, PercentProgressListener listener) {
+        mRes = res;
         // fill raster with brightness and calculate average brightness
         {
             mRaster = new double[mBitmap.getHeight() * mBitmap.getWidth()];
@@ -199,6 +215,50 @@ public class RiddleCircle extends RiddleGame {
         }
 
         //riddle is now fully initialized and ready to be displayed and interacted with
+    }
+
+    @Override
+    public void onGotVisible() {
+        if (mCircleCenterX.size() == 1) {
+            mTimer = new Timer();
+            mTimer.schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    bigBrotherAnimationChecked();
+                }
+            }, 60000L);
+        }
+    }
+
+    private void bigBrotherAnimationChecked() {
+        Log.d("Riddle", "Now checking: " + mCircleCenterX);
+        if (mCircleCenterX != null && mCircleCenterX.size() == 1) {
+            Log.d("Riddle", "Setting up animation for blinking eye.");
+            long step1Duration = 5000L;
+            long step2Duration = 200L;
+            long step3Duration = 4000L;
+            long step4Duration = 300L;
+            long step5Duration = 4000L;
+            long totalLifeTime = step1Duration + step2Duration + step3Duration + step4Duration +
+                    step5Duration;
+            int sizeFraction = 2;
+            Bitmap[] frames = new Bitmap[5];
+            frames[0] = ImageUtil.loadBitmap(mRes, R.drawable.googly_eyes, mConfig.mWidth / sizeFraction, mConfig
+                    .mHeight / sizeFraction, true);
+            frames[1] = null;
+            frames[2] = frames[0];
+            frames[3] = null;
+            frames[4] = frames[0];
+            Frames look = new FramesOneshot(frames, totalLifeTime)
+                    .setFrameDuration(0, step1Duration)
+                    .setFrameDuration(1, step2Duration)
+                    .setFrameDuration(2, step3Duration)
+                    .setFrameDuration(3, step4Duration)
+                    .setFrameDuration(4, step5Duration);
+            LookRiddleAnimation anim = new LookRiddleAnimation(look, mConfig.mWidth / 2 - look
+                    .getWidth() / 2, mConfig.mHeight / 3 - look.getHeight() / 2, totalLifeTime);
+            addAnimation(anim);
+        }
     }
 
     private boolean initCircles(float topLeftX, float topLeftY, float width, float height) {
@@ -382,6 +442,14 @@ public class RiddleCircle extends RiddleGame {
                 evolveCircleUnchecked(index, currX, currY, newRadius, true);
                 if (mConfig.mAchievementGameData != null) {
                     mConfig.mAchievementGameData.increment(AchievementCircle.KEY_CIRCLE_DIVIDED_BY_MOVE, 1L, 0L);
+                }
+                ParticleSystem system = new ParticleSystem(mRes, 10, R.drawable
+                        .spark, 400);
+                if (prepareParticleSystem(system)) {
+                    system.setSpeedModuleAndAngleRange(0.05f, 0.15f, 0, 360)
+                            .setAccelerationModuleAndAndAngleRange(0.0001f, 0.0002f, 0, 360)
+                            .setFadeOut(200, new AccelerateInterpolator())
+                            .emit((int) currX, (int) currY, 10, 300);
                 }
                 return true;
             }

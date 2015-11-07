@@ -34,6 +34,7 @@ import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
 
+import dan.dit.whatsthat.R;
 import dan.dit.whatsthat.riddle.control.RiddleController;
 import dan.dit.whatsthat.riddle.types.PracticalRiddleType;
 import dan.dit.whatsthat.system.NoPanicDialog;
@@ -48,12 +49,17 @@ public class RiddleView extends SurfaceView implements SensorEventListener {
     private Sensor mMagnetometer;
     private Sensor mAccelerometer;
     private boolean mIsResumed;
+    private int mBackgroundColor;
 
     public RiddleView(Context context, AttributeSet attrs) {
         super(context, attrs);
         setFocusable(true);
-        setZOrderOnTop(true);    // necessary
-        getHolder().setFormat(PixelFormat.TRANSLUCENT);
+        setVisibility(View.INVISIBLE);
+        mBackgroundColor = getResources().getColor(R.color.main_background);
+        //setZOrderOnTop(true);    // necessary if there is no background color drawn to clear
+                                    // but simply a clearing paint, because else the background
+                                    // is black
+        getHolder().setFormat(PixelFormat.RGBA_8888);
         setOnTouchListener(new OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent event) {
@@ -119,7 +125,7 @@ public class RiddleView extends SurfaceView implements SensorEventListener {
             Canvas canvas = holder.lockCanvas();
             if (canvas != null) {
                 // clear previously drawn artifacts (view is triple buffered), very important if there is any pixel with alpha drawn by the riddle
-                canvas.drawColor(0, android.graphics.PorterDuff.Mode.CLEAR);
+                canvas.drawColor(mBackgroundColor);
                 if (hasController()) {
                     mRiddleCtr.draw(canvas);
                 }
@@ -158,12 +164,13 @@ public class RiddleView extends SurfaceView implements SensorEventListener {
                 mGeomagneticValues = new float[3];
             }
         }
-        draw();
         if (mIsResumed) {
             mRiddleCtr.resumePeriodicEventIfRequired();
         } else {
             onPause();
         }
+        setVisibility(View.VISIBLE);
+        draw();
     }
 
     public synchronized boolean hasController() {
@@ -258,10 +265,15 @@ public class RiddleView extends SurfaceView implements SensorEventListener {
         return mRiddleCtr.getRiddleType();
     }
 
-    public TestSubjectToast makeSolvedToast(Resources res) {
+    public interface PartyCallback {
+        void doParty(int partyParam);
+        void giveCandy(TestSubjectToast toast);
+    }
+
+    public void checkParty(@NonNull Resources res, @NonNull PartyCallback callback) {
         if (!hasController()) {
-            throw new IllegalStateException("No controller initialized.");
+            throw new IllegalArgumentException("No controller initialized.");
         }
-        return mRiddleCtr.makeSolvedToast(res);
+        mRiddleCtr.checkParty(res, callback);
     }
 }

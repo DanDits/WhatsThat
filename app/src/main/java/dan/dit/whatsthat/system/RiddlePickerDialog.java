@@ -16,32 +16,24 @@
 package dan.dit.whatsthat.system;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.TabHost;
 
 import java.util.Collection;
 
 import dan.dit.whatsthat.R;
 import dan.dit.whatsthat.riddle.Riddle;
 import dan.dit.whatsthat.riddle.RiddleInitializer;
-import dan.dit.whatsthat.riddle.RiddleMaker;
-import dan.dit.whatsthat.riddle.RiddleManager;
 import dan.dit.whatsthat.riddle.TypeChooser;
 import dan.dit.whatsthat.riddle.UnsolvedRiddlesChooser;
 import dan.dit.whatsthat.testsubject.TestSubject;
 import dan.dit.whatsthat.util.ui.GlasDialog;
-import dan.dit.whatsthat.util.ui.UiStyleUtil;
 
 /**
  * Created by daniel on 05.05.15.
@@ -70,9 +62,9 @@ public class RiddlePickerDialog extends DialogFragment {
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        View baseView = getActivity().getLayoutInflater().inflate(R.layout.riddle_picker, null);
-        this.getActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL, WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL);
+        final View baseView = getActivity().getLayoutInflater().inflate(R.layout.riddle_picker, null);
 
+        this.getActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL, WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL);
         mIdToHide = getArguments().getLong(Riddle.LAST_VISIBLE_UNSOLVED_RIDDLE_ID_KEY, Riddle.NO_ID);
         Log.d("Riddle", "Showing riddle picker dialog, hiding id: " + mIdToHide);
 
@@ -80,7 +72,7 @@ public class RiddlePickerDialog extends DialogFragment {
         mTypeChooser = new TypeChooser();
         baseView.findViewById(R.id.subtitle).setVisibility(TestSubject.getInstance().canChooseNewRiddle() ? View.VISIBLE : View.GONE);
         mContainer = (ViewGroup) baseView.findViewById(R.id.unsolved_and_types_container);
-        mContainer.addView(mTypeChooser.makeView(getActivity()));
+        mTypeChooser.makeView(getActivity(), mContainer);
         if (RiddleInitializer.INSTANCE.getRiddleManager().getUnsolvedRiddleCount() > (mIdToHide == Riddle.NO_ID ? 0 : 1)) {
             mContainer.addView(mChooser.makeView(getActivity(), mIdToHide, new UnsolvedRiddlesChooser.UnsolvedRiddleSelectionChangeListener() {
                 @Override

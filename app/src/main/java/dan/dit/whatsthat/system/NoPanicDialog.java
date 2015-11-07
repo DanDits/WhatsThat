@@ -27,15 +27,19 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.view.animation.AccelerateInterpolator;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.plattysoft.leonids.ParticleSystem;
 
 import java.io.File;
 import java.net.URL;
@@ -67,11 +71,12 @@ public class NoPanicDialog extends DialogFragment {
     private ViewGroup mAskTypeAnswer;
     private TextView mAskTypeAnswerText;
     private int mFunCounter;
-    private View mAuthorContainer;
+    private ViewGroup mAuthorContainer;
     private Button mShareExperiment;
     private URL mToShareLink;
     private Bitmap mToShare;
     private AsyncTask<Void, Void, File> mShareBuildTask;
+    private ViewGroup mTotalContainer;
 
     public interface Callback {
         boolean canSkip();
@@ -141,9 +146,10 @@ public class NoPanicDialog extends DialogFragment {
                     onAskAuthor();
                 }
             });
-            mAuthorContainer = baseView.findViewById(R.id.author_container);
+            mAuthorContainer = (ViewGroup) baseView.findViewById(R.id.author_container);
             authorQuestion.setVisibility(View.VISIBLE);
             mAuthorContainer.setVisibility(View.GONE);
+            mTotalContainer = (ViewGroup) baseView.findViewById(R.id.panic_container);
             ((TextView) baseView.findViewById(R.id.credits_heading)).setText(headings[(int) (Math.random() * headings.length)]);
 
             ImageAuthor author = mImage.getAuthor();
@@ -153,6 +159,14 @@ public class NoPanicDialog extends DialogFragment {
                 @Override
                 public boolean onTouch(View view, MotionEvent motionEvent) {
                     if (motionEvent.getActionMasked() == MotionEvent.ACTION_DOWN) {
+                        new ParticleSystem(getActivity(), 10, R.drawable.heart, 1000L, 0)
+                                .setParentViewGroup(mTotalContainer)
+                                .setScaleRange(0.7f, 1.3f)
+                                .setSpeedModuleAndAngleRange(0.07f, 0.16f, 180, 360)
+                                .setRotationSpeedRange(-90, 90)
+                                .setAcceleration(0.00013f, 90)
+                                .setFadeOut(200, new AccelerateInterpolator())
+                                .emitWithGravity(view, Gravity.CENTER, 3, 3000);
                         AchievementProperties data = TestSubject.getInstance().getAchievementHolder().getMiscData();
                         if (data != null) {
                             data.increment(MiscAchievementHolder.KEY_ADMIRED_IMAGE_AUTHOR, 1L, 0L);

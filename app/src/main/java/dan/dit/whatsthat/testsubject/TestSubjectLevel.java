@@ -21,6 +21,7 @@ import android.view.View;
 import java.util.List;
 
 import dan.dit.whatsthat.R;
+import dan.dit.whatsthat.preferences.User;
 import dan.dit.whatsthat.riddle.types.PracticalRiddleType;
 import dan.dit.whatsthat.testsubject.intro.Episode;
 import dan.dit.whatsthat.testsubject.intro.EpisodeBuilder;
@@ -508,6 +509,7 @@ public abstract class TestSubjectLevel {
 
         @Override
         protected void onLeveledUp() {
+            User.getInstance().givePermission(User.PERMISSION_WORKSHOP);
         }
         @Override
         public double getLevelUpAchievementScoreFraction() {

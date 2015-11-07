@@ -18,14 +18,16 @@ package dan.dit.whatsthat.riddle.control;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Canvas;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.ViewGroup;
-import android.view.animation.AnimationUtils;
+import android.view.animation.AccelerateInterpolator;
 
 import com.github.johnpersano.supertoasts.SuperToast;
+import com.plattysoft.leonids.ParticleSystem;
 
 import dan.dit.whatsthat.R;
 import dan.dit.whatsthat.achievement.AchievementManager;
@@ -50,6 +52,7 @@ public class RiddleController implements RiddleAnimationController.OnAnimationCo
     private GamePeriodicThread mPeriodicThread;
     private long mMissingUpdateTime;
     private RiddleAnimationController mRiddleAnimationController;
+    private Handler mHandler;
 
     /**
      * Initializes the RiddleController with the RiddleGame that decorates the given Riddle.
@@ -170,13 +173,15 @@ public class RiddleController implements RiddleAnimationController.OnAnimationCo
     }
 
     /**
-     * Invoked when the RiddleView got visible and valid.
+     * Invoked when the RiddleView got visible and valid. On the UI thread.
      * @param riddleViewContainer The container that contains the valid RiddleView
      */
     public final void onRiddleVisible(@NonNull ViewGroup riddleViewContainer) {
         mRiddleViewContainer = riddleViewContainer;
         mRiddleView = (RiddleView) mRiddleViewContainer.findViewById(R.id.riddle_view);
+        mHandler = new Handler();
         mMissingUpdateTime = 0L;
+        mRiddleGame.onGotVisible();
         onRiddleGotVisible();
     }
 
@@ -248,7 +253,13 @@ public class RiddleController implements RiddleAnimationController.OnAnimationCo
      * If there is a valid riddle and a positive periodic event period, resume (or restart) the rendering and periodic threads.
      */
     public synchronized void resumePeriodicEventIfRequired() {
-        if (riddleAvailable() && mRiddleView != null && mRiddleGame.requiresPeriodicEvent()) {
+        if (mRiddleGame != null && mRiddleGame.requiresPeriodicEvent()) {
+            resumePeriodicEvent();
+        }
+    }
+
+    private synchronized void resumePeriodicEvent() {
+        if (riddleAvailable() && mRiddleView != null) {
             if (mPeriodicThread == null || !mPeriodicThread.isRunning()) {
                 // if thread is not running yet or not anymore, (re)start.
                 // use runnable that is posted by previous running thread, if any, to the ui
@@ -310,7 +321,7 @@ public class RiddleController implements RiddleAnimationController.OnAnimationCo
     }
 
     private int[] mScores = new int[4];
-    public TestSubjectToast makeSolvedToast(Resources res) {
+    public void checkParty(@NonNull Resources res, @NonNull RiddleView.PartyCallback callback) {
         TestSubjectToast toast = new TestSubjectToast(Gravity.CENTER, 0, 0, mRiddle.getType().getIconResId(), 0, SuperToast.Duration.MEDIUM);
         toast.mAnimations = SuperToast.Animations.POPUP;
         toast.mBackgroundColor = res.getColor(R.color.main_background);
@@ -318,9 +329,10 @@ public class RiddleController implements RiddleAnimationController.OnAnimationCo
         String[] candies = res.getStringArray(TestSubject.getInstance().getRiddleSolvedResIds());
         mRiddleGame.calculateGainedScore(mScores);
         int score = mScores[0];
+        int party = 0;
         if (mScores[3] > 0) {
             // got bonus
-            toast.mTextColor = res.getColor(R.color.important_on_main_background);
+            party = mScores[3];
         }
         StringBuilder builder = new StringBuilder();
         if (candies != null && candies.length > 0) {
@@ -336,7 +348,10 @@ public class RiddleController implements RiddleAnimationController.OnAnimationCo
         }
         toast.mText = builder.toString();
         toast.mTextSize = 40;
-        return toast;
+        callback.giveCandy(toast);
+        if (party > 0) {
+            callback.doParty(party);
+        }
     }
 
     @Override
@@ -345,11 +360,39 @@ public class RiddleController implements RiddleAnimationController.OnAnimationCo
             return;
         }
         int count = mRiddleAnimationController.getActiveAnimationsCount();
+        // ensure the following actions take place on ui thread
+
         if (count == 0) {
-            stopPeriodicEvent();
+            mHandler.post(new Runnable() {
+                @Override
+                public void run() {
+                    stopPeriodicEvent(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (mRiddleView != null) {
+                                mRiddleView.draw();
+                            }
+                        }
+                    });
+                }
+            });
         } else if (count > 0) {
-            // ensure period thread running
-            resumePeriodicEventIfRequired();
+            mHandler.post(new Runnable() {
+                @Override
+                public void run() {
+                    resumePeriodicEvent();
+                }
+            });
         }
+    }
+
+    public boolean prepareParticleSystem(@NonNull ParticleSystem particleSystem) {
+        if (mRiddleView != null) {
+            ViewGroup parent = (ViewGroup) mRiddleView.getParent();
+            particleSystem.setParentViewGroup(parent);
+            particleSystem.setIgnorePositionInParent();
+            return true;
+        }
+        return false;
     }
 }
