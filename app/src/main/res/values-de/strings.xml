@@ -266,4 +266,6 @@
         <item quantity="other">%1$d Bilder</item>
     </plurals>
     <string name="dependency_or">oder</string>
+    <string name="panic_share_dialog">Teile Experiment Bild mit...</string>
+    <string name="panic_share_failed">Teilen des Experiments fehlgeschlagen.</string>
 </resources>

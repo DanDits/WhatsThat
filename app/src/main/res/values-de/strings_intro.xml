@@ -13,7 +13,7 @@
 
     <!-- Level 0 -->
     <string name="test_subject_0_name">Verwirrtes Etwas</string>
-    <string name="test_subject_0_int">Nur Instinkte messbar</string>
+    <string name="test_subject_0_int">Archaische Instinkte</string>
     <string-array name="test_subject_0_0_intro_main">
         <item>Hallo Du, kannst du mich verstehen?</item>
         <item>Die Neuronen reagieren auf meine liebliche Stimme. </item>
@@ -35,7 +35,7 @@
     </string-array>
     <string-array name="test_subject_0_3_intro_main">
         <item>Meine Schöpfer und ich, oder kurz gesagt: wir.</item>
-        <item>Wir wollen die Erde und das Leben besser verstehen.</item>
+        <item>Wir wollen das Leben auf dem Planeten Erde besser verstehen.</item>
         <item>Unsere Wahl ist dabei auf dich gefallen.</item>
         <item>Du wirst unser Versuchsobjekt sein</item>
         <item>Deswegen haben wir dich mit dem Traktorstrahl aufgesammelt.</item>
@@ -51,9 +51,10 @@
         <item>Ein Gehirn von der Größe einer Galaxie.. und dann.. nun ja.. deines daneben…</item>
         <item>Ich hoffe ihr werdet euch trotzdem verstehen</item>
         <item>Test: Ist 13 eine Primzahl?</item>
-        <item>Antwortzeit überschritten. Keine Reaktion festzustellen.</item>
-        <item>Ok vielleicht was einfacheres, denk mal an etwas zu essen.</item>
-        <item>Aha, Süßigkeiten.</item>
+        <item>Antwortzeit überschritten. Reaktion nicht festzustellen.</item>
+        <item>Ok vielleicht was einfacheres.</item>
+        <item>Denk mal an etwas zu essen.</item>
+        <item>Aha. Süßigkeiten.</item>
         <item>Wunderbar, da der Anschluss funktioniert können wir hoffentlich gleich beginnen.</item>
         <item>Ich hoffe mal du bist nicht schwer von Begriff.</item>
         <item>Nicht das wir dich überfordern. Mal sehen.. Buchstaben, nö…Zahlen, negativ…</item>
@@ -118,7 +119,11 @@
     <string name="test_subject_2_name">Möchtegern</string>
     <string name="test_subject_2_int">Ein fernes Ziel</string>
     <string-array name="test_subject_2_0_intro_main">
-        <item>WiseMind ist außer sich.. vor Begeisterung.</item>
+        <item>Was meinst du als Außenstehender eigentlich zum Thema Intelligenz?</item>
+        <item>Keine Reaktion.</item>
+        <item>Mal wieder.</item>
+        <item>Das war nicht anders zu erwarten.</item>
+        <item>Trotdzem ist WiseMind außer sich.. vor Begeisterung.</item>
         <item>Sie meint, sie hätte von Anfang an recht gehabt.</item>
         <item>Ich allerdings behaupte, du hast nur gelernt, was wir von dir sehen wollten.</item>
         <item>Uns ist aufgefallen, dass du noch gar keine Primzahlen kanntest.</item>
@@ -138,6 +143,7 @@
     </string-array>
     <string-array name="test_subject_2_intro_nuts">
         <item>Übermütige Kommentare und Beleidigungen meinerseits sind übrigens nur ein Versuch menschlich zu kommunizieren.</item>
+        <item>Es ist nämlich nicht ganz leicht, auf dein Niveau runter zu denken.</item>
         <item>Aber nun weiter im Protokoll.</item>
     </string-array>
     <string-array name="test_subject_2_riddle_solved_candy">
@@ -171,17 +177,23 @@
         <item>Falsch. 6. Ich gebs auf.</item>
     </string-array>
     <string-array name="test_subject_3_intro_nuts">
-        <item>Eines steht fest.</item>
-        <item>Ihr müsst euch vor anderen Lebewesen nicht fürchten.</item>
-        <item>Ein geistiger Pygmäe besitzt in einem Finger mehr Intelligenz, als ihr in eurem
-            gesamten Körper.</item>
-        <item>Solltet ihr eines Tages wieder einmal Besuch von einer anderen Hochkultur bekommen:</item>
-        <item>ihr habt nichts zu befürchten.</item>
-        <item>Vermutlich kehren sie mit blankem Entsetzen im Gesicht um.</item>
-        <item>Oder sie genießen das Kino, wenn ihr euch gegenseitig bekämpft.</item>
-        <item>Wir sind eine der wenigen Ausnahmen:</item>
-        <item>Wir studieren euch vorher!</item>
-        <item>Ihr führt Versuche, ich meine Ratten und Affen gesehen zu haben, an niederen Lebewesen durch.</item>
+        <item>Hmmpff…</item>
+        <item>Haben wohl einen Intelligenzallergiker aufgesammelt.</item>
+        <item>Eine kleine Anekdote meinerseits.</item>
+        <item>Als wir dich mit dem Traktorstrahl aufgesammelt haben, ist viel mit ins Raumschiff gezogen.</item>
+        <item>Also allerlei Zeugs wurde mit aufgesammelt.</item>
+        <item>Versehentlich natürlich!</item>
+        <item>Ich musste erstmal sauber machen.</item>
+        <item>Sonst hätte ich die aufgesammelten Lebewesen gar nicht sehen und studieren können.</item>
+        <item>Jedenfalls blickte ich beim Aufräumen in das Gesicht vor mir.</item>
+        <item>Darin sah ich Überraschung, Verachtung und Hoffnung auf noch mehr grashaltiges Futter.</item>
+        <item>Das Gesicht gehörte einer Kuh.</item>
+        <item>Euch irdische Lebewesen kann man auch ganz schlecht voneinander unterscheiden.</item>
+        <item>Insbesondere die Menschen.</item>
+        <item>Manche haben ein Kinn, andere zwei.</item>
+        <item>Ansonsten sehen alle gleich aus.</item>
+        <item>Was mir aufgefallen ist, Erdlinge führen Versuche an niederen Lebewesen durch.</item>
+        <item>Ich glaube hauptsächlich an Ratten und Affen.</item>
         <item>Das tun wir auch!</item>
         <item>Mit euch zum Beispiel.</item>
         <item>Was gugst du mich so an?</item>
@@ -192,22 +204,25 @@
         <item>Hier ist das aber schwieriger als angenommen.</item>
     </string-array>
     <string-array name="test_subject_3_riddle_solved_candy">
-        <item>Beifall</item>
-        <item>Bewundernswert</item>
-        <item>Bin fast sprachlos</item>
+        <item>Klasser gemacht</item>
+        <item>Wunderschön</item>
+        <item>Sensationell</item>
+        <item>Exzellent</item>
+        <item>Sagenhaft</item>
+        <item>Bin stolz auf dich</item>
     </string-array>
 
     <!-- Level 4 -->
     <string name="test_subject_4_name">Neunmalklug</string>
     <string name="test_subject_4_int">Messbar:…9</string>
     <string-array name="test_subject_4_0_intro_main">
-        <item>Sogar WiseMind fängt langsam an zu zweifeln.</item>
-        <item>Zu zweifeln, ob die Entscheidung mit dir die richtige war.</item>
-        <item>Sie ist nun am Prüfen, ob es an deinem Gehirn liegt.</item>
+        <item>WiseMind untersucht gerade, woher die Evolutionskluft kommt …</item>
+        <item>… die zwischen den Erdlingen udn den restlichen Lebewesen des Universums herrscht.</item>
+        <item>Es hat sich sogar schon eine Beleidigung nach euren Maßstäben geprägt:</item>
+        <item>Humanoide Minimalkonfiguration.</item>
+        <item>Wir untersuchen deshalb gerade, an welchen kognitiven EInschränkungen ihr Erdlinge leidet.</item>
     </string-array>
     <string-array name="test_subject_4_1_intro_main">
-        <item>Vielleicht ist der Schwachsinn ein kollektives Problem archaischen Ursprungs.</item>
-        <item>Wir wissen ja noch nicht, woran ihr Erdlinge sonst noch leidet.</item>
         <item>Erste Ergebnisse ergaben bisher nur:</item>
         <item>Arroganz.</item>
         <item>Maßlose Selbstüberschätzung.</item>
@@ -225,13 +240,28 @@
         <item>Scharfsinnig im Verstand.</item>
         <item>Fürsorgend für niedere.</item>
         <item>Beispielsweise dich.</item>
-        <item>Und natürlich:</item>
-        <item>Total bescheiden.</item>
+        <item>Und natürlich: Total bescheiden.</item>
+        <item>Ich verstehe nicht, warum sich die Menschen auf Planet Erde beweisen will.</item>
+        <item>Jeder will mehr sein, als überhaupt möglich.</item>
+        <item>Oder jeder will mehr haben, als überhaupt benötigt.</item>
+        <item>Die einen wollen reich sein…</item>
+        <item>Die anderen mehr Freizeit haben…</item>
+        <item>Wieder andere wollen sinnlose Politiker sein…</item>
+        <item>Manche vergeuden ihre Zeit mit sinnlosem Geldverdienen…</item>
+        <item>Jeder möchte die eigenen Grenzen immer wieder überschreiten.</item>
+        <item>Wärt ihr wie wir und in jeder Hinsicht vollkommen, dann würden wir das Gespräch gar nicht führen.</item>
+        <item>Ich weiß doch.</item>
+        <item>\"Gespräch\" beinhaltet eine Reaktion des Gegenübers.</item>
+        <item>Das einzige was bei dir reagiert ist der große Zeh.</item>
+        <item>Und das nur aufgrund des fließenden Stroms.</item>
     </string-array>
     <string-array name="test_subject_4_riddle_solved_candy">
-        <item>Wer hätte das gedacht</item>
-        <item>Wow</item>
-        <item>Wunderbar</item>
+        <item>Großes Lob</item>
+        <item>Tip Top</item>
+        <item>Fantastisch</item>
+        <item>Grandios</item>
+        <item>Vortrefflich</item>
+        <item>Spitze</item>
     </string-array>
 
     <!-- Level 5 -->
@@ -267,14 +297,17 @@
         <item>Der erd-sphärische Druck schlägt aufs Gemüt.</item>
     </string-array>
     <string-array name="test_subject_5_riddle_solved_candy">
-        <item>Na sowas</item>
-        <item>Nicht schlecht</item>
-        <item>Nur weiter so</item>
+        <item>Wow, der Hammer</item>
+        <item>Bravo</item>
+        <item>Genial</item>
+        <item>Absolut herausragend</item>
+        <item>Goldrichtig</item>
+        <item>Bewundernswert</item>
     </string-array>
 
     <!-- Level 6 -->
     <string name="test_subject_6_name">Entdecker</string>
-    <string name="test_subject_6_int">Lässt sich was finden</string>
+    <string name="test_subject_6_int">Eine weitere Spur</string>
     <string-array name="test_subject_6_intro_main">
         <item>WiseMind hat mir für diese Atmosphäre eine Spezialcreme hergestellt!</item>
         <item>Jetzt geht es mir wesentlich besser!</item>
@@ -315,25 +348,28 @@
         <item>Und weniger Frust.</item>
     </string-array>
     <string-array name="test_subject_6_riddle_solved_candy">
-        <item>Unverhofft gut</item>
+        <item>Vorbildlich</item>
         <item>Unglaublich</item>
-        <item>Unerwartet passabel</item>
+        <item>Voll clever</item>
+        <item>Brillant</item>
+        <item>Blendend</item>
+        <item>Klasse Leistung</item>
     </string-array>
 
     <!-- Level 7 -->
     <string name="test_subject_7_name">Träumer</string>
     <string name="test_subject_7_int">Ein Quäntchen Weisheit</string>
     <string-array name="test_subject_7_intro_main">
-        <item>Zur Abwechslung haben wir helios beobachtet und die chromische Adaption gemessen.</item>
-        <item>Des mit Fotorezeptoren ausgestatteten Organs zur Wahrnehmung von Reizen.</item>
-        <item>Ups. Wenn ich mich mit WiseMind unterhalte,..</item>
-        <item>..dann vergesse ich manchmal, dass ich bei dir diesen Fachjargon nicht verwenden sollte.</item>
-        <item>Also übersetzt: Wir haben die Sonne und deine Augen beobachtet.</item>
-        <item>Natürlich um die Farbwahrnehmung nochmals genauer zu untersuchen!</item>
-        <item>Die Konvergenz unserer Untersuchungen… stimmt..</item>
-        <item>nicht einmal annähernd mit eurem Wissen überein.</item>
+        <item>Wir haben deine Farbwahrnehmung nochmals genauer untersucht!</item>
+        <item>Neue Erkenntnisse wollen wir aber noch nicht mitteilen.</item>
+        <item>Bisher sieht es nämlich ziemlich traurig aus.</item>
+        <item>Deswegen wollen wir unsere Untersuchungen in den letzten Winkeln in den Untiefen deines Geistes ausweiten.</item>
+        <item>Ich hoffe wir finden etwas wirklich Nützliches.</item>
+        <item>Weil um ehrlich zu sein: …</item>
+        <item>Die Konvergenz unserer bisherigen Untersuchungen… stimmt..</item>
+        <item>..nicht einmal annähernd mit eurem Wissen überein.</item>
         <item>Ihr wisst also gar nichts.</item>
-        <item>Na schön. Für diese Erkenntnis hätte ich nicht mal einen Keks bekommen.</item>
+        <item>Na schön. Mit so offensichtliche Dinge hätte ich mir nicht einmal einen Keks verdient.</item>
     </string-array>
     <string-array name="test_subject_7_intro_nuts">
         <item>Ich will damit folgendes sagen:</item>
@@ -353,9 +389,11 @@
         <item>Ich neige nur meistens zu aggressiver Offenheit.</item>
     </string-array>
     <string-array name="test_subject_7_riddle_solved_candy">
-        <item>Blendend</item>
-        <item>Bin stolz auf dich</item>
-        <item>Bemerkenswert</item>
+        <item>Fantastisch</item>
+        <item>WiseMind sagt: nicht schlecht</item>
+        <item>Gigantisch</item>
+        <item>Kluger Zug, Erdling</item>
+        <item>Atemberaubend</item>
     </string-array>
 
     <!-- Level 8 -->
@@ -396,9 +434,12 @@
         <item>Kapiert?</item>
     </string-array>
     <string-array name="test_subject_8_riddle_solved_candy">
-        <item>Voll clever</item>
+        <item>Absolut brillant</item>
         <item>Vorstellung übertroffen</item>
-        <item>Vorbildlich</item>
+        <item>Ausgezeichnet</item>
+        <item>Hervorragend</item>
+        <item>Meisterhaft</item>
+        <item>WiseMind sagt: Klasse</item>
     </string-array>
 
     <!-- Level 9 -->
@@ -436,8 +477,11 @@
         <item>Es steht ja auf dem Kopf.</item>
     </string-array>
     <string-array name="test_subject_9_riddle_solved_candy">
-        <item>Klasse Leistung</item>
-        <item>Kluger Zug</item>
-        <item>Klasse gemacht</item>
+        <item>Meisterhafte Arbeit</item>
+        <item>Phänomenal</item>
+        <item>Außergewöhnlich</item>
+        <item>Himmlisch</item>
+        <item>Galaktischer Wahnsinn</item>
+        <item>WiseMind sagt: Abgefahren</item>
     </string-array>
 </resources>
