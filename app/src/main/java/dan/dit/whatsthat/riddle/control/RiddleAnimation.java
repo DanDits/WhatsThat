@@ -40,7 +40,8 @@ public abstract class RiddleAnimation {
     /**
      * Invoked when the animation was killed. If the animation was alive (isAlive() was true)
      * then the animation was murdered. This can happen when the riddle is closing, treatment can
-     * take this into account and make lightweight drawing/actions.
+     * take this into account and make lightweight drawing/actions. If this method is overwritten
+     * the parent method should be invoked unless the listener shall not be informed of this event.
      * @param murdered If the animation was murdered.
      */
     public void onKilled(boolean murdered) {

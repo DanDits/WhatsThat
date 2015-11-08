@@ -53,7 +53,7 @@ public class ImageDataDownload {
     private static final int ERROR_CODE_NONE = 0;
     private static final int ERROR_CODE_DOWNLOAD_RESPONSE_NOT_OK = 1001;
     private static final int ERROR_CODE_DOWNLOAD_FILE_ILLEGAL = 1002;
-    private static final int ERROR_CODE_DOWNLOAD_IOEXCEPTION = 1003;
+    public static final int ERROR_CODE_DOWNLOAD_IOEXCEPTION = 1003;
     private static final int ERROR_CODE_STORAGE_NOT_AVAILABLE = 2000;
     private static final int ERROR_CODE_SYNC_NOT_DOWNLOADED = 3001;
     private static final int ERROR_CODE_SYNC_UNZIP_FAILED = 3002;

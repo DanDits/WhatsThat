@@ -3,9 +3,9 @@
     <string name="intro_test_subject_name">-Test Subjekt-</string>
     <string name="intro_test_subject_estimated_intelligence">-Intelligenz-</string>
 
-    <string name="intro_test_subject_gender_answer_male">Männlich</string>
-    <string name="intro_test_subject_gender_answer_female">Weiblich</string>
-    <string name="intro_test_subject_gender_answer_whatever">Irgendwas anderes</string>
+    <string name="intro_test_subject_gender_answer_male">Yann</string>
+    <string name="intro_test_subject_gender_answer_female">Xenia</string>
+    <string name="intro_test_subject_gender_answer_whatever">Quapsel</string>
 
     <string name="intro_test_answer_yes">Ja</string>
     <string name="intro_test_answer_no">Nein</string>
@@ -29,7 +29,7 @@
         <item>Ihr würdet ihn einen verrückt genialen Wissenschaftler nennen.</item>
     </string-array>
     <string-array name="test_subject_0_2_intro_main">
-        <item>Eine erste kleine Frage: Was für ein Wesen bist du eigentlich?</item>
+        <item>Eine erste kleine Frage: Wer bist du eigentlich?</item>
         <item>Unsere hochentwickelte Kultur kennt solche Unterschiede nicht, aber euch Erdlingen ist
             das ja wichtig.</item>
     </string-array>
@@ -115,8 +115,8 @@
     </string-array>
 
     <!-- Level 2 -->
-    <string name="test_subject_2_name">Kleiner Klugscheißer</string>
-    <string name="test_subject_2_int">Hoffnungslos überschätzt</string>
+    <string name="test_subject_2_name">Möchtegern</string>
+    <string name="test_subject_2_int">Ein fernes Ziel</string>
     <string-array name="test_subject_2_0_intro_main">
         <item>WiseMind ist außer sich.. vor Begeisterung.</item>
         <item>Sie meint, sie hätte von Anfang an recht gehabt.</item>
@@ -198,8 +198,8 @@
     </string-array>
 
     <!-- Level 4 -->
-    <string name="test_subject_4_name">Einfaltspinsel</string>
-    <string name="test_subject_4_int">Messbar!</string>
+    <string name="test_subject_4_name">Neunmalklug</string>
+    <string name="test_subject_4_int">Messbar:…9</string>
     <string-array name="test_subject_4_0_intro_main">
         <item>Sogar WiseMind fängt langsam an zu zweifeln.</item>
         <item>Zu zweifeln, ob die Entscheidung mit dir die richtige war.</item>
@@ -236,7 +236,7 @@
 
     <!-- Level 5 -->
     <string name="test_subject_5_name">Grünschnabel</string>
-    <string name="test_subject_5_int">Definitiv existent</string>
+    <string name="test_subject_5_int">Lichtblick</string>
     <string-array name="test_subject_5_intro_main">
         <item>Letztes Mal habe ich etwas übertrieben.</item>
         <item>Ich habe WiseMind versprochen, dass ich die Menschheit nicht pausenlos dumm nenne.</item>
@@ -274,7 +274,7 @@
 
     <!-- Level 6 -->
     <string name="test_subject_6_name">Entdecker</string>
-    <string name="test_subject_6_int">Ein Tropfen Weisheit</string>
+    <string name="test_subject_6_int">Lässt sich was finden</string>
     <string-array name="test_subject_6_intro_main">
         <item>WiseMind hat mir für diese Atmosphäre eine Spezialcreme hergestellt!</item>
         <item>Jetzt geht es mir wesentlich besser!</item>
@@ -321,8 +321,8 @@
     </string-array>
 
     <!-- Level 7 -->
-    <string name="test_subject_7_name">Potenzialträger</string>
-    <string name="test_subject_7_int">Lichtblick</string>
+    <string name="test_subject_7_name">Träumer</string>
+    <string name="test_subject_7_int">Ein Quäntchen Weisheit</string>
     <string-array name="test_subject_7_intro_main">
         <item>Zur Abwechslung haben wir helios beobachtet und die chromische Adaption gemessen.</item>
         <item>Des mit Fotorezeptoren ausgestatteten Organs zur Wahrnehmung von Reizen.</item>
@@ -403,7 +403,7 @@
 
     <!-- Level 9 -->
     <string name="test_subject_9_name">Junior Talent</string>
-    <string name="test_subject_9_int">Irdisch gesehen…gut</string>
+    <string name="test_subject_9_int">Vorzeige Erdling</string>
     <string-array name="test_subject_9_intro_main">
         <item>Zurück von den erquickenden Myriaden gescheiter Gedanken.</item>
         <item>Zurück zu den trostlosen Forschungen bei unserem Versuchsobjekt.</item>

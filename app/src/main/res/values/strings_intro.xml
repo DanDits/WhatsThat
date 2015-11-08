@@ -3,11 +3,11 @@
     <string name="intro_test_subject_name">-test subject-</string>
     <string name="intro_test_subject_estimated_intelligence">-intelligence-</string>
 
-    <string name="intro_test_subject_gender_answer_male">Male</string>
-    <string name="intro_test_subject_gender_answer_female">Female</string>
-    <string name="intro_test_subject_gender_answer_whatever">Don\'t know</string>
+    <string name="intro_test_subject_gender_answer_male">Yann</string>
+    <string name="intro_test_subject_gender_answer_female">Xenia</string>
+    <string name="intro_test_subject_gender_answer_whatever">Quapsel</string>
 
-    <string name="intro_test_answer_bullshit">Chocolate</string>
+    <string name="intro_test_answer_bullshit">\?!?!</string>
     <string name="intro_test_answer_no">No</string>
     <string name="intro_test_answer_yes">Yes</string>
 

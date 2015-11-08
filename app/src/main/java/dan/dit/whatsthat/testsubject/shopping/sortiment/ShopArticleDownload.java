@@ -162,7 +162,12 @@ public class ShopArticleDownload extends ShopArticle implements ImageDataDownloa
 
     @Override
     public void onError(int messageResId, int errorCode) {
-        Toast.makeText(mContext, mContext.getResources().getString(messageResId, errorCode), Toast.LENGTH_SHORT).show();
+        if (errorCode == ImageDataDownload.ERROR_CODE_DOWNLOAD_IOEXCEPTION) {
+            Toast.makeText(mContext, R.string.download_article_toast_error_no_internet, Toast
+                    .LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(mContext, mContext.getResources().getString(messageResId, errorCode), Toast.LENGTH_SHORT).show();
+        }
         if (mDownloadProduct != null) {
             mDownloadProduct.updateDescription();
         }

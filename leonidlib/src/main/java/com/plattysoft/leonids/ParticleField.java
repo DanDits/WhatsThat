@@ -48,11 +48,13 @@ class ParticleField extends View {
 	@Override
 	protected void onDraw(Canvas canvas) {
 		super.onDraw(canvas);
-        List<Particle> particles = mParticles;
+        final List<Particle> particles = mParticles;
 		// Draw all the particles
 		if (particles != null) {
-			for (int i = 0; i < particles.size(); i++) {
-				particles.get(i).draw(canvas);
+			synchronized (particles) {
+				for (int i = 0; i < particles.size(); i++) {
+					particles.get(i).draw(canvas);
+				}
 			}
 		}
 	}

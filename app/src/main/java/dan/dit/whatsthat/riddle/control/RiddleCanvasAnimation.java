@@ -2,6 +2,7 @@ package dan.dit.whatsthat.riddle.control;
 
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.support.annotation.NonNull;
 import android.util.Log;
 
 import java.util.ArrayList;
@@ -12,39 +13,59 @@ import dan.dit.whatsthat.util.MathFunction;
 /**
  * Created by daniel on 05.11.15.
  */
-public class RiddleViewAnimation extends RiddleAnimation {
-    private List<ViewAnimation> mAnimations;
-    protected RiddleViewAnimation() {
+public class RiddleCanvasAnimation extends RiddleAnimation {
+    private List<CanvasAnimation> mAnimations = new ArrayList<>();;
+    private RiddleAnimation mWrapped;
+
+    protected RiddleCanvasAnimation() {
         super(RiddleAnimationController.LEVEL_GROUNDING);
-        mAnimations = new ArrayList<>();
+    }
+
+    protected RiddleCanvasAnimation(@NonNull RiddleAnimation animation) {
+        super(RiddleAnimationController.LEVEL_ON_TOP);
+        mWrapped = animation;
     }
 
     @Override
     boolean isAlive() {
-        return mAnimations.size() > 0;
+        return mAnimations.size() > 0 && (mWrapped == null || mWrapped
+                .isAlive());
     }
 
-    protected void addAnimation(ViewAnimation animation) {
+    protected void addAnimation(CanvasAnimation animation) {
         mAnimations.add(animation);
     }
 
     @Override
     protected void update(long updatePeriod) {
         for (int i = 0; i < mAnimations.size(); i++) {
-            ViewAnimation curr = mAnimations.get(i);
+            CanvasAnimation curr = mAnimations.get(i);
             curr.update(updatePeriod);
             if (!curr.isAlive()) {
                 mAnimations.remove(i);
                 i--;
             }
         }
+        if (mWrapped != null) {
+            mWrapped.update(updatePeriod);
+        }
     }
 
     @Override
     public void draw(Canvas canvas, Paint paint) {
+        boolean saveAndRestore = mWrapped != null;
+        if (saveAndRestore) {
+            canvas.save();
+        }
         for (int i = 0; i < mAnimations.size(); i++) {
-            ViewAnimation curr = mAnimations.get(i);
+            CanvasAnimation curr = mAnimations.get(i);
             curr.apply(canvas);
+        }
+        if (mWrapped != null) {
+            mWrapped.draw(canvas, paint);
+        }
+        if (saveAndRestore) {
+            canvas.restore();
         }
     }
 
@@ -61,11 +82,18 @@ public class RiddleViewAnimation extends RiddleAnimation {
     }
 
     public static class Builder {
-        private RiddleViewAnimation mAnim = new RiddleViewAnimation();
+        private RiddleCanvasAnimation mAnim;
         private MathFunction mInterpolator;
         private int mLives = 1;
-        private int mNextLifeMode = ViewAnimation.DEFAULT_NEXT_LIFE_MODE;
+        private int mNextLifeMode = CanvasAnimation.DEFAULT_NEXT_LIFE_MODE;
 
+        public Builder() {
+            mAnim = new RiddleCanvasAnimation();
+        }
+
+        public Builder(@NonNull RiddleAnimation toWrap) {
+            mAnim = new RiddleCanvasAnimation(toWrap);
+        }
         public Builder setInterpolator(MathFunction interpolator) {
             mInterpolator = interpolator;
             return this;
@@ -84,7 +112,7 @@ public class RiddleViewAnimation extends RiddleAnimation {
         public Builder addRotate(float rotateDeltaDegrees, float rotateCenterX, float
                 rotateCenterY) {
             mAnim.addAnimation(new Rotate(rotateDeltaDegrees, rotateCenterX, rotateCenterY,
-                    0L).setLives(ViewAnimation.LIVES_LIFE_FOREVER));
+                    0L).setLives(CanvasAnimation.LIVES_LIFE_FOREVER));
             return this;
         }
         public Builder addRotate(float rotateDeltaDegrees, float rotateCenterX, float
@@ -96,7 +124,7 @@ public class RiddleViewAnimation extends RiddleAnimation {
 
         public Builder addTranslate(float translateDeltaX, float translateDeltaY) {
             mAnim.addAnimation(new Translate(translateDeltaX, translateDeltaY,
-                    0L).setLives(ViewAnimation.LIVES_LIFE_FOREVER));
+                    0L).setLives(CanvasAnimation.LIVES_LIFE_FOREVER));
             return this;
         }
 
@@ -113,12 +141,12 @@ public class RiddleViewAnimation extends RiddleAnimation {
             return this;
         }
 
-        public RiddleViewAnimation build() {
+        public RiddleCanvasAnimation build() {
             return mAnim;
         }
     }
 
-    public static abstract class ViewAnimation {
+    public static abstract class CanvasAnimation {
         public static final MathFunction INTERPOLATOR_LINEAR = new MathFunction
                 .LinearInterpolation(0., 0., 1., 1.);
         public static final MathFunction INTERPOLATOR_ACCELERATE = new MathFunction
@@ -156,7 +184,7 @@ public class RiddleViewAnimation extends RiddleAnimation {
         private int mCurrModeState; //handled by NextLifeMode
         private boolean mLifeIsIncreasing;
 
-        protected ViewAnimation(long totalLifeTime) {
+        protected CanvasAnimation(long totalLifeTime) {
             mTotalLifeTime = Math.max(totalLifeTime, 0L);
             mLifeTime = 0L;
             mLifeIsIncreasing = true;
@@ -164,17 +192,17 @@ public class RiddleViewAnimation extends RiddleAnimation {
             setNextLifeMode(DEFAULT_NEXT_LIFE_MODE);
         }
 
-        public ViewAnimation setInterpolator(MathFunction interpolator) {
+        public CanvasAnimation setInterpolator(MathFunction interpolator) {
             mInterpolator = interpolator;
             return this;
         }
 
-        public ViewAnimation setLives(int lives) {
+        public CanvasAnimation setLives(int lives) {
             mLives = lives == 0 ? 1 : lives;
             return this;
         }
 
-        public ViewAnimation setNextLifeMode(int mode) {
+        public CanvasAnimation setNextLifeMode(int mode) {
             mNextLifeMode = mode;
             mCurrModeState = 0;
             return this;
@@ -249,7 +277,7 @@ public class RiddleViewAnimation extends RiddleAnimation {
         }
     }
 
-    private static class Rotate extends ViewAnimation {
+    private static class Rotate extends CanvasAnimation {
         private float mCenterX;
         private float mCenterY;
         private float mRotateDeltaDegrees;
@@ -271,7 +299,7 @@ public class RiddleViewAnimation extends RiddleAnimation {
     }
 
 
-    private static class Translate extends ViewAnimation {
+    private static class Translate extends CanvasAnimation {
         private float mDeltaX;
         private float mDeltaY;
 
@@ -291,7 +319,7 @@ public class RiddleViewAnimation extends RiddleAnimation {
         }
     }
 
-    private static class Scale extends ViewAnimation {
+    private static class Scale extends CanvasAnimation {
         private float mDeltaX;
         private float mDeltaY;
         private float mCenterX;

@@ -41,6 +41,7 @@ import dan.dit.whatsthat.riddle.Riddle;
 import dan.dit.whatsthat.riddle.RiddleConfig;
 import dan.dit.whatsthat.riddle.achievement.holders.AchievementCircle;
 import dan.dit.whatsthat.riddle.control.LookRiddleAnimation;
+import dan.dit.whatsthat.riddle.control.RiddleAnimation;
 import dan.dit.whatsthat.riddle.control.RiddleGame;
 import dan.dit.whatsthat.riddle.types.Types;
 import dan.dit.whatsthat.testsubject.TestSubject;
@@ -109,7 +110,9 @@ public class RiddleCircle extends RiddleGame {
     private LockDistanceRefresher mLockRefresher;
     private boolean mFeatureDivideByMove;
     private Resources mRes;
+
     private Timer mTimer;
+    private boolean mForbidCircleDivision;
 
     public RiddleCircle(Riddle riddle, Image image, Bitmap bitmap, Resources res, RiddleConfig config, PercentProgressListener listener) {
         super(riddle, image, bitmap, res, config, listener);
@@ -231,9 +234,7 @@ public class RiddleCircle extends RiddleGame {
     }
 
     private void bigBrotherAnimationChecked() {
-        Log.d("Riddle", "Now checking: " + mCircleCenterX);
         if (mCircleCenterX != null && mCircleCenterX.size() == 1) {
-            Log.d("Riddle", "Setting up animation for blinking eye.");
             long step1Duration = 5000L;
             long step2Duration = 200L;
             long step3Duration = 4000L;
@@ -257,6 +258,18 @@ public class RiddleCircle extends RiddleGame {
                     .setFrameDuration(4, step5Duration);
             LookRiddleAnimation anim = new LookRiddleAnimation(look, mConfig.mWidth / 2 - look
                     .getWidth() / 2, mConfig.mHeight / 3 - look.getHeight() / 2, totalLifeTime);
+            anim.setStateListener(new RiddleAnimation.StateListener() {
+                @Override
+                public void onBorn() {
+                    mForbidCircleDivision = true;
+                }
+
+                @Override
+                public void onKilled(boolean murdered) {
+                    mForbidCircleDivision = false;
+
+                }
+            });
             addAnimation(anim);
         }
     }
@@ -460,6 +473,9 @@ public class RiddleCircle extends RiddleGame {
 
     @Override
     public boolean onMotionEvent(MotionEvent event) {
+        if (mForbidCircleDivision) {
+            return false;
+        }
         mLockRefresher.update(event);
         if (event.getActionMasked() == MotionEvent.ACTION_DOWN) {
             return onTouchDown(event.getX() - mTopLeftCornerX, event.getY() - mTopLeftCornerY);

@@ -40,9 +40,8 @@ import dan.dit.whatsthat.riddle.Riddle;
 import dan.dit.whatsthat.riddle.RiddleConfig;
 import dan.dit.whatsthat.riddle.achievement.AchievementDataRiddleType;
 import dan.dit.whatsthat.riddle.achievement.holders.AchievementSnow;
-import dan.dit.whatsthat.riddle.control.RiddleAnimation;
 import dan.dit.whatsthat.riddle.control.RiddleGame;
-import dan.dit.whatsthat.riddle.control.RiddleViewAnimation;
+import dan.dit.whatsthat.riddle.control.RiddleCanvasAnimation;
 import dan.dit.whatsthat.riddle.types.Types;
 import dan.dit.whatsthat.testsubject.TestSubject;
 import dan.dit.whatsthat.testsubject.shopping.sortiment.SortimentHolder;
@@ -718,10 +717,10 @@ public class RiddleSnow extends RiddleGame implements FlatWorldCallback {
                             (minSpeed, minRotateDegrees, maxSpeed, maxRotateDegrees, speed);
                     float dx = collisionLeft ? -translate : collisionRight ? translate : 0f;
                     float dy = collisionTop ? -translate : collisionBottom ? translate : 0f;
-                    game.addAnimation(new RiddleViewAnimation.Builder()
+                    game.addAnimation(new RiddleCanvasAnimation.Builder()
                             .setLives(repeatCount)
-                            .setInterpolator(RiddleViewAnimation.ViewAnimation.INTERPOLATOR_LINEAR)
-                            .setNextLifeMode(RiddleViewAnimation.ViewAnimation
+                            .setInterpolator(RiddleCanvasAnimation.CanvasAnimation.INTERPOLATOR_LINEAR)
+                            .setNextLifeMode(RiddleCanvasAnimation.CanvasAnimation
                                     .NEXT_LIFE_MODE_REVERSE_INVERT)
                             .addRotate(rotateDegrees, 0.5f, 0.5f, time)
                             .addTranslate(dx, dy, time)

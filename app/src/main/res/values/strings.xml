@@ -121,6 +121,7 @@
     <string name="download_article_toast_download_complete">Download complete.</string>
     <string name="download_article_toast_complete">New images ready.</string>
     <string name="download_article_toast_error_download">Failed downloaded images (%1$d)</string>
+    <string name="download_article_toast_error_no_internet">No internet connection!</string>
     <string name="download_article_toast_error_syncing">Failed syncing data (%1$d)</string>
     <string name="download_article_descr_syncing">Syncing %1$s\'s images (%2$s)…</string>
     <string name="download_article_descr_downloading">Downloading %1$s\'s images (%2$s)…</string>

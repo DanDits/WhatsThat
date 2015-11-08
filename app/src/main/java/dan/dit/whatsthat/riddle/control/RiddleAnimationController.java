@@ -11,6 +11,13 @@ import java.util.Collections;
 import java.util.List;
 
 /**
+ * Holds and manages a list of RiddleAnimations that are drawn in different layers. The drawing
+ * can be controlled by the client of this controller, the sorting of the RiddleAnimations in
+ * different layers is done by the animations and the client. The controller reports changes in
+ * the amount of current animations to the associated listener.
+ * Animations can be added with a delay. Animations will always be born when they first are added
+ * and the delay has passed on the running controller. They will die if no longer alive (huh) or
+ * can get murdered when the controller force clears any associated animations.
  * Created by daniel on 04.11.15.
  */
 public class RiddleAnimationController {
