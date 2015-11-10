@@ -62,7 +62,7 @@ public class AchievementFlow extends  TypeAchievementHolder {
     private static class Achievement1 extends GameAchievement {
         public static final int NUMBER = 1;
         public static final int LEVEL = 0;
-        public static final int REWARD = 50;
+        public static final int REWARD = 90;
         public static final boolean DISCOVERED = true;
         public static final int REQUIRED_CELLIS = 15;
         public static final String KEY_GAME_SINGLE_CELLIS_SET = NUMBER + "single_cellis_set";
@@ -100,7 +100,7 @@ public class AchievementFlow extends  TypeAchievementHolder {
     private static class Achievement2 extends GameAchievement {
         public static final int NUMBER = 2;
         public static final int LEVEL = 0;
-        public static final int REWARD = 50;
+        public static final int REWARD = 125;
         public static final boolean DISCOVERED = true;
         private static final int REQUIRED_CELLIS = 11;
 
@@ -127,7 +127,7 @@ public class AchievementFlow extends  TypeAchievementHolder {
     private static class Achievement3 extends GameAchievement {
         public static final int NUMBER = 3;
         public static final int LEVEL = 0;
-        public static final int REWARD = 50;
+        public static final int REWARD = 150;
         public static final boolean DISCOVERED = true;
         private static final int REQUIRED_VISIBLE_PERCENT = 50;
 
@@ -154,9 +154,9 @@ public class AchievementFlow extends  TypeAchievementHolder {
     private static class Achievement4 extends GameAchievement {
         public static final int NUMBER = 4;
         public static final int LEVEL = 0;
-        public static final int REWARD = 50;
+        public static final int REWARD = 130;
         public static final boolean DISCOVERED = true;
-        private static final int REQUIRED_ACTIVE_CELLIS = 50;
+        private static final int REQUIRED_ACTIVE_CELLIS = 49;
         private static final int AVAILABLE_TIME = 13000; // ms
         private long mStartTime;
 
@@ -197,9 +197,9 @@ public class AchievementFlow extends  TypeAchievementHolder {
     private static class Achievement5 extends GameAchievement {
         public static final int NUMBER = 5;
         public static final int LEVEL = 0;
-        public static final int REWARD = 50;
+        public static final int REWARD = 200;
         public static final boolean DISCOVERED = false;
-        private static final int REQUIRED_CELLIS = 300;
+        private static final int REQUIRED_CELLIS = 500;
         private static final int MAX_TIME_OUTS = 3;
 
         public Achievement5(AchievementManager manager, PracticalRiddleType type) {
@@ -225,9 +225,9 @@ public class AchievementFlow extends  TypeAchievementHolder {
     private static class Achievement6 extends GameAchievement {
         public static final int NUMBER = 6;
         public static final int LEVEL = 0;
-        public static final int REWARD = 50;
+        public static final int REWARD = 150;
         public static final boolean DISCOVERED = true;
-        private static final int REQUIRED_CELLIS_AFTER_REOPENING = 100;
+        private static final int REQUIRED_CELLIS_AFTER_REOPENING = 200;
 
         public Achievement6(AchievementManager manager, PracticalRiddleType type) {
             super(type, R.string.achievement_flow_6_name, R.string.achievement_flow_6_descr, 0, NUMBER, manager, LEVEL, REWARD, 1, DISCOVERED);
@@ -247,7 +247,7 @@ public class AchievementFlow extends  TypeAchievementHolder {
     private static class Achievement7 extends GameAchievement {
         public static final int NUMBER = 7;
         public static final int LEVEL = 0;
-        public static final int REWARD = 50;
+        public static final int REWARD = 300;
         public static final boolean DISCOVERED = true;
         private static final int TOTAL_TIMED_OUT_CELLIS = 400;
 
@@ -281,7 +281,7 @@ public class AchievementFlow extends  TypeAchievementHolder {
     private static class Achievement8 extends GameAchievement {
         public static final int NUMBER = 8;
         public static final int LEVEL = 0;
-        public static final int REWARD = 50;
+        public static final int REWARD = 75;
         public static final boolean DISCOVERED = true;
         public static final int MAX_CELLIS_FOR_SOLVING = 10;
 

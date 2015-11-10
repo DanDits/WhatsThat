@@ -89,7 +89,7 @@ public class AchievementDice extends TypeAchievementHolder {
     public static class Achievement1 extends GameAchievement {
         public static final int NUMBER = 1;
         public static final int LEVEL = 0;
-        public static final int REWARD = 20;
+        public static final int REWARD = 50;
         public static final boolean DISCOVERED = true;
 
         public Achievement1(AchievementManager manager, PracticalRiddleType type) {
@@ -114,7 +114,7 @@ public class AchievementDice extends TypeAchievementHolder {
     public static class Achievement2 extends GameAchievement {
         public static final int NUMBER = 2;
         public static final int LEVEL = 0;
-        public static final int REWARD = 10;
+        public static final int REWARD = 75;
         public static final boolean DISCOVERED = true;
 
         public Achievement2(AchievementManager manager, PracticalRiddleType type) {
@@ -163,7 +163,7 @@ public class AchievementDice extends TypeAchievementHolder {
     public static class Achievement4 extends GameAchievement {
         public static final int NUMBER = 4;
         public static final int LEVEL = 0;
-        public static final int REWARD = 10;
+        public static final int REWARD = 60;
         public static final boolean DISCOVERED = true;
         private static final int REQUIRED_COMBINATIONS_IN_EACH_CORNER = 3;
         private static final String KEY_GREENS_IN_BOTTOM_LEFT = NUMBER + "greens_bottom_left";
@@ -237,7 +237,7 @@ public class AchievementDice extends TypeAchievementHolder {
     public static class Achievement5 extends GameAchievement {
         public static final int NUMBER = 5;
         public static final int LEVEL = 0;
-        public static final int REWARD = 5;
+        public static final int REWARD = 85;
         public static final boolean DISCOVERED = true;
         private static final int REQUIRED_RESETS = 3;
 
@@ -271,10 +271,10 @@ public class AchievementDice extends TypeAchievementHolder {
     public static class Achievement6 extends GameAchievement {
         public static final int NUMBER = 6;
         public static final int LEVEL = 0;
-        public static final int REWARD = 5;
+        public static final int REWARD = 150;
         public static final boolean DISCOVERED = true;
         private static final int NOT_ENOUGH_GREENS = 20;
-        private static final int ENOUGH_GREENS = 28;
+        private static final int ENOUGH_GREENS = 29;
 
         public Achievement6(AchievementManager manager, PracticalRiddleType type) {
             super(type, R.string.achievement_dice_6_name, R.string.achievement_dice_6_descr, 0, NUMBER, manager, LEVEL, REWARD, 1, DISCOVERED);
@@ -306,7 +306,7 @@ public class AchievementDice extends TypeAchievementHolder {
     public static class Achievement7 extends GameAchievement {
         public static final int NUMBER = 7;
         public static final int LEVEL = 0;
-        public static final int REWARD = 30;
+        public static final int REWARD = 66;
         public static final boolean DISCOVERED = true;
         public static final int REQUIRED_TIMES = 4;
         public static final int POWERFUL_DICE_NUMBER = 6;
@@ -354,7 +354,7 @@ public class AchievementDice extends TypeAchievementHolder {
     public static class Achievement8 extends GameAchievement {
         public static final int NUMBER = 8;
         public static final int LEVEL = 0;
-        public static final int REWARD = 30;
+        public static final int REWARD = 55;
         public static final boolean DISCOVERED = true;
         private static final int FIELDS_TO_REVEAL_COUNT = 5;
 
@@ -388,7 +388,7 @@ public class AchievementDice extends TypeAchievementHolder {
     public static class Achievement9 extends GameAchievement {
         public static final int NUMBER = 9;
         public static final int LEVEL = 0;
-        public static final int REWARD = 30;
+        public static final int REWARD = 125;
         public static final boolean DISCOVERED = true;
         private static final int REQUIRED_ALIEN_COUNT = 5;
         private static final int REQUIRED_PURPLE_COUNT = 5;
@@ -431,7 +431,7 @@ public class AchievementDice extends TypeAchievementHolder {
     public static class Achievement10 extends GameAchievement {
         public static final int NUMBER = 10;
         public static final int LEVEL = 0;
-        public static final int REWARD = 20;
+        public static final int REWARD = 70;
         public static final boolean DISCOVERED = true;
 
         public Achievement10(AchievementManager manager, PracticalRiddleType type) {
@@ -461,7 +461,7 @@ public class AchievementDice extends TypeAchievementHolder {
     public static class Achievement11 extends GameAchievement {
         public static final int NUMBER = 11;
         public static final int LEVEL = 0;
-        public static final int REWARD = 25;
+        public static final int REWARD = 90;
         public static final boolean DISCOVERED = true;
 
         private static final int DOGGY_1_STATE = RiddleDice.STATE_ALIEN;
@@ -513,7 +513,7 @@ public class AchievementDice extends TypeAchievementHolder {
     public static class Achievement12 extends GameAchievement {
         public static final int NUMBER = 12;
         public static final int LEVEL = 0;
-        public static final int REWARD = 20;
+        public static final int REWARD = 99;
         public static final boolean DISCOVERED = true;
         public static final int REQUIRED_RED_COMBINATIONS = 600;
 
@@ -541,7 +541,7 @@ public class AchievementDice extends TypeAchievementHolder {
     public static class Achievement13 extends GameAchievement {
         public static final int NUMBER = 13;
         public static final int LEVEL = 0;
-        public static final int REWARD = 25;
+        public static final int REWARD = 111;
         public static final boolean DISCOVERED = true;
         public static final int REQUIRED_YELLOW_COMBINATIONS = 200;
 
@@ -581,7 +581,7 @@ public class AchievementDice extends TypeAchievementHolder {
     public static class Achievement14 extends GameAchievement {
         public static final int NUMBER = 14;
         public static final int LEVEL = 0;
-        public static final int REWARD = 30;
+        public static final int REWARD = 222;
         public static final boolean DISCOVERED = true;
         public static final int REQUIRED_GREEN_COMBINATIONS = 50;
 
@@ -621,7 +621,7 @@ public class AchievementDice extends TypeAchievementHolder {
     public static class Achievement15 extends GameAchievement {
         public static final int NUMBER = 15;
         public static final int LEVEL = 0;
-        public static final int REWARD = 30;
+        public static final int REWARD = 299;
         public static final boolean DISCOVERED = true;
         public static final int REQUIRED_ALIEN_FUSIONS = 78; // 78=Patrick in "numbers" (source: fabian)
 
@@ -691,7 +691,7 @@ public class AchievementDice extends TypeAchievementHolder {
     public static class Achievement16 extends GameAchievement {
         public static final int NUMBER = 16;
         public static final int LEVEL = 0;
-        public static final int REWARD = 15;
+        public static final int REWARD = 70;
         public static final boolean DISCOVERED = true;
 
         private static final int JUMP_DISTANCE = 22;
@@ -721,7 +721,7 @@ public class AchievementDice extends TypeAchievementHolder {
     public static class Achievement17 extends GameAchievement {
         public static final int NUMBER = 17;
         public static final int LEVEL = 0;
-        public static final int REWARD = 20;
+        public static final int REWARD = 101;
         public static final boolean DISCOVERED = false;
 
         private static final int REQUIRED_ALIENS = 10;
@@ -750,9 +750,9 @@ public class AchievementDice extends TypeAchievementHolder {
     public static class Achievement18 extends GameAchievement {
         public static final int NUMBER = 18;
         public static final int LEVEL = 0;
-        public static final int REWARD = 5;
+        public static final int REWARD = 110;
         public static final boolean DISCOVERED = true;
-        private static final long TIME_TO_GET_PICTURE = 90000L; //ms
+        private static final long TIME_TO_GET_PICTURE = 75000L; //ms
 
         public Achievement18(AchievementManager manager, PracticalRiddleType type) {
             super(type, R.string.achievement_dice_18_name, R.string.achievement_dice_18_descr, 0, NUMBER, manager, LEVEL, REWARD, 1, DISCOVERED);
@@ -794,7 +794,7 @@ public class AchievementDice extends TypeAchievementHolder {
     public static class Achievement19 extends GameAchievement {
         public static final int NUMBER = 19;
         public static final int LEVEL = 0;
-        public static final int REWARD = 50;
+        public static final int REWARD = 300;
         public static final boolean DISCOVERED = true;
 
         public Achievement19(AchievementManager manager, PracticalRiddleType type) {
@@ -828,9 +828,9 @@ public class AchievementDice extends TypeAchievementHolder {
     public static class Achievement20 extends GameAchievement {
         public static final int NUMBER = 20;
         public static final int LEVEL = 0;
-        public static final int REWARD = 15;
+        public static final int REWARD = 150;
         public static final boolean DISCOVERED = true;
-        private static final int MAXIMUM_COMBINATIONS = 75;
+        private static final int MAXIMUM_COMBINATIONS = 60;
         private static final String KEY_GAME_CHOSEN_COMBINATION_POSITION = NUMBER + "chosen_comb_position";
         private static final String KEY_GAME_COMBINATIONS_COUNT = NUMBER + "combinations_count";
 
@@ -896,9 +896,9 @@ public class AchievementDice extends TypeAchievementHolder {
     public static class Achievement21 extends GameAchievement {
         public static final int NUMBER = 21;
         public static final int LEVEL = 0;
-        public static final int REWARD = 20;
+        public static final int REWARD = 175;
         public static final boolean DISCOVERED = true;
-        private static final int MAXIMUM_COMBINATIONS = 30;
+        private static final int MAXIMUM_COMBINATIONS = 25;
         private static final String KEY_GAME_COMBINATIONS_COUNT = NUMBER + "combinations_count";
 
         public Achievement21(AchievementManager manager, PracticalRiddleType type) {

@@ -77,7 +77,7 @@ public class AchievementLazor extends TypeAchievementHolder {
     private static class Achievement1 extends GameAchievement {
         public static final int NUMBER = 1;
         public static final int LEVEL = 0;
-        public static final int REWARD = 50;
+        public static final int REWARD = 55;
         public static final boolean DISCOVERED = true;
         private static final int REQUIRED_HITS = 3; // not synced with strings
 
@@ -98,7 +98,7 @@ public class AchievementLazor extends TypeAchievementHolder {
     public static class Achievement2 extends GameAchievement {
         public static final int NUMBER = 2;
         public static final int LEVEL = 0;
-        public static final int REWARD = 50;
+        public static final int REWARD = 90;
         public static final boolean DISCOVERED = true;
         private static final String KEY_GAME_METEOR_CRASHED_IN_UNPROTECTED_CITY = NUMBER + "crashed_in_unprotected_city";
 
@@ -130,7 +130,7 @@ public class AchievementLazor extends TypeAchievementHolder {
     private static class Achievement3 extends GameAchievement {
         public static final int NUMBER = 3;
         public static final int LEVEL = 0;
-        public static final int REWARD = 50;
+        public static final int REWARD = 60;
         public static final boolean DISCOVERED = true;
         private static final int MAX_REQUIRED_DIFFICULTY = 80;
         private static final int MIN_REQUIRED_DIFFICULTY = 30;
@@ -165,7 +165,7 @@ public class AchievementLazor extends TypeAchievementHolder {
     private static class Achievement4 extends GameAchievement {
         public static final int NUMBER = 4;
         public static final int LEVEL = 0;
-        public static final int REWARD = 50;
+        public static final int REWARD = 60;
         public static final boolean DISCOVERED = false;
         private static final String KEY_GAME_UNPROTECTED_CITY_CRASHES = NUMBER + "unprotected_city_crash";
         private static final long REQUIRED_CRASHES_IN_UNPROTECTED_CITY = 40;
@@ -196,7 +196,7 @@ public class AchievementLazor extends TypeAchievementHolder {
     private static class Achievement5 extends GameAchievement {
         public static final int NUMBER = 5;
         public static final int LEVEL = 0;
-        public static final int REWARD = 50;
+        public static final int REWARD = 110;
         public static final boolean DISCOVERED = true;
         private static final int METEORS_TO_SHOOT = 50;
         private static final int MAX_METEOR_Y_PERCENT = 33; // not synced to description string!
@@ -224,7 +224,7 @@ public class AchievementLazor extends TypeAchievementHolder {
     private static class Achievement6 extends GameAchievement {
         public static final int NUMBER = 6;
         public static final int LEVEL = 0;
-        public static final int REWARD = 50;
+        public static final int REWARD = 80;
         public static final boolean DISCOVERED = true;
         private static final int MORE_THAN_THIS_SHOOTS = 5;
         private static final int EXACTLY_THIS_SHOOTS = 40;
@@ -270,7 +270,7 @@ public class AchievementLazor extends TypeAchievementHolder {
     public static class Achievement7 extends GameAchievement {
         public static final int NUMBER = 7;
         public static final int LEVEL = 0;
-        public static final int REWARD = 50;
+        public static final int REWARD = 120;
         public static final boolean DISCOVERED = true;
         private static final int REQUIRED_MIN_GENERATOR_PERCENT = 70;
         private static final int REQUIRED_METEORS_TO_SPAWN_AFTER = 30;
@@ -315,7 +315,7 @@ public class AchievementLazor extends TypeAchievementHolder {
     private static class Achievement8 extends GameAchievement {
         public static final int NUMBER = 8;
         public static final int LEVEL = 0;
-        public static final int REWARD = 50;
+        public static final int REWARD = 40;
         public static final boolean DISCOVERED = true;
         private static final Long PERCENT_DELTA = 3L;
 
@@ -336,7 +336,7 @@ public class AchievementLazor extends TypeAchievementHolder {
     private static class Achievement9 extends GameAchievement {
         public static final int NUMBER = 9;
         public static final int LEVEL = 0;
-        public static final int REWARD = 50;
+        public static final int REWARD = 100;
         public static final boolean DISCOVERED = true;
         private static final int REQUIRED_SHOTS_WITH_EACH_CANNON = 75;
         private static final String KEY_GAME_LEFT_CANNON_SHOT_COUNT = NUMBER + "left_cannon_shot";
@@ -391,7 +391,7 @@ public class AchievementLazor extends TypeAchievementHolder {
     private static class Achievement10 extends GameAchievement {
         public static final int NUMBER = 10;
         public static final int LEVEL = 0;
-        public static final int REWARD = 50;
+        public static final int REWARD = 75;
         public static final boolean DISCOVERED = true;
         private static final String KEY_GAME_DESTROYED_RED_OR_WHITE_METEOR = NUMBER + "destroyed_red_or_white_meteor";
 
@@ -424,9 +424,9 @@ public class AchievementLazor extends TypeAchievementHolder {
     private static class Achievement11 extends GameAchievement {
         public static final int NUMBER = 11;
         public static final int LEVEL = 0;
-        public static final int REWARD = 50;
         public static final boolean DISCOVERED = true;
         private static final int METEORS_TO_HIT_COUNT = 8;
+        public static final int REWARD = METEORS_TO_HIT_COUNT*10-15;
         private static final double LAST_SECOND_FACTOR = 0.97;
         private static final String KEY_GAME_METEOR_COUNT = NUMBER + "meteor_count";
 
@@ -460,9 +460,9 @@ public class AchievementLazor extends TypeAchievementHolder {
     private static class Achievement12 extends GameAchievement {
         public static final int NUMBER = 12;
         public static final int LEVEL = 0;
-        public static final int REWARD = 50;
+        public static final int REWARD = 104;
         public static final boolean DISCOVERED = true;
-        private static final int REQUIRED_HITS = 4; // not synced with strings
+        private static final int REQUIRED_HITS = 4; // not synced with strings - of course not, the name speaks for itself :)
 
         public Achievement12(AchievementManager manager, PracticalRiddleType type) {
             super(type, R.string.achievement_lazor_12_name, R.string.achievement_lazor_12_descr, 0, NUMBER, manager, LEVEL, REWARD, 1, DISCOVERED);
@@ -481,7 +481,7 @@ public class AchievementLazor extends TypeAchievementHolder {
     private static class Achievement13 extends GameAchievement {
         public static final int NUMBER = 13;
         public static final int LEVEL = 0;
-        public static final int REWARD = 50;
+        public static final int REWARD = 97;
         public static final boolean DISCOVERED = true;
         private static final int METEORS_TO_HIT_COUNT = 5;
         private static final String KEY_GAME_METEOR_COUNT = NUMBER + "meteor_count";
@@ -511,9 +511,9 @@ public class AchievementLazor extends TypeAchievementHolder {
     private static class Achievement14 extends GameAchievement {
         public static final int NUMBER = 14;
         public static final int LEVEL = 0;
-        public static final int REWARD = 50;
         public static final boolean DISCOVERED = true;
         private static final int REQUIRED_INTERRUPTED_SHOTS = 500;
+        public static final int REWARD = REQUIRED_INTERRUPTED_SHOTS/5;
 
         public Achievement14(AchievementManager manager, PracticalRiddleType type) {
             super(type, R.string.achievement_lazor_14_name, R.string.achievement_lazor_14_descr, 0, NUMBER, manager, LEVEL, REWARD, REQUIRED_INTERRUPTED_SHOTS, DISCOVERED);
@@ -537,9 +537,9 @@ public class AchievementLazor extends TypeAchievementHolder {
     private static class Achievement15 extends GameAchievement {
         public static final int NUMBER = 15;
         public static final int LEVEL = 0;
-        public static final int REWARD = 50;
+        public static final int REWARD = 150;
         public static final boolean DISCOVERED = true;
-        private static final int REQUIRED_SHOTS = 300;
+        private static final int REQUIRED_SHOTS = 400;
         private static final long MAX_FLY_DURATION = 1000; //ms
 
         public Achievement15(AchievementManager manager, PracticalRiddleType type) {
@@ -568,9 +568,9 @@ public class AchievementLazor extends TypeAchievementHolder {
     private static class Achievement16 extends GameAchievement {
         public static final int NUMBER = 16;
         public static final int LEVEL = 0;
-        public static final int REWARD = 50;
         public static final boolean DISCOVERED = true;
         private static final int REQUIRED_SHOTS = 100;
+        public static final int REWARD = REQUIRED_SHOTS*2;
         private static final long MIN_FLY_DURATION = 4000L;//ms
 
         public Achievement16(AchievementManager manager, PracticalRiddleType type) {
@@ -599,7 +599,7 @@ public class AchievementLazor extends TypeAchievementHolder {
     private static class Achievement17 extends GameAchievement {
         public static final int NUMBER = 17;
         public static final int LEVEL = 0;
-        public static final int REWARD = 50;
+        public static final int REWARD = 100;
         public static final boolean DISCOVERED = true;
         private static final int DIFFICULTY_TO_REACH = 100;
 
