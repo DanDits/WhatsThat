@@ -2,8 +2,8 @@ package dan.dit.whatsthat.util.jama;
 
 import android.util.Log;
 
-import dan.dit.whatsthat.util.MultistepPercentProgressListener;
-import dan.dit.whatsthat.util.PercentProgressListener;
+import dan.dit.whatsthat.util.general.MultistepPercentProgressListener;
+import dan.dit.whatsthat.util.general.PercentProgressListener;
 import dan.dit.whatsthat.util.jama.util.Maths;
 
 /** Singular Value Decomposition.

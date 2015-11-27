@@ -33,7 +33,7 @@ import dan.dit.whatsthat.image.Image;
 import dan.dit.whatsthat.riddle.Riddle;
 import dan.dit.whatsthat.riddle.RiddleConfig;
 import dan.dit.whatsthat.riddle.control.RiddleGame;
-import dan.dit.whatsthat.util.PercentProgressListener;
+import dan.dit.whatsthat.util.general.PercentProgressListener;
 import dan.dit.whatsthat.util.flatworld.collision.GeneralHitboxCollider;
 import dan.dit.whatsthat.util.flatworld.collision.Hitbox;
 import dan.dit.whatsthat.util.flatworld.look.Look;

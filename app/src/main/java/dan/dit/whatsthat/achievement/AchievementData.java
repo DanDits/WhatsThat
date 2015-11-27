@@ -24,6 +24,7 @@ import java.util.List;
 import java.util.Queue;
 
 import dan.dit.whatsthat.util.compaction.Compactable;
+import dan.dit.whatsthat.util.general.RobustObserverController;
 
 /**
  * This class encapsulates data that is set and updated by the client and notifies
@@ -33,15 +34,14 @@ import dan.dit.whatsthat.util.compaction.Compactable;
  * Created by daniel on 12.05.15.
  */
 public abstract class AchievementData implements Compactable {
-    private final List<AchievementDataEventListener> mListeners = new ArrayList<>();
-    private List<AchievementDataEventListener> mAddedListeners = new ArrayList<>(4);
-    private List<AchievementDataEventListener> mRemovedListeners = new ArrayList<>(4);
     protected final String mName;
-    private int mIsProcessingEventDepth;
     private Queue<AchievementDataEvent> mEventFactory = new LinkedList<>();
+    private RobustObserverController<AchievementDataEventListener, AchievementDataEvent>
+            mObserverController;
 
     AchievementData(String dataName) {
         mName = dataName;
+        mObserverController = new RobustObserverController<>();
         if (TextUtils.isEmpty(mName)) {
             throw new IllegalArgumentException("Null name given for achievement data.");
         }
@@ -74,49 +74,18 @@ public abstract class AchievementData implements Compactable {
      */
     protected abstract void resetData();
 
-    /**
-     * Adds a listener to be notified on future data events.
-     * @param listener The listener to add if not yet added.
-     */
-    public void addListener(AchievementDataEventListener listener) {
-        if (!mListeners.contains(listener) && !mAddedListeners.contains(listener)) {
-            mAddedListeners.add(listener);
-        }
-    }
 
-    /**
-     * Removes a listener that will no longer be notified on future data events.
-     * @param listener The listener to remove if not yet removed.
-     * @return If the listener will be removed before next notification.
-     */
     public boolean removeListener(AchievementDataEventListener listener) {
-        if (mListeners.contains(listener) && !mRemovedListeners.contains(listener)) {
-            mRemovedListeners.add(listener);
-            return true;
-        }
-        return false;
+        return mObserverController.removeListener(listener);
     }
 
-    /**
-     * Notifies all associated listeners of the given event.
-     * @param event The event to notify listeners of.
-     */
-    synchronized void notifyListeners(AchievementDataEvent event) {
-        if (mIsProcessingEventDepth == 0) {
-            for (int i = 0; i < mAddedListeners.size(); i++) {
-                mListeners.add(mAddedListeners.get(i));
-            }
-            for (int i = 0; i < mRemovedListeners.size(); i++) {
-                mListeners.remove(mRemovedListeners.get(i));
-            }
-            mAddedListeners.clear();
-            mRemovedListeners.clear();
-        }
-        mIsProcessingEventDepth++;
-        for (int i = 0; i < mListeners.size(); i++) {
-            mListeners.get(i).onDataEvent(event);
-        }
-        mIsProcessingEventDepth--;
-        mEventFactory.add(event);
+    public void addListener(AchievementDataEventListener listener) {
+        mObserverController.addListener(listener);
     }
+
+    public void notifyListeners(AchievementDataEvent event) {
+        mObserverController.notifyListeners(event);
+        mEventFactory.add(event); // free event
+    }
+
 }

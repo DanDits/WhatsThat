@@ -69,10 +69,10 @@
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-                <!-- Changes here need to be made in code too, like for making the share link in class WebPhotoStorage -->
-                <data android:host="static.dyp.im" />
-                <data android:pathPattern="/.*"/>
-                <data android:scheme="https"/>
+                <!-- Changes here need to be made in code too and vice versa as this depends on the url from the web photo storage controller -->
+                <data android:host="res.cloudinary.com" />
+                <data android:pathPattern="/whatsthat/.*"/>
+                <data android:scheme="http"/>
             </intent-filter>
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />

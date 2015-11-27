@@ -45,12 +45,13 @@ import dan.dit.whatsthat.riddle.Riddle;
 import dan.dit.whatsthat.riddle.RiddleConfig;
 import dan.dit.whatsthat.riddle.achievement.holders.AchievementLazor;
 import dan.dit.whatsthat.riddle.control.RiddleGame;
+import dan.dit.whatsthat.riddle.control.RiddleScore;
 import dan.dit.whatsthat.riddle.types.Types;
 import dan.dit.whatsthat.testsubject.TestSubject;
 import dan.dit.whatsthat.testsubject.shopping.ShopArticleMulti;
 import dan.dit.whatsthat.testsubject.shopping.sortiment.SortimentHolder;
-import dan.dit.whatsthat.util.PercentProgressListener;
-import dan.dit.whatsthat.util.MathFunction;
+import dan.dit.whatsthat.util.general.PercentProgressListener;
+import dan.dit.whatsthat.util.general.MathFunction;
 import dan.dit.whatsthat.util.compaction.CompactedDataCorruptException;
 import dan.dit.whatsthat.util.compaction.Compacter;
 import dan.dit.whatsthat.util.flatworld.collision.GeneralHitboxCollider;
@@ -184,15 +185,13 @@ public class RiddleLazor extends RiddleGame implements FlatWorldCallback {
     }
 
     @Override
-    protected void calculateGainedScore(int[] scores) {
+    protected @NonNull RiddleScore calculateGainedScore() {
         int bonus = 0;
         if (mConfig.mAchievementGameData != null
                 && mConfig.mAchievementGameData.getValue(AchievementLazor.KEY_GAME_METEOR_CRASHED_IN_CITY_COUNT, 0L) == 0L) {
             bonus = Types.SCORE_HARD;
         }
-        super.calculateGainedScore(scores);
-        scores[3] += bonus;
-        scores[0] += bonus;
+        return super.calculateGainedScore().addBonus(bonus);
     }
 
     @Override

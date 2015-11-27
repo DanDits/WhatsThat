@@ -45,7 +45,7 @@ import dan.dit.whatsthat.riddle.games.RiddleMemory;
 import dan.dit.whatsthat.riddle.games.RiddleSnow;
 import dan.dit.whatsthat.riddle.games.RiddleTorchlight;
 import dan.dit.whatsthat.riddle.games.RiddleTriangle;
-import dan.dit.whatsthat.util.PercentProgressListener;
+import dan.dit.whatsthat.util.general.PercentProgressListener;
 
 /**
  * Static helper class that holds static PracticalRiddleType implementations

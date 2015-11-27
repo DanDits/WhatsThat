@@ -8,7 +8,7 @@ import android.util.Log;
 import java.util.ArrayList;
 import java.util.List;
 
-import dan.dit.whatsthat.util.MathFunction;
+import dan.dit.whatsthat.util.general.MathFunction;
 
 /**
  * Created by daniel on 05.11.15.

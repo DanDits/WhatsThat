@@ -36,7 +36,7 @@ import dan.dit.whatsthat.riddle.types.RiddleType;
 import dan.dit.whatsthat.solution.Solution;
 import dan.dit.whatsthat.storage.ImageTable;
 import dan.dit.whatsthat.storage.ImagesContentProvider;
-import dan.dit.whatsthat.util.BuildException;
+import dan.dit.whatsthat.util.general.BuildException;
 import dan.dit.whatsthat.util.compaction.CompactedDataCorruptException;
 import dan.dit.whatsthat.util.compaction.Compacter;
 import dan.dit.whatsthat.util.image.BitmapUtil;

@@ -7,7 +7,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.Log;
-import android.webkit.DownloadListener;
 
 import java.io.BufferedInputStream;
 import java.io.File;
@@ -23,7 +22,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 import dan.dit.whatsthat.image.ImageObfuscator;
-import dan.dit.whatsthat.util.webPhotoSharing.DumpYourPhotoController;
+import dan.dit.whatsthat.util.webPhotoSharing.CloudinaryController;
+import dan.dit.whatsthat.util.webPhotoSharing.PhotoAlbumShareController;
 
 /**
  * Created by daniel on 28.10.15.
@@ -40,10 +40,13 @@ public class WebPhotoStorage {
     private static final int ERROR_CODE_DOWNLOAD_IOEXCEPTION = 5;
     private static final int ERROR_CODE_URI_ILLEGAL = 6;
     private static final int ERROR_CODE_UPLOAD_FAILED = 7;
+    private final PhotoAlbumShareController mController;
     private String mAlbumHash;
     private boolean mIsWorking;
 
     public WebPhotoStorage(@NonNull SharedPreferences prefs) {
+        mController = new CloudinaryController(); //DumpYourPhoto will probably shut down starting
+        // with 2016, do not use it
         checkAlbum(prefs);
     }
 
@@ -231,7 +234,7 @@ public class WebPhotoStorage {
                             .currentTimeMillis
                                     ()) : originName);
                 }
-                return DumpYourPhotoController.uploadPhotoToAlbum(mAlbumHash, photo);
+                return mController.uploadPhotoToAlbum(mAlbumHash, photo);
             }
 
             @Override
@@ -243,7 +246,7 @@ public class WebPhotoStorage {
                     photoLinks.add(result);
                     prefs.edit().putStringSet(KEY_USER_UPLOADED_PHOTOS_HASHES, photoLinks).apply();
                     if (listener != null) {
-                        listener.onPhotoUploaded(result, DumpYourPhotoController.makeShareLink
+                        listener.onPhotoUploaded(result, mController.makeShareLink
                                 (result));
                     }
                 } else if (listener != null) {
@@ -283,10 +286,10 @@ public class WebPhotoStorage {
 
     private void makeOrUpdateAlbumExecute(SharedPreferences prefs, String name) {
         if (hasAlbum()) {
-            mAlbumHash = DumpYourPhotoController.updateAlbum(mAlbumHash, name,
-                    DumpYourPhotoController.IS_ALBUM_PUBLIC_DEFAULT);
+            mAlbumHash = mController.updateAlbum(mAlbumHash, name,
+                    PhotoAlbumShareController.IS_ALBUM_PUBLIC_DEFAULT);
         } else {
-            mAlbumHash = DumpYourPhotoController.makeAlbum(name);
+            mAlbumHash = mController.makeAlbum(name);
         }
         if (hasAlbum()) {
             prefs.edit().putString(KEY_USER_ALBUM_HASH, mAlbumHash).apply();
@@ -295,6 +298,6 @@ public class WebPhotoStorage {
 
 
     public @Nullable URL makeDownloadLink(@NonNull Uri shared) {
-        return DumpYourPhotoController.makeDownloadLink(shared);
+        return mController.makeDownloadLink(shared);
     }
 }

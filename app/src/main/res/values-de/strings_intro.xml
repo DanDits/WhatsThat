@@ -69,9 +69,11 @@
         <item>Und natürlich: Viel Erfolg!</item>
     </string-array>
     <string-array name="test_subject_0_riddle_solved_candy">
-        <item>Gut gemacht</item>
+        <item>Wunderbar</item>
         <item>Geschafft</item>
-        <item>Großes Lob</item>
+        <item>Gut gemacht</item>
+        <item>Unerwartet gut</item>
+        <item>Großartig</item>
     </string-array>
 
     <!-- Level 1 -->
@@ -109,9 +111,12 @@
         <item>Oh du hörst mir noch zu.. ich mache nur Spaß.</item>
     </string-array>
     <string-array name="test_subject_1_riddle_solved_candy">
-        <item>Bravo</item>
-        <item>Begeisternd</item>
-        <item>Bedacht</item>
+        <item>Applaus</item>
+        <item>Toll gemacht</item>
+        <item>Super</item>
+        <item>Sehr gut</item>
+        <item>gute Arbeit</item>
+        <item>Voll gut</item>
     </string-array>
 
     <!-- Level 2 -->
@@ -141,9 +146,12 @@
         <item>Aber nun weiter im Protokoll.</item>
     </string-array>
     <string-array name="test_subject_2_riddle_solved_candy">
-        <item>Gratulation</item>
-        <item>Gut gemacht</item>
-        <item>Gute Arbeit</item>
+        <item>Bemerkenswert</item>
+        <item>Klasse</item>
+        <item>Top Arbeit</item>
+        <item>Beachtlich</item>
+        <item>Goldrichtig</item>
+        <item>Schöne Leistung</item>
     </string-array>
 
     <!-- Level 3 -->

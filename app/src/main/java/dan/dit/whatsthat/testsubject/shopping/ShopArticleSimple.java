@@ -20,7 +20,7 @@ import android.view.LayoutInflater;
 
 import dan.dit.whatsthat.R;
 import dan.dit.whatsthat.testsubject.ForeignPurse;
-import dan.dit.whatsthat.util.PercentProgressListener;
+import dan.dit.whatsthat.util.general.PercentProgressListener;
 
 /**
  * Created by daniel on 29.07.15.

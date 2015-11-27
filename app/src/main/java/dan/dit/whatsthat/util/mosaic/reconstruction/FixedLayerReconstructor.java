@@ -22,7 +22,7 @@ import android.util.Log;
 import java.util.Arrays;
 import java.util.Random;
 
-import dan.dit.whatsthat.util.PercentProgressListener;
+import dan.dit.whatsthat.util.general.PercentProgressListener;
 import dan.dit.whatsthat.util.image.ColorMetric;
 
 /**

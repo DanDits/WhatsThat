@@ -41,10 +41,11 @@ import dan.dit.whatsthat.riddle.Riddle;
 import dan.dit.whatsthat.riddle.RiddleConfig;
 import dan.dit.whatsthat.riddle.achievement.holders.AchievementJumper;
 import dan.dit.whatsthat.riddle.control.RiddleGame;
+import dan.dit.whatsthat.riddle.control.RiddleScore;
 import dan.dit.whatsthat.riddle.types.Types;
 import dan.dit.whatsthat.testsubject.TestSubject;
 import dan.dit.whatsthat.testsubject.shopping.sortiment.SortimentHolder;
-import dan.dit.whatsthat.util.PercentProgressListener;
+import dan.dit.whatsthat.util.general.PercentProgressListener;
 import dan.dit.whatsthat.util.compaction.CompactedDataCorruptException;
 import dan.dit.whatsthat.util.compaction.Compacter;
 import dan.dit.whatsthat.util.flatworld.collision.GeneralHitboxCollider;
@@ -178,12 +179,10 @@ public class RiddleJumper extends RiddleGame implements FlatWorldCallback {
     }
 
     @Override
-    protected void calculateGainedScore(int[] scores) {
+    protected @NonNull RiddleScore calculateGainedScore() {
         int collisions = mConfig.mAchievementGameData != null ? mConfig.mAchievementGameData.getValue(AchievementJumper.KEY_GAME_COLLISION_COUNT, 0L).intValue() : 0;
         int bonus = (collisions <= MAX_COLLISIONS_FOR_SCORE_BONUS ? Types.SCORE_MEDIUM : 0);
-        super.calculateGainedScore(scores);
-        scores[3] += bonus;
-        scores[0] += bonus;
+        return super.calculateGainedScore().addBonus(bonus);
     }
 
     @Override

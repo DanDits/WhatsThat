@@ -25,7 +25,7 @@ import java.util.List;
 import dan.dit.whatsthat.R;
 import dan.dit.whatsthat.util.dependencies.Dependable;
 import dan.dit.whatsthat.util.dependencies.Dependency;
-import dan.dit.whatsthat.util.PercentProgressListener;
+import dan.dit.whatsthat.util.general.PercentProgressListener;
 
 /**
  * Base of all achievements. An achievement has a name, a description and an icon and is

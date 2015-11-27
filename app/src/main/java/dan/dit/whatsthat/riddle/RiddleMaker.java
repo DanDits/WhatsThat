@@ -36,7 +36,7 @@ import dan.dit.whatsthat.riddle.control.RiddleGame;
 import dan.dit.whatsthat.riddle.types.PracticalRiddleType;
 import dan.dit.whatsthat.riddle.types.RiddleType;
 import dan.dit.whatsthat.system.RiddleFragment;
-import dan.dit.whatsthat.util.PercentProgressListener;
+import dan.dit.whatsthat.util.general.PercentProgressListener;
 import dan.dit.whatsthat.util.image.Dimension;
 
 /**

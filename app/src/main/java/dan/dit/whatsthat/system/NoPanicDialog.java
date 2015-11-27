@@ -337,6 +337,7 @@ public class NoPanicDialog extends DialogFragment {
                                 if (isDetached()) {
                                     return;
                                 }
+                                clearShareButton();
                                 Toast.makeText(getActivity(), getResources().getString(R.string
                                                 .share_failed_upload, error),
                                         Toast.LENGTH_SHORT).show();;
@@ -346,14 +347,17 @@ public class NoPanicDialog extends DialogFragment {
                 }
             }.execute();
         } else {
-            mShareExperiment.setEnabled(true);
-            mShareExperiment.clearAnimation();
+            clearShareButton();
         }
     }
 
-    private void executeShare() {
+    private void clearShareButton() {
         mShareExperiment.setEnabled(true);
         mShareExperiment.clearAnimation();
+    }
+
+    private void executeShare() {
+        clearShareButton();
         if (mToShareLink == null) {
             return;
         }

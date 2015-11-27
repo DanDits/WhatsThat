@@ -41,8 +41,8 @@ import dan.dit.whatsthat.riddle.types.RiddleType;
 import dan.dit.whatsthat.solution.Solution;
 import dan.dit.whatsthat.storage.ImagesContentProvider;
 import dan.dit.whatsthat.storage.RiddleTable;
-import dan.dit.whatsthat.util.BuildException;
-import dan.dit.whatsthat.util.PercentProgressListener;
+import dan.dit.whatsthat.util.general.BuildException;
+import dan.dit.whatsthat.util.general.PercentProgressListener;
 
 /**
  * Basic riddle class that describes an unsolved riddle instance. Can be decorated by a RiddleGame

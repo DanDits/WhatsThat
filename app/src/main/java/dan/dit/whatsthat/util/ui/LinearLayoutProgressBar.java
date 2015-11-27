@@ -27,7 +27,7 @@ import android.util.AttributeSet;
 import android.widget.LinearLayout;
 
 import dan.dit.whatsthat.R;
-import dan.dit.whatsthat.util.PercentProgressListener;
+import dan.dit.whatsthat.util.general.PercentProgressListener;
 
 /**
  * Created by daniel on 01.05.15.

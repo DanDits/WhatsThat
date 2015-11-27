@@ -160,9 +160,9 @@ public class ReceiveObfuscatedActivity extends Activity {
                 //bad luck
             }
 
-        } else if (uri.getScheme().equals("https")) {
+        } else if (uri.getScheme().equals("https") || uri.getScheme().equals("http")) {
             List<String> segments = uri.getPathSegments();
-            if (segments.size() > 1) {
+            if (segments != null && segments.size() > 1) {
                 mName = segments.get(segments.size() - 1);
                 mDataDownloadLink = User.getInstance().getWebPhotoStorage()
                         .makeDownloadLink(uri);
@@ -197,9 +197,6 @@ public class ReceiveObfuscatedActivity extends Activity {
                         mObfuscated = ImageUtil.loadBitmap(tempFile, 0, 0, true);
                     }
                 }
-                if (!ImageObfuscator.checkIfValidObfuscatedImage(mObfuscated)) {
-                    mObfuscated = null;
-                }
                 return null;
             }
 
@@ -211,13 +208,20 @@ public class ReceiveObfuscatedActivity extends Activity {
             @Override
             public void onPostExecute(Object nothing) {
                 mProgressWorking.setVisibility(View.GONE);
+                boolean imageFound = mObfuscated != null;
+                if (!ImageObfuscator.checkIfValidObfuscatedImage(mObfuscated)) {
+                    mObfuscated = null;
+                }
                 if (mObfuscated != null) {
                     mAccept.setEnabled(true);
                 } else {
                     if (mDataDownloadLink == null) {
                         mFailExplanation.setVisibility(View.VISIBLE);
                     }
-                    Toast.makeText(getApplicationContext(), R.string.obfuscated_not_valid_when_loading, Toast.LENGTH_LONG).show();
+
+                    Toast.makeText(getApplicationContext(), !imageFound ? R.string
+                            .obfuscated_not_loadable : R.string
+                            .obfuscated_not_valid_when_loading, Toast.LENGTH_LONG).show();
                 }
             }
         }.execute();

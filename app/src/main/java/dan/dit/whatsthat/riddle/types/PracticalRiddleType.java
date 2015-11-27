@@ -37,7 +37,7 @@ import dan.dit.whatsthat.riddle.achievement.AchievementDataRiddleType;
 import dan.dit.whatsthat.riddle.achievement.holders.TypeAchievementHolder;
 import dan.dit.whatsthat.riddle.control.RiddleGame;
 import dan.dit.whatsthat.testsubject.TestSubject;
-import dan.dit.whatsthat.util.PercentProgressListener;
+import dan.dit.whatsthat.util.general.PercentProgressListener;
 import dan.dit.whatsthat.util.compaction.CompactedDataCorruptException;
 
 /**

@@ -54,7 +54,7 @@ import dan.dit.whatsthat.preferences.Tongue;
 import dan.dit.whatsthat.preferences.User;
 import dan.dit.whatsthat.solution.Solution;
 import dan.dit.whatsthat.system.store.WorkshopView;
-import dan.dit.whatsthat.util.BuildException;
+import dan.dit.whatsthat.util.general.BuildException;
 import dan.dit.whatsthat.util.image.BitmapUtil;
 import dan.dit.whatsthat.util.image.ImageUtil;
 

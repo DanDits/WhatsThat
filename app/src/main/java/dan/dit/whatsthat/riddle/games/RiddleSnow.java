@@ -42,11 +42,12 @@ import dan.dit.whatsthat.riddle.achievement.AchievementDataRiddleType;
 import dan.dit.whatsthat.riddle.achievement.holders.AchievementSnow;
 import dan.dit.whatsthat.riddle.control.RiddleGame;
 import dan.dit.whatsthat.riddle.control.RiddleCanvasAnimation;
+import dan.dit.whatsthat.riddle.control.RiddleScore;
 import dan.dit.whatsthat.riddle.types.Types;
 import dan.dit.whatsthat.testsubject.TestSubject;
 import dan.dit.whatsthat.testsubject.shopping.sortiment.SortimentHolder;
-import dan.dit.whatsthat.util.MathFunction;
-import dan.dit.whatsthat.util.PercentProgressListener;
+import dan.dit.whatsthat.util.general.MathFunction;
+import dan.dit.whatsthat.util.general.PercentProgressListener;
 import dan.dit.whatsthat.util.compaction.CompactedDataCorruptException;
 import dan.dit.whatsthat.util.compaction.Compacter;
 import dan.dit.whatsthat.util.flatworld.collision.GeneralHitboxCollider;
@@ -451,12 +452,10 @@ public class RiddleSnow extends RiddleGame implements FlatWorldCallback {
     }
 
     @Override
-    protected void calculateGainedScore(int[] scores) {
+    protected @NonNull RiddleScore calculateGainedScore() {
         int wallCollisions = mConfig.mAchievementGameData != null ? mConfig.mAchievementGameData.getValue(AchievementSnow.KEY_GAME_COLLISION_COUNT, 0L).intValue() : 0;
         int bonus = (wallCollisions <= MAX_WALL_COLLISONS_FOR_SCORE_BONUS ? Types.SCORE_SIMPLE : 0);
-        super.calculateGainedScore(scores);
-        scores[3] += bonus;
-        scores[0] += bonus;
+        return super.calculateGainedScore().addBonus(bonus);
     }
 
     @Override

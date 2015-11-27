@@ -17,7 +17,6 @@ package dan.dit.whatsthat.system;
 
 import android.content.Context;
 import android.os.AsyncTask;
-import android.os.Bundle;
 import android.os.PowerManager;
 import android.text.TextUtils;
 import android.util.Log;
@@ -37,13 +36,12 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 import dan.dit.whatsthat.R;
-import dan.dit.whatsthat.image.BundleCreator;
 import dan.dit.whatsthat.image.BundleManager;
 import dan.dit.whatsthat.image.Image;
 import dan.dit.whatsthat.image.ImageManager;
 import dan.dit.whatsthat.image.ImageXmlParser;
-import dan.dit.whatsthat.util.IOUtil;
-import dan.dit.whatsthat.util.PercentProgressListener;
+import dan.dit.whatsthat.util.general.IOUtil;
+import dan.dit.whatsthat.util.general.PercentProgressListener;
 import dan.dit.whatsthat.util.image.ExternalStorage;
 
 /**

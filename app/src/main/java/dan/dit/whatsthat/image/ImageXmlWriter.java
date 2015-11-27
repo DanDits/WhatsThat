@@ -35,7 +35,7 @@ import dan.dit.whatsthat.preferences.User;
 import dan.dit.whatsthat.riddle.types.RiddleType;
 import dan.dit.whatsthat.solution.Solution;
 import dan.dit.whatsthat.storage.ImageTable;
-import dan.dit.whatsthat.util.IOUtil;
+import dan.dit.whatsthat.util.general.IOUtil;
 import dan.dit.whatsthat.util.image.ExternalStorage;
 
 /**

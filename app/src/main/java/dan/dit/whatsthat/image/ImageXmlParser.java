@@ -36,8 +36,8 @@ import dan.dit.whatsthat.preferences.Tongue;
 import dan.dit.whatsthat.riddle.types.RiddleType;
 import dan.dit.whatsthat.solution.Solution;
 import dan.dit.whatsthat.storage.ImageTable;
-import dan.dit.whatsthat.util.BuildException;
-import dan.dit.whatsthat.util.PercentProgressListener;
+import dan.dit.whatsthat.util.general.BuildException;
+import dan.dit.whatsthat.util.general.PercentProgressListener;
 import dan.dit.whatsthat.util.image.BitmapUtil;
 
 /**

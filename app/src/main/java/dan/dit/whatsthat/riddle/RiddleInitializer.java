@@ -30,7 +30,7 @@ import java.util.Map;
 import java.util.Set;
 
 import dan.dit.whatsthat.riddle.types.RiddleType;
-import dan.dit.whatsthat.util.PercentProgressListener;
+import dan.dit.whatsthat.util.general.PercentProgressListener;
 
 /**
  * A class that is responsible for initializing the unsolved riddles at application start and remembering

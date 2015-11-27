@@ -29,7 +29,7 @@ import java.util.List;
 import java.util.Queue;
 import java.util.Random;
 
-import dan.dit.whatsthat.util.BuildException;
+import dan.dit.whatsthat.util.general.BuildException;
 
 /**
  * Field with basic methods that is useful for RiddleGames

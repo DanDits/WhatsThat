@@ -43,7 +43,7 @@ import dan.dit.whatsthat.testsubject.shopping.filter.ShopArticleFilterPurchased;
 import dan.dit.whatsthat.testsubject.shopping.ShopArticleHolder;
 import dan.dit.whatsthat.testsubject.shopping.SubProduct;
 import dan.dit.whatsthat.testsubject.shopping.filter.ShopArticleGroupFilter;
-import dan.dit.whatsthat.util.PercentProgressListener;
+import dan.dit.whatsthat.util.general.PercentProgressListener;
 import dan.dit.whatsthat.util.ui.ImageViewWithText;
 import dan.dit.whatsthat.util.ui.LinearLayoutProgressBar;
 

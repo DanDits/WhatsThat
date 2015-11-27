@@ -18,8 +18,8 @@ package dan.dit.whatsthat.util.mosaic.data;
 import android.graphics.Bitmap;
 import android.util.Log;
 
-import dan.dit.whatsthat.util.MultistepPercentProgressListener;
-import dan.dit.whatsthat.util.PercentProgressListener;
+import dan.dit.whatsthat.util.general.MultistepPercentProgressListener;
+import dan.dit.whatsthat.util.general.PercentProgressListener;
 import dan.dit.whatsthat.util.image.ColorMetric;
 import dan.dit.whatsthat.util.mosaic.matching.TileMatcher;
 import dan.dit.whatsthat.util.mosaic.reconstruction.AutoLayerReconstructor;

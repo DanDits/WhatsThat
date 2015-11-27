@@ -59,7 +59,7 @@ import dan.dit.whatsthat.testsubject.shopping.ShopArticleHolder;
 import dan.dit.whatsthat.testsubject.shopping.sortiment.ShopArticleRiddleHints;
 import dan.dit.whatsthat.util.wallet.Wallet;
 import dan.dit.whatsthat.util.wallet.WalletEntry;
-import dan.dit.whatsthat.util.DelayedQueueProcessor;
+import dan.dit.whatsthat.util.general.DelayedQueueProcessor;
 import dan.dit.whatsthat.util.compaction.CompactedDataCorruptException;
 import dan.dit.whatsthat.util.compaction.Compacter;
 

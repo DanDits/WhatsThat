@@ -43,10 +43,11 @@ import dan.dit.whatsthat.riddle.achievement.holders.AchievementCircle;
 import dan.dit.whatsthat.riddle.control.LookRiddleAnimation;
 import dan.dit.whatsthat.riddle.control.RiddleAnimation;
 import dan.dit.whatsthat.riddle.control.RiddleGame;
+import dan.dit.whatsthat.riddle.control.RiddleScore;
 import dan.dit.whatsthat.riddle.types.Types;
 import dan.dit.whatsthat.testsubject.TestSubject;
 import dan.dit.whatsthat.testsubject.shopping.sortiment.SortimentHolder;
-import dan.dit.whatsthat.util.PercentProgressListener;
+import dan.dit.whatsthat.util.general.PercentProgressListener;
 import dan.dit.whatsthat.util.compaction.CompactedDataCorruptException;
 import dan.dit.whatsthat.util.compaction.Compacter;
 import dan.dit.whatsthat.util.flatworld.look.Frames;
@@ -294,11 +295,9 @@ public class RiddleCircle extends RiddleGame {
     }
 
     @Override
-    protected void calculateGainedScore(int[] scores) {
+    protected @NonNull RiddleScore calculateGainedScore() {
         int bonus = (mCircleCenterX.size() < MAX_CIRCLES_FOR_EXTRA_SCORE ? Types.SCORE_SIMPLE : 0);
-        super.calculateGainedScore(scores);
-        scores[3] += bonus;
-        scores[0] += bonus;
+        return super.calculateGainedScore().addBonus(bonus);
     }
 
     /**

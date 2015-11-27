@@ -13,7 +13,7 @@
  *
  */
 
-package dan.dit.whatsthat.util;
+package dan.dit.whatsthat.util.general;
 
 /**
  * An Exception that can be thrown by builder classes that lack information and are unable to build

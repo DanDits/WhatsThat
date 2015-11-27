@@ -28,16 +28,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
-import android.widget.Button;
 import android.widget.ExpandableListView;
 import android.widget.ImageButton;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.File;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
@@ -47,7 +44,7 @@ import dan.dit.whatsthat.preferences.User;
 import dan.dit.whatsthat.system.ImageDataDownload;
 import dan.dit.whatsthat.testsubject.TestSubject;
 import dan.dit.whatsthat.testsubject.shopping.sortiment.ShopArticleDownload;
-import dan.dit.whatsthat.util.BuildException;
+import dan.dit.whatsthat.util.general.BuildException;
 import dan.dit.whatsthat.util.image.ExternalStorage;
 
 /**

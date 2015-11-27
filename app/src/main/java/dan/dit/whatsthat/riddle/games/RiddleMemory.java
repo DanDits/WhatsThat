@@ -45,10 +45,11 @@ import dan.dit.whatsthat.riddle.Riddle;
 import dan.dit.whatsthat.riddle.RiddleConfig;
 import dan.dit.whatsthat.riddle.achievement.holders.AchievementMemory;
 import dan.dit.whatsthat.riddle.control.RiddleGame;
+import dan.dit.whatsthat.riddle.control.RiddleScore;
 import dan.dit.whatsthat.riddle.types.Types;
 import dan.dit.whatsthat.system.RiddleFragment;
-import dan.dit.whatsthat.util.BuildException;
-import dan.dit.whatsthat.util.PercentProgressListener;
+import dan.dit.whatsthat.util.general.BuildException;
+import dan.dit.whatsthat.util.general.PercentProgressListener;
 import dan.dit.whatsthat.util.compaction.CompactedDataCorruptException;
 import dan.dit.whatsthat.util.compaction.Compacter;
 import dan.dit.whatsthat.util.field.Field2D;
@@ -92,12 +93,10 @@ public class RiddleMemory extends RiddleGame {
     }
 
     @Override
-    protected void calculateGainedScore(int[] scores) {
+    protected @NonNull RiddleScore calculateGainedScore() {
         int blackFields = mConfig.mAchievementGameData != null ? mConfig.mAchievementGameData.getValue(AchievementMemory.KEY_GAME_STATE_BLACK_COUNT, 0L).intValue() : 0;
         int bonus = (blackFields <= MAX_BLACK_FIELDS_FOR_SCORE_BONUS ? Types.SCORE_SIMPLE : 0);
-        super.calculateGainedScore(scores);
-        scores[3] += bonus;
-        scores[0] += bonus;
+        return super.calculateGainedScore().addBonus(bonus);
     }
 
     @Override

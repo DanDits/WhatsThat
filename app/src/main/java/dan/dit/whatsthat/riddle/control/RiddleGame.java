@@ -35,15 +35,13 @@ import dan.dit.whatsthat.riddle.RiddleConfig;
 import dan.dit.whatsthat.riddle.RiddleView;
 import dan.dit.whatsthat.riddle.achievement.AchievementDataRiddleGame;
 import dan.dit.whatsthat.riddle.achievement.AchievementDataRiddleType;
-import dan.dit.whatsthat.riddle.control.RiddleController;
-import dan.dit.whatsthat.riddle.control.RiddleControllerFactory;
 import dan.dit.whatsthat.solution.Solution;
 import dan.dit.whatsthat.solution.SolutionInput;
 import dan.dit.whatsthat.solution.SolutionInputListener;
 import dan.dit.whatsthat.solution.SolutionInputManager;
 import dan.dit.whatsthat.solution.SolutionInputView;
 import dan.dit.whatsthat.testsubject.TestSubject;
-import dan.dit.whatsthat.util.PercentProgressListener;
+import dan.dit.whatsthat.util.general.PercentProgressListener;
 import dan.dit.whatsthat.util.compaction.CompactedDataCorruptException;
 import dan.dit.whatsthat.util.compaction.Compacter;
 import dan.dit.whatsthat.util.image.Dimension;
@@ -198,15 +196,14 @@ public abstract class RiddleGame {
         mRiddleController.addAnimation(animation, delay);
     }
 
-    private final int[] mScores = new int[4];
     public final synchronized void close() {
         int solved = mSolutionInput.estimateSolvedValue();
         int score = 0;
         String currentState = null;
         String solutionData;
         if (solved >= Solution.SOLVED_COMPLETELY) {
-            calculateGainedScore(mScores);
-            score = Math.max(mScores[0], 0); // no negative score gains
+            RiddleScore riddleScore = calculateGainedScore();
+            score = riddleScore.getTotalScore();
             solutionData = mSolutionInput.getCurrentUserSolution().compact();
         } else {
             currentState = compactCurrentState();
@@ -262,12 +259,11 @@ public abstract class RiddleGame {
     private static final double SCORE_EXP_FACTOR = Math.log(MAX_SCORE_MULTIPLIER - BASE_SCORE_MULTIPLIER) / SCORES_MULTIPLIED_PER_DAY_COUNT;
     /**
      * Calculates the gained score. Can but generally should not depend on the
-     * way the riddle was solved and the game was played. Should be a positive number or zero.
+     * way the riddle was solved and the game was played.
      * Calculations should be robust and produce the same result if nothing major happens to the game.
-     * @param scores Initialized by the caller of length 4. After returning holds
-     *               values [TotalGainedScore, BaseScore, BaseScoreMultiplicator, BonusScore].
+     * @return A valid RiddleScore.
      */
-    protected synchronized void calculateGainedScore(int[] scores) {
+    protected synchronized @NonNull RiddleScore calculateGainedScore() {
         boolean isCustom = !Image.ORIGIN_IS_THE_APP.equalsIgnoreCase(mRiddle.getOrigin());
         if (mScoreMultiplicator <= 0) {
             mScoreMultiplicator = BASE_SCORE_MULTIPLIER;
@@ -283,11 +279,7 @@ public abstract class RiddleGame {
         if (isCustom) {
             base = 0; // do not grant points for custom riddles by default (only bonus points possible)
         }
-        int total = base * mScoreMultiplicator;
-        scores[0] = total;
-        scores[1] = base;
-        scores[2] = mScoreMultiplicator;
-        scores[3] = 0;
+        return new RiddleScore(base, mScoreMultiplicator);
     }
 
     public abstract void draw(Canvas canvas);

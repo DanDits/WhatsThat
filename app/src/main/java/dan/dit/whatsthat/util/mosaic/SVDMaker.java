@@ -3,10 +3,7 @@ package dan.dit.whatsthat.util.mosaic;
 import android.graphics.Bitmap;
 import android.util.Log;
 
-import java.util.List;
-
-import dan.dit.whatsthat.util.PercentProgressListener;
-import dan.dit.whatsthat.util.image.BitmapUtil;
+import dan.dit.whatsthat.util.general.PercentProgressListener;
 import dan.dit.whatsthat.util.mosaic.bitmapMatrix.ARGBMatrix;
 import dan.dit.whatsthat.util.mosaic.bitmapMatrix.BitmapMatrix;
 import dan.dit.whatsthat.util.mosaic.bitmapMatrix.IndexedBitmap;

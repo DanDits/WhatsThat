@@ -237,6 +237,7 @@
     <string name="mosaic_generator_share_mosaic">Share mosaic</string>
     <string name="obfuscated_accept">Accept experiment</string>
     <string name="obfuscated_refuse">Refuse experiment</string>
+    <string name="obfuscated_not_loadable">Could not load image.</string>
     <string name="obfuscated_not_valid_when_loading">Not a valid obfuscated experiment.</string>
     <string name="obfuscated_loading_success_no_riddle">Image included without experiment</string>
     <string name="obfuscated_loading_success_with_riddle">New experiment ready!</string>

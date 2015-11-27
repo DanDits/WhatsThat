@@ -13,7 +13,7 @@
  *
  */
 
-package dan.dit.whatsthat.util;
+package dan.dit.whatsthat.util.general;
 
 /**
  * A generic interface for any progress that is expressed in percent

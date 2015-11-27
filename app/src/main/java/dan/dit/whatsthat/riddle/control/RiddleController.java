@@ -320,20 +320,16 @@ public class RiddleController implements RiddleAnimationController.OnAnimationCo
         return mPeriodicThread != null && mPeriodicThread.isRunning();
     }
 
-    private int[] mScores = new int[4];
     public void checkParty(@NonNull Resources res, @NonNull RiddleView.PartyCallback callback) {
         TestSubjectToast toast = new TestSubjectToast(Gravity.CENTER, 0, 0, mRiddle.getType().getIconResId(), 0, SuperToast.Duration.MEDIUM);
         toast.mAnimations = SuperToast.Animations.POPUP;
         toast.mBackgroundColor = res.getColor(R.color.main_background);
 
         String[] candies = res.getStringArray(TestSubject.getInstance().getRiddleSolvedResIds());
-        mRiddleGame.calculateGainedScore(mScores);
-        int score = mScores[0];
-        int party = 0;
-        if (mScores[3] > 0) {
-            // got bonus
-            party = mScores[3];
-        }
+        RiddleScore riddleScore = mRiddleGame.calculateGainedScore();
+        int score = riddleScore.getTotalScore();
+        int party = riddleScore.getBonus();
+
         StringBuilder builder = new StringBuilder();
         if (candies != null && candies.length > 0) {
             builder.append(candies[(int) (Math.random() * candies.length)]);
@@ -343,7 +339,7 @@ public class RiddleController implements RiddleAnimationController.OnAnimationCo
                     .append(score);
         }
         // for each multiplier add an exclamation mark
-        for (int i = 0; i < mScores[2]; i++) {
+        for (int i = 0; i < riddleScore.getMultiplicator() - 1; i++) {
             builder.append("!");
         }
         toast.mText = builder.toString();

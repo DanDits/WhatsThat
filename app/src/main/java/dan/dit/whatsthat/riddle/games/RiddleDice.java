@@ -39,9 +39,10 @@ import dan.dit.whatsthat.riddle.Riddle;
 import dan.dit.whatsthat.riddle.RiddleConfig;
 import dan.dit.whatsthat.riddle.achievement.holders.AchievementDice;
 import dan.dit.whatsthat.riddle.control.RiddleGame;
+import dan.dit.whatsthat.riddle.control.RiddleScore;
 import dan.dit.whatsthat.riddle.types.Types;
-import dan.dit.whatsthat.util.BuildException;
-import dan.dit.whatsthat.util.PercentProgressListener;
+import dan.dit.whatsthat.util.general.BuildException;
+import dan.dit.whatsthat.util.general.PercentProgressListener;
 import dan.dit.whatsthat.util.compaction.CompactedDataCorruptException;
 import dan.dit.whatsthat.util.compaction.Compacter;
 import dan.dit.whatsthat.util.field.Field2D;
@@ -367,14 +368,12 @@ public class RiddleDice extends RiddleGame {
 
 
     @Override
-    protected void calculateGainedScore(int[] scores) {
+    protected @NonNull RiddleScore calculateGainedScore() {
         boolean noResets = mConfig.mAchievementGameData != null && mConfig.mAchievementGameData.getValue(AchievementDice.KEY_GAME_RESET_COUNT, 0L) == 0L;
         boolean noPurpleDices = mConfig.mAchievementGameData != null && mConfig.mAchievementGameData.getValue(AchievementDice.KEY_GAME_PURPLE_COUNT, 0L) == 0L;
 
-        super.calculateGainedScore(scores);
         int bonus = ((noResets && noPurpleDices) ? Types.SCORE_SIMPLE : 0);
-        scores[3] += bonus;
-        scores[0] += bonus;
+        return super.calculateGainedScore().addBonus(bonus);
     }
 
     @Override

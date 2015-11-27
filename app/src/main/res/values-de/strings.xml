@@ -247,6 +247,7 @@
     <string name="mosaic_generator_share_mosaic">Mosaik teilen</string>
     <string name="obfuscated_accept">Experiment akzeptieren</string>
     <string name="obfuscated_refuse">Experiment ablehnen</string>
+    <string name="obfuscated_not_loadable">Konnte Bild nicht laden.</string>
     <string name="obfuscated_not_valid_when_loading">Kein gültiges Experiment.</string>
     <string name="obfuscated_loading_success_no_riddle">Bild eingebunden ohne Experiment</string>
     <string name="obfuscated_loading_success_with_riddle">Neues Experiment bereit!</string>

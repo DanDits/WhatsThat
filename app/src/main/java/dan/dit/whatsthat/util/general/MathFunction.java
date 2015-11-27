@@ -13,7 +13,7 @@
  *
  */
 
-package dan.dit.whatsthat.util;
+package dan.dit.whatsthat.util.general;
 
 /**
  * Mathematical helper class to create continuous functions that can be evaluated at every given

@@ -22,7 +22,7 @@ import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.util.Log;
 
-import dan.dit.whatsthat.util.MathFunction;
+import dan.dit.whatsthat.util.general.MathFunction;
 
 /**
  * Created by daniel on 26.06.15.

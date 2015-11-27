@@ -25,10 +25,12 @@ import java.util.Map;
 
 /**
  * Implementing requests for dumpyourphoto.com API as specified by
- * https://github.com/DumpYourPhoto/API-Documentation
+ * https://github.com/DumpYourPhoto/API-Documentation.
+ * Service unfortunately is scheduled to shut down on january the first in 2016. :(
+ *
  * Created by daniel on 27.10.15.
  */
-public class DumpYourPhotoController {
+public class DumpYourPhotoController extends PhotoAlbumShareController {
 
     /**
      * The accepted format of the response, specified in the header. Do not change. API supports
@@ -199,7 +201,7 @@ public class DumpYourPhotoController {
      *                  the user.
      * @return Null if creation fails for some reason or the hash of the newly created empty album.
      */
-    public static String makeAlbum(String albumName) {
+    public String makeAlbum(String albumName) {
         ResponseMap map = makeAlbumExecute(albumName);
         if (map == null) {
             return null;
@@ -215,7 +217,7 @@ public class DumpYourPhotoController {
      * @param newIsPublic If the album should become public or private.
      * @return The album's hash if everything went fine, else null.
      */
-    public static String updateAlbum(String albumHash, String newAlbumName, boolean newIsPublic) {
+    public String updateAlbum(String albumHash, String newAlbumName, boolean newIsPublic) {
         ResponseMap map = updateAlbumExecute(albumHash, newAlbumName, newIsPublic);
         if (map == null) {
             return null;
@@ -303,7 +305,7 @@ public class DumpYourPhotoController {
      * Format: photohash/photofilename. Can be null if something goes wrong. Photohash or
      * photofilename can be empty if some very unexpected server error happens.
      */
-    public static @Nullable String uploadPhotoToAlbum(String albumHash, File bitmapFile) {
+    public @Nullable String uploadPhotoToAlbum(String albumHash, File bitmapFile) {
         ResponseMap map = uploadPhotoToAlbumExecute(albumHash, bitmapFile);
         if (map == null) {
             return null;
@@ -341,7 +343,7 @@ public class DumpYourPhotoController {
                 .substring(1) : photoUploadLink);
     }
 
-    public static @Nullable URL makeShareLink(@NonNull String photoLink) {
+    public @Nullable URL makeShareLink(@NonNull String photoLink) {
         try {
             return new URL(makeDownloadLinkExecute(photoLink));
         } catch (MalformedURLException e) {
@@ -350,7 +352,7 @@ public class DumpYourPhotoController {
         }
     }
 
-    public static @Nullable URL makeDownloadLink(@NonNull Uri shared) {
+    public @Nullable URL makeDownloadLink(@NonNull Uri shared) {
         List<String> segments = shared.getPathSegments();
         if (segments != null && segments.size() > 1) {
             try {

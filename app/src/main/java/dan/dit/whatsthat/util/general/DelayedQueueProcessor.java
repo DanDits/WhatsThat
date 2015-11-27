@@ -13,7 +13,7 @@
  *
  */
 
-package dan.dit.whatsthat.util;
+package dan.dit.whatsthat.util.general;
 
 import android.os.Handler;
 import android.support.annotation.NonNull;
