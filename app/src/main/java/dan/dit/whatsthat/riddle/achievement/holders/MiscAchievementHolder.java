@@ -115,7 +115,7 @@ public class MiscAchievementHolder implements AchievementHolder {
     private static class Achievement2 extends MiscAchievement {
         public static final int NUMBER = 2;
         public static final int LEVEL = 0;
-        public static final int REWARD = 15;
+        public static final int REWARD = 75;
         public static final boolean DISCOVERED = false;
         private static final long MS_TO_DAYS = 1000 * 60 * 60 * 24;
         private static final long MIN_TOTAL_TIME = MS_TO_DAYS * 2; // ms
@@ -141,7 +141,7 @@ public class MiscAchievementHolder implements AchievementHolder {
     private static class Achievement3 extends MiscAchievement {
         public static final int NUMBER = 3;
         public static final int LEVEL = 0;
-        public static final int REWARD = 15;
+        public static final int REWARD = 100;
         public static final boolean DISCOVERED = false;
         private static final long MS_TO_HOURS = 1000 * 60 * 60;
         private static final long MIN_PLAYED_TIME = MS_TO_HOURS * 2; // ms
@@ -166,8 +166,8 @@ public class MiscAchievementHolder implements AchievementHolder {
 
     private static class Achievement4 extends MiscAchievement {
         public static final int NUMBER = 4;
-        public static final int LEVEL = 0;
-        public static final int REWARD = 50;
+        public static final int LEVEL = 2;
+        public static final int REWARD = 300;
         public static final boolean DISCOVERED = true;
         public static final int ACHIEVEMENTS_REQUIRED = 50;
 

@@ -640,7 +640,7 @@ public class AchievementSnow extends TypeAchievementHolder {
     public static class Achievement15 extends GameAchievement {
         public static final int NUMBER = 15;
         public static final int LEVEL = 0;
-        public static final int REWARD = 50;
+        public static final int REWARD = 125;
         public static final boolean DISCOVERED = true;
 
         public Achievement15(AchievementManager manager, PracticalRiddleType type) {
@@ -675,7 +675,7 @@ public class AchievementSnow extends TypeAchievementHolder {
     public static class Achievement16 extends GameAchievement {
         public static final int NUMBER = 16;
         public static final int LEVEL = 0;
-        public static final int REWARD = 50;
+        public static final int REWARD = 80;
         public static final boolean DISCOVERED = true;
 
         public Achievement16(AchievementManager manager, PracticalRiddleType type) {
@@ -698,7 +698,7 @@ public class AchievementSnow extends TypeAchievementHolder {
     public static class Achievement17 extends GameAchievement {
         public static final int NUMBER = 17;
         public static final int LEVEL = 0;
-        public static final int REWARD = 50;
+        public static final int REWARD = 130;
         public static final boolean DISCOVERED = true;
         private static final int REQUIRED_GAMES_WITH_CLICK_ONLY = 10;
         private static final int REQUIRED_GAMES_WITH_TILT_ONLY = 10;

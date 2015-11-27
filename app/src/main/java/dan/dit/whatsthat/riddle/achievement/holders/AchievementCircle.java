@@ -408,7 +408,7 @@ public class AchievementCircle extends TypeAchievementHolder {
     public static class Achievement9 extends GameAchievement {
         public static final int NUMBER = 9;
         public static final int LEVEL = 0;
-        public static final int REWARD = PracticalRiddleType.CIRCLE_INSTANCE.getBaseScore() * 7;
+        public static final int REWARD = PracticalRiddleType.CIRCLE_INSTANCE.getBaseScore() * 10;
         public static final boolean DISCOVERED = true;
         private static final int MIN_RUBBISH_LETTERS = 18;
         private static final long TALK_POLITE = 1L;

@@ -101,7 +101,7 @@
     <string name="achievement_dice_10_name">Röntgenblick</string>
     <string name="achievement_dice_10_descr">.nereinibmok uz Lefrüw ebleg enho Dilb sad Esöl</string>
     <string name="achievement_dice_11_name">Spaziergang</string>
-    <string name="achievement_dice_11_descr">Führe ein Alien %1$d und eine gelbe %2$d etwas spazieren.</string>
+    <string name="achievement_dice_11_descr">Mache einen Spaziergang mit %1$d und %2$d. Ich fürchte, ich habe vergessen mit welcher Farbe…</string>
     <string name="achievement_dice_12_name">This…</string>
     <string name="achievement_dice_12_descr">Kombinierte rote Würfel: %1$d/%2$d.</string>
     <string name="achievement_dice_13_name">…is…</string>
@@ -236,7 +236,7 @@
     <string name="achievement_lazor_5_descr">Schieße %1$d Kometen im oberen Drittel des Bildes ab.</string>
     <string name="achievement_lazor_6_name">Präzisionsschütze</string>
     <string name="achievement_lazor_6_descr">Treffe mit jedem Schuss einen Meteoriten ohne dass einer durchkommt. Wie viele? Nun, mehr als %1$d und weniger als %2$d.</string>
-    <string name="achievement_lazor_7_name">Schild Schutz</string>
+    <string name="achievement_lazor_7_name">Armageddonz</string>
     <string name="achievement_lazor_7_descr">Halte den Generator über %1$d%% solange bis %2$d Meteoriten erschienen sind.</string>
     <string name="achievement_lazor_8_name">Eingeholt</string>
     <string name="achievement_lazor_8_descr">Daneben schießen ist nicht unbedingt tragisch. Manchmal holt die Explosion den Kometen sogar noch ein.</string>

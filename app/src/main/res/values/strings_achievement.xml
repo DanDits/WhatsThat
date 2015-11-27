@@ -100,7 +100,7 @@
     <string name="achievement_dice_10_name">X-ray vision</string>
     <string name="achievement_dice_10_descr">.Secid wolley yna gninibmoc tuohtiw erutcip a hsinif</string>
     <string name="achievement_dice_11_name">Going for a walk</string>
-    <string name="achievement_dice_11_descr">Take an alien %1$d and a yellow %2$d for a walk.</string>
+    <string name="achievement_dice_11_descr">Take a walk with %1$d and %2$d. I\'m afraid I forgot which colour…</string>
     <string name="achievement_dice_12_name">This…</string>
     <string name="achievement_dice_12_descr">Combined red dices: %1$d/%2$d.</string>
     <string name="achievement_dice_13_name">…is…</string>
@@ -119,7 +119,7 @@
     <string name="achievement_dice_19_name">Perfectionist</string>
     <string name="achievement_dice_19_descr">Something tells you to perfectly uncover the mystery.</string>
     <string name="achievement_dice_20_name">Focus</string>
-    <string name="achievement_dice_20_descr">Choose one of the four inner fields by combining any dices. Perform a maximum of %1$d combinations but only on this field without any resets.</string>
+    <string name="achievement_dice_20_descr">Choose one of the four inner fields by combining any dices on it. Perform a maximum of %1$d combinations but only on this field without any resets.</string>
     <string name="achievement_dice_21_name">Minimalist</string>
     <string name="achievement_dice_21_descr">I know, this is the last one. But there must be an opposing side of perfectionists. So finish this with only %1$d combinations. Good luck.</string>
     <string name="achievement_dice_21_descr_claimed">An opposing side of Perfectionist.It\'s like Yin-Yang. Ever heard of it?</string>
@@ -236,13 +236,13 @@
     <string name="achievement_lazor_5_name">Interceptor</string>
     <string name="achievement_lazor_6_descr">All shots must hit a meteor and none must pass. How many? Well, more than %1$d but less than %2$d.</string>
     <string name="achievement_lazor_6_name">Sniper</string>
-    <string name="achievement_lazor_7_name">Shield protection</string>
+    <string name="achievement_lazor_7_name">Armageddon</string>
     <string name="achievement_lazor_7_descr">Keep the shield charge above %1$d%% until %2$d meteors have spawned.</string>
     <string name="achievement_lazor_8_name">Caught up</string>
     <string name="achievement_lazor_8_descr">If you miss your target, it isn\'t even a tragedy. Sometimes the explosion even catches up the comet.</string>
     <string name="achievement_lazor_9_name">Fire master</string>
     <string name="achievement_lazor_9_descr">So, can you shoot %1$d times with each canon and keep the shield up?</string>
-    <string name="achievement_lazor_10_name">Colour blind</string>
+    <string name="achievement_lazor_10_name">Not colour blind</string>
     <string name="achievement_lazor_10_descr">Do not reveal any red and solve the picture.</string>
     <string name="achievement_lazor_11_name">Calculated</string>
     <string name="achievement_lazor_11_descr">Hit %1$d meteors with the last "edge" of the explosion. The shield must NOT be active.</string>
