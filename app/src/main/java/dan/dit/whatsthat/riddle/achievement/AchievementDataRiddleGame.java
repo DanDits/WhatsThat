@@ -15,9 +15,11 @@
 
 package dan.dit.whatsthat.riddle.achievement;
 
+import android.support.annotation.NonNull;
 import android.util.Log;
 
 import dan.dit.whatsthat.achievement.AchievementDataEvent;
+import dan.dit.whatsthat.achievement.AchievementDataEventListener;
 import dan.dit.whatsthat.achievement.AchievementProperties;
 import dan.dit.whatsthat.riddle.achievement.holders.MiscAchievementHolder;
 import dan.dit.whatsthat.riddle.types.PracticalRiddleType;
@@ -41,11 +43,44 @@ public class AchievementDataRiddleGame extends AchievementProperties {
     public static final String KEY_LAST_OPENED = "last_opened";
     public static final String KEY_SOLVED = "solved";
     public static final String KEY_CUSTOM = "custom";
+    private static final AchievementDataRiddleGame sNull = new AchievementDataRiddleGame
+            .NullObject();
 
     private int mState = STATE_NONE;
 
     public AchievementDataRiddleGame(PracticalRiddleType type) {
         super(DATA_NAME + type.getFullName());
+    }
+
+    private AchievementDataRiddleGame(String name) {
+        super(name);
+    }
+
+    public static @NonNull AchievementDataRiddleGame getNullObject() {
+        return sNull;
+    }
+
+    // Nullobject that does nothing meaningful but implements the full interface
+    private static class NullObject extends AchievementDataRiddleGame {
+
+        private static final String NULL_DATA_NAME = "riddlegamedata_null";
+
+        public NullObject() {
+            super(NULL_DATA_NAME);
+        }
+
+        public boolean removeListener(AchievementDataEventListener listener) {return false;}
+        public void addListener(AchievementDataEventListener listener) {}
+        public void notifyListeners(AchievementDataEvent event) {}
+        public void enableSilentChanges(int eventType) {}
+        public void disableSilentChanges() {}
+
+        protected synchronized void resetData() {}
+        public synchronized void putValue(String key, Long value, long requiredValueToOldDelta) {}
+        public synchronized void putValues(String key1, Long value1, long reqDelta1, String key2,
+                                           Long value2, long reqDelta2, String key3, Long value3,
+                                           long reqDelta3) {}
+            public synchronized Long increment(String key, long delta, long baseValue) {return baseValue;}
     }
 
     public synchronized void loadGame(Compacter achievementData) {

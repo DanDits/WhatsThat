@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="intro_test_subject_name">-Test Subjekt-</string>
-    <string name="intro_test_subject_estimated_intelligence">-Intelligenz-</string>
+    <string name="intro_test_subject_name">Test Subjekt: </string>
+    <string name="intro_test_subject_estimated_intelligence">Intelligenz: </string>
 
     <string name="intro_test_subject_gender_answer_male">XY: Yann</string>
     <string name="intro_test_subject_gender_answer_female">XX: Xenia</string>

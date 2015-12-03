@@ -44,6 +44,7 @@ import dan.dit.whatsthat.testsubject.TestSubjectToast;
  * Created by daniel on 31.03.15.
  */
 public class RiddleView extends SurfaceView implements SensorEventListener {
+    public static final int BACKGROUND_COLOR_RESOURCE_ID = R.color.main_background;
     private RiddleController mRiddleCtr;
     private SensorManager mSensorManager;
     private Sensor mMagnetometer;
@@ -55,7 +56,7 @@ public class RiddleView extends SurfaceView implements SensorEventListener {
         super(context, attrs);
         setFocusable(true);
         setVisibility(View.INVISIBLE);
-        mBackgroundColor = getResources().getColor(R.color.main_background);
+        mBackgroundColor = getResources().getColor(BACKGROUND_COLOR_RESOURCE_ID);
         //setZOrderOnTop(true);    // necessary if there is no background color drawn to clear
                                     // but simply a clearing paint, because else the background
                                     // is black

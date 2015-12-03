@@ -15,8 +15,11 @@
 
 package dan.dit.whatsthat.riddle.achievement;
 
+import android.support.annotation.NonNull;
 import android.util.Log;
 
+import dan.dit.whatsthat.achievement.AchievementDataEvent;
+import dan.dit.whatsthat.achievement.AchievementDataEventListener;
 import dan.dit.whatsthat.achievement.AchievementManager;
 import dan.dit.whatsthat.achievement.AchievementProperties;
 import dan.dit.whatsthat.riddle.types.PracticalRiddleType;
@@ -30,6 +33,7 @@ public class AchievementDataRiddleType extends AchievementProperties {
     private static final String KEY_NEW_GAMES_STARTED = "new_games_started";
     public static final String KEY_GAMES_SOLVED = "games_solved";
     public static final String KEY_BEST_SOLVED_TIME = "best_solved_time";
+    private static final AchievementDataRiddleType sNull = new NullObject();
 
     public AchievementDataRiddleType(PracticalRiddleType type, AchievementManager manager) throws CompactedDataCorruptException {
         super(DATA_NAME_PREFIX + type.getFullName(), manager.loadDataEvent(DATA_NAME_PREFIX + type.getFullName()));
@@ -39,6 +43,34 @@ public class AchievementDataRiddleType extends AchievementProperties {
     public AchievementDataRiddleType(PracticalRiddleType type, AchievementManager manager, boolean notUsed) {
         super(DATA_NAME_PREFIX + type.getFullName());
         manager.manageAchievementData(this);
+    }
+
+    private AchievementDataRiddleType(String name) {
+        super(name);
+    }
+
+    public static @NonNull AchievementDataRiddleType getNullObject() {
+        return sNull;
+    }
+
+    // Nullobject that does nothing meaningful but implements the full interface
+    private static class NullObject extends AchievementDataRiddleType {
+
+        private static final String NULL_DATA_NAME = "riddletypedata_null";
+
+        public NullObject() {
+            super(NULL_DATA_NAME);
+        }
+
+        public boolean removeListener(AchievementDataEventListener listener) {return false;}
+        public void addListener(AchievementDataEventListener listener) {}
+        public void notifyListeners(AchievementDataEvent event) {}
+        public void enableSilentChanges(int eventType) {}
+        public void disableSilentChanges() {}
+
+        protected synchronized void resetData() {}
+        public synchronized void putValue(String key, Long value, long requiredValueToOldDelta) {}
+        public synchronized Long increment(String key, long delta, long baseValue) {return baseValue;}
     }
 
     public void onNewGame() {

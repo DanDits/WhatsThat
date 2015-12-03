@@ -20,7 +20,12 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Color;
+import android.graphics.Typeface;
+import android.text.Spannable;
+import android.text.SpannableStringBuilder;
 import android.text.TextUtils;
+import android.text.style.ForegroundColorSpan;
+import android.text.style.StyleSpan;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -146,15 +151,26 @@ public class TestSubject {
         Intro intro = Intro.makeIntro(introView, currLevel);
         intro.load(mPreferences, level);
         Resources res = intro.getResources();
-        String testSubjDescr =
-                res.getString(R.string.intro_test_subject_name)
-                        +"\n"
-                        + res.getString(currLevel.mNameResId)
-                        + "\n"
-                        + res.getString(R.string.intro_test_subject_estimated_intelligence)
-                        +"\n"
-                        + res.getString(currLevel.mIntelligenceResId);
-        ((TextView) intro.findViewById(R.id.intro_subject_descr)).setText(testSubjDescr);
+
+        // Create the running text
+        SpannableStringBuilder longDescription = new SpannableStringBuilder();
+        longDescription.append(res.getString(R.string.intro_test_subject_name));
+        int start = longDescription.length();
+        longDescription.append(res.getString(currLevel.mNameResId));
+        longDescription.setSpan(new StyleSpan(Typeface.ITALIC), start,
+                longDescription.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+        longDescription.append('\t');
+        longDescription.append(res.getString(R.string.intro_test_subject_estimated_intelligence));
+        start = longDescription.length();
+        longDescription.append(res.getString(currLevel.mIntelligenceResId));
+        longDescription.setSpan(new StyleSpan(Typeface.ITALIC), start,
+                longDescription.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+
+
+        ((TextView) intro.findViewById(R.id.intro_subject_descr)).setText(longDescription);
+
         new GeneralStartingEpisode(intro, res.getString(R.string.intro_starting_episode, res.getString(currLevel.mNameResId)), currLevel).start();
         if (intro.getCurrentEpisode() == null) {
             intro.nextEpisode(); // if this level is loaded for the first time we need to set the initial episode

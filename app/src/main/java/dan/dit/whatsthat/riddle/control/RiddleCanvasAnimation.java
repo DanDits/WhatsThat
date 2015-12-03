@@ -32,6 +32,13 @@ public class RiddleCanvasAnimation extends RiddleAnimation {
                 .isAlive());
     }
 
+    @Override
+    public void onMurdered() {
+        for (CanvasAnimation anim : mAnimations) {
+            anim.onMurdered();
+        }
+    }
+
     protected void addAnimation(CanvasAnimation animation) {
         mAnimations.add(animation);
     }
@@ -224,6 +231,11 @@ public class RiddleCanvasAnimation extends RiddleAnimation {
 
         public boolean isAlive() {
             return mLives != 0;
+        }
+
+        public void onMurdered() {
+            mLives = 0;
+            mLifeTime = mLifeIsIncreasing ? Long.MAX_VALUE : Long.MIN_VALUE;
         }
 
         public void update(long updatePeriod) {

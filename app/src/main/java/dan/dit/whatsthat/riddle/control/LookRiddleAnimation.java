@@ -35,6 +35,11 @@ public class LookRiddleAnimation extends RiddleAnimation {
     }
 
     @Override
+    public void onMurdered() {
+        mLifeTime = 0L;
+    }
+
+    @Override
     protected void update(long updatePeriod) {
         mLook.update(updatePeriod);
         if (mLifeTime > 0L) {

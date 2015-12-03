@@ -3,20 +3,14 @@
     android:shareInterpolator="false"
     android:duration="250">
     <scale
-        android:pivotY="0%"
+        android:pivotY="2%"
         android:pivotX="50%"
-        android:fromXScale="0.3"
-        android:fromYScale="0."
+        android:fromXScale="0.0"
+        android:fromYScale="0.3"
         android:toXScale="1."
         android:toYScale="1."
-        android:interpolator="@android:interpolator/overshoot"
+        android:interpolator="@android:interpolator/accelerate_quad"
         android:duration="250">
 
     </scale>
-    <alpha
-        android:fromAlpha="0.1"
-        android:toAlpha="1."
-        android:duration="250"
-        android:interpolator="@android:interpolator/linear"
-        />
 </set>

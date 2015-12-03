@@ -15,6 +15,7 @@
 
 package dan.dit.whatsthat.riddle;
 
+import android.support.annotation.NonNull;
 import android.util.DisplayMetrics;
 import android.util.Log;
 
@@ -53,11 +54,22 @@ public class RiddleConfig {
             Log.e("Riddle", "Setting negative or zero height for RiddleConfig: " + height);
             mHeight = 480;
         }
+        setDefaultAchievementData();
     }
 
-    public void setAchievementData(PracticalRiddleType type) {
+    public void setAchievementData(@NonNull PracticalRiddleType type) {
         mAchievementGameData = type.getAchievementDataGame();
         mAchievementTypeData = type.getAchievementData(null);
+        // if one data is not available set both to empty default
+        // this will not be the case if all initialization of riddle data is done properly
+        if (mAchievementGameData == null || mAchievementTypeData == null) {
+            setDefaultAchievementData();
+        }
+    }
+
+    private void setDefaultAchievementData() {
+        mAchievementGameData = AchievementDataRiddleGame.getNullObject();
+        mAchievementTypeData = AchievementDataRiddleType.getNullObject();
     }
 
 

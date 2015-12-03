@@ -43,6 +43,7 @@ public class AchievementCircle extends TypeAchievementHolder {
     public static final String KEY_CIRCLE_COUNT = "circle_count";
     public static final String KEY_CIRCLE_DIVIDED_BY_CLICK = "divided_by_click";
     public static final String KEY_CIRCLE_DIVIDED_BY_MOVE = "divided_by_move";
+    public static final String KEY_FORBIDDEN_CIRCLE_DIVISION_CLICK = "forbidden_division_click";
 
     public AchievementCircle(PracticalRiddleType type) {
         super(type);
@@ -581,7 +582,7 @@ public class AchievementCircle extends TypeAchievementHolder {
         public static final int LEVEL = 0;
         public static final int REWARD = 30;
         public static final boolean DISCOVERED = true;
-        private static final long TIME_TO_BE_FAST = 200L;
+        public static final int REQUIRED_CLICKS_TO_VICTORY = 5;
 
         public Achievement12(AchievementManager manager, PracticalRiddleType type) {
             super(type, R.string.achievement_circle_12_name, R.string.achievement_circle_12_descr, 0, NUMBER, manager, LEVEL, REWARD, 1, DISCOVERED);
@@ -589,9 +590,9 @@ public class AchievementCircle extends TypeAchievementHolder {
 
         @Override
         public void onNonCustomDataEvent(AchievementDataEvent event) {
-            if (event.getChangedData() == mGameData && event.hasChangedKey(KEY_CIRCLE_COUNT)) {
-                if (areDependenciesFulfilled() && mGameData.getValue(KEY_CIRCLE_COUNT, 0L) == 4L
-                        && (System.currentTimeMillis() - mGameData.getValue(AchievementDataRiddleGame.KEY_LAST_OPENED, 0L)) <= TIME_TO_BE_FAST) {
+            if (event.getChangedData() == mGameData && event.hasChangedKey(KEY_FORBIDDEN_CIRCLE_DIVISION_CLICK)) {
+                if (areDependenciesFulfilled() && mGameData.getValue
+                        (KEY_FORBIDDEN_CIRCLE_DIVISION_CLICK, 0L) >= REQUIRED_CLICKS_TO_VICTORY) {
                     achieveAfterDependencyCheck();
                 }
             }

@@ -42,8 +42,8 @@
             android:layout_gravity="center"
             android:layout_weight="1"
             android:padding="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
             style="@style/button_menu_big" />
         
         <Button
@@ -53,8 +53,8 @@
             android:id="@+id/btn_workshop"
             android:layout_gravity="center"
             android:layout_weight="1"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
+            android:layout_marginLeft="24dp"
+            android:layout_marginRight="24dp"
             style="@style/button_menu_big" />
         
         <Button
@@ -64,8 +64,8 @@
             android:id="@+id/btn_about"
             android:layout_gravity="center"
             android:layout_weight="1"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
+            android:layout_marginLeft="32dp"
+            android:layout_marginRight="32dp"
             style="@style/button_menu_big" />
 
         <Button
@@ -75,8 +75,8 @@
             android:id="@+id/btn_donate"
             android:layout_gravity="center"
             android:layout_weight="1"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
             style="@style/button_menu_big" />
 
         <Button
@@ -86,8 +86,8 @@
             android:id="@+id/btn_credits"
             android:layout_gravity="center"
             android:layout_weight="1"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
+            android:layout_marginLeft="48dp"
+            android:layout_marginRight="48dp"
             style="@style/button_menu_big" />
         </LinearLayout>
 

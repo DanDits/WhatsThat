@@ -58,7 +58,7 @@
 
     <string name="panic_dialog_positive">All right</string>
     <string name="panic_ask_type">How does this work</string>
-    <string name="panic_skip">Skip experiment ... come back later</string>
+    <string name="panic_skip">Skip experiment … come back later</string>
     <string name="panic_share">Share experiment as image</string>
     <string name="panic_share_dialog">Share experiment image with…</string>
     <string name="panic_share_failed">Sharing failed.</string>

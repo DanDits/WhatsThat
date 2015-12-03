@@ -114,6 +114,7 @@ public class RiddleCircle extends RiddleGame {
 
     private Timer mTimer;
     private boolean mForbidCircleDivision;
+    private LookRiddleAnimation mBigBrotherAnim;
 
     public RiddleCircle(Riddle riddle, Image image, Bitmap bitmap, Resources res, RiddleConfig config, PercentProgressListener listener) {
         super(riddle, image, bitmap, res, config, listener);
@@ -257,9 +258,9 @@ public class RiddleCircle extends RiddleGame {
                     .setFrameDuration(2, step3Duration)
                     .setFrameDuration(3, step4Duration)
                     .setFrameDuration(4, step5Duration);
-            LookRiddleAnimation anim = new LookRiddleAnimation(look, mConfig.mWidth / 2 - look
+            mBigBrotherAnim = new LookRiddleAnimation(look, mConfig.mWidth / 2 - look
                     .getWidth() / 2, mConfig.mHeight / 3 - look.getHeight() / 2, totalLifeTime);
-            anim.setStateListener(new RiddleAnimation.StateListener() {
+            mBigBrotherAnim.setStateListener(new RiddleAnimation.StateListener() {
                 @Override
                 public void onBorn() {
                     mForbidCircleDivision = true;
@@ -271,7 +272,7 @@ public class RiddleCircle extends RiddleGame {
 
                 }
             });
-            addAnimation(anim);
+            addAnimation(mBigBrotherAnim);
         }
     }
 
@@ -373,9 +374,7 @@ public class RiddleCircle extends RiddleGame {
         addCircle(x + radius, y - radius, radius, draw);
         addCircle(x - radius, y + radius, radius, draw);
         addCircle(x + radius, y + radius, radius, draw);
-        if (mConfig.mAchievementGameData != null) {
-            mConfig.mAchievementGameData.putValue(AchievementCircle.KEY_CIRCLE_COUNT, (long) mCircleCenterX.size(), AchievementProperties.UPDATE_POLICY_ALWAYS);
-        }
+        mConfig.mAchievementGameData.putValue(AchievementCircle.KEY_CIRCLE_COUNT, (long) mCircleCenterX.size(), AchievementProperties.UPDATE_POLICY_ALWAYS);
     }
 
     private void reDraw() {
@@ -424,9 +423,7 @@ public class RiddleCircle extends RiddleGame {
 
             mCirclesCanvas.drawRect(closestX - closestRadius, closestY - closestRadius, closestX + closestRadius, closestY+ closestRadius, mClearPaint);
             evolveCircleUnchecked(closestIndex, closestX, closestY, newRadius, true);
-            if (mConfig.mAchievementGameData != null) {
-                mConfig.mAchievementGameData.increment(AchievementCircle.KEY_CIRCLE_DIVIDED_BY_CLICK, 1L, 0L);
-            }
+            mConfig.mAchievementGameData.increment(AchievementCircle.KEY_CIRCLE_DIVIDED_BY_CLICK, 1L, 0L);
             return true;
         }
         return false;
@@ -452,9 +449,7 @@ public class RiddleCircle extends RiddleGame {
                 // don't redraw all but only the required area
                 mCirclesCanvas.drawRect(currX - currR, currY - currR, currX + currR, currY + currR, mClearPaint);
                 evolveCircleUnchecked(index, currX, currY, newRadius, true);
-                if (mConfig.mAchievementGameData != null) {
-                    mConfig.mAchievementGameData.increment(AchievementCircle.KEY_CIRCLE_DIVIDED_BY_MOVE, 1L, 0L);
-                }
+                mConfig.mAchievementGameData.increment(AchievementCircle.KEY_CIRCLE_DIVIDED_BY_MOVE, 1L, 0L);
                 ParticleSystem system = new ParticleSystem(mRes, 10, R.drawable
                         .spark, 400);
                 if (prepareParticleSystem(system)) {
@@ -473,6 +468,13 @@ public class RiddleCircle extends RiddleGame {
     @Override
     public boolean onMotionEvent(MotionEvent event) {
         if (mForbidCircleDivision) {
+            if (event.getActionMasked() == MotionEvent.ACTION_DOWN) {
+                long clicksDone = mConfig.mAchievementGameData.increment(AchievementCircle
+                        .KEY_FORBIDDEN_CIRCLE_DIVISION_CLICK, 1L, 0L);
+                if (clicksDone >= AchievementCircle.Achievement12.REQUIRED_CLICKS_TO_VICTORY) {
+                    mBigBrotherAnim.murder();
+                }
+            }
             return false;
         }
         mLockRefresher.update(event);
@@ -514,9 +516,7 @@ public class RiddleCircle extends RiddleGame {
 
     @Override
     protected void initAchievementData() {
-        if (mConfig.mAchievementGameData != null) {
-            mConfig.mAchievementGameData.putValue(AchievementCircle.KEY_CIRCLE_COUNT, (long) mCircleCenterX.size(), AchievementProperties.UPDATE_POLICY_ALWAYS);
-        }
+        mConfig.mAchievementGameData.putValue(AchievementCircle.KEY_CIRCLE_COUNT, (long) mCircleCenterX.size(), AchievementProperties.UPDATE_POLICY_ALWAYS);
     }
 
 }

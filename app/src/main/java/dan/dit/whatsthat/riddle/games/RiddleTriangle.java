@@ -188,9 +188,6 @@ public class RiddleTriangle extends RiddleGame {
     }
 
     private void updateAchievementTriangleCount(String divisionTypeKey, int delta) {
-        if (mConfig.mAchievementGameData == null) {
-            return;
-        }
         mConfig.mAchievementGameData.enableSilentChanges(AchievementDataEvent.EVENT_TYPE_DATA_UPDATE);
         if (!TextUtils.isEmpty(divisionTypeKey) && delta > 0) {
             mConfig.mAchievementGameData.increment(divisionTypeKey, (long) delta, 0L);

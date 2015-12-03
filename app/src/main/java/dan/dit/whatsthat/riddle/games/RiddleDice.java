@@ -200,15 +200,11 @@ public class RiddleDice extends RiddleGame {
     }
 
     private void putAchievementGameData(String key, long value) {
-        if (mConfig.mAchievementGameData != null) {
-            mConfig.mAchievementGameData.putValue(key, value, AchievementProperties.UPDATE_POLICY_ALWAYS);
-        }
+        mConfig.mAchievementGameData.putValue(key, value, AchievementProperties.UPDATE_POLICY_ALWAYS);
     }
 
     private void incrementAchievementGameData(String key) {
-        if (mConfig.mAchievementGameData != null) {
-            mConfig.mAchievementGameData.increment(key, 1L, 0L);
-        }
+        mConfig.mAchievementGameData.increment(key, 1L, 0L);
     }
 
     private void resetFields() {
@@ -259,9 +255,7 @@ public class RiddleDice extends RiddleGame {
                 }
             }
         }
-        if (mConfig.mAchievementGameData != null) {
-            mConfig.mAchievementGameData.enableSilentChanges(AchievementDataEvent.EVENT_TYPE_DATA_UPDATE);
-        }
+        mConfig.mAchievementGameData.enableSilentChanges(AchievementDataEvent.EVENT_TYPE_DATA_UPDATE);
         putAchievementGameData(AchievementDice.KEY_GAME_FIELDS_COMPLETELY_VISIBLE_COUNT, completelyVisible);
         putAchievementGameData(AchievementDice.KEY_GAME_RED_COUNT, redCount);
         putAchievementGameData(AchievementDice.KEY_GAME_YELLOW_COUNT, yellowCount);
@@ -272,9 +266,7 @@ public class RiddleDice extends RiddleGame {
         putAchievementGameData(AchievementDice.KEY_GAME_YELLOW_NUMBERS_AVAILABLE, yellowNumbersAvailable);
         putAchievementGameData(AchievementDice.KEY_GAME_GREEN_NUMBERS_AVAILABLE, greenNumbersAvailable);
         putAchievementGameData(AchievementDice.KEY_GAME_PURPLE_NUMBERS_AVAILABLE, purpleNumbersAvailable);
-        if (mConfig.mAchievementGameData != null) {
-            mConfig.mAchievementGameData.disableSilentChanges();
-        }
+        mConfig.mAchievementGameData.disableSilentChanges();
     }
 
     @Override
@@ -298,11 +290,9 @@ public class RiddleDice extends RiddleGame {
             long movedNumber = (long) mDiceToMove.mDiceNumber;
             mMovedDistance = 0;
             if (executeDiceMove(currField, !moveAntStyle)) {
-                if (mConfig.mAchievementGameData != null) {
-                    mConfig.mAchievementGameData.putValues(AchievementDice.KEY_GAME_LAST_DICE_MOVED_DISTANCE, (long) mMovedDistance, AchievementProperties.UPDATE_POLICY_ALWAYS,
-                            AchievementDice.KEY_GAME_LAST_DICE_MOVED_STATE, movedState, AchievementProperties.UPDATE_POLICY_ALWAYS,
-                            AchievementDice.KEY_GAME_LAST_DICE_MOVED_NUMBER, movedNumber, AchievementProperties.UPDATE_POLICY_ALWAYS);
-                }
+                mConfig.mAchievementGameData.putValues(AchievementDice.KEY_GAME_LAST_DICE_MOVED_DISTANCE, (long) mMovedDistance, AchievementProperties.UPDATE_POLICY_ALWAYS,
+                        AchievementDice.KEY_GAME_LAST_DICE_MOVED_STATE, movedState, AchievementProperties.UPDATE_POLICY_ALWAYS,
+                        AchievementDice.KEY_GAME_LAST_DICE_MOVED_NUMBER, movedNumber, AchievementProperties.UPDATE_POLICY_ALWAYS);
                 return true;
             }
             return false;
@@ -522,11 +512,9 @@ public class RiddleDice extends RiddleGame {
                 Log.e("Riddle", "Trying to combine into not combinable.");
                 return;
             }
-            if (mConfig.mAchievementGameData != null) {
-                mConfig.mAchievementGameData.putValues(AchievementDice.KEY_GAME_LAST_DICE_COMBINED_STATE, (long) mDiceState, AchievementProperties.UPDATE_POLICY_ALWAYS,
-                        AchievementDice.KEY_GAME_LAST_DICE_COMBINED_POSITION, (long) (target.mX + target.mY * FIELD_X), AchievementProperties.UPDATE_POLICY_ALWAYS,
-                        null, 0L, 0L);
-            }
+            mConfig.mAchievementGameData.putValues(AchievementDice.KEY_GAME_LAST_DICE_COMBINED_STATE, (long) mDiceState, AchievementProperties.UPDATE_POLICY_ALWAYS,
+                    AchievementDice.KEY_GAME_LAST_DICE_COMBINED_POSITION, (long) (target.mX + target.mY * FIELD_X), AchievementProperties.UPDATE_POLICY_ALWAYS,
+                    null, 0L, 0L);
             if (mDiceState == STATE_ALIEN) {
                 if (target.mDiceState == STATE_RED) {
                     // skip yellow and get the same number with green

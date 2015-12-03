@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <set xmlns:android="http://schemas.android.com/apk/res/android"
-    android:interpolator="@android:interpolator/accelerate_quad">
-    <scale android:fromXScale="0." android:toXScale="1." android:pivotX="0%"
-           android:fromYScale="1." android:toYScale="1."
-        android:duration="@integer/store_in_out_anim_time"/>
-    <alpha android:fromAlpha="0.2" android:toAlpha="1.0"
-        android:duration="@integer/store_in_out_anim_time" />
+    android:interpolator="@android:interpolator/accelerate_quad"
+    android:shareInterpolator="true"
+     android:duration="@integer/store_in_out_anim_time">
+    <translate android:fromXDelta="-100%p" android:toXDelta="0%p"
+               android:fromYDelta="0%p" android:toYDelta="0%p"/>
 </set>

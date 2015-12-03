@@ -98,7 +98,7 @@ public class RiddleAnimationController {
         List<RiddleAnimation> animationIterate = mAnimations;
         for (int i = 0; i < animationIterate.size(); i++) {
             RiddleAnimation curr = animationIterate.get(i);
-            curr.onKilled(true);
+            curr.murder();
         }
         mAnimations.clear();
         mAnimationsIterateData.clear();

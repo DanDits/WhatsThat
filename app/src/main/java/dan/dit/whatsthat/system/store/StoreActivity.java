@@ -134,7 +134,7 @@ public class StoreActivity extends FragmentActivity {
 
             Animation animFadeOut = AnimationUtils.loadAnimation(this, R.anim.store_button_fadeout);
             Animation animScale = new ScaleAnimation(1.f, mCategoryTitleBackButton.getWidth() / (float) view.getWidth(), 1.f, mCategoryTitleBackButton.getHeight() / (float) view.getHeight(),
-                    Animation.RELATIVE_TO_PARENT, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+                    Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
             Animation animMoveTop = new TranslateAnimation(Animation.ABSOLUTE, 0.f, Animation.ABSOLUTE, 0.f, Animation.ABSOLUTE, 0.f, Animation.ABSOLUTE, -view.getY() - mCategoryTitleBackButton.getHeight());
             AnimationSet onPress = new AnimationSet(true);
             onPress.setDuration(400L);

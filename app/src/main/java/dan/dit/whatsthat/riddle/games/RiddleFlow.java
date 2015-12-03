@@ -107,9 +107,7 @@ public class RiddleFlow extends RiddleGame {
 
     @Override
     protected void initAchievementData() {
-        if (mConfig.mAchievementGameData != null) {
-            mConfig.mAchievementGameData.putValue(AchievementFlow.KEY_GAME_TOTAL_PIXELS_COUNT, (long) mOutputRaster.length, AchievementProperties.UPDATE_POLICY_ALWAYS);
-        }
+        mConfig.mAchievementGameData.putValue(AchievementFlow.KEY_GAME_TOTAL_PIXELS_COUNT, (long) mOutputRaster.length, AchievementProperties.UPDATE_POLICY_ALWAYS);
     }
     @Override
     public Bitmap makeSnapshot() {
@@ -241,19 +239,18 @@ public class RiddleFlow extends RiddleGame {
                 i--;
             }
         }
-        if (mConfig.mAchievementGameData != null) {
-            mConfig.mAchievementGameData.enableSilentChanges(AchievementDataEvent.EVENT_TYPE_DATA_UPDATE);
-            mConfig.mAchievementGameData.putValue(AchievementFlow.KEY_GAME_CELLI_ACTIVE_COUNT, (long) mFlows.size(), AchievementProperties.UPDATE_POLICY_ALWAYS);
-            if (diedOfTimeout > 0) {
-                mConfig.mAchievementGameData.increment(AchievementFlow.KEY_GAME_CELLI_TIMED_OUT_COUNT, (long) diedOfTimeout, 0L);
-            }
-            if (diedOfCollision > 0) {
-                mConfig.mAchievementGameData.increment(AchievementFlow.KEY_GAME_CELLI_COLLIDED_COUNT, (long) diedOfCollision, 0L);
-            }
-            mConfig.mAchievementGameData.putValue(AchievementFlow.KEY_GAME_REVEALED_PIXELS_COUNT, (long) mRevealedPixelsCount, AchievementProperties.UPDATE_POLICY_ALWAYS);
-            mConfig.mAchievementGameData.disableSilentChanges();
+        mConfig.mAchievementGameData.enableSilentChanges(AchievementDataEvent.EVENT_TYPE_DATA_UPDATE);
+        mConfig.mAchievementGameData.putValue(AchievementFlow.KEY_GAME_CELLI_ACTIVE_COUNT, (long) mFlows.size(), AchievementProperties.UPDATE_POLICY_ALWAYS);
+        if (diedOfTimeout > 0) {
+            mConfig.mAchievementGameData.increment(AchievementFlow.KEY_GAME_CELLI_TIMED_OUT_COUNT, (long) diedOfTimeout, 0L);
         }
+        if (diedOfCollision > 0) {
+            mConfig.mAchievementGameData.increment(AchievementFlow.KEY_GAME_CELLI_COLLIDED_COUNT, (long) diedOfCollision, 0L);
+        }
+        mConfig.mAchievementGameData.putValue(AchievementFlow.KEY_GAME_REVEALED_PIXELS_COUNT, (long) mRevealedPixelsCount, AchievementProperties.UPDATE_POLICY_ALWAYS);
+        mConfig.mAchievementGameData.disableSilentChanges();
     }
+
 
     private class Flow {
         private final int mColor;

@@ -324,10 +324,8 @@ public class RiddleSnow extends RiddleGame implements FlatWorldCallback {
     }
 
     private void updateSpeedAchievementData() {
-        AchievementDataRiddleType typeData = mConfig.mAchievementTypeData;
-        if (typeData != null) {
-            typeData.putValue(AchievementSnow.KEY_TYPE_MAX_SPEED, (long) mCell.getSpeed(), AchievementSnow.CELL_SPEED_REQUIRED_DELTA);
-        }
+        mConfig.mAchievementTypeData.putValue(AchievementSnow.KEY_TYPE_MAX_SPEED, (long) mCell.getSpeed(), AchievementSnow.CELL_SPEED_REQUIRED_DELTA);
+
     }
 
     private void drawExplosion(float explosionCenterX, float explosionCenterY, int explosionSize, int explosionType) {
@@ -400,9 +398,7 @@ public class RiddleSnow extends RiddleGame implements FlatWorldCallback {
             mTouchGravityPressX = event.getX();
             mTouchGravityPressY = event.getY();
             mTouchGravityIsPressed = true;
-            if (mConfig.mAchievementGameData != null) {
-                mConfig.mAchievementGameData.increment(AchievementSnow.KEY_GAME_CLICKS_DOWN_DURING_NO_SENSOR, 1L, 0L);
-            }
+            mConfig.mAchievementGameData.increment(AchievementSnow.KEY_GAME_CLICKS_DOWN_DURING_NO_SENSOR, 1L, 0L);
         } else if (mFeatureTouchGravity && event.getActionMasked() == MotionEvent.ACTION_MOVE) {
             mTouchGravityPressX = event.getX();
             mTouchGravityPressY = event.getY();
@@ -477,16 +473,14 @@ public class RiddleSnow extends RiddleGame implements FlatWorldCallback {
 
     @Override
     protected void initAchievementData() {
-        if (mConfig.mAchievementGameData != null) {
-            long wasEnabled = mConfig.mAchievementGameData.getValue(AchievementSnow.KEY_GAME_FEATURE_ORIENTATION_SENSOR_ENABLED, -1L);
-            Log.d("Riddle", "Was feature enabled: " + wasEnabled);
-            mConfig.mAchievementGameData.putValue(AchievementSnow
-                    .KEY_GAME_FEATURE_ORIENTATION_SENSOR_ENABLED, mFeatureTouchGravity ? 1L : 0L,
-                    AchievementProperties.UPDATE_POLICY_ALWAYS);
-            if (wasEnabled != -1L && ((wasEnabled == 0L) == mFeatureTouchGravity)) {
-                Log.d("Riddle", "Feature changed.");
-                mConfig.mAchievementGameData.increment(AchievementSnow.KEY_GAME_FEATURE_ORIENTATION_SENSOR_CHANGED, 1L, 0L);
-            }
+        long wasEnabled = mConfig.mAchievementGameData.getValue(AchievementSnow.KEY_GAME_FEATURE_ORIENTATION_SENSOR_ENABLED, -1L);
+        Log.d("Riddle", "Was feature enabled: " + wasEnabled);
+        mConfig.mAchievementGameData.putValue(AchievementSnow
+                .KEY_GAME_FEATURE_ORIENTATION_SENSOR_ENABLED, mFeatureTouchGravity ? 1L : 0L,
+                AchievementProperties.UPDATE_POLICY_ALWAYS);
+        if (wasEnabled != -1L && ((wasEnabled == 0L) == mFeatureTouchGravity)) {
+            Log.d("Riddle", "Feature changed.");
+            mConfig.mAchievementGameData.increment(AchievementSnow.KEY_GAME_FEATURE_ORIENTATION_SENSOR_CHANGED, 1L, 0L);
         }
     }
 
@@ -503,16 +497,12 @@ public class RiddleSnow extends RiddleGame implements FlatWorldCallback {
         if (columbus != mCell) {
             return;
         }
-        if (mConfig.mAchievementGameData != null) {
-            mConfig.mAchievementGameData.putValues(AchievementSnow.KEY_GAME_COLLISION_SPEED, (long) mCell.getSpeed(), AchievementProperties.UPDATE_POLICY_ALWAYS,
-                    AchievementSnow.KEY_GAME_PRE_COLLISION_CELL_STATE, (long) mCell.getState(), AchievementProperties.UPDATE_POLICY_ALWAYS,
-                    null, 0L, 0L);
-        }
+        mConfig.mAchievementGameData.putValues(AchievementSnow.KEY_GAME_COLLISION_SPEED, (long) mCell.getSpeed(), AchievementProperties.UPDATE_POLICY_ALWAYS,
+                AchievementSnow.KEY_GAME_PRE_COLLISION_CELL_STATE, (long) mCell.getState(), AchievementProperties.UPDATE_POLICY_ALWAYS,
+                null, 0L, 0L);
         mCell.applyWallPhysics(mWorld, collisionLeft, collisionTop, collisionRight,
                 collisionBottom, this);
-        if (mConfig.mAchievementGameData != null) {
-            mConfig.mAchievementGameData.increment(AchievementSnow.KEY_GAME_COLLISION_COUNT, 1L, AchievementProperties.UPDATE_POLICY_ALWAYS);
-        }
+        mConfig.mAchievementGameData.increment(AchievementSnow.KEY_GAME_COLLISION_COUNT, 1L, AchievementProperties.UPDATE_POLICY_ALWAYS);
         onExplosion(true);
     }
 
@@ -525,12 +515,10 @@ public class RiddleSnow extends RiddleGame implements FlatWorldCallback {
 
             int explosionSize = (int) (1 + SNOW_EXPLOSION_SIZE_MULTIPLIER * 2 * radius * (hitWall ? EXPLOSION_HIT_WALL_FRACTION : 1.f));
             int explosionIndex = mRand.nextInt(mFullExplosion.length);
-            if (mConfig.mAchievementGameData != null) {
-                if (hitWall) {
-                    mConfig.mAchievementGameData.increment(AchievementSnow.KEY_GAME_WALL_EXPLOSION, 1L, 0L);
-                } else {
-                    mConfig.mAchievementGameData.increment(AchievementSnow.KEY_GAME_BIG_EXPLOSION, 1L, 0L);
-                }
+            if (hitWall) {
+                mConfig.mAchievementGameData.increment(AchievementSnow.KEY_GAME_WALL_EXPLOSION, 1L, 0L);
+            } else {
+                mConfig.mAchievementGameData.increment(AchievementSnow.KEY_GAME_BIG_EXPLOSION, 1L, 0L);
             }
             drawExplosion(explosionX, explosionY, explosionSize, explosionIndex);
             updateSpeedAchievementData();
@@ -545,24 +533,19 @@ public class RiddleSnow extends RiddleGame implements FlatWorldCallback {
     @Override
     public void onCollision(Actor colliding1, Actor colliding2) {
         if (checkCollisionPair(colliding1, colliding2, mCell, mIdea)) {
-            if (mConfig.mAchievementGameData != null) {
-                mConfig.mAchievementGameData.increment(AchievementSnow.KEY_GAME_IDEAS_COLLECTED, 1, 0);
-            }
+            mConfig.mAchievementGameData.increment(AchievementSnow.KEY_GAME_IDEAS_COLLECTED, 1, 0);
+
             mCell.onCollectIdea();
             mDevil.onCellCollectIdea();
             updateCellStateAchievementData();
             nextIdea();
         } else if (checkCollisionPair(colliding1, colliding2, mDevil, mIdea)) {
             if (mDevil.attemptCollectIdea()) {
-                if (mConfig.mAchievementGameData != null) {
-                    mConfig.mAchievementGameData.increment(AchievementSnow.KEY_GAME_ANGEL_COLLECTED_IDEA, 1L, 0L);
-                }
+                mConfig.mAchievementGameData.increment(AchievementSnow.KEY_GAME_ANGEL_COLLECTED_IDEA, 1L, 0L);
             }
         } else if (((colliding1 == mCell && colliding2.onCollision(mCell)))
                     || (colliding2 == mCell && colliding1.onCollision(mCell))) {
-            if (mConfig.mAchievementGameData != null) {
-                mConfig.mAchievementGameData.increment(AchievementSnow.KEY_GAME_CELL_COLLECTED_SPORE, 1L, 0L);
-            }
+            mConfig.mAchievementGameData.increment(AchievementSnow.KEY_GAME_CELL_COLLECTED_SPORE, 1L, 0L);
             updateCellStateAchievementData();
         } else if (((colliding1 == mDevil && colliding2.onCollision(mDevil)))
                 || (colliding2 == mDevil && colliding1.onCollision(mDevil))) {
@@ -574,9 +557,7 @@ public class RiddleSnow extends RiddleGame implements FlatWorldCallback {
     }
 
     private void updateCellStateAchievementData() {
-        if (mConfig.mAchievementGameData != null) {
-            mConfig.mAchievementGameData.putValue(AchievementSnow.KEY_GAME_CELL_STATE, (long) mCell.getState(), AchievementProperties.UPDATE_POLICY_ALWAYS);
-        }
+        mConfig.mAchievementGameData.putValue(AchievementSnow.KEY_GAME_CELL_STATE, (long) mCell.getState(), AchievementProperties.UPDATE_POLICY_ALWAYS);
     }
 
     @Override
@@ -998,9 +979,7 @@ public class RiddleSnow extends RiddleGame implements FlatWorldCallback {
         public void onLeaveWorld() {
             setActive(false);
             talk(R.array.devil_talk_killed, 1.0);
-            if (mConfig.mAchievementGameData != null) {
-                mConfig.mAchievementGameData.putValue(AchievementSnow.KEY_GAME_DEVIL_VISIBLE_STATE, 0L, AchievementProperties.UPDATE_POLICY_ALWAYS);
-            }
+            mConfig.mAchievementGameData.putValue(AchievementSnow.KEY_GAME_DEVIL_VISIBLE_STATE, 0L, AchievementProperties.UPDATE_POLICY_ALWAYS);
             updateCellCandyVision();
         }
 
@@ -1008,9 +987,7 @@ public class RiddleSnow extends RiddleGame implements FlatWorldCallback {
             setActive(true);
             recover();
             talk(R.array.devil_talk_return, 1.0);
-            if (mConfig.mAchievementGameData != null) {
-                mConfig.mAchievementGameData.putValue(AchievementSnow.KEY_GAME_DEVIL_VISIBLE_STATE, 1L, AchievementProperties.UPDATE_POLICY_ALWAYS);
-            }
+            mConfig.mAchievementGameData.putValue(AchievementSnow.KEY_GAME_DEVIL_VISIBLE_STATE, 1L, AchievementProperties.UPDATE_POLICY_ALWAYS);
             updateCellCandyVision();
         }
 

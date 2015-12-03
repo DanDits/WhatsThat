@@ -57,6 +57,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Timer;
 
 import dan.dit.whatsthat.BuildConfig;
 import dan.dit.whatsthat.R;
@@ -456,9 +457,16 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
     private void onOpenStore() {
         if (mOpenStore.isEnabled()) {
             mOpenStore.setEnabled(false);
-            Intent i = new Intent(getActivity(), StoreActivity.class);
-            getActivity().startActivity(i);
-            getActivity().overridePendingTransition(R.anim.store_enter, R.anim.riddles_exit);
+            cleanUp();
+            mRiddleView.onPause();
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    Intent i = new Intent(getActivity(), StoreActivity.class);
+                    getActivity().startActivity(i);
+                    getActivity().overridePendingTransition(R.anim.store_enter, R.anim.riddles_exit);
+                }
+            }, 150L);
         }
     }
 
@@ -773,6 +781,11 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
         updateNextRiddleButton();
     }
 
+    // needs to be robust against multiple calls
+    private void cleanUp() {
+        AchievementManager.commit();
+    }
+
     @Override
     public void onStop() {
         super.onStop();
@@ -783,8 +796,8 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
             // after having opened the shop
             clearRiddle();
         }
+        cleanUp();
         Log.d("Riddle", "Stopping riddle fragment");
-        AchievementManager.commit();
     }
 
     @Override

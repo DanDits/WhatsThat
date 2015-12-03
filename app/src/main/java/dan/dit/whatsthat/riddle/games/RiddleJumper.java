@@ -173,9 +173,7 @@ public class RiddleJumper extends RiddleGame implements FlatWorldCallback {
 
     @Override
     protected void initAchievementData() {
-        if (mConfig.mAchievementGameData != null) {
-            mConfig.mAchievementGameData.increment(AchievementJumper.KEY_GAME_RUN_STARTED, 1L, 0L);
-        }
+        mConfig.mAchievementGameData.increment(AchievementJumper.KEY_GAME_RUN_STARTED, 1L, 0L);
     }
 
     @Override
@@ -475,19 +473,17 @@ public class RiddleJumper extends RiddleGame implements FlatWorldCallback {
             if (mDifficulty < mCollisionBreakTexts.length) {
                 drawTextCenteredX(canvas, mCollisionBreakTexts[mDifficulty], canvas.getWidth() / 2.f, mSolutionBackground.getHeight() / 2.f, mDummyRect, mCollisionBreakTextPaint);
             }
-            if (mConfig.mAchievementGameData != null) {
-                long currentHighscore = mConfig.mAchievementTypeData.getValue(AchievementJumper.KEY_TYPE_TOTAL_RUN_HIGHSCORE, 0L);
-                if (mDistanceRun >= currentHighscore) {
-                    // new highscore, set it directly so that the threshold is not displayed and no confusion appears
-                    updateHighscore((long) mDistanceRun, AchievementProperties.UPDATE_POLICY_ALWAYS);
-                    Paint paint = mDistanceTextPaint;
-                    int oldColor = paint.getColor();
-                    paint.setColor(0xffdc9912);
-                    drawTextCenteredX(canvas, String.format(mNewHighscoreText, distanceRunToMeters(mDistanceRun)), canvas.getWidth() / 2.f, mSolutionBackground.getHeight() / 2.f + 2 * mDummyRect.height(), mDummyRect, paint);
-                    paint.setColor(oldColor);
-                } else {
-                    drawTextCenteredX(canvas, String.format(mOldHighscoreText, distanceRunToMeters(currentHighscore)), canvas.getWidth() / 2.f, mSolutionBackground.getHeight() / 2.f + mDummyRect.height(), mDummyRect, mDistanceTextPaint);
-                }
+            long currentHighscore = mConfig.mAchievementTypeData.getValue(AchievementJumper.KEY_TYPE_TOTAL_RUN_HIGHSCORE, 0L);
+            if (mDistanceRun >= currentHighscore) {
+                // new highscore, set it directly so that the threshold is not displayed and no confusion appears
+                updateHighscore((long) mDistanceRun, AchievementProperties.UPDATE_POLICY_ALWAYS);
+                Paint paint = mDistanceTextPaint;
+                int oldColor = paint.getColor();
+                paint.setColor(0xffdc9912);
+                drawTextCenteredX(canvas, String.format(mNewHighscoreText, distanceRunToMeters(mDistanceRun)), canvas.getWidth() / 2.f, mSolutionBackground.getHeight() / 2.f + 2 * mDummyRect.height(), mDummyRect, paint);
+                paint.setColor(oldColor);
+            } else {
+                drawTextCenteredX(canvas, String.format(mOldHighscoreText, distanceRunToMeters(currentHighscore)), canvas.getWidth() / 2.f, mSolutionBackground.getHeight() / 2.f + mDummyRect.height(), mDummyRect, mDistanceTextPaint);
             }
         }
     }
@@ -578,9 +574,7 @@ public class RiddleJumper extends RiddleGame implements FlatWorldCallback {
             float y = mRand.nextFloat() * (mClearMindBackground.getHeight() * 2 * BUBBLE_CENTER_Y_ESTIMATE);
             clearMind(x, y, type);
         }
-        if (mConfig.mAchievementGameData != null) {
-            mConfig.mAchievementGameData.increment(AchievementJumper.KEY_GAME_OBSTACLE_DODGED_COUNT, 1L, 0L);
-        }
+        mConfig.mAchievementGameData.increment(AchievementJumper.KEY_GAME_OBSTACLE_DODGED_COUNT, 1L, 0L);
     }
 
     private void initDistanceRun(Compacter data) {
@@ -597,41 +591,31 @@ public class RiddleJumper extends RiddleGame implements FlatWorldCallback {
                 Log.e("Riddle", "Error reading distance run data: " + e);
             }
         }
-        if (mConfig.mAchievementGameData != null) {
-            mConfig.mAchievementGameData.putValue(AchievementJumper.KEY_GAME_CURRENT_DISTANCE_RUN, (long) mDistanceRun, AchievementProperties.UPDATE_POLICY_ALWAYS);
-        }
+        mConfig.mAchievementGameData.putValue(AchievementJumper.KEY_GAME_CURRENT_DISTANCE_RUN, (long) mDistanceRun, AchievementProperties.UPDATE_POLICY_ALWAYS);
         updateDifficulty();
         updateCollisionBreakPaint();
     }
 
     private void onReleaseCollision() {
         mDistanceRun = mDistanceRunStart;
-        if (mConfig.mAchievementGameData != null) {
-            mConfig.mAchievementGameData.putValue(AchievementJumper.KEY_GAME_CURRENT_DISTANCE_RUN, (long) mDistanceRun, AchievementProperties.UPDATE_POLICY_ALWAYS);
-        }
+        mConfig.mAchievementGameData.putValue(AchievementJumper.KEY_GAME_CURRENT_DISTANCE_RUN, (long) mDistanceRun, AchievementProperties.UPDATE_POLICY_ALWAYS);
+
         updateDifficulty();
         mCollisionBreak = false;
-        if (mConfig.mAchievementGameData != null) {
-            mConfig.mAchievementGameData.increment(AchievementJumper.KEY_GAME_RUN_STARTED, 1L, 0L);
-        }
+        mConfig.mAchievementGameData.increment(AchievementJumper.KEY_GAME_RUN_STARTED, 1L, 0L);
+
         mRunner.setStateFrames(HitboxJumpMover.STATE_NOT_MOVING);
     }
 
     private void updateHighscore(Long distanceRun, Long threshold) {
-        if (mConfig.mAchievementGameData != null) {
-            mConfig.mAchievementGameData.putValue(AchievementJumper.KEY_GAME_RUN_HIGHSCORE, distanceRun, threshold);
-        }
-        if (mConfig.mAchievementTypeData != null) {
-            mConfig.mAchievementTypeData.putValue(AchievementJumper.KEY_TYPE_TOTAL_RUN_HIGHSCORE, distanceRun, threshold);
-        }
+        mConfig.mAchievementGameData.putValue(AchievementJumper.KEY_GAME_RUN_HIGHSCORE, distanceRun, threshold);
+        mConfig.mAchievementTypeData.putValue(AchievementJumper.KEY_TYPE_TOTAL_RUN_HIGHSCORE, distanceRun, threshold);
     }
 
     private boolean onDistanceRun(long updateTime) {
         if (mValidDistanceRun) {
             mDistanceRun += PSEUDO_RUN_SPEED * ONE_SECOND / updateTime;
-            if (mConfig.mAchievementGameData != null) {
-                mConfig.mAchievementGameData.putValue(AchievementJumper.KEY_GAME_CURRENT_DISTANCE_RUN, (long) mDistanceRun, AchievementProperties.UPDATE_POLICY_ALWAYS);
-            }
+            mConfig.mAchievementGameData.putValue(AchievementJumper.KEY_GAME_CURRENT_DISTANCE_RUN, (long) mDistanceRun, AchievementProperties.UPDATE_POLICY_ALWAYS);
             updateHighscore((long) mDistanceRun, AchievementJumper.DISTANCE_RUN_THRESHOLD);
             updateDifficulty();
             return true;
@@ -655,9 +639,7 @@ public class RiddleJumper extends RiddleGame implements FlatWorldCallback {
             }
             updateCollisionBreakPaint();
         }
-        if (mConfig.mAchievementGameData != null) {
-            mConfig.mAchievementGameData.putValue(AchievementJumper.KEY_GAME_CURRENT_DIFFICULTY, (long) mDifficulty, AchievementProperties.UPDATE_POLICY_ALWAYS);
-        }
+        mConfig.mAchievementGameData.putValue(AchievementJumper.KEY_GAME_CURRENT_DIFFICULTY, (long) mDifficulty, AchievementProperties.UPDATE_POLICY_ALWAYS);
         mDistanceTextPaint.setColor(DIFFICULTY_COLORS[mDifficulty]);
     }
 
@@ -726,7 +708,7 @@ public class RiddleJumper extends RiddleGame implements FlatWorldCallback {
                 onReleaseCollision();
             } else {
                 mFlagDoSuperJump = !mRunner.nextJump();
-                if (!mFlagDoSuperJump && mConfig.mAchievementTypeData != null) {
+                if (!mFlagDoSuperJump) {
                     mConfig.mAchievementTypeData.increment(AchievementJumper.KEY_TYPE_JUMP_COUNT, 1L, 0L);
                 }
             }
@@ -789,11 +771,9 @@ public class RiddleJumper extends RiddleGame implements FlatWorldCallback {
             mRunner.clearJump(getTopForRelativeHeight(RELATIVE_HEIGHT_BASELINE));
             mRunner.setStateFrames(Runner.STATE_COLLISION);
             drawForeground();
-            if (mConfig.mAchievementGameData != null) {
-                mConfig.mAchievementGameData.increment(AchievementJumper.KEY_GAME_COLLISION_COUNT, 1L, 0L);
-                if (colliding1 == mBoss || colliding2 == mBoss) {
-                    mConfig.mAchievementGameData.increment(AchievementJumper.KEY_GAME_COLLIDED_WITH_KNUFFBUFF, 1L, 0L);
-                }
+            mConfig.mAchievementGameData.increment(AchievementJumper.KEY_GAME_COLLISION_COUNT, 1L, 0L);
+            if (colliding1 == mBoss || colliding2 == mBoss) {
+                mConfig.mAchievementGameData.increment(AchievementJumper.KEY_GAME_COLLIDED_WITH_KNUFFBUFF, 1L, 0L);
             }
         }
     }
@@ -802,9 +782,7 @@ public class RiddleJumper extends RiddleGame implements FlatWorldCallback {
     public void onMoverStateChange(Actor actor) {
         if (actor == mRunner && mRunner.isFalling() && (mStateMotionIsDown || mFlagDoSuperJump)) {
             if (mRunner.nextSuperJump()) {
-                if (mConfig.mAchievementGameData != null) {
-                    mConfig.mAchievementGameData.increment(AchievementJumper.KEY_GAME_DOUBLE_JUMP_COUNT, 1L, 0L);
-                }
+                mConfig.mAchievementGameData.increment(AchievementJumper.KEY_GAME_DOUBLE_JUMP_COUNT, 1L, 0L);
             }
             mFlagDoSuperJump = false;
         }

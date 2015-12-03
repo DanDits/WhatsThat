@@ -331,21 +331,15 @@ public class RiddleMemory extends RiddleGame {
     }
 
     private void setGameAchievementValue(String key, long value) {
-        if (mConfig.mAchievementGameData != null) {
-            mConfig.mAchievementGameData.putValue(key, value, AchievementProperties.UPDATE_POLICY_ALWAYS);
-        }
+        mConfig.mAchievementGameData.putValue(key, value, AchievementProperties.UPDATE_POLICY_ALWAYS);
     }
 
     private void incrementGameAchievementValue(String key) {
-        if (mConfig.mAchievementGameData != null) {
-            mConfig.mAchievementGameData.increment(key, 1L, 0L);
-        }
+        mConfig.mAchievementGameData.increment(key, 1L, 0L);
     }
 
     private void incrementGameAchievementValue(String key, long delta) {
-        if (mConfig.mAchievementGameData != null) {
-            mConfig.mAchievementGameData.increment(key, delta, 0L);
-        }
+        mConfig.mAchievementGameData.increment(key, delta, 0L);
     }
 
     @NonNull
@@ -494,9 +488,8 @@ public class RiddleMemory extends RiddleGame {
         }
 
         public void onClick() {
-            if (mConfig.mAchievementGameData != null) {
-                mConfig.mAchievementGameData.enableSilentChanges(AchievementDataEvent.EVENT_TYPE_DATA_UPDATE);
-            }
+            mConfig.mAchievementGameData.enableSilentChanges(AchievementDataEvent.EVENT_TYPE_DATA_UPDATE);
+
             boolean uncovered = uncover();
             if (uncovered && isPairUncovered()) {
                 mPath = mField.findPath(this, mDoppelganger, FieldElement.DIRECT_AND_DIAGONAL_NEIGHBORS);
@@ -558,9 +551,7 @@ public class RiddleMemory extends RiddleGame {
             setGameAchievementValue(AchievementMemory.KEY_GAME_STATE_BLACK_COUNT, blackCount);
             setGameAchievementValue(AchievementMemory.KEY_GAME_UNCOVERED_PAIRS_COUNT, uncoveredPairCount);
             setGameAchievementValue(AchievementMemory.KEY_GAME_UNCOVERED_PAIRS_IN_GREEN_STATE_COUNT, uncoveredGreenPairCount);
-            if (mConfig.mAchievementGameData != null) {
-                mConfig.mAchievementGameData.disableSilentChanges();
-            }
+            mConfig.mAchievementGameData.disableSilentChanges();
         }
 
         public void cover() {
