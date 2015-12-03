@@ -3,9 +3,9 @@
     <string name="intro_test_subject_name">-Test Subjekt-</string>
     <string name="intro_test_subject_estimated_intelligence">-Intelligenz-</string>
 
-    <string name="intro_test_subject_gender_answer_male">Yann</string>
-    <string name="intro_test_subject_gender_answer_female">Xenia</string>
-    <string name="intro_test_subject_gender_answer_whatever">Quapsel</string>
+    <string name="intro_test_subject_gender_answer_male">XY: Yann</string>
+    <string name="intro_test_subject_gender_answer_female">XX: Xenia</string>
+    <string name="intro_test_subject_gender_answer_whatever">E.T.: Quapsel</string>
 
     <string name="intro_test_answer_yes">Ja</string>
     <string name="intro_test_answer_no">Nein</string>
@@ -16,12 +16,12 @@
     <string name="test_subject_0_int">Archaische Instinkte</string>
     <string-array name="test_subject_0_0_intro_main">
         <item>Hallo Du, kannst du mich verstehen?</item>
-        <item>Die Neuronen reagieren auf meine liebliche Stimme. </item>
+        <item>Die Neuronen reagieren auf meine liebliche Stimme.</item>
         <item>Das deute ich als ja.</item>
         <item>Erdling, ich heiße dich auf einer Reise in die Untiefen deines Geistes willkommen.</item>
-        <item>Ich bin Meister Xiaros Blu Equaris Zubatro Venalo der 364k.</item>
+        <item>Ich bin Meta-Opus Transprima Plasmiro Blu Equaris Venalo der 364k</item>
         <item>Es reicht aber, wenn du mich ganz zwanglos mit \"Erhabener\" anredest.</item>
-        <item>Andere Ehrentitel wie \"Eure Durchlauchtheit\" oder \"Oh unübertreffliches Wesen aller Galaxien\" sind natürlich auch in Ordnung.</item>
+        <item>Andere Ehrentitel wie beispielsweise \"Eure Durchlauchtheit\" oder \"Oh unübertreffliches Wesen aller Galaxien\" sind natürlich auch völlig in Ordnung.</item>
         <item>Entschuldige. Ich schweife schnell ab.</item>
     </string-array>
     <string-array name="test_subject_0_1_intro_main">
@@ -30,14 +30,14 @@
     </string-array>
     <string-array name="test_subject_0_2_intro_main">
         <item>Eine erste kleine Frage: Wer bist du eigentlich?</item>
-        <item>Unsere hochentwickelte Kultur kennt solche Unterschiede nicht, aber euch Erdlingen ist
-            das ja wichtig.</item>
+        <item>Unsere hochentwickelte Kultur kennt solche Unterschiede nicht, aber euch Erdlingen ist das ja wichtig.</item>
+        <item>Und weil wir nun mal freundliche Geschöpfe sind, wollten wir dir die Frage stellen.</item>
     </string-array>
     <string-array name="test_subject_0_3_intro_main">
-        <item>Meine Schöpfer und ich, oder kurz gesagt: wir.</item>
-        <item>Wir wollen das Leben auf dem Planeten Erde besser verstehen.</item>
+        <item>Zurück zum Thema. Meine Schöpfer und ich, oder kurz gesagt: Wir…</item>
+        <item>… wir wollen das Leben auf dem Planeten Erde besser verstehen.</item>
         <item>Unsere Wahl ist dabei auf dich gefallen.</item>
-        <item>Du wirst unser Versuchsobjekt sein</item>
+        <item>Du wirst unser Versuchsobjekt sein.</item>
         <item>Deswegen haben wir dich mit dem Traktorstrahl aufgesammelt.</item>
         <item>Wir werden dich beobachten und im Hintergrund die gewonnen Daten auswerten.</item>
         <item>Wir hoffen, du hast das Potential, das wir in dir sahen.</item>
@@ -49,7 +49,7 @@
         <item>…</item>
         <item>Darf ich dir unser Zentralgehirn WiseMind vorstellen.. mit ihr haben wir dein Gehirn verbunden.</item>
         <item>Ein Gehirn von der Größe einer Galaxie.. und dann.. nun ja.. deines daneben…</item>
-        <item>Ich hoffe ihr werdet euch trotzdem verstehen</item>
+        <item>Ich hoffe ihr werdet euch trotzdem verstehen.</item>
         <item>Test: Ist 13 eine Primzahl?</item>
         <item>Antwortzeit überschritten. Reaktion nicht festzustellen.</item>
         <item>Ok vielleicht was einfacheres.</item>
@@ -57,12 +57,13 @@
         <item>Aha. Süßigkeiten.</item>
         <item>Wunderbar, da der Anschluss funktioniert können wir hoffentlich gleich beginnen.</item>
         <item>Ich hoffe mal du bist nicht schwer von Begriff.</item>
-        <item>Nicht das wir dich überfordern. Mal sehen.. Buchstaben, nö…Zahlen, negativ…</item>
+        <item>Nicht das wir dich überfordern.</item>
+        <item> Mal sehen.. Buchstaben, nö…Zahlen, negativ…</item>
         <item>Was kannst du eigentlich?</item>
         <item>Mal sehen, wie es auf Bilder reagiert.</item>
         <item>Aha.. Affinität zu Anomalien der Farbvalenz</item>
-        <item>WiseMind, bereichte Versuchsreihe 272 zur Feststellung und Messung der Intelligenz
-            des Erdlings vor.</item>
+        <item>WiseMind, bereichte Versuchsreihe 272 zur Feststellung und Messung der Intelligenz des Erdlings vor.</item>
+        <item>…</item>
         <item>Erdling, wie bei allen zukünftigen Experimenten der Versuchsreihe 272, geht es darum, das Bild zu erraten.</item>
         <item>Wenn du einmal nicht weiterkommst, dann schiebe bitte "keine Panik".</item>
         <item>WiseMind wird eine für dich maßgeschneiderte Hilfe geben, wenn unser Intellekt den irdischen übersteigt.</item>

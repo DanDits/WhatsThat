@@ -4,19 +4,27 @@
         <p>Each big project needs a place to thank the people that made it possible. This is the place. So many brilliant people, so many brilliant and creative minds and most of them don&#39;t even know they contributed.</p>
         <p><strong>First of all, thanks to my brother Fabian for inspiring, creating and discussing every aspect of every detail. Without you, this would not have been possible.</strong></p>
         <ul>
+        <p>Now it\'s my turn (aka Fabian). Usually the most important person is named in the first placed. As this is not the case this time, I would like to thank this person in the second place:</p>
+        <p><strong>My beloved brother Daniel. Crator of WhatsThat, Mastermind of all programming stuff and of course, brother of all brothers. As I don\'t know anything about programming you had to do everything on your own. With the patience of a saint you searched the solution for any problem for hours, created every line of this code on your own. I would like to thank you from the bottom of my hearth for understanding my confusing thoughts, ideas and sometimes fussy requests and created such a multi-facetted project. I salute you, that you made this amazing app with such patience and stamina!</strong></p>
+        <p>Meta-Opus Venalo the 364k wants to say thank you, too!</p>
+        <p>The last thanks applies to the to an unknown user of a video. With each click you could split a circle in four smaller ones which revealed a picture slowly. This created the desire to do this on my own. On that thought the project \"WhatsThat\" was born.</p>
+        <p>Everything else we would like to mention:</p>
         <li>This project makes use of <a href="https://github.com/SufficientlySecure/donations">DonationsFragment</a> by <em>SufficientlySecure</em> to handle the donations.</li>
         <li>All those neat popup messages are made possible by <a href="https://github.com/JohnPersano/SuperToasts">SuperToasts</a> from <em>JohnPersano</em>.</li>
         <li>Some aspects of the mosaic generation rely on <a href="http://math.nist.gov/javanumerics/jama">JAMA</a> for the math heavy calculations.</li>
         </ul>
-        <p>Furthermore, we want to say thank you to all those people that were interested in helping during the testing phase. If you want to see your name (or pseudonym) displayed here, contact us! You will either become a new tester or get your credit for already being awesome.</p>
-        <p>Finally, here is a list of all the aspiring artists, who offered their images under free license on the internet.</p>
+        <p>Furthermore, we want to say thank you to all those people that were interested in helping during the testing phase. If you want to see your name (or pseudonym) displayed here, contact us! You will either become a new tester or get your deserved credit for already being awesome.</p>
+        <p>Great testers and/or people with great suggestions:</p>
+        <li>Verena V.</li>
+        <p>Finally, here is a list of all the aspiring artists, who offered their images under free license on the internet whose pictures we used in our app anywhere.</p>
         <ul>
         <li>For PNG compression the programs OptiPNG, PNGcrush and <a href="https://tinypng.com">TinyPNG</a></li>
-        <li>The website <a href="https://pixabay.com/">pixabay.com</a>, especially the following authors: <em>Nemo</em>, <em>OpenClips</em>,<br />
-        <em>PublicDomainPictures</em>, <em>OpenClipartVectors</em>,...</li>
+        <li>The websites <a href="http://piqs.de/">piqs.de</a> and especially <a href="https://pixabay.com/">pixabay.com</a> with the authors: <em>Nemo</em>, <em>OpenClips</em>,<br />
+        <em>PublicDomainPictures</em>, <em>OpenClipartVectors</em>, <em>ClkFreeVectorImages</em>...</li>
         <li>The website <a href="http://www.icons4android.com">icons4android.com</a> for the icons <a href="http://www.icons4android.com/icon/1144">in</a> <a href="http://www.icons4android.com/icon/1218">the</a> <a href="http://www.icons4android.com/icon/1174">bundle</a> <a href="http://www.icons4android.com/icon/851">manager</a></li>
-        <li>The authors of the images for the experiments are named for each image in the NoPanic dialog. The full link to the full titled image and author can be obtained by contacting us under whatsthat.contact@gmail.com</li>
+        <li>The authors of the images for the experiments are named for each image in the NoPanic dialog.</li>
         </ul>
+        <p>The full link to a picture with title and author or detailed backgrounds to an above mentioned point can be obtained by contacting us under whatsthat.contact@gmail.com. Thank you for supporting our app in any way :)!</p>
     ]]></string>
 
     <string-array name="donation_google_catalog_values">

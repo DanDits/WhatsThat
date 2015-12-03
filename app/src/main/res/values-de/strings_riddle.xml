@@ -6,13 +6,13 @@
     <string name="riddle_type_circle_explanation">Berühre einen Kreis, um diesen in vier kleinere aufzuteilen. Dadurch wird die Kontur des versteckten Bildes sichtbar.</string>
     <string-array name="riddle_type_circle_hints">
         <item>Teile bei unserem ersten Experiment einen Kreis. So wie Mose das Wasser, nur nicht in zwei Hälften, sondern in vier neue Kreise. Irgendwann erkennst du durch die feineren Konturen ein Bild. Falls nicht, führe ich die Versuchsreihe mit Pantoffeltierchen weiter, die diese Tests mit Bravour bestanden haben.</item>
-        <item>Demo Version beendet. Kaufe die Vollversion für nur 39,99€. Just kidding. Geh trotzdem mal in den Shop. Dort finden sich praktische Dinge, wie zum Beispiel der intergalaktische Kreislaser-Turbo-Schneider…</item>
+        <item>Demo Version beendet. Kaufe die Vollversion für nur 39,99€! Just kidding. Geh trotzdem mal in den Shop. Dort finden sich praktische Dinge, wie zum Beispiel der intergalaktische Kreislaser-Turbo-Schneider…</item>
         <item>Eine Schnellanleitung findest du oben rechts. Dort kannst du auch ein Bild überspringen, solltest du mal nicht weiter kommen.</item>
-        <item>Einen Nachschub an Bildern kannst du dir von WiseMind geben lassen. Per Download hast du umgehend neue zur Verfügung!</item>
+        <item>Einen Nachschub an Bildern kannst du dir von WiseMind per Download im Shop geben lassen!</item>
         <item>Sollte dieser Experimenttyp einigermaßen erfolgreich verlaufen, kannst du später in der Mitte zwischen verschiedenen Versuchen wählen. Oder zurückgestellte Exerimente fortführen.</item>
         <item>Manche menschliche Augen erkennen manche Bilder manchmal erst aus manch einer Entfernung. Manchmal hilft auch ein Screenshot.</item>
-        <item>Hast du dich schon gewundert, warum WiseMInds Lob manchmal grün ist? Dann hast du das Rätsel schneller oder besser gelöst als standardmäßig erwartet.</item>
-        <item>Du bekommst täglich für die ersten paar gelösten Rätsel Bonus Zellen. Der Bonusfaktor nimmt langsam ab. Wie viele du bekommst, ist abhängig von der Dauer und Schwierigkeit des Rätseltyps.</item>
+        <item>Ist dir schonmal aufgefallen, dass WiseMinds Lob manchmal grün ist? In diesem Fall hast du das Experiment schneller oder besser gelöst als standardmäßig erwartet.</item>
+        <item>Du bekommst täglich für die ersten paar gelösten Experimente Bonus Zellen. Der Bonusfaktor nimmt langsam ab. Wie viele du bekommst, ist abhängig von der Dauer und Schwierigkeit des Experimententyps.</item>
         <item>Je mehr Ausrufezeichen, desto größer der Bonusfaktor.</item>
     </string-array>
     <string name="article_circle_divide_by_move_feature_name">Intergalaktischer Kreislaser-Turbo-Schneider</string>

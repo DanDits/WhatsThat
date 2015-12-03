@@ -3,9 +3,9 @@
     <string name="intro_test_subject_name">-test subject-</string>
     <string name="intro_test_subject_estimated_intelligence">-intelligence-</string>
 
-    <string name="intro_test_subject_gender_answer_male">Yann</string>
-    <string name="intro_test_subject_gender_answer_female">Xenia</string>
-    <string name="intro_test_subject_gender_answer_whatever">Quapsel</string>
+    <string name="intro_test_subject_gender_answer_male">XY: Yann</string>
+    <string name="intro_test_subject_gender_answer_female">XX: Xenia</string>
+    <string name="intro_test_subject_gender_answer_whatever">E.T.: Quapsel</string>
 
     <string name="intro_test_answer_bullshit">\?!?!</string>
     <string name="intro_test_answer_no">No</string>
@@ -14,64 +14,76 @@
     <string name="intro_starting_episode">Welcome %1$s</string>
 
     <!-- Level 0 -->
-    <string name="test_subject_0_int">Hopeless</string>
-    <string name="test_subject_0_name">Confused child</string>
+    <string name="test_subject_0_int">Archaic instincts</string>
+    <string name="test_subject_0_name">Confused Something</string>
     <string-array name="test_subject_0_0_intro_main">
-        <item>Hallo Du, kannst du mich verstehen?</item>
-        <item>Die Neuronen reagieren auf meine liebliche Stimme. </item>
-        <item>Das deute ich als ja.</item>
-        <item>Erdling, ich heiße dich auf einer Reise in die Untiefen deines Geistes willkommen.</item>
-        <item>Ich bin Meister Minion Xiaros Blu Equaris Zubatro Venalo der 364k.</item>
-        <item>Es reicht aber, wenn du mich ganz zwanglos mit \"Erhabener\" anredest.</item>
-        <item>Du kannst mich natürlich auch mit anderen Ehrentiteln anreden.</item>
-        <item>Beispielsweise \"Eure Durchlauchtheit\", \"Erhabenes Wesen aus Sonnenstrahlen\"</item>
-        <item>Oder \"Oh ruhmreiches und unübertreffliches Wesen aller Galaxien\". Entschuldige. Ich schweife schnell ab. </item>
+        <item>Hey you, can you hear me? </item>
+        <item>It seems like the neurons are responding to my lovely voice.</item>
+        <item>I take that as a yes.</item>
+        <item>Earthling, I would like to welcome you to a journey into the abyss of your mind.</item>
+        <item>Let me introduce myself:</item>
+        <item>I am Meta-Opus Transprima Plasmiro Blu Equaris Venalo the 364k.</item>
+        <item>It is perfectly fine if you call me \"Sublimer\". </item>
+        <item>Of course you can use other titles to honour me.</item>
+        <item>For instance \"Your Highness\" or \"Oh prime example of a flawless creature of all galaxies\" are decent, too.</item>
+        <item>I\"m sorry. I tend to digress very fast.</item>
     </string-array>
     <string-array name="test_subject_0_1_intro_main">
-        <item>Das hier ist Dr. Kulg.</item>
-        <item>Ihr würdet ihn einen verrückt genialen Wissenschaftler nennen.</item>
+        <item>This is Dr. Drams.</item>
+        <item>You would call him a crazy brilliant scientist.</item>
     </string-array>
     <string-array name="test_subject_0_2_intro_main">
-        <item>Verrate mir nur vorweg bitte eins: Was bist du für ein Wesen?</item>
-        <item>Unsere hochentwickelte Kultur ist darüber zu erhaben, aber euch Menschen ist das ja wichtig.</item>
+        <item>A first small and unimportant question. What kind of creature are you actually?</item>
+        <item>Our highly developed culture doesn\"t know such differences, but we know it is important to you.</item>
+        <item>And as we are nice beings, we wanted to ask you that question.</item>
     </string-array>
     <string-array name="test_subject_0_3_intro_main">
-        <item>Meine Schöpfer und ich, oder kurz gesagt: wir.</item>
-        <item>Wir wollen die menschliche Spezies besser verstehen.</item>
-        <item>Unsere Wahl ist dabei auf dich gefallen.</item>
-        <item>Du wirst unser Versuchsobjekt sein</item>
-        <item>Wir werden dich beobachten und im Hintergrund die gewonnen Daten auswerten.</item>
-        <item>Wir hoffen, du hast das Potential, das wir in dir sahen.</item>
-        <item>Zumindest sahst du aus der Ferne vielversprechend aus…</item>
-        <item>Aber von Nahmen betrachtet.. vermute ich ein Versagen des Zentralgehirns…</item>
-        <item>Nun.. enttäusche deinen Planeten besser nicht.</item>
+        <item>Back to the topic. My creators and I or to keep it short: We…</item>
+        <item>… we want to explore earth and get a better understanding of life and its creatures on it.</item>
+        <item>Our choice generator has chosen you as the chosen one.</item>
+        <item>You are our test object.</item>
+        <item>That\"s why we had to pick you up with the tractor beam.</item>
+        <item>We will watch your brain activities and collect all data in the background.</item>
+        <item>All progress and regress will be saved!</item>
+        <item>Hopefully  you have the potential we saw in you.</item>
+        <item>At least from some distance you looked like a promising talent…</item>
+        <item>But looking at close range… I suppose a failing of the Centralbrain…</item>
+        <item>Well… it would be beneficial if you don’t fail the planet…</item>
     </string-array>
     <string-array name="test_subject_0_intro_nuts">
         <item>…</item>
-        <item>Darf ich dir unser Zentralgehirn WiseMind vorstellen.. mit ihr haben wir dein Gehirn verbunden.</item>
-        <item>Ein Gehirn von der Größe einer Galaxie.. und dann.. nun ja.. deines daneben…</item>
-        <item>Ich hoffe ihr werdet euch trotzdem verstehen</item>
-        <item>Test: Ist 13 eine Primzahl?</item>
-        <item>Antwortzeit überschritten. Keine Reaktion festzustellen.</item>
-        <item>Ok vielleicht was einfacheres, denk mal an etwas zu essen.</item>
-        <item>Aha, Süßigkeiten.</item>
-        <item>Wunderbar, da der Anschluss funktioniert können wir hoffentlich gleich beginnen.</item>
-        <item>Ich hoffe mal du bist nicht schwer von Begriff.</item>
-        <item>Nicht das wir dich überfordern. Mal sehen.. Buchstaben, nö…Zahlen, negativ…</item>
-        <item>Was kannst du eigentlich?</item>
-        <item>Mal sehen, wie es auf Bilder reagiert.</item>
-        <item>Aha.. Affinität zu Anomalien der Farbvalenz</item>
-        <item>WiseMind, bereichte Versuchsreihe 272 zur Feststellung und Messung der Intelligenz der Homo Sapiens vor.</item>
-        <item>Erdling, wie bei allen zukünftigen Experimenten der Versuchsreihe 272, geht es darum, das Bild zu erraten.</item>
-        <item>Wenn du einmal nicht weiterkommst, dann schiebe bitte "keine Panik".</item>
-        <item>WiseMind wird eine für dich maßgeschneiderte Hilfe geben, wenn unser Intellekt den irdischen übersteigt.</item>
-        <item>Und nun, wie man bei euch so schön sagt: Kopf in Mülleimer!</item>
-        <item>Oh, hoppla, Verzeihung ich meinte natürlich: Viel Erfolg!</item>
+        <item>May I introduce our Centralbrain WiseMind to you… We connected your brain with hers.</item>
+        <item>We connected your brain with hers. A brain with the size of a galaxy… and … well … yours right next to it…</item>
+        <item>I hope you two get along well together and take care of each other.</item>
+        <item>OK, ok. I mean WiseMind takes care of you.</item>
+        <item>Test: Is 13 a prime number?</item>
+        <item>Response time exceeded. No reaction detected.</item>
+        <item>Hmm, maybe we need a simpler question.</item>
+        <item>Think about something to eat!</item>
+        <item>Ah. Candies.</item>
+        <item>Great, as the connection is working, we hopefully can start in a couple of seconds.</item>
+        <item>I hope that you are not slow on the uptake.</item>
+        <item>We don\"t want to overwhelm you.</item>
+        <item>Let\"s see.. Letters, nope… Numbers, negative…</item>
+        <item>Can you do anything at all?</item>
+        <item>Let\"s see how it is reacting to pictures…</item>
+        <item>Aha.. Affinity to Colourimetry anomaly</item>
+        <item>WiseMind, prepare test series 272 for determination and measurement of earthling’s intelligence.</item>
+        <item>…</item>
+        <item>Earthling, as all following experiments of test series 272 it\"s all about seeing the right picture</item>
+        <item>If you are stuck or need some help, please \"Don’t panic\".</item>
+        <item>WiseMind will give some customized help, if our infinite intellect is exceeding yours.</item>
+        <item>Or better: All earthling\"s intellect.</item>
+        <item>Well then, as you always say: Enter the fray within grand style!</item>
+        <item>And of course: Good luck!</item>
     </string-array>
     <string-array name="test_subject_0_riddle_solved_candy">
-        <item>Gut gemacht!</item>
-        <item>Geschafft!</item>
-        <item>Großes Lob!</item>
+        <item>Accomplished!</item>
+        <item>Wonderful!</item>
+        <item>Well done!</item>
+        <item>Really good</item>
+        <item>Unexpected!</item>
+        <item>Great!</item>
     </string-array>
 
     <!-- Level 1 -->

@@ -1,13 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Circle related -->
-    <string name="riddle_type_circle">Grey Matter</string>
-    <string name="riddle_type_circle_advertising">A simple experiment that aims to stimulate your grey matter by grey circles.</string>
-    <string name="riddle_type_circle_explanation">Touch one circle to pop them into 4 smaller ones until the image is visible.</string>
+    <string name="riddle_type_circle">Grey Cells</string>
+    <string name="riddle_type_circle_advertising">A simple experiment that aims to stimulate your grey matter through grey circles.</string>
+    <string name="riddle_type_circle_explanation">Touch one circle to pop them into four smaller ones until the shape of the image is visible.</string>
     <string-array name="riddle_type_circle_hints">
-        <item>Touch circles to divide them.</item>
+        <item>In our first experiment, split the circles. Unlike Mose split the water in two halves, divide them in four new circles until you can see a picture due to the better shapes. If not, I will continue the test series with our Parameciums. They mastered the tests with flying colours.</item>
+        <item>Demo version finished. Get the full version for only 39,99€! Just kidding. Nevertheless, have a quick look in the shop. There are many handy items. For example the intergalacical Circlelazor-Turbo-Cutter…</item>
+        <item>You can find a quick code at the top right corner. You can skip a picture, if you don\'t see the solution.</item>
+        <item>If you want more pictures from WiseMind, you can get new ones via download in the shop!</item>
+        <item>Later, if this experiment is successful, you can choose between different experiment types in the middle of game. Or you can continue all skipped experiments.</item>
+        <item>Sometimes human eyes recognize some pictures from a certain distance. Sometimes a screenshot is helping, too.</item>
+        <item>Did you notice that WiseMind\'s compliment appears green sometimes? In that case, you finished the experiment better or faster as usually expected.</item>
+        <item>You get daily bonus cells for the first couple of solved experiments. The bonus is decreasing shortly and depends on the difficulty and length of the experiment type.</item>
+        <item>More exclamation marks mean a higher bonus.</item>
     </string-array>
-    <string name="article_circle_divide_by_move_feature_name">Intergalactical Circlelazser-Turbo-Cutter</string>
+    <string name="article_circle_divide_by_move_feature_name">Intergalactical Circlelazer-Turbo-Cutter</string>
     <string name="article_circle_divide_by_move_feature_descr">Divide circles by moving the finger. Very relaxing!</string>
 
     <!-- Snow related -->
