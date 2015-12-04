@@ -18,7 +18,6 @@ package dan.dit.whatsthat.testsubject;
 import android.text.TextUtils;
 import android.util.Log;
 
-import dan.dit.whatsthat.riddle.achievement.MiscAchievement;
 import dan.dit.whatsthat.riddle.achievement.holders.MiscAchievementHolder;
 import dan.dit.whatsthat.riddle.types.PracticalRiddleType;
 import dan.dit.whatsthat.util.wallet.WalletEntry;

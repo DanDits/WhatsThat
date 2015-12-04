@@ -115,7 +115,7 @@ public class RiddleLazor extends RiddleGame implements FlatWorldCallback {
     private static final int[] COLOR_TYPES = new int[] {COLOR_TYPE_RED, COLOR_TYPE_GREEN, COLOR_TYPE_BLUE, COLOR_TYPE_BONUS};
 
     private static final float DIFFICULTY_ULTRA_AT = 100;
-    private static final float METEOR_SPAWN_TIME_START = 3800;;
+    private static final float METEOR_SPAWN_TIME_START = 3800;
     private static final float METEOR_SPAWN_TIME_DIFFICULTY_ULTRA = 300;
     private static final int[] DIFFICULTY_FOR_PROTECTION_ARTICLE_VALUES = new int[]{40, 30, 25, 20}; // if updating this, update string resources!!
     public static final Long RIGHT_CANNON_ID = 1L;

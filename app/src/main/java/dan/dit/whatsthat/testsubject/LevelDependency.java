@@ -18,9 +18,6 @@ package dan.dit.whatsthat.testsubject;
 import android.content.res.Resources;
 import android.util.SparseArray;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import dan.dit.whatsthat.R;
 import dan.dit.whatsthat.util.dependencies.MinValueDependency;
 

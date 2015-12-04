@@ -321,13 +321,7 @@ public class DumpYourPhotoController extends PhotoAlbumShareController {
             return null; // no need to try
         }
         Log.d("DumpYourPhoto", "Uploading to album file name " + bitmapFile.getName());
-        StringBuilder url = new StringBuilder();
-        url.append(BASE_URL)
-            .append("albums/")
-                .append(albumHash)
-                .append("/photos?")
-                .append(API_KEY_PARAMETER);
-        ResponseMap response = postBitmapDataObtainResponse(url.toString(), bitmapFile);
+        ResponseMap response = postBitmapDataObtainResponse(BASE_URL + "albums/" + albumHash + "/photos?" + API_KEY_PARAMETER, bitmapFile);
         Log.d("DumpYourPhoto", "Uploaded photo to album, response: " + response);
         return response;
     }

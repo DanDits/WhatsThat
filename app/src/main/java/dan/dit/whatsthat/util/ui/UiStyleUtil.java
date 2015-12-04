@@ -15,17 +15,13 @@
 
 package dan.dit.whatsthat.util.ui;
 
-import android.app.AlertDialog;
 import android.app.Dialog;
-import android.app.DialogFragment;
 import android.content.res.Resources;
 import android.util.Log;
 import android.view.View;
 import android.widget.TabHost;
 import android.widget.TabWidget;
 import android.widget.TextView;
-
-import dan.dit.whatsthat.R;
 
 /**
  * Created by daniel on 13.08.15.

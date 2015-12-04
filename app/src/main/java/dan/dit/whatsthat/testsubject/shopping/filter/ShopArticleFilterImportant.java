@@ -15,7 +15,6 @@
 
 package dan.dit.whatsthat.testsubject.shopping.filter;
 
-import dan.dit.whatsthat.R;
 import dan.dit.whatsthat.testsubject.shopping.ShopArticle;
 
 /**

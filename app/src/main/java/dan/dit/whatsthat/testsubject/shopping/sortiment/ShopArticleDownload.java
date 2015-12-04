@@ -17,8 +17,6 @@ package dan.dit.whatsthat.testsubject.shopping.sortiment;
 
 import android.content.Context;
 import android.content.res.Resources;
-import android.graphics.Color;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ProgressBar;

@@ -26,8 +26,8 @@ import android.util.Log;
  */
 class GamePeriodicThread extends Thread {
     private RiddleController mController;
-    private transient boolean mIsRunning;
-    private transient boolean mStopped;
+    private volatile boolean mIsRunning;
+    private volatile boolean mStopped;
     private Handler mStoppedNotifier;
     private Runnable mOnStopCallback;
 

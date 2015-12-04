@@ -34,7 +34,6 @@ import dan.dit.whatsthat.riddle.types.Types;
 import dan.dit.whatsthat.testsubject.TestSubject;
 import dan.dit.whatsthat.testsubject.shopping.sortiment.SortimentHolder;
 import dan.dit.whatsthat.util.dependencies.Dependency;
-import dan.dit.whatsthat.testsubject.shopping.ShopArticleHolder;
 
 /**
  * Created by daniel on 21.06.15.

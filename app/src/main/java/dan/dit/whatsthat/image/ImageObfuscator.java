@@ -133,10 +133,8 @@ public class ImageObfuscator {
                 }
             }
         }
-        if (currIndex > 0) {
-            return false; // hash longer than image raster, we cannot fit the hash into the pixels
-        }
-        return true;
+        // if currIndex>0 hash longer than image raster, we cannot fit the hash into the pixels
+        return currIndex <= 0;
     }
 
     private static boolean addImagedataToImage(Image image, int[][] raster) {
@@ -527,9 +525,6 @@ public class ImageObfuscator {
 	}
 
     public static boolean checkIfValidObfuscatedImage(Bitmap image) {
-        if (image == null) {
-            return false;
-        }
-        return image.getPixel(image.getWidth() - 1, image.getHeight() - 1) == HIDDEN_IMAGE_IDENTIFIER_ID;
+        return image != null && image.getPixel(image.getWidth() - 1, image.getHeight() - 1) == HIDDEN_IMAGE_IDENTIFIER_ID;
     }
 }

@@ -15,11 +15,7 @@
 
 package dan.dit.whatsthat.riddle.achievement;
 
-import android.content.res.Resources;
 import android.util.Log;
-
-import java.util.HashMap;
-import java.util.Map;
 
 import dan.dit.whatsthat.R;
 import dan.dit.whatsthat.achievement.Achievement;
@@ -27,8 +23,6 @@ import dan.dit.whatsthat.achievement.AchievementDataEvent;
 import dan.dit.whatsthat.achievement.AchievementManager;
 import dan.dit.whatsthat.riddle.types.PracticalRiddleType;
 import dan.dit.whatsthat.testsubject.LevelDependency;
-import dan.dit.whatsthat.testsubject.TestSubject;
-import dan.dit.whatsthat.util.dependencies.MinValueDependency;
 
 /**
  * Created by daniel on 22.05.15.

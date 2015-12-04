@@ -16,7 +16,6 @@
 package dan.dit.whatsthat.riddle.achievement.holders;
 
 import android.content.res.Resources;
-import android.util.Log;
 
 import java.util.TreeMap;
 

@@ -20,9 +20,7 @@ import android.util.Log;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import dan.dit.whatsthat.R;
 import dan.dit.whatsthat.riddle.types.PracticalRiddleType;

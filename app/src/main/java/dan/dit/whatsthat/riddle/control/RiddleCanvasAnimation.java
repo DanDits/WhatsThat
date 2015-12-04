@@ -14,7 +14,7 @@ import dan.dit.whatsthat.util.general.MathFunction;
  * Created by daniel on 05.11.15.
  */
 public class RiddleCanvasAnimation extends RiddleAnimation {
-    private List<CanvasAnimation> mAnimations = new ArrayList<>();;
+    private List<CanvasAnimation> mAnimations = new ArrayList<>();
     private RiddleAnimation mWrapped;
 
     protected RiddleCanvasAnimation() {

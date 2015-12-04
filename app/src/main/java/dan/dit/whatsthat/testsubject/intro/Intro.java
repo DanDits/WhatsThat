@@ -29,7 +29,6 @@ import java.util.List;
 
 import dan.dit.whatsthat.BuildConfig;
 import dan.dit.whatsthat.R;
-import dan.dit.whatsthat.testsubject.TestSubject;
 import dan.dit.whatsthat.testsubject.TestSubjectLevel;
 
 /**
@@ -89,7 +88,7 @@ public class Intro {
         mCurrentMainEpisode = -1;
         mCurrentSubEpisode = -1;
         if (mSubEpisodes == null) {
-            mSubEpisodes = Collections.EMPTY_LIST;
+            mSubEpisodes = Collections.emptyList();
             if (BuildConfig.DEBUG && !mSubEpisodes.isEmpty()) {
                 throw new IllegalStateException("Empty list instead of null list required for sub episodes.");
             }

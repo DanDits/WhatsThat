@@ -57,7 +57,6 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
-import java.util.Timer;
 
 import dan.dit.whatsthat.BuildConfig;
 import dan.dit.whatsthat.R;
@@ -811,7 +810,7 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
         return new CursorLoader(getActivity(), ImagesContentProvider.CONTENT_URI_IMAGE, ImageTable.ALL_COLUMNS, null, null, ImageTable.COLUMN_TIMESTAMP);
     }
 
-    private transient AsyncTask mLoadedImagesTask;
+    private volatile AsyncTask mLoadedImagesTask;
     public synchronized void onLoadFinished(Loader<Cursor> loader, Cursor data) {
         Log.d("Image", "Loaded images with loader: " + data.getCount());
         if (mLoadedImagesTask != null) {

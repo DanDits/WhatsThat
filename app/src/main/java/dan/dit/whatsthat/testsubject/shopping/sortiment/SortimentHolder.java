@@ -17,8 +17,6 @@ package dan.dit.whatsthat.testsubject.shopping.sortiment;
 
 import android.content.Context;
 
-import junit.framework.Test;
-
 import java.util.ArrayList;
 
 import dan.dit.whatsthat.R;
@@ -35,7 +33,6 @@ import dan.dit.whatsthat.testsubject.shopping.ShopArticleMulti;
 import dan.dit.whatsthat.testsubject.shopping.ShopArticleSimple;
 import dan.dit.whatsthat.testsubject.shopping.ShopArticleToggleable;
 import dan.dit.whatsthat.util.dependencies.Dependency;
-import dan.dit.whatsthat.util.dependencies.MinValueDependency;
 import dan.dit.whatsthat.util.dependencies.OrDependency;
 
 /**

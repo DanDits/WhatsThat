@@ -16,11 +16,8 @@
 package dan.dit.whatsthat.achievement;
 
 import android.text.TextUtils;
-import android.util.Log;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Queue;
 
 import dan.dit.whatsthat.util.compaction.Compactable;

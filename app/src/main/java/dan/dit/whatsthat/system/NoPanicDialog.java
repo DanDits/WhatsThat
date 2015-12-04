@@ -21,7 +21,6 @@ import android.app.DialogFragment;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Rect;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -54,7 +53,6 @@ import dan.dit.whatsthat.preferences.WebPhotoStorage;
 import dan.dit.whatsthat.riddle.achievement.holders.MiscAchievementHolder;
 import dan.dit.whatsthat.riddle.types.PracticalRiddleType;
 import dan.dit.whatsthat.testsubject.TestSubject;
-import dan.dit.whatsthat.testsubject.shopping.sortiment.SortimentHolder;
 import dan.dit.whatsthat.util.image.ImageUtil;
 import dan.dit.whatsthat.util.ui.GlasDialog;
 
@@ -340,7 +338,7 @@ public class NoPanicDialog extends DialogFragment {
                                 clearShareButton();
                                 Toast.makeText(getActivity(), getResources().getString(R.string
                                                 .share_failed_upload, error),
-                                        Toast.LENGTH_SHORT).show();;
+                                        Toast.LENGTH_SHORT).show();
                             }
                         });
                     }

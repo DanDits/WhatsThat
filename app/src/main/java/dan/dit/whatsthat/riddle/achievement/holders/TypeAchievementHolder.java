@@ -18,6 +18,7 @@ package dan.dit.whatsthat.riddle.achievement.holders;
 import android.util.Log;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -25,7 +26,6 @@ import dan.dit.whatsthat.achievement.Achievement;
 import dan.dit.whatsthat.riddle.achievement.GameAchievement;
 import dan.dit.whatsthat.riddle.types.PracticalRiddleType;
 
-import static java.util.Collections.EMPTY_LIST;
 
 /**
  * Created by daniel on 15.06.15.
@@ -60,7 +60,7 @@ public abstract class TypeAchievementHolder implements AchievementHolder {
         if (mAchievements != null && !mAchievements.isEmpty()) {
             return new ArrayList<>(mAchievements.values());
         }
-        return EMPTY_LIST;
+        return Collections.emptyList();
     }
 
     public GameAchievement getByNumber(int number) {

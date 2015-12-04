@@ -21,9 +21,6 @@ import android.util.Log;
 
 import java.nio.ByteBuffer;
 
-import dan.dit.whatsthat.image.Image;
-import dan.dit.whatsthat.util.jama.Matrix;
-
 /**
  * Created by daniel on 08.04.15.
  */

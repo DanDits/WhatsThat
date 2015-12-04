@@ -20,9 +20,6 @@ import android.graphics.Paint;
 import android.graphics.RectF;
 import android.util.SparseArray;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import dan.dit.whatsthat.util.flatworld.collision.Hitbox;
 import dan.dit.whatsthat.util.flatworld.look.Look;
 import dan.dit.whatsthat.util.flatworld.mover.HitboxMover;

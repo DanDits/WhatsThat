@@ -2,7 +2,6 @@ package dan.dit.whatsthat.riddle.control;
 
 import android.graphics.Canvas;
 import android.graphics.Paint;
-import android.support.annotation.BoolRes;
 import android.util.Log;
 
 import dan.dit.whatsthat.util.flatworld.look.Look;

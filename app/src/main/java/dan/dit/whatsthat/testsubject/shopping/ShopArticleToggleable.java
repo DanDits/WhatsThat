@@ -62,10 +62,7 @@ public class ShopArticleToggleable extends ShopArticleSimple {
 
     @Override
     public boolean isClickable(int subProductIndex) {
-        if (mToggler == null) {
-            return super.isClickable(subProductIndex);
-        }
-        return true;
+        return mToggler != null || super.isClickable(subProductIndex);
     }
 
     @Override

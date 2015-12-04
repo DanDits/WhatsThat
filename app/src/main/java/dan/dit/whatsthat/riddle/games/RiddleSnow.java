@@ -38,7 +38,6 @@ import dan.dit.whatsthat.achievement.AchievementProperties;
 import dan.dit.whatsthat.image.Image;
 import dan.dit.whatsthat.riddle.Riddle;
 import dan.dit.whatsthat.riddle.RiddleConfig;
-import dan.dit.whatsthat.riddle.achievement.AchievementDataRiddleType;
 import dan.dit.whatsthat.riddle.achievement.holders.AchievementSnow;
 import dan.dit.whatsthat.riddle.control.RiddleGame;
 import dan.dit.whatsthat.riddle.control.RiddleCanvasAnimation;
@@ -373,7 +372,6 @@ public class RiddleSnow extends RiddleGame implements FlatWorldCallback {
         if (mCell.updateAndCheckExplosionTimer(updateTime)) {
             onExplosion(false);
         }
-        return;
     }
 
     @Override

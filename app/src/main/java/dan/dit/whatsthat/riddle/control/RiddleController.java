@@ -24,7 +24,6 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.ViewGroup;
-import android.view.animation.AccelerateInterpolator;
 
 import com.github.johnpersano.supertoasts.SuperToast;
 import com.plattysoft.leonids.ParticleSystem;

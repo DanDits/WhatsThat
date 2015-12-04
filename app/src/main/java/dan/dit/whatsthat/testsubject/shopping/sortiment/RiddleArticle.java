@@ -20,14 +20,9 @@ import android.graphics.Color;
 import android.util.Log;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import java.util.HashMap;
-import java.util.Map;
 
 import dan.dit.whatsthat.R;
 import dan.dit.whatsthat.riddle.types.PracticalRiddleType;

@@ -18,9 +18,6 @@ package dan.dit.whatsthat.util.mosaic.matching;
 
 import android.util.SparseArray;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import dan.dit.whatsthat.util.image.ColorMetric;
 import dan.dit.whatsthat.util.mosaic.data.MosaicTile;
 

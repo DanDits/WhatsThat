@@ -16,7 +16,6 @@
 package dan.dit.whatsthat.util.flatworld.collision;
 
 import android.graphics.RectF;
-import android.util.Log;
 
 import java.util.Random;
 

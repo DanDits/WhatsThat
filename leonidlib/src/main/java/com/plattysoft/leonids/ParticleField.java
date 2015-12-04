@@ -9,7 +9,7 @@ import java.util.List;
 
 class ParticleField extends View {
     private View mMimicDimensionFrom;
-	private List<Particle> mParticles;
+	private volatile List<Particle> mParticles;
 
 	public ParticleField(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);

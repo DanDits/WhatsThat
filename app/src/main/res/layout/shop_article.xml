@@ -31,7 +31,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="Smaller description of stuff"
             android:id="@+id/shop_article_descr"
             android:gravity="center"
             android:layout_gravity="center" />

@@ -17,7 +17,6 @@ package dan.dit.whatsthat.system;
 
 import android.app.Application;
 import android.content.Intent;
-import android.util.Log;
 
 import dan.dit.whatsthat.preferences.User;
 

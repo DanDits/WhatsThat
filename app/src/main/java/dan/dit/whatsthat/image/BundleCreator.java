@@ -878,10 +878,10 @@ public class BundleCreator {
                     try {
                         cursor = mActivity.getContentResolver().query(selectedImages,
                                 columns, null, null, null);
-                        cursor.moveToFirst();
-                        if (cursor.isAfterLast()) {
+                        if (cursor == null || cursor.isAfterLast()) {
                             continue; // empty cursor
                         }
+                        cursor.moveToFirst();
 
                         int pathIndex = cursor.getColumnIndexOrThrow(columns[0]);
                         int sizeIndex = cursor.getColumnIndexOrThrow(columns[1]);

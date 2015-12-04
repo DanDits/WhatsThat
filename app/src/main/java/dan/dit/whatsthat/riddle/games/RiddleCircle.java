@@ -471,7 +471,8 @@ public class RiddleCircle extends RiddleGame {
             if (event.getActionMasked() == MotionEvent.ACTION_DOWN) {
                 long clicksDone = mConfig.mAchievementGameData.increment(AchievementCircle
                         .KEY_FORBIDDEN_CIRCLE_DIVISION_CLICK, 1L, 0L);
-                if (clicksDone >= AchievementCircle.Achievement12.REQUIRED_CLICKS_TO_VICTORY) {
+                if (clicksDone >= AchievementCircle.Achievement12.REQUIRED_CLICKS_TO_VICTORY &&
+                        mBigBrotherAnim != null) {
                     mBigBrotherAnim.murder();
                 }
             }

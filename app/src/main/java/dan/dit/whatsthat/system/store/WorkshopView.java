@@ -34,8 +34,6 @@ import dan.dit.whatsthat.image.BundleCreator;
 import dan.dit.whatsthat.image.BundleManager;
 import dan.dit.whatsthat.image.LogoView;
 import dan.dit.whatsthat.preferences.User;
-import dan.dit.whatsthat.testsubject.TestSubject;
-import dan.dit.whatsthat.testsubject.shopping.sortiment.SortimentHolder;
 import dan.dit.whatsthat.util.mosaic.MosaicGeneratorUi;
 import dan.dit.whatsthat.util.ui.UiStyleUtil;
 

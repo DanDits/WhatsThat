@@ -16,13 +16,10 @@
 package dan.dit.whatsthat.riddle.achievement.holders;
 
 import android.content.res.Resources;
-import android.util.Log;
 
 import java.util.TreeMap;
 
 import dan.dit.whatsthat.R;
-import dan.dit.whatsthat.achievement.Achievement;
-import dan.dit.whatsthat.achievement.AchievementData;
 import dan.dit.whatsthat.achievement.AchievementDataEvent;
 import dan.dit.whatsthat.achievement.AchievementManager;
 import dan.dit.whatsthat.achievement.AchievementProperties;
