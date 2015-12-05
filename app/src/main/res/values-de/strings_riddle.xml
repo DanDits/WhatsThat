@@ -5,7 +5,7 @@
     <string name="riddle_type_circle_advertising">Ein einfaches Experiment, das darauf abzielt, deine grauen Zellen durch graue Kreise zu stimulieren.</string>
     <string name="riddle_type_circle_explanation">Berühre einen Kreis, um diesen in vier kleinere aufzuteilen. Dadurch wird die Kontur des versteckten Bildes sichtbar.</string>
     <string-array name="riddle_type_circle_hints">
-        <item>Teile bei unserem ersten Experiment einen Kreis. So wie Mose das Wasser, nur nicht in zwei Hälften, sondern in vier neue Kreise. Irgendwann erkennst du durch die feineren Konturen ein Bild. Falls nicht, führe ich die Versuchsreihe mit Pantoffeltierchen weiter, die diese Tests mit Bravour bestanden haben.</item>
+        <item>Teile die Kreise bei unserem ersten Experiment, um deine Zellen zu stimulieren. Aber nicht wie Mose das Wasser in zwei Hälften teilte, sondern in vier. Irgendwann sind deine Zellen hoffentlich genug stimuliert und du erkennst durch die feineren Konturen ein Bild. Falls nicht, führe ich die Versuchsreihe mit Pantoffeltierchen weiter, die diese Tests mit Bravour bestanden haben.</item>
         <item>Demo Version beendet. Kaufe die Vollversion für nur 39,99€! Just kidding. Geh trotzdem mal in den Shop. Dort finden sich praktische Dinge, wie zum Beispiel der intergalaktische Kreislaser-Turbo-Schneider…</item>
         <item>Eine Schnellanleitung findest du oben rechts. Dort kannst du auch ein Bild überspringen, solltest du mal nicht weiter kommen.</item>
         <item>Einen Nachschub an Bildern kannst du dir von WiseMind per Download im Shop geben lassen!</item>
@@ -21,14 +21,14 @@
     <!-- Snow related -->
     <string name="riddle_type_snow">Zorny Zell</string>
     <string name="riddle_type_snow_advertising">Ein anspruchsvolleres Experiment, in dem du eine seltsame Zelle durch die wirren Schleier deines Geistes steuerst und merkwürdige Dinge einsammeln musst.</string>
-    <string name="riddle_type_snow_explanation">Beschleunige die Zelle hin zu deinem Finger, oder später durch Kippen des Gerätes. Sammle Süßigkeiten, wachse und explodiere das Bild frei.</string>
+    <string name="riddle_type_snow_explanation">Beschleunige die Zelle hin zu deinem Finger, oder später durch Kippen des Gerätes. Sammle Süßigkeiten, wachse, vermeide das Berühren von Wänden und EXPLODIERE das Bild frei.</string>
     <string-array name="riddle_type_snow_hints">
         <item>Ein neuer Test. In der Umgebung der Zelle platzieren wir kontaminierte biologische Stoffe einer anderen Spezies, um die Reaktion der Zelle darauf zu testen. Achte auf die Partikel, die von dem Stoff ausgehen und deiner Zelle schaden. Den Rest werden wir, wie in der Politik, mit einer Lüge bestmöglich verschleiern.</item>
-        <item>Durch den Versuch erhoffen wir uns tiefere Einblicke in die irdische graue Substanz, ein Bestandteil deines Zentralnervensystems. Dazu mussten wir aus deinem Gehirn eine Zelle entfernen.</item>
-        <item>Engelchen zeigt der Zelle Tätrhaw die blanke Realität.  Als wir das Zeug der Zelle eines Politiker gegeben haben, ist die Zelle augenblicklich geplatzt.</item>
+        <item>Durch den Versuch erhoffen wir uns tiefere Einblicke in die irdische graue Substanz, ein Bestandteil deines Zentralnervensystems. Dazu mussten wir aus deinem Gehirn eine Zelle entfernen. Aber keine Sorge, wenn du Alkohol trinkst werden weitaus mehr Zellen vernichtet.</item>
+        <item>Engelchen ist wie das Wahrheitsserum KitiLop und zeigt der Zelle die blanke Realität. Als wir das Zeug der Zelle eines Politiker gegeben haben, ist die Zelle augenblicklich geplatzt. Bei allen Galaxien dieser Welt, das gab vielleicht eine Sauerei!</item>
         <item>Engelchen besitzt drei kognitive Zustände. Im ersten schützt es dich komplett vor Partikeln oder Wandkollisionen. Durch giftige Süßigkeiten lässst der Effekt nach.</item>
-        <item>Im zweiten Zustand ist der Schutz vor Partikel oder Wandkollisionen schwächer. Im dritten fehlt er komplett.</item>
-        <item>Du kannst Engelchen aus dem Kontrollbereich drängen. Es stört dich dann nicht mehr, macht die Sammelaktion aber deutlich risikoreicher…</item>
+        <item>Im zweiten Zustand ist der Schutz vor Partikel oder Wandkollisionen schwächer. Im dritten ist Engelchen benommen und der Schutz fehlt komplett.</item>
+        <item>Du kannst Engelchen aus dem Kontrollbereich drängen. Es stört dich dann nicht mehr, macht die Sammelaktionen aber deutlich risikoreicher…</item> <!--hat ein verdrängtes Engelchen sonst positive Effekte? Z.B. 1 Süßes weniger?-->
     </string-array>
     <string name="article_snow_feature_orientation_sensor_name">Balanceakt</string>
     <string name="article_snow_feature_orientation_sensor_descr">Ermöglicht die Wahlmöglichkeit, die Zelle durch Kippen des Geräts zu steuern!</string>
@@ -56,8 +56,8 @@
         <item>Wiederbelebung in 3..2.. ups, bin ja schon da.</item>
     </string-array>
     <string-array name="devil_talk_killed">
-        <item>Ich komme wieder.</item>
-        <item>Neeeeeeiiiiiinnnnnn.</item>
+        <item>Ich komme wieder!</item>
+        <item>Neeeeeeiiiiiinnnnnn…</item>
         <item>Was zur Hölle tust du da?</item>
         <item>Liebst du mich denn nicht?</item>
         <item>Tu das nicht, du brauchst mich!</item>
@@ -86,16 +86,16 @@
     </string-array>
 
     <!-- Triangle related -->
-    <string name="riddle_type_triangle">Triluminati</string>
+    <string name="riddle_type_triangle">Triluminati</string> <!--Name ändern zu Trichromaten o.ä.?-->
     <string name="riddle_type_triangle_advertising">Ein einfaches Experiment. Deine grauen Zellen haben an Farbe gewonnen und das Experiment an Ecken.</string>
     <string name="riddle_type_triangle_explanation">Berühre ein Dreieck, um es in kleinere Dreiecke aufzuteilen. Dadurch wird das versteckte Bild immer besser erkenntlich.</string>
     <string-array name="riddle_type_triangle_hints">
         <item>WiseMind meint, ich rede zu viel. Ich fasse mich deshalb kurz: Ein farbliches Pendant zum Kreis-Test. Klickst du auf ein Dreieck, teilt sich dieses in zwei kleinere. Wozu das ganze? Zum Testen eurer Farbwahrnehmung.</item>
-        <item>Wenn du mehrere Dreiecke berührst, teilst du alle auf einmal. Magic! Ansonsten gleiche Punkte wie beim Kreis-Experiment.</item>
+        <item>Wenn du mehrere Dreiecke an deren Enden berührst, teilst du alle auf einmal. Magic! Ansonsten gleiche Punkte wie beim Kreis-Experiment.</item>
         <item>Ich bin ein angesehener Wissenschaftler. Wenn du mich zu solch einfachen Dingen fragst könnte ich genervt reagieren…</item>
         <item>Du kannst deine kurze Lebenszeit gerne weiter verschwenden und Buttons drücken.</item>
-        <item>Bist du verliebt in mich oder wieso willst du nicht loslassen?</item>
-        <item>Menschenskind! Jetzt habe ich genug! 300 Milliliter von dieser Spritze. Das haut sogar einen Elefanten um. Und Tschüss.</item>
+        <item>Bist du verliebt in mich oder wieso willst du nicht loslassen?!</item>
+        <item>Ok Erdwesen! Jetzt habe ich genug! 300 Milliliter von dieser Spritze. Das haut sogar einen Elefanten um. Und Tschüss.</item>
     </string-array>
     <string name="article_triangle_divide_by_move_feature_name">Intergalaktischer Turbolaser-Dreieck-Schneider</string>
     <string name="article_triangle_divide_by_move_feature_descr">Dr. Kulg hat sämtliche Mitarbeiter einen ganzen Monat gequält, um den Kreislaser weiterzuentwicklen!</string>
@@ -105,15 +105,15 @@
     <string name="riddle_type_dice_advertising">Ein verzwicktes und kompliziertes Experiment für die Logistiker und Geduldigen. Es müssen Würfel auf einem Gitter bewegt und kombiniert werden.</string>
     <string name="riddle_type_dice_explanation">Berühre ein leeres Feld, damit ein neuer Würfel erscheint. Bewege und kombiniere Würfel gleicher Augenzahl und Farbe, um das ausgeblasste Bild sichtbarer zu machen.</string>
     <string-array name="riddle_type_dice_hints">
-        <item>Ein komplizierter Test. Kombiniere  Würfel gleicher Zahl und Farbe. In den angezeigten Bereichen entsteht Transparenz. Es gibt drei Basiswürfel rot, gelb und grün sowie die Sonderwürfel lila und den Alien Cube. Der Alien-Cube hat auf jeden Basiswürfel unterschiedliche Effekte.</item>
+        <item>Ein komplizierter Test. Berühre leere Feld, um neue Würfel zu kreieren und Würfel gleicher Zahl und Farbe zu kombinieren. In den angezeigten Bereichen entsteht Transparenz. Es gibt drei Basiswürfel rot, gelb und grün sowie den Alien Cube. Der Alien-Cube hat auf jeden Basiswürfel unterschiedliche Effekte.</item>
         <item>Grund für diesen komplizierten Versuch ist eine Anomalie, die wir bei euch festgestellt: Euren irdischen Würfel fehlt eine Dimension. Sie haben fälschlicherweise 6 Seiten, obwohl es 9 sind. Wir testen dein Gedächtnis daher auf Realitätsbasis hinsichtlich Kombination, Zahlen, Taktik, Logik, Farbe, Bewegung, Logistik und Schnelligkeit. Ja, ich halte es auch für einen Fehler, weil dich das ziemlich überfordert, aber Befehl ist Befehl.</item>
-        <item>Nun zum Alien-Cube. Alien-Cube auf Rot ergibt den gleichen Würfel in grün. Plus Transparenz im entsprechenden Bereich.</item>
-        <item>Alien-Cube auf Gelb deckt das Feld zu 100% auf und lässt die Würfel verschwinden.</item>
-        <item>Alien-Cube auf Grün ergibt lila. Die aufgedeckten Felder sind beweglich aber die Transparenz ist abhängig von der Augenzahl.</item>
-        <item>Was ich empfehle?  Wenn du bereits einen grünen Würfel hast, kannst du mit rot sofort einen zweiten grünen Würfel mit geschenkter Transparenz bekommen.\nAls Glücksspieler empfehle ich gelb. Möchtest das ganze Bild scannen, würde ich einen grünen Würfel nehmen.</item>
-        <item>Wenn ich den Alien–Cube auf grün kombiniere, dann meist auf 4–6. Wieso? Na das Verhältnis Felder:Transparenz ist hier ziemlich gut.</item>
+        <item>Nun zum Alien-Cube. Alien-Cube auf Rot ergibt den gleichen Würfel in grün. Plus Transparenz im entsprechenden Bereich!</item>
+        <item>Alien-Cube auf Gelb deckt das Feld zu 100% auf und lässt die Würfel verschwinden!</item>
+        <item>Alien-Cube auf Grün ergibt lila. Das ist ein besonderer Würfel, weil die aufgedeckten Felder beweglich sind, die Transparenz aber abhängig von der Augenzahl ist!</item>
+        <item>Was ich empfehle?  Wenn du bereits einen grünen Würfel hast, kombiniere den Alien-Cube auf einen roten Würfel, denn du bekommst umgehend einen zweiten grünen Würfel mit geschenkter Transparenz.\nAls Glücksspieler empfehle ich gelb. Möchtest das ganze Bild scannen, würde ich einen grünen Würfel nehmen.</item>
+        <item>Wenn ich den Alien–Cube auf grün kombiniere, dann meist auf 4, 5 oder 6. Wieso? Na das Verhältnis Felder:Transparenz ist hier ziemlich gut.</item>
         <item>Ein volles Feld ist nicht unbedingt tragisch: du verlierst zwar rote und gelbe Würfel sowie etwas Transparenz, dafür hast du wieder Freiraum.</item>
-        <item>Nach dem Ameisenprinzip können rote und gelbe Würfel beliebig bewegt werden, sofern ein Weg frei ist. Was wohl der maximale Sprung ist?</item>
+        <item>Nach dem Ameisenprinzip kannst du rote und gelbe Würfel sprunghaft bewegen, sofern ein Weg frei ist. Was wohl der maximale Sprung ist?</item>
     </string-array>
 
     <!-- Jumper related -->
@@ -121,15 +121,15 @@
     <string name="riddle_type_jumper_advertising">Ein bewegendes Experiment als Jump and Run. Springe über Hindernisse und bleibe bloß nicht hängen!</string>
     <string name="riddle_type_jumper_explanation">Berühre das Feld, um über Hindernisse zu springen. Halte länger gedrückt, um höher zu springen.</string>
     <string-array name="riddle_type_jumper_hints">
-        <item>Ihr Menschen seid ein merkwürdisches Völkchen. Ein Esel lässt sich mit einer Karotte zum Laufen animieren, bei euch Homo-Sapiens bedarf es einem Bündel Geld, obwohl das nicht mal essbar ist.</item>
-        <item>Wie dem auch sei. Wir haben an einem Geschäftsmann einige Versuche durchgeführt und dazu die Erinnerungen blockiert. Du kannst die Blockade lösen, indem du über Hindernisse springst. Mit einem einfachen Gedanken konnten wir unseren Kaufmann zu einem Marathon mit Hindernissen motivieren: \"Am Ende des Regenbogens steht ein Topf voller Geld.\" Zu schade, dass es nachts keinen Regenbogen gibt.</item>
+        <item>Menschen sind ein merkwürdisches Völkchen. Ein Esel lässt sich mit einer Karotte zum Laufen animieren, aber bei einem Homo-Sapiens bedarf es einem Bündel Geld, obwohl das nicht mal essbar ist.</item>
+        <item>Wie dem auch sei. Wir haben an einem Geschäftsmann einige Versuche durchgeführt und dazu die Erinnerungen blockiert. Du kannst die Blockade lösen, indem du über Hindernisse springst. Mit einem einfachen Gedanken konnten wir unseren Kaufmann zu einem Marathon mit Hindernissen motivieren: \"Am Ende des Regenbogens steht ein Topf voller Geld!\" Zu schade, dass es nachts keinen Regenbogen gibt.</item>
         <item>Einmal klicken: Jump, zweimal klicken oder gedrückt halten: Double Jump. Kapiert?</item>
         <item>Es gibt vier Bereiche. Je nach Schwierigkeit wird die Erinnerung unterschiedlich groß ausfallen.</item>
         <item>Nach jeden x-überwundenen Hindernissen wird sich unser Geschäftsmann erinnern. Manchmal aber an irrelevante Dinge, der Bereich bleibt dann unverändert.</item>
         <item>Übung macht den Meister. Aber manche Menschen sind für Jump and Runs einfach nicht geschaffen.</item>
         <item>Du fragst dich wer Manomnom ist? Ein mysteriöses Wesen!</item>
         <item>Manomnom wartet im letzten Bereich auf dich. Und weil mein Meister ihn so gern hat, auch nach jeder Schwierigkeitszone.</item>
-        <item>Sein Laserstrahl verkohlt dich übrigens nur zu seinen Füßen. Der Rest ist lediglich Showeinlage.</item>
+        <item>Nur Manomnom selbst solltest du berühren. Sein Laserstrahl hingegen ist lediglich Showeinlage. Aber es hat Stil, findest du nicht auch?</item>
         <item>Warum er alles Lasern will? Nach dem Verspeisen von Antimaterie ist er leider etwas verrückt geworden.</item>
         <item>Manomnom und ich sind die Lieblinge meines Meisters!</item>
         <item>Ach Manomnom, du Dummerchen. Warum konntest du Nimmersatt deine Klauen nicht einfach von der Antimaterie lassen…?</item>
@@ -137,8 +137,8 @@
     <string-array name="riddle_jumper_collision_break">
         <item>Das kannst du besser</item>
         <item>Auf ein Neues</item>
-        <item>Du schaffsts noch weiter</item>
-        <item>Game Over!?</item>
+        <item>Du schaffst das noch weiter</item>
+        <item>Game Over!?!</item>
     </string-array>
     <string name="riddle_jumper_new_highscore">Neuer Rekord %1$dm !</string>
     <string name="riddle_jumper_old_highscore">Bisheriger Rekord %1$dm</string>

@@ -1,5 +1,4 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-
 <resources xmlns:tools="http://schemas.android.com/tools">
     <string name="credits_text" tools:ignore="TypographyEllipsis"><![CDATA[
         <p>Jedes große Projekt braucht einen Platz, um den Leuten zu danken, die es möglich gemacht haben. Dies hier ist der Platz. So viele brillante Leute, so viele brillante und kreative Köpfe und die meisten wissen noch nicht einmal, dass sie hierzu beigetragen haben.</p>
@@ -78,16 +77,16 @@
         <item>Bild Vorschlag</item>
         <item>Experiment Vorschlag</item>
         <item>Bug gefunden</item>
-        <item>Feedback</item>
+        <item>Feedback zur App</item>
         <item>Nur mal Hallo sagen</item>
         <item>\?!?</item>
         <item>Sprache und Übersetzungen</item>
     </string-array>
     <string-array name="contact_mail_body">
-        <item>Erdlinge und Urheberrechte: eine Katastrophe.\nMeine Schöpfer benutzen daher nur Bilder mit freier Lizenz. Gib für dein Bild, das du in den Anhang gesetzt hast oder noch tun musst, folgende Punkte an:\n\nAutorname oder Psyeudonym:\nEvtl. Bildtitel:\nQuelle (z.B. Website):\nLösungswort:\nBevorzugtes Experiment:</item>
-        <item>Das hier ist nur für hyperintelligente und bescheidene Wesen wie beispielsweise mich!\nSolltest du meinem Meister einen Vorschlag schicken, präzisiere deine Beschreibung, insbesondere:\nWas ist die Idee? Wie ist das Feld aufgebaut? Wie kann ich etwas verändern? Wie wird das Bild sichtbar? Usw.\nEine Skizze im Anhang hilft meinem Meister, deine wirren Gedanken zu verstehen.\nVielleicht nimmt er sogar Kontakt mit dir auf, wenn dein Vorschlag gut ist und noch Fragen im Detail aufwirft.</item>
+        <item>Erdlinge und Urheberrechte: eine Katastrophe.\nMeine Schöpfer benutzen daher nur Bilder mit freier Lizenz. Du hast ein Bild, dass du für alle zugänglich machen möchtest? Gib für dein Bild, das du in den Anhang gesetzt hast oder noch tun musst, folgende Punkte an:\n\nAutorname oder Pseudonym:\nEvtl. Bildtitel:\nQuelle (z.B. Website):\nLösungswort:</item>
+        <item>Das hier ist nur für hyperintelligente und bescheidene Wesen wie beispielsweise mich!\nSolltest du es wagen meinem Meister einen Vorschlag zu schicken, präzisiere deine Beschreibung, insbesondere:\nWas ist die Idee? Wie ist das Feld aufgebaut? Wie kann ich etwas verändern? Wie wird das Bild sichtbar? Usw.\nEine Skizze im Anhang hilft meinem Meister, deine wirren Gedanken zu verstehen.\nWenn dein Vorschlag akzeptiert wurde oder Fragen im Detail aufwirft, dann nimmt er mit dir eventuell sogar Kontakt auf.</item>
         <item>Glückwunsch, ich dachte ich hätte die meisten Käfer vernichtet :(\n\nWo ist der Fehler aufgetreten?\nIst die App abgestürzt?\nWas hast du getan?\nWas ist (nicht) passiert?\nWas sollte passieren?</item>
-        <item>Meine Schöpfer freuen sich über positives Feedback oder sonstige Verbesserungsvorschläge aller Art.\nNegatives Feedback wird höchstwahrscheinlich vom Wurmloch verschlungen werden.</item>
+        <item>Meine Schöpfer freuen sich über positives Feedback oder sonstige Verbesserungsvorschläge aller Art.\nNegatives Feedback wird höchstwahrscheinlich vom Wurmloch verschlungen werden. Aber tu dir keinen Zwang an und versuche es einfach.</item>
         <item>Oh große und erhabene Erlauchtheit, ich traue mich kaum diese Worte auszusprechen, doch trotzdem erhebe ich mein unwürdiges Haupt und blicke allen Mut fassend in eure allwissenden Augen und stammle ein kleinlautes… Hallo</item>
         <item>Ein alter Soldat trug einst rabiat ein großes Gewehr.</item>
         <item>Sollte dir ein Grammatik-, Rechtschreib- oder sonstiger Sprachenfehler aufgefallen sein sollte, dann berichte ihn hier.\n\nGefällt dir dieses Spiel, würdest es aber gerne in einer anderen Sprache spielen?\nDie Übersetzungsprogramme von WiseMind sind leider beschränkt, du kannst aber gerne:\n\n- Lösungen von Bildern\n- Texte von Erfolgen\n- Intro oder Menü Buttons\nübersetzen. Nimm dazu einfach Kontakt mit meinem Meister auf. Beachte dabei bitte:\n\n- Eine monetäre Entschädigung kann er dir leider nicht bieten.\n- Wenn du möchtest, bekommst du einen Platz in den Credits.</item>
@@ -181,7 +180,7 @@
         <item quantity="one">Ausgesetztes Experiment</item>
         <item quantity="other">%1$d ausgesetzte Experimente</item>
     </plurals>
-    <string name="send_log_title">Sorry, die App ist abgestürzt</string>
+    <string name="send_log_title">Sorry, die App ist abgestürzt!</string>
     <string name="article_hint_no_translation">Hinweis für diese Sprache nicht verfügbar.</string>
 
     <string name="workshop_tab_bundle_creator">Paket Ersteller</string>
@@ -258,8 +257,7 @@
     <string name="article_share_as_image_feature_name">Teile Experimente als Bilder an Freunde</string>
     <string name="article_share_as_image_feature_descr">Erlaubt dein momentanes Experiment als Bild an Freunde zu verschicken! Leider darf dabei das Bild nicht komprimiert oder verändert werden, also kannst du dafür nicht WhatsApp benutzen, sondern Apps wie Email oder Dropbox.</string>
     <string name="share_failed_upload">Hochladen fehlgeschlagen (Fehler: %1$d)</string>
-    <string name="share_experiment_link_subject">Hast du WhatsThat? Hier ist ein Experiment zum
-        Lösen!</string>
+    <string name="share_experiment_link_subject">Hast du WhatsThat? Hier ist ein Experiment zum Lösen!</string>
     <string name="download_is_working">Es wird gearbeitet… Zum Abbrechen klicken</string>
 
     <plurals name="images_in_bundle">

@@ -5,8 +5,8 @@
     <string name="riddle_type_circle_advertising">A simple experiment that aims to stimulate your grey matter through grey circles.</string>
     <string name="riddle_type_circle_explanation">Touch one circle to pop them into four smaller ones until the shape of the image is visible.</string>
     <string-array name="riddle_type_circle_hints">
-        <item>In our first experiment, split the circles. Unlike Mose split the water in two halves, divide them in four new circles until you can see a picture due to the better shapes. If not, I will continue the test series with our Parameciums. They mastered the tests with flying colours.</item>
-        <item>Demo version finished. Get the full version for only 39,99€! Just kidding. Nevertheless, have a quick look in the shop. There are many handy items. For example the intergalacical Circlelazor-Turbo-Cutter…</item>
+        <item>In our first experiment, split the circles to stimulate your cells. Unlike Mose split the water in two halves, divide them in four new circles. Hopefully at some point the stimulation of your cells is enough and you can see a picture due to the better shapes. If not, I have to continue the test series with our Parameciums. They mastered the tests with flying colours.</item>
+        <item>Demo version finished. Get the full version for only 39,99€! Just kidding. Nevertheless, have a quick look in the shop. There are many handy items. For example the intergalacical Circlelaser-Turbo-Cutter…</item>
         <item>You can find a quick code at the top right corner. You can skip a picture, if you don\'t see the solution.</item>
         <item>If you want more pictures from WiseMind, you can get new ones via download in the shop!</item>
         <item>Later, if this experiment is successful, you can choose between different experiment types in the middle of game. Or you can continue all skipped experiments.</item>
@@ -15,14 +15,20 @@
         <item>You get daily bonus cells for the first couple of solved experiments. The bonus is decreasing shortly and depends on the difficulty and length of the experiment type.</item>
         <item>More exclamation marks mean a higher bonus.</item>
     </string-array>
-    <string name="article_circle_divide_by_move_feature_name">Intergalactical Circlelazer-Turbo-Cutter</string>
+    <string name="article_circle_divide_by_move_feature_name">Intergalactical Circlelaser-Turbo-Cutter</string>
     <string name="article_circle_divide_by_move_feature_descr">Divide circles by moving the finger. Very relaxing!</string>
 
     <!-- Snow related -->
     <string name="riddle_type_snow">Angry Cell</string>
-    <string name="riddle_type_snow_advertising">A more complex experiment where you guide an angry cell through the foggy parts of your mind.</string>
-    <string name="riddle_type_snow_explanation">Tilt the device and thus move the cell. Collect toxic candies, grow bigger, don\'t touch walls and EXPLODE.</string>
+    <string name="riddle_type_snow_advertising">A more complex experiment where you guide an angry cell through the foggy parts of your mind and collect strange things.</string>
+    <string name="riddle_type_snow_explanation">Move the cell to your finger or later by tilting the device. Collect candies, grow bigger, don\'t touch walls and EXPLODE.</string>
     <string-array name="riddle_type_snow_hints">
+        <item>A new test. We place some contaminated biological material of another species close to your cell to test your cell\'s reaction. Pay attention to the particles which are emitted from the material. They will damage your cell. As in policy we will do our best to obscure everything else with a lie </item>
+        <item>We hope to gain a better insight into the earthly grey matter which is part of your central nervous system. We had to remove a cell from your brain. Don\'t worry, drinking alcohol kills far more cells.?</item>
+        <item>Angeli is like the Truth serum ScitiLop and shows harsh reality to the cell. We tried to give that stuff to a politician but the cell bursted instantly. That was a mess!</item>
+        <item>Angeli has three cognitive states. The first one will protect you completely against particels or wall collisions. Toxic candies will decrease that effect.</item>
+        <item>The second cognitive state has less protection against particels or wall collisions. Angeli will be dizzy in the third state and does not protect you.</item>
+        <item>You can push Angeli out of the control area. It won\'t bother you anymore, but collecting candies get more risky.</item>
     </string-array>
     <string name="article_snow_feature_orientation_sensor_name">Balancing act</string>
     <string name="article_snow_feature_orientation_sensor_descr">Enables choosing to control the cell by tilting the phone!</string>
@@ -36,23 +42,24 @@
     </string-array>
     <string-array name="devil_talk_recovered">
         <item>I\'m fine again!</item>
+        <item>I had an upset stomach!</item>
         <item>I did this just for you!</item>
     </string-array>
     <string-array name="devil_talk_return">
         <item>I\'m back!</item>
         <item>Did you miss me?</item>
-        <item>I will never leave you.</item>
-        <item>Resurrection in 3…2… nevermind, I\'m already back</item>
+        <item>I will never leave you!</item>
+        <item>Resurrection in 3…2… nevermind, I\'m already back.</item>
         <item>Overly attached? I call it passion.</item>
         <item>Like the moon will not leave the earth, I will not leave you!</item>
     </string-array>
     <string-array name="devil_talk_killed">
         <item>I\'ll be back.</item>
-        <item>Noooooooo</item>
+        <item>Noooooooo…</item>
         <item>What are you doing?</item>
         <item>Staaap!</item>
-        <item>Let me love youuu</item>
-        <item>You need me</item>
+        <item>Let me love youuu!</item>
+        <item>You need me!</item>
         <item>The candy is a lie!</item>
     </string-array>
     <string-array name="devil_talk_cell_eat_candy">
@@ -60,7 +67,7 @@
         <item>Don\'t you see it\'s not candy?!</item>
         <item>Why you do this, stap</item>
         <item>Stop…eating candy.</item>
-        <item>Sigh</item>
+        <item>Sigh…</item>
         <item>Stop or you will get fat!</item>
         <item>No toothbrush, no candy</item>
     </string-array>
@@ -79,17 +86,32 @@
     <!-- Triangle related -->
     <string name="riddle_type_triangle">Triluminati</string>
     <string name="riddle_type_triangle_advertising">A simple experiment. Your grey cells have gained some colour and the experiment some edges.</string>
-    <string name="riddle_type_triangle_explanation">Press inside a triangle to create smaller ones.</string>
+    <string name="riddle_type_triangle_explanation">Press inside a triangle to split it in two smaller ones. You will recognise the hidden image soon.</string>
     <string-array name="riddle_type_triangle_hints">
+        <item>WiseMind says that I\m' talking too much. Do you think that too? Well, I will keep it short: A colourful counterpart of the circle test. Hit a triangle to split it in two smaller ones. Why do we need this? To test your colour vision.</item>
+        <item>If you touch multiple triangles at their ends you will split them all. Magic! Otherwise everything is like the Circle experiment.</item>
+        <item>I\'m a respected scientist. If you ask such easy things I could react annoyed…</item>
+        <item>If you want to waste your short life time by pushing useless buttons, be my guest.</item>
+        <item>Are you in love with me or why can\'t you just stop?!</item>
+        <item>Ok earth being, now I have enough! One glass of the predator drug should be enough to knock out an elephant. Bye bye!</item>
     </string-array>
     <string name="article_triangle_divide_by_move_feature_name">Intergalactical Turbolaser-Triangel-Cutter</string>
-    <string name="article_triangle_divide_by_move_feature_descr">Allows dividing of triangles by moving the finger. Even more relaxing!</string>
+    <string name="article_triangle_divide_by_move_feature_descr">Dr. Drams tortured his employees almost a month to upgrade the Circlelaser for you!</string>
 
     <!-- Dice related -->
     <string name="riddle_type_dice">Alien-Cube</string>
-    <string name="riddle_type_dice_advertising">A tricky and more complicated experiment. You need to move dices on a grid and combine them.</string>
-    <string name="riddle_type_dice_explanation">Create dices by touching an empty field. Move and combine dices with equal numbers to reveal the image.</string>
+    <string name="riddle_type_dice_advertising">A tricky and complicated experiment for the patients and logistician. You need to move dices on a grid and combine them.</string>
+    <string name="riddle_type_dice_explanation">Touch an empty field to create dices with different number of points. Move and combine dices with equal numbers to reveal the image.</string>
     <string-array name="riddle_type_dice_hints">
+        <item>A very complicated test. Create new dices by touching empty fields. Combine dices with the same number and colour to get more transparency in the shown areas. There are the three basic dice red, yellow and green and the special Alien-Cube. The Alien-Cube has special effects on each basic dice.</item>
+        <item>We have to do this complicated experiment as we discovered a strange anomaly: Somehow your earthly cubes miss one dimension. By mistake there are only six cube faces instead of nine. Of course we have to test your brain on reality in terms of combination, numbers, tactic, logistics, colour, movement, logic and speed. Ay, I think it\'s a mistake, too. I told WiseMind we are expecting too much, but I have to execute this command.</item>
+        <item>Something you need to know about the Alien-Cube: Alien-Cube on red results in a green dice with the same number. Plus some transparency in the shown areas!</item>
+        <item>Alien-Cube on yellow will reveal the field completely but both cubes will vanish!</item>
+        <item>Alien-Cube on green results in purple. This is a special dice as the revealed fields are mobile but depends on the number of points!</item>
+        <item>My suggestion? If you already got a green dice, combine the Alien-Cube with a red one. You get a green one immediately plus some transparency for free.\nIf you want to gamble, try the yellow one. Maybe one field is enough to see the solution!\nIf you want to \"scan\" the whole picture, take a green dice.</item>
+        <item>If I combine the Alien-Cube on a green dice, usually on a 4, 5 or 6. Why? Well, the proportion fields:transparency is the best one in my opinion.</item>
+        <item>Maybe the grid is full, but that\'s not a tragedy. You may lose red and yellow dices and some transparency but you get some free space again.</item>
+        <item>Like a wormhole you can move red and yellow dices in jumps as long as there is a path. What do you think is the biggest jump?</item>
     </string-array>
 
     <!-- Jumper related -->
@@ -97,12 +119,25 @@
     <string name="riddle_type_jumper_advertising">A moving experiment. You jump and run and need to avoid touching obstacles!</string>
     <string name="riddle_type_jumper_explanation">Touch to jump or keep pressed to doublejump over obstacles. Each one will slowly reveal the image</string>
     <string-array name="riddle_type_jumper_hints">
+        <item>Humans are strange creatures. A donkey is moving if you keep a carrot in front of his head, for Homo sapiens it requires a bundle of money, even tough you can\'t eat it.</item>
+        <item>Whatever. We run some tests on a business men and had to block his memory. Luckily, you can break the blockage by jumping over different obstacles. It was easy to motivate the business man for a marathon with a simple thought: \"At the end of the rainbow you will be rewarded by a pot of money!\" What a pity, that there is no rainbow in the middle of the night.</item>
+        <item>Click once: Jump, Click twice: Double Jump. Got it?</item>
+        <item>You will pass four areas. Depending on the difficulty memory comes back much bigger.</item>
+        <item>Our Business Man will remember something every x-passed obstacles. Sometimes it\'s unimportant for us, the field stays the same.</item>
+        <item>Practice makes perfect. But some people are just not made for Jump and Runs.</item>
+        <item>You wonder who is Manomnom? A mysterious being!</item>
+        <item>Manomnom is waiting for you in the last area. As my master loves him so much, you will meet him after each leaving a difficulty zone</item> <!--klingt etwas holprig difficulty zone?-->
+        <item>You should\'t touch Manomnom. His laser is just show. A show with great style, don\'t you think so?</item>
+        <item>You wonder why he wants to laser everything? Unfortunately he got crazy after eating antimatter.</item>
+        <item>Manomnom and I, we are the sweeties of our Master!</item>
+        <item>Oh Manomno, you silly ninny, why did you not resist your clutches of the Antimatter…?</item> <!--klingt etwas holprig-->
     </string-array>
+
     <string-array name="riddle_jumper_collision_break">
-        <item>You can do betterr</item>
+        <item>You can do better</item>
         <item>Here we go again</item>
         <item>You can make it further</item>
-        <item>Game Over!</item>
+        <item>Game Over!?!</item>
     </string-array>
     <string name="riddle_jumper_new_highscore">New record %1$dm</string>
     <string name="riddle_jumper_old_highscore">Current record %1$dm</string>
