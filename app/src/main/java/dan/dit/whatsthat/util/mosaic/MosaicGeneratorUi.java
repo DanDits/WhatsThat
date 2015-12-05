@@ -61,6 +61,8 @@ import dan.dit.whatsthat.util.image.ImageUtil;
 import dan.dit.whatsthat.util.mosaic.data.MosaicMaker;
 import dan.dit.whatsthat.util.mosaic.matching.SimpleLinearTileMatcher;
 import dan.dit.whatsthat.util.mosaic.matching.TileMatcher;
+import dan.dit.whatsthat.util.mosaic.reconstruction.pattern.CirclePatternReconstructor;
+import dan.dit.whatsthat.util.mosaic.reconstruction.pattern.LegoPatternReconstructor;
 
 /**
  * Created by daniel on 07.10.15.
@@ -112,7 +114,7 @@ public class MosaicGeneratorUi {
         TileMatcher<String> matcher = new SimpleLinearTileMatcher<>(images.values(), DEFAULT_USE_ALPHA, DEFAULT_COLOR_METRIC);
         mMosaicMaker = new MosaicMaker<>(matcher, source, DEFAULT_USE_ALPHA, DEFAULT_COLOR_METRIC);
 
-        mTypes = new ArrayList<>(3);
+        mTypes = new ArrayList<>(10);
         mTypes.add(new MosaicType(MosaicType.RECT, R.string.mosaic_generator_mosaic_type_rect, true, true)
                     .addParameter(R.string.mosaic_generator_param_rows, 1, MAX_ROWS_COLUMNS, DEFAULT_ROWS_COLUMNS, true)
                     .addParameter(R.string.mosaic_generator_param_columns, 1, MAX_ROWS_COLUMNS, DEFAULT_ROWS_COLUMNS, true));
@@ -126,6 +128,14 @@ public class MosaicGeneratorUi {
         mTypes.add(new MosaicType(MosaicType.SVD, R.string.mosaic_generator_mosaic_type_svd,
                 false, false)
                 .addParameter(R.string.mosaic_generator_mosaic_type_svd_approx, 1, 100, 20, true));
+        mTypes.add(new MosaicType(MosaicType.PATTERN_CIRCLE, R.string
+                .mosaic_generator_mosaic_type_pattern_circle, false, false)
+                .addParameter(R.string.mosaic_generator_param_rows, 1, MAX_ROWS_COLUMNS, DEFAULT_ROWS_COLUMNS, true)
+                .addParameter(R.string.mosaic_generator_param_columns, 1, MAX_ROWS_COLUMNS, DEFAULT_ROWS_COLUMNS, true));
+        mTypes.add(new MosaicType(MosaicType.PATTERN_LEGO, R.string
+                .mosaic_generator_mosaic_type_pattern_lego, true, true)
+                .addParameter(R.string.mosaic_generator_param_rows, 1, MAX_ROWS_COLUMNS, DEFAULT_ROWS_COLUMNS, true)
+                .addParameter(R.string.mosaic_generator_param_columns, 1, MAX_ROWS_COLUMNS, DEFAULT_ROWS_COLUMNS, true));
 
         LayoutInflater inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         mView = inflater.inflate(R.layout.workshop_mosaic_generator, null);
@@ -345,6 +355,8 @@ public class MosaicGeneratorUi {
         public static final int MULTI_RECT = 1;
         public static final int FIXED_LAYER = 2;
         public static final int SVD = 3;
+        public static final int PATTERN_CIRCLE = 4;
+        public static final int PATTERN_LEGO = 5;
         private static final boolean SVD_RANK_PARAMETER_LOGARITHMIC_SCALE = false;
         private final int mNameResId;
         private final List<Double> mMinValues;
@@ -466,7 +478,8 @@ public class MosaicGeneratorUi {
                         return null;
                     }
                     int rows = 0, columns = 0;
-                    if (mType == RECT || mType == MULTI_RECT) {
+                    if (mType == RECT || mType == MULTI_RECT || mType == PATTERN_CIRCLE || mType
+                            == PATTERN_LEGO) {
                         //make sure that image dimensions are dividable by the given columns/rows values by resizing
                         rows = (int) Math.round(mValues.get(0));
                         columns = (int) Math.round(mValues.get(1));
@@ -503,6 +516,18 @@ public class MosaicGeneratorUi {
                                 break;
                             case FIXED_LAYER:
                                 result = mMosaicMaker.makeFixedLayer(base, (int) Math.round(mValues.get(0)), callback);
+                                break;
+                            case PATTERN_CIRCLE:
+                                result = MosaicMaker.makePattern(mActivity.getResources(), base,
+                                        CirclePatternReconstructor.NAME,
+                                        mMosaicMaker.usesAlpha(), mMosaicMaker.getColorMetric(),
+                                        rows, columns, callback);
+                                break;
+                            case PATTERN_LEGO:
+                                result = MosaicMaker.makePattern(mActivity.getResources(), base,
+                                        LegoPatternReconstructor.NAME,
+                                        mMosaicMaker.usesAlpha(), mMosaicMaker.getColorMetric(),
+                                        rows, columns, callback);
                                 break;
                             case SVD:
                                 if (mSVDMaker == null) {

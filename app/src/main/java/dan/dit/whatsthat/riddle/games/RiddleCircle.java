@@ -56,6 +56,7 @@ import dan.dit.whatsthat.util.image.ColorAnalysisUtil;
 import dan.dit.whatsthat.util.image.ImageUtil;
 import dan.dit.whatsthat.util.listlock.ListLockMaxIndex;
 import dan.dit.whatsthat.util.listlock.LockDistanceRefresher;
+import dan.dit.whatsthat.util.mosaic.reconstruction.pattern.CirclePatternReconstructor;
 
 /**
  * A specific riddle implementation that hides the image behind circles.
@@ -316,7 +317,8 @@ public class RiddleCircle extends RiddleGame {
         mCircleCenterX.add(x);
         mCircleCenterY.add(y);
         mCircleRadius.add(r);
-        int color = calculateColor(x, y, r);
+        int color = CirclePatternReconstructor.calculateColor(mRaster, mAverageBrightness,
+                mBitmap.getWidth(), mBitmap.getHeight(), x, y, r);
         mColor.add(color);
         if (draw) {
             mPaint.setColor(color);
@@ -337,32 +339,6 @@ public class RiddleCircle extends RiddleGame {
         canvas.drawRect(mTopLeftCornerX, mTopLeftCornerY, mTopLeftCornerX + mBitmap.getWidth(), mTopLeftCornerY + mBitmap.getHeight(), mFramePaint);
     }
 
-    private int calculateColor(float x, float y, float r) {
-        // by default this calculates the average brightness of the area [x-r,x+r][y-r,y+r]
-        int left = (int)(x - r);
-        int right = (int)(x + r);
-        int top = (int)(y - r);
-        int bottom = (int)(y + r);
-        double brightness = 0;
-        double consideredPoints = 0;
-        // do not only consider pixels within the circle but within the square defined by the circle bounds
-        for (int i = left; i <= right; i++) {
-            for (int j = top; j <= bottom; j++) {
-                int rasterIndex = j * mBitmap.getWidth() + i;
-                if (rasterIndex >= 0 && rasterIndex < mRaster.length) {
-                    brightness += mRaster[rasterIndex];
-                    consideredPoints++;
-                }
-            }
-        }
-        // 1 = very bright -> white
-        brightness /= consideredPoints;
-        // logistic filter 1/(1+e^(-kx)) to minimize grey values and emphasize bright and dark ones
-        // use higher k for less grey values
-        brightness = 1. / (1. + Math.exp(-15. * (brightness - mAverageBrightness)));
-        int grey = (int) (255. * brightness);
-        return ColorAnalysisUtil.toRGB(grey, grey, grey, 255);
-    }
 
     // splits the circle into 4 subcircles, appends them and removes itself from the list
     private void evolveCircleUnchecked(int index, float x, float y, float radius, boolean draw) {

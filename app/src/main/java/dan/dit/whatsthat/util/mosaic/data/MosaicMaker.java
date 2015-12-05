@@ -15,19 +15,25 @@
 
 package dan.dit.whatsthat.util.mosaic.data;
 
+import android.content.res.Resources;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.util.Log;
 
 import dan.dit.whatsthat.util.general.MultistepPercentProgressListener;
 import dan.dit.whatsthat.util.general.PercentProgressListener;
 import dan.dit.whatsthat.util.image.ColorMetric;
 import dan.dit.whatsthat.util.mosaic.matching.TileMatcher;
+import dan.dit.whatsthat.util.mosaic.matching.TrivialMatcher;
 import dan.dit.whatsthat.util.mosaic.reconstruction.AutoLayerReconstructor;
 import dan.dit.whatsthat.util.mosaic.reconstruction.FixedLayerReconstructor;
 import dan.dit.whatsthat.util.mosaic.reconstruction.MosaicFragment;
 import dan.dit.whatsthat.util.mosaic.reconstruction.MultiRectReconstructor;
 import dan.dit.whatsthat.util.mosaic.reconstruction.Reconstructor;
 import dan.dit.whatsthat.util.mosaic.reconstruction.RectReconstructor;
+import dan.dit.whatsthat.util.mosaic.reconstruction.pattern.CirclePatternReconstructor;
+import dan.dit.whatsthat.util.mosaic.reconstruction.pattern.LegoPatternReconstructor;
+import dan.dit.whatsthat.util.mosaic.reconstruction.pattern.PatternReconstructor;
 
 /**
  * This class uses a tile matcher as a source pool for MosaicTiles and reconstructs
@@ -86,20 +92,20 @@ public class MosaicMaker<S> {
     public Bitmap makeMultiRect(Bitmap source, int wantedRows, int wantedColumns, double mergeFactor, ProgressCallback progress) {
         Reconstructor reconstructor = new MultiRectReconstructor(source,
                 wantedRows, wantedColumns, mergeFactor, mUseAlpha, mColorMetric);
-        return make(reconstructor, progress);
+        return make(mMatcher, mBitmapSource, reconstructor, progress);
     }
 
     public Bitmap makeRect(Bitmap source, int wantedRows, int wantedColumns, ProgressCallback progress) {
         Reconstructor reconstructor = new RectReconstructor(source,
                 wantedRows, wantedColumns);
-        return make(reconstructor, progress);
+        return make(mMatcher, mBitmapSource, reconstructor, progress);
     }
 
     public Bitmap makeAutoLayer(Bitmap source, double mergeFactor, ProgressCallback progress) {
         MultiStepPercentProgressCallback multiProgress = new MultiStepPercentProgressCallback(progress, 2);
         Reconstructor reconstructor = new AutoLayerReconstructor(source, mergeFactor, mUseAlpha, mColorMetric, multiProgress);
 		multiProgress.nextStep();
-        Bitmap result = make(reconstructor, multiProgress);
+        Bitmap result = make(mMatcher, mBitmapSource, reconstructor, multiProgress);
 		multiProgress.nextStep();
         return result;
     }
@@ -108,12 +114,40 @@ public class MosaicMaker<S> {
         MultiStepPercentProgressCallback multiProgress = new MultiStepPercentProgressCallback(progress, 2);
         Reconstructor reconstructor = new FixedLayerReconstructor(source, clusterCount, mUseAlpha, mColorMetric, multiProgress);
         multiProgress.nextStep();
-        Bitmap result = make(reconstructor, multiProgress);
+        Bitmap result = make(mMatcher, mBitmapSource, reconstructor, multiProgress);
         multiProgress.nextStep();
         return result;
     }
 
-	private Bitmap make(Reconstructor reconstructor, ProgressCallback progress) {
+    public static Bitmap makePattern(Resources res, Bitmap source, String patternName,
+                                     boolean useAlpha, ColorMetric metric,
+                                     int rows, int columns, ProgressCallback progress) {
+        MultiStepPercentProgressCallback multiProgress = new MultiStepPercentProgressCallback(progress, 2);
+        PatternReconstructor reconstructor;
+        switch (patternName) {
+            default:
+                // fall through
+            case CirclePatternReconstructor.NAME:
+                reconstructor = new CirclePatternReconstructor(source, rows, columns, Color
+                        .TRANSPARENT);
+                break;
+            case LegoPatternReconstructor.NAME:
+                reconstructor = new LegoPatternReconstructor(res, source, rows, columns, Color
+                        .TRANSPARENT);
+                break;
+        }
+        multiProgress.nextStep();
+        Bitmap result = make(reconstructor.<Void>makeMatcher(useAlpha, metric), reconstructor
+                        .<Void>makeSource(),
+                reconstructor,
+                multiProgress);
+        multiProgress.nextStep();
+        return result;
+    }
+
+	private static <S>Bitmap make(TileMatcher<S> matcher, BitmapSource<S> source, Reconstructor
+            reconstructor,
+                               ProgressCallback progress) {
 		if (reconstructor == null) {
 			throw new IllegalArgumentException("No reconstructor given to make mosaic.");
 		}
@@ -122,19 +156,19 @@ public class MosaicMaker<S> {
 			MosaicFragment nextFrag = reconstructor.nextFragment();
 			Bitmap nextImage;
 			do {
-				MosaicTile<S> tile = mMatcher.getBestMatch(nextFrag.getAverageRGB());
+				MosaicTile<S> tile = matcher.getBestMatch(nextFrag.getAverageRGB());
 				if (tile == null) {
 					// matcher has no more tiles!
                     Log.e("HomeStuff", "Mosaic maker ran out of tiles!");
 					return null;
 				}
-				nextImage = mBitmapSource.getBitmap(tile, nextFrag.getWidth(), nextFrag.getHeight());
+				nextImage = source.getBitmap(tile, nextFrag.getWidth(), nextFrag.getHeight());
 
 				if (nextImage == null) {
 					// no image?! maybe the image (file) got invalid (image deleted, damaged,...)
 					// delete it from matcher
 					// and cache and search again
-					mMatcher.removeTile(tile);
+					matcher.removeTile(tile);
 				}
 				// will terminate since the matcher will lose a tile each iteration or find a valid one, 
 				// if no tile found anymore, returns false

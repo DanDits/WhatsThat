@@ -32,11 +32,11 @@ import dan.dit.whatsthat.util.image.ColorAnalysisUtil;
  *
  */
 public class RectReconstructor extends Reconstructor {
-	private int rectHeight;
-	private int rectWidth;
+	protected final int mRectHeight;
+	protected final int mRectWidth;
 	private int[][] resultingRGBA;
 	private Bitmap result;
-    private Canvas mResultCanvas;
+    protected Canvas mResultCanvas;
 	private int nextImageIndex;
 	
 	/**
@@ -59,27 +59,33 @@ public class RectReconstructor extends Reconstructor {
 		}
 		int actualRows = Reconstructor.getClosestCount(source.getHeight(), wantedRows);
 		int actualColumns = Reconstructor.getClosestCount(source.getWidth(), wantedColumns);
-		this.rectHeight = source.getHeight() / actualRows;
-		this.rectWidth = source.getWidth() / actualColumns;
+		this.mRectHeight = source.getHeight() / actualRows;
+		this.mRectWidth = source.getWidth() / actualColumns;
 		this.resultingRGBA = new int[actualRows][actualColumns];
 		this.nextImageIndex = 0;
-		this.result = obtainBaseBitmap(this.rectWidth * this.getColumns(), this.rectHeight * this.getRows(),
+		this.result = obtainBaseBitmap(this.mRectWidth * this.getColumns(), this.mRectHeight * this.getRows(),
 				Bitmap.Config.ARGB_8888);
         Log.d("HomeStuff", "RectReconstructor: Source " + source.getWidth() + "/" + source.getHeight() + " result " + result.getWidth() + "/" + result.getHeight() + " actual rows/columns" + actualRows + "/" + actualColumns);
         mResultCanvas = new Canvas(result);
-		
-		// evaluate the fragments average colors
-		for (int heightIndex = 0; heightIndex < actualRows; heightIndex++) {
-			for (int widthIndex = 0; widthIndex < actualColumns; widthIndex++) {
-				this.resultingRGBA[heightIndex][widthIndex] 
-						= ColorAnalysisUtil.getAverageColor(source,
-						widthIndex * this.rectWidth,
-                        (widthIndex + 1) * this.rectWidth,
-						heightIndex * this.rectHeight,
-						(heightIndex + 1) * this.rectHeight);
-            }
-		}
+        evaluateResultingRGBA(source, actualRows, actualColumns);
 	}
+
+	private void evaluateResultingRGBA(Bitmap source, int rows, int columns) {
+        // evaluate the fragments average colors
+        for (int heightIndex = 0; heightIndex < rows; heightIndex++) {
+            for (int widthIndex = 0; widthIndex < columns; widthIndex++) {
+                this.resultingRGBA[heightIndex][widthIndex]
+                        = evaluateRectValue(source, widthIndex * this.mRectWidth,
+                        (widthIndex + 1) * this.mRectWidth,
+                        heightIndex * this.mRectHeight,
+                        (heightIndex + 1) * this.mRectHeight);
+            }
+        }
+    }
+
+    protected int evaluateRectValue(Bitmap source, int startX, int endX, int startY, int endY) {
+        return ColorAnalysisUtil.getAverageColor(source, startX, endX, startY, endY);
+    }
 	
 	/**
 	 * The amount of rows of the fragmenation.
@@ -101,12 +107,12 @@ public class RectReconstructor extends Reconstructor {
 	public boolean giveNext(Bitmap nextFragmentImage) {
 		if (!this.hasAll()
 				&& nextFragmentImage != null 
-				&& nextFragmentImage.getWidth() == this.rectWidth
-				&& nextFragmentImage.getHeight() == this.rectHeight) {
+				&& nextFragmentImage.getWidth() == this.mRectWidth
+				&& nextFragmentImage.getHeight() == this.mRectHeight) {
 
             mResultCanvas.drawBitmap(nextFragmentImage,
-                    (this.nextImageIndex % this.getColumns()) * this.rectWidth,
-                    (this.nextImageIndex / this.getColumns()) * this.rectHeight,
+                    (this.nextImageIndex % this.getColumns()) * this.mRectWidth,
+                    (this.nextImageIndex / this.getColumns()) * this.mRectHeight,
                     null);
 			this.nextImageIndex++;
 			return true;
@@ -119,7 +125,7 @@ public class RectReconstructor extends Reconstructor {
 		if (this.hasAll()) {
 			return null;
 		} else {
-			return new MosaicFragment(this.rectWidth, this.rectHeight,
+			return new MosaicFragment(this.mRectWidth, this.mRectHeight,
 					this.resultingRGBA[this.nextImageIndex / this.getColumns()]
 							[this.nextImageIndex % this.getColumns()]);
 		}

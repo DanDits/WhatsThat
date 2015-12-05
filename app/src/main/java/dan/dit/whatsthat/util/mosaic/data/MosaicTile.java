@@ -33,7 +33,6 @@ public interface MosaicTile<S> {
      * or a file.
 	 * @return The source.
 	 */
-	@NonNull
     S getSource();
 	
 	/**
