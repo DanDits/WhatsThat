@@ -19,7 +19,7 @@
         <item>Die Neuronen reagieren auf meine liebliche Stimme.</item>
         <item>Das deute ich als ja.</item>
         <item>Erdling, ich heiße dich auf einer Reise in die Untiefen deines Geistes willkommen.</item>
-        <item>Ich bin Meta-Opus Transprima Plasmiro Blu Equaris Venalo der 364k</item>
+        <item>Ich bin die Meta Schöpfung Transprima Plasmiro Blu Equaris Venalo der 364k.</item>
         <item>Es reicht aber, wenn du mich ganz zwanglos mit \"Erhabener\" anredest.</item>
         <item>Andere Ehrentitel wie beispielsweise \"Eure Durchlauchtheit\" oder \"Oh unübertreffliches Wesen aller Galaxien\" sind natürlich auch völlig in Ordnung.</item>
         <item>Entschuldige. Ich schweife schnell ab.</item>
@@ -31,7 +31,6 @@
     <string-array name="test_subject_0_2_intro_main">
         <item>Eine erste kleine Frage: Wer bist du eigentlich?</item>
         <item>Unsere hochentwickelte Kultur kennt solche Unterschiede nicht, aber euch Erdlingen ist das ja wichtig.</item>
-        <item>Und weil wir nun mal freundliche Geschöpfe sind, wollten wir dir die Frage stellen.</item>
     </string-array>
     <string-array name="test_subject_0_3_intro_main">
         <item>Zurück zum Thema. Meine Schöpfer und ich, oder kurz gesagt: Wir…</item>
@@ -91,9 +90,19 @@
         <item>Nein; Schokolade ist keine Primzahl.</item>
         <item>Immerhin warst du diesmal schnell mit deiner Antwort.</item>
         <item>Das ist ja schonmal besser als nichts.</item>
+        <item>Versuchen wir es mit einer Zahlenfolge.</item>
+        <item>Was ist die korrekte Zahlenfolge von:</item>
     </string-array>
     <string-array name="test_subject_1_2_intro_main">
-        <item>Wie dem auch sei. Wenn ich nun das Protokoll hier lade, dann.. Oha.</item>
+        <item>1; 3; 5; 7; ?</item>
+        <item>Nein, nein, leider falsch.</item>
+        <item>Die korrekte Lösung lautet: 217341!</item>
+        <item>Wenn du nämlich diese Erdfunktion nimmst:</item>
+        <item>(18111/2)*earth^4–90555*earth³+(633885/2)*earth²-452773*earth+217331…</item>
+        <item>…dann erhältst du das entsprechende Ergebnis.</item>
+        <item>Hmm, wie ich sehe … siehst du das doch nicht.</item>
+        <item>Dann auch egal.</item>
+        <item>Wenn ich nun das Protokoll hier lade, dann.. Oha.</item>
         <item>Alpha Stimulation bewirkt eine Allergiereaktion.</item>
         <item>Wer hätte gedacht, dass Gehirne so reagieren könnten.</item>
         <item>Als nächstes.. Injektion der Äther Blocker zur Sensibilisierung der Materie.</item>
@@ -102,8 +111,7 @@
         <item>Ich schreibs ins Protokoll.</item>
     </string-array>
     <string-array name="test_subject_1_intro_nuts">
-        <item>Die Reaktionen lassen vermuten, dass der irdische IQ nur knapp über dem absoluten
-            Gefrierpunkt liegt</item>
+        <item>Die Reaktionen lassen vermuten, dass der irdische IQ nur knapp über dem absoluten Gefrierpunkt liegt</item>
         <item>Homo Sapiens, wie haben die bloß diesen Planeten so schnell kaputt gemacht mit so wenig Hirn?</item>
         <item>Steht hier nicht irgendwo so ein Satz…?</item>
         <item>Achja hier:\"denn sie wissen nicht, was sie tun…</item>

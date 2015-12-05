@@ -2,13 +2,14 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <string name="credits_text" tools:ignore="TypographyEllipsis"><![CDATA[
         <p>Each big project needs a place to thank the people that made it possible. This is the place. So many brilliant people, so many brilliant and creative minds and most of them don&#39;t even know they contributed.</p>
-        <p><strong>First of all, thanks to my brother Fabian for inspiring, creating and discussing every aspect of every detail. Without you, this would not have been possible.</strong></p>
-        <ul>
+        <p><strong>First of all, thanks to my brother Fabian for inspiring, creating and discussing every aspect of every detail from the beginning to the end. Without you, this would not have been possible.</strong></p>
+
         <p>Now it\'s my turn (aka Fabian). Usually the most important person is named in the first placed. As this is not the case this time, I would like to thank this person in the second place:</p>
         <p><strong>My beloved brother Daniel. Crator of WhatsThat, Mastermind of all programming stuff and of course, brother of all brothers. As I don\'t know anything about programming you had to do everything on your own. With the patience of a saint you searched the solution for any problem for hours, created every line of this code on your own. I would like to thank you from the bottom of my hearth for understanding my confusing thoughts, ideas and sometimes fussy requests and created such a multi-facetted project. I salute you, that you made this amazing app with such patience and stamina!</strong></p>
         <p>Meta-Opus Venalo the 364k wants to say thank you, too!</p>
         <p>The last thanks applies to the to an unknown user of a video. With each click you could split a circle in four smaller ones which revealed a picture slowly. This created the desire to do this on my own. On that thought the project \"WhatsThat\" was born.</p>
         <p>Everything else we would like to mention:</p>
+        <ul>
         <li>This project makes use of <a href="https://github.com/SufficientlySecure/donations">DonationsFragment</a> by <em>SufficientlySecure</em> to handle the donations.</li>
         <li>All those neat popup messages are made possible by <a href="https://github.com/JohnPersano/SuperToasts">SuperToasts</a> from <em>JohnPersano</em>.</li>
         <li>Some aspects of the mosaic generation rely on <a href="http://math.nist.gov/javanumerics/jama">JAMA</a> for the math heavy calculations.</li>
@@ -39,7 +40,7 @@
     <string name="store_category_shop">Shop</string>
     <string name="store_category_achievement">Achievements</string>
     <string name="store_category_workshop">Workshop</string>
-    <string name="store_category_about">About &amp; Contact</string>
+    <string name="store_category_about">About &amp; Contact</string> <!--im deutschen nur &-->
     <string name="store_category_donate">Donate</string>
     <string name="store_category_credit">Credits</string>
 
@@ -51,25 +52,27 @@
     <string name="image_author_details">%1$s</string>
     <string name="app_name">WhatsThat</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
-    <string name="init_skip_state_ready">-testsubject ready-</string>
-    <string name="init_skip_state_mandatory_intro_missing">-loading testsubject-</string>
-    <string name="init_skip_state_init_missing">-requires testsubject interaction-</string>
-    <string name="init_skip_state_none">-initializing testsubject-</string>
+    <string name="init_skip_state_ready">testsubject ready</string>
+    <string name="init_skip_state_mandatory_intro_missing">waiting for testsubject reaction</string>
+    <string name="init_skip_state_init_missing">initializing testsubject</string>
+    <string name="init_skip_state_none">loading testsubject</string>
 
     <string name="panic_dialog_positive">All right</string>
     <string name="panic_ask_type">How does this work</string>
     <string name="panic_skip">Skip experiment … come back later</string>
-    <string name="panic_share">Share experiment as image</string>
+    <string name="panic_share">Challenge friends to this experiment</string>
     <string name="panic_share_dialog">Share experiment image with…</string>
     <string name="panic_share_failed">Sharing failed.</string>
-    <string name="panic_cannot_skip">Brain .. full ... cannot .. remember more . riddles ...</string>
+    <string name="panic_cannot_skip">Brain .. full … cannot .. remember more .. riddles …</string>
     <string name="panic_complain">Ahhh, what is that?! Twisted and wryly! Complaint!!!11</string>
     <string-array name="panic_author_credit_title">
         <item>Admire the artist!</item>
         <item>Whose masterpiece is this?</item>
         <item>Marvel the creativity!</item>
         <item>Virtuosic  with brush and mouse:</item>
+        <item>Astonishing and azaming art:</item>
         <item>Super great human being:</item>
+        <item>World\'s next Picasso:</item>
     </string-array>
     <string name="no_panic_title">Don\'t panic!</string>
 
@@ -81,7 +84,7 @@
     <string name="btn_about">About &amp; Contact</string>
     <string name="btn_donate">Donate</string>
     <string name="btn_credits">Credits</string>
-    <string name="about_contact_descr">This App is a leisure projects of the brothers Daniel and Fabian, who I might proudly call my creators. Daniel, my prof and Fabian my master have installed an Anti-Advertisement-Wormhole. This will keep pop-ups and trash away. Nevertheless they would appreciate any kind of support:\nWrite some friendly lines, have a look on the project \"https://github.com/DanDits/WhatsThat\" or place an anonymous donation!\n\nStay awesome! :)</string>
+    <string name="about_contact_descr">This App is a leisure projects of the brothers Daniel and Fabian, who I might proudly call my creators. Daniel, my prof and Fabian my master have installed an anti-advertisement black hole. This will keep pop-ups and trash away. Nevertheless they would appreciate any kind of support:\nWrite some friendly lines, have a look on the project \"https://github.com/DanDits/WhatsThat\" or place an anonymous donation!\n\nStay awesome! :)</string>
     <string-array name="contact_headings">
         <item>Suggest image</item>
         <item>Suggest riddle</item>
@@ -89,25 +92,25 @@
         <item>Give Feedback</item>
         <item>Just saying hello</item>
         <item>Area 51</item>
-        <item>Language and stuff</item>
+        <item>For linguists</item>
     </string-array>
     <string-array name="contact_mail_subject">
         <item>Image suggestion</item>
-        <item>Riddle suggestion</item>
+        <item>Experiment suggestion</item>
         <item>I found a bug!</item>
-        <item>Feedback</item>
+        <item>Feedback to the creators</item>
         <item>Just saying hello</item>
         <item>\?!?</item>
         <item>Language and translations</item>
     </string-array>
     <string-array name="contact_mail_body">
-        <item>Those humans and copyrights: catastrophically chaotic.\nMy makers therefore only use images with a free license. So please, for the image you already have or still need to attach the following things:\n\nAuthor\'s name or artist\'s name:\nSource: (e.g. Website)\nSolution words:\nPreferred riddle:</item>
-        <item>That is only meant for hyper intelligent and extremely humble beings like, for example, myself.\nShould you dare to send a suggestion to my master, be very precise:\nWhat is your idea? How should it look like? How can you interact? How do you find the solution image? A simple drawing might help to give my master an insight into your cluded mind.\nIf your suggestion is accepted or questions arose, he might get in touch with you.</item>
+        <item>Earthlings and copyrights: greater chaos than the univere.\nTherefore my creators only use images with a free license. You want to make a picture available for everyone? Answer the following points for the image you already have or still need to attach:\n\nAuthor\'s name or pseudonym:\nIf existing image titel:\nSource: (e.g. Website)\nSolution words:</item>
+        <item>This function is only for hyper intelligent and extremely humble beings like, for example, myself.\nShould you dare to send a suggestion to my master, be very precise, especially:\nWhat is your idea? How should it look like? How can you interact? How do you find the solution image? A simple drawing might help to give my master an insight into your cluded mind.\nIf your suggestion is accepted or questions arose, he might get in touch with you.</item>
         <item>Congratulations, I thought I crushed most of the beetles in the code :(\n\nWhen and where did the error happen?\nDid it crash or just behave weird?\nWhat was (not) supposed to happen?\nWhat did you do to trigger it?</item>
-        <item>My makers are happy to receive any positive feedback or suggestions of any kind.\nNegative feedback if by all likelihood going to be sucked into a dark hole. But you might give it a shot.</item>
-        <item>Oh dear lord of creativity, I almost don\'t dare to say these words but still take the courage and lift my small and minor head and look inside your omniscient eyes and splutter sheepishly…Hello</item>
-        <item>Someone found it. Call the assassinator, this must not get public.</item>
-        <item>You found a grammar or spelling mistake? Report it right here. Do you like this game but you would prefer to play it in your mother or another language? WiseMind\'s translation program is not able to get more languages. However if you would like to translate any picture solutions or texts, just contact my master. Consider there is no monetary compensation but a place in Credits.</item>
+        <item>My creators are happy to receive any positive feedback or suggestions of any kind.\nNegative feedback if by all likelihood going to be sucked into a dark hole. But you might give it a shot.</item>
+        <item>Oh dear lord of creativity, I almost don\'t dare to say these words but still take the courage and lift my small and minor head and look inside your omniscient eyes and splutter sheepishly… Hello</item>
+        <item>Holy universe! Someone found it! Call the assassinator, this must not get public!!</item>
+        <item>If you found a grammar or spelling mistake you might report it right here. Do you like this game but you would prefer to play it in your mother or another language? Unfortunately WiseMind\'s translation program is limited, however if you would like to translate picture solutions or texts, just contact my master. Consider there is no monetary compensation but you can get place in the credits!</item>
     </string-array>
 
     <string name="dependency_required">Requires:</string>
@@ -155,7 +158,7 @@
     <string name="send_log_confirm">Send log</string>
     <string name="send_log_title">Sorry, the app crashed!</string>
 
-    <string name="riddle_hints_dialog_confirm">I got it!</string>
+    <string name="riddle_hints_dialog_confirm">Got it!</string>
     <string name="riddle_dialog_title">Choose experiments</string>
     <string name="riddle_dialog_subtitle">New experiment in shop!</string>
     <plurals name="riddle_dialog_confirm_unsolveds">
@@ -192,7 +195,7 @@
     <string name="origin_hint">Your name or pseudonym</string>
     <string name="bundle_creator_progress_images">Processing image %1$d/%2$d</string>
     <string name="bundle_creator_progress_ready_to_save">Ready to save</string>
-    <string name="bundle_creator_progress_info_missing">Enter missing information</string>
+    <string name="bundle_creator_progress_info_missing">Enter missing information…</string>
     <string name="bundle_creator_bitmaps_descr">Selected images: %1$d (~%2$dMB)</string>
     <string name="bundle_creator_bitmaps_open_selection">Select images to add</string>
     <string name="bundle_creator_image_descr">Image information completed %1$d/%2$d</string>
@@ -216,9 +219,9 @@
     <string name="bundle_creator_progress_saved">Bundle saved</string>
     <string name="author_info_apply_to_others_remove_connection">Separate information</string>
     <string name="bundle_creator_progress_error_result">Error (%1$d) at saving</string>
-    <string name="share_failed">Could not share</string>
+    <string name="share_failed">Sharing failed</string>
     <string name="article_level_up_name">Brain level boost</string>
-    <string name="article_level_up_descr">Enables you to take hold of more experiments and unlocks achievements.</string>
+    <string name="article_level_up_descr">Enables you to take hold of more experiments and unlocks achievements.</string> <!--was macht das hier bitte?-->
     <string name="article_level_up_dep_new_riddle">Choose a new experiment first!</string>
     <string name="article_choose_riddle_name">Choose new experiment</string>
     <string name="article_choose_riddle_descr">Challenge your mind with a new puzzle!</string>
@@ -255,7 +258,7 @@
     <string name="logo_explanation_title">Logo for sharing experiments as images</string>
     <string name="logo_saved">Logo saved!</string>
     <string name="obfuscated_not_valid_explanation">Potentially the image was compressed to make it smaller. Unfortunately this is done by some sharing apps like WhatsApp or Telegram. Use a lossless way of sharing like email!</string>
-    <string name="article_share_as_image_feature_name">Share experiments as image to friends</string>
+    <string name="article_share_as_image_feature_name">Share experiments as images to friends</string>
     <string name="article_share_as_image_feature_descr">Allows sharing your current experiment as a simple image file! Unfortunately the image must not be compressed or resized, so you cannot use WhatsApp but need to use something like email or dropbox.</string>
     <string name="share_failed_upload">Upload failed (error: %1$d)</string>
     <string name="share_experiment_link_subject">Got WhatsThat? Here is an experiment to solve!</string>
