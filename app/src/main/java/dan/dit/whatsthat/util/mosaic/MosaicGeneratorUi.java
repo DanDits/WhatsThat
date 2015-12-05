@@ -134,8 +134,9 @@ public class MosaicGeneratorUi {
                 .addParameter(R.string.mosaic_generator_param_columns, 1, MAX_ROWS_COLUMNS, DEFAULT_ROWS_COLUMNS, true));
         mTypes.add(new MosaicType(MosaicType.PATTERN_LEGO, R.string
                 .mosaic_generator_mosaic_type_pattern_lego, true, true)
-                .addParameter(R.string.mosaic_generator_param_rows, 1, MAX_ROWS_COLUMNS, DEFAULT_ROWS_COLUMNS, true)
-                .addParameter(R.string.mosaic_generator_param_columns, 1, MAX_ROWS_COLUMNS, DEFAULT_ROWS_COLUMNS, true));
+                .addParameter(R.string.mosaic_generator_param_rows, 1, MAX_ROWS_COLUMNS, 25, true)
+                .addParameter(R.string.mosaic_generator_param_columns, 1, MAX_ROWS_COLUMNS, 25,
+                        true));
 
         LayoutInflater inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         mView = inflater.inflate(R.layout.workshop_mosaic_generator, null);

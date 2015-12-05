@@ -88,12 +88,14 @@
     <string name="riddle_type_triangle_advertising">A simple experiment. Your grey cells have gained some colour and the experiment some edges.</string>
     <string name="riddle_type_triangle_explanation">Press inside a triangle to split it in two smaller ones. You will recognise the hidden image soon.</string>
     <string-array name="riddle_type_triangle_hints">
-        <item>WiseMind says that I\m' talking too much. Do you think that too? Well, I will keep it short: A colourful counterpart of the circle test. Hit a triangle to split it in two smaller ones. Why do we need this? To test your colour vision.</item>
+        <item>WiseMind says that I\'m talking too much. Do you think that too? Well, I will keep
+            it short: A colourful counterpart of the circle test. Hit a triangle to split it in two smaller ones. Why do we need this? To test your colour vision.</item>
         <item>If you touch multiple triangles at their ends you will split them all. Magic! Otherwise everything is like the Circle experiment.</item>
         <item>I\'m a respected scientist. If you ask such easy things I could react annoyed…</item>
         <item>If you want to waste your short life time by pushing useless buttons, be my guest.</item>
         <item>Are you in love with me or why can\'t you just stop?!</item>
-        <item>Ok earth being, now I have enough! One glass of the predator drug should be enough to knock out an elephant. Bye bye!</item>
+        <item>OK earth being, now I have enough! One glass of the predator drug should be enough
+            to knock out an elephant. Bye bye!</item>
     </string-array>
     <string name="article_triangle_divide_by_move_feature_name">Intergalactical Turbolaser-Triangel-Cutter</string>
     <string name="article_triangle_divide_by_move_feature_descr">Dr. Drams tortured his employees almost a month to upgrade the Circlelaser for you!</string>
