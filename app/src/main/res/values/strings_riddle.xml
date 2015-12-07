@@ -88,14 +88,12 @@
     <string name="riddle_type_triangle_advertising">A simple experiment. Your grey cells have gained some colour and the experiment some edges.</string>
     <string name="riddle_type_triangle_explanation">Press inside a triangle to split it in two smaller ones. You will recognise the hidden image soon.</string>
     <string-array name="riddle_type_triangle_hints">
-        <item>WiseMind says that I\'m talking too much. Do you think that too? Well, I will keep
-            it short: A colourful counterpart of the circle test. Hit a triangle to split it in two smaller ones. Why do we need this? To test your colour vision.</item>
+        <item>WiseMind says that I\'m talking too much. Do you think that too? Well, I will keep it short: A colourful counterpart of the circle test. Hit a triangle to split it in two smaller ones. Why do we need this? To test your colour vision.</item>
         <item>If you touch multiple triangles at their ends you will split them all. Magic! Otherwise everything is like the Circle experiment.</item>
         <item>I\'m a respected scientist. If you ask such easy things I could react annoyed…</item>
         <item>If you want to waste your short life time by pushing useless buttons, be my guest.</item>
         <item>Are you in love with me or why can\'t you just stop?!</item>
-        <item>OK earth being, now I have enough! One glass of the predator drug should be enough
-            to knock out an elephant. Bye bye!</item>
+        <item>OK earth being, now I have enough! One glass of the predator drug should be enough to knock out an elephant. Bye bye!</item>
     </string-array>
     <string name="article_triangle_divide_by_move_feature_name">Intergalactical Turbolaser-Triangel-Cutter</string>
     <string name="article_triangle_divide_by_move_feature_descr">Dr. Drams tortured his employees almost a month to upgrade the Circlelaser for you!</string>
@@ -113,7 +111,7 @@
         <item>My suggestion? If you already got a green dice, combine the Alien-Cube with a red one. You get a green one immediately plus some transparency for free.\nIf you want to gamble, try the yellow one. Maybe one field is enough to see the solution!\nIf you want to \"scan\" the whole picture, take a green dice.</item>
         <item>If I combine the Alien-Cube on a green dice, usually on a 4, 5 or 6. Why? Well, the proportion fields:transparency is the best one in my opinion.</item>
         <item>Maybe the grid is full, but that\'s not a tragedy. You may lose red and yellow dices and some transparency but you get some free space again.</item>
-        <item>Like a wormhole you can move red and yellow dices in jumps as long as there is a path. What do you think is the biggest jump?</item>
+        <item>Like a wormhole you can move red and yellow dices in jumps as long as there is a path. Do you think you can jump into the hyperspace when jumping over the longest distance?</item>
     </string-array>
 
     <!-- Jumper related -->
@@ -128,11 +126,11 @@
         <item>Our Business Man will remember something every x-passed obstacles. Sometimes it\'s unimportant for us, the field stays the same.</item>
         <item>Practice makes perfect. But some people are just not made for Jump and Runs.</item>
         <item>You wonder who is Manomnom? A mysterious being!</item>
-        <item>Manomnom is waiting for you in the last area. As my master loves him so much, you will meet him after each leaving a difficulty zone</item> <!--klingt etwas holprig difficulty zone?-->
+        <item>Manomnom is waiting for you in the last area. As my master loves him so much, you will meet him after each leaving any area.</item>
         <item>You should\'t touch Manomnom. His laser is just show. A show with great style, don\'t you think so?</item>
         <item>You wonder why he wants to laser everything? Unfortunately he got crazy after eating antimatter.</item>
         <item>Manomnom and I, we are the sweeties of our Master!</item>
-        <item>Oh Manomno, you silly ninny, why did you not resist your clutches of the Antimatter…?</item> <!--klingt etwas holprig-->
+        <item>Oh Manomno, you silly ninny, why did you eat the Antimatter… Just why?</item>
     </string-array>
 
     <string-array name="riddle_jumper_collision_break">
@@ -149,13 +147,13 @@
     <!-- Memory related -->
     <string name="riddle_type_memory">Memory</string>
     <string name="riddle_type_memory_advertising">For some it\'s a simple experiment. For most, mostly adults, somehow difficult. You need to remember cards!</string>
-    <string name="riddle_type_memory_explanation">Find a matching pair</string>
+    <string name="riddle_type_memory_explanation">Find a matching pair of cards by clicking on a card and remembering its picture!</string>
     <string-array name="riddle_type_memory_hints">
-        <item>\"Wie mächtig katastrophal ist das irdische Gedächtnis beim Thema Erinnerung?\". Dieser Frage wollen wir mit diesem Experiment nachgehen. Und die Anleitung ist für dich extra simpel gehalten: Decke identische Kartenpaare auf!</item>
-        <item>Deckst du ein Paar auf so bildet sich ein Pfad zwischen dem Paar, was kurzzeitig alle Karten unter dem Pfad aufdeckt.</item>
-        <item>Der Pfad macht aus roten Karten wieder gelbe und aus gelben wieder grüne.</item>
-        <item>Die verschiedenen Kartenfarben können als Gedächtnisstütze dienen. Und von grauen Karten kann jeweils nur eine aufgedeckt sein.</item>
-        <item>Nichts hält dich davon ab alle Karten auf einem Zettel zu notieren. Außer dein Stolz. Denn kleine Kinder schaffen das auch so!</item>
+        <item>This time we want to answer the following question: \"How catastrophic is the earthly brain regarding memories?\" We gonna find a solution with this experiment. We keep the instruction as simple as possible, especially for you: Find matching pairs of cards! You have to remember them on your own.</item>
+        <item>When finding a matching pair, a path will reveal all cards between the cards for a short time.</item>
+        <item>The path reverses everything: red cards become yellow, and yellow become green again.</item>
+        <item>Different card colours may help you remember a picture\'s position. And there can only grey card visible at once.</item>
+        <item>No one and nothing can stop you to grab a pen and a piece of paper to make some notes or to take a screenshot. Except your pride. The secret service will see that you can\'t remember a pair of cards. Even little human beings and some animals can do that without any help!</item>
     </string-array>
 
 
@@ -171,30 +169,35 @@
 
     <!-- Flow related -->
     <string name="riddle_type_flow">Cellflow</string>
-    <string name="riddle_type_flow_advertising">A simple experiment for slobs. Put down cells in the unknown chaos to discover images!</string>
-    <string name="riddle_type_flow_explanation">Click to create pixel flows which follow lines in the hidden image.</string>
+    <string name="riddle_type_flow_advertising">A simple experiment for slobs. Put down cells in the unknown chaos to discover known points and shapes of the image!</string>
+    <string name="riddle_type_flow_explanation">Click anywhere in the field to create cellflows. If cells hit on a point of the image, they follow the shapes of the picture.</string>
     <string-array name="riddle_type_flow_hints">
-        <item>So verworren du dieses Experiment auch findest, so lässt sich im groben euer Geist beschreiben: Konfus und leer. Zumindest am Anfang! Wir haben daher euren Verstand nachgebaut.\nTippe auf das Feld, um Zellis zu platzieren und die Kontur des Bildes aufzudecken!</item>
-        <item>Zellis besitzen nur teilweise Intelligenz. Daher wird die Kontur nur von jeder dritten gesetzten Zelli abgesucht.</item>
-        <item>Die Lebensdauer der Zellis ist bei allen gleich.</item>
-        <item>Nur wenige der Zellis werden bis zum Ende ihres Lebens arbeiten. Die meisten kollidieren irgendwann in einer Sackgasse.</item>
+        <item>Maybe you think this is a confusing experiment, on the whole that\'s how to describe your mind: Confusy and empty. At least at the beginning! We recreated your mind with a model.\nClick anywhere on the field to place some Cellis. If Cellis hit a shape of the image, they will follow them and reveal the picture at the same time!</item>
+        <item>Not every Celli is a specialized and intelligent cell. Only every third Celli will follow the shapes.</item>
+        <item>Celli\'s lifetime is always the same.</item>
+        <item>However not every Celli will work until the end. Most of them collide in a dead end.</item>
     </string-array>
+
 
     <!-- Lazor related -->
     <string name="riddle_type_lazor">Lazor</string>
     <string name="riddle_type_lazor_advertising">An arcade experiment with some futuristic aspects. Defend your city against descending meteors.</string>
     <string name="riddle_type_lazor_explanation">Der nächste aufgeladene Lazor wird an den gewählten Punkt schießen und dort -oder bei Kollision- explodieren. Stoppe die Zerstörung!</string>
     <string-array name="riddle_type_lazor_hints">
-        <item>Eine Simulation, um deine Reaktion auf außerplanetarische Bedrohungen zu messen. Schieße mit den Lazorn auf die Bedrohung. Bei Kollision oder Erreichen des geklickten Punktes wird der Lazor explodieren. Entlang des Kometenschweifes wird die entsprechende Farbe aufgedeckt.</item>
-        <item>Das grüne Schild schützt deine Stadt vor Einschlägen.</item>
-        <item>Weiße Kometen decken den Bereich vollständig auf, aber auch wieder zu. Priorisiere sie vor allen anderen Farben!</item>
+        <item>A simulation to test your reaction to extraterrestrial threats. Use the lazors to shoot on incoming comets which threat your city. On collision or when reaching the clicked point the lazor explodes. Along its tail the corresponding colour gets visible.</item>
+        <item>Pay attention to the canons plants to see, when the lazor gets ready to shoot. By the way, always the next canon plant fires as long as it\'s ready to shoot of course.</item>
+        <item>Depending on the costs of the next hint, you can eventually see if it\'s a useful hint. Nevertheless it\'s possible that you already know the fact and you spend the Braincells, your money, for nothing.</item>
+        <item>White comets cover and uncover the path completely. Shoot them first by any cost!</item>
+        <item>Hitting a comet later increases the revealed area and the risk to miss a comet! Later, if comets are spawning much faster, you should try to hit them as early as possible as you won\'t be able to stop them all!</item>
+        <item>In some situations you won\'t be able to prevent an impact. Decide as fast as possible, which comet will strike your city and try to stop the other ones.</item>
+        <item>The green shield protects your city against any impacts. Especially the white comets negative influence is decreased.</item>
     </string-array>
     <string name="riddle_type_lazor_article_protection_at_name">Reactor improvements</string>
-    <string name="riddle_type_lazor_article_protection_at_descr">The protective barrier will be available with less energy required.</string>
+    <string name="riddle_type_lazor_article_protection_at_descr">The protective barrier requires less energy in the future.</string>
     <string-array name="riddle_type_lazor_article_protection_at_products">
-        <item>Protects if reactor on 40%.</item>
-        <item>Protects if reactor on 30%</item>
-        <item>Protects if reactor on 25%</item>
-        <item>Protects if reactor on 20%. If the shield is active there will be 3% more white meteors.</item>
+        <item>Protects if reactor reached 40%.</item>
+        <item>Protects if reactor reached 30%</item>
+        <item>Protects if reactor reached 25%</item>
+        <item>Protects if reactor reached 20%. If the shield is active, 3% more white meteors will spawn.</item>
     </string-array>
 </resources>

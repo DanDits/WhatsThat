@@ -113,7 +113,7 @@
         <item>Was ich empfehle?  Wenn du bereits einen grünen Würfel hast, kombiniere den Alien-Cube auf einen roten Würfel, denn du bekommst umgehend einen zweiten grünen Würfel mit geschenkter Transparenz.\nAls Glücksspieler empfehle ich gelb. Möchtest das ganze Bild scannen, würde ich einen grünen Würfel nehmen.</item>
         <item>Wenn ich den Alien–Cube auf grün kombiniere, dann meist auf 4, 5 oder 6. Wieso? Na das Verhältnis Felder:Transparenz ist hier ziemlich gut.</item>
         <item>Ein volles Feld ist nicht unbedingt tragisch: du verlierst zwar rote und gelbe Würfel sowie etwas Transparenz, dafür hast du wieder Freiraum.</item>
-        <item>Nach dem Ameisenprinzip kannst du rote und gelbe Würfel sprunghaft bewegen, sofern ein Weg frei ist. Was wohl der maximale Sprung ist?</item>
+        <item>Stichwort Ameisenprinzip: Du kannst rote und gelbe Würfel wie durch ein Wurmloch sprunghaft bewegen, sofern ein Weg frei ist. Ob du wohl den Sprung in den Hyperraum schafft, wenn du die längste Wegstrecke übersprungen hast?</item>
     </string-array>
 
     <!-- Jumper related -->
@@ -150,11 +150,11 @@
     <string name="riddle_type_memory_advertising">Für manche ein leichtes Experiment. Für andere, meist Erwachsene, oft schwierig. Man muss sich Karten merken!</string>
     <string name="riddle_type_memory_explanation">Finde Kartenpaare mit gleichen Bildern und decke diese durch Klicken auf.</string>
     <string-array name="riddle_type_memory_hints">
-        <item>\"Wie mächtig katastrophal ist das irdische Gedächtnis beim Thema Erinnerung?\". Dieser Frage wollen wir mit diesem Experiment nachgehen. Und die Anleitung ist für dich extra simpel gehalten: Decke identische Kartenpaare auf!</item>
+        <item>\"Wie katastrophal ist das irdische Gedächtnis beim Thema Erinnerung?\" Dieser Frage wollen wir mit diesem Experiment nachgehen. Und die Anleitung ist für dich extra simpel gehalten: Decke identische Kartenpaare auf! Das Erinnern können wir dir nicht abnehmen.</item>
         <item>Deckst du ein Paar auf so bildet sich ein Pfad zwischen dem Paar, was kurzzeitig alle Karten unter dem Pfad aufdeckt.</item>
         <item>Der Pfad macht aus roten Karten wieder gelbe und aus gelben wieder grüne.</item>
         <item>Die verschiedenen Kartenfarben können als Gedächtnisstütze dienen. Und von grauen Karten kann jeweils nur eine aufgedeckt sein.</item>
-        <item>Nichts hält dich davon ab alle Karten auf einem Zettel zu notieren. Außer dein Stolz. Denn kleine Kinder schaffen das auch so!</item>
+        <item>Nichts und niemand hält dich davon ab, alle Karten auf einem Zettel zu notieren oder Screenshots zu machen. Außer dein Stolz. Die Überwachungsdienste werden nämlich sehen, dass du dir nichtmal ein paar Karten merken kannst. Denn kleine Menschenkinder und sogar ein paar Tiere schaffen das auch so!</item>
     </string-array>
 
     <!-- Developer related -->
@@ -167,10 +167,10 @@
 
     <!-- Flow related -->
     <string name="riddle_type_flow">Zellfluss</string>
-    <string name="riddle_type_flow_advertising">Ein einfaches Rätsel für Chaoten. Decke mit gesetzten Zellen im unbekannten Chaos bekannte Punkte und Bilder auf!</string>
-    <string name="riddle_type_flow_explanation">Berühre das Feld, wodurch Zellflüsse entstehen. Versuche Puntke nahe an Konturen zu setzen, damit Linien im Bild abgesucht werden.</string>
+    <string name="riddle_type_flow_advertising">Ein einfaches Rätsel für Chaoten. Decke mit gesetzten Zellen im unbekannten Chaos bekannte Punkte und Konturen des Bildes auf!</string>
+    <string name="riddle_type_flow_explanation">Berühre das Feld, wodurch Zellflüsse entstehen. Treffen Zellen auf Punkte des Bildes, werden sie die Konturen absuchen.</string>
     <string-array name="riddle_type_flow_hints">
-        <item>So verworren du dieses Experiment auch findest, so lässt sich im groben euer Geist beschreiben: Konfus und leer. Zumindest am Anfang! Wir haben daher euren Verstand nachgebaut.\nTippe auf das Feld, um Zellis zu platzieren und die Kontur des Bildes aufzudecken!</item>
+        <item>So verworren du dieses Experiment auch findest, so lässt sich im groben euer Geist beschreiben: Konfus und leer. Zumindest am Anfang! Wir haben daher euren Verstand nachgebaut.\nTippe auf das Feld, um Zellis zu platzieren. Treffen Zellis auf eine Kontur des Bildes, dann werden sie diesen nachgehen und damit das Bild aufdecken!</item>
         <item>Zellis besitzen nur teilweise Intelligenz. Daher wird die Kontur nur von jeder dritten gesetzten Zelli abgesucht.</item>
         <item>Die Lebensdauer der Zellis ist bei allen gleich.</item>
         <item>Nur wenige der Zellis werden bis zum Ende ihres Lebens arbeiten. Die meisten kollidieren irgendwann in einer Sackgasse.</item>
@@ -181,9 +181,13 @@
     <string name="riddle_type_lazor_advertising">Ein arkades Experiment mit futuristischen Aspekten. Verteidige die Stadt gegen bedrohliche Kometen.</string>
     <string name="riddle_type_lazor_explanation">Der nächste aufgeladene Lazor wird an den gewählten Punkt schießen und dort -oder bei Kollision- explodieren. Stoppe die Zerstörung!</string>
     <string-array name="riddle_type_lazor_hints">
-        <item>Eine Simulation, um deine Reaktion auf außerplanetarische Bedrohungen zu messen. Schieße mit den Lazorn auf die Bedrohung. Bei Kollision oder Erreichen des geklickten Punktes wird der Lazor explodieren. Entlang des Kometenschweifes wird die entsprechende Farbe aufgedeckt.</item>
+        <item>Eine Simulation, um deine Reaktion auf außerplanetarische Bedrohungen zu messen. Schieße mit den Lazorn auf die Kometen, die deine Stadt bedrohen. Bei Kollision oder Erreichen des geklickten Punktes wird der Lazor explodieren. Entlang des Kometenschweifes wird die entsprechende Farbe aufgedeckt.</item>
+        <item>Achte einmal auf die Schussanlagen, um festzustellen, wann der nächste Lazor schussbereit ist. Übrigens feuert immer die nächst gelegene Anlage, sofern die natürlich schießbereit ist.</item>
+        <item>Abhängig von den Kosten der Tipps siehst du eventuell, wie sinnvoll oder nützlich die Tipps sind. Trotzdem kann es vorkommen, dass du manches schon weißt und deine Hirnzellen, dein Geld, umsonst ausgegeben hast.</item>
+        <item>Weiße Kometen decken den Bereich vollständig auf. Aber auch wieder zu. Priorisiere sie vor allen anderen Farben!</item>
+        <item>Einen Kometen später abzuschießen vergrößert den aufgedeckten Bereich, aber auch das Risiko für einen Verpasser. Spätestens wenn Kometen häufiger erscheinen, solltest du versuchen sie frühestmöglich abschießen, weil du sonst nicht alle aufhalten kannst!</item>
+        <item>Du wirst in manchen Konstellationen einen Einschlag nicht verhindern können. Entscheide schnell, welchen Kometen du durchkommen lässt und versuche die anderen zu stoppen.</item>
         <item>Das grüne Schild schützt deine Stadt vor Einschlägen. Insbesondere schwächt es den negativen Einfluss der weißen Kometen.</item>
-        <item>Weiße Kometen decken den Bereich vollständig auf, aber auch wieder zu. Priorisiere sie vor allen anderen Farben!</item>
     </string-array>
     <string name="riddle_type_lazor_article_protection_at_name">Reaktor Verbesserung</string>
     <string name="riddle_type_lazor_article_protection_at_descr">Die schützende Barriere wird in Zukunft weniger Energie benötigen.</string>

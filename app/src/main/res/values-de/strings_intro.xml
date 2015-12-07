@@ -86,8 +86,8 @@
         <item>Trotzdem muss ich diese Behauptung überprüfen.</item>
     </string-array>
     <string-array name="test_subject_1_1_intro_main">
-        <item>Test: Was ist die 7364. Primzahl?</item>
-        <item>Nein; Schokolade ist keine Primzahl.</item>
+        <item>Test: Was ist die 7364ste Primzahl?</item>
+        <item>Nein, Schokolade ist KEINE Primzahl…</item>
         <item>Immerhin warst du diesmal schnell mit deiner Antwort.</item>
         <item>Das ist ja schonmal besser als nichts.</item>
         <item>Versuchen wir es mit einer Zahlenfolge.</item>
@@ -98,10 +98,11 @@
         <item>Nein, nein, leider falsch.</item>
         <item>Die korrekte Lösung lautet: 217341!</item>
         <item>Wenn du nämlich diese Erdfunktion nimmst:</item>
-        <item>(18111/2)*earth^4–90555*earth³+(633885/2)*earth²-452773*earth+217331…</item>
+        <item>(18111/2)*XYZ^4–90555*XYZ³+(633885/2)*XYZ²-452773*XYZ+217331…</item> <!--^4 ersetzen durch sub oder sowas?-->
         <item>…dann erhältst du das entsprechende Ergebnis.</item>
         <item>Hmm, wie ich sehe … siehst du das doch nicht.</item>
         <item>Dann auch egal.</item>
+        <item>Dann eben weiter im Protokoll.</item>
         <item>Wenn ich nun das Protokoll hier lade, dann.. Oha.</item>
         <item>Alpha Stimulation bewirkt eine Allergiereaktion.</item>
         <item>Wer hätte gedacht, dass Gehirne so reagieren könnten.</item>
@@ -111,12 +112,12 @@
         <item>Ich schreibs ins Protokoll.</item>
     </string-array>
     <string-array name="test_subject_1_intro_nuts">
-        <item>Die Reaktionen lassen vermuten, dass der irdische IQ nur knapp über dem absoluten Gefrierpunkt liegt</item>
+        <item>Die Reaktionen lassen vermuten, dass der irdische IQ nur knapp über dem absoluten Gefrierpunkt liegt.</item>
         <item>Homo Sapiens, wie haben die bloß diesen Planeten so schnell kaputt gemacht mit so wenig Hirn?</item>
         <item>Steht hier nicht irgendwo so ein Satz…?</item>
-        <item>Achja hier:\"denn sie wissen nicht, was sie tun…</item>
+        <item>Achja hier:\"denn sie wissen nicht, was sie tun\"…</item>
         <item>Das kann ich nur bestätigen.</item>
-        <item>Das zerstörerische Verhalten war wohl keine Absicht, sondern fehlender Überblick.</item>
+        <item>Das zerstörerische Verhalten war wohl keine Absicht, sondern fehlender Überblick und Verständnis.</item>
         <item>Ob wir ihnen dabei helfen sollten und dann den Planeten von neuem besiedeln?</item>
         <item>Oh du hörst mir noch zu.. ich mache nur Spaß.</item>
     </string-array>

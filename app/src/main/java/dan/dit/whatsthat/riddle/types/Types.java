@@ -770,12 +770,14 @@ public class Types {
         @Override
         public int getAvailableHintsAtStartCount() {return 1;}
         @Override
-        public int getTotalAvailableHintsCount() {return 3;}
+        public int getTotalAvailableHintsCount() {return 7;}
         public List<Integer> getHintCosts(){
             List<Integer> costs = new ArrayList<>(getTotalAvailableHintsCount());
             costs.add(0);
-            costs.add(30);
-            costs.add(50);
+            costs.add(10);
+            costs.add(15);
+            costs.add(35);
+            costs.add(20);
             return costs;
         }
 

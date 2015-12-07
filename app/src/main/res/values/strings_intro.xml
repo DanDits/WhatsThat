@@ -79,49 +79,62 @@
     <string-array name="test_subject_0_riddle_solved_candy">
         <item>Accomplished!</item>
         <item>Wonderful!</item>
-        <item>Well done!</item>
+        <item>Super!</item>
         <item>Really good</item>
         <item>Unexpected!</item>
         <item>Great!</item>
     </string-array>
 
     <!-- Level 1 -->
-    <string name="test_subject_1_int">A spark</string>
-    <string name="test_subject_1_name">Kid</string>
+    <string name="test_subject_1_int">A glimmer</string>
+    <string name="test_subject_1_name">Little gizmo</string>
     <string-array name="test_subject_1_0_intro_main">
-        <item>WiseMind berichtet von Verbesserungen.</item>
-        <item>Wenn das nicht von ihr kommen würde… wer hätte das geglaubt.</item>
-        <item>Trotzdem muss ich diese Behauptung überprüfen.</item>
+        <item>WiseMind told me about some improvements.</item>
+        <item>If it wasn\'t WiseMind… who would have believed that.</item>
+        <item>Nevertheless I have to check her assertion.</item>
     </string-array>
     <string-array name="test_subject_1_1_intro_main">
-        <item>Test: Was ist die 7364. Primzahl?</item>
-        <item>Nein; Schokolade ist keine Primzahl.</item>
-        <item>Immerhin warst du diesmal schnell mit deiner Antwort.</item>
-        <item>Das ist ja schonmal besser als nichts.</item>
+        <item>Test: What\'s the 7364th prime number?</item>
+        <item>No, chocolate is NOT a prime number…</item>
+        <item>At least your reaction time improved.</item>
+        <item>At least a little kind of progress.</item>
+        <item>Another try: How about a sequence of numbers?</item>
+        <item>What\'s the correct sequel fort he numbers:</item>
     </string-array>
     <string-array name="test_subject_1_2_intro_main">
-        <item>Wie dem auch sei. Wenn ich nun das Protokoll hier lade, dann.. Oha.</item>
-        <item>Alpha Stimulation bewirkt eine Allergiereaktion.</item>
-        <item>Wer hätte gedacht, dass Gehirne so reagieren könnten.</item>
-        <item>Als nächstes.. Injektion der Äther Blocker zur Sensibilisierung der Materie.</item>
-        <item>Warum grinst du so dämlich?</item>
-        <item>Ach weil du das nicht verstanden hast.</item>
-        <item>Ich schreibs ins Protokoll.</item>
+        <item>1; 3; 5; 7; ?</item>
+        <item>No, no, no. I\'m afraid that\'s wrong.</item>#
+        <item>The correct solution is 217341.</item>
+        <item>If you take the earth function:</item>
+        <item>(18111/2)*XYZ^4–90555*XYZ³+(633885/2)*XYZ²-452773*XYZ+217331…</item>
+        <item>…then you get the previous mentioned solution.</item>
+        <item>Hmm, I see … you don\'t get it.</item>
+        <item>Nevermind.</item>
+        <item>So, let\'s continue with the record. </item>
+        <item>If I try loading the protocol right here, we get … Ouch.</item>
+        <item>Alpha stimulation causes an allergic reaction.</item>
+        <item>Weird, who would have thought that brains might react like that.</item>
+        <item>Next step … injection of the ether blocker for sensitization of neuronic matter.</item>
+        <item>Why do you have that stupid grin on your face?</item>
+        <item>Ah, cause you didn\'t get it.</item>
+        <item>I\'m gonna record it.</item>
     </string-array>
     <string-array name="test_subject_1_intro_nuts">
-        <item>Die Reaktionen lassen vermuten, dass der menschliche IQ nur knapp über dem absoluten Gefrierpunkt liegt</item>
-        <item>Homo Sapiens, wie haben die bloß diesen Planeten so schnell kaputt gemacht mit so wenig Hirn?</item>
-        <item>Steht hier nicht irgendwo so ein Satz…?</item>
-        <item>Achja hier:\"denn sie wissen nicht, was sie tun…</item>
-        <item>Das kann ich nur bestätigen.</item>
-        <item>Das zerstörerische Verhalten war wohl keine Absicht, sondern fehlender Überblick.</item>
-        <item>Ob wir ihnen dabei helfen sollten und dann den Planeten von neuem besiedeln?</item>
-        <item>Oh du hörst mir noch zu.. ich mache nur Spaß.</item>
+        <item>Coming to a conclusion, your reactions are showing the following thing: The earthly IQ is barely above absolute zero.</item>
+        <item>Homo sapiens, how is it possible that a species destroys the planet so fast with such little brain?</item>
+        <item>Wasn\'t a comment in this book … wait … ah, right here: \"they know not what they do\"…</item>
+        <item>Theory confirmed.</item>
+        <item>Seems like their destructive behaviour was not an evil intention but rather a lack of overview and understanding.</item>
+        <item>Shall we help them to repopulate the planet again?</item>
+        <item>Oh you\'re still listening.. I\'m just kidding.</item>
     </string-array>
     <string-array name="test_subject_1_riddle_solved_candy">
-        <item>Bedachter Zug!</item>
-        <item>Bombastisch!</item>
-        <item>Bravo!</item>
+        <item>Applause!</item>
+        <item>Wow!</item>
+        <item>Well done!</item>
+        <item>Very good!</item>
+        <item>Good job!</item>
+        <item>Nice going!</item>
     </string-array>
 
     <!-- Level 2 -->
