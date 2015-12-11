@@ -77,6 +77,7 @@ public class RiddleFlow extends RiddleGame {
     private float mOffsetX;
     private float mOffsetY;
     private int mRevealedPixelsCount;
+    private int mCreatedFlowsCounter;
 
     private enum FlowDirection {
         TOP_LEFT(-1, -1), TOP(0, -1), TOP_RIGHT(1, -1),
@@ -239,7 +240,12 @@ public class RiddleFlow extends RiddleGame {
                 i--;
             }
         }
+        // only update achievement data in this thread else notification can block and kill the app
         mConfig.mAchievementGameData.enableSilentChanges(AchievementDataEvent.EVENT_TYPE_DATA_UPDATE);
+        if (mCreatedFlowsCounter > 0) {
+            mConfig.mAchievementGameData.increment(AchievementFlow.KEY_GAME_CELLI_CREATED, mCreatedFlowsCounter, 0L);
+            mCreatedFlowsCounter = 0;
+        }
         mConfig.mAchievementGameData.putValue(AchievementFlow.KEY_GAME_CELLI_ACTIVE_COUNT, (long) mFlows.size(), AchievementProperties.UPDATE_POLICY_ALWAYS);
         if (diedOfTimeout > 0) {
             mConfig.mAchievementGameData.increment(AchievementFlow.KEY_GAME_CELLI_TIMED_OUT_COUNT, (long) diedOfTimeout, 0L);
@@ -360,8 +366,8 @@ public class RiddleFlow extends RiddleGame {
         if (event.getActionMasked() == MotionEvent.ACTION_DOWN) {
             int x = (int) (event.getX() - mOffsetX);
             int y = (int) (event.getY() - mOffsetY);
-            if (addFlow(x, y, false) && mConfig.mAchievementGameData != null) {
-                mConfig.mAchievementGameData.increment(AchievementFlow.KEY_GAME_CELLI_CREATED, 1L, 0L);
+            if (addFlow(x, y, false)) {
+                mCreatedFlowsCounter++;
             }
         }
         return false;

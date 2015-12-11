@@ -98,7 +98,7 @@ public class LegoPatternReconstructor extends PatternReconstructor {
         for (int value : LEGO_COLOR_PALETTE_EFFECTS) {
             tiles.add(new VoidTile<S>(value));
         }
-        return new LegoMatcher<>(tiles, useAlpha, metric);
+        return new SimpleLinearTileMatcher<>(tiles, useAlpha, metric);
     }
 
     private static class VoidTile<S> implements MosaicTile<S> {
@@ -116,14 +116,6 @@ public class LegoPatternReconstructor extends PatternReconstructor {
         @Override
         public int getAverageARGB() {
             return mLegoColor;
-        }
-    }
-
-    private static class LegoMatcher<S> extends SimpleLinearTileMatcher<S> {
-
-        public LegoMatcher(Collection<? extends MosaicTile<S>> data, boolean useAlpha, ColorMetric
-                metric) {
-            super(data, useAlpha, metric);
         }
     }
 
