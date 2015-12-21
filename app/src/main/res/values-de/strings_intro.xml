@@ -61,7 +61,7 @@
         <item>Was kannst du eigentlich?</item>
         <item>Mal sehen, wie es auf Bilder reagiert.</item>
         <item>Aha.. Affinität zu Anomalien der Farbvalenz</item>
-        <item>WiseMind, bereichte Versuchsreihe 272 zur Feststellung und Messung der Intelligenz des Erdlings vor.</item>
+        <item>WiseMind, bereite Versuchsreihe 272 zur Feststellung und Messung der Intelligenz des Erdlings vor.</item>
         <item>…</item>
         <item>Erdling, wie bei allen zukünftigen Experimenten der Versuchsreihe 272, geht es darum, das Bild zu erraten.</item>
         <item>Wenn du einmal nicht weiterkommst, dann schiebe bitte "keine Panik".</item>
@@ -141,6 +141,7 @@
         <item>Trotdzem ist WiseMind außer sich.. vor Begeisterung.</item>
         <item>Sie meint, sie hätte von Anfang an recht gehabt.</item>
         <item>Ich allerdings behaupte, du hast nur gelernt, was wir von dir sehen wollten.</item>
+        <item>Gewissermaßen eine kognitive Verzerrung.</item>
         <item>Uns ist aufgefallen, dass du noch gar keine Primzahlen kanntest.</item>
         <item>Bei uns werden Primzahlen schon in der Plasmagranulation aufgenommen…</item>
         <item>-das entspricht eurer Muttermilch.</item>
@@ -157,7 +158,7 @@
         <item>Als die Suppe der Weisheit verteilt wurde, seid ihr wohl mit der Gabel angerannt.</item>
     </string-array>
     <string-array name="test_subject_2_intro_nuts">
-        <item>Übermütige Kommentare und Beleidigungen meinerseits sind übrigens nur ein Versuch menschlich zu kommunizieren.</item>
+        <item>Übermütige Kommentare und Beleidigungen meinerseits sind übrigens nur ein Versuch irdisch zu kommunizieren.</item>
         <item>Es ist nämlich nicht ganz leicht, auf dein Niveau runter zu denken.</item>
         <item>Aber nun weiter im Protokoll.</item>
     </string-array>

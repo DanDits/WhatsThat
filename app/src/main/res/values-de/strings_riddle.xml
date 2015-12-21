@@ -5,8 +5,8 @@
     <string name="riddle_type_circle_advertising">Ein einfaches Experiment, das darauf abzielt, deine grauen Zellen durch graue Kreise zu stimulieren.</string>
     <string name="riddle_type_circle_explanation">Berühre einen Kreis, um diesen in vier kleinere aufzuteilen. Dadurch wird die Kontur des versteckten Bildes sichtbar.</string>
     <string-array name="riddle_type_circle_hints">
-        <item>Teile die Kreise bei unserem ersten Experiment, um deine Zellen zu stimulieren. Aber nicht wie Mose das Wasser in zwei Hälften teilte, sondern in vier. Irgendwann sind deine Zellen hoffentlich genug stimuliert und du erkennst durch die feineren Konturen ein Bild. Falls nicht, führe ich die Versuchsreihe mit Pantoffeltierchen weiter, die diese Tests mit Bravour bestanden haben.</item>
-        <item>Demo Version beendet. Kaufe die Vollversion für nur 39,99€! Just kidding. Geh trotzdem mal in den Shop. Dort finden sich praktische Dinge, wie zum Beispiel der intergalaktische Kreislaser-Turbo-Schneider…</item>
+        <item>Erdling, ich heiße dich zu unserem zum ersten Experiment willkommen. Um deine Zellen zu stimulieren, teile die Kreise so wie Mose das Wasser teilte. Aber nicht in zwei Hälften, sondern in vier Teile. Irgendwann sind deine Zellen hoffentlich genug stimuliert und du erkennst durch die feineren Konturen ein Bild. Falls nicht, führe ich die Versuchsreihe mit Pantoffeltierchen weiter, die diese Tests mit Bravour bestanden haben.</item>
+        <item>Demo Version beendet. Kaufe die Vollversion für nur 39,99€! Just kidding. Geh trotzdem mal in den Shop. Dort finden sich praktische Dinge, wie zum Beispiel der intergalaktische Kreislaser-Turbo-Schneider… Ganz nebenbei, du solltest deine Belohnung immer im Erfolgsmenü abholen!</item>
         <item>Eine Schnellanleitung findest du oben rechts. Dort kannst du auch ein Bild überspringen, solltest du mal nicht weiter kommen.</item>
         <item>Einen Nachschub an Bildern kannst du dir von WiseMind per Download im Shop geben lassen!</item>
         <item>Sollte dieser Experimenttyp einigermaßen erfolgreich verlaufen, kannst du später in der Mitte zwischen verschiedenen Versuchen wählen. Oder zurückgestellte Exerimente fortführen.</item>
@@ -167,7 +167,7 @@
 
     <!-- Flow related -->
     <string name="riddle_type_flow">Zellfluss</string>
-    <string name="riddle_type_flow_advertising">Ein einfaches Rätsel für Chaoten. Decke mit gesetzten Zellen im unbekannten Chaos bekannte Punkte und Konturen des Bildes auf!</string>
+    <string name="riddle_type_flow_advertising">Eine Oase des Chaos für Chaoten. Decke mit gesetzten Zellen im unbekannten Chaos bekannte Punkte und Konturen des Bildes auf! Ein einfaches Experiment!</string>
     <string name="riddle_type_flow_explanation">Berühre das Feld, wodurch Zellflüsse entstehen. Treffen Zellen auf Punkte des Bildes, werden sie die Konturen absuchen.</string>
     <string-array name="riddle_type_flow_hints">
         <item>So verworren du dieses Experiment auch findest, so lässt sich im groben euer Geist beschreiben: Konfus und leer. Zumindest am Anfang! Wir haben daher euren Verstand nachgebaut.\nTippe auf das Feld, um Zellis zu platzieren. Treffen Zellis auf eine Kontur des Bildes, dann werden sie diesen nachgehen und damit das Bild aufdecken!</item>

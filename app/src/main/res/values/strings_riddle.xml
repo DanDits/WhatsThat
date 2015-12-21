@@ -5,9 +5,9 @@
     <string name="riddle_type_circle_advertising">A simple experiment that aims to stimulate your grey matter through grey circles.</string>
     <string name="riddle_type_circle_explanation">Touch one circle to pop them into four smaller ones until the shape of the image is visible.</string>
     <string-array name="riddle_type_circle_hints">
-        <item>In our first experiment, split the circles to stimulate your cells. Unlike Mose split the water in two halves, divide them in four new circles. Hopefully at some point the stimulation of your cells is enough and you can see a picture due to the better shapes. If not, I have to continue the test series with our Parameciums. They mastered the tests with flying colours.</item>
-        <item>Demo version finished. Get the full version for only 39,99€! Just kidding. Nevertheless, have a quick look in the shop. There are many handy items. For example the intergalacical Circlelaser-Turbo-Cutter…</item>
-        <item>You can find a quick code at the top right corner. You can skip a picture, if you don\'t see the solution.</item>
+        <item>Earthling, welcome to our first experiment. To stimulate your cells, split circles as Mose split the water. However, don\'t split them in two halves but in four parts. Hopefully at some point the stimulation of your cells is enough and you can see a picture due to the better shapes. If not, I have to continue the test series with our Parameciums. They mastered the tests with flying colours.</item>
+        <item>Demo version finished. Get the full version for only 39,99€! Just kidding. Nevertheless, have a quick look in the shop. There are many handy items. For example the intergalacical Circlelaser-Turbo-Cutter…And by the way, you should always pick up your reward in the achievement menu!</item>
+        <item>You can find a quick guide at the top right corner. You can skip a picture, if you don\'t see the solution.</item>
         <item>If you want more pictures from WiseMind, you can get new ones via download in the shop!</item>
         <item>Later, if this experiment is successful, you can choose between different experiment types in the middle of game. Or you can continue all skipped experiments.</item>
         <item>Sometimes human eyes recognize some pictures from a certain distance. Sometimes a screenshot is helping, too.</item>
@@ -169,7 +169,7 @@
 
     <!-- Flow related -->
     <string name="riddle_type_flow">Cellflow</string>
-    <string name="riddle_type_flow_advertising">A simple experiment for slobs. Put down cells in the unknown chaos to discover known points and shapes of the image!</string>
+    <string name="riddle_type_flow_advertising">An oasis of chaos for slobs. Put down cells in the unknown chaos to discover known points and shapes of the image! A simple experiment!</string>
     <string name="riddle_type_flow_explanation">Click anywhere in the field to create cellflows. If cells hit on a point of the image, they follow the shapes of the picture.</string>
     <string-array name="riddle_type_flow_hints">
         <item>Maybe you think this is a confusing experiment, on the whole that\'s how to describe your mind: Confusy and empty. At least at the beginning! We recreated your mind with a model.\nClick anywhere on the field to place some Cellis. If Cellis hit a shape of the image, they will follow them and reveal the picture at the same time!</item>

@@ -70,7 +70,7 @@
         <item>WiseMind, prepare test series 272 for determination and measurement of earthling’s intelligence.</item>
         <item>…</item>
         <item>Earthling, as all following experiments of test series 272 it\"s all about seeing the right picture</item>
-        <item>If you are stuck or need some help, please \"Don’t panic\".</item>
+        <item>If you are stuck or need some help, please \"Don\'t panic\".</item>
         <item>WiseMind will give some customized help, if our infinite intellect is exceeding yours.</item>
         <item>Or better: All earthling\"s intellect.</item>
         <item>Well then, as you always say: Enter the fray within grand style!</item>
@@ -122,7 +122,7 @@
     <string-array name="test_subject_1_intro_nuts">
         <item>Coming to a conclusion, your reactions are showing the following thing: The earthly IQ is barely above absolute zero.</item>
         <item>Homo sapiens, how is it possible that a species destroys the planet so fast with such little brain?</item>
-        <item>Wasn\'t a comment in this book … wait … ah, right here: \"they know not what they do\"…</item>
+        <item>Wasn\'t a comment in on of these books … wait … ah, right here: \"they know not what they do\"…</item>
         <item>Theory confirmed.</item>
         <item>Seems like their destructive behaviour was not an evil intention but rather a lack of overview and understanding.</item>
         <item>Shall we help them to repopulate the planet again?</item>
@@ -138,35 +138,44 @@
     </string-array>
 
     <!-- Level 2 -->
-    <string name="test_subject_2_name">Klugscheißer</string>
-    <string name="test_subject_2_int">Hoffnungslos überschätzt</string>
+    <string name="test_subject_2_name">Wannabe</string>
+    <string name="test_subject_2_int">A far target</string>
     <string-array name="test_subject_2_0_intro_main">
-        <item>WiseMind ist außer sich.. vor Begeisterung.</item>
-        <item>Sie meint, sie hätte von Anfang an recht gehabt.</item>
-        <item>Ich allerdings behaupte, du hast nur gelernt, was wir von dir sehen wollten.</item>
-        <item>Uns ist aufgefallen, dass du noch gar keine Primzahlen kanntest.</item>
-        <item>Bei uns werden Primzahlen schon in der Plasmagranulation aufgenommen…</item>
-        <item>-das entspricht eurer Muttermilch.</item>
-        <item>Verzeihe die Überschätzung deines Intellekts.</item>
+        <item>As an outsider, what do you think about the subject intelligence?</item>
+        <item>No reaction.</item>
+        <item>Again.</item>
+        <item>That was to be expected.</item>
+        <item>Nevertheless WiseMind is beside herself.. with enthusiasm.</item>
+        <item>She claims that she was right from the early beginning.</item>
+        <item>In my opinion, you just learned what we expected to see.</item>
+        <item>Kind of cognitive bias.</item>
+        <item>We noticed that you don\'t know any prime numbers yet.</item>
+        <item>We absorb prime numbers during the plasma-granulation state.</item>
+        <item>-it\'s like your breast milk.</item>
+        <item>Excuse the overestimation of your intellect.</item>
     </string-array>
     <string-array name="test_subject_2_1_intro_main">
-        <item>Test: Was ist die Lösung des P-NP Problems?</item>
-        <item>Wie? Ein Millennium-Problem?</item>
-        <item>Nach so langer Zeit und noch immer keine Lösung?</item>
-        <item>Hmmm.. dann eben ein leichter Test.</item>
-        <item>Was ist das Molekulargewicht von Antimaterie?</item>
-        <item>6? Naja. Fast korrekt!</item>
-        <item>Seufz. Das kann ja noch was werden…</item>
-        <item>Als die Suppe der Weisheit verteilt wurde, seid ihr wohl mit der Gabel angerannt.</item>
+        <item>Test: What\'s the solution to the P versus NP problem?</item>
+        <item>Sorry? Millennium problem?</item>
+        <item>After that long time and you still did not found a solution?</item>
+        <item>Hmmm.. well, then we take a simple test.</item>
+        <item>What\'s the molecular weight of antimatter?</item>
+        <item>6? Well, almost correct!</item>
+        <item>Sigh… the universe alone knows what do you with this creature.</item>
+        <item>When the soup of wisdom was spread, you probably joined with a fork.</item>
     </string-array>
     <string-array name="test_subject_2_intro_nuts">
-        <item>Übermütige Kommentare und Beleidigungen meinerseits sind übrigens nur ein Versuch menschlich zu kommunizieren.</item>
-        <item>Aber nun weiter im Protokoll.</item>
+        <item>By the way, boisterous comments and insults from my part are just a friendly attempt to communicate like earth creatures.</item>
+        <item>It\'s not easy to downgrade my thoughts and interactions to your level.</item>
+        <item>But let\'s continue with the protocol now.</item>
     </string-array>
     <string-array name="test_subject_2_riddle_solved_candy">
-        <item>Gratulation!</item>
-        <item>Ganz passabel!</item>
-        <item>Gute Arbeit!</item>
+        <item>Remarkable!</item>
+        <item>Great job!</item>
+        <item>Good on you!</item>
+        <item>Impressive!</item>
+        <item>Dead right!</item>
+        <item>Nice shot!</item>
     </string-array>
 
     <!-- Level 3 -->
