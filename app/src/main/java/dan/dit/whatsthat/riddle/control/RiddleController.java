@@ -56,6 +56,7 @@ public class RiddleController implements RiddleAnimationController.OnAnimationCo
     private final Runnable mDrawAction;
     private final Runnable mPeriodicAction;
     private volatile int mPeriodActionPostedCount;
+    private volatile boolean mIsClosing;
 
     /**
      * Initializes the RiddleController with the RiddleGame that decorates the given Riddle.
@@ -125,28 +126,32 @@ public class RiddleController implements RiddleAnimationController.OnAnimationCo
         }
 
         public void onPeriodicEvent() {
-            if (mPeriodActionPostedCount == 0) {
+            if (mPeriodActionPostedCount == 0 && !mIsClosing) {
                 ++mPeriodActionPostedCount;
                 mHandler.post(mPeriodicAction);
             }
         }
 
         public void onCloseRiddle(final Context context) {
+            mIsClosing = true;
             mHandler.post(new Runnable() {
                 @Override
                 public void run() {
                     //at this point we can be sure that the looper doesn't currently process a
                     // periodic event which could lead to concurrency issues
                     mGameThread.quit(); // do not process any more actions!
+                    Log.d("Riddle", "Game thread quit.");
                     // stop periodic event in a safe way, as soon as it is stopped really close
                     // riddle in the main ui thread
-                    stopPeriodicEvent(new Runnable() {
+                    stopPeriodicEvent(mMainHandler, new Runnable() {
                         @Override
                         public void run() {
+                            Log.d("Riddle", "Posting on ui thread to close riddle.");
                             mMainHandler.post(new Runnable() {
                                 @Override
                                 public void run() {
                                     if (riddleAvailable()) {
+                                        Log.d("Riddle", "Executing close riddle!");
                                         onPreRiddleClose();
                                         mRiddleAnimationController.clear();
                                         mRiddleGame.close();
@@ -265,6 +270,7 @@ public class RiddleController implements RiddleAnimationController.OnAnimationCo
      */
     public final void onRiddleVisible(@NonNull ViewGroup riddleViewContainer) {
         mRiddleViewContainer = riddleViewContainer;
+        mIsClosing = false;
         mRiddleView = (RiddleView) mRiddleViewContainer.findViewById(R.id.riddle_view);
         mMainHandler = new Handler();
         mGameThread = new GameHandlerThread();
@@ -300,10 +306,10 @@ public class RiddleController implements RiddleAnimationController.OnAnimationCo
     /**
      * Pause the periodic event, stopping future invocations and periodic renderings.
      */
-    private synchronized void stopPeriodicEvent(final Runnable toExecute) {
+    private synchronized void stopPeriodicEvent(Handler handler, final Runnable toExecute) {
         if (mPeriodicThread != null && mPeriodicThread.isRunning()) {
             Log.d("Riddle", "Stopping periodic event that is running.");
-            mPeriodicThread.stopPeriodicEvent(new Runnable() {
+            mPeriodicThread.stopPeriodicEvent(handler, new Runnable() {
                 @Override
                 public void run() {
                     if (toExecute != null) {
@@ -314,12 +320,16 @@ public class RiddleController implements RiddleAnimationController.OnAnimationCo
             });
         } else if (toExecute != null) {
             Log.d("Riddle", "Stopping periodic event that was not running.");
-            toExecute.run();
+            if (handler != null) {
+                handler.post(toExecute);
+            } else {
+                toExecute.run();
+            }
         }
     }
 
     public synchronized void stopPeriodicEvent() {
-        stopPeriodicEvent(null);
+        stopPeriodicEvent(null, null);
     }
 
     private void resumePeriodicEventExecute() {
@@ -351,7 +361,7 @@ public class RiddleController implements RiddleAnimationController.OnAnimationCo
                 // if thread is not running yet or not anymore, (re)start.
                 // use runnable that is posted by previous running thread, if any, to the ui
                 // thread to ensure that no concurrency issues can appear
-                stopPeriodicEvent(new Runnable() {
+                stopPeriodicEvent(mMainHandler, new Runnable() {
                     @Override
                     public void run() {
                         resumePeriodicEventExecute();
@@ -442,7 +452,7 @@ public class RiddleController implements RiddleAnimationController.OnAnimationCo
             mMainHandler.post(new Runnable() {
                 @Override
                 public void run() {
-                    stopPeriodicEvent(new Runnable() {
+                    stopPeriodicEvent(mMainHandler, new Runnable() {
                         @Override
                         public void run() {
                             if (mRiddleView != null) {
