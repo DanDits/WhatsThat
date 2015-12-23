@@ -19,6 +19,7 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Canvas;
 import android.os.Handler;
+import android.os.HandlerThread;
 import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.Gravity;
@@ -44,14 +45,17 @@ import dan.dit.whatsthat.testsubject.TestSubjectToast;
  * Created by daniel on 05.04.15.
  */
 public class RiddleController implements RiddleAnimationController.OnAnimationCountChangedListener {
-    private RiddleGame mRiddleGame;
+    private volatile RiddleGame mRiddleGame;
     private Riddle mRiddle;
     private ViewGroup mRiddleViewContainer;
-    private RiddleView mRiddleView;
+    private volatile RiddleView mRiddleView;
     private GamePeriodicThread mPeriodicThread;
-    private long mMissingUpdateTime;
     private RiddleAnimationController mRiddleAnimationController;
-    private Handler mHandler;
+    private Handler mMainHandler;
+    private GameHandlerThread mGameThread;
+    private final Runnable mDrawAction;
+    private final Runnable mPeriodicAction;
+    private volatile int mPeriodActionPostedCount;
 
     /**
      * Initializes the RiddleController with the RiddleGame that decorates the given Riddle.
@@ -62,8 +66,103 @@ public class RiddleController implements RiddleAnimationController.OnAnimationCo
         mRiddleGame = riddleGame;
         mRiddle = riddle;
         mRiddleAnimationController = new RiddleAnimationController(this);
+        mDrawAction = new Runnable() {
+            @Override
+            public void run() {
+                if (mRiddleView != null) {
+                    mRiddleView.draw();
+                }
+            }
+        };
+        mPeriodicAction = new Runnable() {
+
+            private long mMissingUpdateTime; // will only be zero at start for first game controlled
+            @Override
+            public void run() {
+                long requiredDrawingTime = mRiddleView.performDrawRiddle();
+                long updateTime = mMissingUpdateTime + requiredDrawingTime;
+                long periodicEventStartTime = System.nanoTime();
+                if (updateTime > 0) {
+                    mRiddleGame.onPeriodicEvent(updateTime);
+                    mRiddleAnimationController.update(updateTime);
+                }
+                mMissingUpdateTime = (System.nanoTime() - periodicEventStartTime) / 1000000;
+                --mPeriodActionPostedCount;
+            }
+        };
     }
 
+    private class GameHandlerThread extends HandlerThread {
+        private Handler mHandler;
+        public GameHandlerThread() {
+            super("GameHandlerThread");
+            start();
+            mHandler = new Handler(getLooper());
+        }
+
+        public void onMotionEvent(MotionEvent event) {
+            final MotionEvent eventCopy = MotionEvent.obtain(event);
+            mHandler.post(new Runnable() {
+                @Override
+                public void run() {
+                    if (mRiddleGame != null && mRiddleGame.onMotionEvent(eventCopy)) {
+                        mMainHandler.post(mDrawAction);
+                    }
+                }
+            });
+        }
+
+        public void onOrientationEvent(final float azimuth, final float pitch, final float roll) {
+            mHandler.post(new Runnable() {
+                @Override
+                public void run() {
+                    if (mRiddleGame != null && mRiddleGame.onOrientationEvent(azimuth, pitch,
+                            roll)) {
+                        mMainHandler.post(mDrawAction);
+                    }
+                }
+            });
+        }
+
+        public void onPeriodicEvent() {
+            if (mPeriodActionPostedCount == 0) {
+                ++mPeriodActionPostedCount;
+                mHandler.post(mPeriodicAction);
+            }
+        }
+
+        public void onCloseRiddle(final Context context) {
+            mHandler.post(new Runnable() {
+                @Override
+                public void run() {
+                    //at this point we can be sure that the looper doesn't currently process a
+                    // periodic event which could lead to concurrency issues
+                    mGameThread.quit(); // do not process any more actions!
+                    // stop periodic event in a safe way, as soon as it is stopped really close
+                    // riddle in the main ui thread
+                    stopPeriodicEvent(new Runnable() {
+                        @Override
+                        public void run() {
+                            mMainHandler.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    if (riddleAvailable()) {
+                                        onPreRiddleClose();
+                                        mRiddleAnimationController.clear();
+                                        mRiddleGame.close();
+                                        mRiddleGame = null;
+                                        onRiddleClosed(context);
+                                    }
+                                    mRiddleView = null;
+                                    mRiddleViewContainer = null;
+                                }
+                            });
+                        }
+                    });
+                }
+            });
+        }
+    }
     /**
      * The controller is closing, close the riddle and make it save its state. After this method
      * returns the controller is invalid.
@@ -71,20 +170,9 @@ public class RiddleController implements RiddleAnimationController.OnAnimationCo
      */
     public final void onCloseRiddle(@NonNull final Context context) {
         Log.d("Riddle", "On close riddle.");
-        stopPeriodicEvent(new Runnable() {
-            @Override
-            public void run() {
-                if (riddleAvailable()) {
-                    onPreRiddleClose();
-                    mRiddleAnimationController.clear();
-                    mRiddleGame.close();
-                    mRiddleGame = null;
-                    onRiddleClosed(context);
-                }
-                mRiddleView = null;
-                mRiddleViewContainer = null;
-            }
-        });
+        if (mGameThread != null) {
+            mGameThread.onCloseRiddle(context);
+        }
     }
 
     /**
@@ -147,8 +235,8 @@ public class RiddleController implements RiddleAnimationController.OnAnimationCo
      * @param event The event to forward.
      */
     public void onMotionEvent(MotionEvent event) {
-        if (riddleAvailable() && mRiddleGame.onMotionEvent(event) && mRiddleView != null) {
-            mRiddleView.draw();
+        if (riddleAvailable()) {
+            mGameThread.onMotionEvent(event);
         }
     }
 
@@ -162,8 +250,8 @@ public class RiddleController implements RiddleAnimationController.OnAnimationCo
      * @param roll The new roll.
      */
     public void onOrientationEvent(float azimuth, float pitch, float roll) {
-        if (riddleAvailable() && requiresOrientationSensor() && mRiddleGame.onOrientationEvent(azimuth, pitch, roll) && mRiddleView != null) {
-            mRiddleView.draw();
+        if (riddleAvailable() && requiresOrientationSensor()) {
+            mGameThread.onOrientationEvent(azimuth, pitch, roll);
         }
     }
 
@@ -178,8 +266,8 @@ public class RiddleController implements RiddleAnimationController.OnAnimationCo
     public final void onRiddleVisible(@NonNull ViewGroup riddleViewContainer) {
         mRiddleViewContainer = riddleViewContainer;
         mRiddleView = (RiddleView) mRiddleViewContainer.findViewById(R.id.riddle_view);
-        mHandler = new Handler();
-        mMissingUpdateTime = 0L;
+        mMainHandler = new Handler();
+        mGameThread = new GameHandlerThread();
         mRiddleGame.onGotVisible();
         onRiddleGotVisible();
     }
@@ -285,7 +373,7 @@ public class RiddleController implements RiddleAnimationController.OnAnimationCo
 
     /**
      * Returns the type of controller's Riddle.
-     * @return
+     * @return The type of the current riddle.
      */
     public PracticalRiddleType getRiddleType() {
         return mRiddle.getType();
@@ -293,7 +381,7 @@ public class RiddleController implements RiddleAnimationController.OnAnimationCo
 
     /**
      * Returns the image's hash of the controller's Riddle ('s image).
-     * @return
+     * @return The hash of the current riddle.
      */
     public String getImageHash() {
         return mRiddle.getImageHash();
@@ -304,14 +392,7 @@ public class RiddleController implements RiddleAnimationController.OnAnimationCo
      */
     void onPeriodicEvent() {
         if (riddleAvailable()) {
-            long requiredDrawingTime = mRiddleView.performDrawRiddle();
-            long updateTime = mMissingUpdateTime + requiredDrawingTime;
-            long periodicEventStartTime = System.nanoTime();
-            if (updateTime > 0) {
-                mRiddleGame.onPeriodicEvent(updateTime);
-                mRiddleAnimationController.update(updateTime);
-            }
-            mMissingUpdateTime = (System.nanoTime() - periodicEventStartTime) / 1000000;
+            mGameThread.onPeriodicEvent();
         }
     }
 
@@ -358,7 +439,7 @@ public class RiddleController implements RiddleAnimationController.OnAnimationCo
         // ensure the following actions take place on ui thread
 
         if (count == 0) {
-            mHandler.post(new Runnable() {
+            mMainHandler.post(new Runnable() {
                 @Override
                 public void run() {
                     stopPeriodicEvent(new Runnable() {
@@ -372,7 +453,7 @@ public class RiddleController implements RiddleAnimationController.OnAnimationCo
                 }
             });
         } else if (count > 0) {
-            mHandler.post(new Runnable() {
+            mMainHandler.post(new Runnable() {
                 @Override
                 public void run() {
                     resumePeriodicEvent();
@@ -381,13 +462,14 @@ public class RiddleController implements RiddleAnimationController.OnAnimationCo
         }
     }
 
-    public boolean prepareParticleSystem(@NonNull ParticleSystem particleSystem) {
+    public void emitParticles(@NonNull ParticleSystem particleSystem, int emitterX, int emitterY,
+                              int particlesPerSecond, int emittingTime) {
         if (mRiddleView != null) {
             ViewGroup parent = (ViewGroup) mRiddleView.getParent();
             particleSystem.setParentViewGroup(parent);
             particleSystem.setIgnorePositionInParent();
-            return true;
+            particleSystem.emitHandled(emitterX, emitterY, particlesPerSecond,
+                    emittingTime, mMainHandler);
         }
-        return false;
     }
 }

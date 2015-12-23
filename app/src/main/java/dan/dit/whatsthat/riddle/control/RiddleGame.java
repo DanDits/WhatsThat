@@ -188,8 +188,10 @@ public abstract class RiddleGame {
         mRiddleController.addAnimation(animation);
     }
 
-    public boolean prepareParticleSystem(@NonNull ParticleSystem particleSystem) {
-        return mRiddleController.prepareParticleSystem(particleSystem);
+    public void emitParticles(@NonNull ParticleSystem particleSystem, int emitterX, int emitterY,
+                              int particlesPerSecond, int emittingTime) {
+        mRiddleController.emitParticles(particleSystem, emitterX, emitterY, particlesPerSecond,
+                emittingTime);
     }
 
     public void addAnimation(@NonNull RiddleAnimation animation, long delay) {

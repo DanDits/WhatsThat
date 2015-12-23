@@ -182,9 +182,8 @@ public class MiscAchievementHolder implements AchievementHolder {
 
         @Override
         public void onDataEvent(AchievementDataEvent event) {
-            if (event.getChangedData() == mMiscData && event.hasChangedKey(KEY_ACHIEVEMENTS_EARNED_COUNT)
-                    && areDependenciesFulfilled()) {
-                achieveDelta(1);
+            if (event.getChangedData() == mMiscData && event.hasChangedKey(KEY_ACHIEVEMENTS_EARNED_COUNT)) {
+                achieveDelta(1); // do not check for conditions for this achievement!
             }
         }
     }

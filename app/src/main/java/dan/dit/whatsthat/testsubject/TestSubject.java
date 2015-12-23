@@ -168,7 +168,10 @@ public class TestSubject {
 
 
 
-        ((TextView) intro.findViewById(R.id.intro_subject_descr)).setText(longDescription);
+        TextView subjectDescr = ((TextView) intro.findViewById(R.id.intro_subject_descr));
+        subjectDescr.setText(longDescription);
+        subjectDescr.setVisibility(View.INVISIBLE);
+
 
         new GeneralStartingEpisode(intro, res.getString(R.string.intro_starting_episode, res.getString(currLevel.mNameResId)), currLevel).start();
         if (intro.getCurrentEpisode() == null) {

@@ -8,6 +8,8 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:id="@+id/unsolved_riddles_title"
+        android:drawableLeft="@drawable/achievement_list_group_indicator_down"
+        android:drawablePadding="5dp"
         android:textColor="@color/important"
         android:textAppearance="@android:style/TextAppearance.Medium"/>
     <TextView
@@ -15,11 +17,13 @@
         android:layout_height="wrap_content"
         android:id="@+id/unsolved_riddle_date"
         android:textColor="@color/riddle_type_unselected"
+        android:visibility="gone"
         android:layout_below="@+id/unsolved_riddles_title"
         android:layout_centerHorizontal="true" />
     <view class="dan.dit.whatsthat.riddle.UnsolvedRiddlesChooser$UnsolvedFlipper"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:visibility="gone"
         android:id="@+id/unsolved_flipper"
         android:layout_below="@+id/unsolved_riddle_date"
         android:layout_centerHorizontal="true">

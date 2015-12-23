@@ -10,6 +10,7 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.os.Handler;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.View;
@@ -490,7 +491,17 @@ public class ParticleSystem {
 	public void emit (int emitterX, int emitterY, int particlesPerSecond, int emitingTime) {
 		configureEmiter(emitterX, emitterY);
 		startEmiting(particlesPerSecond, emitingTime);
-	}	
+	}
+
+    public void emitHandled(final int emitterX, final int emitterY, final int particlesPerSecond,
+                            final int emittingTime, Handler handler) {
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                emit(emitterX, emitterY, particlesPerSecond, emittingTime);
+            }
+        });
+    }
 	
 	private void configureEmiter(int emitterX, int emitterY) {
 		// We configure the emitter based on the window location to fix the offset of action bar
@@ -500,6 +511,7 @@ public class ParticleSystem {
 		mEmiterYMin = mIgnorePositionInParent ? emitterY : emitterY - mParentLocation[1];
 		mEmiterYMax = mEmiterYMin;
 	}
+
 
 	private void startEmiting(int particlesPerSecond, int emitingTime) {
 		mActivatedParticles = 0;

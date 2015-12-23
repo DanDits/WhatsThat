@@ -88,8 +88,16 @@ public class UnsolvedRiddlesChooser {
         }
         View baseView = ((LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.unsolved_riddles, null);
         mView = baseView;
-        ((TextView) baseView.findViewById(R.id.unsolved_riddles_title))
-                .setText(mResources.getQuantityString(R.plurals.unsolved_riddles_title, mAllRiddlesList.size(), mAllRiddlesList.size()));
+        final TextView titleView = ((TextView) baseView.findViewById(R.id.unsolved_riddles_title));
+        titleView.setText(mResources.getQuantityString(R.plurals.unsolved_riddles_title, mAllRiddlesList.size(), mAllRiddlesList.size()));
+        titleView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                titleView.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
+                mUnsolvedRiddleDate.setVisibility(View.VISIBLE);
+                mUnsolvedFlipper.setVisibility(View.VISIBLE);
+            }
+        });
         mUnsolvedRiddleDate = (TextView) baseView.findViewById(R.id.unsolved_riddle_date);
         mUnsolvedFlipper = (UnsolvedFlipper) baseView.findViewById(R.id.unsolved_flipper);
         mSelectedIds = new LinkedList<>();

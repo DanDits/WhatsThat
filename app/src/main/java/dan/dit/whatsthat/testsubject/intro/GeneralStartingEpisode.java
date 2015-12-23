@@ -24,6 +24,7 @@ import android.view.animation.RotateAnimation;
 import android.view.animation.ScaleAnimation;
 import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import dan.dit.whatsthat.R;
 import dan.dit.whatsthat.testsubject.TestSubjectLevel;
@@ -80,6 +81,22 @@ public class GeneralStartingEpisode extends Episode {
         kidStuff.addAnimation(move);
         kidStuff.setFillAfter(true);
 
+        kidStuff.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                mIntro.findViewById(R.id.intro_subject_descr).setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
         mIntroAbduction.setVisibility(View.VISIBLE);
         mIntroAbduction.startAnimation(alphaAnimation);
         mIntroKid.startAnimation(kidStuff);
