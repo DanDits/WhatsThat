@@ -22,8 +22,9 @@ public abstract class RiddleAnimation {
         mDrawingLevel = drawingLevel;
     }
 
-    public void setStateListener(StateListener listener) {
+    public RiddleAnimation setStateListener(StateListener listener) {
         mListener = listener;
+        return this;
     }
 
     abstract boolean isAlive();

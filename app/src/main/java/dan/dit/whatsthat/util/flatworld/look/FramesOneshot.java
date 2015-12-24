@@ -24,7 +24,7 @@ public class FramesOneshot extends Frames {
     private boolean mAnimationDone;
 
     public FramesOneshot(Bitmap[] frames, long animationDuration) {
-        super(frames, animationDuration / (frames.length > 1 ? frames.length - 1 : 1));
+        super(frames, animationDuration / frames.length);
     }
 
     @Override

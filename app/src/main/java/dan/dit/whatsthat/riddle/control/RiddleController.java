@@ -42,6 +42,14 @@ import dan.dit.whatsthat.testsubject.TestSubjectToast;
 /**
  * A riddle controller is the class between the RiddleView and the RiddleGame. If closed the controller can
  * no longer be used, it is directly bound to the lifecycle of a RiddleGame.
+ * The controller manages the communication between the different threads involved for keeping
+ * the riddle running. The game thread is always running and a single thread dedicated to process
+ * events like motion events, orientation events and periodic events in a single thread. Also the
+ * periodic game drawing is done on this thread. In the background there can exist a separate
+ * periodic thread that produces periodic events for the riddle (if requested on startup) or for
+ * riddle animations. Keep in mind that starting a ParticleSystem needs to be done over the
+ * RiddleGame.<br>The ui thread is invoked for some drawing, for startup and closing a riddle.
+ * main UI thread is
  * Created by daniel on 05.04.15.
  */
 public class RiddleController implements RiddleAnimationController.OnAnimationCountChangedListener {
@@ -107,7 +115,7 @@ public class RiddleController implements RiddleAnimationController.OnAnimationCo
                 @Override
                 public void run() {
                     if (mRiddleGame != null && mRiddleGame.onMotionEvent(eventCopy)) {
-                        mMainHandler.post(mDrawAction);
+                        mDrawAction.run();
                     }
                 }
             });
@@ -119,7 +127,7 @@ public class RiddleController implements RiddleAnimationController.OnAnimationCo
                 public void run() {
                     if (mRiddleGame != null && mRiddleGame.onOrientationEvent(azimuth, pitch,
                             roll)) {
-                        mMainHandler.post(mDrawAction);
+                        mDrawAction.run();
                     }
                 }
             });
@@ -146,22 +154,16 @@ public class RiddleController implements RiddleAnimationController.OnAnimationCo
                     stopPeriodicEvent(mMainHandler, new Runnable() {
                         @Override
                         public void run() {
-                            Log.d("Riddle", "Posting on ui thread to close riddle.");
-                            mMainHandler.post(new Runnable() {
-                                @Override
-                                public void run() {
-                                    if (riddleAvailable()) {
-                                        Log.d("Riddle", "Executing close riddle!");
-                                        onPreRiddleClose();
-                                        mRiddleAnimationController.clear();
-                                        mRiddleGame.close();
-                                        mRiddleGame = null;
-                                        onRiddleClosed(context);
-                                    }
-                                    mRiddleView = null;
-                                    mRiddleViewContainer = null;
-                                }
-                            });
+                            if (riddleAvailable()) {
+                                Log.d("Riddle", "Executing close riddle!");
+                                onPreRiddleClose();
+                                mRiddleAnimationController.clear();
+                                mRiddleGame.close();
+                                mRiddleGame = null;
+                                onRiddleClosed(context);
+                            }
+                            mRiddleView = null;
+                            mRiddleViewContainer = null;
                         }
                     });
                 }
@@ -473,7 +475,7 @@ public class RiddleController implements RiddleAnimationController.OnAnimationCo
     }
 
     public void emitParticles(@NonNull ParticleSystem particleSystem, int emitterX, int emitterY,
-                              int particlesPerSecond, int emittingTime) {
+                              int particlesPerSecond, long emittingTime) {
         if (mRiddleView != null) {
             ViewGroup parent = (ViewGroup) mRiddleView.getParent();
             particleSystem.setParentViewGroup(parent);

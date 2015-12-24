@@ -28,6 +28,8 @@ import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.MotionEvent;
 
+import com.plattysoft.leonids.ParticleSystem;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
@@ -95,8 +97,10 @@ public class RiddleJumper extends RiddleGame implements FlatWorldCallback {
     private static final float DISTANCE_RUN_START_FURTHER_FEATURE = meterToDistanceRun(200);
     private static final int[] DISTANCE_RUN_THRESHOLDS = new int[] {0, (int) (meterToDistanceRun(150)), (int) (meterToDistanceRun(400)), (int) (meterToDistanceRun(800))};
     private static final long[] NEXT_OBSTACLE_MIN_TIME_SMALL = new long[] {930L, 740L, 580L, 570L, 540L};
-    private static final long[] NEXT_OBSTACLE_MIN_TIME_BIG = new long[] {1000L, 1200L, 1075L, 1000L, 905L};
-    private static final long[] NEXT_OBSTACLE_MAX_TIME = new long[] {2000L, 1700L, 1400L, 1250L, 1150L}; //ms, maximum time until the next obstacle appears
+    private static final long[] NEXT_OBSTACLE_MIN_TIME_BIG = new long[] {1000L, 1200L, 1075L,
+            1000L, 900L};
+    private static final long[] NEXT_OBSTACLE_MAX_TIME = new long[] {2000L, 1700L, 1400L, 1150L,
+            1050L}; //ms, maximum time until the next obstacle appears
     private static final long[] NEXT_OBSTACLE_MIN_TIME_SMALL_WIDTH = new long[] {1200L, 1100L, 1100L, 950L, 860L};
     private static final double NEXT_OBSTACLE_PREVIOUS_MIN_TIME_WEIGHT = 0.7;
     private static final int[] DIFFICULTY_COLORS = new int[] {Color.GREEN, Color.YELLOW, Color.RED, Color.WHITE, Color.CYAN};
@@ -166,6 +170,7 @@ public class RiddleJumper extends RiddleGame implements FlatWorldCallback {
     private int mLastDrawnDistanceRun;
     private float mDistanceRunStart;
     private Bitmap mBigBeam;
+    private ParticleSystem mClearMindParticles;
 
     public RiddleJumper(Riddle riddle, Image image, Bitmap bitmap, Resources res, RiddleConfig config, PercentProgressListener listener) {
         super(riddle, image, bitmap, res, config, listener);
@@ -241,6 +246,10 @@ public class RiddleJumper extends RiddleGame implements FlatWorldCallback {
         mCollisionBreakTexts = res.getStringArray(R.array.riddle_jumper_collision_break);
         mNewHighscoreText = res.getString(R.string.riddle_jumper_new_highscore);
         mOldHighscoreText = res.getString(R.string.riddle_jumper_old_highscore);
+
+        mClearMindParticles = new ParticleSystem(res, 1, R.drawable.idea_candy, 500)
+                .setSpeedModuleAndAngleRange(0.05f, 0.15f, -135, 45)
+                .setFadeOut(100);
 
         mSolutionBackgroundHeight = (int) (mConfig.mHeight / Types.Jumper.BITMAP_ASPECT_RATIO);
         listener.onProgressUpdate(20);
@@ -573,6 +582,7 @@ public class RiddleJumper extends RiddleGame implements FlatWorldCallback {
             float x = mRand.nextFloat() * (mClearMindBackground.getWidth() - mClearMind[type].getWidth());
             float y = mRand.nextFloat() * (mClearMindBackground.getHeight() * 2 * BUBBLE_CENTER_Y_ESTIMATE);
             clearMind(x, y, type);
+            emitParticles(mClearMindParticles, (int) x, (int) y, 3, 1500L);
         }
         mConfig.mAchievementGameData.increment(AchievementJumper.KEY_GAME_OBSTACLE_DODGED_COUNT, 1L, 0L);
     }

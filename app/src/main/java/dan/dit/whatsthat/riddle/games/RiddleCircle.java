@@ -428,8 +428,10 @@ public class RiddleCircle extends RiddleGame {
                 mConfig.mAchievementGameData.increment(AchievementCircle.KEY_CIRCLE_DIVIDED_BY_MOVE, 1L, 0L);
                 ParticleSystem system = new ParticleSystem(mRes, 10, R.drawable
                         .spark, 400);
+                float scale = 1.f + 3f * (currR * 2f / mConfig.mWidth); // factor from 1 to 4
                 system.setSpeedModuleAndAngleRange(0.05f, 0.15f, 0, 360)
                         .setAccelerationModuleAndAndAngleRange(0.0001f, 0.0002f, 0, 360)
+                        .setScaleRange(scale - 0.05f, scale + 0.05f)
                         .setFadeOut(200, new AccelerateInterpolator());
                 emitParticles(system,(int) currX, (int) currY, 10, 300);
                 return true;

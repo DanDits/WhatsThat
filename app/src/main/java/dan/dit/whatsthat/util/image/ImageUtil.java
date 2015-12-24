@@ -291,6 +291,15 @@ public final class ImageUtil {
         return BitmapUtil.attemptBitmapScaling(result, reqWidth, reqHeight, mode);
     }
 
+    public static Bitmap[] loadFrames(Resources res, int reqWidth, int reqHeight, int mode,
+                                       int... resIds) {
+        Bitmap[] frames = new Bitmap[resIds.length];
+        for (int i = 0; i < resIds.length; i++) {
+            frames[i] = loadBitmap(res, resIds[i], reqWidth, reqHeight, mode);
+        }
+        return frames;
+    }
+
     public static Bitmap loadBitmap(Resources res, int resId, int reqWidth, int reqHeight, int mode) {
         if (reqWidth <= 0 || reqHeight <= 0) {
             // load unscaled image

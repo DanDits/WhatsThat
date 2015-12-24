@@ -427,7 +427,7 @@ public class ParticleSystem {
 	public void emitWithGravity (View emiter, int gravity, int particlesPerSecond, int emitingTime) {
 		// Setup emiter
 		configureEmiter(emiter, gravity);
-		startEmiting(particlesPerSecond, emitingTime);
+		startEmitting(particlesPerSecond, emitingTime);
 	}
 	
 	/**
@@ -465,10 +465,10 @@ public class ParticleSystem {
 	public void emitWithGravity (View emiter, int gravity, int particlesPerSecond) {
 		// Setup emiter
 		configureEmiter(emiter, gravity);
-		startEmiting(particlesPerSecond);
+		startEmitting(particlesPerSecond);
 	}
 	
-	private void startEmiting(int particlesPerSecond) {
+	private void startEmitting(int particlesPerSecond) {
 		mActivatedParticles = 0;
 		mParticlesPerMilisecond = particlesPerSecond/1000f;
 		// Add a full size view to the parent view		
@@ -488,13 +488,13 @@ public class ParticleSystem {
         }, 0, TIMMERTASK_INTERVAL);
 	}
 
-	public void emit (int emitterX, int emitterY, int particlesPerSecond, int emitingTime) {
+	public void emit (int emitterX, int emitterY, int particlesPerSecond, long emittingTime) {
 		configureEmiter(emitterX, emitterY);
-		startEmiting(particlesPerSecond, emitingTime);
+		startEmitting(particlesPerSecond, emittingTime);
 	}
 
     public void emitHandled(final int emitterX, final int emitterY, final int particlesPerSecond,
-                            final int emittingTime, Handler handler) {
+                            final long emittingTime, Handler handler) {
         handler.post(new Runnable() {
             @Override
             public void run() {
@@ -513,7 +513,7 @@ public class ParticleSystem {
 	}
 
 
-	private void startEmiting(int particlesPerSecond, int emitingTime) {
+	private void startEmitting(int particlesPerSecond, long emittingTime) {
 		mActivatedParticles = 0;
 		mParticlesPerMilisecond = particlesPerSecond/1000f;
 		// Add a full size view to the parent view		
@@ -523,13 +523,13 @@ public class ParticleSystem {
 		mParentView.addView(mDrawingView);
 
 		updateParticlesBeforeStartTime(particlesPerSecond);
-        mEmitingTime = emitingTime;
-        startAnimator(new LinearInterpolator(), emitingTime + mTimeToLive);
+        mEmitingTime = emittingTime;
+        startAnimator(new LinearInterpolator(), emittingTime + mTimeToLive);
 	}
 
 	public void emit (int emitterX, int emitterY, int particlesPerSecond) {
         configureEmiter(emitterX, emitterY);
-		startEmiting(particlesPerSecond);
+		startEmitting(particlesPerSecond);
 	}
 
 

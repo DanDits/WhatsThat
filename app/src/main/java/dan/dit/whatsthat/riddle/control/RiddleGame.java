@@ -189,7 +189,7 @@ public abstract class RiddleGame {
     }
 
     public void emitParticles(@NonNull ParticleSystem particleSystem, int emitterX, int emitterY,
-                              int particlesPerSecond, int emittingTime) {
+                              int particlesPerSecond, long emittingTime) {
         mRiddleController.emitParticles(particleSystem, emitterX, emitterY, particlesPerSecond,
                 emittingTime);
     }

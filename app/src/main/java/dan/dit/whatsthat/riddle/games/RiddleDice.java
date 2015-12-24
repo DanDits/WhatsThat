@@ -38,9 +38,12 @@ import dan.dit.whatsthat.image.Image;
 import dan.dit.whatsthat.riddle.Riddle;
 import dan.dit.whatsthat.riddle.RiddleConfig;
 import dan.dit.whatsthat.riddle.achievement.holders.AchievementDice;
+import dan.dit.whatsthat.riddle.control.LookRiddleAnimation;
+import dan.dit.whatsthat.riddle.control.RiddleAnimation;
 import dan.dit.whatsthat.riddle.control.RiddleGame;
 import dan.dit.whatsthat.riddle.control.RiddleScore;
 import dan.dit.whatsthat.riddle.types.Types;
+import dan.dit.whatsthat.util.flatworld.look.FramesOneshot;
 import dan.dit.whatsthat.util.general.BuildException;
 import dan.dit.whatsthat.util.general.PercentProgressListener;
 import dan.dit.whatsthat.util.compaction.CompactedDataCorruptException;
@@ -97,6 +100,7 @@ public class RiddleDice extends RiddleGame {
     private int mMarkedColor;
     private Bitmap mDiceAlien;
     private int mMovedDistance;
+    private Bitmap[] mAlienSpawnFrames;
 
     public RiddleDice(Riddle riddle, Image image, Bitmap bitmap, Resources res, RiddleConfig config, PercentProgressListener listener) {
         super(riddle, image, bitmap, res, config, listener);
@@ -158,6 +162,11 @@ public class RiddleDice extends RiddleGame {
         initFields(res, getCurrentState());
         listener.onProgressUpdate(80);
         drawFieldArea();
+        mAlienSpawnFrames = ImageUtil.loadFrames(res,
+                (int) mField.getFieldWidth(),
+                (int) mField.getFieldHeight(),
+                BitmapUtil.MODE_FIT_INSIDE,
+                R.drawable.dice_popup1, R.drawable.dice_popup2, R.drawable.dice_popup3);
         listener.onProgressUpdate(100);
     }
 
@@ -376,10 +385,11 @@ public class RiddleDice extends RiddleGame {
 
     }
 
-    private class DicePosition extends FieldElement {
+    private class DicePosition extends FieldElement implements RiddleAnimation.StateListener {
         int mDiceNumber;
         int mDiceState;
         int mAlpha;
+        private boolean mHideDice;
 
         @Override
         public boolean isBlocked() {
@@ -420,6 +430,9 @@ public class RiddleDice extends RiddleGame {
 
 
         private void drawDice(Canvas canvas, RectF fieldRect) {
+            if (mHideDice) {
+                return;
+            }
             mFieldPaint.setColor(STATE_COLOR[mDiceState]);
             canvas.drawRoundRect(fieldRect, fieldRect.width() / 3.f, fieldRect.height() / 3.f, mFieldPaint);
             if (mDiceNumber > 0) {
@@ -534,6 +547,15 @@ public class RiddleDice extends RiddleGame {
             } else {
                 target.mDiceState++;
                 if (target.mDiceState == STATE_ALIEN) {
+                    // we created an alien dice
+                    final long animTime = 900L;
+                    target.mHideDice = true;
+                    addAnimation(new LookRiddleAnimation(new FramesOneshot(mAlienSpawnFrames,
+                            animTime),
+                            (int) (target.mX * mField.getFieldWidth()),
+                            (int) (target.mY * mField.getFieldHeight()),
+                            animTime)
+                        .setStateListener(target));
                     target.mDiceNumber = 0;
                 }
             }
@@ -558,6 +580,20 @@ public class RiddleDice extends RiddleGame {
          */
         public boolean isNumberedAlien() {
             return mDiceState == STATE_ALIEN && mDiceNumber > 0;
+        }
+
+        @Override
+        public void onBorn() {
+            // alien animation created
+            mHideDice = true;//make sure it is hidden
+            drawFieldArea();
+        }
+
+        @Override
+        public void onKilled(boolean murdered) {
+            // animation removed
+            mHideDice = false;
+            drawFieldArea();
         }
     }
 
