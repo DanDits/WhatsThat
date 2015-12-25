@@ -24,6 +24,7 @@ import android.graphics.Paint;
 import dan.dit.whatsthat.util.flatworld.collision.HitboxGhostPoint;
 import dan.dit.whatsthat.util.flatworld.look.Look;
 import dan.dit.whatsthat.util.flatworld.mover.HitboxMover;
+import dan.dit.whatsthat.util.general.MathFunction;
 import dan.dit.whatsthat.util.image.ColorAnalysisUtil;
 
 /**
@@ -35,10 +36,14 @@ public class WorldEffectMoved extends  WorldEffect {
     private HitboxMover mMover;
     private Paint mPaint;
 
-    WorldEffectMoved(Look look, float x, float y, HitboxMover mover) {
+    public WorldEffectMoved(Look look, float x, float y, HitboxMover mover) {
         super(look);
         mPoint = new HitboxGhostPoint(x, y);
         mMover = mover;
+    }
+
+    public void setCenter(float x, float y) {
+        mPoint.setCenter(x - mLook.getWidth() / 2, y - mLook.getHeight() / 2);
     }
 
     @Override
@@ -66,21 +71,27 @@ public class WorldEffectMoved extends  WorldEffect {
         int oldAlpha = paint != null ? paint.getAlpha() : 255;
         if (mFadeOffsetDuration <= 0 && mFadeTime < mFadeTimeTotal) {
             float fadeFraction = mFadeTime / (float) mFadeTimeTotal;
-            int currColor = ColorAnalysisUtil.interpolateColorLinear(mFadeFrom, mFadeTo, fadeFraction);
-            ColorFilter colorFilter = new LightingColorFilter(
-                    ColorAnalysisUtil.colorMultiples(currColor, FADE_COLOR_IMPACT)
-                            , 0);
             if (paint == null) {
                 if (mPaint == null) {
                     mPaint = new Paint();
                 }
                 paint = mPaint;
             }
-            paint.setColorFilter(colorFilter);
-            paint.setAlpha(Color.alpha(currColor));
+            if (mFadeAlphaOnly) {
+                paint.setAlpha((int) MathFunction.LinearInterpolation.evaluate(0, mFadeFrom, 1,
+                        mFadeTo, fadeFraction));
+            } else {
+                int currColor = ColorAnalysisUtil.interpolateColorLinear(mFadeFrom, mFadeTo, fadeFraction);
+                ColorFilter colorFilter = new LightingColorFilter(
+                        ColorAnalysisUtil.colorMultiples(currColor, FADE_COLOR_IMPACT)
+                        , 0);
+
+                paint.setColorFilter(colorFilter);
+                paint.setAlpha(Color.alpha(currColor));
+            }
         }
         mLook.draw(canvas, mPoint.getCenterX(), mPoint.getCenterY(), paint);
-        if (paint != null) {
+        if (oldFilter != null && paint != null) {
             paint.setAlpha(oldAlpha);
             paint.setColorFilter(oldFilter);
         }

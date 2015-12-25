@@ -108,4 +108,5 @@ public class QuestionEpisode extends Episode implements Intro.OnEpisodeSkippedLi
         }
         mIntro.onQuestionAnswered(this);
     }
+    //TODO make answer episode class that allows multiple reactions to a question episode
 }

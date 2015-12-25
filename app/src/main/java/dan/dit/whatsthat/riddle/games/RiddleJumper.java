@@ -42,11 +42,14 @@ import dan.dit.whatsthat.image.Image;
 import dan.dit.whatsthat.riddle.Riddle;
 import dan.dit.whatsthat.riddle.RiddleConfig;
 import dan.dit.whatsthat.riddle.achievement.holders.AchievementJumper;
+import dan.dit.whatsthat.riddle.control.LookRiddleAnimation;
 import dan.dit.whatsthat.riddle.control.RiddleGame;
 import dan.dit.whatsthat.riddle.control.RiddleScore;
 import dan.dit.whatsthat.riddle.types.Types;
 import dan.dit.whatsthat.testsubject.TestSubject;
 import dan.dit.whatsthat.testsubject.shopping.sortiment.SortimentHolder;
+import dan.dit.whatsthat.util.flatworld.effects.WorldEffectMoved;
+import dan.dit.whatsthat.util.flatworld.look.BitmapLook;
 import dan.dit.whatsthat.util.general.PercentProgressListener;
 import dan.dit.whatsthat.util.compaction.CompactedDataCorruptException;
 import dan.dit.whatsthat.util.compaction.Compacter;
@@ -170,7 +173,8 @@ public class RiddleJumper extends RiddleGame implements FlatWorldCallback {
     private int mLastDrawnDistanceRun;
     private float mDistanceRunStart;
     private Bitmap mBigBeam;
-    private ParticleSystem mClearMindParticles;
+    private WorldEffectMoved mClearMindEffect;
+    private BitmapLook mClearMindLook;
 
     public RiddleJumper(Riddle riddle, Image image, Bitmap bitmap, Resources res, RiddleConfig config, PercentProgressListener listener) {
         super(riddle, image, bitmap, res, config, listener);
@@ -247,9 +251,10 @@ public class RiddleJumper extends RiddleGame implements FlatWorldCallback {
         mNewHighscoreText = res.getString(R.string.riddle_jumper_new_highscore);
         mOldHighscoreText = res.getString(R.string.riddle_jumper_old_highscore);
 
-        mClearMindParticles = new ParticleSystem(res, 1, R.drawable.jumper_mindblown, 500)
-                .setSpeedModuleAndAngleRange(0.05f, 0.15f, 270, 45)
-                .setFadeOut(100);
+        mClearMindLook = new BitmapLook(ImageUtil.loadBitmap(res, R
+                .drawable.jumper_mindblown, 0, 0, BitmapUtil.MODE_FIT_EXACT));
+        mClearMindEffect = new WorldEffectMoved(mClearMindLook,
+                0f, 0f, new HitboxNewtonMover(0f, -40f));
 
         mSolutionBackgroundHeight = (int) (mConfig.mHeight / Types.Jumper.BITMAP_ASPECT_RATIO);
         listener.onProgressUpdate(20);
@@ -582,7 +587,8 @@ public class RiddleJumper extends RiddleGame implements FlatWorldCallback {
             float x = mRand.nextFloat() * (mClearMindBackground.getWidth() - mClearMind[type].getWidth());
             float y = mRand.nextFloat() * (mClearMindBackground.getHeight() * 2 * BUBBLE_CENTER_Y_ESTIMATE);
             clearMind(x, y, type);
-            emitParticles(mClearMindParticles, (int) x, (int) y, 1, 1000L);
+            mClearMindEffect.setCenter(mMindRect.centerX(), mMindRect.centerY());
+            mWorld.addEffect(mClearMindEffect, 1000L, 700L, 255, 0, true);
         }
         mConfig.mAchievementGameData.increment(AchievementJumper.KEY_GAME_OBSTACLE_DODGED_COUNT, 1L, 0L);
     }

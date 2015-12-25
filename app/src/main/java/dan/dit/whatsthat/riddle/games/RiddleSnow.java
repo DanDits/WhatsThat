@@ -948,7 +948,7 @@ public class RiddleSnow extends RiddleGame implements FlatWorldCallback {
                     && mRand.nextDouble() < probability) {
                 String[] texts = mRes.getStringArray(textId);
                 mTalkingEffect = mWorld.attachTimedMessage(this, mTalkingBackground, texts[mRand.nextInt(texts.length)], 5000L);
-                mTalkingEffect.startFade(0xFFFFFFFF, 0x00FFFFFF, 2000L, 3000L);
+                mTalkingEffect.startFade(0xFFFFFFFF, 0x00FFFFFF, 2000L, 3000L, false);
             }
         }
 

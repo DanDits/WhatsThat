@@ -113,16 +113,27 @@ public abstract class FlatWorld {
     }
 
     private void pushEffect(WorldEffect effect) {
-        mEffectsData.add(effect);
         synchronized (mEffectsData) {
             Iterator<WorldEffect> it = mEffectsData.iterator();
             while (it.hasNext()) {
-                if (it.next().getState() == WorldEffect.STATE_TIMEOUT) {
+                WorldEffect next = it.next();
+                if (next == effect) {
+                    return; // trying to add already added effect!
+                }
+                if (next.getState() == WorldEffect.STATE_TIMEOUT) {
                     it.remove();
                 }
             }
+            mEffectsData.add(effect);
             mEffectsIterateData = new ArrayList<>(mEffectsData);
         }
+    }
+
+    public void addEffect(WorldEffect effect, long duration, long fadeOffset, int fadeFrom, int
+            fadeTo, boolean fadeAlphaOnly) {
+        effect.setDuration(duration);
+        effect.startFade(fadeFrom, fadeTo, duration - fadeOffset, fadeOffset, fadeAlphaOnly);
+        pushEffect(effect);
     }
 
     public WorldEffect addTimedMessage(NinePatchLook background, String message, float x, float y, long duration) {

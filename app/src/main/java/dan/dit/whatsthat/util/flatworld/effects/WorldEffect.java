@@ -36,6 +36,7 @@ public abstract class WorldEffect {
     long mFadeOffsetDuration;
     long mFadeTime;
     long mFadeTimeTotal;
+    boolean mFadeAlphaOnly;
 
     WorldEffect(Look look) {
         mLook = look;
@@ -65,13 +66,14 @@ public abstract class WorldEffect {
 
     public abstract void draw(Canvas canvas, Paint paint);
 
-    public void startFade(int fadeFrom, int fadeTo, long fadeTime, long startOffset) {
+    public void startFade(int fadeFrom, int fadeTo, long fadeTime, long startOffset, boolean
+            fadeAlphaOnly) {
         mFadeFrom = fadeFrom;
         mFadeTo = fadeTo;
         mFadeTime = 0;
         mFadeTimeTotal = fadeTime;
         mFadeOffsetDuration = startOffset;
-
+        mFadeAlphaOnly = fadeAlphaOnly;
     }
 
     public int getState() {
