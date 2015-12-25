@@ -247,8 +247,8 @@ public class RiddleJumper extends RiddleGame implements FlatWorldCallback {
         mNewHighscoreText = res.getString(R.string.riddle_jumper_new_highscore);
         mOldHighscoreText = res.getString(R.string.riddle_jumper_old_highscore);
 
-        mClearMindParticles = new ParticleSystem(res, 1, R.drawable.idea_candy, 500)
-                .setSpeedModuleAndAngleRange(0.05f, 0.15f, -135, 45)
+        mClearMindParticles = new ParticleSystem(res, 1, R.drawable.jumper_mindblown, 500)
+                .setSpeedModuleAndAngleRange(0.05f, 0.15f, 270, 45)
                 .setFadeOut(100);
 
         mSolutionBackgroundHeight = (int) (mConfig.mHeight / Types.Jumper.BITMAP_ASPECT_RATIO);
@@ -582,7 +582,7 @@ public class RiddleJumper extends RiddleGame implements FlatWorldCallback {
             float x = mRand.nextFloat() * (mClearMindBackground.getWidth() - mClearMind[type].getWidth());
             float y = mRand.nextFloat() * (mClearMindBackground.getHeight() * 2 * BUBBLE_CENTER_Y_ESTIMATE);
             clearMind(x, y, type);
-            emitParticles(mClearMindParticles, (int) x, (int) y, 3, 1500L);
+            emitParticles(mClearMindParticles, (int) x, (int) y, 1, 1000L);
         }
         mConfig.mAchievementGameData.increment(AchievementJumper.KEY_GAME_OBSTACLE_DODGED_COUNT, 1L, 0L);
     }

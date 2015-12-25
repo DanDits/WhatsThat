@@ -216,7 +216,19 @@ public abstract class TestSubjectLevel {
         public List<Episode> makeMainIntroEpisodes(Intro intro) {
             EpisodeBuilder builder = new EpisodeBuilder(intro);
             builder.nextEpisodes(intro.getResources().getStringArray(R.array.test_subject_1_0_intro_main));
-            builder.nextEpisodes(intro.getResources().getStringArray(R.array.test_subject_1_1_intro_main));
+
+            String[] questionTexts = intro.getResources().getStringArray(R.array.test_subject_1_1_intro_main);
+            builder.nextEpisode(new QuestionEpisode(intro, false, questionTexts[0],
+                    new int[]{R.string.intro_test_answer_yes, R.string.intro_test_answer_no},
+                    0, new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                }
+            }));
+            builder.nextEpisodes(questionTexts, 0, 5);
+
+
             builder.nextEpisodes(intro.getResources().getStringArray(R.array.test_subject_1_2_intro_main));
             return builder.build();
         }

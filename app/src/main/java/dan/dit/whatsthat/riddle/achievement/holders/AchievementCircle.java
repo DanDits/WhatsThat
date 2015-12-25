@@ -70,7 +70,7 @@ public class AchievementCircle extends TypeAchievementHolder {
     public static class Achievement1 extends GameAchievement {
         public static final int NUMBER = 1;
         public static final int LEVEL = 0;
-        public static final int REWARD = 70;
+        public static final int REWARD = 75;
         public static final boolean DISCOVERED = true;
         public static final int FINISH_GAMES_COUNT = 5;
 
@@ -132,7 +132,7 @@ public class AchievementCircle extends TypeAchievementHolder {
     public static class Achievement3 extends GameAchievement {
         public static final int NUMBER = 3;
         public static final int LEVEL = 0;
-        public static final int REWARD = 30;
+        public static final int REWARD = 40;
         public static final boolean DISCOVERED = true;
         public static final int MIN_CIRCLES = 64*64;
         private AchievementProperties mMiscData;
@@ -311,7 +311,7 @@ public class AchievementCircle extends TypeAchievementHolder {
     public static class Achievement7 extends GameAchievement {
         public static final int NUMBER = 7;
         public static final int LEVEL = 0;
-        public static final int REWARD = 30;
+        public static final int REWARD = 40;
         public static final boolean DISCOVERED = true;
         public static final int FINISH_WITHIN_DURATION = 17000; //ms
 

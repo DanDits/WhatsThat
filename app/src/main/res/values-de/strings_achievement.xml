@@ -29,11 +29,11 @@
     <string name="achievement_circle_9_descr">Die Anfangskugel braucht etwas Aufmerksamkeit. Rede mit ihr!</string>
     <string name="achievement_circle_10_name">All you get is work</string>
     <string name="achievement_circle_10_descr">Danke, dass du meinen sinnlosen Anweisungen folgst :).</string>
-    <string name="achievement_circle_10_descr_unachieved">Du wagst es, mich zu beleidigen!? Entschuldige dich auf der Stelle!</string>
+    <string name="achievement_circle_10_descr_unachieved">Du wagst es, mich zu beleidigen?! Entschuldige dich auf der Stelle!</string>
     <string name="achievement_circle_11_name">It\'s over 9000</string>
     <string name="achievement_circle_11_descr">Teile %2$d Kreise. Schau mich nicht so an. Mein Prof ist Mathematiker. Er weiß was er tut…%3$d sind unangemessen. %4$d sind natürlich völlig absurd. Du hast %1$d.</string>
     <string name="achievement_circle_12_name">Big brother verfolgt dich</string>
-    <string name="achievement_circle_12_descr">Schnell, bevor er einen Blick in deine nicht existierende Seele wirft!</string>
+    <string name="achievement_circle_12_descr">Warte ein bisschen bis Big Brother einen Blick in deine nicht existierende Seele geschaut hat und dann schlag ein paar mal zu!</string>
     <string name="achievement_circle_13_name">Reich werden</string>
     <string name="achievement_circle_13_descr">Du hast die Wahl: Werde sofort reich oder erreiche eine bessere Bestzeit als %1$d Sekunden und bekomme noch viel mehr…</string>
     <string name="achievement_circle_13_descr_perfect">Wow, ich hätte nicht gedacht, dass %1$d Sekunden jemals möglich wären! Das war wohl gemogelt.</string>
@@ -75,8 +75,7 @@
     <string name="achievement_snow_16_descr">Dir ist bewusst, dass du die Steuerung der Zelle auch während des Experiments ändern kannst?</string>
     <string name="achievement_snow_17_name">Sowohl als auch</string>
     <string name="achievement_snow_17_descr">Beende %1$d Experimente mit Klick-System, %2$d mit Kippen
-        und
-        %3$d in denen du während eines Tests beide benutzt.</string>
+        und %3$d in denen du während eines Tests beide benutzt.</string>
 
     <!-- Dice achievements -->
     <string name="achievement_dice_1_name">Ein harter Anfang</string>
@@ -123,7 +122,7 @@
     <string name="achievement_dice_20_descr">Wähle eines der vier inneren Felder, indem du zwei Würfel darauf kombinierst. Führe maximal %1$d Kombinationen durch, aber nur auf diesem Feld und ohne Resets.</string>
     <string name="achievement_dice_21_name">Minimalist</string>
     <string name="achievement_dice_21_descr">Jetzt ist genug, das ist der letzte Erfolg. Unser Perfektionist muss ins Gleichgewicht kommen, beende daher den Versuch mit nur %1$d Kombinationen. Viel Glück.</string>
-    <string name="achievement_dice_21_descr_claimed">Eine Gegenseite zum Perfektionist. Das ist wie beim Yin-Yang. Schonmal davon gehört?</string>
+    <string name="achievement_dice_21_descr_claimed">Eine Gegenseite zum Perfektionist. Eben wie beim Yin-Yang. Schonmal davon gehört?</string>
 
     <!-- Jumper achievements -->
     <string name="achievement_jumper_1_name">Die Antwort auf das Leben…</string>

@@ -207,7 +207,7 @@ public class AchievementSnow extends TypeAchievementHolder {
         public static final int REWARD = 200;
         public static final boolean DISCOVERED = true;
         private static final String KEY_TIMER_COLLECT_IDEA = Types.Snow.NAME + NUMBER + "_collectidea"; // timed data key
-        private static final int COLLECT_COUNT = 13;
+        private static final int COLLECT_COUNT = 18;
         private static final long COLLECT_MAX_TIME = 20000; //ms
 
         public Achievement4(AchievementManager manager, PracticalRiddleType type) {

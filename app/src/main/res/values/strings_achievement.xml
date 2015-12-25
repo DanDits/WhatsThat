@@ -33,7 +33,7 @@
     <string name="achievement_circle_11_name">It\'s over 9000</string>
     <string name="achievement_circle_11_descr">Divide %2$d circles. Don\'t look at me like this. The prof is a math guy. He knows what he\'s doing …%3$d is inadequate. %4$d is of course absurd. You got %1$d.</string>
     <string name="achievement_circle_12_name">Big brother is watching you</string>
-    <string name="achievement_circle_12_descr">Be fast or he will look into your soul.</string>
+    <string name="achievement_circle_12_descr">Wait some time till Big Brother took a look onto your non existing soul and then strike him a couple of times!</string>
     <string name="achievement_circle_13_name">Getting rich</string>
     <string name="achievement_circle_13_descr">You have the choice: Get rich now -or- get a better best time than %1$d seconds and get even more…</string>
     <string name="achievement_circle_13_descr_perfect">Wow, I didn\'t believe %1$d seconds were even possible! That\'s it, I am done.</string>
@@ -74,8 +74,7 @@
     <string name="achievement_snow_16_descr">You know that you can change the way of moving your cell during the experiment, too?</string>
     <string name="achievement_snow_17_name">Both as well as</string>
     <string name="achievement_snow_17_descr">Finish %1$d experiments using the click system, %2$d using
-        the
-        other and %3$d using both during a test.</string>
+        the other and %3$d using both during a test.</string>
 
     <!-- Dice achievements -->
     <string name="achievement_dice_1_name">Unpleasant beginning</string>

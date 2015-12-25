@@ -98,7 +98,7 @@
         <item>Nein, nein, leider falsch.</item>
         <item>Die korrekte Lösung lautet: 217341!</item>
         <item>Wenn du nämlich diese Erdfunktion nimmst:</item>
-        <item>(18111/2)*XYZ^4–90555*XYZ³+(633885/2)*XYZ²-452773*XYZ+217331…</item> <!--^4 ersetzen durch sub oder sowas?-->
+        <item>(18111/2)*XYZ^4–90555*XYZ³+(633885/2)*XYZ²-452773*XYZ+217331…</item> <!--TO DO^4 ersetzen durch sub oder sowas?-->
         <item>…dann erhältst du das entsprechende Ergebnis.</item>
         <item>Hmm, wie ich sehe … siehst du das doch nicht.</item>
         <item>Dann auch egal.</item>
@@ -142,7 +142,7 @@
         <item>Sie meint, sie hätte von Anfang an recht gehabt.</item>
         <item>Ich allerdings behaupte, du hast nur gelernt, was wir von dir sehen wollten.</item>
         <item>Gewissermaßen eine kognitive Verzerrung.</item>
-        <item>Uns ist aufgefallen, dass du noch gar keine Primzahlen kanntest.</item>
+        <item>Uns ist auch aufgefallen, dass du noch gar keine Primzahlen kanntest.</item>
         <item>Bei uns werden Primzahlen schon in der Plasmagranulation aufgenommen…</item>
         <item>-das entspricht eurer Muttermilch.</item>
         <item>Verzeihe die Überschätzung deines Intellekts.</item>

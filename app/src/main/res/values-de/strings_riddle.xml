@@ -11,9 +11,9 @@
         <item>Einen Nachschub an Bildern kannst du dir von WiseMind per Download im Shop geben lassen!</item>
         <item>Sollte dieser Experimenttyp einigermaßen erfolgreich verlaufen, kannst du später in der Mitte zwischen verschiedenen Versuchen wählen. Oder zurückgestellte Exerimente fortführen.</item>
         <item>Manche menschliche Augen erkennen manche Bilder manchmal erst aus manch einer Entfernung. Manchmal hilft auch ein Screenshot.</item>
-        <item>Ist dir schonmal aufgefallen, dass WiseMinds Lob manchmal grün ist? In diesem Fall hast du das Experiment schneller oder besser gelöst als standardmäßig erwartet.</item>
+        <item>Ist dir schonmal aufgefallen, dass WiseMinds Lob manchmal grün ist? In diesem Fall hast du das Experiment schneller oder besser gelöst als standardmäßig erwartet.</item>  <!--TO DO: Keine grüne Schrift mehr!-->
         <item>Du bekommst täglich für die ersten paar gelösten Experimente Bonus Zellen. Der Bonusfaktor nimmt langsam ab. Wie viele du bekommst, ist abhängig von der Dauer und Schwierigkeit des Experimententyps.</item>
-        <item>Je mehr Ausrufezeichen, desto größer der Bonusfaktor.</item>
+        <item>Je mehr Ausrufezeichen, desto größer der Bonusfaktor.</item> <!--TO DO: Gibt es noch Ausrufezeichen?!-->
     </string-array>
     <string name="article_circle_divide_by_move_feature_name">Intergalaktischer Kreislaser-Turbo-Schneider</string>
     <string name="article_circle_divide_by_move_feature_descr">Per Wischen Kreise mit dem Finger zerschneiden. Sehr entspannend!</string>

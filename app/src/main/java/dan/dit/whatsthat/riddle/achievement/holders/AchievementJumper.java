@@ -199,7 +199,7 @@ public class AchievementJumper extends TypeAchievementHolder {
         public static final int LEVEL = 0;
         public static final int REWARD = 150;
         public static final boolean DISCOVERED = true;
-        public static final int OBSTACLES_TO_DODGE = 350;
+        public static final int OBSTACLES_TO_DODGE = 325;
 
         public Achievement5(AchievementManager manager, PracticalRiddleType type) {
             super(type, R.string.achievement_jumper_5_name, R.string.achievement_jumper_5_descr, 0, NUMBER, manager, LEVEL, REWARD, 1, DISCOVERED);
