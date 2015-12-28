@@ -10,5 +10,5 @@ public interface ParticleFieldController {
     int getPositionInParentY();
     void prepareEmitting(List<Particle> particles);
     void onUpdate();
-    void onCleanup();
+    void onCleanup(ParticleSystem toClean);
 }

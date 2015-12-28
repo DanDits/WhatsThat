@@ -360,7 +360,7 @@ public class ParticleSystem {
     private void startEmitting(int particlesPerSecond) {
         mActivatedParticles = 0;
         mParticlesPerMilisecond = particlesPerSecond / 1000f;
-        mField.getController().prepareEmitting(mActiveParticles);
+        mField.getParticleController().prepareEmitting(mActiveParticles);
         mEmitingTime = -1; // Meaning infinite
         updateParticlesBeforeStartTime(particlesPerSecond);
         mTimer = new Timer();
@@ -381,9 +381,9 @@ public class ParticleSystem {
     private void configureEmiter(int emitterX, int emitterY) {
         // We configure the emitter based on the window location to fix the offset of action bar
         // if present
-        mEmiterXMin = mIgnorePositionInParent ? emitterX : emitterX - mField.getController().getPositionInParentX();
+        mEmiterXMin = mIgnorePositionInParent ? emitterX : emitterX - mField.getParticleController().getPositionInParentX();
         mEmiterXMax = mEmiterXMin;
-        mEmiterYMin = mIgnorePositionInParent ? emitterY : emitterY - mField.getController().getPositionInParentY();
+        mEmiterYMin = mIgnorePositionInParent ? emitterY : emitterY - mField.getParticleController().getPositionInParentY();
         mEmiterYMax = mEmiterYMin;
     }
 
@@ -392,7 +392,7 @@ public class ParticleSystem {
         mActivatedParticles = 0;
         mParticlesPerMilisecond = particlesPerSecond / 1000f;
 
-        mField.getController().prepareEmitting(mActiveParticles);
+        mField.getParticleController().prepareEmitting(mActiveParticles);
 
         updateParticlesBeforeStartTime(particlesPerSecond);
         mEmitingTime = emittingTime;
@@ -434,7 +434,7 @@ public class ParticleSystem {
         for (int i = 0; i < numParticles && i < mMaxParticles; i++) {
             activateParticle(0);
         }
-        mField.getController().prepareEmitting(mActiveParticles);
+        mField.getParticleController().prepareEmitting(mActiveParticles);
 
         // We start a property animator that will call us to do the update
         // Animate from 0 to timeToLiveMax
@@ -486,6 +486,10 @@ public class ParticleSystem {
         mInitializers.clear();
     }
 
+    public List<Particle> getActiveParticles() {
+        return mActiveParticles;
+    }
+
     public interface OnAnimationEndedListener {
         void onParticleAnimationEnded(ParticleSystem system, boolean cancelled);
     }
@@ -499,8 +503,8 @@ public class ParticleSystem {
         int[] location = new int[2];
         emiter.getLocationInWindow(location);
 
-        int parentX = mField.getController().getPositionInParentX();
-        int parentY = mField.getController().getPositionInParentY();
+        int parentX = mField.getParticleController().getPositionInParentX();
+        int parentY = mField.getParticleController().getPositionInParentY();
 
         // Check horizontal gravity and set range
         if (hasGravity(gravity, Gravity.LEFT)) {
@@ -578,11 +582,11 @@ public class ParticleSystem {
                 }
             }
         }
-        mField.getController().onUpdate();
+        mField.getParticleController().onUpdate();
     }
 
     private void cleanupAnimation() {
-        mField.getController().onCleanup();
+        mField.getParticleController().onCleanup(this);
         mParticles.addAll(mActiveParticles);
     }
 

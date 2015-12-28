@@ -65,7 +65,7 @@ class ParticleFieldView extends View implements ParticleField {
         }
 
         @Override
-        public void onCleanup() {
+        public void onCleanup(ParticleSystem toClean) {
             mParentView.removeView(ParticleFieldView.this);
             mParentView.postInvalidate();
         }
@@ -86,7 +86,7 @@ class ParticleFieldView extends View implements ParticleField {
 	}
 
     @Override
-    public ParticleFieldController getController() {
+    public ParticleFieldController getParticleController() {
         return mController;
     }
 

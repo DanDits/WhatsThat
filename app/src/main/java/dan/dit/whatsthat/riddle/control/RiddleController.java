@@ -455,8 +455,16 @@ public class RiddleController implements RiddleAnimationController.OnAnimationCo
             return;
         }
         int count = mRiddleAnimationController.getActiveAnimationsCount();
-        // ensure the following actions take place on ui thread
+        handlePeriodicEventForCount(count);
+    }
 
+    public void onParticleSystemCountChanged() {
+        int count = mRiddleView.getActiveParticleSystemsCount();
+        handlePeriodicEventForCount(count);
+    }
+
+    private void handlePeriodicEventForCount(int count) {
+        // ensure the following actions take place on ui thread
         if (count == 0) {
             mMainHandler.post(new Runnable() {
                 @Override

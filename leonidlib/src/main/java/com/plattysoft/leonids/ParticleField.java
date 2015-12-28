@@ -6,6 +6,6 @@ import java.util.List;
  * Created by daniel on 28.12.15.
  */
 public interface ParticleField {
-    ParticleFieldController getController();
+    ParticleFieldController getParticleController();
     void setParticles(List<Particle> particles);
 }

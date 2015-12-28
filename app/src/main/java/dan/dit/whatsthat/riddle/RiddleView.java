@@ -37,7 +37,9 @@ import android.view.ViewGroup;
 import com.plattysoft.leonids.Particle;
 import com.plattysoft.leonids.ParticleField;
 import com.plattysoft.leonids.ParticleFieldController;
+import com.plattysoft.leonids.ParticleSystem;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import dan.dit.whatsthat.R;
@@ -50,7 +52,6 @@ import dan.dit.whatsthat.testsubject.TestSubjectToast;
  * Created by daniel on 31.03.15.
  */
 public class RiddleView extends SurfaceView implements SensorEventListener, ParticleField {
-    public static final long MIN_TIME_BETWEEN_FRAMES = 1000000000L / 60L; // ns
     public static final int BACKGROUND_COLOR_RESOURCE_ID = R.color.main_background;
     private RiddleController mRiddleCtr;
     private SensorManager mSensorManager;
@@ -59,13 +60,13 @@ public class RiddleView extends SurfaceView implements SensorEventListener, Part
     private boolean mIsResumed;
     private int mBackgroundColor;
 
-    private volatile List<Particle> mParticles;
+    private volatile List<List<Particle>> mParticles;
     private ParticleController mController;
-    private long mLastDrawingTime;
 
     public RiddleView(Context context, AttributeSet attrs) {
         super(context, attrs);
         mController = new ParticleController();
+        mParticles = new ArrayList<>();
         setFocusable(true);
         setVisibility(View.INVISIBLE);
         mBackgroundColor = getResources().getColor(BACKGROUND_COLOR_RESOURCE_ID);
@@ -133,10 +134,7 @@ public class RiddleView extends SurfaceView implements SensorEventListener, Part
 
     public long performDrawRiddle() {
         long startTime = System.nanoTime();
-        if (startTime - mLastDrawingTime <= MIN_TIME_BETWEEN_FRAMES) {
-            return 0L;
-        }
-        mLastDrawingTime = startTime;
+
         SurfaceHolder holder = getHolder();
         if (holder != null && holder.getSurface() != null && holder.getSurface().isValid()) {
             Canvas canvas = holder.lockCanvas();
@@ -154,12 +152,13 @@ public class RiddleView extends SurfaceView implements SensorEventListener, Part
     }
 
     private void drawParticles(Canvas canvas) {
-        final List<Particle> particles = mParticles;
-        // Draw all the particles
-        if (particles != null && !particles.isEmpty()) {
-            synchronized (particles) {
-                for (int i = 0; i < particles.size(); i++) {
-                    particles.get(i).draw(canvas);
+        for (final List<Particle> particles : mParticles) {
+            // Draw all the particles
+            if (particles != null && !particles.isEmpty()) {
+                synchronized (particles) {
+                    for (int i = 0; i < particles.size(); i++) {
+                        particles.get(i).draw(canvas);
+                    }
                 }
             }
         }
@@ -296,16 +295,23 @@ public class RiddleView extends SurfaceView implements SensorEventListener, Part
     }
 
     @Override
-    public ParticleFieldController getController() {
+    public ParticleFieldController getParticleController() {
         return mController;
     }
 
     @Override
     public void setParticles(List<Particle> particles) {
-        mParticles = particles;
+        mParticles.add(particles);
+    }
+
+    private void removeParticles(List<Particle> particles) {
+        mParticles.remove(particles);
     }
 
     private class ParticleController implements ParticleFieldController {
+
+        private int mActiveSystems;
+        private List<Particle> mAllParticles = new ArrayList<>();
 
         @Override
         public int getPositionInParentX() {
@@ -320,17 +326,24 @@ public class RiddleView extends SurfaceView implements SensorEventListener, Part
         @Override
         public void prepareEmitting(List<Particle> particles) {
             setParticles(particles);
+            ++mActiveSystems;
+            mRiddleCtr.onParticleSystemCountChanged();
         }
 
         @Override
         public void onUpdate() {
-            draw();
         }
 
         @Override
-        public void onCleanup() {
-            draw();
+        public void onCleanup(ParticleSystem toClean) {
+            --mActiveSystems;
+            mRiddleCtr.onParticleSystemCountChanged();
+            removeParticles(toClean.getActiveParticles());
         }
+    }
+
+    public int getActiveParticleSystemsCount() {
+        return mController.mActiveSystems;
     }
 
     public interface PartyCallback {
