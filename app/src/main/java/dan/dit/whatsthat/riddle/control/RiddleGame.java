@@ -82,11 +82,12 @@ public abstract class RiddleGame {
     /**
      * Creates a new RiddleGame, decorating the given riddle, using the given bitmap loaded from the riddle's image.
      * Will invoke the initBitmap(), initSolutionInput() and initAchievementData() hooks in this order.
-     * @param riddle The riddle to decorate.
-     * @param image The image associated to the riddle.
-     * @param bitmap The image's bitmap.
-     * @param res A resources object to load assets.
-     * @param config The config to use or describe the riddle.
+     *
+     * @param riddle   The riddle to decorate.
+     * @param image    The image associated to the riddle.
+     * @param bitmap   The image's bitmap.
+     * @param res      A resources object to load assets.
+     * @param config   The config to use or describe the riddle.
      * @param listener The listener to inform about progress (important if loading takes some time).
      */
     protected RiddleGame(Riddle riddle, Image image, Bitmap bitmap, Resources res, RiddleConfig
@@ -107,6 +108,7 @@ public abstract class RiddleGame {
     /**
      * Creates the RiddleController using the RiddleConfig's controller factory or a
      * default controller if none supplied.
+     *
      * @return A new RiddleController for this RiddleGame and Riddle.
      */
     private RiddleController makeController() {
@@ -119,6 +121,7 @@ public abstract class RiddleGame {
 
     /**
      * If this game is not yet closed, this is when the loaded bitmap object is still valid.
+     *
      * @return If the game was not yet closed.
      */
     protected boolean isNotClosed() {
@@ -127,6 +130,7 @@ public abstract class RiddleGame {
 
     /**
      * Returns the current state associated with the riddle (probably loaded after restarting the app).
+     *
      * @return A compacter holding the current state or null if the RiddleGame has no state saved (probably new riddle).
      */
     protected Compacter getCurrentState() {
@@ -178,6 +182,7 @@ public abstract class RiddleGame {
 
     /**
      * Returns the image used.
+     *
      * @return The riddle's image.
      */
     protected Image getImage() {
@@ -186,12 +191,6 @@ public abstract class RiddleGame {
 
     public void addAnimation(@NonNull RiddleAnimation animation) {
         mRiddleController.addAnimation(animation);
-    }
-
-    public void emitParticles(@NonNull ParticleSystem particleSystem, int emitterX, int emitterY,
-                              int particlesPerSecond, long emittingTime) {
-        mRiddleController.emitParticles(particleSystem, emitterX, emitterY, particlesPerSecond,
-                emittingTime);
     }
 
     public void addAnimation(@NonNull RiddleAnimation animation, long delay) {
@@ -236,6 +235,7 @@ public abstract class RiddleGame {
 
     /**
      * Makes a new snapshot of this RiddleGame. By default none is made.
+     *
      * @return null
      */
     protected Bitmap makeSnapshot() {
@@ -259,13 +259,17 @@ public abstract class RiddleGame {
     protected abstract void initAchievementData();
 
     private static final double SCORE_EXP_FACTOR = Math.log(MAX_SCORE_MULTIPLIER - BASE_SCORE_MULTIPLIER) / SCORES_MULTIPLIED_PER_DAY_COUNT;
+
     /**
      * Calculates the gained score. Can but generally should not depend on the
      * way the riddle was solved and the game was played.
      * Calculations should be robust and produce the same result if nothing major happens to the game.
+     *
      * @return A valid RiddleScore.
      */
-    protected synchronized @NonNull RiddleScore calculateGainedScore() {
+    protected synchronized
+    @NonNull
+    RiddleScore calculateGainedScore() {
         boolean isCustom = !Image.ORIGIN_IS_THE_APP.equalsIgnoreCase(mRiddle.getOrigin());
         if (mScoreMultiplicator <= 0) {
             mScoreMultiplicator = BASE_SCORE_MULTIPLIER;
@@ -273,7 +277,7 @@ public abstract class RiddleGame {
             if (!isCustom
                     && mConfig.mAchievementGameData != null && (now - mRiddle.getTimestamp()) < SCORE_BONUS_MAX_RIDDLE_TIME && TestSubject.isInitialized()) {
                 int bonusCount = TestSubject.getInstance().getAndIncrementTodaysScoreBonusCount();
-                mScoreMultiplicator = (int) ((MAX_SCORE_MULTIPLIER - BASE_SCORE_MULTIPLIER) * Math.exp(- SCORE_EXP_FACTOR * bonusCount) + BASE_SCORE_MULTIPLIER);
+                mScoreMultiplicator = (int) ((MAX_SCORE_MULTIPLIER - BASE_SCORE_MULTIPLIER) * Math.exp(-SCORE_EXP_FACTOR * bonusCount) + BASE_SCORE_MULTIPLIER);
                 mScoreMultiplicator = Math.max(1, mScoreMultiplicator); // to be sure score will never be zero or negativly multiplied (which cannot happen for exp(x) but this might change)
             }
         }
@@ -290,24 +294,30 @@ public abstract class RiddleGame {
     public boolean onOrientationEvent(float azimuth, float pitch, float roll) {
         return false;
     }
-    public void enableNoOrientationSensorAlternative() {}
+
+    public void enableNoOrientationSensorAlternative() {
+    }
 
     public boolean requiresPeriodicEvent() {
         return false;
     }
 
-    public void onPeriodicEvent(long updateTime) { }
+    public void onPeriodicEvent(long updateTime) {
+    }
 
     protected abstract void initBitmap(Resources res, PercentProgressListener listener);
+
     public abstract boolean onMotionEvent(MotionEvent event);
 
     /**
      * Each riddle should try its best to preserve its state in a compact form that can be restored if
      * the user reopens the riddle from list of unsolved or simply after closing the app. Restarting
      * everything will lead to frustration.
+     *
      * @return Data to restore the exact current state of the riddle.
      */
-    protected abstract @NonNull
+    protected abstract
+    @NonNull
     String compactCurrentState();
 
     public void initViews(RiddleView riddleView, SolutionInputView solutionView, SolutionInputListener listener) {
@@ -321,5 +331,11 @@ public abstract class RiddleGame {
 
     public void onGotVisible() {
 
+    }
+
+
+    public ParticleSystem makeParticleSystem(Resources res, int maxParticles, int drawableResId,
+                                             long timeToLive) {
+        return mRiddleController.makeParticleSystem(res, maxParticles, drawableResId, timeToLive);
     }
 }

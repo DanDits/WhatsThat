@@ -714,35 +714,30 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
         if (parent == null || emitAtView == null) {
             return;
         }
-        new ParticleSystem(getActivity(), konfettiPerEmitter, R.drawable.konfetti_long1,
-                particleLifeTime, 0)
-                .setParentViewGroup(parent)
+        new ParticleSystem(getResources(), konfettiPerEmitter, R.drawable.konfetti_long1,
+                particleLifeTime, parent)
                 .setScaleRange(0.7f, 1.3f)
                 .setSpeedModuleAndAngleRange(0.07f, 0.12f, 0, 180)
                 .setRotationSpeedRange(-90, 90)
                 .setAcceleration(0.00013f, 90)
                 .setFadeOut(200, new AccelerateInterpolator())
                 .emitWithGravity(emitAtView, emitGravity, konfettiPerEmitterPerSecond, emittingTime);
-        new ParticleSystem(getActivity(), konfettiPerEmitter, R.drawable.konfetti_long2,
-                particleLifeTime, 0)
-                .setParentViewGroup(parent)
+        new ParticleSystem(getResources(), konfettiPerEmitter, R.drawable.konfetti_long2,
+                particleLifeTime, parent)
                 .setScaleRange(0.7f, 1.3f)
                 .setSpeedModuleAndAngleRange(0.07f, 0.12f, 0, 180)
                 .setRotationSpeedRange(-90, 90)
                 .setAcceleration(0.00013f, 90)
                 .setFadeOut(200, new AccelerateInterpolator())
                 .emitWithGravity(emitAtView, emitGravity, konfettiPerEmitterPerSecond, emittingTime);
-        new ParticleSystem(getActivity(), konfettiPerEmitter, R.drawable.konfetti_small1, particleLifeTime,
-                0)
-                .setParentViewGroup(parent)
+        new ParticleSystem(getResources(), konfettiPerEmitter, R.drawable.konfetti_small1,
+                particleLifeTime, parent)
                 .setSpeedModuleAndAngleRange(0.07f, 0.12f, 0, 180)
                 .setAcceleration(0.00013f, 90)
                 .setFadeOut(200, new AccelerateInterpolator())
                 .emitWithGravity(emitAtView, emitGravity, konfettiPerEmitterPerSecond, emittingTime);
-        new ParticleSystem(getActivity(), konfettiPerEmitter, R.drawable.konfetti_small2,
-                particleLifeTime,
-                0)
-                .setParentViewGroup(parent)
+        new ParticleSystem(getResources(), konfettiPerEmitter, R.drawable.konfetti_small2,
+                particleLifeTime, parent)
                 .setSpeedModuleAndAngleRange(0.07f, 0.12f, 0, 180)
                 .setAcceleration(0.00013f, 90)
                 .setFadeOut(200, new AccelerateInterpolator())

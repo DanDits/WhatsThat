@@ -34,6 +34,12 @@ import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.plattysoft.leonids.Particle;
+import com.plattysoft.leonids.ParticleField;
+import com.plattysoft.leonids.ParticleFieldController;
+
+import java.util.List;
+
 import dan.dit.whatsthat.R;
 import dan.dit.whatsthat.riddle.control.RiddleController;
 import dan.dit.whatsthat.riddle.types.PracticalRiddleType;
@@ -43,7 +49,8 @@ import dan.dit.whatsthat.testsubject.TestSubjectToast;
 /**
  * Created by daniel on 31.03.15.
  */
-public class RiddleView extends SurfaceView implements SensorEventListener {
+public class RiddleView extends SurfaceView implements SensorEventListener, ParticleField {
+    public static final long MIN_TIME_BETWEEN_FRAMES = 1000000000L / 60L; // ns
     public static final int BACKGROUND_COLOR_RESOURCE_ID = R.color.main_background;
     private RiddleController mRiddleCtr;
     private SensorManager mSensorManager;
@@ -52,8 +59,13 @@ public class RiddleView extends SurfaceView implements SensorEventListener {
     private boolean mIsResumed;
     private int mBackgroundColor;
 
+    private volatile List<Particle> mParticles;
+    private ParticleController mController;
+    private long mLastDrawingTime;
+
     public RiddleView(Context context, AttributeSet attrs) {
         super(context, attrs);
+        mController = new ParticleController();
         setFocusable(true);
         setVisibility(View.INVISIBLE);
         mBackgroundColor = getResources().getColor(BACKGROUND_COLOR_RESOURCE_ID);
@@ -121,6 +133,10 @@ public class RiddleView extends SurfaceView implements SensorEventListener {
 
     public long performDrawRiddle() {
         long startTime = System.nanoTime();
+        if (startTime - mLastDrawingTime <= MIN_TIME_BETWEEN_FRAMES) {
+            return 0L;
+        }
+        mLastDrawingTime = startTime;
         SurfaceHolder holder = getHolder();
         if (holder != null && holder.getSurface() != null && holder.getSurface().isValid()) {
             Canvas canvas = holder.lockCanvas();
@@ -130,10 +146,23 @@ public class RiddleView extends SurfaceView implements SensorEventListener {
                 if (hasController()) {
                     mRiddleCtr.draw(canvas);
                 }
+                drawParticles(canvas);
                 holder.unlockCanvasAndPost(canvas);
             }
         }
         return (System.nanoTime() - startTime) / 1000000;
+    }
+
+    private void drawParticles(Canvas canvas) {
+        final List<Particle> particles = mParticles;
+        // Draw all the particles
+        if (particles != null && !particles.isEmpty()) {
+            synchronized (particles) {
+                for (int i = 0; i < particles.size(); i++) {
+                    particles.get(i).draw(canvas);
+                }
+            }
+        }
     }
 
     public void draw() {
@@ -264,6 +293,44 @@ public class RiddleView extends SurfaceView implements SensorEventListener {
             throw new IllegalStateException("No controller initialized.");
         }
         return mRiddleCtr.getRiddleType();
+    }
+
+    @Override
+    public ParticleFieldController getController() {
+        return mController;
+    }
+
+    @Override
+    public void setParticles(List<Particle> particles) {
+        mParticles = particles;
+    }
+
+    private class ParticleController implements ParticleFieldController {
+
+        @Override
+        public int getPositionInParentX() {
+            return 0;
+        }
+
+        @Override
+        public int getPositionInParentY() {
+            return 0;
+        }
+
+        @Override
+        public void prepareEmitting(List<Particle> particles) {
+            setParticles(particles);
+        }
+
+        @Override
+        public void onUpdate() {
+            draw();
+        }
+
+        @Override
+        public void onCleanup() {
+            draw();
+        }
     }
 
     public interface PartyCallback {

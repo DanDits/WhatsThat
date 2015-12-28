@@ -157,8 +157,8 @@ public class NoPanicDialog extends DialogFragment {
                 @Override
                 public boolean onTouch(View view, MotionEvent motionEvent) {
                     if (motionEvent.getActionMasked() == MotionEvent.ACTION_DOWN) {
-                        new ParticleSystem(getActivity(), 10, R.drawable.heart, 1000L, 0)
-                                .setParentViewGroup(mTotalContainer)
+                        new ParticleSystem(getResources(), 10, R.drawable.heart, 1000L,
+                                mTotalContainer)
                                 .setScaleRange(0.7f, 1.3f)
                                 .setSpeedModuleAndAngleRange(0.07f, 0.16f, 180, 360)
                                 .setRotationSpeedRange(-90, 90)

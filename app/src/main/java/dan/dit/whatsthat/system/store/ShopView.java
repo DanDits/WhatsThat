@@ -36,12 +36,12 @@ import dan.dit.whatsthat.riddle.Riddle;
 import dan.dit.whatsthat.riddle.types.PracticalRiddleType;
 import dan.dit.whatsthat.testsubject.TestSubject;
 import dan.dit.whatsthat.testsubject.shopping.ShopArticle;
-import dan.dit.whatsthat.testsubject.shopping.filter.ShopArticleFilter;
-import dan.dit.whatsthat.testsubject.shopping.filter.ShopArticleFilterImportant;
-import dan.dit.whatsthat.testsubject.shopping.filter.ShopArticleFilterIcon;
-import dan.dit.whatsthat.testsubject.shopping.filter.ShopArticleFilterPurchased;
 import dan.dit.whatsthat.testsubject.shopping.ShopArticleHolder;
 import dan.dit.whatsthat.testsubject.shopping.SubProduct;
+import dan.dit.whatsthat.testsubject.shopping.filter.ShopArticleFilter;
+import dan.dit.whatsthat.testsubject.shopping.filter.ShopArticleFilterIcon;
+import dan.dit.whatsthat.testsubject.shopping.filter.ShopArticleFilterImportant;
+import dan.dit.whatsthat.testsubject.shopping.filter.ShopArticleFilterPurchased;
 import dan.dit.whatsthat.testsubject.shopping.filter.ShopArticleGroupFilter;
 import dan.dit.whatsthat.util.general.PercentProgressListener;
 import dan.dit.whatsthat.util.ui.ImageViewWithText;
@@ -259,8 +259,10 @@ public class ShopView extends ExpandableListView implements  StoreContainer, Sho
             }
             if (mExpandedGroup == -1 || isExpanded) {
                 convertView.setAlpha(1.f);
+                convertView.setScaleX(1.f);
             } else {
                 convertView.setAlpha(0.25f);
+                convertView.setScaleX(0.8f);
             }
             ShopArticle article = mArticleHolder.getArticle(groupPosition);
             ((TextView) name).setText(article.getName(getResources()));

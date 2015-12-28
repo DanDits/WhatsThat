@@ -3,7 +3,8 @@
     class ="dan.dit.whatsthat.util.ui.LinearLayoutProgressBar"
     android:orientation="horizontal" android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:id="@+id/progress_bar">
+    android:id="@+id/progress_bar"
+      android:paddingTop="3dp">
 
     <ImageView
         android:layout_width="0dp"

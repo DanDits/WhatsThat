@@ -27,9 +27,10 @@ import android.view.MotionEvent;
 import android.view.animation.AccelerateInterpolator;
 
 import com.plattysoft.leonids.ParticleSystem;
+import com.plattysoft.leonids.ParticleSystemPool;
 
+import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -47,11 +48,11 @@ import dan.dit.whatsthat.riddle.control.RiddleScore;
 import dan.dit.whatsthat.riddle.types.Types;
 import dan.dit.whatsthat.testsubject.TestSubject;
 import dan.dit.whatsthat.testsubject.shopping.sortiment.SortimentHolder;
-import dan.dit.whatsthat.util.general.PercentProgressListener;
 import dan.dit.whatsthat.util.compaction.CompactedDataCorruptException;
 import dan.dit.whatsthat.util.compaction.Compacter;
 import dan.dit.whatsthat.util.flatworld.look.Frames;
 import dan.dit.whatsthat.util.flatworld.look.FramesOneshot;
+import dan.dit.whatsthat.util.general.PercentProgressListener;
 import dan.dit.whatsthat.util.image.ColorAnalysisUtil;
 import dan.dit.whatsthat.util.image.ImageUtil;
 import dan.dit.whatsthat.util.listlock.ListLockMaxIndex;
@@ -116,6 +117,7 @@ public class RiddleCircle extends RiddleGame {
     private Timer mTimer;
     private boolean mForbidCircleDivision;
     private LookRiddleAnimation mBigBrotherAnim;
+    private ParticleSystemPool mParticlePool;
 
     public RiddleCircle(Riddle riddle, Image image, Bitmap bitmap, Resources res, RiddleConfig config, PercentProgressListener listener) {
         super(riddle, image, bitmap, res, config, listener);
@@ -143,6 +145,14 @@ public class RiddleCircle extends RiddleGame {
     @Override
     public void initBitmap(Resources res, PercentProgressListener listener) {
         mRes = res;
+
+        mParticlePool = new ParticleSystemPool(new ParticleSystemPool.ParticleSystemMaker() {
+            @Override
+            public ParticleSystem makeParticleSystem() {
+                return RiddleCircle.this.makeParticleSystem(mRes, 10, R.drawable
+                        .spark, 400L).setFadeOut(200, new AccelerateInterpolator());
+            }
+        }, 20);
         // fill raster with brightness and calculate average brightness
         {
             mRaster = new double[mBitmap.getHeight() * mBitmap.getWidth()];
@@ -178,10 +188,10 @@ public class RiddleCircle extends RiddleGame {
         mFramePaint.setStrokeWidth(FRAME_WIDTH);
 
         //init value holder for circles
-        mCircleCenterX = new LinkedList<>();
-        mCircleCenterY = new LinkedList<>();
-        mCircleRadius = new LinkedList<>();
-        mColor = new LinkedList<>();
+        mCircleCenterX = new ArrayList<>();
+        mCircleCenterY = new ArrayList<>();
+        mCircleRadius = new ArrayList<>();
+        mColor = new ArrayList<>();
         mLock = new ListLockMaxIndex(mCircleCenterX, MODE_MOVING_MAX_CIRCLES_CHECKED);
         mLockRefresher = new LockDistanceRefresher(mLock, Math.max(mBitmap.getWidth(), mBitmap.getHeight()) / 2.f);
 
@@ -406,18 +416,15 @@ public class RiddleCircle extends RiddleGame {
     }
 
     private boolean onMove(float x, float y) {
-        Iterator<Float> xIt = mCircleCenterX.iterator();
-        Iterator<Float> yIt = mCircleCenterY.iterator();
-        Iterator<Float> rIt = mCircleRadius.iterator();
         int index = 0;
         float minR = 2.f * ImageUtil.convertDpToPixel(MIN_RADIUS, mConfig.mScreenDensity);
         float humanFingerThickness = ImageUtil.convertDpToPixel(HUMAN_FINGER_THICKNESS, mConfig.mScreenDensity);
         // since the number of circles can easily get very high we are not very strict here with picking a circle
         // the first one that can evolve and is close enough will be used
-        while (xIt.hasNext() && mLock.isUnlocked(index)) {
-            float currX = xIt.next();
-            float currY = yIt.next();
-            float currR = rIt.next();
+        while (index < mCircleCenterX.size() && mLock.isUnlocked(index)) {
+            float currX = mCircleCenterX.get(index);
+            float currY = mCircleCenterY.get(index);
+            float currR = mCircleRadius.get(index);
             double dist = Math.sqrt((currX - x) * (currX - x) + (currY - y) * (currY - y));
             if (dist <= Math.max(currR, humanFingerThickness) && currR >= minR) {
                 mLock.lock(1);
@@ -426,14 +433,16 @@ public class RiddleCircle extends RiddleGame {
                 mCirclesCanvas.drawRect(currX - currR, currY - currR, currX + currR, currY + currR, mClearPaint);
                 evolveCircleUnchecked(index, currX, currY, newRadius, true);
                 mConfig.mAchievementGameData.increment(AchievementCircle.KEY_CIRCLE_DIVIDED_BY_MOVE, 1L, 0L);
-                ParticleSystem system = new ParticleSystem(mRes, 10, R.drawable
-                        .spark, 400);
-                float scale = 1.f + 3f * (currR * 2f / mConfig.mWidth); // factor from 1 to 4
-                system.setSpeedModuleAndAngleRange(0.05f, 0.15f, 0, 360)
-                        .setAccelerationModuleAndAndAngleRange(0.0001f, 0.0002f, 0, 360)
-                        .setScaleRange(scale - 0.05f, scale + 0.05f)
-                        .setFadeOut(200, new AccelerateInterpolator());
-                emitParticles(system,(int) currX, (int) currY, 10, 300);
+
+                ParticleSystem system = mParticlePool.obtain();
+                if (system != null) {
+                    system.clearInitializers();
+                    float scale = 1.f + 3f * (currR * 2f / mConfig.mWidth); // factor from 1 to 4
+                    system.setSpeedModuleAndAngleRange(0.05f, 0.15f, 0, 360)
+                            .setAccelerationModuleAndAndAngleRange(0.0001f, 0.0002f, 0, 360)
+                            .setScaleRange(scale - 0.05f, scale + 0.05f);
+                    system.emit((int) currX, (int) currY, 10, 300);
+                }
                 return true;
             }
             index++;

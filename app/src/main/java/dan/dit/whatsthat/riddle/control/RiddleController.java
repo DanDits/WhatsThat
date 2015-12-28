@@ -27,6 +27,7 @@ import android.view.MotionEvent;
 import android.view.ViewGroup;
 
 import com.github.johnpersano.supertoasts.SuperToast;
+import com.plattysoft.leonids.ParticleField;
 import com.plattysoft.leonids.ParticleSystem;
 
 import dan.dit.whatsthat.R;
@@ -117,6 +118,7 @@ public class RiddleController implements RiddleAnimationController.OnAnimationCo
                     if (mRiddleGame != null && mRiddleGame.onMotionEvent(eventCopy)) {
                         mDrawAction.run();
                     }
+                    eventCopy.recycle();
                 }
             });
         }
@@ -138,6 +140,10 @@ public class RiddleController implements RiddleAnimationController.OnAnimationCo
                 ++mPeriodActionPostedCount;
                 mHandler.post(mPeriodicAction);
             }
+        }
+
+        public Handler getHandler() {
+            return mHandler;
         }
 
         public void onCloseRiddle(final Context context) {
@@ -276,6 +282,7 @@ public class RiddleController implements RiddleAnimationController.OnAnimationCo
         mRiddleView = (RiddleView) mRiddleViewContainer.findViewById(R.id.riddle_view);
         mMainHandler = new Handler();
         mGameThread = new GameHandlerThread();
+        mGameThread.setUncaughtExceptionHandler(Thread.currentThread().getUncaughtExceptionHandler());
         mRiddleGame.onGotVisible();
         onRiddleGotVisible();
     }
@@ -454,14 +461,7 @@ public class RiddleController implements RiddleAnimationController.OnAnimationCo
             mMainHandler.post(new Runnable() {
                 @Override
                 public void run() {
-                    stopPeriodicEvent(mMainHandler, new Runnable() {
-                        @Override
-                        public void run() {
-                            if (mRiddleView != null) {
-                                mRiddleView.draw();
-                            }
-                        }
-                    });
+                    stopPeriodicEvent(mGameThread.getHandler(), mDrawAction);
                 }
             });
         } else if (count > 0) {
@@ -474,14 +474,15 @@ public class RiddleController implements RiddleAnimationController.OnAnimationCo
         }
     }
 
-    public void emitParticles(@NonNull ParticleSystem particleSystem, int emitterX, int emitterY,
-                              int particlesPerSecond, long emittingTime) {
-        if (mRiddleView != null) {
-            ViewGroup parent = (ViewGroup) mRiddleView.getParent();
-            particleSystem.setParentViewGroup(parent);
-            particleSystem.setIgnorePositionInParent();
-            particleSystem.emitHandled(emitterX, emitterY, particlesPerSecond,
-                    emittingTime, mMainHandler);
+    public ParticleSystem makeParticleSystem(Resources res, int maxParticles, int drawableResId,
+                                             long timeToLive) {
+        ParticleField field = mRiddleView;
+        if (field == null) {
+            return null;
         }
+        ParticleSystem system = new ParticleSystem(field, res, maxParticles, timeToLive);
+        system.initParticles(res.getDrawable(drawableResId));
+        system.setIgnorePositionInParent();
+        return system;
     }
 }
