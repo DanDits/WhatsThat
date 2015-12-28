@@ -4,13 +4,11 @@ import android.animation.Animator;
 import android.animation.Animator.AnimatorListener;
 import android.animation.ValueAnimator;
 import android.animation.ValueAnimator.AnimatorUpdateListener;
-import android.app.Activity;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.os.Handler;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.View;
@@ -34,9 +32,7 @@ import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
-//TODO make particle system more flexible: not always use ParticleField and draw on this view but
-// allow custom particle field (as an interface) to handle drawing and everything on its own, so
-// we can directly draw onto surfaceview instead of needing to manage the z layering by view system
+
 public class ParticleSystem {
 
     private static final long TIMMERTASK_INTERVAL = 50;
