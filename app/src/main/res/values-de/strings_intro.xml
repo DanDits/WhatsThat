@@ -10,6 +10,9 @@
     <string name="intro_test_answer_yes">Ja</string>
     <string name="intro_test_answer_no">Nein</string>
     <string name="intro_test_answer_bullshit">\?!?!</string>
+    <string name="intro_test_answer_chocolate">Schokolade</string>
+    <string name="intro_test_answer_cookie">Keks</string>
+    <string name="intro_test_answer_donut">Donut</string>
 
     <!-- Level 0 -->
     <string name="test_subject_0_name">Verwirrtes Etwas</string>
@@ -44,16 +47,26 @@
         <item>Aber von Nahem betrachtet… vermute ich ein Versagen des Zentralgehirns…</item>
         <item>Nun.. enttäusche deinen Planeten besser nicht.</item>
     </string-array>
-    <string-array name="test_subject_0_intro_nuts">
+    <string-array name="test_subject_0_0_intro_nuts">
         <item>…</item>
         <item>Darf ich dir unser Zentralgehirn WiseMind vorstellen.. mit ihr haben wir dein Gehirn verbunden.</item>
         <item>Ein Gehirn von der Größe einer Galaxie.. und dann.. nun ja.. deines daneben…</item>
         <item>Ich hoffe ihr werdet euch trotzdem verstehen.</item>
+    </string-array>
+    <string-array name="test_subject_0_1_intro_nuts">
         <item>Test: Ist 13 eine Primzahl?</item>
+    </string-array>
+    <string-array name="test_subject_0_2_intro_nuts">
         <item>Antwortzeit überschritten. Reaktion nicht festzustellen.</item>
         <item>Ok vielleicht was einfacheres.</item>
+    </string-array>
+    <string-array name="test_subject_0_3_intro_nuts">
         <item>Denk mal an etwas zu essen.</item>
+        </string-array>
+    <string-array name="test_subject_0_4_intro_nuts">
         <item>Aha. Süßigkeiten.</item>
+    </string-array>
+    <string-array name="test_subject_0_5_intro_nuts">
         <item>Wunderbar, da der Anschluss funktioniert können wir hoffentlich gleich beginnen.</item>
         <item>Ich hoffe mal du bist nicht schwer von Begriff.</item>
         <item>Nicht das wir dich überfordern.</item>
@@ -86,14 +99,24 @@
         <item>Trotzdem muss ich diese Behauptung überprüfen.</item>
     </string-array>
     <string-array name="test_subject_1_1_intro_main">
-        <item>Test: Was ist die 7364ste Primzahl?</item>
-        <item>Nein, Schokolade ist KEINE Primzahl…</item>
+        <item>Test: Was ist die 7364. Primzahl?</item>
+    </string-array>
+    <string-array name="test_subject_1_2a_intro_main">
+        <item>Nein, Schokolade ist köstlich aber keine Primzahl…</item>
+    </string-array>
+    <string-array name="test_subject_1_2b_intro_main">
+        <item>Nein, Donuts sind primär Löcher…</item>
+    </string-array>
+    <string-array name="test_subject_1_2c_intro_main">
+        <item>Kekse sind Dateien keine Zahlen…</item>
+    </string-array>
+    <string-array name="test_subject_1_3_intro_main">
         <item>Immerhin warst du diesmal schnell mit deiner Antwort.</item>
         <item>Das ist ja schonmal besser als nichts.</item>
         <item>Versuchen wir es mit einer Zahlenfolge.</item>
         <item>Was ist die korrekte Zahlenfolge von:</item>
     </string-array>
-    <string-array name="test_subject_1_2_intro_main">
+    <string-array name="test_subject_1_4_intro_main">
         <item>1; 3; 5; 7; ?</item>
         <item>Nein, nein, leider falsch.</item>
         <item>Die korrekte Lösung lautet: 217341!</item>

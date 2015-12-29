@@ -16,6 +16,7 @@
 package dan.dit.whatsthat.testsubject;
 
 import android.content.res.Resources;
+import android.util.Log;
 import android.view.View;
 
 import java.util.List;
@@ -60,15 +61,22 @@ public abstract class TestSubjectLevel {
         };
     }
 
-    public abstract List<Episode> makeMainIntroEpisodes(Intro intro);
+    public Episode makeEpisodes(Intro intro) {
+        EpisodeBuilder builder = new EpisodeBuilder(intro);
+        makeMainIntroEpisodes(builder);
+        makeSubIntroEpisodes(builder);
+        return builder.build();
+    }
 
-    public List<Episode> makeSubIntroEpisodes(Intro intro) {
+    protected abstract void makeMainIntroEpisodes(EpisodeBuilder builder);
+
+    public void makeSubIntroEpisodes(EpisodeBuilder builder) {
         if (mTextNuts != null && mTextNuts.length > 0) {
-            EpisodeBuilder builder = new EpisodeBuilder(intro);
-            builder.nextEpisodes(mTextNuts, 0, mTextNuts.length);
-            return builder.build();
+            int lastIndex = builder.getAll().size() - 1;
+            builder.nextEpisodes("SA", mTextNuts);
+            // make cyclic: last sub episode has first sub episode as child
+            builder.getCurrentEpisode().addChild(builder.getAll().get(lastIndex + 1));
         }
-        return null;
     }
 
     /**
@@ -103,83 +111,76 @@ public abstract class TestSubjectLevel {
         }
 
         @Override
-        public List<Episode> makeMainIntroEpisodes(final Intro intro) {
-            EpisodeBuilder builder = new EpisodeBuilder(intro);
+        public void makeMainIntroEpisodes(EpisodeBuilder builder) {
 
             // general intro
-            builder.setCurrentIcon(0);
-            builder.nextEpisodes(intro.getResources().getStringArray(R.array.test_subject_0_0_intro_main));
+            builder.setCurrentIcon(0)
+            .nextEpisodes("M0", R.array.test_subject_0_0_intro_main)
 
             //dr kulg presentation
-            builder.setCurrentIcon(R.drawable.intro_dr_kulg);
-            builder.nextEpisodes(intro.getResources().getStringArray(R.array.test_subject_0_1_intro_main));
+            .setCurrentIcon(R.drawable.intro_dr_kulg)
+            .nextEpisodes("M1", R.array.test_subject_0_1_intro_main)
 
             // gender question, mandatory
-            builder.setCurrentIcon(0);
-            String[] questionEpisodeText = intro.getResources().getStringArray(R.array.test_subject_0_2_intro_main);
-            builder.nextEpisode(new QuestionEpisode(intro,
+            .setCurrentIcon(0)
+            .nextEpisode(new QuestionEpisode("Q2",
+                    builder.getIntro(),
                     true,
-                    questionEpisodeText[0],
-                    new int[] {R.string.intro_test_subject_gender_answer_male, R.string.intro_test_subject_gender_answer_female, R.string.intro_test_subject_gender_answer_whatever},
-                    1,
-                    new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    switch (v.getId()) {
-                        case R.id.intro_answer1:
-                            mTestSubject.setGender(TestSubject.GENDER_MALE);
-                            break;
-                        case R.id.intro_answer2:
-                            mTestSubject.setGender(TestSubject.GENDER_FEMALE);
-                            break;
-                        case R.id.intro_answer3:
-                            mTestSubject.setGender(TestSubject.GENDER_WHATEVER);
-                            break;
-                        case R.id.intro_answer4:
-                            mTestSubject.setGender(TestSubject.GENDER_ALIEN);
-                            break;
-                    }
-                    intro.nextEpisode();
-                }
-            }));
-            if (questionEpisodeText.length > 1) {
-                builder.nextEpisodes(questionEpisodeText, 1, questionEpisodeText.length);
-            }
+                    R.array.test_subject_0_2_intro_main,
+                    new int[]{R.string.intro_test_subject_gender_answer_male, R.string.intro_test_subject_gender_answer_female, R.string.intro_test_subject_gender_answer_whatever},
+                    new QuestionEpisode.OnQuestionAnsweredCallback() {
+                        @Override
+                        public int onQuestionAnswered(QuestionEpisode episode, int answerIndex) {
+                            switch (answerIndex) {
+                                case 0:
+                                    mTestSubject.setGender(TestSubject.GENDER_MALE);
+                                    break;
+                                case 1:
+                                    mTestSubject.setGender(TestSubject.GENDER_FEMALE);
+                                    break;
+                                case 2:
+                                    mTestSubject.setGender(TestSubject.GENDER_WHATEVER);
+                                    break;
+                                case 3:
+                                    mTestSubject.setGender(TestSubject.GENDER_ALIEN);
+                                    break;
+                            }
+                            return QuestionEpisode.ANSWER_REACTION_NEXT_EPISODE;
+                        }
+                    }));
 
             // rest of the episodes
-            builder.setCurrentIcon(0);
-            builder.nextEpisodes(intro.getResources().getStringArray(R.array.test_subject_0_3_intro_main));
-            return builder.build();
+            builder.setCurrentIcon(0)
+            .nextEpisodes("M3", R.array.test_subject_0_3_intro_main);
 
         }
 
         @Override
-        public List<Episode> makeSubIntroEpisodes(final Intro intro) {
-            if (mTextNuts.length < 8) {
-                return null;
-            }
-            EpisodeBuilder builder = new EpisodeBuilder(intro);
+        public void makeSubIntroEpisodes(EpisodeBuilder builder) {
+            int firstSubIndex = builder.getAll().size();
             builder.setCurrentIcon(0);
 
-            // Test: 13 is prime question, 0 to 3 and 4
-            builder.nextEpisodes(mTextNuts, 0, 4);
-            builder.nextEpisode(new QuestionEpisode(intro, false, mTextNuts[4], new int[]{R.string.intro_test_answer_yes, R.string.intro_test_answer_no, R.string.intro_test_answer_bullshit}, 0, new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    intro.nextEpisode();
-                }
-            }));
+            // Test: 13 is prime question
+            builder.nextEpisodes("S0", R.array.test_subject_0_0_intro_nuts);
+            builder.nextEpisode(new QuestionEpisode("Q1", builder.getIntro(), false,
+                            R.array.test_subject_0_1_intro_nuts,
+                            new int[]{R.string.intro_test_answer_yes, R.string.intro_test_answer_no, R.string.intro_test_answer_bullshit},
+                            new QuestionEpisode.OnQuestionAnsweredCallback() {
+                                @Override
+                                public int onQuestionAnswered(QuestionEpisode episode, int answerIndex) {
+                                    return QuestionEpisode.ANSWER_REACTION_NEXT_EPISODE;
+                                }
+                            })
+            );
 
-            // in between texts and then chocolate, 5 to 6 and 7
-            builder.nextEpisodes(mTextNuts, 5, 2);
-            builder.setCurrentIcon(R.drawable.chocolate_thought);
-            builder.nextEpisodes(mTextNuts, 7, 1);
-
-            // rest of texts, 8 to end
-            builder.setCurrentIcon(0);
-            builder.nextEpisodes(mTextNuts, 8, mTextNuts.length);
-
-            return builder.build();
+            // in between texts and then chocolate
+            builder.nextEpisodes("S2", R.array.test_subject_0_2_intro_nuts)
+                .nextEpisodes("S3", R.array.test_subject_0_3_intro_nuts)
+                .setCurrentIcon(R.drawable.chocolate_thought)
+                .nextEpisodes("S4", R.array.test_subject_0_4_intro_nuts)
+                .setCurrentIcon(0)
+                .nextEpisodes("S5", R.array.test_subject_0_5_intro_nuts)
+                    .getCurrentEpisode().addChild(builder.getAll().get(firstSubIndex));
         }
 
         @Override
@@ -189,7 +190,7 @@ public abstract class TestSubjectLevel {
             mImageResId[TestSubject.GENDER_MALE] = R.drawable.kid00;
             mImageResId[TestSubject.GENDER_FEMALE] = R.drawable.kid_fem00;
             mImageResId[TestSubject.GENDER_WHATEVER] = R.drawable.kid_ani00;
-            mTextNuts = res.getStringArray(R.array.test_subject_0_intro_nuts);
+            mTextNuts = res.getStringArray(R.array.test_subject_0_0_intro_nuts);
             mRiddleSolvedCandy = R.array.test_subject_0_riddle_solved_candy;
         }
 
@@ -213,24 +214,27 @@ public abstract class TestSubjectLevel {
         }
 
         @Override
-        public List<Episode> makeMainIntroEpisodes(Intro intro) {
-            EpisodeBuilder builder = new EpisodeBuilder(intro);
-            builder.nextEpisodes(intro.getResources().getStringArray(R.array.test_subject_1_0_intro_main));
+        public void makeMainIntroEpisodes(EpisodeBuilder builder) {
+            builder.nextEpisodes("M0", R.array.test_subject_1_0_intro_main);
 
-            String[] questionTexts = intro.getResources().getStringArray(R.array.test_subject_1_1_intro_main);
-            builder.nextEpisode(new QuestionEpisode(intro, false, questionTexts[0],
-                    new int[]{R.string.intro_test_answer_yes, R.string.intro_test_answer_no},
-                    0, new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
+            builder.nextEpisode(new QuestionEpisode("Q1", builder.getIntro(), false, R.array
+                    .test_subject_1_1_intro_main,
+                    new int[]{R.string.intro_test_answer_chocolate, R.string
+                            .intro_test_answer_donut, R.string.intro_test_answer_cookie},
+                    new QuestionEpisode.OnQuestionAnsweredCallback() {
+                        @Override
+                        public int onQuestionAnswered(QuestionEpisode episode, int answerIndex) {
+                            return answerIndex;
+                        }
+                    })
+                    .addAnswer(R.array.test_subject_1_2a_intro_main)
+                    .addAnswer(R.array.test_subject_1_2b_intro_main)
+                    .addAnswer(R.array.test_subject_1_2c_intro_main));
+            builder.joinCurrentChildrenToNext();
 
-                }
-            }));
-            builder.nextEpisodes(questionTexts, 0, 5);
 
-
-            builder.nextEpisodes(intro.getResources().getStringArray(R.array.test_subject_1_2_intro_main));
-            return builder.build();
+            builder.nextEpisodes("M3", R.array.test_subject_1_3_intro_main);
+            builder.nextEpisodes("M4", R.array.test_subject_1_4_intro_main);
         }
 
         @Override
@@ -250,7 +254,7 @@ public abstract class TestSubjectLevel {
 
         @Override
         public double getLevelUpAchievementScoreFraction() {
-            return 0.40;
+            return 0.38;
         }
     }
     private static class TestSubjectLevel2 extends TestSubjectLevel {
@@ -260,11 +264,9 @@ public abstract class TestSubjectLevel {
         }
 
         @Override
-        public List<Episode> makeMainIntroEpisodes(Intro intro) {
-            EpisodeBuilder builder = new EpisodeBuilder(intro);
-            builder.nextEpisodes(intro.getResources().getStringArray(R.array.test_subject_2_0_intro_main));
-            builder.nextEpisodes(intro.getResources().getStringArray(R.array.test_subject_2_1_intro_main));
-            return builder.build();
+        public void makeMainIntroEpisodes(EpisodeBuilder builder) {
+            builder.nextEpisodes("M0", R.array.test_subject_2_0_intro_main);
+            builder.nextEpisodes("M1", R.array.test_subject_2_1_intro_main);
         }
 
         @Override
@@ -294,14 +296,12 @@ public abstract class TestSubjectLevel {
         }
 
         @Override
-        public List<Episode> makeMainIntroEpisodes(Intro intro) {
-            EpisodeBuilder builder = new EpisodeBuilder(intro);
-            builder.nextEpisodes(intro.getResources().getStringArray(R.array.test_subject_3_0_intro_main));
-            builder.nextEpisodes(intro.getResources().getStringArray(R.array.test_subject_3_1_intro_main));
-            builder.nextEpisodes(intro.getResources().getStringArray(R.array.test_subject_3_2_intro_main));
-            builder.nextEpisodes(intro.getResources().getStringArray(R.array.test_subject_3_3_intro_main));
-            builder.nextEpisodes(intro.getResources().getStringArray(R.array.test_subject_3_4_intro_main));
-            return builder.build();
+        public void makeMainIntroEpisodes(EpisodeBuilder builder) {
+            builder.nextEpisodes("M0", R.array.test_subject_3_0_intro_main);
+            builder.nextEpisodes("M1", R.array.test_subject_3_1_intro_main);
+            builder.nextEpisodes("M2", R.array.test_subject_3_2_intro_main);
+            builder.nextEpisodes("M3", R.array.test_subject_3_3_intro_main);
+            builder.nextEpisodes("M4", R.array.test_subject_3_4_intro_main);
         }
 
         @Override
@@ -331,11 +331,9 @@ public abstract class TestSubjectLevel {
         }
 
         @Override
-        public List<Episode> makeMainIntroEpisodes(Intro intro) {
-            EpisodeBuilder builder = new EpisodeBuilder(intro);
-            builder.nextEpisodes(intro.getResources().getStringArray(R.array.test_subject_4_0_intro_main));
-            builder.nextEpisodes(intro.getResources().getStringArray(R.array.test_subject_4_1_intro_main));
-            return builder.build();
+        public void makeMainIntroEpisodes(EpisodeBuilder builder) {
+            builder.nextEpisodes("M0", R.array.test_subject_4_0_intro_main);
+            builder.nextEpisodes("M1", R.array.test_subject_4_1_intro_main);
         }
 
         @Override
@@ -365,10 +363,8 @@ public abstract class TestSubjectLevel {
         }
 
         @Override
-        public List<Episode> makeMainIntroEpisodes(Intro intro) {
-            EpisodeBuilder builder = new EpisodeBuilder(intro);
-            builder.nextEpisodes(mTextMain, 0, mTextMain.length);
-            return builder.build();
+        public void makeMainIntroEpisodes(EpisodeBuilder builder) {
+            builder.nextEpisodes("M0", R.array.test_subject_5_intro_main);
         }
 
         @Override
@@ -399,10 +395,8 @@ public abstract class TestSubjectLevel {
         }
 
         @Override
-        public List<Episode> makeMainIntroEpisodes(Intro intro) {
-            EpisodeBuilder builder = new EpisodeBuilder(intro);
-            builder.nextEpisodes(mTextMain, 0, mTextMain.length);
-            return builder.build();
+        public void makeMainIntroEpisodes(EpisodeBuilder builder) {
+            builder.nextEpisodes("M0", R.array.test_subject_6_intro_main);
         }
 
         @Override
@@ -433,12 +427,9 @@ public abstract class TestSubjectLevel {
         }
 
         @Override
-        public List<Episode> makeMainIntroEpisodes(Intro intro) {
-            EpisodeBuilder builder = new EpisodeBuilder(intro);
-            builder.nextEpisodes(mTextMain, 0, mTextMain.length);
-            return builder.build();
+        public void makeMainIntroEpisodes(EpisodeBuilder builder) {
+            builder.nextEpisodes("M0", R.array.test_subject_7_intro_main);
         }
-
         @Override
         protected void applyLevel(Resources res) {
             mNameResId = R.string.test_subject_7_name;
@@ -467,10 +458,8 @@ public abstract class TestSubjectLevel {
         }
 
         @Override
-        public List<Episode> makeMainIntroEpisodes(Intro intro) {
-            EpisodeBuilder builder = new EpisodeBuilder(intro);
-            builder.nextEpisodes(mTextMain, 0, mTextMain.length);
-            return builder.build();
+        public void makeMainIntroEpisodes(EpisodeBuilder builder) {
+            builder.nextEpisodes("M0", R.array.test_subject_8_intro_main);
         }
 
         @Override
@@ -501,10 +490,8 @@ public abstract class TestSubjectLevel {
         }
 
         @Override
-        public List<Episode> makeMainIntroEpisodes(Intro intro) {
-            EpisodeBuilder builder = new EpisodeBuilder(intro);
-            builder.nextEpisodes(mTextMain, 0, mTextMain.length);
-            return builder.build();
+        public void makeMainIntroEpisodes(EpisodeBuilder builder) {
+            builder.nextEpisodes("M0", R.array.test_subject_9_intro_main);
         }
 
         @Override

@@ -25,42 +25,58 @@ import dan.dit.whatsthat.R;
  * Created by daniel on 10.08.15.
  */
 public class QuestionEpisode extends Episode implements Intro.OnEpisodeSkippedListener, View.OnClickListener {
+    public static final int ANSWER_REACTION_NOTHING = -1;
+    public static final int ANSWER_REACTION_NEXT_EPISODE = -2;
+
     private final int[] mAnswers;
-    private final View.OnClickListener mCallback;
-    private int mQuestionEpisodeCounter;
+    private final OnQuestionAnsweredCallback mCallback;
     private boolean mVisible;
     private boolean mCompleted;
     private ViewGroup mAnswersContainer;
     private final boolean mMandatory;
 
-    public QuestionEpisode(Intro intro, boolean mandatory, String question, int[] answersResId, int otherEpisodesCount, View.OnClickListener callback) {
-        super(intro, question);
+    public QuestionEpisode addAnswer(int strArrayResId) {
+        Episode answer = new Episode("Answer" + getEpisodeKey() + getChildrenCount(), mIntro, mIntro
+                .getResources()
+                .getStringArray(strArrayResId));
+        addChild(answer);
+        return this;
+    }
+
+    public interface OnQuestionAnsweredCallback {
+        int onQuestionAnswered(QuestionEpisode episode, int answerIndex);
+    }
+    public QuestionEpisode(String episodeKey, Intro intro, boolean mandatory, int messageArrayId,
+                           int[] answersResId, OnQuestionAnsweredCallback callback) {
+        super(episodeKey, intro, intro.getResources().getStringArray(messageArrayId));
         mMandatory = mandatory;
         mAnswers = answersResId;
-        mQuestionEpisodeCounter = Math.max(0, otherEpisodesCount);
         mCallback = callback;
         mAnswersContainer = (ViewGroup) intro.findViewById(R.id.intro_answers_container);
     }
 
     @Override
     public void onEpisodeSkipped(Episode skipped) {
-        if (mVisible) {
-            if (mQuestionEpisodeCounter <= 0) {
+        if (mVisible && skipped == this) {
+            if (!hasNextMessage()) {
                 stopQuestions();
-            } else {
-                mQuestionEpisodeCounter--;
             }
         }
     }
 
+
+    protected void init(String key) {
+        mCurrMessageIndex = 0;
+    }
+
     @Override
     public boolean isDone() {
-        return !mVisible || mCompleted || mQuestionEpisodeCounter > 0;
+        return !mVisible || mCompleted || hasNextMessage();
     }
 
     @Override
     public boolean isMandatory() {
-        return mMandatory;
+        return mMandatory && !mCompleted;
     }
 
     public void stopQuestions() {
@@ -84,18 +100,22 @@ public class QuestionEpisode extends Episode implements Intro.OnEpisodeSkippedLi
             mIntro.addOnEpisodeSkippedListener(this);
             super.start();
             mVisible = true;
-            for (int i = 0; i < mAnswersContainer.getChildCount(); i++) {
-                Button child = (Button) mAnswersContainer.getChildAt(i);
-                if (mAnswers != null && i < mAnswers.length && mAnswers[i] != 0) {
-                    child.setVisibility(View.VISIBLE);
-                    child.setText(mAnswers[i]);
-                    child.setOnClickListener(this);
-                } else {
-                    child.setOnClickListener(null);
-                    child.setVisibility(View.GONE);
+            if (!mCompleted) {
+                for (int i = 0; i < mAnswersContainer.getChildCount(); i++) {
+                    Button child = (Button) mAnswersContainer.getChildAt(i);
+                    if (mAnswers != null && i < mAnswers.length && mAnswers[i] != 0) {
+                        child.setVisibility(View.VISIBLE);
+                        child.setText(mAnswers[i]);
+                        child.setOnClickListener(this);
+                    } else {
+                        child.setOnClickListener(null);
+                        child.setVisibility(View.GONE);
+                    }
                 }
+                mAnswersContainer.setVisibility(View.VISIBLE);
+            } else {
+                mAnswersContainer.setVisibility(View.INVISIBLE);
             }
-            mAnswersContainer.setVisibility(View.VISIBLE);
         }
     }
 
@@ -103,10 +123,15 @@ public class QuestionEpisode extends Episode implements Intro.OnEpisodeSkippedLi
     public void onClick(View v) {
         mCompleted = true;
         stopQuestions();
+        int reaction = ANSWER_REACTION_NOTHING;
         if (mCallback != null) {
-            mCallback.onClick(v);
+            reaction = mCallback.onQuestionAnswered(this, mAnswersContainer.indexOfChild(v));
+        }
+        if (reaction >= 0) {
+            mIntro.nextEpisode(reaction);
+        } else if (reaction == ANSWER_REACTION_NEXT_EPISODE) {
+            mIntro.nextEpisode();
         }
         mIntro.onQuestionAnswered(this);
     }
-    //TODO make answer episode class that allows multiple reactions to a question episode
 }

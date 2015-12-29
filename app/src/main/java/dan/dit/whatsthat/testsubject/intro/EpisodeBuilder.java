@@ -25,10 +25,16 @@ public class EpisodeBuilder {
     List<Episode> mEpisodes;
     private int mCurrentIcon;
     private Intro mIntro;
+    private Episode mCurrentEpisode;
+    private boolean mJoinCurrentChildrenToNext;
 
     public EpisodeBuilder(Intro intro) {
         mIntro = intro;
         mEpisodes = new LinkedList<>();
+    }
+
+    public Intro getIntro() {
+        return mIntro;
     }
 
     public EpisodeBuilder setCurrentIcon(int iconResId) {
@@ -36,40 +42,65 @@ public class EpisodeBuilder {
         return this;
     }
 
-    public EpisodeBuilder nextEpisode(String message) {
-        Episode episode = new Episode(mIntro, message);
-        episode.setIcon(mCurrentIcon);
-        mEpisodes.add(episode);
-        return this;
-    }
-
-    public EpisodeBuilder nextEpisodes(String[] messages, int start, int length) {
-        for (int i = start; i < Math.min(start + length, messages.length); i++) {
-            nextEpisode(messages[i]);
+    private void growChain(Episode next) {
+        mEpisodes.add(next);
+        if (mCurrentEpisode != null) {
+            if (mJoinCurrentChildrenToNext) {
+                mJoinCurrentChildrenToNext = false;
+                for (int i = 0; i < mCurrentEpisode.getChildrenCount(); i++) {
+                    mCurrentEpisode.getChild(i).addChild(next);
+                }
+            } else {
+                mCurrentEpisode.addChild(next);
+            }
         }
+        mCurrentEpisode = next;
+    }
+
+    public EpisodeBuilder nextEpisode(String episodeKey, String message) {
+        growChain(new Episode(episodeKey, mIntro, message).setIcon(mCurrentIcon));
         return this;
     }
 
-    public EpisodeBuilder nextEpisodes(String[] messages) {
-        return nextEpisodes(messages, 0, messages.length);
+    public EpisodeBuilder nextEpisodes(String episodeKey, String[] messages) {
+        growChain(new Episode(episodeKey, mIntro, messages).setIcon(mCurrentIcon));
+        return this;
     }
 
-    public EpisodeBuilder nextEpisode(int messageResId) {
-        Episode episode = new Episode(mIntro, messageResId);
-        episode.setIcon(mCurrentIcon);
-        mEpisodes.add(episode);
-        return this;
+    public EpisodeBuilder nextEpisodes(String episodeKey, int strArrayResId) {
+        return nextEpisodes(episodeKey, mIntro.getResources().getStringArray(strArrayResId));
     }
 
     public EpisodeBuilder nextEpisode(Episode episode) {
         if (episode.mIntro != mIntro) {
             throw new IllegalArgumentException("Episode with different intro reference given.");
         }
-        mEpisodes.add(episode);
+        growChain(episode);
         return this;
     }
 
-    public List<Episode> build() {
+    public void setCurrentEpisode(Episode episode) {
+        mCurrentEpisode = episode;
+        if (!mEpisodes.contains(episode)) {
+            throw new IllegalArgumentException("Must set current episode to an episode added to " +
+                    "this builder.");
+        }
+    }
+
+    public Episode getCurrentEpisode() {
+        return mCurrentEpisode;
+    }
+
+    public List<Episode> getAll() {
         return mEpisodes;
+    }
+
+    public Episode build() {
+        return mEpisodes.get(0);
+    }
+
+    public EpisodeBuilder joinCurrentChildrenToNext() {
+        mJoinCurrentChildrenToNext = true;
+        return this;
     }
 }

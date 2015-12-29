@@ -17,6 +17,8 @@ package dan.dit.whatsthat.testsubject.intro;
 
 import android.content.SharedPreferences;
 import android.content.res.Resources;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -24,8 +26,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.Collections;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Set;
 
 import dan.dit.whatsthat.BuildConfig;
 import dan.dit.whatsthat.R;
@@ -36,21 +42,14 @@ import dan.dit.whatsthat.testsubject.TestSubjectLevel;
  */
 public class Intro {
     private static final String KEY_LAST_INTRO_LEVEL = "dan.dit.whatsthat.LAST_INTRO_LEVEL";
-    private static final String KEY_CURRENT_MAIN_EPISODE = "dan.dit.whatsthat.CURRENT_MAIN_EPISODE";
-    private static final String KEY_CURRENT_SUB_EPISODE = "dan.dit.whatsthat.CURRENT_SUB_EPISODE";
-    private static final int INTERACTION_NEXT_MAIN_EPISODE_NOT_AVAILABLE = 1;
-    private static final int INTERACTION_NEXT_SUB_EPISODE = 2;
-    private static final int INTERACTION_NEXT_SUB_EPISODE_RESTART = 3;
-    private static final int INTERACTION_NEXT_SUB_EPISODE_START = 4;
-    private static final int INTERACTION_NEXT_MAIN_EPISODE = 5;
+    private static final String KEY_CURRENT_EPISODE = "dan.dit.whatsthat.CURRENT_MAIN_EPISODE";
     private static final int INTERACTION_NEXT_UNMANAGED_EPISODE = 6;
     public static final int INTERACTION_QUESTION_ANSWERED = 7;
+    private static final int INTERACTION_CURRENT_EPISODE_NOT_YET_DONE = -1;
+    private static final int INTERACTION_NEXT_EPISODE = 1;
 
     private final View mIntroView;
-    protected List<Episode> mMainEpisodes;
-    protected List<Episode> mSubEpisodes;
-    protected int mCurrentMainEpisode;
-    protected int mCurrentSubEpisode;
+    protected Episode mEpisode;
     private List<OnEpisodeSkippedListener> mListeners = new LinkedList<>();
     private OnInteractionListener mInteractionListener;
 
@@ -74,29 +73,21 @@ public class Intro {
     }
 
     public static Intro makeIntro(View introView, TestSubjectLevel level) {
-        Intro intro = new Intro(introView);
-        intro.initEpisodes(level.makeMainIntroEpisodes(intro), level.makeSubIntroEpisodes(intro));
-        return intro;
+        return new Intro(introView).initEpisodes(level);
     }
 
-    private void initEpisodes(List<Episode> mainEpisodes, List<Episode> subEpisodes) {
-        mMainEpisodes = mainEpisodes;
-        if (mainEpisodes == null || mainEpisodes.isEmpty() || mainEpisodes.get(0) == null) {
-            throw new IllegalArgumentException("No main episodes given.");
+    private Intro initEpisodes(TestSubjectLevel level) {
+        mEpisode = level.makeEpisodes(this);
+        if (mEpisode == null) {
+            throw new IllegalArgumentException("No starting episode given.");
         }
-        mSubEpisodes = subEpisodes;
-        mCurrentMainEpisode = -1;
-        mCurrentSubEpisode = -1;
-        if (mSubEpisodes == null) {
-            mSubEpisodes = Collections.emptyList();
-            if (BuildConfig.DEBUG && !mSubEpisodes.isEmpty()) {
-                throw new IllegalStateException("Empty list instead of null list required for sub episodes.");
-            }
-        }
+        return this;
     }
 
     public void addOnEpisodeSkippedListener(OnEpisodeSkippedListener listener) {
-        mListeners.add(listener);
+        if (!mListeners.contains(listener)) {
+            mListeners.add(listener);
+        }
     }
 
     public void removeOnEpisodeSkippedListener(OnEpisodeSkippedListener listener) {
@@ -112,29 +103,133 @@ public class Intro {
         if (savedLevel != level) {
             return;
         }
-        mCurrentMainEpisode = data.getInt(KEY_CURRENT_MAIN_EPISODE, -1);
-        mCurrentSubEpisode = data.getInt(KEY_CURRENT_SUB_EPISODE, -1);
-        if (mCurrentMainEpisode >= mMainEpisodes.size() && mCurrentSubEpisode < 0) {
-            mCurrentSubEpisode = -1;
-        } else if (mCurrentSubEpisode > mSubEpisodes.size()) {
-            mCurrentSubEpisode = mSubEpisodes.size();
+        String key = data.getString(KEY_CURRENT_EPISODE, null);
+        mEpisode = searchEpisode(mEpisode, key);
+        mEpisode.init(key);
+    }
+
+    private static class EpisodeIterator implements Iterator<Episode> {
+
+        private Set<EpisodeNode> mAllNodes;
+        private List<EpisodeNode> mStack;
+        private boolean mFoundCycle;
+        private Episode mNext;
+
+        private static class EpisodeNode {
+            private Episode mEpisode;
+            private int mChildIndex;
+            public EpisodeNode(Episode episode) {
+                mEpisode = episode;
+            }
+            @Override
+            public int hashCode() {
+                return mEpisode.hashCode();
+            }
+
+            @Override
+            public boolean equals(Object other) {
+                if (other instanceof EpisodeNode) {
+                    return mEpisode.equals(((EpisodeNode) other).mEpisode);
+                }
+                return super.equals(other);
+            }
         }
-        Log.d("HomeStuff", "Loading intro " + level + " " + mCurrentMainEpisode + " " + mCurrentSubEpisode);
+
+        public EpisodeIterator(Episode start) {
+            mAllNodes = new HashSet<>();
+            mStack = new LinkedList<>();
+            mFoundCycle = false;
+
+            EpisodeNode startNode = new EpisodeNode(start);
+            mAllNodes.add(startNode);
+            mStack.add(startNode);
+            mNext = start;
+        }
+
+        private void prepareNext() {
+            EpisodeNode node;
+            do {
+                node = depthFirstSearchStep();
+            } while (node == null && !mStack.isEmpty());
+            mNext = node != null ? node.mEpisode : null;
+        }
+
+        private EpisodeNode getEpisodeNode(Episode of) {
+            for (EpisodeNode node : mAllNodes) {
+                if (node.mEpisode.equals(of)) {
+                    return node;
+                }
+            }
+            return null;
+        }
+
+        public boolean foundCycle() {
+            return mFoundCycle;
+        }
+        @Override
+        public boolean hasNext() {
+            return mNext != null;
+        }
+
+        @Override
+        public Episode next() {
+            if (!hasNext()) {
+                throw new NoSuchElementException();
+            }
+            Episode curr = mNext;
+            prepareNext();
+            return curr;
+        }
+
+        private EpisodeNode depthFirstSearchStep() {
+            EpisodeNode currNode = mStack.get(mStack.size() - 1);
+            Episode curr = currNode.mEpisode;
+            EpisodeNode newNode = null;
+            if (currNode.mChildIndex < curr.getChildrenCount()) {
+                Episode next = curr.getChild(currNode.mChildIndex);
+                currNode.mChildIndex++;
+                EpisodeNode nextNode = getEpisodeNode(next);
+                if (nextNode != null) {
+                    // this node was already reached sometime, check if in recursion stack
+                    if (mStack.contains(nextNode)) {
+                        mFoundCycle = true;
+                    } else {
+                        mStack.add(nextNode);
+                    }
+                } else {
+                    nextNode = new EpisodeNode(next);
+                    mStack.add(nextNode);
+                    mAllNodes.add(nextNode);
+                    newNode = nextNode;
+                }
+            } else {
+                mStack.remove(mStack.size() - 1);
+            }
+            return newNode;
+        }
+
+        @Override
+        public void remove() {
+            throw new UnsupportedOperationException("Removing of episodes not supported.");
+        }
+    }
+
+    private @NonNull
+    Episode searchEpisode(@NonNull Episode start, @Nullable String key) {
+        String episodeKey = TextUtils.isEmpty(key) ? null : Episode.extractEpisodeKey(key);
+        Iterator<Episode> it = new EpisodeIterator(start);
+        while (it.hasNext()) {
+            Episode next = it.next();
+            if (next.getEpisodeKey().equals(episodeKey)) {
+                return next;
+            }
+        }
+        return null;
     }
 
     public void save(SharedPreferences.Editor editor, int level) {
-        // necessary to not skip mandatory not done episodes when saving since loading will not start this episode then
-        int mainEpisode = mCurrentMainEpisode;
-        for (int i = 0; i < Math.min(mMainEpisodes.size(), mCurrentMainEpisode + 1); i++) {
-            Episode episode = mMainEpisodes.get(i);
-            mainEpisode = i;
-            if (episode.isMandatory() && !episode.isDone()) {
-                break;
-            }
-        }
-        Log.d("HomeStuff", "Saving intro " + level + " " + mainEpisode + " " + mCurrentSubEpisode);
-        editor.putInt(KEY_LAST_INTRO_LEVEL, level).putInt(KEY_CURRENT_MAIN_EPISODE, mainEpisode)
-                .putInt(KEY_CURRENT_SUB_EPISODE, mCurrentSubEpisode).apply();
+        editor.putInt(KEY_LAST_INTRO_LEVEL, level).putString(KEY_CURRENT_EPISODE,
+                mEpisode.getKey()).apply();
     }
 
     protected void applyMessage(int messageResId) {
@@ -157,71 +252,40 @@ public class Intro {
     }
 
     public Episode getCurrentEpisode() {
-        if (mCurrentSubEpisode >= 0) {
-            return mSubEpisodes.get(mCurrentSubEpisode);
-        } else if (mCurrentMainEpisode >= 0) {
-            return mMainEpisodes.get(mCurrentMainEpisode);
-        }
-        return null;
+        return mEpisode;
     }
 
     public boolean isMandatoryEpisodeMissing() {
-        // sub episodes cannot be mandatory
-        if (mCurrentMainEpisode >= 0 && mCurrentSubEpisode < 0) {
-            for (int i = 0; i < mMainEpisodes.size(); i++) {
-                Episode episode = mMainEpisodes.get(i);
-                if (i >= mCurrentMainEpisode && episode.isMandatory()) {
-                    return true; // future episode not yet started or currently running episode is missing
-                } else if (episode.isMandatory() && !episode.isDone()) {
-                    return true; // previously started episode that is not done missing
-                }
+        Iterator<Episode> it = new EpisodeIterator(mEpisode);
+        while (it.hasNext()) {
+            Episode next = it.next();
+            if (next.isMandatory()) {
+                return true;
             }
         }
         return false;
     }
 
-
     public Episode nextEpisode() {
-        // if we did not start with sub episodes yet, make sure all previous episodes are done before getting the next main or sub episode
-        if (mCurrentSubEpisode < 0) {
-            for (int i = 0; i <= mCurrentMainEpisode; i++) {
-                if (i < mMainEpisodes.size()) {
-                    Episode ep = mMainEpisodes.get(i);
-                    if (!ep.isDone()) {
-                        Log.d("HomeStuff", "Attempting to get next episode where current is not yet done: " + ep);
-                        onInteraction(INTERACTION_NEXT_MAIN_EPISODE_NOT_AVAILABLE);
-                        return getCurrentEpisode();
-                    }
-                }
-            }
+        return nextEpisode(-1);
+    }
+
+    public Episode nextEpisode(int childIndex) {
+        // make sure current episode is done
+        // before getting the next episode
+        if (!mEpisode.isDone()) {
+            Log.d("HomeStuff", "Attempting to get next episode where current is not yet done: " +
+                    mEpisode);
+            onInteraction(INTERACTION_CURRENT_EPISODE_NOT_YET_DONE);
+            return mEpisode;
         }
-        if (mCurrentSubEpisode >= 0) {
-            mCurrentSubEpisode++;
-            if (mCurrentSubEpisode >= mSubEpisodes.size()) {
-                mCurrentSubEpisode = 0; // restart sub episodes
-            }
-            Episode next = mSubEpisodes.get(mCurrentSubEpisode);
+        Episode next = mEpisode.next(childIndex);
+        if (next != null) {
             startEpisode(next);
-            if (mCurrentSubEpisode == 0) {
-                onInteraction(INTERACTION_NEXT_SUB_EPISODE_RESTART);
-            } else {
-                onInteraction(INTERACTION_NEXT_SUB_EPISODE);
-            }
+            onInteraction(INTERACTION_NEXT_EPISODE);
             return next;
         }
-        mCurrentMainEpisode++;
-        if (mCurrentMainEpisode >= mMainEpisodes.size()) {
-            // main episodes done, start sub episodes
-            mCurrentSubEpisode = 0;
-            Episode next = mSubEpisodes.get(mCurrentSubEpisode);
-            startEpisode(next);
-            onInteraction(INTERACTION_NEXT_SUB_EPISODE_START);
-            return next;
-        }
-        Episode next = mMainEpisodes.get(mCurrentMainEpisode);
-        startEpisode(next);
-        onInteraction(INTERACTION_NEXT_MAIN_EPISODE);
-        return next;
+        return mEpisode;
     }
 
     private void onInteraction(int actionId) {
@@ -248,6 +312,7 @@ public class Intro {
             }
         }
         episode.start();
+        mEpisode = episode;
     }
 
     protected void onQuestionAnswered(QuestionEpisode question) {

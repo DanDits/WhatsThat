@@ -10,6 +10,9 @@
     <string name="intro_test_answer_bullshit">\?!?!</string>
     <string name="intro_test_answer_no">No</string>
     <string name="intro_test_answer_yes">Yes</string>
+    <string name="intro_test_answer_chocolate">Chocolate</string>
+    <string name="intro_test_answer_cookie">Cookie</string>
+    <string name="intro_test_answer_donut">Donut</string>
 
     <string name="intro_starting_episode">Welcome %1$s</string>
 
@@ -49,17 +52,27 @@
         <item>But looking at close range… I suppose a failing of the Centralbrain…</item>
         <item>Well… it would be beneficial if you don’t fail the planet…</item>
     </string-array>
-    <string-array name="test_subject_0_intro_nuts">
+    <string-array name="test_subject_0_0_intro_nuts">
         <item>…</item>
-        <item>May I introduce our Centralbrain WiseMind to you… We connected your brain with hers.</item>
-        <item>We connected your brain with hers. A brain with the size of a galaxy… and … well … yours right next to it…</item>
+        <item>May I introduce our Centralbrain WiseMind to you… We connected your brain to hers.</item>
+        <item>A brain with the size of a galaxy… and … well … yours right next to it…</item>
         <item>I hope you two get along well together and take care of each other.</item>
         <item>OK, ok. I mean WiseMind takes care of you.</item>
+    </string-array>
+    <string-array name="test_subject_0_1_intro_nuts">
         <item>Test: Is 13 a prime number?</item>
+    </string-array>
+    <string-array name="test_subject_0_2_intro_nuts">
         <item>Response time exceeded. No reaction detected.</item>
         <item>Hmm, maybe we need a simpler question.</item>
+    </string-array>
+    <string-array name="test_subject_0_3_intro_nuts">
         <item>Think about something to eat!</item>
+    </string-array>
+    <string-array name="test_subject_0_4_intro_nuts">
         <item>Ah. Candies.</item>
+    </string-array>
+    <string-array name="test_subject_0_5_intro_nuts">
         <item>Great, as the connection is working, we hopefully can start in a couple of seconds.</item>
         <item>I hope that you are not slow on the uptake.</item>
         <item>We don\"t want to overwhelm you.</item>
@@ -95,13 +108,23 @@
     </string-array>
     <string-array name="test_subject_1_1_intro_main">
         <item>Test: What\'s the 7364th prime number?</item>
-        <item>No, chocolate is NOT a prime number…</item>
+    </string-array>
+    <string-array name="test_subject_1_2a_intro_main">
+        <item>No, chocolate delicious but not a prime number…</item>
+    </string-array>
+    <string-array name="test_subject_1_2b_intro_main">
+        <item>No, donuts are primarily holes…</item>
+    </string-array>
+    <string-array name="test_subject_1_2c_intro_main">
+        <item>Cookies are files and not numbers…</item>
+    </string-array>
+    <string-array name="test_subject_1_3_intro_main">
         <item>At least your reaction time improved.</item>
         <item>At least a little kind of progress.</item>
         <item>Another try: How about a sequence of numbers?</item>
-        <item>What\'s the correct sequel fort he numbers:</item>
+        <item>What\'s the correct sequel for the numbers:</item>
     </string-array>
-    <string-array name="test_subject_1_2_intro_main">
+    <string-array name="test_subject_1_4_intro_main">
         <item>1; 3; 5; 7; ?</item>
         <item>No, no, no. I\'m afraid that\'s wrong.</item>#
         <item>The correct solution is 217341.</item>

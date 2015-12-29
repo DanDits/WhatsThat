@@ -39,7 +39,7 @@ public class GeneralStartingEpisode extends Episode {
     private View mIntroAbduction;
 
     public GeneralStartingEpisode(Intro intro, String message, TestSubjectLevel level) {
-        super(intro, message);
+        super("General", intro, message);
         mLevel = level;
         mIntroKid = (ImageView) intro.findViewById(R.id.intro_subject);
         mIntroAbduction = intro.findViewById(R.id.intro_abduction);
