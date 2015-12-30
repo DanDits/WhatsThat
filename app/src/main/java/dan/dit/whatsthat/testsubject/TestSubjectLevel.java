@@ -123,7 +123,7 @@ public abstract class TestSubjectLevel {
 
             // gender question, mandatory
             .setCurrentIcon(0)
-            .nextEpisode(new QuestionEpisode("Q2",
+            .nextEpisode(new QuestionEpisode("MQ2",
                     builder.getIntro(),
                     true,
                     R.array.test_subject_0_2_intro_main,
@@ -162,7 +162,7 @@ public abstract class TestSubjectLevel {
 
             // Test: 13 is prime question
             builder.nextEpisodes("S0", R.array.test_subject_0_0_intro_nuts);
-            builder.nextEpisode(new QuestionEpisode("Q1", builder.getIntro(), false,
+            builder.nextEpisode(new QuestionEpisode("SQ1", builder.getIntro(), false,
                             R.array.test_subject_0_1_intro_nuts,
                             new int[]{R.string.intro_test_answer_yes, R.string.intro_test_answer_no, R.string.intro_test_answer_bullshit},
                             new QuestionEpisode.OnQuestionAnsweredCallback() {
@@ -217,7 +217,7 @@ public abstract class TestSubjectLevel {
         public void makeMainIntroEpisodes(EpisodeBuilder builder) {
             builder.nextEpisodes("M0", R.array.test_subject_1_0_intro_main);
 
-            builder.nextEpisode(new QuestionEpisode("Q1", builder.getIntro(), false, R.array
+            builder.nextEpisode(new QuestionEpisode("MQ1", builder.getIntro(), false, R.array
                     .test_subject_1_1_intro_main,
                     new int[]{R.string.intro_test_answer_chocolate, R.string
                             .intro_test_answer_donut, R.string.intro_test_answer_cookie},
@@ -234,7 +234,24 @@ public abstract class TestSubjectLevel {
 
 
             builder.nextEpisodes("M3", R.array.test_subject_1_3_intro_main);
-            builder.nextEpisodes("M4", R.array.test_subject_1_4_intro_main);
+
+            builder.nextEpisode(new QuestionEpisode("MQ4", builder.getIntro(), true, R.array
+                    .test_subject_1_4_intro_main,
+                    new int[]{R.string.intro_test_answer_18, R.string.intro_test_answer_9,
+                            R.string.intro_test_answer_256, R.string.intro_test_answer_217341},
+                    new QuestionEpisode.OnQuestionAnsweredCallback() {
+                        @Override
+                        public int onQuestionAnswered(QuestionEpisode episode, int answerIndex) {
+                            return answerIndex;
+                        }
+                    })
+                    .addAnswer(R.array.test_subject_1_5a_intro_main)
+                    .addAnswer(R.array.test_subject_1_5a_intro_main)
+                    .addAnswer(R.array.test_subject_1_5a_intro_main)
+                    .addAnswer(R.array.test_subject_1_5b_intro_main));
+            builder.joinCurrentChildrenToNext();
+
+            builder.nextEpisodes("M6", R.array.test_subject_1_6_intro_main);
         }
 
         @Override
@@ -267,6 +284,24 @@ public abstract class TestSubjectLevel {
         public void makeMainIntroEpisodes(EpisodeBuilder builder) {
             builder.nextEpisodes("M0", R.array.test_subject_2_0_intro_main);
             builder.nextEpisodes("M1", R.array.test_subject_2_1_intro_main);
+            builder.nextEpisodes("M2", R.array.test_subject_2_2_intro_main);
+
+
+            builder.nextEpisode(new QuestionEpisode("MQ3", builder.getIntro(), false, R.array
+                    .test_subject_2_3_intro_main,
+                    new int[]{R.string.intro_test_answer_6, R.string.intro_test_answer_Kartoffelsalat},
+                    new QuestionEpisode.OnQuestionAnsweredCallback() {
+                        @Override
+                        public int onQuestionAnswered(QuestionEpisode episode, int answerIndex) {
+                            return answerIndex;
+                        }
+                    })
+                    .addAnswer(R.array.test_subject_2_4a_intro_main)
+                    .addAnswer(R.array.test_subject_2_4b_intro_main));
+            builder.joinCurrentChildrenToNext();
+
+            builder.nextEpisodes("M4", R.array.test_subject_2_intro_nuts);
+
         }
 
         @Override
