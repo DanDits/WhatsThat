@@ -220,12 +220,15 @@ public abstract class Achievement implements AchievementDataEventListener, Depen
      * Achieves the given delta if this does not achieve this achievement. Does nothing
      * if already achieved. Does NO dependency check.
      * @param delta The delta to add. Can be any value.
+     * @return True if the given delta was achieved, this is when the achievement was not yet
+     * achieved and the delta added on the current value is lower than the maximum value.
      */
-    protected void addDeltaIfNotAchieved(int delta) {
+    protected boolean addDeltaIfNotAchieved(int delta) {
         if (isAchieved() || mValue + delta >= mMaxValue) {
-            return;
+            return false;
         }
         achieveDelta(delta);
+        return true;
     }
 
     /**

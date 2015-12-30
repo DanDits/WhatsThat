@@ -79,15 +79,22 @@ public class AchievementLazor extends TypeAchievementHolder {
         public static final int REWARD = 55;
         public static final boolean DISCOVERED = true;
         private static final int REQUIRED_HITS = 3; // not synced with strings
+        private static final int MAX_PERCENTAGE = 70;
 
         public Achievement1(AchievementManager manager, PracticalRiddleType type) {
             super(type, R.string.achievement_lazor_1_name, R.string.achievement_lazor_1_descr, 0, NUMBER, manager, LEVEL, REWARD, 1, DISCOVERED);
         }
 
         @Override
+        public CharSequence getDescription(Resources res) {
+            return res.getString(mDescrResId, MAX_PERCENTAGE);
+        }
+
+        @Override
         public void onNonCustomDataEvent(AchievementDataEvent event) {
             if (event.getChangedData() == mGameData && event.hasChangedKey(KEY_GAME_LAST_METEOR_DESTROYED_CANNONBALL_DESTROY_COUNT)) {
-                if (mGameData.getValue(KEY_GAME_LAST_METEOR_DESTROYED_CANNONBALL_DESTROY_COUNT, 0L) >= REQUIRED_HITS) {
+                if (mGameData.getValue(KEY_GAME_LAST_METEOR_DESTROYED_CANNONBALL_DESTROY_COUNT, 0L) >= REQUIRED_HITS
+                        && mGameData.getValue(KEY_GAME_DIFFICULTY, 0L) <= MAX_PERCENTAGE) {
                     achieveAfterDependencyCheck();
                 }
             }
@@ -535,7 +542,7 @@ public class AchievementLazor extends TypeAchievementHolder {
 
     private static class Achievement15 extends GameAchievement {
         public static final int NUMBER = 15;
-        public static final int LEVEL = 0;
+        public static final int LEVEL = 1;
         public static final int REWARD = 150;
         public static final boolean DISCOVERED = true;
         private static final int REQUIRED_SHOTS = 400;
@@ -555,8 +562,10 @@ public class AchievementLazor extends TypeAchievementHolder {
                 if (mGameData.getValue(KEY_GAME_LAST_METEOR_DESTROYED_CANNONBALL_DESTROY_COUNT, 0L) == 1L) {
                     // only count one hit meteor per cannonball
                     if (mGameData.getValue(KEY_GAME_LAST_METEOR_DESTROYED_LAZOR_CANNON_FLY_DURATION, 0L) <= MAX_FLY_DURATION) {
-                        if (areDependenciesFulfilled()) {
-                            achieveDelta(1);
+                        if (!addDeltaIfNotAchieved(1)) {
+                            if (areDependenciesFulfilled()) {
+                                achieveDelta(1);
+                            }
                         }
                     }
                 }
@@ -566,7 +575,7 @@ public class AchievementLazor extends TypeAchievementHolder {
 
     private static class Achievement16 extends GameAchievement {
         public static final int NUMBER = 16;
-        public static final int LEVEL = 0;
+        public static final int LEVEL = 1;
         public static final boolean DISCOVERED = true;
         private static final int REQUIRED_SHOTS = 100;
         public static final int REWARD = REQUIRED_SHOTS*2;
@@ -586,8 +595,10 @@ public class AchievementLazor extends TypeAchievementHolder {
                 if (mGameData.getValue(KEY_GAME_LAST_METEOR_DESTROYED_CANNONBALL_DESTROY_COUNT, 0L) == 1L) {
                     // only count one hit meteor per cannonball
                     if (mGameData.getValue(KEY_GAME_LAST_METEOR_DESTROYED_LAZOR_CANNON_FLY_DURATION, 0L) >= MIN_FLY_DURATION) {
-                        if (areDependenciesFulfilled()) {
-                            achieveDelta(1);
+                        if (!addDeltaIfNotAchieved(1)) {
+                            if (areDependenciesFulfilled()) {
+                                achieveDelta(1);
+                            }
                         }
                     }
                 }

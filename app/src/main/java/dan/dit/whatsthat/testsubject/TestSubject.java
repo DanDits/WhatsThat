@@ -357,7 +357,7 @@ public class TestSubject {
     public void postToast(TestSubjectToast toast, long delay) {
         if (mGeneralToastProcessor == null || toast == null) {
             if (mGeneralToastProcessor == null) {
-                Log.e("HomeStuff", "Trying to post toast. No handler initialized for test subject.");
+                Log.e("HomeStuff", "Trying to post toast. No handler initialized for testsubject.");
             }
             return;
         }

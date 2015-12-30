@@ -22,11 +22,14 @@ import android.util.Log;
 import java.util.LinkedList;
 import java.util.List;
 
+import dan.dit.whatsthat.util.compaction.Compactable;
+import dan.dit.whatsthat.util.compaction.CompactedDataCorruptException;
+import dan.dit.whatsthat.util.compaction.Compacter;
+
 /**
  * Created by daniel on 08.08.15.
  */
-public class Episode {
-    public static final String EPISODE_KEY_SEPARATOR = "_";
+public class Episode implements Compactable {
     private final String[] mMessages;
     protected int mCurrMessageIndex;
     protected final Intro mIntro;
@@ -64,23 +67,8 @@ public class Episode {
         return false;
     }
 
-    protected void init(String key) {
-        if (TextUtils.isEmpty(key)) {
-            mCurrMessageIndex = 0;
-            return;
-        }
-        String indexStr = key.substring(key.indexOf(EPISODE_KEY_SEPARATOR) + EPISODE_KEY_SEPARATOR
-                .length());
-        int index = 0;
-        try {
-            index = Integer.parseInt(indexStr);
-        } catch (NumberFormatException nfe) {
-            Log.e("HomeStuff", "Error parsing index of episode key: " + nfe);
-        }
-        mCurrMessageIndex = index;
-        if (mMessages != null && mMessages.length > 0) {
-            mCurrMessageIndex %= mMessages.length;
-        }
+    protected void init(String data) throws CompactedDataCorruptException {
+        unloadData(TextUtils.isEmpty(data) ? null : new Compacter(data));
     }
 
     protected void start() {
@@ -98,12 +86,8 @@ public class Episode {
     }
 
 
-    public static String extractEpisodeKey(@NonNull String key) {
-        return key.substring(0, key.indexOf(EPISODE_KEY_SEPARATOR));
-    }
-
-    public @NonNull String getKey() {
-        return mEpisodeKey + EPISODE_KEY_SEPARATOR + mCurrMessageIndex;
+    public static String extractEpisodeKey(@NonNull String data) {
+        return new Compacter(data).getData(0);
     }
 
     @Override
@@ -150,5 +134,41 @@ public class Episode {
         mNextChildIndex++;
         mNextChildIndex %= mChildren.size(); // cycle
         return next;
+    }
+
+    @Override
+    public String compact() {
+        Compacter cmp = new Compacter(5);
+        cmp.appendData(getEpisodeKey());
+        cmp.appendData(mCurrMessageIndex);
+        cmp.appendData(mNextChildIndex);
+        return cmp.compact();
+    }
+
+    @Override
+    public void unloadData(Compacter compactedData) throws CompactedDataCorruptException {
+        if (compactedData == null || compactedData.getSize() < 1) {
+            return;
+        }
+        if (!compactedData.getData(0).equals(getEpisodeKey())) {
+            throw new CompactedDataCorruptException("Wrong episode for compacted data!" +
+                    getEpisodeKey()).setCorruptData(compactedData);
+        }
+        if (compactedData.getSize() > 1) {
+            mCurrMessageIndex = compactedData.getInt(1);
+            if (mMessages != null && mMessages.length > 0) {
+                mCurrMessageIndex %= mMessages.length;
+            }
+        } else {
+            mCurrMessageIndex = 0;
+        }
+        if (compactedData.getSize() > 2) {
+            mNextChildIndex = compactedData.getInt(2);
+            if (mChildren != null && mChildren.size() > 0) {
+                mNextChildIndex %= mChildren.size();
+            }
+        } else {
+            mNextChildIndex = 0;
+        }
     }
 }

@@ -224,7 +224,7 @@
 
     <!-- Lazor achievements -->
     <string name="achievement_lazor_1_name">Triple hit</string>
-    <string name="achievement_lazor_1_descr">Hit three meteors at once.</string>
+    <string name="achievement_lazor_1_descr">Hit three meteors at once with generator below %1$d%%.</string>
     <string name="achievement_lazor_2_name">City protector</string>
     <string name="achievement_lazor_2_descr">Catch all meteors until the shield protects your city.</string>
     <string name="achievement_lazor_3_descr">Get the generator to %1$d%%. After that let it drop back to exactly %2$d%%!</string>

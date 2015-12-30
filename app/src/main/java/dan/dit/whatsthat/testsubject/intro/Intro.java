@@ -36,6 +36,7 @@ import java.util.Set;
 import dan.dit.whatsthat.BuildConfig;
 import dan.dit.whatsthat.R;
 import dan.dit.whatsthat.testsubject.TestSubjectLevel;
+import dan.dit.whatsthat.util.compaction.CompactedDataCorruptException;
 
 /**
  * Created by daniel on 08.08.15.
@@ -105,7 +106,17 @@ public class Intro {
         }
         String key = data.getString(KEY_CURRENT_EPISODE, null);
         mEpisode = searchEpisode(mEpisode, key);
-        mEpisode.init(key);
+        try {
+            mEpisode.init(key);
+        } catch (CompactedDataCorruptException e) {
+            Log.e("HomeStuff", "Failed initializing loaded episode: " + e);
+            try {
+                mEpisode.init(null);
+            } catch (CompactedDataCorruptException ee) {
+                Log.e("HomeStuff", "Failed again initialing episode from scratch!");
+                //ignore
+            }
+        }
     }
 
     private static class EpisodeIterator implements Iterator<Episode> {
@@ -229,7 +240,7 @@ public class Intro {
 
     public void save(SharedPreferences.Editor editor, int level) {
         editor.putInt(KEY_LAST_INTRO_LEVEL, level).putString(KEY_CURRENT_EPISODE,
-                mEpisode.getKey()).apply();
+                mEpisode.compact()).apply();
     }
 
     protected void applyMessage(int messageResId) {

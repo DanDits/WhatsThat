@@ -156,7 +156,7 @@
     <string name="intro_starting_episode">Willkommen %1$s</string>
 
     <string name="riddle_hints_dialog_confirm">Habs verstanden!</string>
-    <string name="riddle_dialog_title">Experimente wählen</string>
+    <string name="riddle_dialog_title">Zukünftige Experimente</string>
     <string name="riddle_dialog_subtitle">Neues Experiment im Laden!</string>
     <plurals name="riddle_dialog_confirm_unsolveds">
         <item quantity="one">Ausgesetztes Experiment fortführen</item>
@@ -219,7 +219,8 @@
     <string name="bundle_creator_progress_error_result">Fehler (%1$d) beim Speichern</string>
     <string name="share_failed">Teilen fehlgeschlagen</string>
     <string name="article_level_up_name">Gehirnlevel Boost</string>
-    <string name="article_level_up_descr">Ermöglicht das Erfassen von weiteren Experimenten und Achievements.</string>
+    <string name="article_level_up_descr">Ermöglicht das Erfassen von weiteren Experimenten und
+        Erfolgen.</string>
     <string name="article_level_up_dep_new_riddle">Zuerst ein neues Experiment wählen!</string>
     <string name="article_choose_riddle_name">Wähle ein neues Experiment</string>
     <string name="article_choose_riddle_descr">Fordere deinen Geist mit einer neuen Aufgabe heraus!</string>
