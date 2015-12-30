@@ -260,9 +260,11 @@ public class ShopView extends ExpandableListView implements  StoreContainer, Sho
             if (mExpandedGroup == -1 || isExpanded) {
                 convertView.setAlpha(1.f);
                 convertView.setScaleX(1.f);
+                convertView.setScaleY(1.f);
             } else {
                 convertView.setAlpha(0.25f);
                 convertView.setScaleX(0.8f);
+                convertView.setScaleY(0.7f);
             }
             ShopArticle article = mArticleHolder.getArticle(groupPosition);
             ((TextView) name).setText(article.getName(getResources()));

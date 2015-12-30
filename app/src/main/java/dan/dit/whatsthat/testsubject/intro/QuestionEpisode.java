@@ -15,11 +15,14 @@
 
 package dan.dit.whatsthat.testsubject.intro;
 
+import android.support.annotation.NonNull;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
 import dan.dit.whatsthat.R;
+import dan.dit.whatsthat.util.compaction.CompactedDataCorruptException;
+import dan.dit.whatsthat.util.compaction.Compacter;
 
 /**
  * Created by daniel on 10.08.15.
@@ -62,11 +65,6 @@ public class QuestionEpisode extends Episode implements Intro.OnEpisodeSkippedLi
                 stopQuestions();
             }
         }
-    }
-
-
-    protected void init(String key) {
-        mCurrMessageIndex = 0;
     }
 
     @Override
@@ -116,6 +114,21 @@ public class QuestionEpisode extends Episode implements Intro.OnEpisodeSkippedLi
             } else {
                 mAnswersContainer.setVisibility(View.INVISIBLE);
             }
+        }
+    }
+
+    @Override
+    public String compact() {
+        Compacter cmp = new Compacter(super.compact());
+        cmp.appendData(mCompleted);
+        return cmp.compact();
+    }
+
+    @Override
+    public void unloadData(Compacter compactedData) throws CompactedDataCorruptException {
+        super.unloadData(compactedData);
+        if (compactedData != null && compactedData.getSize() > 3) {
+            mCompleted = compactedData.getBoolean(3);
         }
     }
 

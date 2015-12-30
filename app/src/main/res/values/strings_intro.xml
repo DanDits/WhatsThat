@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="intro_test_subject_name">-test subject-</string>
+    <string name="intro_test_subject_name">-testsubject-</string>
     <string name="intro_test_subject_estimated_intelligence">-intelligence-</string>
 
     <string name="intro_test_subject_gender_answer_male">XY: Yann</string>

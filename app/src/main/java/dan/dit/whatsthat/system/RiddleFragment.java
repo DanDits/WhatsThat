@@ -408,19 +408,24 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
         });
         mBtnRiddles = (ImageButton) getView().findViewById(R.id.riddle_make_next);
         mScoreInfo = (TextView) getView().findViewById(R.id.currency);
-        mScoreInfo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (mClickCount == 0 || System.currentTimeMillis() - mFirstClickTime > 2000L) {
-                    mClickCount = 0;
-                    mFirstClickTime = System.currentTimeMillis();
+
+        // only allow cheats in debug build
+        final boolean allowCheats = BuildConfig.DEBUG;
+        if (allowCheats) {
+            mScoreInfo.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (mClickCount == 0 || System.currentTimeMillis() - mFirstClickTime > 2000L) {
+                        mClickCount = 0;
+                        mFirstClickTime = System.currentTimeMillis();
+                    }
+                    mClickCount++;
+                    if (mClickCount >= 10) {
+                        mBtnCheat.setVisibility(View.VISIBLE);
+                    }
                 }
-                mClickCount++;
-                if (mClickCount >= 10) {
-                    mBtnCheat.setVisibility(View.VISIBLE);
-                }
-            }
-        });
+            });
+        }
         mBtnRiddles.setEnabled(false);
         mBtnRiddles.setImageResource(TestSubject.getInstance().getImageResId());
         mBtnRiddles.setOnClickListener(new View.OnClickListener() {
@@ -439,16 +444,15 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
         });
         mBtnCheat = (ImageButton) getView().findViewById(R.id.riddle_cheat);
         mBtnCheat.setVisibility(View.GONE);
-        mBtnCheat.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (!BuildConfig.DEBUG) {
-                    Log.e("HomeStuff", "Using cheats in non debug build!");
-                    return;
+        if (allowCheats) {
+            mBtnCheat.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    onCheat();
                 }
-                onCheat();
-            }
-        });
+            });
+        }
 
         mManager = RiddleInitializer.INSTANCE.getRiddleManager();
     }

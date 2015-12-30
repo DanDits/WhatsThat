@@ -10,8 +10,8 @@ public class RiddleScore {
 
     public RiddleScore(int base, int multiplicator) {
         base = Math.max(0, base);
-        multiplicator = Math.max(1, multiplicator);
-        mTotalScore = base * multiplicator;
+        mMultiplicator = Math.max(1, multiplicator);
+        mTotalScore = base * mMultiplicator;
     }
 
     public RiddleScore addBonus(int bonus) {

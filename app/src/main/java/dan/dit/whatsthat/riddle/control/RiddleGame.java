@@ -77,7 +77,6 @@ public abstract class RiddleGame {
     protected Bitmap mBitmap; // the correctly scaled bitmap of the image to work with
     // note: full galaxy s2 display 480x800 pixel, hdpi (scaling of 1.5 by default)
     protected final RiddleConfig mConfig;
-    private int mScoreMultiplicator;
 
     /**
      * Creates a new RiddleGame, decorating the given riddle, using the given bitmap loaded from the riddle's image.
@@ -271,21 +270,19 @@ public abstract class RiddleGame {
     @NonNull
     RiddleScore calculateGainedScore() {
         boolean isCustom = !Image.ORIGIN_IS_THE_APP.equalsIgnoreCase(mRiddle.getOrigin());
-        if (mScoreMultiplicator <= 0) {
-            mScoreMultiplicator = BASE_SCORE_MULTIPLIER;
-            long now = System.currentTimeMillis();
-            if (!isCustom
-                    && mConfig.mAchievementGameData != null && (now - mRiddle.getTimestamp()) < SCORE_BONUS_MAX_RIDDLE_TIME && TestSubject.isInitialized()) {
-                int bonusCount = TestSubject.getInstance().getAndIncrementTodaysScoreBonusCount();
-                mScoreMultiplicator = (int) ((MAX_SCORE_MULTIPLIER - BASE_SCORE_MULTIPLIER) * Math.exp(-SCORE_EXP_FACTOR * bonusCount) + BASE_SCORE_MULTIPLIER);
-                mScoreMultiplicator = Math.max(1, mScoreMultiplicator); // to be sure score will never be zero or negativly multiplied (which cannot happen for exp(x) but this might change)
-            }
+        int scoreMultiplicator = BASE_SCORE_MULTIPLIER;
+        long now = System.currentTimeMillis();
+        if (!isCustom
+                && mConfig.mAchievementGameData != null && (now - mRiddle.getTimestamp()) < SCORE_BONUS_MAX_RIDDLE_TIME && TestSubject.isInitialized()) {
+            int bonusCount = TestSubject.getInstance().getAndIncrementTodaysScoreBonusCount();
+            scoreMultiplicator = (int) ((MAX_SCORE_MULTIPLIER - BASE_SCORE_MULTIPLIER) * Math.exp(-SCORE_EXP_FACTOR * bonusCount) + BASE_SCORE_MULTIPLIER);
+            scoreMultiplicator = Math.max(1, scoreMultiplicator); // to be sure score will never be zero or negativly multiplied (which cannot happen for exp(x) but this might change)
         }
         int base = mRiddle.getType().getBaseScore();
         if (isCustom) {
             base = 0; // do not grant points for custom riddles by default (only bonus points possible)
         }
-        return new RiddleScore(base, mScoreMultiplicator);
+        return new RiddleScore(base, scoreMultiplicator);
     }
 
     public abstract void draw(Canvas canvas);
