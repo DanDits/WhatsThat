@@ -13,6 +13,12 @@
     <string name="intro_test_answer_chocolate">Schokolade</string>
     <string name="intro_test_answer_cookie">Keks</string>
     <string name="intro_test_answer_donut">Donut</string>
+    <string name="intro_test_answer_18">-18</string> <!--Level 1-->
+    <string name="intro_test_answer_9">9</string> <!--TODO Box verbreitern, da 9 sonst winzig im Vergleich zu anderen-->
+    <string name="intro_test_answer_256">256</string>
+    <string name="intro_test_answer_217341">217341</string>
+    <string name="intro_test_answer_6">6</string> <!--Level 2-->
+    <string name="intro_test_answer_Kartoffelsalat">Kartoffelsalat</string>
 
     <!-- Level 0 -->
     <string name="test_subject_0_name">Verwirrtes Etwas</string>
@@ -103,6 +109,7 @@
     </string-array>
     <string-array name="test_subject_1_2a_intro_main">
         <item>Nein, Schokolade ist köstlich aber keine Primzahl…</item>
+        <item>Außerdem sind Primzahlen gesünder als Schokolade.</item>
     </string-array>
     <string-array name="test_subject_1_2b_intro_main">
         <item>Nein, Donuts sind primär Löcher…</item>
@@ -113,20 +120,37 @@
     <string-array name="test_subject_1_3_intro_main">
         <item>Immerhin warst du diesmal schnell mit deiner Antwort.</item>
         <item>Das ist ja schonmal besser als nichts.</item>
-        <item>Versuchen wir es mit einer Zahlenfolge.</item>
-        <item>Was ist die korrekte Zahlenfolge von:</item>
-    </string-array>
+        <item>Versuchen wir es doch gleich mal mit einer Zahlenfolge.</item>
+        <item>Was ist die korrekte Fortsetzung von:</item>
+        </string-array>
     <string-array name="test_subject_1_4_intro_main">
         <item>1; 3; 5; 7; ?</item>
+    </string-array>
+    <string-array name="test_subject_1_5a_intro_main">
         <item>Nein, nein, leider falsch.</item>
         <item>Die korrekte Lösung lautet: 217341!</item>
         <item>Wenn du nämlich diese Erdfunktion nimmst:</item>
-        <item>(18111/2)*XYZ^4–90555*XYZ³+(633885/2)*XYZ²-452773*XYZ+217331…</item> <!--TO DO^4 ersetzen durch sub oder sowas?-->
+        <item>(18111/2)*XYZ^4–90555*XYZ³+(633885/2)*XYZ²-452773*XYZ+217331…</item> <!--TODO ^4 ersetzen durch sub oder sowas?-->
         <item>…dann erhältst du das entsprechende Ergebnis.</item>
         <item>Hmm, wie ich sehe … siehst du das doch nicht.</item>
-        <item>Dann auch egal.</item>
-        <item>Dann eben weiter im Protokoll.</item>
-        <item>Wenn ich nun das Protokoll hier lade, dann.. Oha.</item>
+        <item>Naja, dann auch egal.</item>
+        <item>Dann eben weiter in unserem Skript.</item>
+    </string-array>
+    <string-array name="test_subject_1_5b_intro_main">
+        <item>Das.. ist ja korrekt…</item>
+        <item>Hast du das gewusst oder geraten?</item>
+        <item>Ich vermute letzteres.</item>
+        <item>Kannst du die entsprechende Erdfunktion nennen?</item>
+        <item>…</item>
+        <item>… …</item>
+        <item>… … …</item>
+        <item>Keine Reaktion. Dachte ichs mir doch.</item>
+        <item>Nur zu deiner Information. Die Funktion lautet..</item>
+        <item>..(18111/2)*XYZ^4–90555*XYZ³+(633885/2)*XYZ²-452773*XYZ+217331…</item>
+        <item>Aber nun weiter im Skript.</item>
+    </string-array>
+    <string-array name="test_subject_1_6_intro_main">
+        <item>Wenn ich das Protokoll hier lade, dann.. Oha.</item>
         <item>Alpha Stimulation bewirkt eine Allergiereaktion.</item>
         <item>Wer hätte gedacht, dass Gehirne so reagieren könnten.</item>
         <item>Als nächstes.. Injektion der Äther Blocker zur Sensibilisierung der Materie.</item>
@@ -165,20 +189,37 @@
         <item>Sie meint, sie hätte von Anfang an recht gehabt.</item>
         <item>Ich allerdings behaupte, du hast nur gelernt, was wir von dir sehen wollten.</item>
         <item>Gewissermaßen eine kognitive Verzerrung.</item>
-        <item>Uns ist auch aufgefallen, dass du noch gar keine Primzahlen kanntest.</item>
+        <item>Uns ist übrigens aufgefallen, dass du noch gar keine Primzahlen kanntest.</item>
         <item>Bei uns werden Primzahlen schon in der Plasmagranulation aufgenommen…</item>
         <item>-das entspricht eurer Muttermilch.</item>
         <item>Verzeihe die Überschätzung deines Intellekts.</item>
     </string-array>
     <string-array name="test_subject_2_1_intro_main">
         <item>Test: Was ist die Lösung des P-NP Problems?</item>
+    </string-array>
+    <string-array name="test_subject_2_2_intro_main">
+        <item>…</item>
         <item>Wie? Ein Millennium-Problem?</item>
         <item>Nach so langer Zeit und noch immer keine Lösung?</item>
         <item>Hmmm.. dann eben ein leichter Test.</item>
+        </string-array>
+    <string-array name="test_subject_2_3_intro_main">
         <item>Was ist das Molekulargewicht von Antimaterie?</item>
+        </string-array>
+    <string-array name="test_subject_2_4a_intro_main">
         <item>6? Naja. Fast korrekt!</item>
         <item>Seufz. Das kann ja noch was werden…</item>
-        <item>Als die Suppe der Weisheit verteilt wurde, seid ihr wohl mit der Gabel angerannt.</item>
+        <item>Als die Suppe der Weisheit verteilt wurde, seid ihr wohl mit der Gabel angerannt…</item>
+    </string-array>
+    <string-array name="test_subject_2_4b_intro_main">
+        <item>Kartoffelsalat??</item>
+        <item>Ähm…</item>
+        <item>…ja…</item>
+        <item>WiseMind, ich glaube unser Testsubjekt braucht einen Stromschlag.</item>
+        <item>Ein paar Neuronen scheinen nicht richtig verschaltet zu sein.</item>
+        <item>…</item>
+        <item>Kaum zu glauben.</item>
+        <item>Als die Suppe der Weisheit verteilt wurde, seid ihr wohl mit der Gabel angerannt…</item>
     </string-array>
     <string-array name="test_subject_2_intro_nuts">
         <item>Übermütige Kommentare und Beleidigungen meinerseits sind übrigens nur ein Versuch irdisch zu kommunizieren.</item>
@@ -374,8 +415,8 @@
         <item>Schnelle Antwort bei teilweise richtigen Antworten.</item>
         <item>hmm… Das Ergebnis ist nicht weltbewegend.</item>
         <item>Es zeugt zumindest noch nicht von besonderer Intelligenz.</item>
-        <item>Bist ja auch bloß ein Mensch.</item>
-        <item>Oder etwas mit ähnlich vielen Hirnzellen.</item>
+        <item>Bist ja auch bloß ein Erdling.</item>
+        <item>Oder etwas mit ähnlich wenigen Hirnzellen.</item>
         <item>Aber in Summe war es ganz passabel.</item>
         <item>So passabel, wie die Pyramide in Ägypten einem Kreis entspricht.</item>
         <item>…</item>
