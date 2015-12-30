@@ -237,7 +237,7 @@ public abstract class TestSubjectLevel {
 
             builder.nextEpisode(new QuestionEpisode("MQ4", builder.getIntro(), true, R.array
                     .test_subject_1_4_intro_main,
-                    new int[]{R.string.intro_test_answer_18, R.string.intro_test_answer_9,
+                    new int[]{R.string.intro_test_answer_minus18, R.string.intro_test_answer_9,
                             R.string.intro_test_answer_256, R.string.intro_test_answer_217341},
                     new QuestionEpisode.OnQuestionAnsweredCallback() {
                         @Override
@@ -289,7 +289,7 @@ public abstract class TestSubjectLevel {
 
             builder.nextEpisode(new QuestionEpisode("MQ3", builder.getIntro(), false, R.array
                     .test_subject_2_3_intro_main,
-                    new int[]{R.string.intro_test_answer_6, R.string.intro_test_answer_Kartoffelsalat},
+                    new int[]{R.string.intro_test_answer_6, R.string.intro_test_answer_potatosalad},
                     new QuestionEpisode.OnQuestionAnsweredCallback() {
                         @Override
                         public int onQuestionAnswered(QuestionEpisode episode, int answerIndex) {
@@ -300,7 +300,7 @@ public abstract class TestSubjectLevel {
                     .addAnswer(R.array.test_subject_2_4b_intro_main));
             builder.joinCurrentChildrenToNext();
 
-            builder.nextEpisodes("M4", R.array.test_subject_2_intro_nuts);
+            builder.nextEpisodes("M5", R.array.test_subject_2_5_intro_main);
 
         }
 

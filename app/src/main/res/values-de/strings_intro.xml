@@ -13,12 +13,12 @@
     <string name="intro_test_answer_chocolate">Schokolade</string>
     <string name="intro_test_answer_cookie">Keks</string>
     <string name="intro_test_answer_donut">Donut</string>
-    <string name="intro_test_answer_18">-18</string> <!--Level 1-->
-    <string name="intro_test_answer_9">9</string> <!--TODO Box verbreitern, da 9 sonst winzig im Vergleich zu anderen-->
+    <string name="intro_test_answer_minus18">-18</string> <!--Level 1-->
+    <string name="intro_test_answer_9">9</string>
     <string name="intro_test_answer_256">256</string>
     <string name="intro_test_answer_217341">217341</string>
     <string name="intro_test_answer_6">6</string> <!--Level 2-->
-    <string name="intro_test_answer_Kartoffelsalat">Kartoffelsalat</string>
+    <string name="intro_test_answer_potatosalad">Kartoffelsalat</string>
 
     <!-- Level 0 -->
     <string name="test_subject_0_name">Verwirrtes Etwas</string>
@@ -202,14 +202,13 @@
         <item>Wie? Ein Millennium-Problem?</item>
         <item>Nach so langer Zeit und noch immer keine Lösung?</item>
         <item>Hmmm.. dann eben ein leichter Test.</item>
-        </string-array>
+    </string-array>
     <string-array name="test_subject_2_3_intro_main">
         <item>Was ist das Molekulargewicht von Antimaterie?</item>
-        </string-array>
+    </string-array>
     <string-array name="test_subject_2_4a_intro_main">
         <item>6? Naja. Fast korrekt!</item>
         <item>Seufz. Das kann ja noch was werden…</item>
-        <item>Als die Suppe der Weisheit verteilt wurde, seid ihr wohl mit der Gabel angerannt…</item>
     </string-array>
     <string-array name="test_subject_2_4b_intro_main">
         <item>Kartoffelsalat??</item>
@@ -219,6 +218,8 @@
         <item>Ein paar Neuronen scheinen nicht richtig verschaltet zu sein.</item>
         <item>…</item>
         <item>Kaum zu glauben.</item>
+    </string-array>
+    <string-array name="test_subject_2_5_intro_main">
         <item>Als die Suppe der Weisheit verteilt wurde, seid ihr wohl mit der Gabel angerannt…</item>
     </string-array>
     <string-array name="test_subject_2_intro_nuts">

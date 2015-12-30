@@ -13,6 +13,12 @@
     <string name="intro_test_answer_chocolate">Chocolate</string>
     <string name="intro_test_answer_cookie">Cookie</string>
     <string name="intro_test_answer_donut">Donut</string>
+    <string name="intro_test_answer_minus18">-18</string> <!--Level 1-->
+    <string name="intro_test_answer_9">9</string>
+    <string name="intro_test_answer_256">256</string>
+    <string name="intro_test_answer_217341">217341</string>
+    <string name="intro_test_answer_6">6</string> <!--Level 2-->
+    <string name="intro_test_answer_potatosalad">Potato salad</string>
 
     <string name="intro_starting_episode">Welcome %1$s</string>
 
@@ -126,6 +132,8 @@
     </string-array>
     <string-array name="test_subject_1_4_intro_main">
         <item>1; 3; 5; 7; ?</item>
+    </string-array>
+    <string-array name="test_subject_1_5a_intro_main">
         <item>No, no, no. I\'m afraid that\'s wrong.</item>#
         <item>The correct solution is 217341.</item>
         <item>If you take the earth function:</item>
@@ -134,6 +142,21 @@
         <item>Hmm, I see … you don\'t get it.</item>
         <item>Nevermind.</item>
         <item>So, let\'s continue with the record. </item>
+    </string-array>
+    <string-array name="test_subject_1_5b_intro_main">
+        <item>This..this is correct…</item>
+        <item>Did you know that or did you guess?</item>
+        <item>I guess the later.</item>
+        <item>Can you name the corresponding earth function?</item>
+        <item>…</item>
+        <item>… …</item>
+        <item>… … …</item>
+        <item>No reaction. I thought so.</item>
+        <item>Just for your information. The function is..</item>
+        <item>..(18111/2)*XYZ^4–90555*XYZ³+(633885/2)*XYZ²-452773*XYZ+217331…</item>
+        <item>So, let\'s continue with the record. </item>
+    </string-array>
+    <string-array name="test_subject_1_6_intro_main">
         <item>If I try loading the protocol right here, we get … Ouch.</item>
         <item>Alpha stimulation causes an allergic reaction.</item>
         <item>Weird, who would have thought that brains might react like that.</item>
@@ -179,12 +202,29 @@
     </string-array>
     <string-array name="test_subject_2_1_intro_main">
         <item>Test: What\'s the solution to the P versus NP problem?</item>
+    </string-array>
+    <string-array name="test_subject_2_2_intro_main">
         <item>Sorry? Millennium problem?</item>
-        <item>After that long time and you still did not found a solution?</item>
+        <item>After that long time and you still did not find a solution?</item>
         <item>Hmmm.. well, then we take a simple test.</item>
+    </string-array>
+    <string-array name="test_subject_2_3_intro_main">
         <item>What\'s the molecular weight of antimatter?</item>
+    </string-array>
+    <string-array name="test_subject_2_4a_intro_main">
         <item>6? Well, almost correct!</item>
-        <item>Sigh… the universe alone knows what do you with this creature.</item>
+        <item>Sigh… the universe alone knows what do with this creature.</item>
+    </string-array>
+    <string-array name="test_subject_2_4b_intro_main">
+        <item>Potato salad??</item>
+        <item>Well…</item>
+        <item>…ok…</item>
+        <item>WiseMind, I think our testsubject needs some stimulation. With high voltage.</item>
+        <item>Some neutrons seem to be gone wild.</item>
+        <item>…</item>
+        <item>I can\'t believe it.</item>
+    </string-array>
+    <string-array name="test_subject_2_5_intro_main">
         <item>When the soup of wisdom was spread, you probably joined with a fork.</item>
     </string-array>
     <string-array name="test_subject_2_intro_nuts">
