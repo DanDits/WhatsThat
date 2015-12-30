@@ -254,7 +254,7 @@ public abstract class TestSubjectLevel {
 
         @Override
         public double getLevelUpAchievementScoreFraction() {
-            return 0.38;
+            return 0.25;
         }
     }
     private static class TestSubjectLevel2 extends TestSubjectLevel {
@@ -285,7 +285,7 @@ public abstract class TestSubjectLevel {
         }
         @Override
         public double getLevelUpAchievementScoreFraction() {
-            return 0.5;
+            return 0.4;
         }
     }
 
@@ -320,7 +320,7 @@ public abstract class TestSubjectLevel {
         }
         @Override
         public double getLevelUpAchievementScoreFraction() {
-            return 0.625;
+            return 0.55;
         }
     }
     
