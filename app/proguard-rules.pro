@@ -15,14 +15,5 @@
 #-keepclassmembers class fqcn.of.javascript.interface.for.webview {
 #   public *;
 #}
--dontskipnonpubliclibraryclasses
 -dontobfuscate
--forceprocessing
--optimizationpasses 5
-
--keep class * extends android.app.Activity
--keep class * extends android.app.Application
--assumenosideeffects class android.util.Log {
-    public static *** d(...);
-    public static *** v(...);
-}
+-keep class com.cloudinary.** { *; }

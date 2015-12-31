@@ -375,7 +375,7 @@ public class SolutionInputLetterClick extends SolutionInput {
         return mSolution.estimateSolvedValue(userWord) == Solution.SOLVED_COMPLETELY;
     }
 
-    private void checkCompleted() {
+    private synchronized void checkCompleted() {
         String userWord = userLettersToWord();
         if (mStateCompleted) {
             if (!isSolved(userWord)) {

@@ -48,26 +48,29 @@ public class SolutionInputView extends View {
     public void setSolutionInput(@Nullable SolutionInput solutionInput, SolutionInputListener listener) {
         clearListener();
         mInput = solutionInput;
-        if (mInput != null) {
+        if (solutionInput != null) {
             clearAnimation();
-            mInput.setListener(listener);
-            mInput.calculateLayout(getWidth(), getHeight(), getContext().getResources().getDisplayMetrics());
+            solutionInput.setListener(listener);
+            solutionInput.calculateLayout(getWidth(), getHeight(), getContext().getResources()
+                    .getDisplayMetrics());
         }
         invalidate();
         requestLayout();
     }
 
     public void clearListener() {
-        if (mInput != null) {
-            mInput.setListener(null);
+        SolutionInput input = mInput;
+        if (input != null) {
+            input.setListener(null);
         }
     }
 
     @Override
     public void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        if (mInput != null) {
-            mInput.draw(canvas);
+        SolutionInput input = mInput;
+        if (input != null) {
+            input.draw(canvas);
         }
     }
 
@@ -80,7 +83,8 @@ public class SolutionInputView extends View {
                 return false;
             // right to left swipe
             if(Math.abs(e1.getX() - e2.getX()) > SWIPE_MIN_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY) {
-                if (mInput != null && mInput.onFling(e1, e2, velocityX, velocityY)) {
+                SolutionInput input = mInput;
+                if (input != null && input.onFling(e1, e2, velocityX, velocityY)) {
                     invalidate ();
                     requestLayout();
                 }

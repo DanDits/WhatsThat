@@ -100,7 +100,7 @@
     <string name="panic_ask_author">Wessen Bild ist das</string>
     <string name="panic_skip">Experiment aussetzen… später weitermachen</string>
     <string name="panic_share">Freunde zu diesem Experiment herausfordern</string>
-    <string name="panic_complain">Aaaah, was ist das?! Krum und schief! Beschwerde!!!!11</string>
+    <string name="panic_complain">Per Mail über das Bild beschweren!!1</string>
     <string name="panic_cannot_skip">Gehirn überladen … kann nicht .. weitere Experimente. merken …</string>
 
     <string-array name="panic_author_credit_title">
@@ -148,7 +148,7 @@
     <string name="download_article_toast_error_download">Bilder herunterladen fehlgeschlagen (%1$d)</string>
     <string name="download_article_toast_error_no_internet">Keine Internetverbindung!</string>
     <string name="download_article_toast_error_syncing">Bilder speichern fehlgeschlagen (%1$d)</string>
-    <string name="panic_complain_nothing">Nur Geduld</string>
+    <string name="panic_complain_nothing">Keep calm and warte</string>
     <string name="panic_complain_dummy_toast">Beschwerde registriert</string>
     <string name="panic_complain_content">SAG UNS WAS DIR BEI DEM EXPERIMENT UND BILD NICHT PASST! :)</string>
 
@@ -200,8 +200,8 @@
     <string name="bundle_creator_solution_words_descr">Lösungswort/wörter</string>
     <string name="bundle_creator_solution_words_hint">Trenne Wörter durch Kommata</string>
     <string name="solution_words_for_language">für Sprache(n)\n(mindestens Englisch)</string>
-    <string name="bundle_creator_author_descr">Informationen über Bilder und deren Author</string>
-    <string name="bundle_creator_author_name_descr">Author Name\n(benötigt)</string>
+    <string name="bundle_creator_author_descr">Informationen über Bilder und deren Autoren</string>
+    <string name="bundle_creator_author_name_descr">Name des Autors\n(benötigt)</string>
     <string name="bundle_creator_author_name_hint">Wer hat das Foto gemacht oder das Bild erstellt?</string>
     <string name="author_info_apply_to_others">Auf alle anderen Bilder übertragen</string>
     <string name="bundle_creator_author_source_descr">Bildherkunft</string>

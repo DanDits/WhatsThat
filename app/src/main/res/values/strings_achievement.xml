@@ -14,13 +14,13 @@
     <string name="achievement_circle_2_name">I know something</string>
     <string name="achievement_circle_2_descr">You know nothing. Or do you recognize the picture with only %1$d circles?</string>
     <string name="achievement_circle_3_name">So beautiful</string>
-    <string name="achievement_circle_3_descr">Count all circles in an experiment and admire the artist.</string>
+    <string name="achievement_circle_3_descr">Count all the circles in an experiment and admire the artist.</string>
     <string name="achievement_circle_4_name">I\'m loving it</string>
     <string name="achievement_circle_4_descr">Well then do this job again for %1$d more pictures.</string>
     <string name="achievement_circle_5_name">Mission possible</string>
     <string name="achievement_circle_5_descr">Finish an experiment within %1$d seconds but more clicks than wipes.</string>
     <string name="achievement_circle_6_name">Click domination</string>
-    <string name="achievement_circle_6_descr">Clicks > wipes for a few more tests.</string>
+    <string name="achievement_circle_6_descr">More clicks than swipes for a few more tests.</string>
     <string name="achievement_circle_7_name">I\'m in a hurry…</string>
     <string name="achievement_circle_7_descr">Finish two…OK let\'s say one riddle in less than %1$d seconds.</string>
     <string name="achievement_circle_8_name">…still in hurry</string>
@@ -57,7 +57,7 @@
     <string name="achievement_snow_8_name">Bouncing cell</string>
     <string name="achievement_snow_8_descr">Hit the walls %1$d times using the explosion pressure.</string>
     <string name="achievement_snow_9_name">Lovely lie</string>
-    <string name="achievement_snow_9_descr">The truth may hurt but in the end it\'s always the better way.</string>
+    <string name="achievement_snow_9_descr">The truth may hurt but in the end it\'s always the better option.</string>
     <string name="achievement_snow_10_name">Stubborn donkey</string>
     <string name="achievement_snow_10_descr">You know that the wall will not help you?</string>
     <string name="achievement_snow_11_name">…or maybe skill?</string>
@@ -71,7 +71,7 @@
     <string name="achievement_snow_15_name">Efficient clicks 2.0</string>
     <string name="achievement_snow_15_descr">Finish an experiment with … only one click, hehe</string>
     <string name="achievement_snow_16_name">Why not both?</string>
-    <string name="achievement_snow_16_descr">You know that you can change the way of moving your cell during the experiment, too?</string>
+    <string name="achievement_snow_16_descr">Do you know that you can change the way of moving your cell during the experiment, too?</string>
     <string name="achievement_snow_17_name">Both as well as</string>
     <string name="achievement_snow_17_descr">Finish %1$d experiments using the click system, %2$d using
         the other and %3$d using both during a test.</string>
@@ -111,42 +111,42 @@
     <string name="achievement_dice_16_name">Warp jump</string>
     <string name="achievement_dice_16_descr">To infinity and beyond!</string>
     <string name="achievement_dice_17_name">Invasion</string>
-    <string name="achievement_dice_17_descr">Psst… tell them we come in peace.</string>
+    <string name="achievement_dice_17_descr">Shhh… tell them we come in peace.</string>
     <string name="achievement_dice_18_name">Paparazzi</string>
     <string name="achievement_dice_18_descr">Reveal one field completely in %1$d seconds and then get off.</string>
-    <string name="achievement_dice_18_descr_claimed">It\'s a bad job, but someone has to do it, right?</string>
+    <string name="achievement_dice_18_descr_claimed">Well, someone needs to feed the crowd.</string>
     <string name="achievement_dice_19_name">Perfectionist</string>
     <string name="achievement_dice_19_descr">Something tells you to perfectly uncover the mystery.</string>
     <string name="achievement_dice_20_name">Focus</string>
     <string name="achievement_dice_20_descr">Choose one of the four inner fields by combining any dices on it. Perform a maximum of %1$d combinations but only on this field without any resets.</string>
     <string name="achievement_dice_21_name">Minimalist</string>
-    <string name="achievement_dice_21_descr">I know, this is the last one. But there must be an opposing side of perfectionists. So finish this with only %1$d combinations. Good luck.</string>
-    <string name="achievement_dice_21_descr_claimed">An opposing side of Perfectionist.It\'s like Yin-Yang. Ever heard of it?</string>
+    <string name="achievement_dice_21_descr">I know, this is the last one. But the perfectionist needs to be balanced. So finish this with only %1$d combinations. Good luck.</string>
+    <string name="achievement_dice_21_descr_claimed">An opposing side of Perfectionist. It\'s like Yin-Yang. Ever heard of it?</string>
 
     <!-- Jumper achievements -->
     <string name="achievement_jumper_1_name">The answer to life…</string>
     <string name="achievement_jumper_1_descr">…to universe and everything. Plus the number of horns of a unicorn.</string>
     <string name="achievement_jumper_1_descr_claimed">…to universe and everything. Plus the number of horns of a unicorn.43!</string>
     <string name="achievement_jumper_2_name">Lack of talent</string>
-    <string name="achievement_jumper_2_descr">You failed %1$d times in easy. Are you sure you wanna continue playing this experiment?</string>
+    <string name="achievement_jumper_2_descr">You failed %1$d times in easy. Are you sure you want to continue playing this experiment?</string>
     <string name="achievement_jumper_3_name">Super Mario</string>
     <string name="achievement_jumper_3_descr">Perform %1$d Double Jumps in an experiment before reaching \"medium\".</string>
     <string name="achievement_jumper_3_descr_claimed">So much for the laws of physics…</string>
     <string name="achievement_jumper_4_name">Multitasking</string>
     <string name="achievement_jumper_4_descr">Finish a test after reaching \"hard\" without colliding.</string>
     <string name="achievement_jumper_5_name">Avoiding manoeuvres</string>
-    <string name="achievement_jumper_5_descr">Well, what do you think how many obstacles do you need to dodge?</string>
+    <string name="achievement_jumper_5_descr">Well, what do you think: how many obstacles do you need to dodge?</string>
     <string name="achievement_jumper_5_descr_claimed">Congratulations. You dodged more than %1$d obstacles.</string>
     <string name="achievement_jumper_6_name">Beating the creators</string>
     <string name="achievement_jumper_6_descr">Wow. You beat my creators records. Write your record via mail as \"Monstarathon record\" in the subject line.</string>
-    <string name="achievement_jumper_7_name">Knuffbum\'s story</string>
-    <string name="achievement_jumper_7_descr">Find the truth about Knuffbum.</string>
+    <string name="achievement_jumper_7_name">Manomnom\'s story</string>
+    <string name="achievement_jumper_7_descr">Find the truth about Manomnom.</string>
     <string name="achievement_jumper_8_name">Still a better lovestory than twighlight</string>
     <string name="achievement_jumper_8_descr">Thank you for cuddling with Manomnom.</string>
     <string name="achievement_jumper_9_name">Marathon</string>
-    <string name="achievement_jumper_9_descr">Going for a short walk of %1$d meters.</string>
+    <string name="achievement_jumper_9_descr">I\'m going for a short walk of %1$d meters.</string>
     <string name="achievement_jumper_10_name">Boring beginning</string>
-    <string name="achievement_jumper_10_descr">Enough of the easy beginning? Well… get the right upgrades my friend.</string>
+    <string name="achievement_jumper_10_descr">The beginning is too dull? Well… get the right upgrades, my friend.</string>
     <string name="achievement_jumper_11_name">Natural talent</string>
     <string name="achievement_jumper_11_descr">Reach at least %2$d meters in %1$d successive experiments.</string>
 
@@ -157,8 +157,8 @@
     <string name="achievement_triangle_2_descr">What\'s an earthling doing on the moon?</string>
     <string name="achievement_triangle_2_descr_unachieved">What\'s an earthling doing on the moon? A moonwalk.</string>
     <string name="achievement_triangle_2_name">Two birds with one stone</string>
-    <string name="achievement_triangle_3_descr">How gets a priest to the sun?</string>
-    <string name="achievement_triangle_3_descr_unachieved">How gets a priest to the sun? With superstition.</string>
+    <string name="achievement_triangle_3_descr">How does a priest get to the sun?</string>
+    <string name="achievement_triangle_3_descr_unachieved">How does a priest get to the sun? With superstition.</string>
     <string name="achievement_triangle_3_name">Efficient clicks</string>
     <string name="achievement_triangle_4_descr">How does a priest leave the sun?</string>
     <string name="achievement_triangle_4_descr_unachieved">How does a priest leave the sun? As a burn mark.</string>
@@ -168,8 +168,8 @@
     <string name="achievement_triangle_5_name">Progressive progress</string>
 
     <!-- Misc achievements -->
-    <string name="achievement_misc_1_name">Creator names</string>
-    <string name="achievement_misc_1_descr">Did you see the menu \"About and Contact\" yet? There you can read my creator names!</string>
+    <string name="achievement_misc_1_name">Creators\' names</string>
+    <string name="achievement_misc_1_descr">Did you see the menu \"About and Contact\" yet? There you can find my creators\' names!</string>
     <string name="achievement_misc_2_name">Need my friends</string>
     <string name="achievement_misc_2_descr">You skipped an experiment for more than %1$d days.</string>
     <string name="achievement_misc_3_name">Stockholm syndrome</string>
@@ -196,13 +196,13 @@
     <string name="achievement_memory_5_name">Random trail</string>
     <string name="achievement_memory_5_descr">%1$d pairs have been revealed automatically because the random trail hit the right cards</string>
     <string name="achievement_memory_6_name">DEFINITELY luck</string>
-    <string name="achievement_memory_6_descr">%1$d matching pairs with the first try? Well, maybe Angry-Cell it was skill but here, DEFINITELY NOT!</string>
+    <string name="achievement_memory_6_descr">%1$d matching pairs with the first try? Well, maybe with Angry-Cell it was skill but here, DEFINITELY NOT!</string>
     <string name="achievement_memory_7_descr">That streak… Either this was brilliant or you cheated…</string>
     <string name="achievement_memory_7_name">Cardships</string>
-    <string name="achievement_memory_8_descr">You get the points if you solve the test without hitting a field twice. Grab a pencil quickly!</string>
+    <string name="achievement_memory_8_descr">You get the points if you solve the test without hitting a field twice. Quickly, grab a pencil!</string>
     <string name="achievement_memory_8_name">Cheating</string>
-    <string name="achievement_memory_9_name">No magician</string>
-    <string name="achievement_memory_9_descr">Luckily you are no magician. Your brain wouldn\'t even keep in mind one spell. Like these %1$d/%2$d cards.</string>
+    <string name="achievement_memory_9_name">Not a magician</string>
+    <string name="achievement_memory_9_descr">Luckily you are not a magician. Your brain couldn\'t even keep one spell in mind. Like these %1$d/%2$d cards.</string>
 
     <!-- Flow achievements -->
     <string name="achievement_flow_1_name">One after each other</string>
@@ -214,12 +214,12 @@
     <string name="achievement_flow_4_name">Superstition</string>
     <string name="achievement_flow_4_descr">Place %1$d active Cellis and get off, before the unlucky number %2$d hits you!</string>
     <string name="achievement_flow_5_name">Mass, not class</string>
-    <string name="achievement_flow_5_descr">Well, what you had to do was pretty clear. The question was, how many Cellis you needed. I can tell you: %1$d</string>
+    <string name="achievement_flow_5_descr">Well, what you had to do was pretty clear. The question is: how many Cellis did you need. I can tell you: %1$d</string>
     <string name="achievement_flow_6_name">Stunning</string>
-    <string name="achievement_flow_6_descr">Isn\'t it amazing to watch all these placed Cellis doing crazy stuff? Just say yes.</string>
+    <string name="achievement_flow_6_descr">Isn\'t it fascinating to watch all these placed Cellis? Just say yes.</string>
     <string name="achievement_flow_7_name">Ant colony</string>
     <string name="achievement_flow_7_descr">It\'s bustling. So far %1$d/%2$d Cellis worked until their job was done.</string>
-    <string name="achievement_flow_8_name">Bean counter</string>
+    <string name="achievement_flow_8_name">Nitpicker</string>
     <string name="achievement_flow_8_descr">Solve the picture with max %1$d placed Cellis.</string>
 
     <!-- Lazor achievements -->
@@ -229,7 +229,7 @@
     <string name="achievement_lazor_2_descr">Catch all meteors until the shield protects your city.</string>
     <string name="achievement_lazor_3_descr">Get the generator to %1$d%%. After that let it drop back to exactly %2$d%%!</string>
     <string name="achievement_lazor_3_name">Resignation</string>
-    <string name="achievement_lazor_4_descr">Woah, luckily I\'m not a citizen of your city. You see the destruction? Bad protector!</string>
+    <string name="achievement_lazor_4_descr">Woah, luckily I\'m not a citizen of your city. Do you see the destruction? Bad protector!</string>
     <string name="achievement_lazor_4_name">Blackout</string>
     <string name="achievement_lazor_5_descr">Catch %1$d meteors in the upper third of the picture</string>
     <string name="achievement_lazor_5_name">Interceptor</string>
@@ -238,11 +238,11 @@
     <string name="achievement_lazor_7_name">Armageddon</string>
     <string name="achievement_lazor_7_descr">Keep the shield charge above %1$d%% until %2$d meteors have spawned.</string>
     <string name="achievement_lazor_8_name">Caught up</string>
-    <string name="achievement_lazor_8_descr">If you miss your target, it isn\'t even a tragedy. Sometimes the explosion even catches up the comet.</string>
+    <string name="achievement_lazor_8_descr">If you miss your target, it isn\'t necessarily a tragedy. Sometimes the explosion even catches up to the comet.</string>
     <string name="achievement_lazor_9_name">Fire master</string>
-    <string name="achievement_lazor_9_descr">So, can you shoot %1$d times with each canon and keep the shield up?</string>
+    <string name="achievement_lazor_9_descr">So, can you shoot %1$d times with each cannon and keep the shield up?</string>
     <string name="achievement_lazor_10_name">Not colour blind</string>
-    <string name="achievement_lazor_10_descr">Do not reveal any red and solve the picture.</string>
+    <string name="achievement_lazor_10_descr">Do not uncover any red and solve the experiment.</string>
     <string name="achievement_lazor_11_name">Calculated</string>
     <string name="achievement_lazor_11_descr">Hit %1$d meteors with the last "edge" of the explosion. The shield must NOT be active.</string>
     <string name="achievement_lazor_12_name">Quadruple hit</string>

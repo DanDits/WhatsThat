@@ -58,13 +58,13 @@
     <string name="init_skip_state_none">loading testsubject</string>
 
     <string name="panic_dialog_positive">All right</string>
-    <string name="panic_ask_type">How does this work</string>
+    <string name="panic_ask_type">How does this experiment work</string>
     <string name="panic_skip">Skip experiment … come back later</string>
     <string name="panic_share">Challenge friends to this experiment</string>
     <string name="panic_share_dialog">Share experiment image with…</string>
     <string name="panic_share_failed">Sharing failed.</string>
     <string name="panic_cannot_skip">Brain .. full … cannot .. remember more .. riddles …</string>
-    <string name="panic_complain">Ahhh, what is that?! Twisted and wryly! Complaint!!!11</string>
+    <string name="panic_complain">Complain about the image per mail!!1</string>
     <string-array name="panic_author_credit_title">
         <item>Admire the artist!</item>
         <item>Whose masterpiece is this?</item>
@@ -122,8 +122,8 @@
     <string name="shop_article_free">Free</string>
 
     <string name="article_hint_name">Hints %1$d/%2$d</string>
-    <string name="article_hint_descr">Get Dr. Drams knowledge for a spot price!</string>
-    <string name="article_hint_not_yet_read">New hint in next game</string>
+    <string name="article_hint_descr">Get Dr. Drams knowledge for a ridiculous price!</string>
+    <string name="article_hint_not_yet_read">New hint in the next game</string>
 
     <string name="shop_article_spent" translatable="false">-%1$d</string>
 
@@ -141,16 +141,16 @@
     <string name="download_article_descr_ready">Confirm download from %1$s (~%2$dMB)</string>
     <string name="download_article_name">Download image bundle \"%1$s\"</string>
 
-    <string name="download_article_descr">Grow the image pool with fresh cool images.</string>
-    <string name="download_article_descr_nature">Grow the image pool with nature pictures and nature objects! For Experts!</string>
-    <string name="download_article_descr_animal">Grow the image pool with pictures of (Non-) animals!</string>
-    <string name="download_article_descr_housing">Grow the image pool with house and garden pictures!</string>
-    <string name="download_article_descr_general">Grow the image pool with different kinds of pictures :)!</string>
-    <string name="download_article_descr_technical">Grow the image pool with technical pictures!</string>
-    <string name="download_article_descr_superlative">Grow the image pool with sport, vehicle and job pictures!</string>
+    <string name="download_article_descr">Extend the image pool with fresh cool images.</string>
+    <string name="download_article_descr_nature">Extend the image pool with nature pictures and nature objects! For Experts!</string>
+    <string name="download_article_descr_animal">Extend the image pool with pictures of (Non-) animals!</string>
+    <string name="download_article_descr_housing">Extend the image pool with house and garden pictures!</string>
+    <string name="download_article_descr_general">Extend the image pool with different kinds of pictures :)!</string>
+    <string name="download_article_descr_technical">Extend the image pool with technical pictures!</string>
+    <string name="download_article_descr_superlative">Extend the image pool with sport, vehicle and job pictures!</string>
 
     <string name="panic_complain_nothing">Keep calm and wait on</string>
-    <string name="panic_complain_dummy_toast">Complain has been noted</string>
+    <string name="panic_complain_dummy_toast">Complaint has been noted</string>
     <string name="panic_complain_content">I want to complain about this riddle and image…TELL US WHAT YOU THINK IS BAD :)</string>
 
     <string name="article_hint_no_translation">Hint not available for this language.</string>
@@ -160,7 +160,7 @@
 
     <string name="riddle_hints_dialog_confirm">Got it!</string>
     <string name="riddle_dialog_title">Future experiments</string>
-    <string name="riddle_dialog_subtitle">New experiment in shop!</string>
+    <string name="riddle_dialog_subtitle">New experiment in the shop!</string>
     <plurals name="riddle_dialog_confirm_unsolveds">
         <item quantity="one">Continue forgotten experiment</item>
         <item quantity="other">Continue %1$d forgotten experiments</item>
@@ -202,7 +202,7 @@
     <string name="bundle_creator_solution_words_descr">Solution word(s)</string>
     <string name="bundle_creator_solution_words_hint">Separate words by commata</string>
     <string name="solution_words_for_language">for language(s)\n(at least English)</string>
-    <string name="bundle_creator_author_descr">Information about image and its author</string>
+    <string name="bundle_creator_author_descr">Information about images and their authors</string>
     <string name="bundle_creator_author_name_descr">Author\'s name\n(required)</string>
     <string name="bundle_creator_author_name_hint">Who took the photo or created the image?</string>
     <string name="author_info_apply_to_others">Apply to all other images</string>
@@ -221,9 +221,9 @@
     <string name="bundle_creator_progress_error_result">Error (%1$d) at saving</string>
     <string name="share_failed">Sharing failed</string>
     <string name="article_level_up_name">Brain level boost</string>
-    <string name="article_level_up_descr">Enables you to take hold of more experiments and unlocks achievements.</string> <!--was macht das hier bitte?-->
+    <string name="article_level_up_descr">Enables you to get hold of more experiments and unlocks achievements.</string> <!--was macht das hier bitte?-->
     <string name="article_level_up_dep_new_riddle">Choose a new experiment first!</string>
-    <string name="article_choose_riddle_name">Choose new experiment</string>
+    <string name="article_choose_riddle_name">Choose a new experiment</string>
     <string name="article_choose_riddle_descr">Challenge your mind with a new puzzle!</string>
     <string name="article_level_up_dep_new_level">Boost your brain first!</string>
     <string name="article_choose_riddle_confirm">Unlock this experiment. Get the others later!</string>
@@ -257,7 +257,7 @@
     <string name="obfuscated_loading_failed">Error reading obfuscated image</string>
     <string name="logo_explanation_title">Logo for sharing experiments as images</string>
     <string name="logo_saved">Logo saved!</string>
-    <string name="obfuscated_not_valid_explanation">Potentially the image was compressed to make it smaller. Unfortunately this is done by some sharing apps like WhatsApp or Telegram. Use a lossless way of sharing like email!</string>
+    <string name="obfuscated_not_valid_explanation">The image was potentially compressed to make it smaller. Unfortunately this is done by some sharing apps like WhatsApp or Telegram. Use a lossless way of sharing like email!</string>
     <string name="article_share_as_image_feature_name">Share experiments as images to friends</string>
     <string name="article_share_as_image_feature_descr">Allows sharing your current experiment as a simple image file! Unfortunately the image must not be compressed or resized, so you cannot use WhatsApp but need to use something like email or dropbox.</string>
     <string name="share_failed_upload">Upload failed (error: %1$d)</string>

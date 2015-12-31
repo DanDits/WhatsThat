@@ -40,7 +40,7 @@ public class ParticleSystemPool implements ParticleSystem.OnAnimationEndedListen
      * @return A particle system that can be used for starting emitting or null if none is
      * available due to capacity limitations.
      */
-    public ParticleSystem obtain() {
+    public synchronized ParticleSystem obtain() {
         for (int i = 0; i < mAvailable.length; i++) {
             if (mAvailable[i]) {
                 return lockSystem(i, mSystems.get(i));
@@ -62,11 +62,12 @@ public class ParticleSystemPool implements ParticleSystem.OnAnimationEndedListen
     }
 
     @Override
-    public void onParticleAnimationEnded(ParticleSystem system, boolean cancelled) {
+    public synchronized void onParticleAnimationEnded(ParticleSystem system, boolean cancelled) {
         for (int i = 0; i < mSystems.size(); i++) {
             if (mSystems.get(i) == system) {
                 system.setOnAnimationEndedListener(null);
                 mAvailable[i] = true;
+                break;
             }
         }
     }

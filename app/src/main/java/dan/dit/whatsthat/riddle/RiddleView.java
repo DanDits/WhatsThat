@@ -176,6 +176,7 @@ public class RiddleView extends SurfaceView implements SensorEventListener, Part
         }
         mRiddleCtr = controller;
         mRiddleCtr.onRiddleVisible((ViewGroup) getParent());
+        mController.clear();
         if (mRiddleCtr.requiresOrientationSensor()) {
             mSensorManager = (SensorManager) getContext().getSystemService(Activity.SENSOR_SERVICE);
             mAccelerometer = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
@@ -304,14 +305,22 @@ public class RiddleView extends SurfaceView implements SensorEventListener, Part
         mParticles.add(particles);
     }
 
-    private void removeParticles(List<Particle> particles) {
-        mParticles.remove(particles);
+    private boolean removeParticles(List<Particle> particles) {
+        for (int i = 0; i < mParticles.size(); i++) {
+            if (mParticles.get(i) == particles) {
+                mParticles.remove(i);
+                return true;
+            }
+        }
+        return false;
     }
 
     private class ParticleController implements ParticleFieldController {
 
-        private int mActiveSystems;
-        private List<Particle> mAllParticles = new ArrayList<>();
+
+        private void clear() {
+            mParticles.clear();
+        }
 
         @Override
         public int getPositionInParentX() {
@@ -325,9 +334,10 @@ public class RiddleView extends SurfaceView implements SensorEventListener, Part
 
         @Override
         public void prepareEmitting(List<Particle> particles) {
-            setParticles(particles);
-            ++mActiveSystems;
-            mRiddleCtr.onParticleSystemCountChanged();
+            if (!removeParticles(particles)) {
+                setParticles(particles);
+                mRiddleCtr.onParticleSystemCountChanged();
+            }
         }
 
         @Override
@@ -336,14 +346,14 @@ public class RiddleView extends SurfaceView implements SensorEventListener, Part
 
         @Override
         public void onCleanup(ParticleSystem toClean) {
-            --mActiveSystems;
-            mRiddleCtr.onParticleSystemCountChanged();
-            removeParticles(toClean.getActiveParticles());
+            if (removeParticles(toClean.getActiveParticles())) {
+                mRiddleCtr.onParticleSystemCountChanged();
+            }
         }
     }
 
     public int getActiveParticleSystemsCount() {
-        return mController.mActiveSystems;
+        return mParticles.size();
     }
 
     public interface PartyCallback {

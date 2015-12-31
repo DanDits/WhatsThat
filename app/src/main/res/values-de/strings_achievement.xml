@@ -54,7 +54,7 @@
     <string name="achievement_snow_6_descr">Bekuschel die Wand als Angry Cell. Wieder und wieder.</string>
     <string name="achievement_snow_7_name">They see me rollin\' they hatin\'</string>
     <string name="achievement_snow_7_descr">Entspann dich und sei artig. Nichts Süßes!</string>
-    <string name="achievement_snow_8_name">Sprungfeder</string>
+    <string name="achievement_snow_8_name">Sprungzelle</string>
     <string name="achievement_snow_8_descr">Küsse %1$d Wände durch den Explosionsdruck.</string>
     <string name="achievement_snow_9_name">Liebliche Lüge</string>
     <string name="achievement_snow_9_descr">Die Wahrheit mag wehtun, aber sie ist besser als jede Lüge</string>
@@ -169,7 +169,7 @@
     <string name="achievement_triangle_5_descr_unachieved">Wie nennt man einen Politiker auf dem Mars? Noch immer einen Lügner.</string>
 
     <!-- Misc achievements -->
-    <string name="achievement_misc_1_name">Schöpfer Namen</string>
+    <string name="achievement_misc_1_name">Schöpfernamen</string>
     <string name="achievement_misc_1_descr">Schonmal auf den Menüpunkt \"Info und Kontakt\" geklickt? Da stehen meine Schöpfernamen!</string>
     <string name="achievement_misc_2_name">Brauch meine Freunde</string>
     <string name="achievement_misc_2_descr">Du hast ein Experiment für mehr als %1$d Tage zurückgestellt.</string>
@@ -227,7 +227,7 @@
     <string name="achievement_lazor_1_descr">Treffe drei Kometen mit einem Schuss mit Generator
         unter %1$d%%.</string>
     <string name="achievement_lazor_2_name">Stadt Beschützer</string>
-    <string name="achievement_lazor_2_descr">Fange alle Kometen ab, bis das Schild die Stadt beschützt.</string>
+    <string name="achievement_lazor_2_descr">Fange alle Kometen ab, bis das Schild deine Stadt beschützt.</string>
     <string name="achievement_lazor_3_name">Resignation</string>
     <string name="achievement_lazor_3_descr">Nachdem der Generator auf %1$d%% war, lass ihn auf %2$d%% zurück fallen. Aber nicht mehr oder weniger!</string>
     <string name="achievement_lazor_4_name">Blackout</string>

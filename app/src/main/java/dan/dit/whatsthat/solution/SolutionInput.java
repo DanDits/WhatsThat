@@ -44,7 +44,7 @@ public abstract class SolutionInput implements Compactable {
         initSolution(solution);
     }
 
-    void setListener(SolutionInputListener listener) {
+    synchronized void setListener(SolutionInputListener listener) {
         mListener = listener;
     }
 

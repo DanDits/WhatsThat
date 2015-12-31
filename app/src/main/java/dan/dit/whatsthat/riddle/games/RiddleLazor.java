@@ -76,7 +76,7 @@ import dan.dit.whatsthat.util.image.ImageUtil;
  * Created by daniel on 04.09.15.
  */
 public class RiddleLazor extends RiddleGame implements FlatWorldCallback {
-    private static final float METEOR_BEAM_WIDTH_FRACTION_OF_SCREEN_DIAGONAL = 0.018f; //meteor trail width
+    private static final float METEOR_BEAM_WIDTH_FRACTION_OF_SCREEN_DIAGONAL = 0.022f; //meteor trail width
     private static final float METEOR_RADIUS_FRACTION_OF_SCREEN_DIAGONAL = 0.025f; //meteor head radius
     private static final float METEOR_DIAGONAL_DURATION = 9000.f; //ms, time for a meteor that moves directly from top left to bottom right
     private static final float ONE_SECOND = 1000.f; // ms, one second, fixed

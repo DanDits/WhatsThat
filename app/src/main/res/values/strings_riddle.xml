@@ -21,7 +21,7 @@
     <!-- Snow related -->
     <string name="riddle_type_snow">Angry Cell</string>
     <string name="riddle_type_snow_advertising">A more complex experiment where you guide an angry cell through the foggy parts of your mind and collect strange things.</string>
-    <string name="riddle_type_snow_explanation">Move the cell to your finger or later by tilting the device. Collect candies, grow bigger, don\'t touch walls and EXPLODE.</string>
+    <string name="riddle_type_snow_explanation">Move the cell to your finger or, later, by tilting the device. Collect candies, grow bigger, don\'t touch walls and EXPLODE.</string>
     <string-array name="riddle_type_snow_hints">
         <item>A new test. We place some contaminated biological material of another species close to your cell to test your cell\'s reaction. Pay attention to the particles which are emitted from the material. They will damage your cell. As in policy we will do our best to obscure everything else with a lie </item>
         <item>We hope to gain a better insight into the earthly grey matter which is part of your central nervous system. We had to remove a cell from your brain. Don\'t worry, drinking alcohol kills far more cells.?</item>
@@ -96,7 +96,7 @@
         <item>OK earth being, now I have enough! One glass of the predator drug should be enough to knock out an elephant. Bye bye!</item>
     </string-array>
     <string name="article_triangle_divide_by_move_feature_name">Intergalactical Turbolaser-Triangel-Cutter</string>
-    <string name="article_triangle_divide_by_move_feature_descr">Dr. Drams tortured his employees almost a month to upgrade the Circlelaser for you!</string>
+    <string name="article_triangle_divide_by_move_feature_descr">Dr. Drams has tortured his employees for almost a month to upgrade the Circlelaser for you!</string>
 
     <!-- Dice related -->
     <string name="riddle_type_dice">Alien-Cube</string>
@@ -146,7 +146,7 @@
 
     <!-- Memory related -->
     <string name="riddle_type_memory">Memory</string>
-    <string name="riddle_type_memory_advertising">For some it\'s a simple experiment. For most, mostly adults, somehow difficult. You need to remember cards!</string>
+    <string name="riddle_type_memory_advertising">For some it\'s a simple experiment. For most, mostly adults, it\'s somehow difficult. You need to remember cards!</string>
     <string name="riddle_type_memory_explanation">Find a matching pair of cards by clicking on a card and remembering its picture!</string>
     <string-array name="riddle_type_memory_hints">
         <item>This time we want to answer the following question: \"How catastrophic is the earthly brain regarding memories?\" We gonna find a solution with this experiment. We keep the instruction as simple as possible, especially for you: Find matching pairs of cards! You have to remember them on your own.</item>
@@ -170,7 +170,7 @@
     <!-- Flow related -->
     <string name="riddle_type_flow">Cellflow</string>
     <string name="riddle_type_flow_advertising">An oasis of chaos for slobs. Put down cells in the unknown chaos to discover known points and shapes of the image! A simple experiment!</string>
-    <string name="riddle_type_flow_explanation">Click anywhere in the field to create cellflows. If cells hit on a point of the image, they follow the shapes of the picture.</string>
+    <string name="riddle_type_flow_explanation">Click anywhere in the field to create cellflows. If cells hit a point of the image, they follow the shapes of the picture.</string>
     <string-array name="riddle_type_flow_hints">
         <item>Maybe you think this is a confusing experiment, on the whole that\'s how to describe your mind: Confusy and empty. At least at the beginning! We recreated your mind with a model.\nClick anywhere on the field to place some Cellis. If Cellis hit a shape of the image, they will follow them and reveal the picture at the same time!</item>
         <item>Not every Celli is a specialized and intelligent cell. Only every third Celli will follow the shapes.</item>
@@ -182,7 +182,7 @@
     <!-- Lazor related -->
     <string name="riddle_type_lazor">Lazor</string>
     <string name="riddle_type_lazor_advertising">An arcade experiment with some futuristic aspects. Defend your city against descending meteors.</string>
-    <string name="riddle_type_lazor_explanation">Der nächste aufgeladene Lazor wird an den gewählten Punkt schießen und dort -oder bei Kollision- explodieren. Stoppe die Zerstörung!</string>
+    <string name="riddle_type_lazor_explanation">The closest charged Lazor is shot towards the chosen point and will explode there or on collision. Stop the destruction!</string>
     <string-array name="riddle_type_lazor_hints">
         <item>A simulation to test your reaction to extraterrestrial threats. Use the lazors to shoot on incoming comets which threat your city. On collision or when reaching the clicked point the lazor explodes. Along its tail the corresponding colour gets visible.</item>
         <item>Pay attention to the canons plants to see, when the lazor gets ready to shoot. By the way, always the next canon plant fires as long as it\'s ready to shoot of course.</item>
