@@ -84,7 +84,7 @@ public class RiddleSnow extends RiddleGame implements FlatWorldCallback {
     private static final long EXPLOSION_DELAY = 3000; //ms
     private static final long TOUCH_GRAVITY_FULL_EFFECT_DELAY = 500; //ms
     private static final double EXPLOSION_HIT_WALL_FRACTION = 0.6;
-    private static final double SNOW_EXPLOSION_SIZE_MULTIPLIER = 1.25;
+    private static final double SNOW_EXPLOSION_SIZE_MULTIPLIER = 1.4;
     private static final float CRASHED_WALL_BIGGER_SPEED_MULTIPLIER = 1.5f;
     private static final float CRASHED_WALL_SMALL_SPEED_MULTIPLIER = 0.5f;
     private static final float EXPLOSION_SPEED_MULTIPLIER = 10.f;
