@@ -114,10 +114,15 @@ public class SortimentHolder extends ShopArticleHolder {
         getArticle(LevelUpArticle.KEY_LEVEL_UP_ARTICLE)
                 .addDependency(getAnyDownloadProductPurchasedDependency(), 2); // for level 2 we need to purchase any download product to know it is there
         getArticle(RiddleArticle.KEY_CHOOSE_RIDDLE_ARTICLE)
-                .addDependency(LevelDependency.getInstance(5), PracticalRiddleType.ALL_PLAYABLE_TYPES.indexOf(PracticalRiddleType.DICE_INSTANCE))
-                .addDependency(LevelDependency.getInstance(4), PracticalRiddleType.ALL_PLAYABLE_TYPES.indexOf(PracticalRiddleType.JUMPER_INSTANCE))
+                .addDependency(LevelDependency.getInstance(2), PracticalRiddleType
+                        .ALL_PLAYABLE_TYPES.indexOf(PracticalRiddleType.DICE_INSTANCE))
+                .addDependency(LevelDependency.getInstance(1), PracticalRiddleType
+                        .ALL_PLAYABLE_TYPES.indexOf(PracticalRiddleType.JUMPER_INSTANCE))
                 .addDependency(LevelDependency.getInstance(4), PracticalRiddleType.ALL_PLAYABLE_TYPES.indexOf(PracticalRiddleType.MEMORY_INSTANCE))
-                .addDependency(LevelDependency.getInstance(1), PracticalRiddleType.ALL_PLAYABLE_TYPES.indexOf(PracticalRiddleType.TRIANGLE_INSTANCE));
+                .addDependency(LevelDependency.getInstance(2), PracticalRiddleType
+                        .ALL_PLAYABLE_TYPES.indexOf(PracticalRiddleType.TRIANGLE_INSTANCE))
+                .addDependency(LevelDependency.getInstance(3), PracticalRiddleType
+                        .ALL_PLAYABLE_TYPES.indexOf(PracticalRiddleType.SNOW_INSTANCE));
         getArticle(ARTICLE_KEY_CIRCLE_DIVIDE_BY_MOVE_FEATURE)
                 .addDependency(TestSubject.getInstance().getRiddleTypeDependency(PracticalRiddleType.CIRCLE_INSTANCE), ShopArticle.GENERAL_PRODUCT_INDEX);
         getArticle(ARTICLE_KEY_TRIANGLE_DIVIDE_BY_MOVE_FEATURE)

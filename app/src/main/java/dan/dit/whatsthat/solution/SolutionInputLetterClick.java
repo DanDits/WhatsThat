@@ -49,7 +49,8 @@ public class SolutionInputLetterClick extends SolutionInput {
     private static final int LETTER_POOL_MIN_WRONG_LETTERS = 2; // minimum amount of wrong letters
     public static final String IDENTIFIER = "LETTERCLICK";
     private static final int USER_LETTER_COLOR_COMPLETED = Color.GREEN;
-    private static final int USER_LETTER_COLOR_INCOMPLETE = Color.RED;
+    private static final int USER_LETTER_COLOR_INCOMPLETE = 0xFFFF4400;
+    private static final int USER_LETTER_COLOR_MISSING = Color.RED;
     private static final int ALL_LETTERS_AMOUNT_DIVISOR = 6; // must be divisible by this number, related to ALL_LETTERS_MAX_ROWS
     private char[] mAllLetters; // permuted randomly including solution letters
     private int[] mAllLettersSelected; // index of letter in user letters if the letter is selected, invisible and one of the user letters
@@ -64,7 +65,8 @@ public class SolutionInputLetterClick extends SolutionInput {
     private static final float PADDING_USER_ALL = 5.f; //dp, space between user letters and all letters
     private static final float LETTER_MAX_RADIUS = 35.f; //dp, maximum radius for letters
     private static final float LETTER_MAX_GAP = 10.f; //dp, maximum gap between letters
-    private static final float LETTER_BASE_SIZE = 0.75f; //dp, base size of letters, will scale on radius
+    private static final float ALL_LETTER_BASE_SIZE = 20f; //dp, base size of letters
+    private static final float USER_LETTER_BASE_SIZE = 25f; //dp, base size of letters
     private static final float CIRCLE_BORDER_WIDTH = 1f; //dp, width of the circle border
     private static final int ALL_LETTERS_MAX_ROWS = 3;
     private static final float ALL_LETTERS_ROW_PADDING = 2.f; //dp, padding between rows
@@ -140,7 +142,7 @@ public class SolutionInputLetterClick extends SolutionInput {
         if (mMetrics == null) {
             return;
         }
-        final float letter_base_size = ImageUtil.convertDpToPixel(LETTER_BASE_SIZE, mMetrics);
+        final float letter_base_size = ImageUtil.convertDpToPixel(ALL_LETTER_BASE_SIZE, mMetrics);
         final float padding_lr = ImageUtil.convertDpToPixel(PADDING_LR, mMetrics);
         final float padding_tb = ImageUtil.convertDpToPixel(PADDING_TB, mMetrics);
         final float padding_user_all = ImageUtil.convertDpToPixel(PADDING_USER_ALL, mMetrics);
@@ -179,7 +181,7 @@ public class SolutionInputLetterClick extends SolutionInput {
             rowCount = rowCountForMaxRadius;
             mAllLettersCircleRadius = maxRadius;
             lettersPerRow = lettersPerRowForMaxRadius;
-            mAllLetterPaint.setTextSize(letter_base_size * mAllLettersCircleRadius);
+            mAllLetterPaint.setTextSize(letter_base_size);
         }
 
         // calculate if there is a gap between letters
@@ -209,7 +211,7 @@ public class SolutionInputLetterClick extends SolutionInput {
             return;
         }
         mUserLetterX.clear();
-        float letter_base_size = ImageUtil.convertDpToPixel(LETTER_BASE_SIZE, mMetrics);
+        float letter_base_size = ImageUtil.convertDpToPixel(USER_LETTER_BASE_SIZE, mMetrics);
         float padding_lr = ImageUtil.convertDpToPixel(PADDING_LR, mMetrics);
         float padding_tb = ImageUtil.convertDpToPixel(PADDING_TB, mMetrics);
         float gap_lr = ImageUtil.convertDpToPixel(LETTER_MAX_GAP, mMetrics);
@@ -230,7 +232,7 @@ public class SolutionInputLetterClick extends SolutionInput {
             mUserLetterCircleRadius = Math.min(heightForUserLetters, (mWidth - padding_lr) / userLetterCount) / 2.f;
             mUserLetterCircleRadius = Math.min(mUserLetterCircleRadius, letter_max_radius);
             if (mUserLetterCircleRadius > 0.f) {
-                mUserLetterPaint.setTextSize(letter_base_size * mUserLetterCircleRadius);
+                mUserLetterPaint.setTextSize(letter_base_size * mUserLetterCircleRadius * 2 / heightForUserLetters);
             }
         }
 
@@ -351,6 +353,7 @@ public class SolutionInputLetterClick extends SolutionInput {
                     float availableWidth = 2 * mUserLetterCircleRadius;
                     // we got space in interval [x-mUserLetterCircleRadius, x+mUserLetterCircleRadius] for COUNT circles
                     float currX = x - mUserLetterCircleRadius;
+                    mUserLetterCircleBorderPaint.setColor(USER_LETTER_COLOR_MISSING);
                     for (int i = 0; i < COUNT; i++) {
                         float radius = availableWidth / 4;
                         availableWidth -= 2 * radius;

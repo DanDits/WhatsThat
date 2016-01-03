@@ -20,7 +20,9 @@ import android.content.SharedPreferences;
 import android.text.TextUtils;
 import android.util.Log;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import dan.dit.whatsthat.testsubject.TestSubject;
@@ -36,6 +38,8 @@ import dan.dit.whatsthat.util.compaction.Compacter;
 public class AchievementManager implements AchievementDataEventListener {
 
     private static final String ACHIEVEMENT_PREFERENCES_FILE = "dan.dit.whatsthat.achievement_data";
+    private static final String KEY_UNCLAIMED_ACHIEVEMENTS_COUNT = "dan.dit.whatsthat" +
+            ".unclaimed_achievements_count";
     public static final int CHANGED_PROGRESS = 0;
     public static final int CHANGED_TO_COVERED = 1;
     public static final int CHANGED_TO_DISCOVERED = 2;
@@ -45,6 +49,8 @@ public class AchievementManager implements AchievementDataEventListener {
     private final SharedPreferences mPrefs;
     private Set<AchievementData> mManagedChangedData;
     private Set<Achievement> mChangedAchievements;
+    private int mUnclaimedAchievementsCount;
+    private List<UnclaimedAchievementsCountListener> mUnclaimedListeners;
 
     private AchievementManager(Context applicationContext) {
         if (applicationContext == null) {
@@ -54,6 +60,8 @@ public class AchievementManager implements AchievementDataEventListener {
         mPrefs = applicationContext.getSharedPreferences(ACHIEVEMENT_PREFERENCES_FILE, Context.MODE_PRIVATE);
         mManagedChangedData = new HashSet<>();
         mChangedAchievements = new HashSet<>();
+        mUnclaimedListeners = new ArrayList<>(1);
+        mUnclaimedAchievementsCount = mPrefs.getInt(KEY_UNCLAIMED_ACHIEVEMENTS_COUNT, 0);
     }
 
     /**
@@ -89,10 +97,38 @@ public class AchievementManager implements AchievementDataEventListener {
             for (Achievement achievement : INSTANCE.mChangedAchievements) {
                 achievement.addData(editor);
             }
+            // unclaimed count only changes if changedAchievements is not empty
+            editor.putInt(KEY_UNCLAIMED_ACHIEVEMENTS_COUNT, INSTANCE
+                    .mUnclaimedAchievementsCount);
             editor.apply();
             Log.d("Achievement", "Commiting achievement manager, saving " + INSTANCE.mChangedAchievements.size() + " changed achievements.");
             INSTANCE.mManagedChangedData.clear();
             INSTANCE.mChangedAchievements.clear();
+        }
+    }
+
+    public int getUnclaimedAchievementsCount() {
+        return mUnclaimedAchievementsCount;
+    }
+
+    public interface UnclaimedAchievementsCountListener {
+        void onUnclaimedAchievementsCountChanged(int unclaimed);
+    }
+
+    public void addUnclaimedAchievementsCountListener(UnclaimedAchievementsCountListener listener) {
+        if (listener != null && !mUnclaimedListeners.contains(listener)) {
+            mUnclaimedListeners.add(listener);
+        }
+    }
+
+    public void removeUnclaimedAchievementsCountListener(UnclaimedAchievementsCountListener
+                                                                 listener) {
+        mUnclaimedListeners.remove(listener);
+    }
+
+    private void notifyUnclaimedAchievementsListener() {
+        for (UnclaimedAchievementsCountListener listener : mUnclaimedListeners) {
+            listener.onUnclaimedAchievementsCountChanged(mUnclaimedAchievementsCount);
         }
     }
 
@@ -105,8 +141,12 @@ public class AchievementManager implements AchievementDataEventListener {
         if (achievement != null) {
             mChangedAchievements.add(achievement);
             if (changedHint == CHANGED_TO_ACHIEVED) {
+                mUnclaimedAchievementsCount++;
+                notifyUnclaimedAchievementsListener();
                 TestSubject.getInstance().postAchievementAchieved(achievement);
             } else if (changedHint == CHANGED_GOT_CLAIMED) {
+                mUnclaimedAchievementsCount--;
+                notifyUnclaimedAchievementsListener();
                 TestSubject.getInstance().addAchievementScore(achievement.getScoreReward());
             }
         }

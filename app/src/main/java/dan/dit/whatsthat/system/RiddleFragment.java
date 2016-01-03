@@ -94,7 +94,7 @@ import dan.dit.whatsthat.util.wallet.WalletEntry;
  */
 public class RiddleFragment extends Fragment implements PercentProgressListener, Wallet
         .OnEntryChangedListener, LoaderManager.LoaderCallbacks<Cursor>, SolutionInputListener,
-        UnsolvedRiddlesChooser.Callback, NoPanicDialog.Callback, RiddleView.PartyCallback {
+        UnsolvedRiddlesChooser.Callback, NoPanicDialog.Callback, RiddleView.PartyCallback, AchievementManager.UnclaimedAchievementsCountListener {
     public static final Map<String, Image> ALL_IMAGES = new HashMap<>();
     private static final String PRE_ENCRYPTED_COMPLAIN = "Image: ";
     private static final String POST_ENCRYPTED_COMPLAIN = "EndImage";
@@ -783,6 +783,9 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
         getLoaderManager().initLoader(0, null, this);
         updateScoreInfo();
         TestSubject.getInstance().registerScoreChangedListener(this);
+        AchievementManager.getInstance().addUnclaimedAchievementsCountListener(this);
+        onUnclaimedAchievementsCountChanged(AchievementManager.getInstance()
+                .getUnclaimedAchievementsCount());
     }
 
     @Override
@@ -809,6 +812,7 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
         super.onStop();
         mManager.cancelMakeRiddle();
         TestSubject.getInstance().removeScoreChangedListener(this);
+        AchievementManager.getInstance().removeUnclaimedAchievementsCountListener(this);
         if (mRiddleView != null) {
             mRiddleView.setVisibility(View.INVISIBLE); // else it is black when being reloaded
             // after having opened the shop
@@ -906,5 +910,14 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
     }
     @Override
     public void onEntryRemoved(WalletEntry entry) {
+    }
+
+    @Override
+    public void onUnclaimedAchievementsCountChanged(int unclaimed) {
+        if (unclaimed == 0) {
+            mOpenStore.setImageResource(R.drawable.alien_menu_enter_notreasure);
+        } else {
+            mOpenStore.setImageResource(R.drawable.alien_menu_enter);
+        }
     }
 }
