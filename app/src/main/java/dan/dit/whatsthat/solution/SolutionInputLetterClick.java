@@ -94,6 +94,11 @@ public class SolutionInputLetterClick extends SolutionInput {
         initPaints();
     }
 
+    @Override
+    public void reset() {
+        clearAllLetters();
+    }
+
     public SolutionInputLetterClick(Compacter data) throws CompactedDataCorruptException {
         super(data);
         initPaints();
@@ -132,6 +137,9 @@ public class SolutionInputLetterClick extends SolutionInput {
     }
 
     private void calculateAllLetterLayout() {
+        if (mMetrics == null) {
+            return;
+        }
         final float letter_base_size = ImageUtil.convertDpToPixel(LETTER_BASE_SIZE, mMetrics);
         final float padding_lr = ImageUtil.convertDpToPixel(PADDING_LR, mMetrics);
         final float padding_tb = ImageUtil.convertDpToPixel(PADDING_TB, mMetrics);
@@ -197,7 +205,9 @@ public class SolutionInputLetterClick extends SolutionInput {
     }
 
     private void calculateUserLetterLayout() {
-
+        if (mMetrics == null) {
+            return;
+        }
         mUserLetterX.clear();
         float letter_base_size = ImageUtil.convertDpToPixel(LETTER_BASE_SIZE, mMetrics);
         float padding_lr = ImageUtil.convertDpToPixel(PADDING_LR, mMetrics);
@@ -477,7 +487,9 @@ public class SolutionInputLetterClick extends SolutionInput {
 
     @Override
     public boolean onUserTouchDown(float x, float y) {
-
+        if (mMetrics == null) {
+            return false;
+        }
         // find out if any of the all letters was clicked
         double allLetterMinDistance = Double.MAX_VALUE;
         int allLetterMinDistanceIndex = -1;
@@ -532,6 +544,38 @@ public class SolutionInputLetterClick extends SolutionInput {
         return false;
     }
 
+    private void clearAllLetters() {
+        List<Integer> all = new ArrayList<>(mUserLetters.size());
+        for (int i = 0; i < mUserLetters.size(); i++) {
+            all.add(i);
+        }
+        clearLetters(all);
+    }
+
+    private boolean clearLetters(List<Integer> indicesToRemove) {
+        for (Integer index : indicesToRemove) {
+            if (index >= mUserLetters.size()) {
+                continue;
+            }
+            char clickedChar = mUserLetters.get(index);
+            if (clickedChar != NO_LETTER) {
+                int allIndex = findAllLetterIndex(index);
+                if (allIndex != -1) {
+                    // remove from user selection and make available again
+                    mAllLettersSelected[allIndex] = -1;
+                    mUserLetters.set(index, NO_LETTER);
+                }
+            }
+        }
+        if (!indicesToRemove.isEmpty()) {
+            // remove NO_LETTERs at the end
+            removeAppendedNoLetters();
+            calculateUserLetterLayout();
+            return true;
+        }
+        return false;
+    }
+
     @Override
     public boolean onFling(MotionEvent startEvent, MotionEvent endEvent, float velocityX, float velocityY) {
         float userLetterHeight = mHeight * USER_LETTER_FRACTION;
@@ -545,23 +589,7 @@ public class SolutionInputLetterClick extends SolutionInput {
                     indicesToRemove.add(i);
                 }
             }
-            for (Integer index : indicesToRemove) {
-                char clickedChar = mUserLetters.get(index);
-                if (clickedChar != NO_LETTER) {
-                    int allIndex = findAllLetterIndex(index);
-                    if (allIndex != -1) {
-                        // remove from user selection and make available again
-                        mAllLettersSelected[allIndex] = -1;
-                        mUserLetters.set(index, NO_LETTER);
-                    }
-                }
-            }
-            if (!indicesToRemove.isEmpty()) {
-                // remove NO_LETTERs at the end
-                removeAppendedNoLetters();
-                calculateUserLetterLayout();
-                return true;
-            }
+            return clearLetters(indicesToRemove);
         }
         return false;
     }

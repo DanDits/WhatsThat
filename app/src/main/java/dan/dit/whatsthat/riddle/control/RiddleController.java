@@ -447,6 +447,9 @@ public class RiddleController implements RiddleAnimationController.OnAnimationCo
         if (party > 0) {
             callback.doParty(party);
         }
+        if (score > 0) {
+            callback.showMoneyEarned(score);
+        }
     }
 
     @Override

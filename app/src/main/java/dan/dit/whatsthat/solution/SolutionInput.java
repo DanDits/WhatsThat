@@ -48,6 +48,7 @@ public abstract class SolutionInput implements Compactable {
         mListener = listener;
     }
 
+    public abstract void reset();
     public abstract int estimateSolvedValue();
     protected abstract void initSolution(@NonNull Solution solution);
     public abstract void draw(Canvas canvas);

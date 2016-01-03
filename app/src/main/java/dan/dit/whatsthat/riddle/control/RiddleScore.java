@@ -14,6 +14,18 @@ public class RiddleScore {
         mTotalScore = base * mMultiplicator;
     }
 
+    public static class NullRiddleScore extends RiddleScore {
+        public static final NullRiddleScore INSTANCE = new NullRiddleScore();
+        private NullRiddleScore() {
+            super(0, 1);
+        }
+        @Override
+        public RiddleScore addBonus(int bonus) {
+            return this; // do not add any bonus
+        }
+
+    }
+
     public RiddleScore addBonus(int bonus) {
         bonus = Math.max(0, bonus);
         mBonus += bonus;

@@ -33,6 +33,7 @@ import dan.dit.whatsthat.riddle.Riddle;
 import dan.dit.whatsthat.riddle.RiddleInitializer;
 import dan.dit.whatsthat.riddle.types.PracticalRiddleType;
 import dan.dit.whatsthat.solution.Solution;
+import dan.dit.whatsthat.solution.SolutionInputManager;
 import dan.dit.whatsthat.util.general.BuildException;
 import dan.dit.whatsthat.util.compaction.CompactedDataCorruptException;
 import dan.dit.whatsthat.util.compaction.Compacter;
@@ -78,6 +79,8 @@ public class ImageObfuscator {
         } else {
             raster[0][raster[0].length - 1] = 0xFF000000 | PracticalRiddleType.NO_ID;
         }
+
+
 	}
 
     public static String toHex(String arg) {
@@ -137,7 +140,8 @@ public class ImageObfuscator {
         return currIndex <= 0;
     }
 
-    private static boolean addImagedataToImage(Image image, int[][] raster) {
+    private static boolean addImagedataToImage(Image image, int[][] raster, String
+            solutionInputData) {
 
         // 1. HASH:
         String hash = image.getHash(); // very important info as this identifies the image (if already known to recipient)
@@ -165,21 +169,28 @@ public class ImageObfuscator {
             return false;
         }
 
-        // 3. IMAGE AUTHOR (at least the name, maybe source)
+        // 3. IMAGE ORIGIN AND AUTHOR (at least the name, maybe source)
         ImageAuthor author = image.getAuthor();
-        String authorHex = toHex(author.compact());
-        if (!addHexToRaster(authorHex, raster, 0, 0, 1, raster[0].length - 2)) {
-            Log.d("Image", "Failed adding authorHex to raster: " + authorHex);
+        Compacter imageOriginAuthorCmp = new Compacter(2);
+        imageOriginAuthorCmp.appendData(image.getOrigin());
+        imageOriginAuthorCmp.appendData(author.compact());
+        String imageOriginAuthorHex = toHex(imageOriginAuthorCmp.compact());
+        if (!addHexToRaster(imageOriginAuthorHex, raster, 0, 0, 1, raster[0].length - 2)) {
+            Log.d("Image", "Failed adding authorHex to raster: " + imageOriginAuthorHex);
             // but we do not fail in this case
+        } else {
+            Log.d("Image", "Added imageoriginauthor data: " + imageOriginAuthorCmp);
         }
 
-        // 4. IMAGE ORIGIN
-        String originHex = toHex(image.getOrigin());
-        if (!addHexToRaster(originHex, raster, raster.length - 1, raster.length - 1, 1, raster[0].length - 2)) {
-            Log.d("Image", "Failed adding originHex to raster: " + originHex);
-            // but we do not fail in this case
+        // 4. SOLUTION DATA (so that the same solution input is created for everyone)
+        // if something is given we need to add all, no partial data allowed
+        if (!TextUtils.isEmpty(solutionInputData)) {
+            String solutionDataHex = toHex(solutionInputData);
+            if (!addHexToRaster(solutionDataHex, raster, raster.length - 1, raster.length - 1, 1, raster[0].length - 2)) {
+                Log.d("Image", "Failed adding solutionInputData to raster: " + solutionDataHex);
+                return false;
+            }
         }
-
         return true;
     }
 
@@ -219,7 +230,16 @@ public class ImageObfuscator {
         } else {
             riddleOrigin = "-";
         }
-        String imageOrigin = convertHexToString(getHexFromRaster(raster, raster.length - 1, raster.length - 1, 1, raster[0].length - 2));
+        String solutionInputData = convertHexToString(getHexFromRaster(raster, raster.length - 1,
+                raster.length - 1, 1, raster[0].length - 2));
+
+        Compacter imageOriginAndAuthorCmp = new Compacter(convertHexToString(getHexFromRaster
+                (raster, 0, 0, 1, raster[0].length - 2)));
+        Log.d("Image", "READ IMAGEORIGINANDAUTHOR DATA: " + imageOriginAndAuthorCmp);
+        String imageOrigin = imageOriginAndAuthorCmp.getSize() == 0 ? Image
+                .ORIGIN_IS_EXTERNAL_OBFUSCATED : imageOriginAndAuthorCmp.getData(0);
+        String authorData = imageOriginAndAuthorCmp.getSize() <= 1 ? "" : imageOriginAndAuthorCmp
+                .getData(1);
 
         int preferredRiddleId = extractMetadataFromImagePreferredRiddle(raster);
         PracticalRiddleType preferredType = null;
@@ -253,8 +273,8 @@ public class ImageObfuscator {
             builder.addPreferredRiddleType(preferredType);
         }
         try {
-            Compacter cmp = new Compacter(convertHexToString(getHexFromRaster(raster, 0, 0, 1, raster[0].length - 2)));
-            for (int i = cmp.getSize(); i < 5; i++) {
+            Compacter cmp = new Compacter(authorData);
+            for (int i = cmp.getSize(); i < ImageAuthor.REQUIRED_DATA_FIELDS_COUNT; i++) {
                 cmp.appendData("-");
             }
             builder.setAuthor(new ImageAuthor(cmp));
@@ -297,7 +317,7 @@ public class ImageObfuscator {
             // create an unfinished riddle if there is a valid origin given which is not the app itself
             RiddleInitializer.INSTANCE.checkedIdsInit(context);
             Log.d("Image", "Creating riddle for loaded obfuscated image: " + image + " type: " + preferredType + " origin: " + riddleOrigin);
-            Riddle riddle = new Riddle(image.getHash(), preferredType, riddleOrigin);
+            Riddle riddle = new Riddle(image.getHash(), preferredType, riddleOrigin, solutionInputData);
             if (riddle.saveToDatabase(context)) {
                 Riddle.saveLastVisibleRiddleId(context, riddle.getId());
                 Riddle.saveLastVisibleRiddleType(context, preferredType);
@@ -318,10 +338,14 @@ public class ImageObfuscator {
      * of restored and original will not match.
      * @param image Image to obfuscate.
      * @param logoSource The required logo to include.
+     * @param solutionInputData The compacted solution input data currently visible to the user.
+     *                          Will be used to recreate the image and show the same letters to
+     *                          everyone.
      * @return An obfuscated version of the original image with only the logo visible. Can be restored
      * to be almost equal to the original image. Can be null if loading the image's bitmap fails.
      */
-	public static Bitmap makeHidden(Resources res, Image image, PracticalRiddleType prefferedType, Logo logoSource) {
+	public static Bitmap makeHidden(Resources res, Image image, PracticalRiddleType prefferedType,
+                                    Logo logoSource, String solutionInputData) {
 		Bitmap original = image.loadBitmap(res, new Dimension(0, 0), true);
         if (original == null) {
             return null;
@@ -417,7 +441,7 @@ public class ImageObfuscator {
 		
 		// include the metadata
 		addMetadataToImage(prefferedType, raster);
-        if (!addImagedataToImage(image, raster)) {
+        if (!addImagedataToImage(image, raster, solutionInputData)) {
             return null;
         }
         Bitmap hidden = Bitmap.createBitmap(hiddenWidth, hiddenHeight, original.getConfig());

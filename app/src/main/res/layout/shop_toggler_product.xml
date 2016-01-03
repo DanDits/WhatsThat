@@ -5,11 +5,10 @@
     android:id="@+id/sub_product_id"
     android:background="@drawable/button_background">
 
-    <Switch
+    <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/toggler"
-        android:clickable="false"
+        android:id="@+id/toggler_as_button"
         android:focusable="false"
-        android:layout_gravity="center_horizontal" />
+        android:layout_gravity="center_horizontal"/>
 </LinearLayout>

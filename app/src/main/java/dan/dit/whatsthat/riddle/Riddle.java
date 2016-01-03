@@ -80,6 +80,10 @@ public class Riddle {
         mSolved = Solution.SOLVED_NOTHING;
     }
 
+    public Riddle(String hash, PracticalRiddleType type, String origin, String solutionData) {
+        this(hash, type, origin);
+        mSolutionData = solutionData;
+    }
     private Riddle(Core core, Cursor cursor) throws BuildException {
         buildFromCursor(cursor, core);
     }

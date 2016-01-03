@@ -62,8 +62,10 @@ import dan.dit.whatsthat.util.ui.GlasDialog;
 public class NoPanicDialog extends DialogFragment {
     public static final String KEY_IMAGE = "key_image_hash";
     public static final String KEY_TYPE = "key_type_full_name";
+    public static final String KEY_SOLUTION_INPUT_DATA = "key_solution_input_data";
     private static final String KEY_NO_SECRETS = "key_no_secrets";
     private PracticalRiddleType mType;
+    private String mSolutionInputData;
     private Image mImage;
     private Callback mCallback;
     private ViewGroup mAskTypeAnswer;
@@ -118,15 +120,18 @@ public class NoPanicDialog extends DialogFragment {
         String imageHash = null;
         String typeName = null;
         boolean noSecrets = false;
+        String solutionInputData = null;
         Bundle args = getArguments();
         if (savedInstanceState != null) {
             imageHash = savedInstanceState.getString(KEY_IMAGE);
             typeName = savedInstanceState.getString(KEY_TYPE);
             noSecrets = savedInstanceState.getBoolean(KEY_NO_SECRETS);
+            solutionInputData = savedInstanceState.getString(KEY_SOLUTION_INPUT_DATA);
         } else if (args != null) {
             imageHash = args.getString(KEY_IMAGE);
             typeName = args.getString(KEY_TYPE);
             noSecrets = args.getBoolean(KEY_NO_SECRETS);
+            solutionInputData = args.getString(KEY_SOLUTION_INPUT_DATA);
         }
         if (typeName != null) {
             mType = PracticalRiddleType.getInstance(typeName);
@@ -134,6 +139,7 @@ public class NoPanicDialog extends DialogFragment {
         if (imageHash != null) {
             mImage = RiddleFragment.ALL_IMAGES.get(imageHash);
         }
+        mSolutionInputData = solutionInputData;
 
         if (mImage != null) {
             String[] headings = getResources().getStringArray(R.array.panic_author_credit_title);
@@ -285,7 +291,8 @@ public class NoPanicDialog extends DialogFragment {
                 @Override
                 protected File doInBackground(Void... params) {
 
-                    mToShare = ImageObfuscator.makeHidden(getResources(), mImage, mType, User.getInstance().getLogo(getResources()));
+                    mToShare = ImageObfuscator.makeHidden(getResources(), mImage, mType, User
+                            .getInstance().getLogo(getResources()), mSolutionInputData);
                     boolean success = mToShare != null;
                     File toShare = null;
                     if (success && !isCancelled()) {
@@ -323,16 +330,16 @@ public class NoPanicDialog extends DialogFragment {
                         User.getInstance().uploadPhoto(result, new WebPhotoStorage.UploadListener() {
                             @Override
                             public void onPhotoUploaded(String photoLink, URL photoShareLink) {
-                                if (isDetached()) {
+                                mToShareLink = photoShareLink;
+                                if (!isVisible()) {
                                     return;
                                 }
-                                mToShareLink = photoShareLink;
                                 executeShare();
                             }
 
                             @Override
                             public void onPhotoUploadFailed(int error) {
-                                if (isDetached()) {
+                                if (!isVisible()) {
                                     return;
                                 }
                                 clearShareButton();
@@ -404,6 +411,7 @@ public class NoPanicDialog extends DialogFragment {
         if (mImage != null) {
             outState.putString(KEY_IMAGE, mImage.getHash());
         }
+        outState.putString(KEY_SOLUTION_INPUT_DATA, mSolutionInputData);
     }
 
     @Override

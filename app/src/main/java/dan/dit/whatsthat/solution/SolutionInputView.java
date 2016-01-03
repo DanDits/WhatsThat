@@ -17,11 +17,17 @@ package dan.dit.whatsthat.solution;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
+
+import dan.dit.whatsthat.system.NoPanicDialog;
+import dan.dit.whatsthat.util.compaction.CompactedDataCorruptException;
+import dan.dit.whatsthat.util.compaction.Compacter;
 
 /**
  * Created by daniel on 12.04.15.
@@ -72,6 +78,22 @@ public class SolutionInputView extends View {
         if (input != null) {
             input.draw(canvas);
         }
+    }
+
+    public void supplyNoPanicParams(Bundle args) {
+        if (mInput == null || args == null) {
+            return;
+        }
+        SolutionInput resettedCopy;
+        try {
+            resettedCopy = SolutionInputManager.reconstruct(new Compacter(mInput
+                    .compact()));
+            resettedCopy.reset();
+        } catch (CompactedDataCorruptException e) {
+            Log.e("Riddle", "Data corrupt when supplying no panic params: " + e);
+            resettedCopy = mInput; // use standard, showing everything the user entered
+        }
+        args.putString(NoPanicDialog.KEY_SOLUTION_INPUT_DATA, resettedCopy.compact());
     }
 
 

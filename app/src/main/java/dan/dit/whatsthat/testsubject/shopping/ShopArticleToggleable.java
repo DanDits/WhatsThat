@@ -15,8 +15,10 @@
 
 package dan.dit.whatsthat.testsubject.shopping;
 
+import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Switch;
 
 import dan.dit.whatsthat.R;
@@ -69,6 +71,7 @@ public class ShopArticleToggleable extends ShopArticleSimple {
     public void onChildClick(SubProduct product) {
         super.onChildClick(product);
         if (product == mToggler && mPurse.toggleFeature(mKey) && mListener != null) {
+            mToggler.updateState();
             mListener.onArticleChanged(this);
         }
     }
@@ -89,9 +92,18 @@ public class ShopArticleToggleable extends ShopArticleSimple {
 
         private void updateState() {
             Switch toggler = ((Switch) mView.findViewById(R.id.toggler));
-            toggler.setChecked(mPurse.hasToggleableFeature(mKey));
-            toggler.setTextOn(toggler.getResources().getString(mToggleTextOnResId));
-            toggler.setTextOff(toggler.getResources().getString(mToggleTextOffResId));
+            if (toggler != null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
+                toggler.setChecked(mPurse.hasToggleableFeature(mKey));
+                toggler.setTextOn(toggler.getResources().getString(mToggleTextOnResId));
+                toggler.setTextOff(toggler.getResources().getString(mToggleTextOffResId));
+            } else {
+                Button togglerBtn = (Button) mView.findViewById(R.id.toggler_as_button);
+                if (mPurse.hasToggleableFeature(mKey)) {
+                    togglerBtn.setText(mToggleTextOnResId);
+                } else {
+                    togglerBtn.setText(mToggleTextOffResId);
+                }
+            }
         }
     }
 }

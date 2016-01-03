@@ -54,6 +54,7 @@ import dan.dit.whatsthat.image.ImageBitmapSource;
 import dan.dit.whatsthat.system.RiddleFragment;
 import dan.dit.whatsthat.system.store.WorkshopView;
 import dan.dit.whatsthat.util.general.PercentProgressListener;
+import dan.dit.whatsthat.util.general.VersionSafe;
 import dan.dit.whatsthat.util.image.BitmapUtil;
 import dan.dit.whatsthat.util.image.ColorMetric;
 import dan.dit.whatsthat.util.image.Dimension;
@@ -618,7 +619,7 @@ public class MosaicGeneratorUi {
         if (resultCode != Activity.RESULT_OK || requestCode != WorkshopView.PICK_IMAGE_FOR_MOSAIC || data == null) {
             return;
         }
-        ClipData clipData = data.getClipData();
+        ClipData clipData = VersionSafe.getClipData(data);
         Uri[] selectedImageUris;
         if (clipData == null) {
             selectedImageUris = new Uri[] {data.getData()};

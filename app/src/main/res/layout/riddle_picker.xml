@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:textAppearance="@android:style/TextAppearance.Holo.Large"
+        android:textAppearance="@android:style/TextAppearance.Large"
         android:textColor="@color/important"
         android:text="@string/riddle_dialog_title"
         android:id="@+id/title"/>
@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_below="@+id/title"
-        android:textAppearance="@android:style/TextAppearance.Holo.Small"
+        android:textAppearance="@android:style/TextAppearance.Small"
         android:textColor="#ff4d00"
         android:text="@string/riddle_dialog_subtitle"
         android:id="@+id/subtitle"/>

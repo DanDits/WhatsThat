@@ -155,6 +155,7 @@ public class ShopView extends ExpandableListView implements  StoreContainer, Sho
             riddleFilters.add(new ShopArticleFilterIcon(iconId, iconId, lastVisibleType != null && lastVisibleType.getIconResId() == iconId));
         }
         ShopArticleGroupFilter riddleGroupFilter = new ShopArticleGroupFilter(mChildrenFilterHolder, R.drawable.icon_laboratory, riddleFilters, false, this);
+        riddleGroupFilter.setActive(true);
 
         List<ShopArticleFilter> rootFilters = new ArrayList<>();
         rootFilters.add(new ShopArticleFilterImportant(R.drawable.icon_important));
@@ -162,8 +163,6 @@ public class ShopView extends ExpandableListView implements  StoreContainer, Sho
         for (Integer iconId : otherIconIds) {
             rootFilters.add(new ShopArticleFilterIcon(iconId, iconId, false));
         }
-        rootFilters.add(new ShopArticleFilterPurchased(R.drawable.icon_filter_progress_complete, true, false));
-        rootFilters.add(new ShopArticleFilterPurchased(R.drawable.icon_filter_progress, false, false));
         ShopArticleGroupFilter rootFilter = new ShopArticleGroupFilter(mFilterHolder, 0, rootFilters, true, this);
 
         // init filters and filter views and listeners

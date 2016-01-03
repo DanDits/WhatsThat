@@ -111,18 +111,20 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
     private TextView mScoreInfo;
     private long mFirstClickTime;
     private int mClickCount;
+    private ImageButton mBtnPanic;
 
     public void onProgressUpdate(int progress) {
         mProgressBar.onProgressUpdate(progress);
     }
 
-    private boolean canClickNextRiddle() {
+    private boolean isTotalMenuEnabled() {
         return !ImageManager.isSyncing() && !mManager.isMakingRiddle();
     }
 
-    private void updateNextRiddleButton() {
-        mBtnRiddles.setEnabled(canClickNextRiddle());
+    private void updateMenuButtons() {
+        mBtnRiddles.setEnabled(isTotalMenuEnabled());
         mBtnRiddles.setImageResource(TestSubject.getInstance().getImageResId());
+        mBtnPanic.setEnabled(isTotalMenuEnabled());
     }
 
     private void updateScoreInfo() {
@@ -146,7 +148,7 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
     private void onRiddleMade(RiddleGame riddle, boolean newRiddle) {
         mProgressBar.onProgressUpdate(0);
         riddle.initViews(mRiddleView, mSolutionView, this);
-        updateNextRiddleButton();
+        updateMenuButtons();
         if (mRiddleView != null && mRiddleView.hasController()) {
             mErrorHandlingAttempted = false; // clear flag
             long currRiddleId = mRiddleView.getRiddleId();
@@ -197,7 +199,7 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
     }
 
     private void nextRiddle() {
-        if (!canClickNextRiddle()) {
+        if (!isTotalMenuEnabled()) {
             mBtnRiddles.setEnabled(false);
             return;
         }
@@ -227,10 +229,10 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
                         Log.e("HomeStuff", "Riddle maker on error.");
                         handleError(image, riddle);
                         RiddleFragment.this.onProgressUpdate(0);
-                        updateNextRiddleButton();
+                        updateMenuButtons();
                     }
                 });
-        updateNextRiddleButton();
+        updateMenuButtons();
     }
 
     private void playStartRiddleAnimation() {
@@ -261,7 +263,7 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
     }
 
     private void nextCheatedRiddle(Image image) {
-        if (!canClickNextRiddle() || image == null) {
+        if (!isTotalMenuEnabled() || image == null) {
             return;
         }
         if (mRiddleView.hasController()) {
@@ -288,16 +290,16 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
                         Log.e("HomeStuff", "Cheated Riddle maker on error.");
                         handleError(image, riddle);
                         RiddleFragment.this.onProgressUpdate(0);
-                        updateNextRiddleButton();
+                        updateMenuButtons();
                     }
                 }
         );
-        updateNextRiddleButton();
+        updateMenuButtons();
 
     }
 
     private void nextUnsolvedRiddle(long suggestedId) {
-        if (!canClickNextRiddle()) {
+        if (!isTotalMenuEnabled()) {
             return;
         }
         if (mManager.getUnsolvedRiddleCount() == 0) {
@@ -326,11 +328,11 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
                         Log.e("HomeStuff", "Unsolved Riddle maker on error.");
                         handleError(image, riddle);
                         RiddleFragment.this.onProgressUpdate(0);
-                        updateNextRiddleButton();
+                        updateMenuButtons();
                     }
                 }
         );
-        updateNextRiddleButton();
+        updateMenuButtons();
 
     }
 
@@ -435,8 +437,8 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
             }
         });
 
-        ImageButton mRiddleHint = (ImageButton) getView().findViewById(R.id.riddle_hint);
-        mRiddleHint.setOnClickListener(new View.OnClickListener() {
+        mBtnPanic = (ImageButton) getView().findViewById(R.id.riddle_hint);
+        mBtnPanic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 onPanic();
@@ -477,6 +479,7 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
         // AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHHHHHHHHHHHHHH
         Bundle args = new Bundle();
         mRiddleView.supplyNoPanicParams(args);
+        mSolutionView.supplyNoPanicParams(args);
         NoPanicDialog dialog = new NoPanicDialog();
         dialog.setArguments(args);
         FragmentTransaction t = getFragmentManager().beginTransaction();
@@ -748,8 +751,25 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
                 .emitWithGravity(emitAtView, emitGravity, konfettiPerEmitterPerSecond, emittingTime);
     }
 
+    @Override
+    public void showMoneyEarned(int earned) {
+        final ViewGroup parent = (ViewGroup) getView();
+        final View emitAtView = mRiddleView;
+        final int emitGravity = Gravity.CENTER;
+        if (parent == null || emitAtView == null || earned <= 0) {
+            return;
+        }
+        new ParticleSystem(getResources(), earned, R.drawable.think_currency,
+                3000L, parent)
+                .setScaleRange(0.8f, 1.2f)
+                .setSpeedModuleAndAngleRange(0.0005f, 0.001f, 0, 360)
+                .setAccelerationModuleAndAndAngleRange(0.00009f, 0.0001f, 180, 360)
+                .setFadeOut(200, new AccelerateInterpolator())
+                .emitWithGravity(emitAtView, emitGravity, earned, 1000);
+    }
+
     private void onRiddlesClick() {
-        if (!canClickNextRiddle()) {
+        if (!isTotalMenuEnabled()) {
             mBtnRiddles.setEnabled(false);
             return;
         }
@@ -776,7 +796,7 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
         super.onResume();
         mOpenStore.setEnabled(true);
         mRiddleView.onResume();
-        updateNextRiddleButton();
+        updateMenuButtons();
     }
 
     // needs to be robust against multiple calls
@@ -849,7 +869,7 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
                     ALL_IMAGES.clear();
                     ALL_IMAGES.putAll(result);
                 }
-                updateNextRiddleButton();
+                updateMenuButtons();
                 nextRiddleIfEmpty();
             }
         }.execute(data);
@@ -876,7 +896,7 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
             }
         }
         if (mBtnRiddles != null) {
-            updateNextRiddleButton();
+            updateMenuButtons();
         }
     }
 

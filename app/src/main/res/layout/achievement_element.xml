@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="3"
         android:id="@+id/achievement_descr"
-        android:textAppearance="@android:style/TextAppearance.Holo.Small"
+        android:textAppearance="@android:style/TextAppearance.Small"
         android:textIsSelectable="false"
         android:textSize="12sp" />
     <TextView android:layout_width="0dp"

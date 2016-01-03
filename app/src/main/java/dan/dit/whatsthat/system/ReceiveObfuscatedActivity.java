@@ -37,6 +37,7 @@ import java.util.List;
 import dan.dit.whatsthat.R;
 import dan.dit.whatsthat.image.ImageObfuscator;
 import dan.dit.whatsthat.preferences.User;
+import dan.dit.whatsthat.util.general.VersionSafe;
 import dan.dit.whatsthat.util.image.BitmapUtil;
 import dan.dit.whatsthat.util.image.ImageUtil;
 
@@ -63,7 +64,7 @@ public class ReceiveObfuscatedActivity extends Activity {
             if (uri != null) {
                 attemptExtractFromUri(uri);
             } else {
-                ClipData data = getIntent().getClipData();
+                ClipData data = VersionSafe.getClipData(getIntent());
                 if (data != null && data.getItemCount() > 0) {
                     ClipData.Item item = data.getItemAt(0);
                     attemptExtractFromUri(item.getUri());

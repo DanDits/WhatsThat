@@ -22,6 +22,7 @@ import android.widget.ImageView;
 import java.util.List;
 
 import dan.dit.whatsthat.testsubject.shopping.ShopArticle;
+import dan.dit.whatsthat.util.general.VersionSafe;
 
 /**
  * Created by daniel on 28.09.15.
@@ -85,9 +86,9 @@ public class ShopArticleGroupFilter extends ShopArticleFilter {
 
     private void applyFilterToImage(ImageView image, ShopArticleFilter filter) {
         if (filter.isActive()) {
-            image.setImageAlpha(255);
+            VersionSafe.setImageAlpha(image, 255);
         } else {
-            image.setImageAlpha(70);
+            VersionSafe.setImageAlpha(image, 70);
         }
     }
 

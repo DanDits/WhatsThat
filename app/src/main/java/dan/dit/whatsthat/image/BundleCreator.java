@@ -55,6 +55,7 @@ import dan.dit.whatsthat.preferences.User;
 import dan.dit.whatsthat.solution.Solution;
 import dan.dit.whatsthat.system.store.WorkshopView;
 import dan.dit.whatsthat.util.general.BuildException;
+import dan.dit.whatsthat.util.general.VersionSafe;
 import dan.dit.whatsthat.util.image.BitmapUtil;
 import dan.dit.whatsthat.util.image.ImageUtil;
 
@@ -846,7 +847,7 @@ public class BundleCreator {
         if (resultCode != Activity.RESULT_OK || requestCode != WorkshopView.PICK_IMAGES_FOR_BUNDLE || data == null) {
             return;
         }
-        ClipData clipData = data.getClipData();
+        ClipData clipData = VersionSafe.getClipData(data);
         Uri[] selectedImageUris;
         if (clipData == null) {
             selectedImageUris = new Uri[] {data.getData()};

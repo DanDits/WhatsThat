@@ -336,7 +336,10 @@ public class RiddleView extends SurfaceView implements SensorEventListener, Part
         public void prepareEmitting(List<Particle> particles) {
             if (!removeParticles(particles)) {
                 setParticles(particles);
-                mRiddleCtr.onParticleSystemCountChanged();
+                RiddleController ctr = mRiddleCtr;
+                if (ctr != null) {
+                    ctr.onParticleSystemCountChanged();
+                }
             }
         }
 
@@ -347,7 +350,10 @@ public class RiddleView extends SurfaceView implements SensorEventListener, Part
         @Override
         public void onCleanup(ParticleSystem toClean) {
             if (removeParticles(toClean.getActiveParticles())) {
-                mRiddleCtr.onParticleSystemCountChanged();
+                RiddleController ctr = mRiddleCtr;
+                if (ctr != null) {
+                    ctr.onParticleSystemCountChanged();
+                }
             }
         }
     }
@@ -359,6 +365,7 @@ public class RiddleView extends SurfaceView implements SensorEventListener, Part
     public interface PartyCallback {
         void doParty(int partyParam);
         void giveCandy(TestSubjectToast toast);
+        void showMoneyEarned(int moneyEarned);
     }
 
     public void checkParty(@NonNull Resources res, @NonNull PartyCallback callback) {

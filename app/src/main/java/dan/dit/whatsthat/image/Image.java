@@ -59,6 +59,7 @@ public class Image implements MosaicTile<String> {
     public static final String ORIGIN_IS_THE_APP = "WhatsThat";
     public static final String IMAGES_DIRECTORY_NAME = ".images";
     private static final int NO_AVERAGE_COLOR = 0;
+    public static final String ORIGIN_IS_EXTERNAL_OBFUSCATED = "ExtObf";
 
     // instead of building everytime on every device this app runs we built once for every new release of images all essential data
     // that takes long time like hash or preference/refused calculation, save it into a simple text file which we then read on first app

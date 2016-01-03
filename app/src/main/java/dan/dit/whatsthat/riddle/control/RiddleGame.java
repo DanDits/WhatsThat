@@ -269,9 +269,9 @@ public abstract class RiddleGame {
     protected synchronized
     @NonNull
     RiddleScore calculateGainedScore() {
-        boolean isCustom = !Image.ORIGIN_IS_THE_APP.equalsIgnoreCase(mRiddle.getOrigin());
         int scoreMultiplicator = BASE_SCORE_MULTIPLIER;
         long now = System.currentTimeMillis();
+        boolean isCustom = isCustom();
         if (!isCustom
                 && mConfig.mAchievementGameData != null && (now - mRiddle.getTimestamp()) < SCORE_BONUS_MAX_RIDDLE_TIME && TestSubject.isInitialized()) {
             int bonusCount = TestSubject.getInstance().getAndIncrementTodaysScoreBonusCount();
@@ -279,10 +279,12 @@ public abstract class RiddleGame {
             scoreMultiplicator = Math.max(1, scoreMultiplicator); // to be sure score will never be zero or negativly multiplied (which cannot happen for exp(x) but this might change)
         }
         int base = mRiddle.getType().getBaseScore();
-        if (isCustom) {
-            base = 0; // do not grant points for custom riddles by default (only bonus points possible)
-        }
-        return new RiddleScore(base, scoreMultiplicator);
+        return isCustom ? RiddleScore.NullRiddleScore.INSTANCE :
+                new RiddleScore(base, scoreMultiplicator);
+    }
+
+    protected final boolean isCustom() {
+        return !Image.ORIGIN_IS_THE_APP.equalsIgnoreCase(mRiddle.getOrigin());
     }
 
     public abstract void draw(Canvas canvas);

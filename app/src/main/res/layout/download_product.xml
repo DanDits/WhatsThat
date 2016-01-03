@@ -21,7 +21,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:id="@+id/progress_is_working"
-            android:textColor="@android:color/holo_red_dark"
+            android:textColor="#ffcc0000"
             android:text="@string/download_is_working"
             android:visibility="invisible"/>
 

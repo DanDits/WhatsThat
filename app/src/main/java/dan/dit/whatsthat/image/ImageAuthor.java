@@ -84,9 +84,10 @@ public class ImageAuthor implements Compactable {
         return cmp.compact();
     }
 
+    public static final int REQUIRED_DATA_FIELDS_COUNT = 5;
     @Override
     public void unloadData(Compacter compactedData) throws CompactedDataCorruptException {
-        if (compactedData.getSize() < 5) {
+        if (compactedData.getSize() < REQUIRED_DATA_FIELDS_COUNT) {
             throw new CompactedDataCorruptException().setCorruptData(compactedData);
         }
         mName = compactedData.getData(0);
