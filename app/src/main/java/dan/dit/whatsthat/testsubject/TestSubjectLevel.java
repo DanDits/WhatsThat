@@ -263,6 +263,7 @@ public abstract class TestSubjectLevel {
             mImageResId[TestSubject.GENDER_WHATEVER] = R.drawable.kid_ani01;
             mTextNuts = res.getStringArray(R.array.test_subject_1_intro_nuts);
             mRiddleSolvedCandy = R.array.test_subject_1_riddle_solved_candy;
+            mTestSubject.ensureSkipableGames(TestSubject.DEFAULT_SKIPABLE_GAMES + 2);
         }
 
         @Override
@@ -271,7 +272,7 @@ public abstract class TestSubjectLevel {
 
         @Override
         public double getLevelUpAchievementScoreFraction() {
-            return 0.25;
+            return 0.2;
         }
     }
     private static class TestSubjectLevel2 extends TestSubjectLevel {
@@ -313,6 +314,7 @@ public abstract class TestSubjectLevel {
             mImageResId[TestSubject.GENDER_WHATEVER] = R.drawable.kid_ani02;
             mTextNuts = res.getStringArray(R.array.test_subject_2_intro_nuts);
             mRiddleSolvedCandy = R.array.test_subject_2_riddle_solved_candy;
+            mTestSubject.ensureSkipableGames(TestSubject.DEFAULT_SKIPABLE_GAMES + 3);
         }
 
         @Override
@@ -320,7 +322,7 @@ public abstract class TestSubjectLevel {
         }
         @Override
         public double getLevelUpAchievementScoreFraction() {
-            return 0.4;
+            return 0.35;
         }
     }
 
@@ -348,6 +350,7 @@ public abstract class TestSubjectLevel {
             mImageResId[TestSubject.GENDER_WHATEVER] = R.drawable.kid_ani03;
             mTextNuts = res.getStringArray(R.array.test_subject_3_intro_nuts);
             mRiddleSolvedCandy = R.array.test_subject_3_riddle_solved_candy;
+            mTestSubject.ensureSkipableGames(TestSubject.DEFAULT_SKIPABLE_GAMES + 4);
         }
 
         @Override
@@ -355,7 +358,7 @@ public abstract class TestSubjectLevel {
         }
         @Override
         public double getLevelUpAchievementScoreFraction() {
-            return 0.55;
+            return 0.50;
         }
     }
     
@@ -380,6 +383,7 @@ public abstract class TestSubjectLevel {
             mImageResId[TestSubject.GENDER_WHATEVER] = R.drawable.kid_ani04;
             mTextNuts = res.getStringArray(R.array.test_subject_4_intro_nuts);
             mRiddleSolvedCandy = R.array.test_subject_4_riddle_solved_candy;
+            mTestSubject.ensureSkipableGames(TestSubject.DEFAULT_SKIPABLE_GAMES + 5);
         }
 
         @Override
@@ -387,7 +391,7 @@ public abstract class TestSubjectLevel {
         }
         @Override
         public double getLevelUpAchievementScoreFraction() {
-            return 0.65;
+            return 0.60;
         }
     }
 
@@ -412,6 +416,7 @@ public abstract class TestSubjectLevel {
             mTextMain = res.getStringArray(R.array.test_subject_5_intro_main);
             mTextNuts = res.getStringArray(R.array.test_subject_5_intro_nuts);
             mRiddleSolvedCandy = R.array.test_subject_5_riddle_solved_candy;
+            mTestSubject.ensureSkipableGames(TestSubject.DEFAULT_SKIPABLE_GAMES + 6);
         }
 
         @Override
@@ -444,6 +449,7 @@ public abstract class TestSubjectLevel {
             mTextMain = res.getStringArray(R.array.test_subject_6_intro_main);
             mTextNuts = res.getStringArray(R.array.test_subject_6_intro_nuts);
             mRiddleSolvedCandy = R.array.test_subject_6_riddle_solved_candy;
+            mTestSubject.ensureSkipableGames(TestSubject.DEFAULT_SKIPABLE_GAMES + 7);
         }
 
         @Override
@@ -475,6 +481,7 @@ public abstract class TestSubjectLevel {
             mTextMain = res.getStringArray(R.array.test_subject_7_intro_main);
             mTextNuts = res.getStringArray(R.array.test_subject_7_intro_nuts);
             mRiddleSolvedCandy = R.array.test_subject_7_riddle_solved_candy;
+            mTestSubject.ensureSkipableGames(TestSubject.DEFAULT_SKIPABLE_GAMES + 8);
         }
 
         @Override
@@ -507,6 +514,7 @@ public abstract class TestSubjectLevel {
             mTextMain = res.getStringArray(R.array.test_subject_8_intro_main);
             mTextNuts = res.getStringArray(R.array.test_subject_8_intro_nuts);
             mRiddleSolvedCandy = R.array.test_subject_8_riddle_solved_candy;
+            mTestSubject.ensureSkipableGames(TestSubject.DEFAULT_SKIPABLE_GAMES + 8);
         }
 
         @Override
@@ -539,6 +547,7 @@ public abstract class TestSubjectLevel {
             mTextMain = res.getStringArray(R.array.test_subject_9_intro_main);
             mTextNuts = res.getStringArray(R.array.test_subject_9_intro_nuts);
             mRiddleSolvedCandy = R.array.test_subject_9_riddle_solved_candy;
+            mTestSubject.ensureSkipableGames(TestSubject.DEFAULT_SKIPABLE_GAMES + 8);
         }
 
         @Override
