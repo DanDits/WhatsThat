@@ -17,6 +17,7 @@ package dan.dit.whatsthat.achievement;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.support.annotation.MainThread;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -111,7 +112,14 @@ public class AchievementManager implements AchievementDataEventListener {
         return mUnclaimedAchievementsCount;
     }
 
+    /**
+     * Notifies the listener about changes to the unclaimed achievements amount.
+     */
     public interface UnclaimedAchievementsCountListener {
+        /**
+         * The unclaimed achievements count changed. Not necessarily in ui thread.
+         * @param unclaimed The amount of unclaimed achievements.
+         */
         void onUnclaimedAchievementsCountChanged(int unclaimed);
     }
 

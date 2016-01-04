@@ -114,6 +114,7 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
     private long mFirstClickTime;
     private int mClickCount;
     private ImageButton mBtnPanic;
+    private Handler mMainHandler;
 
     public void onProgressUpdate(int progress) {
         mProgressBar.onProgressUpdate(progress);
@@ -843,6 +844,7 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
     @Override
     public void onStart() {
         super.onStart();
+        mMainHandler = new Handler();
         mErrorHandlingAttempted = false;
         getLoaderManager().initLoader(0, null, this);
         updateScoreInfo();
@@ -977,11 +979,16 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
     }
 
     @Override
-    public void onUnclaimedAchievementsCountChanged(int unclaimed) {
-        if (unclaimed == 0) {
-            mOpenStore.setImageResource(R.drawable.alien_menu_enter_notreasure);
-        } else {
-            mOpenStore.setImageResource(R.drawable.alien_menu_enter);
-        }
+    public void onUnclaimedAchievementsCountChanged(final int unclaimed) {
+        mMainHandler.post(new Runnable() {
+            @Override
+            public void run() {
+                if (unclaimed == 0) {
+                    mOpenStore.setImageResource(R.drawable.alien_menu_enter_notreasure);
+                } else {
+                    mOpenStore.setImageResource(R.drawable.alien_menu_enter);
+                }
+            }
+        });
     }
 }
