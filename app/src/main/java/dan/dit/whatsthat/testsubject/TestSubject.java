@@ -79,7 +79,7 @@ public class TestSubject {
     private static final String TEST_SUBJECT_PREFERENCES_FILE = "dan.dit.whatsthat.testsubject_preferences";
     private static final String TEST_SUBJECT_PREF_RIDDLE_TYPES = "key_testsubject_riddletypes";
     private static final String TEST_SUBJECT_PREF_GENDER = "key_testsubject_gender";
-    private static final int DEFAULT_SKIPABLE_GAMES = 5;
+    public static final int DEFAULT_SKIPABLE_GAMES = 5;
 
     public static final int GENDER_NOT_CHOSEN = -1;
     // used for array indices
@@ -403,6 +403,15 @@ public class TestSubject {
     public boolean canSkip() {
         return mPurse.mShopWallet.assureEntry(Purse.SHW_KEY_SKIPABLE_GAMES, DEFAULT_SKIPABLE_GAMES).getValue()
                 > RiddleInitializer.INSTANCE.getRiddleManager().getUnsolvedRiddleCount();
+    }
+
+    public void ensureSkipableGames(int amount) {
+        int current = mPurse.mShopWallet.getEntryValue(Purse.SHW_KEY_SKIPABLE_GAMES,
+                DEFAULT_SKIPABLE_GAMES);
+        if (current < amount) {
+            mPurse.mShopWallet.editEntry(Purse.SHW_KEY_SKIPABLE_GAMES, DEFAULT_SKIPABLE_GAMES)
+                    .set(amount);
+        }
     }
 
     public boolean canChooseNewRiddle() {
