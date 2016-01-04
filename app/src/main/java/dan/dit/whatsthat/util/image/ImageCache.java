@@ -157,6 +157,7 @@ public class ImageCache {
             // If a suitable bitmap has been found, set it as the value of
             // inBitmap.
             options.inBitmap = inBitmap;
+            options.inMutable = true;
             return true;
         }
         return false;
@@ -207,7 +208,8 @@ public class ImageCache {
     private static boolean canUseForInBitmap(
             Bitmap candidate, BitmapFactory.Options targetOptions) {
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+        if (targetOptions.inSampleSize == 1 //TODO some bug where inBitmap fails!?!
+                && Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             // From Android 4.4 (KitKat) onward we can re-use if the byte size of
             // the new bitmap is smaller than the reusable bitmap candidate
             // allocation byte count.

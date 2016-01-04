@@ -1,5 +1,7 @@
 package dan.dit.whatsthat.riddle.control;
 
+import dan.dit.whatsthat.riddle.types.Types;
+
 /**
  * Created by daniel on 26.11.15.
  */
@@ -47,5 +49,16 @@ public class RiddleScore {
 
     public int getBonus() {
         return mBonus;
+    }
+
+    public static class SimpleNoBonus extends RiddleScore {
+
+        public SimpleNoBonus() {
+            super(Types.SCORE_SIMPLE, 1);
+        }
+        @Override
+        public RiddleScore addBonus(int bonus) {
+            return this; // do not add any bonus
+        }
     }
 }

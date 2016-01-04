@@ -18,4 +18,12 @@
             tools:layout="@layout/riddle_home" />
     </FrameLayout>
 
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:id="@id/card_container"
+        android:layout_gravity="bottom">
+    </LinearLayout>
+
 </FrameLayout>

@@ -1,5 +1,6 @@
 package dan.dit.whatsthat.util.general;
 
+import android.app.DialogFragment;
 import android.content.ClipData;
 import android.content.Intent;
 import android.os.Build;
@@ -26,6 +27,14 @@ public class VersionSafe {
             view.setImageAlpha(alpha);
         } else {
             view.setAlpha(alpha);
+        }
+    }
+
+    public static boolean isDetached(@NonNull DialogFragment fragment) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
+            return fragment.isDetached();
+        } else {
+            return !fragment.isResumed();
         }
     }
 }

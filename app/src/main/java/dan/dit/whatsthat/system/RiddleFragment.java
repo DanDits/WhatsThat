@@ -48,6 +48,8 @@ import android.widget.Toast;
 import com.github.johnpersano.supertoasts.SuperToast;
 import com.plattysoft.leonids.ParticleSystem;
 
+import junit.framework.Test;
+
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -198,9 +200,66 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
         return new Dimension(mRiddleView.getWidth(), mRiddleView.getHeight());
     }
 
+    private void remakeCurrentRiddle() {
+        if (!isTotalMenuEnabled()) {
+            updateMenuButtons();
+            return;
+        }
+        if (!mRiddleView.hasController()) {
+            return;
+        }
+        Riddle current = mRiddleView.getRiddle();
+        if (current == null) {
+            return;
+        }
+
+        // try to find a new riddle type:
+        PracticalRiddleType newType = TestSubject.getInstance().findNextRiddleType(true, current
+                .getType());
+        if (newType == null || newType.equals(current.getType())) {
+            newType = TestSubject.getInstance().findNextRiddleType(false, current.getType());
+        }
+        if (newType == null) {
+            Toast.makeText(getActivity(), R.string.panic_retry_failed_no_types, Toast.LENGTH_SHORT).show();
+            return; // only found the excluded one
+        }
+
+        clearRiddle();
+
+        DisplayMetrics displaymetrics = new DisplayMetrics();
+        getActivity().getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
+
+        mManager.remakeCurrentWithNewType(getActivity().getApplicationContext(),
+                current,
+                newType,
+                makeRiddleDimension(), displaymetrics.densityDpi,
+                new RiddleMaker.RiddleMakerListener() {
+                    @Override
+                    public void onProgressUpdate(int progress) {
+                        RiddleFragment.this.onProgressUpdate(progress);
+                    }
+
+                    @Override
+                    public void onRiddleReady(RiddleGame riddle) {
+                        onRiddleMade(riddle, true);
+                        mRiddleView.getRiddleType().getAchievementData(AchievementManager.getInstance()).onNewGame();
+                        playStartRiddleAnimation();
+                    }
+
+                    @Override
+                    public void onError(Image image, Riddle riddle) {
+                        Log.e("HomeStuff", "Riddle maker on error.");
+                        handleError(image, riddle);
+                        RiddleFragment.this.onProgressUpdate(0);
+                        updateMenuButtons();
+                    }
+                });
+        updateMenuButtons();
+    }
+
     private void nextRiddle() {
         if (!isTotalMenuEnabled()) {
-            mBtnRiddles.setEnabled(false);
+            updateMenuButtons();
             return;
         }
         clearRiddle();
@@ -607,6 +666,11 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
             Log.e("HomeStuff", "Exception during complaining, better pretend or user gets mad :D " + e);
             Toast.makeText(getActivity(), R.string.panic_complain_dummy_toast, Toast.LENGTH_SHORT).show();
         }
+    }
+
+    @Override
+    public void onRetryWithDifferentRiddle() {
+        remakeCurrentRiddle();
     }
 
     private void showRiddlesDialog() {

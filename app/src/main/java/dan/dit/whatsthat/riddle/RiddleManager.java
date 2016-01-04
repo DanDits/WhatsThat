@@ -25,6 +25,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import dan.dit.whatsthat.image.Image;
+import dan.dit.whatsthat.riddle.control.RiddleGame;
 import dan.dit.whatsthat.riddle.types.PracticalRiddleType;
 import dan.dit.whatsthat.testsubject.TestSubject;
 import dan.dit.whatsthat.util.image.Dimension;
@@ -205,6 +206,36 @@ public class RiddleManager {
         cancelMakeRiddle();
         mMaker = new RiddleMaker();
         mMaker.makeNew(context, type, maxCanvasDimension, densityDpi, listener);
+    }
+
+    public void remakeCurrentWithNewType(final Context context,
+                                         final Riddle current,
+                                         PracticalRiddleType newType,
+                                         Dimension maxCanvasDimension,
+                                         int densityDpi,
+                                         final RiddleMaker.RiddleMakerListener listener) {
+        cancelMakeRiddle();
+        mMaker = new RiddleMaker();
+        mMaker.remakeCurrentWithNewType(context, current, newType, maxCanvasDimension,
+                densityDpi, new RiddleMaker.RiddleMakerListener() {
+                    @Override
+                    public void onRiddleReady(RiddleGame riddle) {
+                        if (Riddle.deleteFromDatabase(context, current.getId())) {
+                            onRiddleInvalidated(current);
+                        }
+                        listener.onRiddleReady(riddle);
+                    }
+
+                    @Override
+                    public void onError(Image image, Riddle riddle) {
+                        listener.onError(image, riddle);
+                    }
+
+                    @Override
+                    public void onProgressUpdate(int progress) {
+                        listener.onProgressUpdate(progress);
+                    }
+                });
     }
 
     /**

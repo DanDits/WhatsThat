@@ -102,6 +102,10 @@ public class RiddleController implements RiddleAnimationController.OnAnimationCo
         };
     }
 
+    public Riddle getRiddle() {
+        return mRiddle;
+    }
+
     private class GameHandlerThread extends HandlerThread {
         private Handler mHandler;
         public GameHandlerThread() {

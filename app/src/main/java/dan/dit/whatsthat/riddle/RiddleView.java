@@ -315,6 +315,13 @@ public class RiddleView extends SurfaceView implements SensorEventListener, Part
         return false;
     }
 
+    public Riddle getRiddle() {
+        if (!hasController()) {
+            throw new IllegalArgumentException("No controller initialized.");
+        }
+        return mRiddleCtr.getRiddle();
+    }
+
     private class ParticleController implements ParticleFieldController {
 
 

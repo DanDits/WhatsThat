@@ -62,6 +62,7 @@ public class RiddleMaker {
     private Map<RiddleType, Set<String>> mUsedImagesForTypes;
     private Dimension mBitmapDimension;
 
+
     /**
      * The listener used the invoker of the RiddleMaker to get informed
      * about progress, results and failure.
@@ -106,6 +107,47 @@ public class RiddleMaker {
         mContext = null;
         mUsedImagesForTypes = null;
         mAllImages = null;
+    }
+
+    public void remakeCurrentWithNewType(Context context, Riddle currentRiddle, PracticalRiddleType
+            newType, Dimension maxCanvasDim, int screenDensity, RiddleMakerListener listener) {
+        if (context == null || maxCanvasDim == null || listener == null || newType == null) {
+            throw new IllegalArgumentException("No context, riddle type or listener or canvas dim given.");
+        }
+        if (currentRiddle == null) {
+            throw new IllegalArgumentException("No current riddle given.");
+        }
+        if (isRunning()) {
+            throw new IllegalStateException("Already making riddle.");
+        }
+
+        // we need to find the image of the riddle
+        Image image = RiddleFragment.ALL_IMAGES.get(currentRiddle.mCore.getImageHash());
+        if (image == null) {
+            Log.e("Riddle", "Image not available for riddle " + currentRiddle);
+            listener.onError(null, currentRiddle); // image not available, this can happen if an extern image is deleted while this riddle is still unsolved
+            // we need to get rid of this riddle
+            return;
+        }
+
+        Riddle riddle = new Riddle(image.getHash(), newType, Riddle.ORIGIN_REMADE_TO_NEW_TYPE);
+
+        Dimension canvasDim = new Dimension(maxCanvasDim);
+        canvasDim.fitInsideWithRatio(riddle.getType().getSuggestedCanvasAspectRatio());
+        Dimension bitmapDim = new Dimension(canvasDim);
+        bitmapDim.fitInsideWithRatio(riddle.getType().getSuggestedBitmapAspectRatio()); // and then the bitmap inside the canvas
+
+        mListener = listener;
+        mContext = context;
+        mType = riddle.getType();
+        mBitmapDimension = bitmapDim;
+        mMakeRiddleConfig = new RiddleConfig(canvasDim.getWidth(), canvasDim.getHeight());
+        mMakeRiddleConfig.mScreenDensity = screenDensity;
+        mMakeRiddleConfig.setAchievementData(riddle.getType());
+        Log.d("Image", "Remaking current riddle " + currentRiddle + " to new type " + newType + "" +
+                " and image " + image + " and bitmapDim " + bitmapDim);
+        mWorker = new Worker(riddle, image);
+        mWorker.execute();
     }
 
     /**

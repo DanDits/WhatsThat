@@ -312,6 +312,7 @@ public final class ImageUtil {
         }
         // First decode with inJustDecodeBounds=true to check dimensions
         final BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inPreferredConfig = Bitmap.Config.ARGB_8888;
         options.inJustDecodeBounds = true;
         BitmapFactory.decodeResource(res, resId, options);
 
@@ -321,12 +322,26 @@ public final class ImageUtil {
 
         // Decode bitmap with inSampleSize set
         options.inJustDecodeBounds = false;
-        options.inPreferredConfig = Bitmap.Config.ARGB_8888;
-        Bitmap result = BitmapFactory.decodeResource(res, resId, options);
+        Bitmap result = decodeResourceSave(res, resId, options);
         if (result == null) {
             return null;
         }
         return BitmapUtil.attemptBitmapScaling(result, reqWidth, reqHeight, mode);
+    }
+
+    private static Bitmap decodeResourceSave(Resources res, int resId, BitmapFactory.Options
+            options) {
+        try {
+            return BitmapFactory.decodeResource(res, resId, options);
+        } catch (IllegalArgumentException e) {
+            // if it failed because of the strange behavior of inBitmap retry once without this
+            // option)
+            if (options.inBitmap != null) {
+                options.inBitmap = null;
+                return decodeResourceSave(res, resId, options);
+            }
+            throw e;
+        }
     }
 
     /**

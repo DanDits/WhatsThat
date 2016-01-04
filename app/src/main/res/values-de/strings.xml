@@ -99,9 +99,14 @@
     <string name="panic_ask_type">Wie funktioniert das Experiment</string>
     <string name="panic_ask_author">Wessen Bild ist das</string>
     <string name="panic_skip">Experiment aussetzen… später weitermachen</string>
+    <string name="panic_retry">Bild mit anderem Experiment neu versuchen</string>
     <string name="panic_share">Freunde zu diesem Experiment herausfordern</string>
     <string name="panic_complain">Per Mail über das Bild beschweren!!1</string>
     <string name="panic_cannot_skip">Gehirn überladen … kann nicht .. weitere Experimente. merken …</string>
+    <string name="panic_retry_notification">Du erhälst dann dafür nur noch 1 Punkt und
+        keine Erfolge!</string>
+    <string name="panic_retry_failed_no_types">Hole dir zuerst neue Experimente im Laden!</string>
+    <string name="panic_retry_confirm">OK</string>
 
     <string-array name="panic_author_credit_title">
         <item>Bewundere den Künstler des Bildes!</item>

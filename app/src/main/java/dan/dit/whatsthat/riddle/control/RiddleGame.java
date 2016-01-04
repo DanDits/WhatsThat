@@ -35,6 +35,8 @@ import dan.dit.whatsthat.riddle.RiddleConfig;
 import dan.dit.whatsthat.riddle.RiddleView;
 import dan.dit.whatsthat.riddle.achievement.AchievementDataRiddleGame;
 import dan.dit.whatsthat.riddle.achievement.AchievementDataRiddleType;
+import dan.dit.whatsthat.riddle.types.PracticalRiddleType;
+import dan.dit.whatsthat.riddle.types.Types;
 import dan.dit.whatsthat.solution.Solution;
 import dan.dit.whatsthat.solution.SolutionInput;
 import dan.dit.whatsthat.solution.SolutionInputListener;
@@ -269,18 +271,21 @@ public abstract class RiddleGame {
     protected synchronized
     @NonNull
     RiddleScore calculateGainedScore() {
+        int base = mRiddle.getType().getBaseScore();
+        if (isCustom()) {
+            if (Riddle.ORIGIN_REMADE_TO_NEW_TYPE.equalsIgnoreCase(mRiddle.getOrigin())) {
+                return new RiddleScore.SimpleNoBonus();
+            }
+            return RiddleScore.NullRiddleScore.INSTANCE;
+        }
         int scoreMultiplicator = BASE_SCORE_MULTIPLIER;
         long now = System.currentTimeMillis();
-        boolean isCustom = isCustom();
-        if (!isCustom
-                && mConfig.mAchievementGameData != null && (now - mRiddle.getTimestamp()) < SCORE_BONUS_MAX_RIDDLE_TIME && TestSubject.isInitialized()) {
+        if (mConfig.mAchievementGameData != null && (now - mRiddle.getTimestamp()) < SCORE_BONUS_MAX_RIDDLE_TIME && TestSubject.isInitialized()) {
             int bonusCount = TestSubject.getInstance().getAndIncrementTodaysScoreBonusCount();
             scoreMultiplicator = (int) ((MAX_SCORE_MULTIPLIER - BASE_SCORE_MULTIPLIER) * Math.exp(-SCORE_EXP_FACTOR * bonusCount) + BASE_SCORE_MULTIPLIER);
             scoreMultiplicator = Math.max(1, scoreMultiplicator); // to be sure score will never be zero or negativly multiplied (which cannot happen for exp(x) but this might change)
         }
-        int base = mRiddle.getType().getBaseScore();
-        return isCustom ? RiddleScore.NullRiddleScore.INSTANCE :
-                new RiddleScore(base, scoreMultiplicator);
+        return new RiddleScore(base, scoreMultiplicator);
     }
 
     protected final boolean isCustom() {

@@ -60,11 +60,16 @@
     <string name="panic_dialog_positive">All right</string>
     <string name="panic_ask_type">How does this experiment work</string>
     <string name="panic_skip">Skip experiment … come back later</string>
+    <string name="panic_retry">Retry image as different experiment</string>
     <string name="panic_share">Challenge friends to this experiment</string>
     <string name="panic_share_dialog">Share experiment image with…</string>
     <string name="panic_share_failed">Sharing failed.</string>
     <string name="panic_cannot_skip">Brain .. full … cannot .. remember more .. riddles …</string>
     <string name="panic_complain">Complain about the image per mail!!1</string>
+    <string name="panic_retry_notification">You\'ll then only get 1 point and no achievements
+        for this!</string>
+    <string name="panic_retry_failed_no_types">First get another experiment in the shop!</string>
+    <string name="panic_retry_confirm">OK</string>
     <string-array name="panic_author_credit_title">
         <item>Admire the artist!</item>
         <item>Whose masterpiece is this?</item>

@@ -92,4 +92,9 @@ public class RiddleActivity extends Activity implements UnsolvedRiddlesChooser.C
     public void onComplain(Image image) {
         mFragment.onComplain(image);
     }
+
+    @Override
+    public void onRetryWithDifferentRiddle() {
+        mFragment.onRetryWithDifferentRiddle();
+    }
 }

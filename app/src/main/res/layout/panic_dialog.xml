@@ -120,6 +120,14 @@
             android:drawableRight="@drawable/x_orange"
             android:id="@+id/panic_skip"
             android:layout_gravity="center_horizontal" />
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/panic_retry"
+            android:drawableLeft="@drawable/panic_retry"
+            android:drawableRight="@drawable/panic_retry"
+            android:id="@+id/panic_retry"
+            android:layout_gravity="center_horizontal" />
 
             <Button
                 android:layout_width="match_parent"

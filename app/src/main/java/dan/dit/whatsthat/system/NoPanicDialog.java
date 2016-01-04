@@ -23,6 +23,7 @@ import android.graphics.Bitmap;
 import android.graphics.Rect;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.util.Log;
@@ -38,6 +39,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.github.johnpersano.supertoasts.SuperCardToast;
+import com.github.johnpersano.supertoasts.SuperToast;
+import com.github.johnpersano.supertoasts.util.OnClickWrapper;
 import com.plattysoft.leonids.ParticleSystem;
 
 import java.io.File;
@@ -53,6 +57,7 @@ import dan.dit.whatsthat.preferences.WebPhotoStorage;
 import dan.dit.whatsthat.riddle.achievement.holders.MiscAchievementHolder;
 import dan.dit.whatsthat.riddle.types.PracticalRiddleType;
 import dan.dit.whatsthat.testsubject.TestSubject;
+import dan.dit.whatsthat.util.general.VersionSafe;
 import dan.dit.whatsthat.util.image.ImageUtil;
 import dan.dit.whatsthat.util.ui.GlasDialog;
 
@@ -82,6 +87,7 @@ public class NoPanicDialog extends DialogFragment {
         boolean canSkip();
         void onSkip();
         void onComplain(Image image);
+        void onRetryWithDifferentRiddle();
     }
 
     @Override
@@ -206,6 +212,28 @@ public class NoPanicDialog extends DialogFragment {
                 }
             });
         }
+
+        Button retry = (Button) baseView.findViewById(R.id.panic_retry);
+        retry.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SuperCardToast toast = new SuperCardToast(getActivity(), SuperToast.Type.BUTTON);
+                toast.setText(getResources().getString(R.string.panic_retry_notification));
+                toast.setDuration(SuperToast.Duration.EXTRA_LONG);
+                toast.setButtonIcon(R.drawable.panic_retry, getResources().getString(R.string
+                        .panic_retry_confirm));
+                toast.setButtonTextSize(15);
+                toast.setOnClickWrapper(new OnClickWrapper("PANIC_RETRY", new SuperToast.OnClickListener() {
+                    @Override
+                    public void onClick(View view, Parcelable token) {
+                        mCallback.onRetryWithDifferentRiddle();
+                    }
+                }));
+                dismiss();
+                toast.show();
+            }
+        });
+
         View askType = baseView.findViewById(R.id.panic_ask_type);
         mAskTypeAnswer = (ViewGroup) baseView.findViewById(R.id.panic_ask_type_answer);
         mAskTypeAnswerText = (TextView) baseView.findViewById(R.id.panic_ask_type_answer_text);
@@ -331,7 +359,10 @@ public class NoPanicDialog extends DialogFragment {
                             @Override
                             public void onPhotoUploaded(String photoLink, URL photoShareLink) {
                                 mToShareLink = photoShareLink;
-                                if (!isVisible()) {
+                                Log.d("Riddle", "On Photo uploaded: " + photoLink + " and " +
+                                        photoShareLink);
+                                if (VersionSafe.isDetached(NoPanicDialog.this)) {
+                                    Log.d("Riddle", "On Photo uploaded and dialog not visible");
                                     return;
                                 }
                                 executeShare();
@@ -339,7 +370,7 @@ public class NoPanicDialog extends DialogFragment {
 
                             @Override
                             public void onPhotoUploadFailed(int error) {
-                                if (!isVisible()) {
+                                if (VersionSafe.isDetached(NoPanicDialog.this)) {
                                     return;
                                 }
                                 clearShareButton();

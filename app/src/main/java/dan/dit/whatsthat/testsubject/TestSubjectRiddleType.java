@@ -39,6 +39,10 @@ public class TestSubjectRiddleType implements Compactable {
         unloadData(compactedData);
     }
 
+    @Override
+    public String toString() {
+        return mType + "(selected=" + mSelected + ")";
+    }
 
     @Override
     public boolean equals(Object other) {

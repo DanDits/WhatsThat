@@ -21,6 +21,8 @@ import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.TextUtils;
@@ -420,25 +422,34 @@ public class TestSubject {
         return false;
     }
 
-    public PracticalRiddleType findNextRiddleType() {
+    public @Nullable
+    PracticalRiddleType findNextRiddleType(boolean selectedTypesOnly,
+                                           PracticalRiddleType exclude) {
         List<TestSubjectRiddleType> types = new ArrayList<>(mTypes);
         Iterator<TestSubjectRiddleType> it = types.iterator();
         while (it.hasNext()) {
             TestSubjectRiddleType next = it.next();
-            if (!next.isSelected()) {
+            if ((selectedTypesOnly && !next.isSelected())
+                    || (exclude != null && next.getType().equals(exclude))) {
                 it.remove();
             }
         }
         if (types.size() > 0) {
             return types.get(mRand.nextInt(types.size())).getType();
         } else {
-            if (mTypes.size() == 0) {
-                Log.e("HomeStuff", "No types initialized when trying to find a riddle type!");
-                return PracticalRiddleType.SNOW_INSTANCE; // just a dummy, so there is a riddle
-            }
-            types = new ArrayList<>(mTypes);
-            return types.get(mRand.nextInt(types.size())).getType();
+            return null;
         }
+    }
+
+    public @NonNull
+    PracticalRiddleType findNextRiddleType() {
+        PracticalRiddleType type = findNextRiddleType(true, null);
+        if (type == null) {
+            // nothing was selected, ignore selection
+            type = findNextRiddleType(false, null);
+        }
+        // if still null there were no riddle types, but we want to always return a valid one
+        return type == null ? PracticalRiddleType.CIRCLE_INSTANCE : type;
     }
 
     public void addSolvedRiddleScore(int score) {

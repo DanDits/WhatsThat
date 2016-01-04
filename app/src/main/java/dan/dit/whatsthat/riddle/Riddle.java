@@ -69,6 +69,7 @@ public class Riddle {
      * A constant that is to be used when an id parameter or result value is around that is not a valid id of any riddle.
      */
     public static final long NO_ID = -1L;
+    public static final String ORIGIN_REMADE_TO_NEW_TYPE = "REMADE_TYPE";
     private String mSolutionData;
     private int mSolved; // if solved only the core needs to be saved, if not yet started solving no need to save to database
     Core mCore;
