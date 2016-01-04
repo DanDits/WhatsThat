@@ -6,17 +6,17 @@
     <string name="riddle_type_circle_explanation">Berühre einen Kreis, um diesen in vier kleinere aufzuteilen. Dadurch wird die Kontur des versteckten Bildes sichtbar.</string>
     <string-array name="riddle_type_circle_hints">
         <item>Erdling, ich heiße dich zu unserem zum ersten Experiment willkommen. Um deine Zellen zu stimulieren, teile die Kreise so wie Mose das Wasser teilte. Aber nicht in zwei Hälften, sondern in vier Teile. Irgendwann sind deine Zellen hoffentlich genug stimuliert und du erkennst durch die feineren Konturen ein Bild. Falls nicht, führe ich die Versuchsreihe mit Pantoffeltierchen weiter, die diese Tests mit Bravour bestanden haben.</item>
-        <item>Demo Version beendet. Kaufe die Vollversion für nur 39,99€! Just kidding. Geh trotzdem mal in den Shop. Dort finden sich praktische Dinge, wie zum Beispiel der intergalaktische Kreislaser-Turbo-Schneider… Ganz nebenbei, du solltest deine Belohnung immer im Erfolgsmenü abholen!</item>
-        <item>Eine Schnellanleitung findest du oben rechts. Dort kannst du auch ein Bild überspringen, solltest du mal nicht weiter kommen.</item>
-        <item>Einen Nachschub an Bildern kannst du dir von WiseMind per Download im Shop geben lassen!</item>
+        <item>Na, tun dir die Finger weh? Für entspannteres experimentieren kannst du zwei Dinge tun:\n1: Geh im Menü auf \"Erfolge\" und sammle deine Belohnung ein.\n2: Kaufe im Menü \"Laden\" den intergalaktischen Kreislaser-Turbo-Schneider und lache über alle Klicker…</item>
+        <item>Demo Version beendet. Kaufe die Vollversion für 39,99€! Just kidding. Eine Schnellanleitung und andere nützliche Funktionen, wie Bilder überspringen oder teilen, findest du im \"No Panic\" Dialog oben rechts.\n\nWeitere Tipps kannst du dir nun im Laden kaufen.</item>
         <item>Sollte dieser Experimenttyp einigermaßen erfolgreich verlaufen, kannst du später in der Mitte zwischen verschiedenen Versuchen wählen. Oder zurückgestellte Exerimente fortführen.</item>
+        <item>Einen Nachschub an Bildern kannst du dir von WiseMind per Download im Shop geben lassen!</item>
         <item>Manche menschliche Augen erkennen manche Bilder manchmal erst aus manch einer Entfernung. Manchmal hilft auch ein Screenshot.</item>
-        <item>Ist dir schonmal aufgefallen, dass WiseMinds Lob manchmal grün ist? In diesem Fall hast du das Experiment schneller oder besser gelöst als standardmäßig erwartet.</item>  <!--TO DO: Keine grüne Schrift mehr!-->
+        <item>Ist dir aufgefallen, dass manchmal Konfetti vom Himmel regnet? In diesem Fall hast du das Experiment schneller oder besser gelöst als standardmäßig erwartet.</item>
         <item>Du bekommst täglich für die ersten paar gelösten Experimente Bonus Zellen. Der Bonusfaktor nimmt langsam ab. Wie viele du bekommst, ist abhängig von der Dauer und Schwierigkeit des Experimententyps.</item>
-        <item>Je mehr Ausrufezeichen, desto größer der Bonusfaktor.</item> <!--TO DO: Gibt es noch Ausrufezeichen?!-->
+        <item>Je mehr Ausrufezeichen, desto größer der Bonusfaktor.</item> <!--TODO: Gibt es noch Ausrufezeichen?!-->
     </string-array>
     <string name="article_circle_divide_by_move_feature_name">Intergalaktischer Kreislaser-Turbo-Schneider</string>
-    <string name="article_circle_divide_by_move_feature_descr">Per Wischen Kreise mit dem Finger zerschneiden. Sehr entspannend!</string>
+    <string name="article_circle_divide_by_move_feature_descr">Zerschneide die Kreise per Wischen mit dem Finger. Sehr entspannend!</string>
 
     <!-- Snow related -->
     <string name="riddle_type_snow">Zorny Zell</string>
@@ -121,9 +121,9 @@
     <string name="riddle_type_jumper_advertising">Ein bewegendes Experiment als Jump and Run. Springe über Hindernisse und bleibe bloß nicht hängen!</string>
     <string name="riddle_type_jumper_explanation">Berühre das Feld, um über Hindernisse zu springen. Halte länger gedrückt, um höher zu springen.</string>
     <string-array name="riddle_type_jumper_hints">
-        <item>Menschen sind ein merkwürdisches Völkchen. Ein Esel lässt sich mit einer Karotte zum Laufen animieren, aber bei einem Homo-Sapiens bedarf es einem Bündel Geld, obwohl das nicht mal essbar ist.</item>
+        <item>Menschen sind ein merkwürdisches Völkchen. Ein Esel lässt sich mit einer Karotte zum Laufen animieren, aber bei einem Homo-Sapiens bedarf es einem Bündel Geld, obwohl das nicht mal essbar ist. Naja. Springe auf jeden Fall per Jump oder Double Jump über die Hindernisse.</item>
         <item>Wie dem auch sei. Wir haben an einem Geschäftsmann einige Versuche durchgeführt und dazu die Erinnerungen blockiert. Du kannst die Blockade lösen, indem du über Hindernisse springst. Mit einem einfachen Gedanken konnten wir unseren Kaufmann zu einem Marathon mit Hindernissen motivieren: \"Am Ende des Regenbogens steht ein Topf voller Geld!\" Zu schade, dass es nachts keinen Regenbogen gibt.</item>
-        <item>Einmal klicken: Jump, zweimal klicken oder gedrückt halten: Double Jump. Kapiert?</item>
+        <item>Zubitat, der komische Vogel, nimmt unterschiedliche Flugrouten. Achte daher auf seine Bewegung, wie du auf ihn reagieren musst.</item>
         <item>Es gibt vier Bereiche. Je nach Schwierigkeit wird die Erinnerung unterschiedlich groß ausfallen.</item>
         <item>Nach jeden x-überwundenen Hindernissen wird sich unser Geschäftsmann erinnern. Manchmal aber an irrelevante Dinge, der Bereich bleibt dann unverändert.</item>
         <item>Übung macht den Meister. Aber manche Menschen sind für Jump and Runs einfach nicht geschaffen.</item>
@@ -182,7 +182,7 @@
     <string name="riddle_type_lazor_explanation">Der nächste aufgeladene Lazor wird an den gewählten Punkt schießen und dort -oder bei Kollision- explodieren. Stoppe die Zerstörung!</string>
     <string-array name="riddle_type_lazor_hints">
         <item>Eine Simulation, um deine Reaktion auf außerplanetarische Bedrohungen zu messen. Schieße mit den Lazorn auf die Kometen, die deine Stadt bedrohen. Bei Kollision oder Erreichen des geklickten Punktes wird der Lazor explodieren. Entlang des Kometenschweifes wird die entsprechende Farbe aufgedeckt.</item>
-        <item>Achte einmal auf die Schussanlagen, um festzustellen, wann der nächste Lazor schussbereit ist. Übrigens feuert immer die nächst gelegene Anlage, sofern die natürlich schießbereit ist.</item>
+        <item>Achte einmal auf die Schussanlagen, um festzustellen, wann der nächste Lazor schussbereit ist. Übrigens feuert immer die nächst gelegene Anlage, sofern sie natürlich schießbereit ist.</item>
         <item>Abhängig von den Kosten der Tipps siehst du eventuell, wie sinnvoll oder nützlich die Tipps sind. Trotzdem kann es vorkommen, dass du manches schon weißt und deine Hirnzellen, dein Geld, umsonst ausgegeben hast.</item>
         <item>Weiße Kometen decken den Bereich vollständig auf. Aber auch wieder zu. Priorisiere sie vor allen anderen Farben!</item>
         <item>Einen Kometen später abzuschießen vergrößert den aufgedeckten Bereich, aber auch das Risiko für einen Verpasser. Spätestens wenn Kometen häufiger erscheinen, solltest du versuchen sie frühestmöglich abschießen, weil du sonst nicht alle aufhalten kannst!</item>

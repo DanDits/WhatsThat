@@ -141,8 +141,9 @@ public class Types {
             costs.add(0);
             costs.add(5);
             costs.add(5);
+            costs.add(10);
             costs.add(15);
-            costs.add(15);
+            costs.add(20);
             costs.add(30);
             return costs;
         }

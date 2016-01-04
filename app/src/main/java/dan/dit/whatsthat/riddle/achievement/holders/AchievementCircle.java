@@ -70,7 +70,7 @@ public class AchievementCircle extends TypeAchievementHolder {
     public static class Achievement1 extends GameAchievement {
         public static final int NUMBER = 1;
         public static final int LEVEL = 0;
-        public static final int REWARD = 75;
+        public static final int REWARD = 100;
         public static final boolean DISCOVERED = true;
         public static final int FINISH_GAMES_COUNT = 5;
 
