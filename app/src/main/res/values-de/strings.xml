@@ -17,6 +17,8 @@
         <p>Weiterhin möchten wir all jenen danken, die Interesse gezeigt haben, während das Projekt noch in den Kinderschuhen steckte. Durch Einbringen neuer Ideen und Testen, immer kam irgendwo ein neuer Wind her. Falls ihr euren Namen (oder Pseudonym) hier geschrieben sehen wollt, nehmt Kontakt mit uns auf! Dann werdet ihr entweder ein neuer Tester oder ihr bekommt die wohlverdiente Anerkennung dafür, dass ihr so große Klasse seid!</p>
         <p>Großartige Tester und/oder Personen mit großartigen Anregungen:</p>
         <li>Verena V.</li>
+        <li>Jakob H.</li>
+        <li>Lisa D.</li>
         <p>Zu guter Letzt ist hier eine Liste aller Autoren und Quellen, die ihre Bilder unter freier Lizenz im Internet angeboten haben, die wir in unser Projekt an der einen oder anderen Stelle verwendet haben.</p>
         <ul>
         <li>Für PNG Kompression die Programme OptiPNG, PNGcrush und <a href="https://tinypng.com">TinyPNG</a></li>
@@ -129,6 +131,8 @@
     <string name="article_product_confirm_purchase_dependency_missing">Benötigt: %1$s</string>
     <string name="article_product_confirm_purchase_unavailable">Kauf nicht möglich</string>
     <string name="shop_article_free">Kostenlos</string>
+
+    <string name="dependency_any_download_article_name">Ein Bildpaket heruntergeladen</string>
 
     <string name="article_hint_name">Hinweise %1$d/%2$d</string>
     <string name="article_hint_descr">Erwerbe Dr. Kulgs Wissen für einen Spottpreis!</string>

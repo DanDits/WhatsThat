@@ -215,10 +215,10 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
         }
 
         // try to find a new riddle type:
-        PracticalRiddleType newType = TestSubject.getInstance().findNextRiddleType(true, current
+        PracticalRiddleType newType = TestSubject.getInstance().getTypesController().findNextRiddleType(true, current
                 .getType());
         if (newType == null || newType.equals(current.getType())) {
-            newType = TestSubject.getInstance().findNextRiddleType(false, current.getType());
+            newType = TestSubject.getInstance().getTypesController().findNextRiddleType(false, current.getType());
         }
         if (newType == null) {
             Toast.makeText(getActivity(), R.string.panic_retry_failed_no_types, Toast.LENGTH_SHORT).show();
@@ -425,7 +425,7 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
     }
 
     private PracticalRiddleType findNextRiddleType() {
-        return TestSubject.getInstance().findNextRiddleType();
+        return TestSubject.getInstance().getTypesController().findNextRiddleType();
     }
 
     private void findSomeRiddle() {
@@ -742,7 +742,6 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
                                 Toast.makeText(getActivity(), "Local god mode disabled", Toast.LENGTH_SHORT).show();
                             } else if (PracticalRiddleType.getInstance(trimmedText) != null) {
                                 if (TestSubject.getInstance().addNewType(PracticalRiddleType.getInstance(trimmedText))) {
-                                    TestSubject.getInstance().saveTypes();
                                     Toast.makeText(getActivity(), "Experiment " + trimmedText + " jetzt verfügbar.", Toast.LENGTH_LONG).show();
                                 } else {
                                     Toast.makeText(getActivity(), "Experiment " + trimmedText + " bereits vorhanden!", Toast.LENGTH_LONG).show();

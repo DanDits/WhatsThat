@@ -25,7 +25,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
-import android.text.TextUtils;
 import android.text.style.StyleSpan;
 import android.util.Log;
 import android.view.Gravity;
@@ -37,7 +36,6 @@ import com.github.johnpersano.supertoasts.SuperToast;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -66,8 +64,6 @@ import dan.dit.whatsthat.testsubject.shopping.sortiment.ShopArticleRiddleHints;
 import dan.dit.whatsthat.util.wallet.Wallet;
 import dan.dit.whatsthat.util.wallet.WalletEntry;
 import dan.dit.whatsthat.util.general.DelayedQueueProcessor;
-import dan.dit.whatsthat.util.compaction.CompactedDataCorruptException;
-import dan.dit.whatsthat.util.compaction.Compacter;
 
 /**
  * Created by daniel on 11.04.15.
@@ -77,7 +73,6 @@ public class TestSubject {
     public static final String EMAIL_ON_ERROR = "whatsthat.contact@gmail.com";
     public static final String EMAIL_FEEDBACK = "whatsthat.feedback@gmail.com";
     private static final String TEST_SUBJECT_PREFERENCES_FILE = "dan.dit.whatsthat.testsubject_preferences";
-    private static final String TEST_SUBJECT_PREF_RIDDLE_TYPES = "key_testsubject_riddletypes";
     private static final String TEST_SUBJECT_PREF_GENDER = "key_testsubject_gender";
     public static final int DEFAULT_SKIPABLE_GAMES = 5;
 
@@ -98,8 +93,6 @@ public class TestSubject {
 
     private SharedPreferences mPreferences;
     private int mGender = GENDER_NOT_CHOSEN;
-    private Random mRand = new Random();
-    private List<TestSubjectRiddleType> mTypes = new ArrayList<>();
 
     private Context mApplicationContext;
     private TestSubjectAchievementHolder mAchievementHolder;
@@ -109,6 +102,7 @@ public class TestSubject {
     private ShopArticleHolder mShopArticleHolder;
     private int mCurrLevel;
     private TestSubjectLevel[] mLevels;
+    private TestSubjectRiddleTypeController mTypesController;
 
     private TestSubject() {
     }
@@ -246,34 +240,9 @@ public class TestSubject {
         mPurse = new Purse(mApplicationContext);
         mShopArticleHolder = new SortimentHolder(mApplicationContext, new ForeignPurse(mPurse));
         mGender = mPreferences.getInt(TEST_SUBJECT_PREF_GENDER, GENDER_NOT_CHOSEN);
-
-        // TestSubjectRiddleTypes
-        String typesDataRaw = mPreferences.getString(TEST_SUBJECT_PREF_RIDDLE_TYPES, null);
-        Compacter typesData = TextUtils.isEmpty(typesDataRaw) ? null : new Compacter(typesDataRaw);
-        if (typesData != null) {
-            for (String typeRaw : typesData) {
-                try {
-                    TestSubjectRiddleType type = new TestSubjectRiddleType(new Compacter(typeRaw));
-                    if (!mTypes.contains(type)) {
-                        mTypes.add(type);
-                    }
-                } catch (CompactedDataCorruptException e) {
-                    Log.e("HomeStuff", "Could not load testsubject riddle type: " + e);
-                }
-            }
-        }
-
+        mTypesController = new TestSubjectRiddleTypeController(mPreferences);
     }
 
-    public void saveTypes() {
-        if (mTypes != null) {
-            Compacter typesData = new Compacter(mTypes.size());
-            for (TestSubjectRiddleType type : mTypes) {
-                typesData.appendData(type.compact());
-            }
-            mPreferences.edit().putString(TEST_SUBJECT_PREF_RIDDLE_TYPES, typesData.compact()).apply();
-        }
-    }
 
     public int getNextLevelUpCost() {
         if (mCurrLevel >= mLevels.length -1) {
@@ -281,7 +250,7 @@ public class TestSubject {
         }
         double fraction = mLevels[mCurrLevel + 1].getLevelUpAchievementScoreFraction();
         int maxAchievementScore = 0;
-        for (TestSubjectRiddleType type : mTypes) {
+        for (TestSubjectRiddleType type : mTypesController.getAll()) {
             TypeAchievementHolder holder = mAchievementHolder.getTypeAchievementHolder(type.getType());
             if (holder == null) {
                 continue;
@@ -374,30 +343,20 @@ public class TestSubject {
     }
 
     public boolean addNewType(PracticalRiddleType type) {
-        for (TestSubjectRiddleType currType : mTypes) {
-            if (currType.getType().equals(type)) {
-                return false;
-            }
+        if (!mTypesController.addNewType(type)) {
+            return false;
         }
-        mTypes.add(new TestSubjectRiddleType(type));
         mPurse.setAvailableRiddleHintsAtStartCount(type);
+        mTypesController.saveTypes();
         return true;
     }
 
-    public boolean isTypeAvailable(PracticalRiddleType type) {
-        if (type == null) {
-            return false;
-        }
-        for (TestSubjectRiddleType testType : mTypes) {
-            if (testType.getType().equals(type)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
+    /**
+     * Returns a copy of the list of all currently available TestSubjectRiddleTypes.
+     * @return A new list containing the riddle types.
+     */
     public List<TestSubjectRiddleType> getAvailableTypes() {
-        return new ArrayList<>(mTypes);
+        return new ArrayList<>(mTypesController.getAll());
     }
 
     public boolean canSkip() {
@@ -415,50 +374,20 @@ public class TestSubject {
     }
 
     public boolean canChooseNewRiddle() {
-        return mPurse.mShopWallet.getEntryValue(SHW_KEY_MAX_AVAILABLE_RIDDLE_TYPES, AVAILABLE_RIDDLES_AT_GAME_START) > mTypes.size()
-                && mTypes.size() < PracticalRiddleType.ALL_PLAYABLE_TYPES.size();
+        return mPurse.mShopWallet.getEntryValue(SHW_KEY_MAX_AVAILABLE_RIDDLE_TYPES,
+                AVAILABLE_RIDDLES_AT_GAME_START) > mTypesController.getCount()
+                && mTypesController.getCount() < PracticalRiddleType.ALL_PLAYABLE_TYPES.size();
     }
 
     public synchronized boolean chooseNewRiddle(PracticalRiddleType type) {
-        if (isTypeAvailable(type) || !canChooseNewRiddle()) {
+        if (mTypesController.isTypeAvailable(type) || !canChooseNewRiddle()) {
             return false;
         }
         if (addNewType(type)) {
-            saveTypes();
             Log.d("Riddle", "Added and saved new type: " + type);
             return true;
         }
         return false;
-    }
-
-    public @Nullable
-    PracticalRiddleType findNextRiddleType(boolean selectedTypesOnly,
-                                           PracticalRiddleType exclude) {
-        List<TestSubjectRiddleType> types = new ArrayList<>(mTypes);
-        Iterator<TestSubjectRiddleType> it = types.iterator();
-        while (it.hasNext()) {
-            TestSubjectRiddleType next = it.next();
-            if ((selectedTypesOnly && !next.isSelected())
-                    || (exclude != null && next.getType().equals(exclude))) {
-                it.remove();
-            }
-        }
-        if (types.size() > 0) {
-            return types.get(mRand.nextInt(types.size())).getType();
-        } else {
-            return null;
-        }
-    }
-
-    public @NonNull
-    PracticalRiddleType findNextRiddleType() {
-        PracticalRiddleType type = findNextRiddleType(true, null);
-        if (type == null) {
-            // nothing was selected, ignore selection
-            type = findNextRiddleType(false, null);
-        }
-        // if still null there were no riddle types, but we want to always return a valid one
-        return type == null ? PracticalRiddleType.CIRCLE_INSTANCE : type;
     }
 
     public void addSolvedRiddleScore(int score) {
@@ -499,7 +428,7 @@ public class TestSubject {
         if (typeAchievementHolder != null) {
             Achievement dep = typeAchievementHolder.getByNumber(number);
             if (dep != null) {
-                return new ClaimedAchievementDependency(dep);
+                return new DependencyHolder.ClaimedAchievementDependency(dep);
             }
         }
         return null;
@@ -531,40 +460,17 @@ public class TestSubject {
     }
 
     public Dependency makeProductPurchasedDependency(String articleKey, int productIndex) {
-        return new ProductPurchasedDependency(mShopArticleHolder.getArticle(articleKey), productIndex);
+        return new DependencyHolder.ProductPurchasedDependency(mShopArticleHolder.getArticle
+                (articleKey), productIndex);
     }
 
     public Dependency makeFeatureAvailableDependency(String articleKey, int requiredFeatureValue) {
-        return new FeatureAvailableDependency(mShopArticleHolder.getArticle(articleKey),
-                requiredFeatureValue);
+        return new DependencyHolder.FeatureAvailableDependency(mShopArticleHolder.getArticle
+                (articleKey), requiredFeatureValue);
     }
 
-    private static final Comparator<PracticalRiddleType> TYPE_COMPARATOR = new Comparator<PracticalRiddleType>() {
-        @Override
-        public int compare(PracticalRiddleType t1, PracticalRiddleType t2) {
-            if (t1.equals(t2)) {
-                return 0;
-            } else if (TestSubject.isInitialized()) {
-                List<TestSubjectRiddleType> sortedTypes = TestSubject.getInstance().mTypes;
-                int index = 0;
-                int pos1 = 0;
-                int pos2 = 0;
-                for (TestSubjectRiddleType type : sortedTypes) {
-                    if (type.getType().equals(t1)) {
-                        pos1 = index;
-                    } else if (type.getType().equals(t2)) {
-                        pos2 = index;
-                    }
-                    index++;
-                }
-                return pos1 - pos2;
-            } else {
-                return t1.getFullName().compareTo(t2.getFullName());
-            }
-        }
-    };
     public static void sortTypes(List<PracticalRiddleType> types) {
-        Collections.sort(types, TYPE_COMPARATOR);
+        Collections.sort(types, TestSubjectRiddleTypeController.TYPE_COMPARATOR);
     }
 
     public boolean purchaseNextHintForFree(PracticalRiddleType type) {
@@ -616,107 +522,22 @@ public class TestSubject {
         return mPurse.mShopWallet.getEntryValue(key);
     }
 
-    private class FeatureAvailableDependency extends Dependency {
-        private ShopArticle mArticle;
-        private int mRequiredAmount;
-        public FeatureAvailableDependency(ShopArticle featureArticle, int requiredAmount) {
-            mArticle = featureArticle;
-            mRequiredAmount = requiredAmount;
-            if (mArticle == null) {
-                throw new IllegalArgumentException("No article given.");
-            }
-        }
-
-        @Override
-        public boolean isNotFulfilled() {
-            return mPurse.mShopWallet.getEntryValue(mArticle.getKey()) < mRequiredAmount;
-        }
-
-        @Override
-        public CharSequence getName(Resources res) {
-            return mArticle.getName(res) + ">" + (mRequiredAmount - 1);
-        }
-    }
-
-    private static class ProductPurchasedDependency extends Dependency {
-        private final int mProduct;
-        private final ShopArticle mArticle;
-
-        private ProductPurchasedDependency(ShopArticle article, int product) {
-            mArticle = article;
-            mProduct = product;
-            if (article == null) {
-                throw new IllegalArgumentException("No article for dependency given.");
-            }
-        }
-        @Override
-        public boolean isNotFulfilled() {
-            return mArticle.isPurchasable(mProduct) != ShopArticle.HINT_NOT_PURCHASABLE_ALREADY_PURCHASED;
-        }
-
-        @Override
-        public CharSequence getName(Resources res) {
-            if (mProduct < 0) {
-                return mArticle.getName(res);
-            } else {
-                return mArticle.getName(res) + " #" + (mProduct + 1);
-            }
-        }
+    public TestSubjectRiddleTypeController getTypesController() {
+        return mTypesController;
     }
 
     private Map<PracticalRiddleType, Dependency> mTypeDependencies = new HashMap<>();
     public Dependency getRiddleTypeDependency(PracticalRiddleType type) {
         Dependency dep = mTypeDependencies.get(type);
         if (dep == null) {
-            dep = new RiddleTypeDependency(type);
+            dep = new DependencyHolder.RiddleTypeDependency(type, this);
             mTypeDependencies.put(type, dep);
         }
         return dep;
-    }
-
-    private class RiddleTypeDependency extends Dependency {
-        private PracticalRiddleType mType;
-        private RiddleTypeDependency(PracticalRiddleType type) {
-            mType = type;
-        }
-        @Override
-        public boolean isNotFulfilled() {
-            for (TestSubjectRiddleType testType : mTypes) {
-                if (testType.getType().equals(mType)) {
-                    return false;
-                }
-            }
-            return true;
-        }
-
-        @Override
-        public CharSequence getName(Resources res) {
-            return res.getString(mType.getNameResId());
-        }
     }
 
     public ShopArticleHolder getShopSortiment() {
         return mShopArticleHolder;
     }
 
-    private static class ClaimedAchievementDependency extends Dependency {
-        private Achievement mAchievement;
-
-        public ClaimedAchievementDependency(Achievement achievement) {
-            mAchievement = achievement;
-            if (mAchievement == null) {
-                throw new IllegalArgumentException("No achievement given.");
-            }
-        }
-
-        @Override
-        public boolean isNotFulfilled() {
-            return !mAchievement.isAchieved() || mAchievement.isRewardClaimable();
-        }
-
-        @Override
-        public CharSequence getName(Resources res) {
-            return mAchievement.getName(res);
-        }
-    }
 }

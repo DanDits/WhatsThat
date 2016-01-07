@@ -197,7 +197,6 @@ public abstract class TestSubjectLevel {
         @Override
         protected void onLeveledUp() {
             mTestSubject.addNewType(PracticalRiddleType.CIRCLE_INSTANCE);
-            mTestSubject.saveTypes();
         }
 
         @Override
@@ -272,7 +271,7 @@ public abstract class TestSubjectLevel {
 
         @Override
         public double getLevelUpAchievementScoreFraction() {
-            return 0.2;
+            return 0.1;
         }
     }
     private static class TestSubjectLevel2 extends TestSubjectLevel {
@@ -322,7 +321,7 @@ public abstract class TestSubjectLevel {
         }
         @Override
         public double getLevelUpAchievementScoreFraction() {
-            return 0.35;
+            return 0.2;
         }
     }
 
@@ -358,7 +357,7 @@ public abstract class TestSubjectLevel {
         }
         @Override
         public double getLevelUpAchievementScoreFraction() {
-            return 0.50;
+            return 0.30;
         }
     }
     
@@ -391,7 +390,7 @@ public abstract class TestSubjectLevel {
         }
         @Override
         public double getLevelUpAchievementScoreFraction() {
-            return 0.60;
+            return 0.45;
         }
     }
 
@@ -424,7 +423,7 @@ public abstract class TestSubjectLevel {
         }
         @Override
         public double getLevelUpAchievementScoreFraction() {
-            return 0.675;
+            return 0.65;
         }
     }
 
@@ -457,7 +456,7 @@ public abstract class TestSubjectLevel {
         }
         @Override
         public double getLevelUpAchievementScoreFraction() {
-            return 0.7;
+            return 0.75;
         }
     }
 
@@ -489,7 +488,7 @@ public abstract class TestSubjectLevel {
         }
         @Override
         public double getLevelUpAchievementScoreFraction() {
-            return 0.75;
+            return 0.80;
         }
     }
 
@@ -522,7 +521,7 @@ public abstract class TestSubjectLevel {
         }
         @Override
         public double getLevelUpAchievementScoreFraction() {
-            return 0.8;
+            return 0.85;
         }
     }
 

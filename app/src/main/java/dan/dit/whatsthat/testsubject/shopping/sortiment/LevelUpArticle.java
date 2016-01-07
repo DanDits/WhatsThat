@@ -37,8 +37,8 @@ public class LevelUpArticle extends ShopArticle {
         super(KEY_LEVEL_UP_ARTICLE, purse, R.string.article_level_up_name, R.string.article_level_up_descr, R.drawable.icon_general);
         addDependency(new Dependency() {
             @Override
-            public boolean isNotFulfilled() {
-                return TestSubject.getInstance().canChooseNewRiddle();
+            public boolean isFulfilled() {
+                return !TestSubject.getInstance().canChooseNewRiddle();
             }
 
             @Override

@@ -17,6 +17,8 @@
         <p>Furthermore, we want to say thank you to all those people that were interested in helping during the testing phase. If you want to see your name (or pseudonym) displayed here, contact us! You will either become a new tester or get your deserved credit for already being awesome.</p>
         <p>Great testers and/or people with great suggestions:</p>
         <li>Verena V.</li>
+        <li>Jakob H.</li>
+        <li>Lisa D.</li>
         <p>Finally, here is a list of all the aspiring artists, who offered their images under free license on the internet whose pictures we used in our app anywhere.</p>
         <ul>
         <li>For PNG compression the programs OptiPNG, PNGcrush and <a href="https://tinypng.com">TinyPNG</a></li>
@@ -125,6 +127,8 @@
     <string name="article_product_confirm_purchase_too_expensive">Too expensive: %1$s</string>
     <string name="article_product_confirm_purchase_unavailable">Purchase not possible</string>
     <string name="shop_article_free">Free</string>
+
+    <string name="dependency_any_download_article_name">One image bundle downloaded</string>
 
     <string name="article_hint_name">Hints %1$d/%2$d</string>
     <string name="article_hint_descr">Get Dr. Drams knowledge for a ridiculous price!</string>

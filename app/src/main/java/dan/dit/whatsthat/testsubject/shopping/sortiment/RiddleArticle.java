@@ -43,8 +43,8 @@ public class RiddleArticle extends ShopArticle {
         mProducts = new SparseArray<>(PracticalRiddleType.ALL_PLAYABLE_TYPES.size());
         addDependency(new Dependency() {
             @Override
-            public boolean isNotFulfilled() {
-                return !TestSubject.getInstance().canChooseNewRiddle();
+            public boolean isFulfilled() {
+                return TestSubject.getInstance().canChooseNewRiddle();
             }
 
             @Override
@@ -72,7 +72,7 @@ public class RiddleArticle extends ShopArticle {
             return HINT_NOT_PURCHASABLE_OTHER;
         }
         PracticalRiddleType type = getTypeForProductIndex(subProductIndex);
-        if (TestSubject.getInstance().isTypeAvailable(type)) {
+        if (TestSubject.getInstance().getTypesController().isTypeAvailable(type)) {
             return HINT_NOT_PURCHASABLE_ALREADY_PURCHASED;
         }
         return HINT_PURCHASABLE;
@@ -166,7 +166,7 @@ public class RiddleArticle extends ShopArticle {
         }
 
         public void updateState() {
-            if (TestSubject.getInstance().isTypeAvailable(mType)) {
+            if (TestSubject.getInstance().getTypesController().isTypeAvailable(mType)) {
                 mView.findViewById(R.id.riddle_confirm).setVisibility(View.GONE);
                 mView.setBackgroundColor(mView.getResources().getColor(R.color.important));
             } else {

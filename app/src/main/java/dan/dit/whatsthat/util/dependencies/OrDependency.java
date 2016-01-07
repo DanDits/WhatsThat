@@ -27,12 +27,23 @@ import dan.dit.whatsthat.R;
  */
 public class OrDependency extends Dependency {
     private List<Dependency> mCandidates = new ArrayList<>(4);
+    private int mName;
+
     public OrDependency(Dependency first, Dependency second) {
         add(first);
         add(second);
     }
 
     public OrDependency() {}
+
+    /**
+     * Sets the displayed name of this dependency. If zero then the default name concatenating
+     * all added Dependencies will be displayed.
+     * @param resId The string resource id to use for display name or 0 to use default name.
+     */
+    public void setName(int resId) {
+        mName = resId;
+    }
 
     public OrDependency add(Dependency dep) {
         if (dep != null) {
@@ -42,19 +53,22 @@ public class OrDependency extends Dependency {
     }
 
     @Override
-    public boolean isNotFulfilled() {
+    public boolean isFulfilled() {
         boolean anyFulfilled = false;
         for (Dependency dep : mCandidates) {
-            if (!dep.isNotFulfilled()) {
+            if (dep.isFulfilled()) {
                 anyFulfilled = true;
                 break;
             }
         }
-        return !anyFulfilled;
+        return anyFulfilled;
     }
 
     @Override
     public CharSequence getName(Resources res) {
+        if (mName != 0) {
+            return res.getString(mName);
+        }
         if (mCandidates.size() == 0) {
             return "";
         } else if (mCandidates.size() == 1) {

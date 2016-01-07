@@ -16,6 +16,7 @@
 package dan.dit.whatsthat.testsubject.shopping.sortiment;
 
 import android.content.Context;
+import android.util.Log;
 
 import java.util.ArrayList;
 
@@ -90,8 +91,10 @@ public class SortimentHolder extends ShopArticleHolder {
             return mAnyDownloadProductPurchasedDependency;
         }
         OrDependency dep = new OrDependency();
+        dep.setName(R.string.dependency_any_download_article_name);
         for (ShopArticle article : mAllArticles) {
             if (article.getKey().startsWith(ShopArticleDownload.KEY_PREFIX)) {
+                Log.d("HomeStuff", "Download article key: " + article.getKey());
                 dep.add(TestSubject.getInstance().makeFeatureAvailableDependency(article.getKey()
                         , 2));
             }
@@ -111,9 +114,20 @@ public class SortimentHolder extends ShopArticleHolder {
     @Override
     public void makeDependencies() {
         super.makeDependencies();
+
+        // BRAIN BOOST aka LEVEL UP:
         getArticle(LevelUpArticle.KEY_LEVEL_UP_ARTICLE)
-                .addDependency(getAnyDownloadProductPurchasedDependency(), 2); // for level 2 we need to purchase any download product to know it is there
+                // for level 1 we need to purchase lazor cutter for easier solving of circles riddle
+                .addDependency(TestSubject.getInstance().makeProductPurchasedDependency
+                        (ARTICLE_KEY_CIRCLE_DIVIDE_BY_MOVE_FEATURE, ShopArticle
+                                .GENERAL_PRODUCT_INDEX), 1)
+                // for level 2 we need to purchase any download product to know it is there
+                .addDependency(getAnyDownloadProductPurchasedDependency(), 2);
+
+        // NEW RIDDLES!
         getArticle(RiddleArticle.KEY_CHOOSE_RIDDLE_ARTICLE)
+                // Add Level dependencies to some types, keep it mind that displayed level number
+                // is by one bigger and players start the game at internal level 0
                 .addDependency(LevelDependency.getInstance(2), PracticalRiddleType
                         .ALL_PLAYABLE_TYPES.indexOf(PracticalRiddleType.DICE_INSTANCE))
                 .addDependency(LevelDependency.getInstance(1), PracticalRiddleType
@@ -123,6 +137,12 @@ public class SortimentHolder extends ShopArticleHolder {
                         .ALL_PLAYABLE_TYPES.indexOf(PracticalRiddleType.TRIANGLE_INSTANCE))
                 .addDependency(LevelDependency.getInstance(3), PracticalRiddleType
                         .ALL_PLAYABLE_TYPES.indexOf(PracticalRiddleType.SNOW_INSTANCE));
+
+        // DOWNLOAD ARTICLES
+        makeDownloadArticleLevelDependency(ShopArticleDownload.makeKey("fabian", "NoAnimal"), 6);
+        makeDownloadArticleLevelDependency(ShopArticleDownload.makeKey("fabian", "nature"), 5);
+        makeDownloadArticleLevelDependency(ShopArticleDownload.makeKey("fabian", "superlative"), 4);
+
         getArticle(ARTICLE_KEY_CIRCLE_DIVIDE_BY_MOVE_FEATURE)
                 .addDependency(TestSubject.getInstance().getRiddleTypeDependency(PracticalRiddleType.CIRCLE_INSTANCE), ShopArticle.GENERAL_PRODUCT_INDEX);
         getArticle(ARTICLE_KEY_TRIANGLE_DIVIDE_BY_MOVE_FEATURE)
@@ -140,5 +160,13 @@ public class SortimentHolder extends ShopArticleHolder {
                 .addDependency(TestSubject.getInstance().getRiddleTypeDependency(PracticalRiddleType.LAZOR_INSTANCE), ShopArticle.GENERAL_PRODUCT_INDEX)
                 .addDependency(TestSubject.getInstance().makeAchievementDependency(PracticalRiddleType.LAZOR_INSTANCE, AchievementLazor.Achievement2.NUMBER), 0) // City protector
                 .addDependency(TestSubject.getInstance().makeAchievementDependency(PracticalRiddleType.LAZOR_INSTANCE, AchievementLazor.Achievement7.NUMBER), 1); // Shield protection
+    }
+
+    private void makeDownloadArticleLevelDependency(String key, int level) {
+        ShopArticle download = getArticle(key);
+        if (download != null) {
+            download.addDependency(LevelDependency.getInstance(level), ShopArticle
+                    .GENERAL_PRODUCT_INDEX);
+        }
     }
 }

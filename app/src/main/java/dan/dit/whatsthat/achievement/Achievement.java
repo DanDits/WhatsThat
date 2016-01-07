@@ -156,7 +156,7 @@ public abstract class Achievement implements AchievementDataEventListener, Depen
      */
     public boolean areDependenciesFulfilled() {
         for (int i = 0; i < mDependencies.size(); i++) {
-            if (mDependencies.get(i).isNotFulfilled())
+            if (!mDependencies.get(i).isFulfilled())
                 return false;
         }
         return true;
@@ -421,7 +421,7 @@ public abstract class Achievement implements AchievementDataEventListener, Depen
         boolean addSeparator = false;
         for (int i = 0; i < mDependencies.size(); i++) {
             Dependency dep = mDependencies.get(i);
-            if (dep.isNotFulfilled()) {
+            if (!dep.isFulfilled()) {
                 if (addSeparator) {
                     builder.append(", ");
                 }

@@ -103,6 +103,11 @@ public abstract class ShopArticle {
 
     }
 
+    @Override
+    public String toString() {
+        return mKey;
+    }
+
     public boolean isClickable(int subProductIndex) {
         return isPurchasable(subProductIndex) == HINT_PURCHASABLE;
     }
@@ -125,7 +130,7 @@ public abstract class ShopArticle {
             return false;
         }
         for (Dependency dep : deps) {
-            if (dep.isNotFulfilled()) {
+            if (!dep.isFulfilled()) {
                 return true;
             }
         }
@@ -149,7 +154,7 @@ public abstract class ShopArticle {
         }
         boolean addSeparator = separator;
         for (Dependency dep : deps) {
-            if (dep.isNotFulfilled()) {
+            if (!dep.isFulfilled()) {
                 if (addSeparator) {
                     builder.append(", ");
                 }

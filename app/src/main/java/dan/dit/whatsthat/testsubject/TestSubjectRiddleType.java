@@ -25,18 +25,26 @@ import dan.dit.whatsthat.util.compaction.Compacter;
  */
 public class TestSubjectRiddleType implements Compactable {
 
+    private final OnChangedListener mOnChangedListener;
     private PracticalRiddleType mType;
     private boolean mSelected = true;
 
-    TestSubjectRiddleType(PracticalRiddleType toDecorate) {
-        if (toDecorate == null) {
-            throw new NullPointerException();
-        }
-        mType = toDecorate;
+    public interface OnChangedListener {
+        void onSelectedChanged(TestSubjectRiddleType changed);
     }
 
-    TestSubjectRiddleType(Compacter compactedData) throws CompactedDataCorruptException {
+    TestSubjectRiddleType(PracticalRiddleType toDecorate, OnChangedListener onChangedListener) {
+        if (toDecorate == null) {
+            throw new IllegalArgumentException("No riddle type to decorate.");
+        }
+        mType = toDecorate;
+        mOnChangedListener = onChangedListener;
+    }
+
+    TestSubjectRiddleType(Compacter compactedData, OnChangedListener onChangedListener) throws
+            CompactedDataCorruptException {
         unloadData(compactedData);
+        mOnChangedListener = onChangedListener;
     }
 
     @Override
@@ -93,8 +101,10 @@ public class TestSubjectRiddleType implements Compactable {
     public void setSelected(boolean selected) {
         if (selected != mSelected) {
             mSelected = selected;
+            if (mOnChangedListener != null) {
+                mOnChangedListener.onSelectedChanged(this);
+            }
         }
-        TestSubject.getInstance().saveTypes();
     }
 
     public PracticalRiddleType getType() {

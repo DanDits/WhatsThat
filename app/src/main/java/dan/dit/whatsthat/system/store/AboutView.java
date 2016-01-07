@@ -36,6 +36,8 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import dan.dit.whatsthat.R;
+import dan.dit.whatsthat.achievement.AchievementProperties;
+import dan.dit.whatsthat.riddle.achievement.holders.MiscAchievementHolder;
 import dan.dit.whatsthat.testsubject.TestSubject;
 import dan.dit.whatsthat.util.image.ColorAnalysisUtil;
 import dan.dit.whatsthat.util.image.ImageUtil;
@@ -192,6 +194,11 @@ public class AboutView extends View implements StoreContainer {
             Log.d("HomeStuff", "Starting animation with start angle speed: " + startAngleSpeed);
             mSpinAnimator.setDuration(Math.max(100L, (long) Math.abs(startAngleSpeed * 10000)));
             mSpinAnimator.start();
+            if (TestSubject.isInitialized()) {
+                TestSubject.getInstance().getAchievementHolder().getMiscData().putValue
+                        (MiscAchievementHolder.KEY_SPIN_WHEEL_START_ANGLE_SPEED,
+                                (long) (startAngleSpeed * 1000), AchievementProperties.UPDATE_POLICY_ALWAYS);
+            }
         }
         mSpinTracker.recycle();
         mSpinTracker = null;

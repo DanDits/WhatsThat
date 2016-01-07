@@ -181,6 +181,9 @@
     <string name="achievement_misc_5_descr">You made someone really, really happy.</string>
     <string name="achievement_misc_6_name">Creature of habbit</string>
     <string name="achievement_misc_6_descr">Play any type of experiment one hundred times.</string>
+    <string name="achievement_misc_7_name">Spin it</string>
+    <string name="achievement_misc_7_descr">Spin it really fast!</string>
+
 
 
     <!-- Memory achievements -->

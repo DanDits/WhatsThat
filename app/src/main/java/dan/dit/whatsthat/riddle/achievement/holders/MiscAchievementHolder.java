@@ -44,6 +44,8 @@ public class MiscAchievementHolder implements AchievementHolder {
     public static final String KEY_LAST_SOLVED_GAME_TOTAL_TIME = "misc_last_solved_game_total_time";
     public static final String KEY_ACHIEVEMENTS_EARNED_COUNT = "misc_total_achievements_earned";
     public static final String KEY_FEATURES_PURCHASED = "misc_features_purchased";
+    public static final String KEY_SPIN_WHEEL_START_ANGLE_SPEED =
+            "misc_spin_wheel_start_angle_speed";
 
     private AchievementPropertiesMapped<String> mData;
     private SortedMap<Integer, MiscAchievement> mAchievements;
@@ -71,6 +73,7 @@ public class MiscAchievementHolder implements AchievementHolder {
         mAchievements.put(Achievement2.NUMBER, new Achievement2(manager, mData));
         mAchievements.put(Achievement3.NUMBER, new Achievement3(manager, mData));
         mAchievements.put(Achievement4.NUMBER, new Achievement4(manager, mData));
+        mAchievements.put(Achievement7.NUMBER, new Achievement7(manager, mData));
     }
 
     private static class Achievement1 extends MiscAchievement {
@@ -184,6 +187,31 @@ public class MiscAchievementHolder implements AchievementHolder {
         public void onDataEvent(AchievementDataEvent event) {
             if (event.getChangedData() == mMiscData && event.hasChangedKey(KEY_ACHIEVEMENTS_EARNED_COUNT)) {
                 achieveDelta(1); // do not check for conditions for this achievement!
+            }
+        }
+    }
+
+    private static class Achievement7 extends MiscAchievement {
+        public static final int NUMBER = 7;
+        public static final int LEVEL = 0;
+        public static final int REWARD = 30;
+        public static final boolean DISCOVERED = true;
+        public static final float SPIN_ANGLE_SPEED_THRESHOLD = 5000f;
+
+        public Achievement7(AchievementManager manager, AchievementPropertiesMapped<String>
+                miscData) {
+            super(miscData, R.string.achievement_misc_7_name, R.string.achievement_misc_7_descr,
+                    0, NUMBER, manager, LEVEL, REWARD, 1, DISCOVERED);
+        }
+
+        @Override
+        public void onDataEvent(AchievementDataEvent event) {
+            if (event.getChangedData() == mMiscData && event.hasChangedKey
+                    (KEY_SPIN_WHEEL_START_ANGLE_SPEED)) {
+                if (mMiscData.getValue(KEY_SPIN_WHEEL_START_ANGLE_SPEED, 0L) >=
+                        SPIN_ANGLE_SPEED_THRESHOLD) {
+                    achieveAfterDependencyCheck();
+                }
             }
         }
     }

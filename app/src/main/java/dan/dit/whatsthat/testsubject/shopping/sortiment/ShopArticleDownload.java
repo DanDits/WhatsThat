@@ -51,7 +51,7 @@ public class ShopArticleDownload extends ShopArticle implements ImageDataDownloa
         mDownload = new ImageDataDownload(context, origin, dataName, estimatedSizeMB, url, this);
     }
 
-    private static String makeKey(String origin, String dataName) {
+    static String makeKey(String origin, String dataName) {
         return KEY_PREFIX + origin + dataName;
     }
 
@@ -62,7 +62,12 @@ public class ShopArticleDownload extends ShopArticle implements ImageDataDownloa
 
     @Override
     public boolean isClickable(int subProductIndex) {
-        return isPurchasable(subProductIndex) == HINT_PURCHASABLE || (mPurse.getShopValue(mKey) < SHOP_VALUE_DOWNLOADED_AND_SYNCED);
+        return isPurchasable(subProductIndex) == HINT_PURCHASABLE || isDownloadedAndNotSynced();
+    }
+
+    private boolean isDownloadedAndNotSynced() {
+        int value = mPurse.getShopValue(mKey);
+        return value > 0 && value < SHOP_VALUE_DOWNLOADED_AND_SYNCED;
     }
 
     @Override

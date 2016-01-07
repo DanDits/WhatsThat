@@ -182,6 +182,8 @@
     <string name="achievement_misc_5_descr">Du hast jemanden sehr, sehr glücklich gemacht.</string>
     <string name="achievement_misc_6_name">Gewohnheitstier</string>
     <string name="achievement_misc_6_descr">Löse einhundert Bilder bei einem Experimenttypen.</string>
+    <string name="achievement_misc_7_name">Spinner</string>
+    <string name="achievement_misc_7_descr">Dreh ganz schnell durch!</string>
 
     <!-- Memory achievements -->
     <string name="achievement_memory_1_name">Kurzzeitgedächtnis</string>
