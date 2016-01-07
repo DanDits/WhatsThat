@@ -62,7 +62,9 @@ import java.util.Map;
 
 import dan.dit.whatsthat.BuildConfig;
 import dan.dit.whatsthat.R;
+import dan.dit.whatsthat.achievement.AchievementDataEvent;
 import dan.dit.whatsthat.achievement.AchievementManager;
+import dan.dit.whatsthat.achievement.AchievementProperties;
 import dan.dit.whatsthat.image.Image;
 import dan.dit.whatsthat.image.ImageManager;
 import dan.dit.whatsthat.preferences.User;
@@ -72,6 +74,8 @@ import dan.dit.whatsthat.riddle.RiddleMaker;
 import dan.dit.whatsthat.riddle.RiddleManager;
 import dan.dit.whatsthat.riddle.RiddleView;
 import dan.dit.whatsthat.riddle.UnsolvedRiddlesChooser;
+import dan.dit.whatsthat.riddle.achievement.MiscAchievement;
+import dan.dit.whatsthat.riddle.achievement.holders.MiscAchievementHolder;
 import dan.dit.whatsthat.riddle.control.GameWelcomeDialog;
 import dan.dit.whatsthat.riddle.control.RiddleGame;
 import dan.dit.whatsthat.riddle.types.PracticalRiddleType;
@@ -245,6 +249,20 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
                         onRiddleMade(riddle, true);
                         mRiddleView.getRiddleType().getAchievementData(AchievementManager.getInstance()).onNewGame();
                         playStartRiddleAnimation();
+                        AchievementProperties data = TestSubject.getInstance()
+                                .getAchievementHolder().getMiscData();
+                        if (data != null) {
+                            // notify achievements that a riddle was remade and how many times
+                            // for this riddle
+                            data.enableSilentChanges(AchievementDataEvent.EVENT_TYPE_DATA_UPDATE);
+                            data.putValue(MiscAchievementHolder.KEY_REMADE_RIDDLE_CURRENT_REMADE_COUNT,
+                                    (long) riddle.getRemadeCount(),
+                                    AchievementProperties.UPDATE_POLICY_ALWAYS);
+                            data.increment(MiscAchievementHolder.KEY_REMADE_RIDDLE_CURRENT_COUNT,
+                                    1L, 0L);
+                            data.disableSilentChanges();
+                        }
+
                     }
 
                     @Override
@@ -672,6 +690,8 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
     @Override
     public void onRetryWithDifferentRiddle() {
         remakeCurrentRiddle();
+        TestSubject.getInstance().getAchievementHolder().getMiscData().increment
+                (MiscAchievementHolder.KEY_RETRYING_RIDDLE_COUNT, 1L, 0L);
     }
 
     private void showRiddlesDialog() {

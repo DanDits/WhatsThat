@@ -184,6 +184,9 @@
     <string name="achievement_misc_6_descr">Löse einhundert Bilder bei einem Experimenttypen.</string>
     <string name="achievement_misc_7_name">Spinner</string>
     <string name="achievement_misc_7_descr">Dreh ganz schnell durch!</string>
+    <string name="achievement_misc_8_name">Verzweifelt</string>
+    <string name="achievement_misc_8_descr">Auch zwei Experimente können das Bild nicht entschleiern
+        .</string>
 
     <!-- Memory achievements -->
     <string name="achievement_memory_1_name">Kurzzeitgedächtnis</string>

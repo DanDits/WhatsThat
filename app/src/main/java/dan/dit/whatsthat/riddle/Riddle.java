@@ -69,7 +69,14 @@ public class Riddle {
      * A constant that is to be used when an id parameter or result value is around that is not a valid id of any riddle.
      */
     public static final long NO_ID = -1L;
-    public static final String ORIGIN_REMADE_TO_NEW_TYPE = "REMADE_TYPE";
+
+    /**
+     * Prefix of the riddle's origin if the riddle was remade after already being active as a
+     * riddle of another type. This is making the riddle getting treatment of a custom riddle
+     * limiting achievements and score gains.
+     */
+    private static final String ORIGIN_REMADE_TO_NEW_TYPE_PREFIX = "REMADE_TYPE";
+
     private String mSolutionData;
     private int mSolved; // if solved only the core needs to be saved, if not yet started solving no need to save to database
     Core mCore;
@@ -203,6 +210,46 @@ public class Riddle {
         return mCore.mOrigin;
     }
 
+    /**
+     * Checks if this riddle is remade. If this is not the case this simply returns 0 and this is
+     * a normal riddle made by the app. Else it returns the amount of times the riddle was remade
+     * starting from 1 for first time remade riddles. See Riddle.makeRemadeOrigin(int) for
+     * generating this origin information.
+     * @return 0 if this is a usual riddle, else the positive remade count number. If parsing
+     * the count of a remade riddle fails, -1 is returned.
+     */
+    public int getRemadeCount() {
+        if (!mCore.mOrigin.startsWith(Riddle.ORIGIN_REMADE_TO_NEW_TYPE_PREFIX)) {
+            return 0;
+        }
+        try {
+            int start = Riddle.ORIGIN_REMADE_TO_NEW_TYPE_PREFIX.length();
+            int end = mCore.mOrigin.indexOf("_", start);
+            String numberText = mCore.mOrigin.substring(start, end == -1 ? mCore.mOrigin.length()
+                    : end);
+            return TextUtils.isEmpty(numberText) ? 1 : Integer.parseInt(numberText);
+        } catch (NumberFormatException nfe) {
+            return -1;
+        }
+    }
+
+    public boolean isRemade() {
+        return getRemadeCount() != 0;
+    }
+
+    /**
+     * Creates a riddle origin to use for a new riddle that is being remade.
+     * @param remadeCount The amount of times this riddle was remade. If positive this
+     *                    information is appended to the origin.
+     * @return A valid origin indicating that the riddle was at least once remade.
+     */
+    public static @NonNull String makeRemadeOrigin(int remadeCount) {
+        if (remadeCount <= 0) {
+            return ORIGIN_REMADE_TO_NEW_TYPE_PREFIX;
+        }
+        return ORIGIN_REMADE_TO_NEW_TYPE_PREFIX + Integer.toString(remadeCount);
+    }
+
     /****************** CORE ****************************/
     public static class Core {
         private long mId = NO_ID;
@@ -252,6 +299,9 @@ public class Riddle {
             mImageHash = cursor.getString(cursor.getColumnIndexOrThrow(RiddleTable.COLUMN_IMAGEHASH));
             mScore = cursor.getInt(cursor.getColumnIndexOrThrow(RiddleTable.COLUMN_SCORE));
             mRiddleType = PracticalRiddleType.getInstance(cursor.getString(cursor.getColumnIndexOrThrow(RiddleTable.COLUMN_RIDDLETYPE)));
+            if (TextUtils.isEmpty(mOrigin)) {
+                mOrigin = Image.ORIGIN_IS_THE_APP;
+            }
             if (!isId(mId) || TextUtils.isEmpty(mImageHash) || mRiddleType == null) {
                 throw new BuildException().setMissingData("RiddleCore", "ID " + mId + " riddle type " + mRiddleType + " hash " + mImageHash);
             }

@@ -46,6 +46,10 @@ public class MiscAchievementHolder implements AchievementHolder {
     public static final String KEY_FEATURES_PURCHASED = "misc_features_purchased";
     public static final String KEY_SPIN_WHEEL_START_ANGLE_SPEED =
             "misc_spin_wheel_start_angle_speed";
+    public static final String KEY_RETRYING_RIDDLE_COUNT = "misc_retrying_riddle_count";
+    public static final String KEY_REMADE_RIDDLE_CURRENT_REMADE_COUNT = "misc_remade_riddle_current_remade_count";
+    public static final String KEY_REMADE_RIDDLE_CURRENT_COUNT =
+            "misc_remade_riddle_current_count";
 
     private AchievementPropertiesMapped<String> mData;
     private SortedMap<Integer, MiscAchievement> mAchievements;
@@ -74,6 +78,7 @@ public class MiscAchievementHolder implements AchievementHolder {
         mAchievements.put(Achievement3.NUMBER, new Achievement3(manager, mData));
         mAchievements.put(Achievement4.NUMBER, new Achievement4(manager, mData));
         mAchievements.put(Achievement7.NUMBER, new Achievement7(manager, mData));
+        mAchievements.put(Achievement8.NUMBER, new Achievement8(manager, mData));
     }
 
     private static class Achievement1 extends MiscAchievement {
@@ -194,7 +199,7 @@ public class MiscAchievementHolder implements AchievementHolder {
     private static class Achievement7 extends MiscAchievement {
         public static final int NUMBER = 7;
         public static final int LEVEL = 0;
-        public static final int REWARD = 30;
+        public static final int REWARD = 50;
         public static final boolean DISCOVERED = true;
         public static final float SPIN_ANGLE_SPEED_THRESHOLD = 5000f;
 
@@ -210,6 +215,32 @@ public class MiscAchievementHolder implements AchievementHolder {
                     (KEY_SPIN_WHEEL_START_ANGLE_SPEED)) {
                 if (mMiscData.getValue(KEY_SPIN_WHEEL_START_ANGLE_SPEED, 0L) >=
                         SPIN_ANGLE_SPEED_THRESHOLD) {
+                    achieveAfterDependencyCheck();
+                }
+            }
+        }
+    }
+
+
+    private static class Achievement8 extends MiscAchievement {
+        public static final int NUMBER = 8;
+        public static final int LEVEL = 0;
+        public static final int REWARD = 30;
+        public static final boolean DISCOVERED = true;
+        public static final float REQUIRED_REMADE_COUNT = 3;
+
+        public Achievement8(AchievementManager manager, AchievementPropertiesMapped<String>
+                miscData) {
+            super(miscData, R.string.achievement_misc_8_name, R.string.achievement_misc_8_descr,
+                    0, NUMBER, manager, LEVEL, REWARD, 1, DISCOVERED);
+        }
+
+        @Override
+        public void onDataEvent(AchievementDataEvent event) {
+            if (event.getChangedData() == mMiscData && event.hasChangedKey
+                    (KEY_REMADE_RIDDLE_CURRENT_COUNT)) {
+                if (mMiscData.getValue(KEY_REMADE_RIDDLE_CURRENT_REMADE_COUNT, 0L) >=
+                        REQUIRED_REMADE_COUNT) {
                     achieveAfterDependencyCheck();
                 }
             }

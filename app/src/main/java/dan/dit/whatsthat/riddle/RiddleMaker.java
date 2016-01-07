@@ -130,7 +130,9 @@ public class RiddleMaker {
             return;
         }
 
-        Riddle riddle = new Riddle(image.getHash(), newType, Riddle.ORIGIN_REMADE_TO_NEW_TYPE);
+        String newOrigin = Riddle.makeRemadeOrigin(currentRiddle.getRemadeCount() + 1);
+
+        Riddle riddle = new Riddle(image.getHash(), newType, newOrigin);
 
         Dimension canvasDim = new Dimension(maxCanvasDim);
         canvasDim.fitInsideWithRatio(riddle.getType().getSuggestedCanvasAspectRatio());

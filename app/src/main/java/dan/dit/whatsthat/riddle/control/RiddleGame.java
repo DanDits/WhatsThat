@@ -273,7 +273,7 @@ public abstract class RiddleGame {
     RiddleScore calculateGainedScore() {
         int base = mRiddle.getType().getBaseScore();
         if (isCustom()) {
-            if (Riddle.ORIGIN_REMADE_TO_NEW_TYPE.equalsIgnoreCase(mRiddle.getOrigin())) {
+            if (mRiddle.isRemade()) {
                 return new RiddleScore.SimpleNoBonus();
             }
             return RiddleScore.NullRiddleScore.INSTANCE;
@@ -341,5 +341,9 @@ public abstract class RiddleGame {
     public ParticleSystem makeParticleSystem(Resources res, int maxParticles, int drawableResId,
                                              long timeToLive) {
         return mRiddleController.makeParticleSystem(res, maxParticles, drawableResId, timeToLive);
+    }
+
+    public int getRemadeCount() {
+        return mRiddle.getRemadeCount();
     }
 }
