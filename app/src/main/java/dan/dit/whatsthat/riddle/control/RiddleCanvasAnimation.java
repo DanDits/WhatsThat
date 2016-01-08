@@ -135,6 +135,14 @@ public class RiddleCanvasAnimation extends RiddleAnimation {
             return this;
         }
 
+        public Builder addTranslate(float initialDeltaX, float initialDeltaY,
+                                    float translateDeltaX, float translateDeltaY, long duration) {
+            mAnim.addAnimation(new Translate(initialDeltaX, initialDeltaY,
+                    translateDeltaX, translateDeltaY, duration)
+            .setInterpolator(mInterpolator).setLives(mLives).setNextLifeMode(mNextLifeMode));
+            return this;
+        }
+
         public Builder addTranslate(float translateDeltaX, float translateDeltaY, long duration) {
             mAnim.addAnimation(new Translate(translateDeltaX, translateDeltaY,
                     duration).setInterpolator(mInterpolator).setLives(mLives).setNextLifeMode(mNextLifeMode));
@@ -312,12 +320,21 @@ public class RiddleCanvasAnimation extends RiddleAnimation {
 
 
     private static class Translate extends CanvasAnimation {
+        private float mInitialDeltaX;
+        private float mInitialDeltaY;
         private float mDeltaX;
         private float mDeltaY;
 
         protected Translate(float deltaX, float deltaY, long
                 totalLifeTime) {
+            this(0, 0, deltaX, deltaY, totalLifeTime);
+        }
+
+        protected Translate(float initialDeltaX, float initialDeltaY,
+                            float deltaX, float deltaY, long totalLifeTime) {
             super(totalLifeTime);
+            mInitialDeltaX = initialDeltaX;
+            mInitialDeltaY = initialDeltaY;
             mDeltaX = deltaX;
             mDeltaY = deltaY;
         }
@@ -327,7 +344,7 @@ public class RiddleCanvasAnimation extends RiddleAnimation {
             float interpolatedLife = (float) getInterpolatedLife(mLifeTime);
             float dx = interpolatedLife * mDeltaX;
             float dy = interpolatedLife * mDeltaY;
-            canvas.translate(dx, dy);
+            canvas.translate(mInitialDeltaX + dx, mInitialDeltaY + dy);
         }
     }
 
@@ -351,7 +368,7 @@ public class RiddleCanvasAnimation extends RiddleAnimation {
             float interpolatedLife = (float) getInterpolatedLife(mLifeTime);
             float dx = interpolatedLife * mDeltaX;
             float dy = interpolatedLife * mDeltaY;
-            canvas.scale(dx, dy, mCenterX, mCenterY);
+            canvas.scale(dx, dy, mCenterX * canvas.getWidth(), mCenterY * canvas.getHeight());
         }
     }
 }

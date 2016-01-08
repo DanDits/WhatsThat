@@ -250,6 +250,16 @@ public class Riddle {
         return ORIGIN_REMADE_TO_NEW_TYPE_PREFIX + Integer.toString(remadeCount);
     }
 
+    /**
+     * Checks if this riddle is a custom riddle. That is any riddle that is not a new regular
+     * riddle, so a riddle with a non default origin. Can be a remade riddle or a riddle sent from
+     * another user.
+     * @return If this is a custom riddle.
+     */
+    public boolean isCustom() {
+        return !Image.ORIGIN_IS_THE_APP.equalsIgnoreCase(mCore.mOrigin);
+    }
+
     /****************** CORE ****************************/
     public static class Core {
         private long mId = NO_ID;

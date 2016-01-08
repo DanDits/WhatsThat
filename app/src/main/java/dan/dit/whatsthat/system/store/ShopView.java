@@ -25,6 +25,7 @@ import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.Button;
 import android.widget.ExpandableListView;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -41,7 +42,6 @@ import dan.dit.whatsthat.testsubject.shopping.SubProduct;
 import dan.dit.whatsthat.testsubject.shopping.filter.ShopArticleFilter;
 import dan.dit.whatsthat.testsubject.shopping.filter.ShopArticleFilterIcon;
 import dan.dit.whatsthat.testsubject.shopping.filter.ShopArticleFilterImportant;
-import dan.dit.whatsthat.testsubject.shopping.filter.ShopArticleFilterPurchased;
 import dan.dit.whatsthat.testsubject.shopping.filter.ShopArticleGroupFilter;
 import dan.dit.whatsthat.util.general.PercentProgressListener;
 import dan.dit.whatsthat.util.ui.ImageViewWithText;
@@ -51,7 +51,7 @@ import dan.dit.whatsthat.util.ui.LinearLayoutProgressBar;
  * Created by daniel on 12.06.15.
  */
 public class ShopView extends ExpandableListView implements  StoreContainer, ShopArticleHolder.OnArticleChangedListener, ShopArticleGroupFilter.OnFilterUpdateListener {
-    private Button mTitleBackButton;
+
     private ShopArticleAdapter mAdapter;
     private ShopArticleHolder mArticleHolder;
     private final LayoutInflater mInflater;
@@ -59,6 +59,7 @@ public class ShopView extends ExpandableListView implements  StoreContainer, Sho
     private TextView mCurrency;
     private ViewGroup mChildrenFilterHolder;
     private int mExpandedGroup;
+    private View mAllFilterContainer;
 
     public ShopView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -97,18 +98,14 @@ public class ShopView extends ExpandableListView implements  StoreContainer, Sho
         });
     }
 
-    private void updateTitleBackButton() {
-        mTitleBackButton.setText(getContext().getString(R.string.store_category_shop));
-    }
-
     private void updateCurrency() {
         mCurrency.setText(String.valueOf(mArticleHolder.getCurrentScore()));
     }
 
     @Override
-    public void refresh(FragmentActivity activity, Button titleBackButton) {
-        mTitleBackButton = titleBackButton;
-        mCurrency = (TextView) getRootView().findViewById(R.id.currency);
+    public void refresh(FragmentActivity activity, FrameLayout titleBackContainer) {
+        mCurrency = (TextView) titleBackContainer.findViewById(R.id.currency);
+        mCurrency.setVisibility(View.VISIBLE);
         if (mAdapter == null) {
             mAdapter = new ShopArticleAdapter();
             mArticleHolder = TestSubject.getInstance().getShopSortiment();
@@ -118,11 +115,19 @@ public class ShopView extends ExpandableListView implements  StoreContainer, Sho
             applyFilters();
         }
         mArticleHolder.setOnArticleChangedListener(this);
-        updateTitleBackButton();
         updateCurrency();
     }
 
     private void initFilters() {
+        getRootView().findViewById(R.id.show_filters).setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                v.setVisibility(View.GONE);
+                mAllFilterContainer.setVisibility(View.VISIBLE);
+            }
+        });
+        mAllFilterContainer = getRootView().findViewById(R.id.shop_filters_container);
+        mAllFilterContainer.setVisibility(View.GONE);
         mFilterHolder = (ViewGroup) getRootView().findViewById(R.id.shop_filters);
         mChildrenFilterHolder = (ViewGroup) getRootView().findViewById(R.id.shop_child_filters);
         //determine the set of the articles' icons
@@ -176,6 +181,7 @@ public class ShopView extends ExpandableListView implements  StoreContainer, Sho
 
     @Override
     public void stop(FragmentActivity activity, boolean pausedOnly) {
+        mCurrency.setVisibility(View.INVISIBLE);
         mArticleHolder.setOnArticleChangedListener(null);
         mArticleHolder.closeArticles();
     }
@@ -265,6 +271,11 @@ public class ShopView extends ExpandableListView implements  StoreContainer, Sho
                 convertView.setScaleX(0.8f);
                 convertView.setScaleY(0.7f);
             }
+            if (isExpanded) {
+                convertView.setBackgroundResource(R.drawable.active_shop_article_expanded);
+            } else {
+                convertView.setBackgroundResource(0);
+            }
             ShopArticle article = mArticleHolder.getArticle(groupPosition);
             ((TextView) name).setText(article.getName(getResources()));
             int imageResId = article.getIconResId();
@@ -280,9 +291,9 @@ public class ShopView extends ExpandableListView implements  StoreContainer, Sho
             int progressPercent = article.getPurchaseProgressPercent();
             if (progressPercent >= PercentProgressListener.PROGRESS_COMPLETE) {
                 progressListener.onProgressUpdate(0);
-                convertView.setBackgroundColor(progressListener.getStartColor());
+                progressListener.setBackgroundColor(progressListener.getStartColor());
             } else {
-                convertView.setBackgroundColor(progressListener.getEndColor());
+                progressListener.setBackgroundColor(progressListener.getEndColor());
                 progressListener.onProgressUpdate(progressPercent);
             }
             return convertView;
@@ -294,6 +305,13 @@ public class ShopView extends ExpandableListView implements  StoreContainer, Sho
             SubProduct product = article.getSubProduct(mInflater, childPosition);
             if (product != null) {
                 convertView = product.getView();
+            }
+            if (convertView != null) {
+                if (isLastChild) {
+                    convertView.setBackgroundResource(R.drawable.active_shop_article_last_child);
+                } else {
+                    convertView.setBackgroundResource(R.drawable.active_shop_article_child);
+                }
             }
             return convertView;
         }

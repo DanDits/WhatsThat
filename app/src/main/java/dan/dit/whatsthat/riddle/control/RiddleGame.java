@@ -289,7 +289,7 @@ public abstract class RiddleGame {
     }
 
     protected final boolean isCustom() {
-        return !Image.ORIGIN_IS_THE_APP.equalsIgnoreCase(mRiddle.getOrigin());
+        return mRiddle.isCustom();
     }
 
     public abstract void draw(Canvas canvas);

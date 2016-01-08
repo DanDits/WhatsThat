@@ -28,6 +28,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.Button;
 import android.widget.ExpandableListView;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -55,7 +56,6 @@ public class AchievementView extends ExpandableListView implements StoreContaine
     private List<List<? extends Achievement>> mAllAchievements;
     private List<String> mCategoryNames;
     private List<Integer> mCategoryImage;
-    private Button mTitleBackButton;
 
     public AchievementView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -98,10 +98,6 @@ public class AchievementView extends ExpandableListView implements StoreContaine
         }
     }
 
-    private void updateTitleBackButton() {
-        mTitleBackButton.setText(getContext().getString(R.string.store_category_achievement));
-    }
-
     private boolean claimReward(Achievement achievement, View toAnimate) {
         if (achievement.isRewardClaimable()) {
             achievement.claimReward();
@@ -115,7 +111,6 @@ public class AchievementView extends ExpandableListView implements StoreContaine
 
                 @Override
                 public void onAnimationEnd(Animation animation) {
-                    updateTitleBackButton();
                     mAdapter.notifyDataSetChanged();
                 }
 
@@ -130,9 +125,7 @@ public class AchievementView extends ExpandableListView implements StoreContaine
     }
 
     @Override
-    public void refresh(FragmentActivity activity, Button titleBackButton) {
-        mTitleBackButton = titleBackButton;
-        updateTitleBackButton();
+    public void refresh(FragmentActivity activity, FrameLayout titleBackContainer) {
         if (mAdapter == null) {
             mAdapter = new AchievementsAdapter(activity);
             setGroupIndicator(getResources().getDrawable(R.drawable.achievement_list_group_indicator));

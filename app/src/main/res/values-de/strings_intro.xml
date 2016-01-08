@@ -28,20 +28,22 @@
         <item>Die Neuronen reagieren auf meine liebliche Stimme.</item>
         <item>Das deute ich als ja.</item>
         <item>Erdling, ich heiße dich auf einer Reise in die Untiefen deines Geistes willkommen.</item>
-        <item>Ich bin die Meta Schöpfung Transprima Plasmiro Blu Equaris Venalo der 364k.</item>
-        <item>Es reicht aber, wenn du mich ganz zwanglos mit \"Erhabener\" anredest.</item>
-        <item>Andere Ehrentitel wie beispielsweise \"Eure Durchlauchtheit\" oder \"Oh unübertreffliches Wesen aller Galaxien\" sind natürlich auch völlig in Ordnung.</item>
-        <item>Entschuldige. Ich schweife schnell ab.</item>
     </string-array>
     <string-array name="test_subject_0_1_intro_main">
-        <item>Das hier ist Dr. Kulg.</item>
-        <item>Ihr würdet ihn einen verrückt genialen Wissenschaftler nennen.</item>
+        <item>Ich darf dir Dr. Kulg vorstellen.</item>
+        <item>Er ist verrücktgenial, also ein Wissenschaftler, und wird dir helfen.</item>
     </string-array>
     <string-array name="test_subject_0_2_intro_main">
         <item>Eine erste kleine Frage: Wer bist du eigentlich?</item>
         <item>Unsere hochentwickelte Kultur kennt solche Unterschiede nicht, aber euch Erdlingen ist das ja wichtig.</item>
     </string-array>
     <string-array name="test_subject_0_3_intro_main">
+        <item>Wer ich bin?</item>
+        <item>Ich bin die Meta Schöpfung Transprima Plasmiro Blu Equaris Venalo
+            der 364k.</item>
+        <item>Es reicht aber, wenn du mich ganz zwanglos mit \"Erhabener\" anredest.</item>
+        <item>Andere Ehrentitel wie beispielsweise \"Eure Durchlauchtheit\" oder \"Oh unübertreffliches Wesen aller Galaxien\" sind natürlich auch völlig in Ordnung.</item>
+        <item>Entschuldige. Ich schweife schnell ab.</item>
         <item>Zurück zum Thema. Meine Schöpfer und ich, oder kurz gesagt: Wir…</item>
         <item>… wir wollen das Leben auf dem Planeten Erde besser verstehen.</item>
         <item>Unsere Wahl ist dabei auf dich gefallen.</item>

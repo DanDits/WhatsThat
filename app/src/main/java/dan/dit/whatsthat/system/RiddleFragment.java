@@ -247,7 +247,6 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
                     @Override
                     public void onRiddleReady(RiddleGame riddle) {
                         onRiddleMade(riddle, true);
-                        mRiddleView.getRiddleType().getAchievementData(AchievementManager.getInstance()).onNewGame();
                         playStartRiddleAnimation();
                         AchievementProperties data = TestSubject.getInstance()
                                 .getAchievementHolder().getMiscData();

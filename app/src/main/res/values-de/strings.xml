@@ -30,12 +30,7 @@
         <p>Der vollständige Link zum Bild mit Titel und Autor oder ausführliche Hintergründe zu einem genannten Punkt können angefragt werden unter whatsthat.contact@gmail.com. Danke an alle, die uns bzw. diese App auf die eine oder andere Art und Weise unterstützten :)!</p>
     ]]></string>
     <string name="store_category_menu">Zurück zum Experiment</string>
-    <string name="store_category_shop">Laden</string>
-    <string name="store_category_achievement">Erfolge</string>
-    <string name="store_category_workshop">Werkstatt</string>
-    <string name="store_category_about">Info &amp; Kontakt</string>
-    <string name="store_category_donate">Spenden</string>
-    <string name="store_category_credit">Danksagungen</string>
+
     <string-array name="donation_google_catalog_values">
         <item>1 Euro</item>
         <item>2 Euros</item>

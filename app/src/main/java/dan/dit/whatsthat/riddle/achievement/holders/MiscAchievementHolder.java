@@ -29,8 +29,11 @@ import dan.dit.whatsthat.achievement.Achievement;
 import dan.dit.whatsthat.achievement.AchievementDataEvent;
 import dan.dit.whatsthat.achievement.AchievementManager;
 import dan.dit.whatsthat.achievement.AchievementProperties;
+import dan.dit.whatsthat.riddle.achievement.AchievementDataRiddleType;
 import dan.dit.whatsthat.riddle.achievement.AchievementPropertiesMapped;
 import dan.dit.whatsthat.riddle.achievement.MiscAchievement;
+import dan.dit.whatsthat.riddle.types.PracticalRiddleType;
+import dan.dit.whatsthat.testsubject.TestSubject;
 import dan.dit.whatsthat.util.compaction.CompactedDataCorruptException;
 
 /**
@@ -50,6 +53,8 @@ public class MiscAchievementHolder implements AchievementHolder {
     public static final String KEY_REMADE_RIDDLE_CURRENT_REMADE_COUNT = "misc_remade_riddle_current_remade_count";
     public static final String KEY_REMADE_RIDDLE_CURRENT_COUNT =
             "misc_remade_riddle_current_count";
+    public static final String KEY_LEFT_DONATION_SITE_STAY_TIME =
+            "misc_left_donation_site_stay_time";
 
     private AchievementPropertiesMapped<String> mData;
     private SortedMap<Integer, MiscAchievement> mAchievements;
@@ -77,6 +82,8 @@ public class MiscAchievementHolder implements AchievementHolder {
         mAchievements.put(Achievement2.NUMBER, new Achievement2(manager, mData));
         mAchievements.put(Achievement3.NUMBER, new Achievement3(manager, mData));
         mAchievements.put(Achievement4.NUMBER, new Achievement4(manager, mData));
+        mAchievements.put(Achievement5.NUMBER, new Achievement5(manager, mData));
+        mAchievements.put(Achievement6.NUMBER, new Achievement6(manager, mData));
         mAchievements.put(Achievement7.NUMBER, new Achievement7(manager, mData));
         mAchievements.put(Achievement8.NUMBER, new Achievement8(manager, mData));
     }
@@ -196,12 +203,101 @@ public class MiscAchievementHolder implements AchievementHolder {
         }
     }
 
+
+    private static class Achievement5 extends MiscAchievement {
+        public static final int NUMBER = 5;
+        public static final int LEVEL = 0;
+        public static final int REWARD = 50;
+        public static final boolean DISCOVERED = true;
+        public static final int REQUIRED_TIME_ON_DONATION_SITE = 60000;//ms
+
+        public Achievement5(AchievementManager manager, AchievementPropertiesMapped<String>
+                miscData) {
+            super(miscData, R.string.achievement_misc_5_name, R.string.achievement_misc_5_descr,
+                    0, NUMBER, manager, LEVEL, REWARD, 1, DISCOVERED);
+        }
+
+        @Override
+        public CharSequence getDescription(Resources res) {
+            if (isAchieved()) {
+                return res.getString(R.string.achievement_misc_5_achieved_descr);
+            }
+            return super.getDescription(res);
+        }
+
+        @Override
+        public void onDataEvent(AchievementDataEvent event) {
+            if (event.getChangedData() == mMiscData && event.hasChangedKey
+                    (KEY_LEFT_DONATION_SITE_STAY_TIME)) {
+                if (mMiscData.getValue(KEY_LEFT_DONATION_SITE_STAY_TIME, 0L) >=
+                        REQUIRED_TIME_ON_DONATION_SITE) {
+                    achieveAfterDependencyCheck();
+                }
+            }
+        }
+    }
+
+    private static class Achievement6 extends MiscAchievement {
+        public static final int NUMBER = 6;
+        public static final int LEVEL = 0;
+        public static final int REWARD = 50;
+        public static final boolean DISCOVERED = true;
+        public static final int ONE_TYPE_PLAYED_COUNT = 100;
+        public Achievement6(AchievementManager manager, AchievementPropertiesMapped<String>
+                miscData) {
+            super(miscData, R.string.achievement_misc_6_name, R.string.achievement_misc_6_descr,
+                    0, NUMBER, manager, LEVEL, REWARD, ONE_TYPE_PLAYED_COUNT, DISCOVERED);
+        }
+
+        @Override
+        public CharSequence getDescription(Resources res) {
+            return res.getString(mDescrResId, ONE_TYPE_PLAYED_COUNT);
+        }
+
+        @Override
+        protected void onInit() {
+            super.onInit();
+            for (PracticalRiddleType type : PracticalRiddleType.ALL_PLAYABLE_TYPES) {
+                type.getAchievementData(mManager).addListener(this);
+            }
+        }
+
+        protected void onAchieved() {
+            super.onAchieved();
+            for (PracticalRiddleType type : PracticalRiddleType.ALL_PLAYABLE_TYPES) {
+                type.getAchievementData(mManager).removeListener(this);
+            }
+        }
+
+        @Override
+        public void onDataEvent(AchievementDataEvent event) {
+            if (event.hasChangedKey(AchievementDataRiddleType.KEY_GAMES_SOLVED)) {
+                int max = 0;
+                for (PracticalRiddleType type : PracticalRiddleType.ALL_PLAYABLE_TYPES) {
+                    AchievementDataRiddleType typeData = type.getAchievementData(mManager);
+                    if (typeData != null) {
+                        max = (int) Math.max(max, typeData.getValue(AchievementDataRiddleType
+                                .KEY_GAMES_SOLVED, 0L));
+                    }
+                    if (typeData != null && typeData == event.getChangedData()
+                            && typeData.getValue
+                            (AchievementDataRiddleType.KEY_GAMES_SOLVED, 0L) >= ONE_TYPE_PLAYED_COUNT) {
+                        achieveAfterDependencyCheck();
+                    } else {
+                        achieveProgressPercent((int) ((max / (double) ONE_TYPE_PLAYED_COUNT) *
+                                100));
+                    }
+                }
+            }
+        }
+    }
+
     private static class Achievement7 extends MiscAchievement {
         public static final int NUMBER = 7;
         public static final int LEVEL = 0;
         public static final int REWARD = 50;
         public static final boolean DISCOVERED = true;
-        public static final float SPIN_ANGLE_SPEED_THRESHOLD = 5000f;
+        public static final float SPIN_ANGLE_SPEED_THRESHOLD = 6000f;
 
         public Achievement7(AchievementManager manager, AchievementPropertiesMapped<String>
                 miscData) {

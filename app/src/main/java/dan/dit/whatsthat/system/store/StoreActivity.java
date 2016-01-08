@@ -35,6 +35,7 @@ import android.view.animation.AnimationUtils;
 import android.view.animation.ScaleAnimation;
 import android.view.animation.TranslateAnimation;
 import android.widget.Button;
+import android.widget.FrameLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -70,6 +71,7 @@ public class StoreActivity extends FragmentActivity {
 
     private ViewGroup mMenuContainer;
     private List<Button> mMenuButtons;
+    private FrameLayout mCategoryTitleContainer;
 
     private void showMenu() {
         mCurrCategory = CATEGORY_MENU;
@@ -108,7 +110,8 @@ public class StoreActivity extends FragmentActivity {
         }
         if (container != null) {
             mCategoriesContainer.addView(container.getView());
-            container.refresh(this, mCategoryTitleBackButton);
+            mCategoryTitleBackButton.setText(mMenuButtons.get(mCurrCategory).getText());
+            container.refresh(this, mCategoryTitleContainer);
             mVisibleCategory = container;
         }
     }
@@ -222,6 +225,7 @@ public class StoreActivity extends FragmentActivity {
 
         setContentView(R.layout.store_activity);
         mCategoriesContainer = (ViewGroup) findViewById(R.id.category_container);
+        mCategoryTitleContainer = (FrameLayout) findViewById(R.id.category_title_container);
         mCategoryTitleBackButton = (Button) findViewById(R.id.btn_category_title_back);
         mCategoryTitleBackButton.setOnClickListener(new View.OnClickListener() {
             @Override

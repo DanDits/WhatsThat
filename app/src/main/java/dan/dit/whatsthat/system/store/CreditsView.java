@@ -21,7 +21,7 @@ import android.support.v4.app.FragmentActivity;
 import android.util.AttributeSet;
 import android.view.View;
 import android.webkit.WebView;
-import android.widget.Button;
+import android.widget.FrameLayout;
 
 import dan.dit.whatsthat.R;
 
@@ -34,8 +34,7 @@ public class CreditsView extends WebView implements StoreContainer {
         super(context, attributes);
     }
 
-    public void refresh(FragmentActivity activity, Button titleBackButton) {
-        titleBackButton.setText(R.string.store_category_credit);
+    public void refresh(FragmentActivity activity, FrameLayout titleBackContainer) {
         getSettings().setDefaultTextEncodingName("utf-8");
         loadData(getContext().getString(R.string.credits_text), "text/html; charset=utf-8", "UTF-8");
         setBackgroundColor(Color.TRANSPARENT);

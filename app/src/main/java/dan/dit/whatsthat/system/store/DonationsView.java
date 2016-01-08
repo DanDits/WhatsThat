@@ -20,12 +20,14 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.util.AttributeSet;
 import android.view.View;
-import android.widget.Button;
 import android.widget.FrameLayout;
 
 import org.sufficientlysecure.donations.DonationsFragment;
 
 import dan.dit.whatsthat.R;
+import dan.dit.whatsthat.achievement.AchievementProperties;
+import dan.dit.whatsthat.riddle.achievement.holders.MiscAchievementHolder;
+import dan.dit.whatsthat.testsubject.TestSubject;
 
 /**
  * Created by daniel on 12.06.15.
@@ -55,14 +57,15 @@ public class DonationsView extends FrameLayout implements StoreContainer {
     public static final String FRAGMENT_TAG = "donationsFragment";
 
     private DonationsFragment mFragment;
+    private long mStartedTime;
+
     public DonationsView(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
 
     @Override
-    public void refresh(FragmentActivity activity, Button titleBackButton) {
-        titleBackButton.setText(R.string.store_category_donate);
+    public void refresh(FragmentActivity activity, FrameLayout titleBackContainer) {
         if (mFragment == null) {
             mFragment = DonationsFragment.newInstance(false, true, GOOGLE_PUBKEY, GOOGLE_CATALOG,
                     getResources().getStringArray(R.array.donation_google_catalog_values), false, null, null,
@@ -73,6 +76,7 @@ public class DonationsView extends FrameLayout implements StoreContainer {
         t.commit();
         requestLayout();
         invalidate();
+        mStartedTime = System.currentTimeMillis();
     }
 
     @Override
@@ -80,6 +84,14 @@ public class DonationsView extends FrameLayout implements StoreContainer {
         FragmentTransaction t = activity.getSupportFragmentManager().beginTransaction();
         t.remove(mFragment);
         t.commit();
+        if (TestSubject.isInitialized()) {
+            AchievementProperties data = TestSubject.getInstance().getAchievementHolder().getMiscData();
+            if (data != null) {
+                data.putValue(MiscAchievementHolder.KEY_LEFT_DONATION_SITE_STAY_TIME,
+                        (System.currentTimeMillis() - mStartedTime),
+                        AchievementProperties.UPDATE_POLICY_ALWAYS);
+            }
+        }
     }
 
     @Override

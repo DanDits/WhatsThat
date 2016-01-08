@@ -110,7 +110,7 @@ public abstract class MiscAchievement extends Achievement {
         }
     }
 
-    private void onInit() {
+    protected void onInit() {
 
     }
 

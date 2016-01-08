@@ -4,14 +4,26 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
     <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/shop_filters_gone_container">
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/show_filters"
+            android:src="@drawable/no_filter"
+            android:layout_centerHorizontal="true"
+            />
+    </RelativeLayout>
+    <RelativeLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:id="@+id/shop_filters_container">
         <HorizontalScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
-            android:layout_toLeftOf="@+id/currency"
             android:id="@+id/scrollView">
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -57,18 +69,6 @@
                     android:src="@drawable/icon_dice" />
             </LinearLayout>
         </HorizontalScrollView>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentTop="true"
-            android:layout_alignBottom="@+id/scrollView"
-            android:layout_marginLeft="5dp"
-            android:id="@+id/currency"
-            android:gravity="center"
-            android:textColor="@color/black"
-            android:background="@drawable/think_currency"/>
     </RelativeLayout>
 
     <view

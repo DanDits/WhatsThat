@@ -24,7 +24,6 @@ import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.TabHost;
@@ -66,8 +65,7 @@ public class WorkshopView extends FrameLayout implements StoreContainer {
     }
 
     @Override
-    public void refresh(FragmentActivity activity, Button titleBackButton) {
-        titleBackButton.setText(R.string.store_category_workshop);
+    public void refresh(FragmentActivity activity, FrameLayout titleBackContainer) {
         if (mTabHost == null) {
             mTabHost = (TabHost) getRootView().findViewById(android.R.id.tabhost);
             initializeTabHost(activity);

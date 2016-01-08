@@ -178,9 +178,11 @@
     <string name="achievement_misc_4_descr">Complete %1$d/%2$d achievements</string>
 
     <string name="achievement_misc_5_name">So long, and thanks for all the fish</string>
-    <string name="achievement_misc_5_descr">You made someone really, really happy.</string>
+    <string name="achievement_misc_5_descr">Devotion of you and donation of your time is what
+        makes this possible!</string>
+    <string name="achievement_misc_5_achieved_descr">You made someone really, really happy.</string>
     <string name="achievement_misc_6_name">Creature of habbit</string>
-    <string name="achievement_misc_6_descr">Play any type of experiment one hundred times.</string>
+    <string name="achievement_misc_6_descr">Play any type of experiment %1$d times.</string>
     <string name="achievement_misc_7_name">Spin it</string>
     <string name="achievement_misc_7_descr">Spin it really fast!</string>
     <string name="achievement_misc_8_name">Desperate</string>

@@ -179,9 +179,11 @@
     <string name="achievement_misc_4_descr">Schließe %1$d/%2$d Erfolge ab.</string>
 
     <string name="achievement_misc_5_name">So long, and thanks for all the fish</string>
-    <string name="achievement_misc_5_descr">Du hast jemanden sehr, sehr glücklich gemacht.</string>
+    <string name="achievement_misc_5_descr">Deine Wertschätzung und deine
+        gespendete Zeit ist es, was das ganze hier möglich macht!</string>
+    <string name="achievement_misc_5_achieved_descr">Du hast jemanden sehr, sehr glücklich gemacht.</string>
     <string name="achievement_misc_6_name">Gewohnheitstier</string>
-    <string name="achievement_misc_6_descr">Löse einhundert Bilder bei einem Experimenttypen.</string>
+    <string name="achievement_misc_6_descr">Löse %1$d Bilder durch eine Experimentart.</string>
     <string name="achievement_misc_7_name">Spinner</string>
     <string name="achievement_misc_7_descr">Dreh ganz schnell durch!</string>
     <string name="achievement_misc_8_name">Verzweifelt</string>

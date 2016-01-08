@@ -25,6 +25,7 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.ViewGroup;
+import android.view.animation.AccelerateInterpolator;
 
 import com.github.johnpersano.supertoasts.SuperToast;
 import com.plattysoft.leonids.ParticleField;
@@ -39,6 +40,7 @@ import dan.dit.whatsthat.riddle.RiddleView;
 import dan.dit.whatsthat.riddle.types.PracticalRiddleType;
 import dan.dit.whatsthat.testsubject.TestSubject;
 import dan.dit.whatsthat.testsubject.TestSubjectToast;
+import dan.dit.whatsthat.util.general.MathFunction;
 
 /**
  * A riddle controller is the class between the RiddleView and the RiddleGame. If closed the controller can
@@ -207,7 +209,7 @@ public class RiddleController implements RiddleAnimationController.OnAnimationCo
      */
     void onRiddleClosed(final Context context) {
         Log.d("Riddle", "On riddle closed.");
-        if (mRiddle.isSolved()) {
+        if (mRiddle.isSolved() && (mRiddle.isRemade() || !mRiddle.isCustom())) {
             mRiddle.getType().getAchievementData(AchievementManager.getInstance()).onSolvedGame();
         }
         mRiddle.saveToDatabase(context);
@@ -288,7 +290,21 @@ public class RiddleController implements RiddleAnimationController.OnAnimationCo
         mGameThread = new GameHandlerThread();
         mGameThread.setUncaughtExceptionHandler(Thread.currentThread().getUncaughtExceptionHandler());
         mRiddleGame.onGotVisible();
+
+        //startRiddleGotVisibleAnimation(); // nice but requires extra periodic thread to be
+        // started and overall extra work for little gain
         onRiddleGotVisible();
+    }
+
+    protected void startRiddleGotVisibleAnimation() {
+        long animationTime = 450;
+        float yDelta = -100f;
+        mRiddleAnimationController.addAnimation(new RiddleCanvasAnimation.Builder()
+                .setInterpolator(new MathFunction.AnimationInterpolator(new
+                        AccelerateInterpolator(2.f)))
+                .addTranslate(0, yDelta, 0, -yDelta, animationTime)
+                .addScale(1f, 1f, 0.5f, 0.0f, animationTime)
+                .build());
     }
 
     // this is overwritten if we don't want the manager to know of this riddle
@@ -363,9 +379,15 @@ public class RiddleController implements RiddleAnimationController.OnAnimationCo
      * If there is a valid riddle and a positive periodic event period, resume (or restart) the rendering and periodic threads.
      */
     public synchronized void resumePeriodicEventIfRequired() {
-        if (mRiddleGame != null && mRiddleGame.requiresPeriodicEvent()) {
+        if (mRiddleGame != null && requiresPeriodicEvent()) {
             resumePeriodicEvent();
         }
+    }
+
+    private boolean requiresPeriodicEvent() {
+        return mRiddleGame.requiresPeriodicEvent()
+                || mRiddleView.getActiveParticleSystemsCount() > 0
+                || mRiddleAnimationController.getActiveAnimationsCount() > 0;
     }
 
     private synchronized void resumePeriodicEvent() {
@@ -466,12 +488,16 @@ public class RiddleController implements RiddleAnimationController.OnAnimationCo
     }
 
     public void onParticleSystemCountChanged() {
+        if (!riddleAvailable() || mRiddleGame.requiresPeriodicEvent()) {
+            return;
+        }
         int count = mRiddleView.getActiveParticleSystemsCount();
         handlePeriodicEventForCount(count);
     }
 
     private void handlePeriodicEventForCount(int count) {
         // ensure the following actions take place on ui thread
+        Log.d("Riddle", "Periodic event handled for count: " + count);
         if (count == 0) {
             mMainHandler.post(new Runnable() {
                 @Override

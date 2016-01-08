@@ -1,16 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
               android:orientation="vertical" android:layout_width="match_parent"
               android:layout_height="wrap_content"
-              android:id="@+id/sub_product_id"
-              android:background="@drawable/button_background">
-
-    <Switch
-        android:layout_width="wrap_content"
+              android:id="@+id/sub_product_id">
+    <!-- Not useless, see download_product-->
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/toggler"
-        android:clickable="false"
-        android:focusable="false"
-        android:showText="true"
-        android:layout_gravity="center_horizontal" />
+        android:background="@drawable/button_background"
+        tools:ignore="UselessParent">
+
+        <Switch
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/toggler"
+            android:clickable="false"
+            android:focusable="false"
+            android:showText="true"
+            android:layout_gravity="center_horizontal" />
+    </LinearLayout>
 </LinearLayout>

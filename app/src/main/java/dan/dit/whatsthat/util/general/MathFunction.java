@@ -15,6 +15,8 @@
 
 package dan.dit.whatsthat.util.general;
 
+import android.view.animation.Interpolator;
+
 /**
  * Mathematical helper class to create continuous functions that can be evaluated at every given
  * double value. The functions are immutable objects. The functions may be any kind of function, most likely
@@ -30,6 +32,18 @@ public abstract class MathFunction {
      */
     public abstract double evaluate(double at);
 
+    public static class AnimationInterpolator extends MathFunction {
+
+        private final Interpolator mInterpolator;
+
+        public AnimationInterpolator(android.view.animation.Interpolator interpolator) {
+            mInterpolator = interpolator;
+        }
+        @Override
+        public double evaluate(double at) {
+            return mInterpolator.getInterpolation((float) at);
+        }
+    }
     /**
      * A modified basic sinus function. That is f(x)= a*sin(b*x)+c. The period is 2 * PI / b.
      */

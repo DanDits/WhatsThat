@@ -9,5 +9,6 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Medium Text"
         android:id="@+id/hint_text"
-        android:gravity="center_horizontal" />
+        android:gravity="center_horizontal"
+        android:background="@drawable/say_alien"/>
 </LinearLayout>
