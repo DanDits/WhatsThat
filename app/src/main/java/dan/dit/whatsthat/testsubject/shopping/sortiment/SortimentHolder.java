@@ -45,6 +45,8 @@ public class SortimentHolder extends ShopArticleHolder {
     public static final String ARTICLE_KEY_TRIANGLE_DIVIDE_BY_MOVE_FEATURE = PracticalRiddleType.TRIANGLE_INSTANCE.getFullName() + "_divided_by_move_feature";
     public static final String ARTICLE_KEY_SNOW_FEATURE_ORIENTATION_SENSOR = PracticalRiddleType.SNOW_INSTANCE.getFullName() + "_control_by_orientation_sensor";
     public static final String ARTICLE_KEY_LAZOR_PROTECTION_AT_DIFFICULTY = PracticalRiddleType.LAZOR_INSTANCE.getFullName() + "_protection_at_difficulty";
+    public static final String ARTICLE_KEY_JUMPER_BETTERS_IDEAS = PracticalRiddleType
+            .JUMPER_INSTANCE.getFullName() + "_better_ideas";
     private Dependency mAnyDownloadProductPurchasedDependency;
     public SortimentHolder(Context applicationContext, ForeignPurse purse) {
         super(applicationContext, purse);
@@ -59,7 +61,7 @@ public class SortimentHolder extends ShopArticleHolder {
         addArticle(new ShopArticleSimple(ARTICLE_KEY_CIRCLE_DIVIDE_BY_MOVE_FEATURE, mPurse, R.string.article_circle_divide_by_move_feature_name, R.string.article_circle_divide_by_move_feature_descr, R.drawable.icon_circle, 100));
         addArticle(new ShopArticleSimple(ARTICLE_KEY_TRIANGLE_DIVIDE_BY_MOVE_FEATURE, mPurse, R.string.article_triangle_divide_by_move_feature_name, R.string.article_triangle_divide_by_move_feature_descr, R.drawable.icon_triangle, 200));
         addArticle(new ShopArticleToggleable(ARTICLE_KEY_SNOW_FEATURE_ORIENTATION_SENSOR, mPurse, R.string.article_snow_feature_orientation_sensor_name, R.string.article_snow_feature_orientation_sensor_descr, R.drawable.icon_snow,
-                R.string.article_snow_feature_orientation_sensor_on, R.string.article_snow_feature_orientation_sensor_off, 400));
+                R.string.article_snow_feature_orientation_sensor_on, R.string.article_snow_feature_orientation_sensor_off, 300));
         addHintArticles();
 
         addArticle(new ShopArticleDownload(mApplicationContext, mPurse, R.string.download_article_name, R.string.download_article_descr_technical, R.drawable.ic_download, 25,
@@ -80,9 +82,23 @@ public class SortimentHolder extends ShopArticleHolder {
         addArticle(new ShopArticleDownload(mApplicationContext, mPurse, R.string.download_article_name, R.string.download_article_descr_superlative, R.drawable.ic_download, 50,
                 "fabian", "superlative", 8, "https://www.dropbox.com/s/vx5f7lkim0jja4j/fabian_superlative.wtb?dl=1"));
 
-        addArticle(new ShopArticleSimple(ARTICLE_KEY_JUMPER_START_FURTHER_FEATURE, mPurse, R.string.article_jumper_start_further_name, R.string.article_jumper_start_further_descr, R.drawable.icon_jumprun, 700));
-        addArticle(new ShopArticleMulti(ARTICLE_KEY_LAZOR_PROTECTION_AT_DIFFICULTY, mPurse, R.string.riddle_type_lazor_article_protection_at_name, R.string.riddle_type_lazor_article_protection_at_descr, R.drawable.icon_lazor, R.array.riddle_type_lazor_article_protection_at_products,
+        addArticle(new ShopArticleSimple(ARTICLE_KEY_JUMPER_START_FURTHER_FEATURE, mPurse,
+                R.string.article_jumper_start_further_name,
+                R.string.article_jumper_start_further_descr,
+                R.drawable.icon_jumprun,
+                150));
+        addArticle(new ShopArticleMulti(ARTICLE_KEY_LAZOR_PROTECTION_AT_DIFFICULTY, mPurse,
+                R.string.riddle_type_lazor_article_protection_at_name,
+                R.string.riddle_type_lazor_article_protection_at_descr,
+                R.drawable.icon_lazor,
+                R.array.riddle_type_lazor_article_protection_at_products,
                 new int[] {25, 50, 100, 300}));
+        addArticle(new ShopArticleSimple(ARTICLE_KEY_JUMPER_BETTERS_IDEAS, mPurse,
+                R.string.article_jumper_better_ideas_name,
+                R.string.article_jumper_better_ideas_descr,
+                R.drawable.icon_jumprun,
+                200));
+
         sortArticles();
     }
 

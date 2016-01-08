@@ -38,6 +38,7 @@ public abstract class TestSubjectLevel {
     protected int mNameResId;
     protected int mIntelligenceResId;
     protected int[] mImageResId = new int[TestSubject.GENDERS_COUNT]; // indexed by gender
+    protected int[] mBaseImageResId = new int[TestSubject.GENDERS_COUNT]; // indexed by gender
     protected int mRiddleSolvedCandy;
     protected String[] mTextMain;
     protected String[] mTextNuts;
@@ -88,6 +89,23 @@ public abstract class TestSubjectLevel {
      * Invoked when the level is reached for the first time.
      */
     protected abstract void onLeveledUp();
+
+    /**
+     * Returns the basic testsubject image without fancy markers and level indicators.
+     * @return The basic testsubject image resource id, if not specified the default image
+     * resource id.
+     */
+    public int getBaseImageResourceId() {
+        int gender = TestSubject.getInstance().getGender();
+        if (gender == TestSubject.GENDER_NOT_CHOSEN) {
+            return R.drawable.kid_abduction;
+        }
+        int resId = mBaseImageResId[gender];
+        if (resId == 0) {
+            return getImageResourceId(); // default to the image resource
+        }
+        return resId;
+    }
 
     public int getImageResourceId() {
         int gender = TestSubject.getInstance().getGender();
@@ -260,6 +278,8 @@ public abstract class TestSubjectLevel {
             mImageResId[TestSubject.GENDER_MALE] = R.drawable.kid01;
             mImageResId[TestSubject.GENDER_FEMALE] = R.drawable.kid_fem01;
             mImageResId[TestSubject.GENDER_WHATEVER] = R.drawable.kid_ani01;
+            mImageResId[TestSubject.GENDER_MALE] = R.drawable.kid00;
+            mImageResId[TestSubject.GENDER_FEMALE] = R.drawable.kid_fem00;
             mTextNuts = res.getStringArray(R.array.test_subject_1_intro_nuts);
             mRiddleSolvedCandy = R.array.test_subject_1_riddle_solved_candy;
             mTestSubject.ensureSkipableGames(TestSubject.DEFAULT_SKIPABLE_GAMES + 2);
@@ -347,6 +367,8 @@ public abstract class TestSubjectLevel {
             mImageResId[TestSubject.GENDER_MALE] = R.drawable.kid03;
             mImageResId[TestSubject.GENDER_FEMALE] = R.drawable.kid_fem03;
             mImageResId[TestSubject.GENDER_WHATEVER] = R.drawable.kid_ani03;
+            mImageResId[TestSubject.GENDER_MALE] = R.drawable.kid02;
+            mImageResId[TestSubject.GENDER_FEMALE] = R.drawable.kid_fem02;
             mTextNuts = res.getStringArray(R.array.test_subject_3_intro_nuts);
             mRiddleSolvedCandy = R.array.test_subject_3_riddle_solved_candy;
             mTestSubject.ensureSkipableGames(TestSubject.DEFAULT_SKIPABLE_GAMES + 4);
@@ -380,6 +402,8 @@ public abstract class TestSubjectLevel {
             mImageResId[TestSubject.GENDER_MALE] = R.drawable.kid04;
             mImageResId[TestSubject.GENDER_FEMALE] = R.drawable.kid_fem04;
             mImageResId[TestSubject.GENDER_WHATEVER] = R.drawable.kid_ani04;
+            mImageResId[TestSubject.GENDER_MALE] = R.drawable.kid02;
+            mImageResId[TestSubject.GENDER_FEMALE] = R.drawable.kid_fem02;
             mTextNuts = res.getStringArray(R.array.test_subject_4_intro_nuts);
             mRiddleSolvedCandy = R.array.test_subject_4_riddle_solved_candy;
             mTestSubject.ensureSkipableGames(TestSubject.DEFAULT_SKIPABLE_GAMES + 5);
@@ -412,6 +436,8 @@ public abstract class TestSubjectLevel {
             mImageResId[TestSubject.GENDER_MALE] = R.drawable.kid05;
             mImageResId[TestSubject.GENDER_FEMALE] = R.drawable.kid_fem05;
             mImageResId[TestSubject.GENDER_WHATEVER] = R.drawable.kid_ani05;
+            mImageResId[TestSubject.GENDER_MALE] = R.drawable.kid02;
+            mImageResId[TestSubject.GENDER_FEMALE] = R.drawable.kid_fem02;
             mTextMain = res.getStringArray(R.array.test_subject_5_intro_main);
             mTextNuts = res.getStringArray(R.array.test_subject_5_intro_nuts);
             mRiddleSolvedCandy = R.array.test_subject_5_riddle_solved_candy;
@@ -477,6 +503,8 @@ public abstract class TestSubjectLevel {
             mImageResId[TestSubject.GENDER_MALE] = R.drawable.kid07;
             mImageResId[TestSubject.GENDER_FEMALE] = R.drawable.kid_fem07;
             mImageResId[TestSubject.GENDER_WHATEVER] = R.drawable.kid_ani07;
+            mImageResId[TestSubject.GENDER_MALE] = R.drawable.kid06;
+            mImageResId[TestSubject.GENDER_FEMALE] = R.drawable.kid_fem06;
             mTextMain = res.getStringArray(R.array.test_subject_7_intro_main);
             mTextNuts = res.getStringArray(R.array.test_subject_7_intro_nuts);
             mRiddleSolvedCandy = R.array.test_subject_7_riddle_solved_candy;
@@ -510,6 +538,8 @@ public abstract class TestSubjectLevel {
             mImageResId[TestSubject.GENDER_MALE] = R.drawable.kid08;
             mImageResId[TestSubject.GENDER_FEMALE] = R.drawable.kid_fem08;
             mImageResId[TestSubject.GENDER_WHATEVER] = R.drawable.kid_ani08;
+            mImageResId[TestSubject.GENDER_MALE] = R.drawable.kid06;
+            mImageResId[TestSubject.GENDER_FEMALE] = R.drawable.kid_fem06;
             mTextMain = res.getStringArray(R.array.test_subject_8_intro_main);
             mTextNuts = res.getStringArray(R.array.test_subject_8_intro_nuts);
             mRiddleSolvedCandy = R.array.test_subject_8_riddle_solved_candy;
@@ -543,6 +573,8 @@ public abstract class TestSubjectLevel {
             mImageResId[TestSubject.GENDER_MALE] = R.drawable.kid09;
             mImageResId[TestSubject.GENDER_FEMALE] = R.drawable.kid_fem09;
             mImageResId[TestSubject.GENDER_WHATEVER] = R.drawable.kid_ani09;
+            mImageResId[TestSubject.GENDER_MALE] = R.drawable.kid06;
+            mImageResId[TestSubject.GENDER_FEMALE] = R.drawable.kid_fem06;
             mTextMain = res.getStringArray(R.array.test_subject_9_intro_main);
             mTextNuts = res.getStringArray(R.array.test_subject_9_intro_nuts);
             mRiddleSolvedCandy = R.array.test_subject_9_riddle_solved_candy;

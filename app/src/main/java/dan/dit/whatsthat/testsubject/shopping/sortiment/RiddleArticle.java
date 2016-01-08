@@ -168,11 +168,13 @@ public class RiddleArticle extends ShopArticle {
         public void updateState() {
             if (TestSubject.getInstance().getTypesController().isTypeAvailable(mType)) {
                 mView.findViewById(R.id.riddle_confirm).setVisibility(View.GONE);
-                mView.setBackgroundColor(mView.getResources().getColor(R.color.important));
+                mView.findViewById(R.id.riddle_product)
+                        .setBackgroundColor(mView.getResources().getColor(R.color.important));
             } else {
 
                 TextView confirm = (TextView) mView.findViewById(R.id.riddle_confirm);
-                mView.setBackgroundResource(R.drawable.button_important_background);
+                mView.findViewById(R.id.riddle_product)
+                        .setBackgroundResource(R.drawable.button_important_background);
                 confirm.setVisibility(View.VISIBLE);
                 int index = getChildIndex(this);
                 int purchasable = isPurchasable(index);

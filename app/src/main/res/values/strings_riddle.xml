@@ -143,6 +143,9 @@
     <string name="riddle_jumper_old_highscore">Current record %1$dm</string>
     <string name="article_jumper_start_further_name">Triple XxX</string>
     <string name="article_jumper_start_further_descr">Start from 200m instead of walking through the easy part.</string>
+    <string name="article_jumper_better_ideas_name">Better ideas</string>
+    <string name="article_jumper_better_ideas_descr">Greatly improves the chance that ideas will
+        clear the clouded mind.</string>
 
     <!-- Memory related -->
     <string name="riddle_type_memory">Memory</string>

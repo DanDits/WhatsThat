@@ -53,33 +53,39 @@
             android:visibility="invisible"
             />
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/intro_answers_container"
             android:orientation="horizontal"
             android:layout_gravity="top|center_horizontal"
-            android:visibility="invisible">
+            android:visibility="invisible"
+            android:layout_marginRight="5dp"
+            android:layout_marginLeft="5dp">
             <Button
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:id="@+id/intro_answer1"/>
+                android:id="@+id/intro_answer1"
+                android:gravity="center"/>
             <Button
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:id="@+id/intro_answer2"/>
+                android:id="@+id/intro_answer2"
+                android:gravity="center"/>
             <Button
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:id="@+id/intro_answer3"
+                android:gravity="center"
                 />
             <Button
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:id="@+id/intro_answer4"
+                android:gravity="center"
                 />
         </LinearLayout>
         <TextView

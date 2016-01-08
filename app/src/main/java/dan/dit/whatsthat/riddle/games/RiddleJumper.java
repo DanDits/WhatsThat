@@ -115,7 +115,7 @@ public class RiddleJumper extends RiddleGame implements FlatWorldCallback {
     private static final float MAX_SOLUTION_SCALE = 0.5f;
     private static final float BUBBLE_CENTER_Y_ESTIMATE = 0.765f * 0.5f;
     private static final float DISTANCE_RUN_PENALTY_ON_SAVE_FRACTION = 0.75f; // mainly required so that it is not worth closing the riddle (or app) when you know you are going to collide
-    private static final float[] CLEAR_MIND_SIZE_FRACTION = new float[] {0.07f, 0.13f, 0.3f, 0.7f};
+    private static final float[] CLEAR_MIND_SIZE_FRACTION = new float[] {0.1f, 0.18f, 0.3f, 0.7f};
     private static final int FOGGED_MIND_COLOR = Color.DKGRAY;
     private static final int[] MIND_CLEARED_EVERY_K_OBSTACLES = new int[] {2, 3, 5, 8};
     private static final int MAX_COLLISIONS_FOR_SCORE_BONUS = 1;
@@ -175,6 +175,7 @@ public class RiddleJumper extends RiddleGame implements FlatWorldCallback {
     private Bitmap mBigBeam;
     private WorldEffectMoved mClearMindEffect;
     private BitmapLook mClearMindLook;
+    private boolean mClearMindAttemptHitBubble;
 
     public RiddleJumper(Riddle riddle, Image image, Bitmap bitmap, Resources res, RiddleConfig config, PercentProgressListener listener) {
         super(riddle, image, bitmap, res, config, listener);
@@ -236,6 +237,8 @@ public class RiddleJumper extends RiddleGame implements FlatWorldCallback {
 
     @Override
     protected void initBitmap(Resources res, PercentProgressListener listener) {
+        mClearMindAttemptHitBubble = TestSubject.isInitialized() && TestSubject.getInstance()
+                .hasFeature(SortimentHolder.ARTICLE_KEY_JUMPER_BETTERS_IDEAS);
         mDummyRect = new Rect();
         mRand = new Random();
         mBitmapScaled = BitmapUtil.attemptBitmapScaling(mBitmap, (int) (mBitmap.getWidth() * MAX_SOLUTION_SCALE), (int) (mBitmap.getHeight() * MAX_SOLUTION_SCALE), false);
@@ -584,8 +587,24 @@ public class RiddleJumper extends RiddleGame implements FlatWorldCallback {
         mCurrentObstacles.remove(obstacle); // not suspicious
         if (mObstaclesPassed % MIND_CLEARED_EVERY_K_OBSTACLES[mDifficulty] == 0) {
             int type = mDifficulty;
-            float x = mRand.nextFloat() * (mClearMindBackground.getWidth() - mClearMind[type].getWidth());
-            float y = mRand.nextFloat() * (mClearMindBackground.getHeight() * 2 * BUBBLE_CENTER_Y_ESTIMATE);
+            int tries = mClearMindAttemptHitBubble ? 10 : 1;
+            float x;
+            float y;
+            int thoughtX;
+            int thoughtY;
+            boolean validThoughtPoint;
+            do {
+                x = mRand.nextFloat() * (mClearMindBackground.getWidth() - mClearMind[type].getWidth());
+                y = mRand.nextFloat() * (mClearMindBackground.getHeight() * 2 * BUBBLE_CENTER_Y_ESTIMATE);
+                thoughtX = (int) (x);
+                thoughtY = (int) (y);
+                validThoughtPoint = thoughtX >= 0 && thoughtY >= 0
+                        && thoughtX < mThoughtbubble.getWidth() && thoughtY < mThoughtbubble
+                        .getHeight();
+                tries--;
+            } while ((validThoughtPoint && tries > 0
+                        && Color.alpha(mThoughtbubble.getPixel(thoughtX, thoughtY)) == 0)
+                    || (tries > 0 && !validThoughtPoint));
             clearMind(x, y, type);
             mClearMindEffect.setCenter(mMindRect.centerX(), mMindRect.centerY());
             mWorld.addEffect(mClearMindEffect, 1000L, 700L, 255, 0, true);

@@ -52,7 +52,7 @@ import dan.dit.whatsthat.testsubject.TestSubject;
  */
 public class StoreActivity extends FragmentActivity {
     private static final int CATEGORY_MENU = 0;
-    private static final int CATEGORY_SHOP = 1;
+    private static final int CATEGORY_SHOP = 1; // start categories' index at 1
     private static final int CATEGORY_ACHIEVEMENTS = 2;
     private static final int CATEGORY_WORKSHOP = 3;
     private static final int CATEGORY_ABOUT = 4;
@@ -110,7 +110,7 @@ public class StoreActivity extends FragmentActivity {
         }
         if (container != null) {
             mCategoriesContainer.addView(container.getView());
-            mCategoryTitleBackButton.setText(mMenuButtons.get(mCurrCategory).getText());
+            mCategoryTitleBackButton.setText(mMenuButtons.get(mCurrCategory - 1).getText());
             container.refresh(this, mCategoryTitleContainer);
             mVisibleCategory = container;
         }

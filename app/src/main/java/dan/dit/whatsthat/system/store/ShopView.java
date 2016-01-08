@@ -271,7 +271,7 @@ public class ShopView extends ExpandableListView implements  StoreContainer, Sho
                 convertView.setScaleX(0.8f);
                 convertView.setScaleY(0.7f);
             }
-            if (isExpanded) {
+            if (isExpanded && getChildrenCount(groupPosition) > 0) {
                 convertView.setBackgroundResource(R.drawable.active_shop_article_expanded);
             } else {
                 convertView.setBackgroundResource(0);

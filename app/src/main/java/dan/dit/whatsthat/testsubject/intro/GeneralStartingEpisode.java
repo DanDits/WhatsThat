@@ -51,7 +51,7 @@ public class GeneralStartingEpisode extends Episode {
         final long liftDuration = 12000;
         final long suckInDelta = -500;
         final long suckInDuration = 600;
-        mIntroKid.setImageResource(mLevel.getImageResourceId());
+        mIntroKid.setImageResource(mLevel.getBaseImageResourceId());
 
         AlphaAnimation alphaAnimation = new AlphaAnimation(0.f, 1.f);
         alphaAnimation.setInterpolator(new AccelerateInterpolator(3));

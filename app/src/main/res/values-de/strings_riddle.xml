@@ -144,6 +144,9 @@
     <string name="riddle_jumper_old_highscore">Bisheriger Rekord %1$dm</string>
     <string name="article_jumper_start_further_descr">Starte ab 200m und überspringe den leichten Teil.</string>
     <string name="article_jumper_start_further_name">Triple XxX</string>
+    <string name="article_jumper_better_ideas_name">Bessere Ideen</string>
+    <string name="article_jumper_better_ideas_descr">Erhöht spürbar die Chance, dass Ideen Licht
+        ins Dunkle bringen.</string>
 
     <!-- Memory related -->
     <string name="riddle_type_memory">Memory</string>
