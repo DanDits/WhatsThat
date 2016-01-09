@@ -193,7 +193,8 @@
 
     <!-- Lazor related -->
     <string name="riddle_type_lazor">Lazor</string>
-    <string name="riddle_type_lazor_advertising">An arcade experiment with some futuristic aspects. Defend your city against descending meteors.</string>
+    <string name="riddle_type_lazor_advertising">An arcade experiment with some futuristic
+        aspects. Defend your city against descending comets.</string>
     <string name="riddle_type_lazor_explanation">The closest charged Lazor is shot towards the chosen point and will explode there or on collision. Stop the destruction!</string>
     <string-array name="riddle_type_lazor_hints">
         <item>A simulation to test your reaction to extraterrestrial threats. Use the lazors to shoot on incoming comets which threat your city. On collision or when reaching the clicked point the lazor explodes. Along its tail the corresponding colour gets visible.</item>
@@ -202,7 +203,8 @@
         <item>White comets cover and uncover the path completely. Shoot them first by any cost!</item>
         <item>Hitting a comet later increases the revealed area and the risk to miss a comet! Later, if comets are spawning much faster, you should try to hit them as early as possible as you won\'t be able to stop them all!</item>
         <item>In some situations you won\'t be able to prevent an impact. Decide as fast as possible, which comet will strike your city and try to stop the other ones.</item>
-        <item>The green shield protects your city against any impacts. Especially the white comets negative influence is decreased.</item>
+        <item>The green shield protects your city against any impacts. Especially the white
+            comets\' negative influence is decreased.</item>
         <item>A covered eye in the achievement menu means a hidden achievement. Either you get a hint or you will find it by chance.</item>
     </string-array>
     <string name="riddle_type_lazor_article_protection_at_name">Reactor improvements</string>
@@ -211,6 +213,7 @@
         <item>Protects if reactor reached 40%.</item>
         <item>Protects if reactor reached 30%</item>
         <item>Protects if reactor reached 25%</item>
-        <item>Protects if reactor reached 20%. If the shield is active, 3% more white meteors will spawn.</item>
+        <item>Protects if reactor reached 20%. If the shield is active, 3% more white comets will
+            spawn.</item>
     </string-array>
 </resources>

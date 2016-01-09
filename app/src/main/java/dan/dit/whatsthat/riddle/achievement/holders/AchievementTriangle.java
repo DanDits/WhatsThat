@@ -16,6 +16,7 @@
 package dan.dit.whatsthat.riddle.achievement.holders;
 
 import android.content.res.Resources;
+import android.util.Log;
 
 import java.util.TreeMap;
 
@@ -24,6 +25,7 @@ import dan.dit.whatsthat.achievement.AchievementDataEvent;
 import dan.dit.whatsthat.achievement.AchievementDataTimer;
 import dan.dit.whatsthat.achievement.AchievementManager;
 import dan.dit.whatsthat.riddle.achievement.AchievementDataRiddleGame;
+import dan.dit.whatsthat.riddle.achievement.AchievementDataRiddleType;
 import dan.dit.whatsthat.riddle.achievement.GameAchievement;
 import dan.dit.whatsthat.riddle.games.RiddleTriangle;
 import dan.dit.whatsthat.riddle.types.PracticalRiddleType;
@@ -50,6 +52,7 @@ public class AchievementTriangle extends TypeAchievementHolder {
         mAchievements.put(Achievement3.NUMBER, new Achievement3(manager, mType));
         mAchievements.put(Achievement4.NUMBER, new Achievement4(manager, mType));
         mAchievements.put(Achievement5.NUMBER, new Achievement5(manager, mType));
+        mAchievements.put(Achievement6.NUMBER, new Achievement6(manager, mType));
     }
 
     private static class Achievement1 extends GameAchievement {
@@ -227,6 +230,70 @@ public class AchievementTriangle extends TypeAchievementHolder {
                     && areDependenciesFulfilled()) {
                 achieveDelta(1);
             }
+        }
+    }
+
+
+    private static class Achievement6 extends GameAchievement {
+        public static final int NUMBER = 6;
+        public static final int LEVEL = 2; //displayed as 3
+        public static final int REWARD = 333;
+        public static final boolean DISCOVERED = true;
+        private static final int ILLUMINATI = 3;
+        private static final String KEY_TIMER_SOLVED = PracticalRiddleType.DICE_INSTANCE
+                .getFullName() + NUMBER + "_solved_experiments";
+        private static final long SOLVED_MAX_TIME = 3 * 33L * 1000L; //ms
+
+        public Achievement6(AchievementManager manager, PracticalRiddleType type) {
+            super(type, R.string.achievement_triangle_6_name, R.string
+                    .achievement_triangle_6_descr, 0, NUMBER, manager, LEVEL, REWARD,
+                    1, DISCOVERED);
+        }
+
+        @Override
+        public void onInit() {
+            super.onInit();
+            mTimerData.ensureTimeKeeper(KEY_TIMER_SOLVED, ILLUMINATI);
+            mTimerData.addListener(this);
+        }
+
+        @Override
+        public int getIconResIdByState() {
+            if (isAchieved()) {
+                return R.drawable.illuminati_eye;
+            }
+            return super.getIconResIdByState();
+        }
+
+        @Override
+        protected void onAchieved() {
+            super.onAchieved();
+            mTimerData.removeTimerKeeper(KEY_TIMER_SOLVED);
+            mTimerData.removeListener(this);
+        }
+
+        @Override
+        public void onNonCustomDataEvent(AchievementDataEvent event) {
+            if (event.getChangedData() == mGameData  && event.getEventType() == AchievementDataEvent.EVENT_TYPE_DATA_CLOSE
+                    && mGameData.isSolved() && mGameData.getState() == AchievementDataRiddleGame.STATE_CLOSED
+                    && areDependenciesFulfilled()) {
+                mTimerData.onTimeKeeperUpdate(KEY_TIMER_SOLVED, mGameData.getValue(AchievementDataRiddleGame.KEY_PLAYED_TIME, 0L));
+            }
+
+            if (event.getChangedData() == mTimerData && event.getEventType() == AchievementDataEvent.EVENT_TYPE_DATA_UPDATE
+                    && event.hasChangedKey(KEY_TIMER_SOLVED)) {
+                AchievementDataTimer.TimeKeeper keeper = mTimerData.getTimeKeeper(KEY_TIMER_SOLVED);
+                if (keeper != null && keeper.getTimesCount() == ILLUMINATI) {
+                    long duration = keeper.sumDurations(); // breaks allowed
+                    if (duration > 0L && duration <= SOLVED_MAX_TIME) {
+                        confirmIlluminati();
+                    }
+                }
+            }
+        }
+
+        private void confirmIlluminati() {
+            achieve();
         }
     }
 }

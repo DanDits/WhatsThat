@@ -99,7 +99,7 @@
     <string name="panic_retry">Bild mit anderem Experiment neu versuchen</string>
     <string name="panic_share">Freunde zu diesem Experiment herausfordern</string>
     <string name="panic_complain">Per Mail über das Bild beschweren!!1</string>
-    <string name="panic_cannot_skip">Gehirn überladen … kann nicht .. weitere Experimente. merken …</string>
+    <string name="panic_cannot_skip">Zu viele ausgesetzte Experimente im Gedächtnis…</string>
     <string name="panic_retry_notification">Du erhälst dann dafür nur noch 1 Punkt und
         keine Erfolge!</string>
     <string name="panic_retry_failed_no_types">Hole dir zuerst neue Experimente im Laden!</string>
@@ -224,8 +224,8 @@
     <string name="bundle_creator_progress_error_result">Fehler (%1$d) beim Speichern</string>
     <string name="share_failed">Teilen fehlgeschlagen</string>
     <string name="article_level_up_name">Gehirnlevel Boost</string>
-    <string name="article_level_up_descr">Ermöglicht das Erfassen von weiteren Experimenten und
-        Erfolgen.</string>
+    <string name="article_level_up_descr">Schaltet neue Experimente und Erfolge im Gehirn frei
+        .</string>
     <string name="article_level_up_dep_new_riddle">Zuerst ein neues Experiment wählen!</string>
     <string name="article_choose_riddle_name">Wähle ein neues Experiment</string>
     <string name="article_choose_riddle_descr">Fordere deinen Geist mit einer neuen Aufgabe heraus!</string>

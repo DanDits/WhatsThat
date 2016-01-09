@@ -167,6 +167,9 @@
     <string name="achievement_triangle_5_name">Fortschritt ist fortschreitend </string>
     <string name="achievement_triangle_5_descr">Wie nennt man einen Politiker auf dem Mars?</string>
     <string name="achievement_triangle_5_descr_unachieved">Wie nennt man einen Politiker auf dem Mars? Noch immer einen Lügner.</string>
+    <string name="achievement_triangle_6_name">Illuminati</string>
+    <string name="achievement_triangle_6_descr">Löse 3 dreieckige Rätsel in 3 * 33 Sekunden gesamter
+        Spielzeit.</string>
 
     <!-- Misc achievements -->
     <string name="achievement_misc_1_name">Schöpfernamen</string>
