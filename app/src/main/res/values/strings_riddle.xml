@@ -128,9 +128,9 @@
         <item>You wonder who is Manomnom? A mysterious being!</item>
         <item>Manomnom is waiting for you in the last area. As my master loves him so much, you will meet him after each leaving any area.</item>
         <item>You should\'t touch Manomnom. His laser is just show. A show with great style, don\'t you think so?</item>
-        <item>You wonder why he wants to laser everything? Unfortunately he got crazy after eating antimatter.</item>
+        <item>You wonder why he wants to laser everything? Unfortunately he got crazy after eating a Magnetar.</item>
         <item>Manomnom and I, we are the sweeties of our Master!</item>
-        <item>Oh Manomno, you silly ninny, why did you eat the Antimatter… Just why?</item>
+        <item>Oh Manomno, you silly ninny, why did you eat the Magnetar… Just why?</item>
     </string-array>
 
     <string-array name="riddle_jumper_collision_break">
@@ -194,6 +194,7 @@
         <item>Hitting a comet later increases the revealed area and the risk to miss a comet! Later, if comets are spawning much faster, you should try to hit them as early as possible as you won\'t be able to stop them all!</item>
         <item>In some situations you won\'t be able to prevent an impact. Decide as fast as possible, which comet will strike your city and try to stop the other ones.</item>
         <item>The green shield protects your city against any impacts. Especially the white comets negative influence is decreased.</item>
+        <item>A covered eye in the achievement menu means a hidden achievement. Either you get a hint or you will find it by chance.</item>
     </string-array>
     <string name="riddle_type_lazor_article_protection_at_name">Reactor improvements</string>
     <string name="riddle_type_lazor_article_protection_at_descr">The protective barrier requires less energy in the future.</string>

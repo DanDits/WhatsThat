@@ -6,12 +6,12 @@
     <string name="riddle_type_circle_explanation">Berühre einen Kreis, um diesen in vier kleinere aufzuteilen. Dadurch wird die Kontur des versteckten Bildes sichtbar.</string>
     <string-array name="riddle_type_circle_hints">
         <item>Erdling, ich heiße dich zu unserem zum ersten Experiment willkommen. Um deine Zellen zu stimulieren, teile die Kreise so wie Mose das Wasser teilte. Aber nicht in zwei Hälften, sondern in vier Teile. Irgendwann sind deine Zellen hoffentlich genug stimuliert und du erkennst durch die feineren Konturen ein Bild. Falls nicht, führe ich die Versuchsreihe mit Pantoffeltierchen weiter, die diese Tests mit Bravour bestanden haben.</item>
-        <item>Na, tun dir die Finger weh? Für entspannteres experimentieren kannst du zwei Dinge tun:\n1: Geh im Menü auf \"Erfolge\" und sammle deine Belohnung ein.\n2: Kaufe im Menü \"Laden\" den intergalaktischen Kreislaser-Turbo-Schneider und lache über alle Klicker…</item>
-        <item>Demo Version beendet. Kaufe die Vollversion für 39,99€! Just kidding. Eine Schnellanleitung und andere nützliche Funktionen, wie Bilder überspringen oder teilen, findest du im \"No Panic\" Dialog oben rechts.\n\nWeitere Tipps kannst du dir nun im Laden kaufen.</item>
+        <item>Na, tun dir die Finger weh?\nFür entspannteres experimentieren tue folgende zwei Dinge:\n1: Geh im Menü auf \"Erfolge\" und sammle deine Belohnung ein.\n2: Kaufe im Menü \"Laden\" den intergalaktischen Kreislaser-Turbo-Schneider und lache über alle Klicker…</item>
+        <item>Demo Version beendet. Kaufe die Vollversion für 39,99€! Just kidding. Eine Schnellanleitung und andere nützliche Funktionen, wie Bilder überspringen oder teilen, findest du im \"No Panic\" Dialog oben rechts.\n\nWeitere Tipps kannst und solltest du dir nun im Laden kaufen.</item>
         <item>Sollte dieser Experimenttyp einigermaßen erfolgreich verlaufen, kannst du später in der Mitte zwischen verschiedenen Versuchen wählen. Oder zurückgestellte Exerimente fortführen.</item>
         <item>Einen Nachschub an Bildern kannst du dir von WiseMind per Download im Shop geben lassen!</item>
         <item>Manche menschliche Augen erkennen manche Bilder manchmal erst aus manch einer Entfernung. Manchmal hilft auch ein Screenshot.</item>
-        <item>Ist dir aufgefallen, dass manchmal Konfetti vom Himmel regnet? In diesem Fall hast du das Experiment schneller oder besser gelöst als standardmäßig erwartet.</item>
+        <item>Ist dir aufgefallen, dass teilweise Konfetti vom Himmel regnet? In diesem Fall hast du das Experiment schneller oder besser gelöst als standardmäßig erwartet.</item>
         <item>Du bekommst täglich für die ersten paar gelösten Experimente Bonus Zellen. Der Bonusfaktor nimmt langsam ab. Wie viele du bekommst, ist abhängig von der Dauer und Schwierigkeit des Experimententyps.</item>
         <item>Je mehr Ausrufezeichen, desto größer der Bonusfaktor.</item> <!--TODO: Gibt es noch Ausrufezeichen?!-->
     </string-array>
@@ -105,8 +105,8 @@
     <string name="riddle_type_dice_advertising">Ein verzwicktes und kompliziertes Experiment für die Logistiker und Geduldigen. Es müssen Würfel auf einem Gitter bewegt und kombiniert werden.</string>
     <string name="riddle_type_dice_explanation">Berühre ein leeres Feld, damit ein neuer Würfel erscheint. Bewege und kombiniere Würfel gleicher Augenzahl und Farbe, um das ausgeblasste Bild sichtbarer zu machen.</string>
     <string-array name="riddle_type_dice_hints">
-        <item>Ein komplizierter Test. Berühre leere Feld, um neue Würfel zu kreieren und Würfel gleicher Zahl und Farbe zu kombinieren. In den angezeigten Bereichen entsteht Transparenz. Es gibt drei Basiswürfel rot, gelb und grün sowie den Alien Cube. Der Alien-Cube hat auf jeden Basiswürfel unterschiedliche Effekte.</item>
-        <item>Grund für diesen komplizierten Versuch ist eine Anomalie, die wir bei euch festgestellt: Euren irdischen Würfel fehlt eine Dimension. Sie haben fälschlicherweise 6 Seiten, obwohl es 9 sind. Wir testen dein Gedächtnis daher auf Realitätsbasis hinsichtlich Kombination, Zahlen, Taktik, Logik, Farbe, Bewegung, Logistik und Schnelligkeit. Ja, ich halte es auch für einen Fehler, weil dich das ziemlich überfordert, aber Befehl ist Befehl.</item>
+        <item>Ein sehr komplizierter Test. Berühre leere Feld, um neue Würfel zu kreieren und Würfel gleicher Zahl und Farbe zu kombinieren. In den angezeigten Bereichen entsteht Transparenz. Es gibt drei Basiswürfel rot, gelb und grün sowie den Alien Cube. Der Alien-Cube hat auf jeden Basiswürfel unterschiedliche Effekte.</item>
+        <item>Grund für diesen komplizierten Versuch ist eine Anomalie, die wir bei euch festgestellt: Euren irdischen Würfel fehlt eine Dimension. Sie haben fälschlicherweise 6 Seiten, obwohl es 9 sind. Wir testen dein Gedächtnis daher auf Realitätsbasis hinsichtlich Kombination, Zahlen, Taktik, Logik, Farbe, Bewegung, Logistik und Schnelligkeit. Ja, ich denke auch, dass dich das überfordert, aber Befehl ist Befehl.</item>
         <item>Nun zum Alien-Cube. Alien-Cube auf Rot ergibt den gleichen Würfel in grün. Plus Transparenz im entsprechenden Bereich!</item>
         <item>Alien-Cube auf Gelb deckt das Feld zu 100% auf und lässt die Würfel verschwinden!</item>
         <item>Alien-Cube auf Grün ergibt lila. Das ist ein besonderer Würfel, weil die aufgedeckten Felder beweglich sind, die Transparenz aber abhängig von der Augenzahl ist!</item>
@@ -122,17 +122,17 @@
     <string name="riddle_type_jumper_explanation">Berühre das Feld, um über Hindernisse zu springen. Halte länger gedrückt, um höher zu springen.</string>
     <string-array name="riddle_type_jumper_hints">
         <item>Menschen sind ein merkwürdisches Völkchen. Ein Esel lässt sich mit einer Karotte zum Laufen animieren, aber bei einem Homo-Sapiens bedarf es einem Bündel Geld, obwohl das nicht mal essbar ist. Naja. Springe auf jeden Fall per Jump oder Double Jump über die Hindernisse.</item>
-        <item>Wie dem auch sei. Wir haben an einem Geschäftsmann einige Versuche durchgeführt und dazu die Erinnerungen blockiert. Du kannst die Blockade lösen, indem du über Hindernisse springst. Mit einem einfachen Gedanken konnten wir unseren Kaufmann zu einem Marathon mit Hindernissen motivieren: \"Am Ende des Regenbogens steht ein Topf voller Geld!\" Zu schade, dass es nachts keinen Regenbogen gibt.</item>
-        <item>Zubitat, der komische Vogel, nimmt unterschiedliche Flugrouten. Achte daher auf seine Bewegung, wie du auf ihn reagieren musst.</item>
+        <item>Zuletzt haben wir an einem Geschäftsmann einige Versuche durchgeführt und dazu die Erinnerungen blockiert. Du kannst die Blockade lösen, indem du über Hindernisse springst. Mit einem einfachen Gedanken konnten wir unseren Kaufmann zu einem Marathon mit Hindernissen motivieren: \"Am Ende des Regenbogens steht ein Topf voller Geld!\" Zu schade, dass es nachts keinen Regenbogen gibt.</item>
+        <item>Zubitat, der nervige Vogel, nimmt unterschiedliche Flugrouten. Achte daher auf seine Bewegung, wie du auf ihn reagieren musst.</item>
         <item>Es gibt vier Bereiche. Je nach Schwierigkeit wird die Erinnerung unterschiedlich groß ausfallen.</item>
         <item>Nach jeden x-überwundenen Hindernissen wird sich unser Geschäftsmann erinnern. Manchmal aber an irrelevante Dinge, der Bereich bleibt dann unverändert.</item>
         <item>Übung macht den Meister. Aber manche Menschen sind für Jump and Runs einfach nicht geschaffen.</item>
         <item>Du fragst dich wer Manomnom ist? Ein mysteriöses Wesen!</item>
         <item>Manomnom wartet im letzten Bereich auf dich. Und weil mein Meister ihn so gern hat, auch nach jeder Schwierigkeitszone.</item>
-        <item>Nur Manomnom selbst solltest du berühren. Sein Laserstrahl hingegen ist lediglich Showeinlage. Aber es hat Stil, findest du nicht auch?</item>
-        <item>Warum er alles Lasern will? Nach dem Verspeisen von Antimaterie ist er leider etwas verrückt geworden.</item>
+        <item>Nur Manomnom selbst solltest du nicht berühren. Sein Laserstrahl hingegen ist lediglich Showeinlage. Aber es hat Stil, findest du nicht auch?</item>
+        <item>Warum er alles Lasern will? Nach dem Verspeisen eines Magnetars ist er leider etwas verrückt geworden. Seitdem kann er die Strahlungsausbrüche nicht mehr kontrollieren.</item>
         <item>Manomnom und ich sind die Lieblinge meines Meisters!</item>
-        <item>Ach Manomnom, du Dummerchen. Warum konntest du Nimmersatt deine Klauen nicht einfach von der Antimaterie lassen…?</item>
+        <item>Ach Manomnom, du Dummerchen. Warum konntest du Nimmersatt den Magnetar nicht einfach in Ruhe lassen…?</item>
     </string-array>
     <string-array name="riddle_jumper_collision_break">
         <item>Das kannst du besser</item>
@@ -157,7 +157,7 @@
         <item>Deckst du ein Paar auf so bildet sich ein Pfad zwischen dem Paar, was kurzzeitig alle Karten unter dem Pfad aufdeckt.</item>
         <item>Der Pfad macht aus roten Karten wieder gelbe und aus gelben wieder grüne.</item>
         <item>Die verschiedenen Kartenfarben können als Gedächtnisstütze dienen. Und von grauen Karten kann jeweils nur eine aufgedeckt sein.</item>
-        <item>Nichts und niemand hält dich davon ab, alle Karten auf einem Zettel zu notieren oder Screenshots zu machen. Außer dein Stolz. Die Überwachungsdienste werden nämlich sehen, dass du dir nichtmal ein paar Karten merken kannst. Denn kleine Menschenkinder und sogar ein paar Tiere schaffen das auch so!</item>
+        <item>Nichts und niemand hält dich davon ab, alle Karten auf einem Zettel zu notieren oder Screenshots zu machen. Außer dein Stolz. Und die Überwachungsdienste. Sie sehen dann nämlich, dass du dir nichtmal ein paar Karten merken kannst. Kleine Menschenkinder und sogar einige Tiere schaffen das auch so!</item>
     </string-array>
 
     <!-- Developer related -->
@@ -184,13 +184,14 @@
     <string name="riddle_type_lazor_advertising">Ein arkades Experiment mit futuristischen Aspekten. Verteidige die Stadt gegen bedrohliche Kometen.</string>
     <string name="riddle_type_lazor_explanation">Der nächste aufgeladene Lazor wird an den gewählten Punkt schießen und dort -oder bei Kollision- explodieren. Stoppe die Zerstörung!</string>
     <string-array name="riddle_type_lazor_hints">
-        <item>Eine Simulation, um deine Reaktion auf außerplanetarische Bedrohungen zu messen. Schieße mit den Lazorn auf die Kometen, die deine Stadt bedrohen. Bei Kollision oder Erreichen des geklickten Punktes wird der Lazor explodieren. Entlang des Kometenschweifes wird die entsprechende Farbe aufgedeckt.</item>
-        <item>Achte einmal auf die Schussanlagen, um festzustellen, wann der nächste Lazor schussbereit ist. Übrigens feuert immer die nächst gelegene Anlage, sofern sie natürlich schießbereit ist.</item>
+        <item>Eine Simulation, um deine Reaktion auf außerplanetarische Bedrohungen zu messen. Schieße mit den Lazorn auf die Kometen, die deine Stadt bedrohen. Lazoren explodieren bei Kollision oder Erreichen des geklickten Punktes. Entlang des Kometenschweifes wird die entsprechende Farbe aufgedeckt.</item>
+        <item>Achte einmal auf die Schussanlagen, um festzustellen, wann der nächste Lazor schussbereit ist. Übrigens feuert immer die nächst gelegene Anlage, sofern sie natürlich aufgeladen ist.</item>
         <item>Abhängig von den Kosten der Tipps siehst du eventuell, wie sinnvoll oder nützlich die Tipps sind. Trotzdem kann es vorkommen, dass du manches schon weißt und deine Hirnzellen, dein Geld, umsonst ausgegeben hast.</item>
         <item>Weiße Kometen decken den Bereich vollständig auf. Aber auch wieder zu. Priorisiere sie vor allen anderen Farben!</item>
         <item>Einen Kometen später abzuschießen vergrößert den aufgedeckten Bereich, aber auch das Risiko für einen Verpasser. Spätestens wenn Kometen häufiger erscheinen, solltest du versuchen sie frühestmöglich abschießen, weil du sonst nicht alle aufhalten kannst!</item>
         <item>Du wirst in manchen Konstellationen einen Einschlag nicht verhindern können. Entscheide schnell, welchen Kometen du durchkommen lässt und versuche die anderen zu stoppen.</item>
         <item>Das grüne Schild schützt deine Stadt vor Einschlägen. Insbesondere schwächt es den negativen Einfluss der weißen Kometen.</item>
+        <item>Ein zugedecktes Auge bei den Erfolgen bedeutet ein versteckter Erfolg. Entweder du erhälst einen Tipp in den Hinweisen oder wirst einmal zufällig darüber stoßen.</item>
     </string-array>
     <string name="riddle_type_lazor_article_protection_at_name">Reaktor Verbesserung</string>
     <string name="riddle_type_lazor_article_protection_at_descr">Die schützende Barriere wird in Zukunft weniger Energie benötigen.</string>

@@ -19,6 +19,10 @@
     <string name="intro_test_answer_217341">217341</string>
     <string name="intro_test_answer_6">6</string> <!--Level 2-->
     <string name="intro_test_answer_potatosalad">Kartoffelsalat</string>
+    <string name="intro_test_answer_3">3</string> <!--Level 3-->
+    <string name="intro_test_answer_4">4</string>
+    <string name="intro_test_answer_5">5</string>
+
 
     <!-- Level 0 -->
     <string name="test_subject_0_name">Verwirrtes Etwas</string>
@@ -30,15 +34,15 @@
         <item>Erdling, ich heiße dich auf einer Reise in die Untiefen deines Geistes willkommen.</item>
     </string-array>
     <string-array name="test_subject_0_1_intro_main">
-        <item>Ich darf dir Dr. Kulg vorstellen.</item>
-        <item>Er ist verrücktgenial, also ein Wissenschaftler, und wird dir helfen.</item>
+        <item>Das ist Dr. Kulg.</item>
+        <item>Ihr würdet ihn einen verrückten genialen Wissenschaftler nennen.</item>
     </string-array>
     <string-array name="test_subject_0_2_intro_main">
         <item>Eine erste kleine Frage: Wer bist du eigentlich?</item>
         <item>Unsere hochentwickelte Kultur kennt solche Unterschiede nicht, aber euch Erdlingen ist das ja wichtig.</item>
     </string-array>
     <string-array name="test_subject_0_3_intro_main">
-        <item>Wer ich bin?</item>
+        <item>Und nun zu mir:</item>
         <item>Ich bin die Meta Schöpfung Transprima Plasmiro Blu Equaris Venalo
             der 364k.</item>
         <item>Es reicht aber, wenn du mich ganz zwanglos mit \"Erhabener\" anredest.</item>
@@ -94,6 +98,7 @@
         <item>Wunderbar</item>
         <item>Geschafft</item>
         <item>Gut gemacht</item>
+        <item>Voll gut</item>
         <item>Unerwartet gut</item>
         <item>Großartig</item>
     </string-array>
@@ -132,7 +137,7 @@
         <item>Nein, nein, leider falsch.</item>
         <item>Die korrekte Lösung lautet: 217341!</item>
         <item>Wenn du nämlich diese Erdfunktion nimmst:</item>
-        <item>(18111/2)*XYZ^4–90555*XYZ³+(633885/2)*XYZ²-452773*XYZ+217331…</item> <!--TODO ^4 ersetzen durch sub oder sowas?-->
+        <item>(18111/2)*XYZ²*XYZ²–90555*XYZ³+(633885/2)*XYZ²-452773*XYZ+217331…</item>
         <item>…dann erhältst du das entsprechende Ergebnis.</item>
         <item>Hmm, wie ich sehe … siehst du das doch nicht.</item>
         <item>Naja, dann auch egal.</item>
@@ -148,7 +153,7 @@
         <item>… … …</item>
         <item>Keine Reaktion. Dachte ichs mir doch.</item>
         <item>Nur zu deiner Information. Die Funktion lautet..</item>
-        <item>..(18111/2)*XYZ^4–90555*XYZ³+(633885/2)*XYZ²-452773*XYZ+217331…</item>
+        <item>..(18111/2)*XYZ²*XYZ²–90555*XYZ³+(633885/2)*XYZ²-452773*XYZ+217331…</item>
         <item>Aber nun weiter im Skript.</item>
     </string-array>
     <string-array name="test_subject_1_6_intro_main">
@@ -216,7 +221,7 @@
         <item>Kartoffelsalat??</item>
         <item>Ähm…</item>
         <item>…ja…</item>
-        <item>WiseMind, ich glaube unser Testsubjekt braucht einen Stromschlag.</item>
+        <item>WiseMind, ich glaube unser Testsubjekt braucht etwas Stimulation. Mit Hochspannung bitte.</item>
         <item>Ein paar Neuronen scheinen nicht richtig verschaltet zu sein.</item>
         <item>…</item>
         <item>Kaum zu glauben.</item>
@@ -247,30 +252,70 @@
         <item>Der Test ist ganz simpel.</item>
     </string-array>
     <string-array name="test_subject_3_1_intro_main">
-        <item>Was ist die 103057. Stelle von Pi?</item>
+        <item>Was ist die 84765. Stelle von Pi?</item>
+    </string-array>
+    <string-array name="test_subject_3_2a_intro_main">
         <item>Naja fast.5.</item>
     </string-array>
-    <string-array name="test_subject_3_2_intro_main">
-        <item>Und die 84765. Stelle?</item>
-        <item>Nein, auch 5.</item>
+    <string-array name="test_subject_3_2b_intro_main">
+        <item>Ein Glückstreffer!</item>
+        <item>Auch ein einfältiger Erdling findet mal die Lösung!</item>
     </string-array>
     <string-array name="test_subject_3_3_intro_main">
-        <item>Und die 7530 Stelle?</item>
-        <item>5!</item>
+        <item>Nun, was ist denn dann die 7530. Stelle von Pi?</item>
     </string-array>
-    <string-array name="test_subject_3_4_intro_main">
-        <item>Die 836 Stelle?</item>
+
+    <string-array name="test_subject_3_4a_intro_main">
+        <item>5!!!</item>
+    </string-array>
+    <string-array name="test_subject_3_4b_intro_main">
+        <item>5?! Ist dieser Erdling ein Glückswesen?</item>
+        <item>Das muss ich überprüfen.</item>
+        <item>Wenn ich aber bedenke, dass es auf uns gestoßen ist:</item>
+        <item>Definitiv!</item>
+        <item>Aber nun weiter.</item>
+    </string-array>
+    <string-array name="test_subject_3_5_intro_main">
+        <item>Was ist die 836. Stelle von Pi?</item>
+    </string-array>
+
+    <string-array name="test_subject_3_6a_intro_main">
         <item>Falsch. 6. Ich gebs auf.</item>
-    </string-array>
-    <string-array name="test_subject_3_intro_nuts">
         <item>Hmmpff…</item>
-        <item>Haben wohl einen Intelligenzallergiker aufgesammelt.</item>
-        <item>Eine kleine Anekdote meinerseits.</item>
-        <item>Als wir dich mit dem Traktorstrahl aufgesammelt haben, ist viel mit ins Raumschiff gezogen.</item>
-        <item>Also allerlei Zeugs wurde mit aufgesammelt.</item>
+        <item>Haben wohl einen Intelligenzallergiker aufgesammelt</item>
+        <item>Nunja. Hätte mich auch schwer gewundert, wenn du alle Fragen mit Bravor beantwortet hättest.</item>
+        <item>Womöglich wäre ich auf den Verdacht von Betrug gekommen.</item>
+        <item>Aber…</item>
+        <item>Wäre der Erdling dafür überhaupt schlau genug mich auszutricksen?</item>
+        <item>Haha. Wers glaubt.</item>
+    </string-array>
+    <string-array name="test_subject_3_6b_intro_main">
+        <item>6. Wow.</item>
+        <item>Erstaunlich.</item>
+        <item>Das ist ja kaum zu glauben.</item>
+        <item>Zuerst hattest du meine Neugier. Jetzt hast du aber meine volle Aufmerksamkeit.</item>
+        <item>.. wie bitte WiseMind?</item>
+        <item>Du hast dem Erdling die Antworten verraten?!</item>
+        <item>Hast du mir einen Schrecken eingejagt! Ich dachte schon ich hätte die Intelligenz des Erdlings unterschätzt!</item>
+        <item>Na der Streich zu meinem transzendal Jahrhundert ist dir gelungen…</item>
+        <item>Das ist im übrigen nur das Jahrhundert, indem wir unsere vollständigen geistigen und metaspirituellen Fähigkeiten erreichen.</item>
+        <item>Unsere Kreise pflegen deshalb den entsprechenden Hochwesen jeweils einen Streich zu spielen.</item>
+    </string-array>
+    <string-array name="test_subject_3_6c_intro_main">
+        <item>Korrekt.</item>
+        <item>Zwar waren nicht alle Antworten richtig aber immerhin.</item>
+        <item>Für einen Erdling war das doch in Ordnung.</item>
+    </string-array>
+
+    <string-array name="test_subject_3_7_intro_main">
+        <item>Genug erzählt.</item>
+        <item>Obwohl.. wenn ich schon dabei bin, kann ich dir auch eine kleine Anekdote meinerseits berichten.</item>
+        <item>Als wir dich mit dem Traktorstrahl aufgesammelt haben, ist viel Müll mit ins Raumschiff gezogen.</item>
+        <item>Nein, nicht nur du wurdest aufgesammelt. Auch anderes Zeugs kam mit.</item>
         <item>Versehentlich natürlich!</item>
         <item>Ich musste erstmal sauber machen.</item>
-        <item>Sonst hätte ich die aufgesammelten Lebewesen gar nicht sehen und studieren können.</item>
+        <item>Ohne Ordnung kann nicht anständig studiert werden!</item>
+        <item>..zumindest in unseren Kreisen.. </item>
         <item>Jedenfalls blickte ich beim Aufräumen in das Gesicht vor mir.</item>
         <item>Darin sah ich Überraschung, Verachtung und Hoffnung auf noch mehr grashaltiges Futter.</item>
         <item>Das Gesicht gehörte einer Kuh.</item>
@@ -278,11 +323,14 @@
         <item>Insbesondere die Menschen.</item>
         <item>Manche haben ein Kinn, andere zwei.</item>
         <item>Ansonsten sehen alle gleich aus.</item>
-        <item>Was mir aufgefallen ist, Erdlinge führen Versuche an niederen Lebewesen durch.</item>
-        <item>Ich glaube hauptsächlich an Ratten und Affen.</item>
+    </string-array>
+
+    <string-array name="test_subject_3_intro_nuts">
+        <item>…</item>
+        <item>Achso, was mir auch noch aufgefallen ist.. </item>
+        <item>.. ihr Erdlinge führt Versuche an niederen Lebewesen durch …</item>
         <item>Das tun wir auch!</item>
         <item>Mit euch zum Beispiel.</item>
-        <item>Was gugst du mich so an?</item>
         <item>Unsere Versuche dienen immer nur zur Messung der Intelligenz anderer Lebewesen!</item>
         <item>Naja meistens zumindest. Sofern vorhanden.</item>
         <item>Und wenn sie sich nicht so anstellen.</item>

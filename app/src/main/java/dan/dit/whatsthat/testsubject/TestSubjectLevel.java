@@ -351,13 +351,73 @@ public abstract class TestSubjectLevel {
             super(testSubject);
         }
 
+        private int mCorrectQuestionAnsweredCount;
         @Override
         public void makeMainIntroEpisodes(EpisodeBuilder builder) {
             builder.nextEpisodes("M0", R.array.test_subject_3_0_intro_main);
-            builder.nextEpisodes("M1", R.array.test_subject_3_1_intro_main);
-            builder.nextEpisodes("M2", R.array.test_subject_3_2_intro_main);
-            builder.nextEpisodes("M3", R.array.test_subject_3_3_intro_main);
-            builder.nextEpisodes("M4", R.array.test_subject_3_4_intro_main);
+
+            builder.nextEpisode(new QuestionEpisode("MQ1", builder.getIntro(), false, R.array
+                    .test_subject_3_1_intro_main,
+                    new int[]{R.string.intro_test_answer_3, R.string.intro_test_answer_4,
+                            R.string.intro_test_answer_5, R.string.intro_test_answer_6},
+                    new QuestionEpisode.OnQuestionAnsweredCallback() {
+                        @Override
+                        public int onQuestionAnswered(QuestionEpisode episode, int answerIndex) {
+                            if (answerIndex == 2) {
+                                mCorrectQuestionAnsweredCount++;
+                            }
+                            return answerIndex;
+                        }
+                    })
+                    .addAnswer(R.array.test_subject_3_2a_intro_main)
+                    .addAnswer(R.array.test_subject_3_2a_intro_main)
+                    .addAnswer(R.array.test_subject_3_2b_intro_main)
+                    .addAnswer(R.array.test_subject_3_2a_intro_main));
+            builder.joinCurrentChildrenToNext();
+
+            builder.nextEpisode(new QuestionEpisode("MQ3", builder.getIntro(), false, R.array
+                    .test_subject_3_3_intro_main,
+                    new int[]{R.string.intro_test_answer_3, R.string.intro_test_answer_4,
+                            R.string.intro_test_answer_5, R.string.intro_test_answer_6},
+                    new QuestionEpisode.OnQuestionAnsweredCallback() {
+                        @Override
+                        public int onQuestionAnswered(QuestionEpisode episode, int answerIndex) {
+                            if (answerIndex == 2) {
+                                mCorrectQuestionAnsweredCount++;
+                            }
+                            return answerIndex;
+                        }
+                    })
+                    .addAnswer(R.array.test_subject_3_4a_intro_main)
+                    .addAnswer(R.array.test_subject_3_4a_intro_main)
+                    .addAnswer(R.array.test_subject_3_4b_intro_main)
+                    .addAnswer(R.array.test_subject_3_4a_intro_main));
+            builder.joinCurrentChildrenToNext();
+
+            builder.nextEpisode(new QuestionEpisode("MQ5", builder.getIntro(), false, R.array
+                    .test_subject_3_5_intro_main,
+                    new int[]{R.string.intro_test_answer_3, R.string.intro_test_answer_4,
+                            R.string.intro_test_answer_5, R.string.intro_test_answer_6},
+                    new QuestionEpisode.OnQuestionAnsweredCallback() {
+                        @Override
+                        public int onQuestionAnswered(QuestionEpisode episode, int answerIndex) {
+                            if (answerIndex == 3) {
+                                mCorrectQuestionAnsweredCount++;
+                                if (mCorrectQuestionAnsweredCount ==3 ){
+                                    return 4;
+                                }
+                            }
+                            return answerIndex;
+                        }
+                    })
+                    .addAnswer(R.array.test_subject_3_6a_intro_main)
+                    .addAnswer(R.array.test_subject_3_6a_intro_main)
+                    .addAnswer(R.array.test_subject_3_6a_intro_main)
+                    .addAnswer(R.array.test_subject_3_6c_intro_main)
+                    .addAnswer(R.array.test_subject_3_6b_intro_main));
+            builder.joinCurrentChildrenToNext();
+
+            builder.nextEpisodes("M7", R.array.test_subject_3_7_intro_main);
         }
 
         @Override

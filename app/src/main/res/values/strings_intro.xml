@@ -5,7 +5,7 @@
 
     <string name="intro_test_subject_gender_answer_male">XY: Yann</string>
     <string name="intro_test_subject_gender_answer_female">XX: Xenia</string>
-    <string name="intro_test_subject_gender_answer_whatever">E.T.: Quapsel</string>
+    <string name="intro_test_subject_gender_answer_whatever">E.T.: Tentacool</string>
 
     <string name="intro_test_answer_bullshit">\?!?!</string>
     <string name="intro_test_answer_no">No</string>
@@ -30,12 +30,6 @@
         <item>It seems like the neurons are responding to my lovely voice.</item>
         <item>I take that as a yes.</item>
         <item>Earthling, I would like to welcome you to a journey into the abyss of your mind.</item>
-        <item>Let me introduce myself:</item>
-        <item>I am the Meta creation Transprima Plasmiro Blu Equaris Venalo the 364k.</item>
-        <item>It is perfectly fine if you call me \"Sublimer\". </item>
-        <item>Of course you can use other titles to honour me.</item>
-        <item>For instance \"Your Highness\" or \"Oh prime example of a flawless creature of all galaxies\" are decent, too.</item>
-        <item>I\"m sorry. I tend to digress very fast.</item>
     </string-array>
     <string-array name="test_subject_0_1_intro_main">
         <item>This is Dr. Drams.</item>
@@ -46,10 +40,16 @@
         <item>Our highly developed culture doesn\"t know such differences, but we know it is important to you.</item>
     </string-array>
     <string-array name="test_subject_0_3_intro_main">
+        <item>And now, let me introduce my humble self:</item>
+        <item>I am the Meta creation Transprima Plasmiro Blu Equaris Venalo the 364k.</item>
+        <item>It is perfectly fine if you call me \"Sublimer\". </item>
+        <item>Of course you can use other titles to honour me.</item>
+        <item>For instance \"Your Highness\" or \"Oh prime example of a flawless creature of all galaxies\" are decent, too.</item>
+        <item>I\"m sorry. I tend to digress very fast.</item>
         <item>Back to the topic. My creators and I or to keep it short: We…</item>
         <item>… we want to explore earth and get a better understanding of life and its creatures on it.</item>
         <item>Our choice generator has chosen you as the chosen one.</item>
-        <item>You are our test object.</item>
+        <item>You are our testsubject.</item>
         <item>That\"s why we had to pick you up with the tractor beam.</item>
         <item>We will watch your brain activities and collect all data in the background.</item>
         <item>All progress and regress will be saved!</item>
@@ -88,7 +88,7 @@
         <item>Aha.. Affinity to Colorimetry anomaly</item>
         <item>WiseMind, prepare test series 272 for determination and measurement of earthling’s intelligence.</item>
         <item>…</item>
-        <item>Earthling, as all following experiments of test series 272 it\"s all about seeing the right picture</item>
+        <item>Earthling, as all following experiments of test series 272 it\"s all about seeing the right picture.</item>
         <item>If you are stuck or need some help, please \"Don\'t panic\".</item>
         <item>WiseMind will give some customized help, if our infinite intellect is exceeding yours.</item>
         <item>Or better: All earthling\"s intellect.</item>
@@ -96,12 +96,12 @@
         <item>And of course: Good luck!</item>
     </string-array>
     <string-array name="test_subject_0_riddle_solved_candy">
-        <item>Accomplished!</item>
-        <item>Wonderful!</item>
-        <item>Super!</item>
+        <item>Accomplished</item>
+        <item>Wonderful</item>
+        <item>Super</item>
         <item>Really good</item>
-        <item>Unexpected!</item>
-        <item>Great!</item>
+        <item>Unexpected</item>
+        <item>Great</item>
     </string-array>
 
     <!-- Level 1 -->
@@ -126,8 +126,8 @@
     </string-array>
     <string-array name="test_subject_1_3_intro_main">
         <item>At least your reaction time improved.</item>
-        <item>At least a little kind of progress.</item>
-        <item>Another try: How about a sequence of numbers?</item>
+        <item>Better than nothing. At least a little kind of progress.</item>
+        <item>Let\'s have another try this time with a sequence of numbers.</item>
         <item>What\'s the correct sequel for the numbers:</item>
     </string-array>
     <string-array name="test_subject_1_4_intro_main">
@@ -137,7 +137,7 @@
         <item>No, no, no. I\'m afraid that\'s wrong.</item>#
         <item>The correct solution is 217341.</item>
         <item>If you take the earth function:</item>
-        <item>(18111/2)*XYZ^4–90555*XYZ³+(633885/2)*XYZ²-452773*XYZ+217331…</item>
+        <item>(18111/2)*XYZ²*XYZ²–90555*XYZ³+(633885/2)*XYZ²-452773*XYZ+217331…</item>
         <item>…then you get the previous mentioned solution.</item>
         <item>Hmm, I see … you don\'t get it.</item>
         <item>Nevermind.</item>
@@ -145,16 +145,16 @@
     </string-array>
     <string-array name="test_subject_1_5b_intro_main">
         <item>This..this is correct…</item>
-        <item>Did you know that or did you guess?</item>
-        <item>I guess the later.</item>
+        <item>Did you know the answer or did you have guess?</item>
+        <item>I believe the second one.</item>
         <item>Can you name the corresponding earth function?</item>
         <item>…</item>
         <item>… …</item>
         <item>… … …</item>
-        <item>No reaction. I thought so.</item>
+        <item>No reaction. As expected.</item>
         <item>Just for your information. The function is..</item>
-        <item>..(18111/2)*XYZ^4–90555*XYZ³+(633885/2)*XYZ²-452773*XYZ+217331…</item>
-        <item>So, let\'s continue with the record. </item>
+        <item>..(18111/2)*XYZ²*XYZ²–90555*XYZ³+(633885/2)*XYZ²-452773*XYZ+217331…</item>
+        <item>Nevertheless, let\'s continue with the record. </item>
     </string-array>
     <string-array name="test_subject_1_6_intro_main">
         <item>If I try loading the protocol right here, we get … Ouch.</item>
@@ -175,12 +175,12 @@
         <item>Oh you\'re still listening.. I\'m just kidding.</item>
     </string-array>
     <string-array name="test_subject_1_riddle_solved_candy">
-        <item>Applause!</item>
-        <item>Wow!</item>
-        <item>Well done!</item>
-        <item>Very good!</item>
-        <item>Good job!</item>
-        <item>Nice going!</item>
+        <item>Applause</item>
+        <item>Wow</item>
+        <item>Well done</item>
+        <item>Very good</item>
+        <item>Good job</item>
+        <item>Nice going</item>
     </string-array>
 
     <!-- Level 2 -->
@@ -204,6 +204,7 @@
         <item>Test: What\'s the solution to the P versus NP problem?</item>
     </string-array>
     <string-array name="test_subject_2_2_intro_main">
+        <item>…</item>
         <item>Sorry? Millennium problem?</item>
         <item>After that long time and you still did not find a solution?</item>
         <item>Hmmm.. well, then we take a simple test.</item>
@@ -212,20 +213,20 @@
         <item>What\'s the molecular weight of antimatter?</item>
     </string-array>
     <string-array name="test_subject_2_4a_intro_main">
-        <item>6? Well, almost correct!</item>
+        <item>6? Well … almost correct!</item>
         <item>Sigh… the universe alone knows what do with this creature.</item>
     </string-array>
     <string-array name="test_subject_2_4b_intro_main">
         <item>Potato salad??</item>
-        <item>Well…</item>
+        <item>Ugh…</item>
         <item>…ok…</item>
-        <item>WiseMind, I think our testsubject needs some stimulation. With high voltage.</item>
+        <item>WiseMind, I think our testsubject needs some stimulation. With high voltage please.</item>
         <item>Some neutrons seem to be gone wild.</item>
         <item>…</item>
         <item>I can\'t believe it.</item>
     </string-array>
     <string-array name="test_subject_2_5_intro_main">
-        <item>When the soup of wisdom was spread, you probably joined with a fork.</item>
+        <item>Looks like when the soup of wisdom was spread, you joined with a fork.</item>
     </string-array>
     <string-array name="test_subject_2_intro_nuts">
         <item>By the way, boisterous comments and insults from my part are just a friendly attempt to communicate like earth creatures.</item>
@@ -233,62 +234,115 @@
         <item>But let\'s continue with the protocol now.</item>
     </string-array>
     <string-array name="test_subject_2_riddle_solved_candy">
-        <item>Remarkable!</item>
-        <item>Great job!</item>
-        <item>Good on you!</item>
-        <item>Impressive!</item>
-        <item>Dead right!</item>
-        <item>Nice shot!</item>
+        <item>Remarkable</item>
+        <item>Great job</item>
+        <item>Good on you</item>
+        <item>Impressive</item>
+        <item>Dead right</item>
+        <item>Nice shot</item>
     </string-array>
 
     <!-- Level 3 -->
-    <string name="test_subject_3_name">Trottel</string>
-    <string name="test_subject_3_int">Utopisch debil</string>
+    <string name="test_subject_3_name">Pipsqueak</string>
+    <string name="test_subject_3_int">Overrated</string>
     <string-array name="test_subject_3_0_intro_main">
-        <item>Diesmal wenden wir uns einem meiner Lieblingsthemen zu:</item>
+        <item>This time, we gonna spend some time with my favorite subject:</item>
         <item>Pi.</item>
-        <item>Der Test ist ganz simpel.</item>
+        <item>The test is pretty simple, even for you.</item>
     </string-array>
     <string-array name="test_subject_3_1_intro_main">
-        <item>Was ist die 103057. Stelle von Pi?</item>
-        <item>Naja fast.5.</item>
+        <item>What\s the 84765th digit of Pi?</item>
     </string-array>
-    <string-array name="test_subject_3_2_intro_main">
-        <item>Und die 84765. Stelle?</item>
-        <item>Nein, auch 5.</item>
+    <string-array name="test_subject_3_2a_intro_main">
+        <item>Close one.5.</item>
+    </string-array>
+    <string-array name="test_subject_3_2b_intro_main">
+        <item>A lucky strike!</item>
+        <item>Even a simple-minded earthling can find the correct solution!</item>
     </string-array>
     <string-array name="test_subject_3_3_intro_main">
-        <item>Und die 7530 Stelle?</item>
-        <item>5!</item>
+        <item>Well, what\s the 7530th digit of Pi?</item>
     </string-array>
-    <string-array name="test_subject_3_4_intro_main">
-        <item>Die 836 Stelle?</item>
-        <item>Falsch. 6. Ich gebs auf.</item>
+
+    <string-array name="test_subject_3_4a_intro_main">
+        <item>5!!!</item>
     </string-array>
+    <string-array name="test_subject_3_4b_intro_main">
+        <item>5?! Is this earthling a creature of luck?</item>
+        <item>I have to check this.</item>
+        <item>But.. considering it met us:</item>
+        <item>Definitely!</item>
+        <item>But let\'s go on.</item>
+    </string-array>
+    <string-array name="test_subject_3_5_intro_main">
+        <item>What\s the 836th digit of Pi?</item>
+    </string-array>
+
+    <string-array name="test_subject_3_6a_intro_main">
+        <item>Wrong. 6. Enough for today. I give up.</item>
+        <item>Hmmpff…</item>
+        <item>We picked up an intelligence allergy sufferer, didn\'t we?</item>
+        <item>Well, to be honest, having a quote of 100% right answers would be impossible for your species.</item>
+        <item>Maybe I would have come to the suspicion of fraud.</item>
+        <item>But…</item>
+        <item>Getting fooled by the earthling? Me? Would it be smart enough to fool ME?</item>
+        <item>Haha. A likely story!</item>
+    </string-array>
+    <string-array name="test_subject_3_6b_intro_main">
+        <item>6. Wow.</item>
+        <item>Amazing.</item>
+        <item>Unbelievable!</item>
+        <item>First, you had my curiosity. Now you have my attention.</item>
+        <item>.. sorry WiseMind?</item>
+        <item>You told the earthling all the answers?!</item>
+        <item>Good job, you really scared me for a short moment. I really thought I underestimated the earthling\'s intellect!</item>
+        <item>Very well. Well played. I have to admit, the prank for my transcendental century succeeded…</item>
+        <item>By the way, it\'s the century we achieve our full intellectual and meta-spiritual abilities…</item>
+        <item>And for exactly that reason our concentric spheres usually play a trick on all Sublime-beings.</item>
+    </string-array>
+    <string-array name="test_subject_3_6c_intro_main">
+        <item>Correct.</item>
+        <item>You didn\'t answer all questions the right way.</item>
+        <item>But after all and especially for an earthling, it\'s a first step!</item>
+    </string-array>
+
+    <string-array name="test_subject_3_7_intro_main">
+        <item>Enough stories for today.</item>
+        <item>But.. considering.. having some smalltalk, I can tell you a curious story that happened to me.</item>
+        <item>When using the tractor beam we picked up a lot of stuff. You and some things too.</item>
+        <item>Exactly, you and other garbage was abducted.</item>
+        <item>By mistake of course!</item>
+        <item>I had to clear this mess in the first step.</item>
+        <item>Our boss always told us: \"No studies in chaos!\"</item>
+        <item>..at least it\'s common to do this among us.. </item>
+        <item>Nevertheless, when looking up during my cleanup efforts I was suddenly looking in a face in front of me.</item>
+        <item>It was showing surprise, disgust and hope for some tasty hay.</item>
+        <item>It was the face of a cow.</item>
+        <item>It\'s very difficult to distinguish you mortal creatures from each other.</item>
+        <item>Especially human beings.</item>
+        <item>Some humans have one chin, others two.</item>
+        <item>Otherwise, you all look the same.</item>
+    </string-array>
+
     <string-array name="test_subject_3_intro_nuts">
-        <item>Eines steht fest.</item>
-        <item>Ihr müsst euch vor anderen Lebewesen nicht fürchten.</item>
-        <item>Ein geistiger Pygmäe besitzt in einem FInger mehr Intelligenz, als ihr in eurem gesamten Körper.</item>
-        <item>Solltet ihr eines Tages wieder einmal Besuch von einer anderen Hochkultur bekommen:</item>
-        <item>ihr habt nichts zu befürchten.</item>
-        <item>Vermutlich kehren sie mit blankem Entsetzen im Gesicht um.</item>
-        <item>Oder sie genießen das Kino, wenn ihr euch gegenseitig bekämpft.</item>
-        <item>Wir sind eine der wenigen Ausnahmen:</item>
-        <item>Wir studieren euch vorher!</item>
-        <item>Ihr führt Versuche, ich meine Ratten und Affen gesehen zu haben, an niederen Lebewesen durch.</item>
-        <item>Das tun wir auch!</item>
-        <item>Mit euch zum Beispiel.</item>
-        <item>Was gugst du mich so an?</item>
-        <item>Unsere Versuche dienen immer nur zur Messung der Intelligenz anderer Lebewesen!</item>
-        <item>Naja meistens zumindest. Sofern vorhanden.</item>
-        <item>Und wenn sie sich nicht so anstellen.</item>
-        <item>Ich gebe mir ja Mühe den Motivationsfaktor wieder anzukurbeln.</item>
-        <item>Hier ist das aber schwieriger als angenommen.</item>
+        <item>…</item>
+        <item>Oh, one more thing I have to tell you… </item>
+        <item>..you and your fellow earthling creatures run different tests with inferior living beings…</item>
+        <item>That\'s what we do, too!</item>
+        <item>For instance with you.</item>
+        <item>However our experiments always try to determine the living beings\'s intellect!</item>
+        <item>Well, in the majority of cases. If existing.</item>
+        <item>And if not struggling like this..</item>
+        <item>I really try my best to increase my motivation.</item>
+        <item>Here, it is a true challenge.</item>
     </string-array>
     <string-array name="test_subject_3_riddle_solved_candy">
-        <item>Beifall gibt\'s später…</item>
-        <item>Bemühte sich stets…</item>
-        <item>Bin fast sprachlos.</item>
+        <item>Great work</item>
+        <item>Beautiful</item>
+        <item>A sensation</item>
+        <item>Excellent</item>
+        <item>Incredible</item>
+        <item>Proud of you</item>
     </string-array>
 
     <!-- Level 4 -->
