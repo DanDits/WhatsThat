@@ -95,7 +95,10 @@ public class RiddleMemory extends RiddleGame {
     @Override
     protected @NonNull RiddleScore calculateGainedScore() {
         int blackFields = mConfig.mAchievementGameData != null ? mConfig.mAchievementGameData.getValue(AchievementMemory.KEY_GAME_STATE_BLACK_COUNT, 0L).intValue() : 0;
-        int bonus = (blackFields <= MAX_BLACK_FIELDS_FOR_SCORE_BONUS ? Types.SCORE_SIMPLE : 0);
+        int bonus = (blackFields <= MAX_BLACK_FIELDS_FOR_SCORE_BONUS ? Types.SCORE_MEDIUM : 0);
+        int redFields = mConfig.mAchievementGameData != null ? mConfig.mAchievementGameData
+                .getValue(AchievementMemory.KEY_GAME_STATE_RED_COUNT, 0L).intValue() : 0;
+        bonus += redFields <= 0 ? Types.SCORE_MEDIUM : 0;
         return super.calculateGainedScore().addBonus(bonus);
     }
 

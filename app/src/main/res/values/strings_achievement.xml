@@ -33,7 +33,8 @@
     <string name="achievement_circle_11_name">It\'s over 9000</string>
     <string name="achievement_circle_11_descr">Divide %2$d circles. Don\'t look at me like this. The prof is a math guy. He knows what he\'s doing …%3$d is inadequate. %4$d is of course absurd. You got %1$d.</string>
     <string name="achievement_circle_12_name">Big brother is watching you</string>
-    <string name="achievement_circle_12_descr">Wait some time till Big Brother took a look onto your non existing soul and then strike him a couple of times!</string>
+    <string name="achievement_circle_12_descr">Even if you think he isn\'t watching, he is!
+            If you notice him, strike him back!</string>
     <string name="achievement_circle_13_name">Getting rich</string>
     <string name="achievement_circle_13_descr">You have the choice: Get rich now -or- get a better best time than %1$d seconds and get even more…</string>
     <string name="achievement_circle_13_descr_perfect">Wow, I didn\'t believe %1$d seconds were even possible! That\'s it, I am done.</string>
@@ -187,6 +188,13 @@
     <string name="achievement_misc_7_descr">Spin it really fast!</string>
     <string name="achievement_misc_8_name">Desperate</string>
     <string name="achievement_misc_8_descr">Even two experiments can\'t unveil the image.</string>
+    <string name="achievement_misc_9_name">Party animal</string>
+    <string name="achievement_misc_9_descr">Make a bonus in %1$d different experiment types
+        .</string>
+    <string name="achievement_misc_10_name">Only found in panic</string>
+    <string name="achievement_misc_10_descr">You found a cookie, did you mail me to find
+        it?</string>
+
 
 
 

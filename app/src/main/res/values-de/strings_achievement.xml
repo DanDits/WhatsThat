@@ -187,8 +187,13 @@
     <string name="achievement_misc_7_name">Spinner</string>
     <string name="achievement_misc_7_descr">Dreh ganz schnell durch!</string>
     <string name="achievement_misc_8_name">Verzweifelt</string>
-    <string name="achievement_misc_8_descr">Auch zwei Experimente können das Bild nicht entschleiern
-        .</string>
+    <string name="achievement_misc_8_descr">Auch zwei Experimente können das Bild nicht entschleiern.</string>
+    <string name="achievement_misc_9_name">Partylöwe</string>
+    <string name="achievement_misc_9_descr">Bekomme in %1$d verschiedenen Experimentarten
+        einen Bonus.</string>
+    <string name="achievement_misc_10_name">Nur in Panik auffindbar</string>
+    <string name="achievement_misc_10_descr">Du hast einen Keks gefunden, hast du mir
+        dafür geschrieben?</string>
 
     <!-- Memory achievements -->
     <string name="achievement_memory_1_name">Kurzzeitgedächtnis</string>

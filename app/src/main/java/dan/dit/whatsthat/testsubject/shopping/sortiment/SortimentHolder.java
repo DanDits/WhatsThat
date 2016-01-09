@@ -22,6 +22,7 @@ import java.util.ArrayList;
 
 import dan.dit.whatsthat.R;
 import dan.dit.whatsthat.riddle.achievement.holders.AchievementCircle;
+import dan.dit.whatsthat.riddle.achievement.holders.AchievementDice;
 import dan.dit.whatsthat.riddle.achievement.holders.AchievementJumper;
 import dan.dit.whatsthat.riddle.achievement.holders.AchievementLazor;
 import dan.dit.whatsthat.riddle.types.PracticalRiddleType;
@@ -47,6 +48,9 @@ public class SortimentHolder extends ShopArticleHolder {
     public static final String ARTICLE_KEY_LAZOR_PROTECTION_AT_DIFFICULTY = PracticalRiddleType.LAZOR_INSTANCE.getFullName() + "_protection_at_difficulty";
     public static final String ARTICLE_KEY_JUMPER_BETTERS_IDEAS = PracticalRiddleType
             .JUMPER_INSTANCE.getFullName() + "_better_ideas";
+    public static final String ARTICLE_KEY_DICE_IMPROVED_START = PracticalRiddleType.DICE_INSTANCE
+            .getFullName() + "_improved_start";
+
     private Dependency mAnyDownloadProductPurchasedDependency;
     public SortimentHolder(Context applicationContext, ForeignPurse purse) {
         super(applicationContext, purse);
@@ -98,6 +102,13 @@ public class SortimentHolder extends ShopArticleHolder {
                 R.string.article_jumper_better_ideas_descr,
                 R.drawable.icon_jumprun,
                 200));
+
+        addArticle(new ShopArticleMulti(ARTICLE_KEY_DICE_IMPROVED_START, mPurse,
+                R.string.article_dice_improved_start_name,
+                R.string.article_dice_improved_start_descr,
+                R.drawable.icon_dice,
+                R.array.riddle_type_dice_article_improved_start_products,
+                new int[] {50, 150, 250}));
 
         sortArticles();
     }
@@ -176,6 +187,13 @@ public class SortimentHolder extends ShopArticleHolder {
                 .addDependency(TestSubject.getInstance().getRiddleTypeDependency(PracticalRiddleType.LAZOR_INSTANCE), ShopArticle.GENERAL_PRODUCT_INDEX)
                 .addDependency(TestSubject.getInstance().makeAchievementDependency(PracticalRiddleType.LAZOR_INSTANCE, AchievementLazor.Achievement2.NUMBER), 0) // City protector
                 .addDependency(TestSubject.getInstance().makeAchievementDependency(PracticalRiddleType.LAZOR_INSTANCE, AchievementLazor.Achievement7.NUMBER), 1); // Shield protection
+        getArticle(ARTICLE_KEY_DICE_IMPROVED_START)
+                .addDependency(TestSubject.getInstance().getRiddleTypeDependency
+                        (PracticalRiddleType.DICE_INSTANCE), ShopArticle.GENERAL_PRODUCT_INDEX)
+                .addDependency(TestSubject.getInstance().makeAchievementDependency
+                                (PracticalRiddleType.DICE_INSTANCE, AchievementDice.Achievement10.NUMBER),
+                        1)
+                .addDependency(LevelDependency.getInstance(5), 2);
     }
 
     private void makeDownloadArticleLevelDependency(String key, int level) {

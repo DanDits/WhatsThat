@@ -76,6 +76,8 @@
         <item>World\'s next Picasso:</item>
     </string-array>
     <string name="no_panic_title">Don\'t panic!</string>
+    <!-- Better do not translate no_panic_anims. Needs special treatment. Ask a developer.-->
+    <string name="no_panic_anims">2011110100000121010120211010121000002201202122000002121022202102012021210200000201111010000021101011120101211022201221010121011100000112102220121000001200000212102220222021201101</string>
 
     <string name="handle_error_attempted">Image not available?! Check external memory!</string>
     <string name="tongue_select_explanation">Sprache für Lösungswörter: %1$s</string>

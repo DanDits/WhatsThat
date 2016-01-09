@@ -78,6 +78,8 @@ public class RiddleCircle extends RiddleGame {
     // for a test you can easily go up to 50k circles in no time (with no riddle limits and MIN_RADIUS=1.0f) on a <= 400x400 riddle
     private static final int MODE_MOVING_MAX_CIRCLES_CHECKED = 5000;
     private static final int MAX_CIRCLES_FOR_EXTRA_SCORE = 200;
+    private static final int MAX_CIRCLES_FOR_EXTRA_EXTRA_SCORE = 100;
+
     /*
      * Holds the brightness for each pixel of the original bitmap (row wise pixel evaluation).
      */
@@ -308,7 +310,9 @@ public class RiddleCircle extends RiddleGame {
 
     @Override
     protected @NonNull RiddleScore calculateGainedScore() {
-        int bonus = (mCircleCenterX.size() < MAX_CIRCLES_FOR_EXTRA_SCORE ? Types.SCORE_SIMPLE : 0);
+        int bonus = (mCircleCenterX.size() < MAX_CIRCLES_FOR_EXTRA_SCORE ? Types.SCORE_SIMPLE :
+                    mCircleCenterX.size() < MAX_CIRCLES_FOR_EXTRA_EXTRA_SCORE ? Types
+                            .SCORE_MEDIUM : 0);
         return super.calculateGainedScore().addBonus(bonus);
     }
 

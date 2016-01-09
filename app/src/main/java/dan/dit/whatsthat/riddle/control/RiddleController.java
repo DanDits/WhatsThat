@@ -33,10 +33,12 @@ import com.plattysoft.leonids.ParticleSystem;
 
 import dan.dit.whatsthat.R;
 import dan.dit.whatsthat.achievement.AchievementManager;
+import dan.dit.whatsthat.achievement.AchievementProperties;
 import dan.dit.whatsthat.riddle.Riddle;
 import dan.dit.whatsthat.riddle.RiddleInitializer;
 import dan.dit.whatsthat.riddle.RiddleManager;
 import dan.dit.whatsthat.riddle.RiddleView;
+import dan.dit.whatsthat.riddle.achievement.AchievementDataRiddleType;
 import dan.dit.whatsthat.riddle.types.PracticalRiddleType;
 import dan.dit.whatsthat.testsubject.TestSubject;
 import dan.dit.whatsthat.testsubject.TestSubjectToast;
@@ -106,6 +108,10 @@ public class RiddleController implements RiddleAnimationController.OnAnimationCo
 
     public Riddle getRiddle() {
         return mRiddle;
+    }
+
+    public void forbidRiddleBonusScore() {
+        mRiddleGame.setForbidBonus();
     }
 
     private class GameHandlerThread extends HandlerThread {
@@ -446,14 +452,25 @@ public class RiddleController implements RiddleAnimationController.OnAnimationCo
     }
 
     public void checkParty(@NonNull Resources res, @NonNull RiddleView.PartyCallback callback) {
+        if (!TestSubject.isInitialized()) {
+            return;
+        }
+        TestSubject subject = TestSubject.getInstance();
         TestSubjectToast toast = new TestSubjectToast(Gravity.CENTER, 0, 0, mRiddle.getType().getIconResId(), 0, SuperToast.Duration.MEDIUM);
         toast.mAnimations = SuperToast.Animations.POPUP;
         toast.mBackgroundColor = res.getColor(R.color.main_background);
 
-        String[] candies = res.getStringArray(TestSubject.getInstance().getRiddleSolvedResIds());
+        String[] candies = res.getStringArray(subject.getRiddleSolvedResIds());
         RiddleScore riddleScore = mRiddleGame.calculateGainedScore();
         int score = riddleScore.getTotalScore();
         int party = riddleScore.getBonus();
+
+        if (riddleScore.hasBonus()) {
+            AchievementProperties data = mRiddle.getType().getAchievementData(null);
+            if (data != null) {
+                data.increment(AchievementDataRiddleType.KEY_BONUS_GAINED_COUNT, 1L, 0L);
+            }
+        }
 
         StringBuilder builder = new StringBuilder();
         if (candies != null && candies.length > 0) {
@@ -497,7 +514,6 @@ public class RiddleController implements RiddleAnimationController.OnAnimationCo
 
     private void handlePeriodicEventForCount(int count) {
         // ensure the following actions take place on ui thread
-        Log.d("Riddle", "Periodic event handled for count: " + count);
         if (count == 0) {
             mMainHandler.post(new Runnable() {
                 @Override

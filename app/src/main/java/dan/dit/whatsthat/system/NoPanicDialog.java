@@ -270,6 +270,8 @@ public class NoPanicDialog extends DialogFragment {
                 }
             });
         }
+
+        final String dontPanicAnims = getResources().getString(R.string.no_panic_anims);
         View dontPanic = baseView.findViewById(R.id.panic_dontpanic);
         dontPanic.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -281,8 +283,13 @@ public class NoPanicDialog extends DialogFragment {
                         dismiss();
                     } else {
                         v.clearAnimation();
-                        final int[] anims = new int[] {0,1,1,2,0,2,0,1,0,2,2,2,1,0,0,2,0,1,2,0,0,0,2,2,2,0,1,0,0,2,0,0,2,0,2,0,0,0,2,1,2,2,2,1,0,0,0,2,0,2,1,0,1,2,1,1,1,2,1,1,2,1,1,2,1,2,2,2,0,2,0,0,2,1,0,2,0,2,1,0,2,2,2,1,0,1,2,0,2,1,0,1,2,0,0,0};
-                        int animNumber = anims[mFunCounter];
+                        int animNumber = 0;
+                        try {
+                            animNumber = Integer.parseInt(String.valueOf(dontPanicAnims.charAt
+                                    (mFunCounter)));
+                        } catch (NumberFormatException nfe) {
+                            Log.e("Riddle", "Illegal dontpanicanims string: " + dontPanicAnims);
+                        }
                         int anim;
                         switch (animNumber) {
                             case 0:
@@ -296,7 +303,7 @@ public class NoPanicDialog extends DialogFragment {
                                 break;
                         }
                         mFunCounter++;
-                        mFunCounter %= anims.length;
+                        mFunCounter %= dontPanicAnims.length();
                         v.startAnimation(AnimationUtils.loadAnimation(getActivity(), anim));
                     }
                 }

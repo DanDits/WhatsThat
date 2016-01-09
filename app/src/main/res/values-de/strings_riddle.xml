@@ -115,6 +115,14 @@
         <item>Ein volles Feld ist nicht unbedingt tragisch: du verlierst zwar rote und gelbe Würfel sowie etwas Transparenz, dafür hast du wieder Freiraum.</item>
         <item>Stichwort Ameisenprinzip: Du kannst rote und gelbe Würfel wie durch ein Wurmloch sprunghaft bewegen, sofern ein Weg frei ist. Ob du wohl den Sprung in den Hyperraum schafft, wenn du die längste Wegstrecke übersprungen hast?</item>
     </string-array>
+    <string name="article_dice_improved_start_name">Verbesserter Start</string>
+    <string name="article_dice_improved_start_descr">Ein höherwertiger Würfel ist beim Start
+        eines neuen Rätsels verfügbar.</string>
+    <string-array name="riddle_type_dice_article_improved_start_products">
+        <item>Startet mit einem gelben Würfel stattdessen.</item>
+        <item>Startet mit einem grünen Würfel stattdessen.</item>
+        <item>Startet mit einem Alien Würfel stattdessen!</item>
+    </string-array>
 
     <!-- Jumper related -->
     <string name="riddle_type_jumper">Monstarathon</string>
@@ -162,11 +170,11 @@
 
     <!-- Developer related -->
     <string name="riddle_type_developer">Entwickler</string>
-    <string name="riddle_type_developer_explanation">Hallo ich oder Bruder.</string>
+    <string name="riddle_type_developer_explanation">Hallo ich oder Bruder oder Verena.</string>
 
     <!-- Torchlight related -->
     <string name="riddle_type_torchlight">Fakel</string>
-    <string name="riddle_type_torchlight_explanation">Geheim und mysteriös und bla bla.</string>
+    <string name="riddle_type_torchlight_explanation">Geheim und mysteriös und bla.</string>
 
     <!-- Flow related -->
     <string name="riddle_type_flow">Zellfluss</string>

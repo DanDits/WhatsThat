@@ -79,6 +79,7 @@ import dan.dit.whatsthat.riddle.achievement.holders.MiscAchievementHolder;
 import dan.dit.whatsthat.riddle.control.GameWelcomeDialog;
 import dan.dit.whatsthat.riddle.control.RiddleGame;
 import dan.dit.whatsthat.riddle.types.PracticalRiddleType;
+import dan.dit.whatsthat.solution.SolutionInput;
 import dan.dit.whatsthat.solution.SolutionInputListener;
 import dan.dit.whatsthat.solution.SolutionInputView;
 import dan.dit.whatsthat.storage.ImageTable;
@@ -167,6 +168,12 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
             Riddle.saveLastVisibleRiddleType(getActivity().getApplicationContext(), currRiddleType);
             if (newRiddle) {
                 checkedShowHintDialog(mRiddleView.getRiddleType());
+            } else if (TestSubject.isInitialized() && !TestSubject.getInstance().canSkip()
+                        && mSolutionView != null) {
+                mSolutionView.provideHint(SolutionInput.HINT_LEVEL_MINIMAL);
+            }
+            if (mSolutionView.getProvidedHintLevel() > SolutionInput.HINT_LEVEL_NONE) {
+                mRiddleView.forbidRiddleBonusScore();
             }
         }
     }
@@ -794,7 +801,7 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
     public void doParty(int partyParam) {
         final int emittingTime = 3000;
         final long particleLifeTime = 1500L;
-        final int konfettiPerEmitterPerSecond = 8 + Math.max(partyParam, 0) * 2;
+        final int konfettiPerEmitterPerSecond = 5 + Math.max(partyParam, 0) * 3;
         final int konfettiPerEmitter = (int) (particleLifeTime *
                 konfettiPerEmitterPerSecond /
                 1000L);
@@ -846,7 +853,7 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
                 3000L, parent)
                 .setScaleRange(0.8f, 1.2f)
                 .setSpeedModuleAndAngleRange(0.0005f, 0.001f, 0, 360)
-                .setAccelerationModuleAndAndAngleRange(0.00009f, 0.0001f, 180, 360)
+                .setAccelerationModuleAndAndAngleRange(0.00009f, 0.0001f, 275, 310)
                 .setFadeOut(200, new AccelerateInterpolator())
                 .emitWithGravity(emitAtView, emitGravity, earned, 1000);
     }

@@ -444,7 +444,8 @@ public class AchievementDice extends TypeAchievementHolder {
                     && event.getEventType() == AchievementDataEvent.EVENT_TYPE_DATA_CLOSE
                     && mGameData.isSolved()) {
                 if (mGameData.getValue(KEY_GAME_GREEN_COUNT, 0L) == 0L && mGameData.getValue(KEY_GAME_PURPLE_COUNT, 0L) == 0L
-                        && mGameData.getValue(KEY_GAME_ALIEN_COUNT, 0L) == 0L && mGameData.getValue(KEY_GAME_RESET_COUNT, 0L) == 0L) {
+                        && mGameData.getValue(KEY_GAME_ALIEN_COUNT, 0L) == 0L && mGameData.getValue(KEY_GAME_RESET_COUNT, 0L) == 0L
+                        && mGameData.getValue(KEY_GAME_ALIEN_FUSED_WITH_YELLOW, 0L) == 0L) {
                     achieveAfterDependencyCheck();
                 }
             }
