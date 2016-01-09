@@ -208,7 +208,7 @@ public class ImageCache {
     private static boolean canUseForInBitmap(
             Bitmap candidate, BitmapFactory.Options targetOptions) {
 
-        if (targetOptions.inSampleSize == 1 //TODO some bug where inBitmap fails!?!
+        if (targetOptions.inSampleSize == 1 //FIXME some bug where inBitmap fails for latest sdk!?!
                 && Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             // From Android 4.4 (KitKat) onward we can re-use if the byte size of
             // the new bitmap is smaller than the reusable bitmap candidate
