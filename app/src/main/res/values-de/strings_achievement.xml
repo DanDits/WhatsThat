@@ -76,6 +76,8 @@
     <string name="achievement_snow_17_name">Sowohl als auch</string>
     <string name="achievement_snow_17_descr">Beende %1$d Experimente mit Klick-System, %2$d mit Kippen
         und %3$d in denen du während eines Tests beide benutzt.</string>
+    <string name="achievement_snow_18_name">Genervter Engel</string>
+    <string name="achievement_snow_18_descr">Versuche den Engel zu provozieren.</string>
 
     <!-- Dice achievements -->
     <string name="achievement_dice_1_name">Ein harter Anfang</string>

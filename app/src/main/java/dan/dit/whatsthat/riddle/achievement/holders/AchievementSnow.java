@@ -51,6 +51,7 @@ public class AchievementSnow extends TypeAchievementHolder {
     public static final String KEY_GAME_DEVIL_VISIBLE_STATE = "devil_visible";
     public static final String KEY_GAME_CELL_COLLECTED_SPORE = "cell_collected_spore";
     public static final String KEY_GAME_CLICKS_DOWN_DURING_NO_SENSOR ="clicks_during_no_sensor";
+    public static final String KEY_GAME_DEVIL_TALK_ANNOYED_COUNT = "devil_annoyed_talked";
 
 
     public AchievementSnow(PracticalRiddleType type) {
@@ -77,6 +78,7 @@ public class AchievementSnow extends TypeAchievementHolder {
         mAchievements.put(Achievement15.NUMBER, new Achievement15(manager, mType));
         mAchievements.put(Achievement16.NUMBER, new Achievement16(manager, mType));
         mAchievements.put(Achievement17.NUMBER, new Achievement17(manager, mType));
+        mAchievements.put(Achievement18.NUMBER, new Achievement18(manager, mType));
     }
 
     //Need for speed
@@ -750,6 +752,28 @@ public class AchievementSnow extends TypeAchievementHolder {
                     }
                 }
             }
+        }
+    }
+
+
+    public static class Achievement18 extends GameAchievement {
+        public static final int NUMBER = 18;
+        public static final int LEVEL = 0;
+        public static final int REWARD = 50;
+        public static final boolean DISCOVERED = true;
+
+        public Achievement18(AchievementManager manager, PracticalRiddleType type) {
+            super(type, R.string.achievement_snow_18_name, R.string.achievement_snow_18_descr, 0,
+                    NUMBER, manager, LEVEL, REWARD, 1,
+                    DISCOVERED);
+        }
+
+        @Override
+        public void onNonCustomDataEvent(AchievementDataEvent event) {
+           if (event.getChangedData() == mGameData && event.hasChangedKey
+                   (KEY_GAME_DEVIL_TALK_ANNOYED_COUNT)) {
+               achieveAfterDependencyCheck();
+           }
         }
     }
 }

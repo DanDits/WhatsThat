@@ -943,13 +943,15 @@ public class RiddleSnow extends RiddleGame implements FlatWorldCallback {
             }
         }
 
-        public void talk(int textId, double probability) {
+        public boolean talk(int textId, double probability) {
             if (!mSilent && (mTalkingEffect == null || mTalkingEffect.getState() == WorldEffect.STATE_TIMEOUT)
                     && mRand.nextDouble() < probability) {
                 String[] texts = mRes.getStringArray(textId);
                 mTalkingEffect = mWorld.attachTimedMessage(this, mTalkingBackground, texts[mRand.nextInt(texts.length)], 5000L);
                 mTalkingEffect.startFade(0xFFFFFFFF, 0x00FFFFFF, 2000L, 3000L, false);
+                return true;
             }
+            return false;
         }
 
         public boolean attemptCollectIdea() {
@@ -991,7 +993,10 @@ public class RiddleSnow extends RiddleGame implements FlatWorldCallback {
 
         public void checkIfMocked(float x, float y) {
             if (isActive() && mDevil.getHitbox().isInside(x, y)) {
-                mDevil.talk(R.array.devil_talk_mock, 0.02);
+                if (mDevil.talk(R.array.devil_talk_mock, 0.05)) {
+                    mConfig.mAchievementGameData.increment(AchievementSnow
+                            .KEY_GAME_DEVIL_TALK_ANNOYED_COUNT, 1L, 0L);
+                }
             }
         }
 

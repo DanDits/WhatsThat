@@ -77,6 +77,8 @@
     <string name="achievement_snow_17_name">Both as well as</string>
     <string name="achievement_snow_17_descr">Finish %1$d experiments using the click system, %2$d using
         the other and %3$d using both during a test.</string>
+    <string name="achievement_snow_18_name">Annoyed angel</string>
+    <string name="achievement_snow_18_descr">Try to mock the angel.</string>
 
     <!-- Dice achievements -->
     <string name="achievement_dice_1_name">Unpleasant beginning</string>
