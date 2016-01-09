@@ -56,7 +56,9 @@ public class RiddleFlow extends RiddleGame {
     private static final boolean SEARCH_RANDOMLY_FOR_EQUAL_PRESSURES = true; //better: true, this avoids the preference of picking the first FlowDirection in the list (TopLeft) if there is no clear precedence which would result in many diagonal lines, instead random yields zig-zig flows
     private static final boolean USE_ALPHA = true; // if the color metric has to use alpha values of colors to calculate pressure raster. If false black and alpha only images would be completely uniform in pressure and unsolvable
     private static final ColorMetric METRIC = ColorMetric.Absolute.INSTANCE; // color metric used, can be anything, but should include all colors and alpha uniformly
-    private static final int MAX_FLOWS_FOR_SCORE_BONUS = 10;
+    private static final int MAX_FLOWS_FOR_SCORE_BIG_BONUS = 10;
+    private static final int MAX_FLOWS_FOR_SCORE_BONUS = 15;
+
 
     // searching edges results in lines searching for pixels with high pressure values and makes them search for edges (lines of great color difference) to follow. Else it follows colors of equal pressure so lines need to be clicked to follow them.
     private static final int SEARCH_EDGES_EACH_X_FLOWS = 3;
@@ -117,7 +119,8 @@ public class RiddleFlow extends RiddleGame {
 
     @Override
     protected @NonNull RiddleScore calculateGainedScore() {
-        int bonus = (mFlowStartsX.size() < MAX_FLOWS_FOR_SCORE_BONUS ? Types.SCORE_MEDIUM : 0);
+        int bonus = (mFlowStartsX.size() < MAX_FLOWS_FOR_SCORE_BIG_BONUS ? Types.SCORE_HARD :
+                (mFlowStartsX.size() < MAX_FLOWS_FOR_SCORE_BONUS ? Types.SCORE_MEDIUM : 0));
         return super.calculateGainedScore().addBonus(bonus);
     }
 

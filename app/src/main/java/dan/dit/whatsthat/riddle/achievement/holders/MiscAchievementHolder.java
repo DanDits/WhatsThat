@@ -86,6 +86,8 @@ public class MiscAchievementHolder implements AchievementHolder {
         mAchievements.put(Achievement6.NUMBER, new Achievement6(manager, mData));
         mAchievements.put(Achievement7.NUMBER, new Achievement7(manager, mData));
         mAchievements.put(Achievement8.NUMBER, new Achievement8(manager, mData));
+        mAchievements.put(Achievement9.NUMBER, new Achievement9(manager, mData));
+        mAchievements.put(Achievement10.NUMBER, new Achievement10(manager, mData));
     }
 
     private static class Achievement1 extends MiscAchievement {
@@ -240,7 +242,7 @@ public class MiscAchievementHolder implements AchievementHolder {
     private static class Achievement6 extends MiscAchievement {
         public static final int NUMBER = 6;
         public static final int LEVEL = 0;
-        public static final int REWARD = 50;
+        public static final int REWARD = 100;
         public static final boolean DISCOVERED = true;
         public static final int ONE_TYPE_PLAYED_COUNT = 100;
         public Achievement6(AchievementManager manager, AchievementPropertiesMapped<String>
@@ -280,10 +282,10 @@ public class MiscAchievementHolder implements AchievementHolder {
                                 .KEY_GAMES_SOLVED, 0L));
                     }
                     if (typeData != null && typeData == event.getChangedData()
-                            && typeData.getValue
-                            (AchievementDataRiddleType.KEY_GAMES_SOLVED, 0L) >= ONE_TYPE_PLAYED_COUNT) {
+                            && max >= ONE_TYPE_PLAYED_COUNT) {
                         achieveAfterDependencyCheck();
-                    } else {
+                        break;
+                    } else if (max < ONE_TYPE_PLAYED_COUNT) {
                         achieveProgressPercent((int) ((max / (double) ONE_TYPE_PLAYED_COUNT) *
                                 100));
                     }
@@ -323,7 +325,7 @@ public class MiscAchievementHolder implements AchievementHolder {
         public static final int LEVEL = 0;
         public static final int REWARD = 30;
         public static final boolean DISCOVERED = true;
-        public static final float REQUIRED_REMADE_COUNT = 3;
+        public static final int REQUIRED_REMADE_COUNT = 3;
 
         public Achievement8(AchievementManager manager, AchievementPropertiesMapped<String>
                 miscData) {
@@ -342,6 +344,82 @@ public class MiscAchievementHolder implements AchievementHolder {
             }
         }
     }
+
+    private static class Achievement9 extends MiscAchievement {
+        public static final int NUMBER = 9;
+        public static final int LEVEL = 1;
+        public static final int REWARD = 100;
+        public static final boolean DISCOVERED = true;
+        public static final int REQUIRED_TYPES_WITH_BONUS = 3;
+
+        public Achievement9(AchievementManager manager, AchievementPropertiesMapped<String>
+                miscData) {
+            super(miscData, R.string.achievement_misc_9_name, R.string.achievement_misc_9_descr,
+                    0, NUMBER, manager, LEVEL, REWARD, 1, DISCOVERED);
+        }
+
+        @Override
+        public CharSequence getDescription(Resources res) {
+            return res.getString(mDescrResId, REQUIRED_TYPES_WITH_BONUS);
+        }
+
+        @Override
+        protected void onInit() {
+            super.onInit();
+            for (PracticalRiddleType type : PracticalRiddleType.ALL_PLAYABLE_TYPES) {
+                type.getAchievementData(mManager).addListener(this);
+            }
+        }
+
+        protected void onAchieved() {
+            super.onAchieved();
+            for (PracticalRiddleType type : PracticalRiddleType.ALL_PLAYABLE_TYPES) {
+                type.getAchievementData(mManager).removeListener(this);
+            }
+        }
+
+        @Override
+        public void onDataEvent(AchievementDataEvent event) {
+            if (event.getChangedData() != mMiscData) {
+                int hasBonusCount = 0;
+                for (PracticalRiddleType type : PracticalRiddleType.ALL_PLAYABLE_TYPES) {
+                    hasBonusCount += type.getAchievementData(mManager).getValue
+                            (AchievementDataRiddleType.KEY_BONUS_GAINED_COUNT, 0L) > 0L ? 1 : 0;
+                }
+                if (hasBonusCount >= REQUIRED_TYPES_WITH_BONUS) {
+                    achieveAfterDependencyCheck();
+                }
+            }
+        }
+    }
+
+
+    private static class Achievement10 extends MiscAchievement {
+        public static final int NUMBER = 10;
+        public static final int LEVEL = 0;
+        public static final int REWARD = 42;
+        public static final boolean DISCOVERED = false;
+
+        public Achievement10(AchievementManager manager, AchievementPropertiesMapped<String>
+                miscData) {
+            super(miscData, R.string.achievement_misc_10_name, R.string.achievement_misc_10_descr,
+                    0, NUMBER, manager, LEVEL, REWARD, 1, DISCOVERED);
+        }
+
+        @Override
+        public void onDataEvent(AchievementDataEvent event) {
+            if (event.getChangedData() == mMiscData && event.hasChangedKey(MiscAchievementHolder.KEY_SOLUTION_INPUT_CURRENT_TEXT)) {
+                String currentText = mMiscData.getMappedValue(MiscAchievementHolder.KEY_SOLUTION_INPUT_CURRENT_TEXT);
+                if (!TextUtils.isEmpty(currentText) && areDependenciesFulfilled()) {
+                    if (currentText.equalsIgnoreCase("keks") || currentText.equalsIgnoreCase
+                            ("cookie")) {
+                        achieve();
+                    }
+                }
+            }
+        }
+    }
+
 
     @Override
     public void addDependencies() {

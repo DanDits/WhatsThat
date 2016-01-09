@@ -113,6 +113,14 @@
         <item>Maybe the grid is full, but that\'s not a tragedy. You may lose red and yellow dices and some transparency but you get some free space again.</item>
         <item>Like a wormhole you can move red and yellow dices in jumps as long as there is a path. Do you think you can jump into the hyperspace when jumping over the longest distance?</item>
     </string-array>
+    <string name="article_dice_improved_start_name">Improved start</string>
+    <string name="article_dice_improved_start_descr">A higher dice is available when
+        starting the riddle.</string>
+    <string-array name="riddle_type_dice_article_improved_start_products">
+        <item>Starts with a yellow dice instead.</item>
+        <item>Starts with a green dice instead.</item>
+        <item>Starts with an alien dice instead.</item>
+    </string-array>
 
     <!-- Jumper related -->
     <string name="riddle_type_jumper">Monstarathon</string>
@@ -155,7 +163,8 @@
         <item>This time we want to answer the following question: \"How catastrophic is the earthly brain regarding memories?\" We gonna find a solution with this experiment. We keep the instruction as simple as possible, especially for you: Find matching pairs of cards! You have to remember them on your own.</item>
         <item>When finding a matching pair, a path will reveal all cards between the cards for a short time.</item>
         <item>The path reverses everything: red cards become yellow, and yellow become green again.</item>
-        <item>Different card colours may help you remember a picture\'s position. And there can only grey card visible at once.</item>
+        <item>Different card colours may help you remember a picture\'s position. And only one grey
+            card can be visible at a time.</item>
         <item>No one and nothing can stop you to grab a pen and a piece of paper to make some notes or to take a screenshot. Except your pride. The secret service will see that you can\'t remember a pair of cards. Even little human beings and some animals can do that without any help!</item>
     </string-array>
 

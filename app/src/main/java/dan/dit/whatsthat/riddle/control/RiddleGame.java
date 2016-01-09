@@ -79,6 +79,7 @@ public abstract class RiddleGame {
     protected Bitmap mBitmap; // the correctly scaled bitmap of the image to work with
     // note: full galaxy s2 display 480x800 pixel, hdpi (scaling of 1.5 by default)
     protected final RiddleConfig mConfig;
+    private boolean mForbidBonus;
 
     /**
      * Creates a new RiddleGame, decorating the given riddle, using the given bitmap loaded from the riddle's image.
@@ -104,6 +105,10 @@ public abstract class RiddleGame {
         initBitmap(res, listener);
         initSolutionInput();
         initAchievement();
+    }
+
+    public void setForbidBonus() {
+        mForbidBonus = true;
     }
 
     /**
@@ -285,7 +290,8 @@ public abstract class RiddleGame {
             scoreMultiplicator = (int) ((MAX_SCORE_MULTIPLIER - BASE_SCORE_MULTIPLIER) * Math.exp(-SCORE_EXP_FACTOR * bonusCount) + BASE_SCORE_MULTIPLIER);
             scoreMultiplicator = Math.max(1, scoreMultiplicator); // to be sure score will never be zero or negativly multiplied (which cannot happen for exp(x) but this might change)
         }
-        return new RiddleScore(base, scoreMultiplicator);
+        return mForbidBonus ? new RiddleScore.NoBonus(base, scoreMultiplicator)
+            : new RiddleScore(base, scoreMultiplicator);
     }
 
     protected final boolean isCustom() {

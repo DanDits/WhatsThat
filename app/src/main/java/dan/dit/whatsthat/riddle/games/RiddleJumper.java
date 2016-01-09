@@ -28,8 +28,6 @@ import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.MotionEvent;
 
-import com.plattysoft.leonids.ParticleSystem;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
@@ -42,19 +40,17 @@ import dan.dit.whatsthat.image.Image;
 import dan.dit.whatsthat.riddle.Riddle;
 import dan.dit.whatsthat.riddle.RiddleConfig;
 import dan.dit.whatsthat.riddle.achievement.holders.AchievementJumper;
-import dan.dit.whatsthat.riddle.control.LookRiddleAnimation;
 import dan.dit.whatsthat.riddle.control.RiddleGame;
 import dan.dit.whatsthat.riddle.control.RiddleScore;
 import dan.dit.whatsthat.riddle.types.Types;
 import dan.dit.whatsthat.testsubject.TestSubject;
 import dan.dit.whatsthat.testsubject.shopping.sortiment.SortimentHolder;
-import dan.dit.whatsthat.util.flatworld.effects.WorldEffectMoved;
-import dan.dit.whatsthat.util.flatworld.look.BitmapLook;
-import dan.dit.whatsthat.util.general.PercentProgressListener;
 import dan.dit.whatsthat.util.compaction.CompactedDataCorruptException;
 import dan.dit.whatsthat.util.compaction.Compacter;
 import dan.dit.whatsthat.util.flatworld.collision.GeneralHitboxCollider;
 import dan.dit.whatsthat.util.flatworld.collision.HitboxRect;
+import dan.dit.whatsthat.util.flatworld.effects.WorldEffectMoved;
+import dan.dit.whatsthat.util.flatworld.look.BitmapLook;
 import dan.dit.whatsthat.util.flatworld.look.Frames;
 import dan.dit.whatsthat.util.flatworld.look.FramesOneshot;
 import dan.dit.whatsthat.util.flatworld.look.LayerFrames;
@@ -64,6 +60,7 @@ import dan.dit.whatsthat.util.flatworld.mover.HitboxNewtonMover;
 import dan.dit.whatsthat.util.flatworld.world.Actor;
 import dan.dit.whatsthat.util.flatworld.world.FlatRectWorld;
 import dan.dit.whatsthat.util.flatworld.world.FlatWorldCallback;
+import dan.dit.whatsthat.util.general.PercentProgressListener;
 import dan.dit.whatsthat.util.image.BitmapUtil;
 import dan.dit.whatsthat.util.image.ImageUtil;
 
@@ -118,7 +115,9 @@ public class RiddleJumper extends RiddleGame implements FlatWorldCallback {
     private static final float[] CLEAR_MIND_SIZE_FRACTION = new float[] {0.1f, 0.18f, 0.3f, 0.7f};
     private static final int FOGGED_MIND_COLOR = Color.DKGRAY;
     private static final int[] MIND_CLEARED_EVERY_K_OBSTACLES = new int[] {2, 3, 5, 8};
-    private static final int MAX_COLLISIONS_FOR_SCORE_BONUS = 1;
+    private static final int MAX_COLLISIONS_FOR_SCORE_BONUS = 3;
+    private static final int MAX_COLLISIONS_FOR_SCORE_BIG_BONUS = 1;
+
     private static final String CACHE_BIG_BEAM = Types.Jumper.NAME + "BigBeam";
     private static final String CACHE_BACKGROUND = Types.Jumper.NAME + "Background";
 
@@ -189,7 +188,8 @@ public class RiddleJumper extends RiddleGame implements FlatWorldCallback {
     @Override
     protected @NonNull RiddleScore calculateGainedScore() {
         int collisions = mConfig.mAchievementGameData != null ? mConfig.mAchievementGameData.getValue(AchievementJumper.KEY_GAME_COLLISION_COUNT, 0L).intValue() : 0;
-        int bonus = (collisions <= MAX_COLLISIONS_FOR_SCORE_BONUS ? Types.SCORE_MEDIUM : 0);
+        int bonus = (collisions <= MAX_COLLISIONS_FOR_SCORE_BIG_BONUS ? Types.SCORE_HARD:
+                (collisions <= MAX_COLLISIONS_FOR_SCORE_BONUS ? Types.SCORE_MEDIUM : 0));
         return super.calculateGainedScore().addBonus(bonus);
     }
 

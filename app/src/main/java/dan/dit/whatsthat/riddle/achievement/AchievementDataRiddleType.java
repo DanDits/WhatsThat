@@ -34,6 +34,7 @@ public class AchievementDataRiddleType extends AchievementProperties {
     public static final String KEY_GAMES_SOLVED = "games_solved";
     public static final String KEY_BEST_SOLVED_TIME = "best_solved_time";
     private static final AchievementDataRiddleType sNull = new NullObject();
+    public static final String KEY_BONUS_GAINED_COUNT = "bonus_gained";
 
     public AchievementDataRiddleType(PracticalRiddleType type, AchievementManager manager) throws CompactedDataCorruptException {
         super(DATA_NAME_PREFIX + type.getFullName(), manager.loadDataEvent(DATA_NAME_PREFIX + type.getFullName()));

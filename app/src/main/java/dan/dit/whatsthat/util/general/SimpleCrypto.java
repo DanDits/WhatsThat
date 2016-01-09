@@ -226,7 +226,7 @@ public class SimpleCrypto {
         // Encode the original data with RSA public key
         byte[] encodedBytes;
         try {
-            Cipher c = Cipher.getInstance("RSA/ECB/OAEPWithSHA1AndMGF1Padding");
+            Cipher c = Cipher.getInstance("RSA/ECB/PKCS1Padding");
             c.init(Cipher.ENCRYPT_MODE, publicKey);
             encodedBytes = c.doFinal(data.getBytes());
             return encodeToString(encodedBytes);
@@ -251,7 +251,7 @@ public class SimpleCrypto {
         // Decode the encoded data with RSA private key
         byte[] decodedBytes;
         try {
-            Cipher c = Cipher.getInstance("RSA/ECB/OAEPWithSHA1AndMGF1Padding");
+            Cipher c = Cipher.getInstance("RSA/ECB/PKCS1Padding");
             c.init(Cipher.DECRYPT_MODE, privateKey);
             decodedBytes = c.doFinal(encodedToBytes(encrypted));
             return new String(decodedBytes);

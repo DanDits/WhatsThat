@@ -114,6 +114,7 @@
         <item>Wahnsinnig toller Mensch:</item>
     </string-array>
     <string name="no_panic_title">Keine Panik!</string>
+    <string name="no_panic_anims">12201012100000211012011100000121101101011102000002111010212022202202202000001011021010210000021201021201110000011102121011110121010110211101000002110102100000102102012201102121021201211010121021</string>
 
     <string name="handle_error_attempted">Bild nicht vorhanden?! Externen Speicher prüfen!</string>
     <string name="tongue_select_explanation">Sprache für Lösungswörter: %1$s</string>

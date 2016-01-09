@@ -116,9 +116,7 @@ public class RiddleView extends SurfaceView implements SensorEventListener, Part
     }
 
     public synchronized void removeController() {
-        if (!hasController()) {
-            throw new IllegalStateException("No controller initialized.");
-        }
+        ensureHasController();
         RiddleController ctr = mRiddleCtr;
         mRiddleCtr = null; // so any input and drawing will no longer be done
         if (mSensorManager != null) {
@@ -289,9 +287,7 @@ public class RiddleView extends SurfaceView implements SensorEventListener, Part
     }
 
     public PracticalRiddleType getRiddleType() {
-        if (!hasController()) {
-            throw new IllegalStateException("No controller initialized.");
-        }
+        ensureHasController();
         return mRiddleCtr.getRiddleType();
     }
 
@@ -316,10 +312,19 @@ public class RiddleView extends SurfaceView implements SensorEventListener, Part
     }
 
     public Riddle getRiddle() {
-        if (!hasController()) {
-            throw new IllegalArgumentException("No controller initialized.");
-        }
+        ensureHasController();
         return mRiddleCtr.getRiddle();
+    }
+
+    public void forbidRiddleBonusScore() {
+        ensureHasController();
+        mRiddleCtr.forbidRiddleBonusScore();
+    }
+
+    private void ensureHasController() {
+        if (!hasController()) {
+            throw new IllegalStateException("No controller initialized.");
+        }
     }
 
     private class ParticleController implements ParticleFieldController {
@@ -376,9 +381,7 @@ public class RiddleView extends SurfaceView implements SensorEventListener, Part
     }
 
     public void checkParty(@NonNull Resources res, @NonNull PartyCallback callback) {
-        if (!hasController()) {
-            throw new IllegalArgumentException("No controller initialized.");
-        }
+        ensureHasController();
         mRiddleCtr.checkParty(res, callback);
     }
 }

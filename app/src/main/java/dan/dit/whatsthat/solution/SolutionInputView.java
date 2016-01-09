@@ -57,7 +57,8 @@ public class SolutionInputView extends View {
         if (solutionInput != null) {
             clearAnimation();
             solutionInput.setListener(listener);
-            solutionInput.calculateLayout(getWidth(), getHeight(), getContext().getResources()
+            solutionInput.getLayout().calculateLayout(getWidth(), getHeight(), getContext()
+                    .getResources()
                     .getDisplayMetrics());
         }
         invalidate();
@@ -76,7 +77,7 @@ public class SolutionInputView extends View {
         super.onDraw(canvas);
         SolutionInput input = mInput;
         if (input != null) {
-            input.draw(canvas);
+            input.getLayout().draw(canvas);
         }
     }
 
@@ -94,6 +95,20 @@ public class SolutionInputView extends View {
             resettedCopy = mInput; // use standard, showing everything the user entered
         }
         args.putString(NoPanicDialog.KEY_SOLUTION_INPUT_DATA, resettedCopy.compact());
+    }
+
+    public void provideHint(int hintLevel) {
+        if (mInput == null) {
+            return;
+        }
+        if (mInput.provideHint(hintLevel)) {
+            invalidate();
+            requestLayout();
+        }
+    }
+
+    public int getProvidedHintLevel() {
+        return mInput.getProvidedHintLevel();
     }
 
 

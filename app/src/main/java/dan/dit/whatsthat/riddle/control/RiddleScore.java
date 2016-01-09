@@ -16,14 +16,21 @@ public class RiddleScore {
         mTotalScore = base * mMultiplicator;
     }
 
-    public static class NullRiddleScore extends RiddleScore {
-        public static final NullRiddleScore INSTANCE = new NullRiddleScore();
-        private NullRiddleScore() {
-            super(0, 1);
+    public static class NoBonus extends RiddleScore {
+        public NoBonus(int base, int multiplicator) {
+            super(base, multiplicator);
         }
+
         @Override
         public RiddleScore addBonus(int bonus) {
             return this; // do not add any bonus
+        }
+    }
+
+    public static class NullRiddleScore extends NoBonus {
+        public static final NullRiddleScore INSTANCE = new NullRiddleScore();
+        private NullRiddleScore() {
+            super(0, 1);
         }
 
     }
@@ -51,14 +58,10 @@ public class RiddleScore {
         return mBonus;
     }
 
-    public static class SimpleNoBonus extends RiddleScore {
+    public static class SimpleNoBonus extends NoBonus {
 
         public SimpleNoBonus() {
             super(Types.SCORE_SIMPLE, 1);
-        }
-        @Override
-        public RiddleScore addBonus(int bonus) {
-            return this; // do not add any bonus
         }
     }
 }

@@ -190,6 +190,11 @@ public class RiddleLazor extends RiddleGame implements FlatWorldCallback {
         int bonus = 0;
         if (mConfig.mAchievementGameData.getValue(AchievementLazor.KEY_GAME_METEOR_CRASHED_IN_CITY_COUNT, 0L) == 0L) {
             bonus = Types.SCORE_HARD;
+        } else if (mConfig.mAchievementGameData.getValue(AchievementLazor.KEY_GAME_IS_PROTECTED,
+                0L) == 1L
+                && mConfig.mAchievementGameData.getValue(AchievementLazor
+                .KEY_GAME_METEOR_CRASHED_IN_CITY_COUNT, 0L) <= 3) {
+            bonus = Types.SCORE_SIMPLE;
         }
         return super.calculateGainedScore().addBonus(bonus);
     }

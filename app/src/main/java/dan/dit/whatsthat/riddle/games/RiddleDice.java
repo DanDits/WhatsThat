@@ -43,6 +43,9 @@ import dan.dit.whatsthat.riddle.control.RiddleAnimation;
 import dan.dit.whatsthat.riddle.control.RiddleGame;
 import dan.dit.whatsthat.riddle.control.RiddleScore;
 import dan.dit.whatsthat.riddle.types.Types;
+import dan.dit.whatsthat.testsubject.TestSubject;
+import dan.dit.whatsthat.testsubject.shopping.ShopArticleMulti;
+import dan.dit.whatsthat.testsubject.shopping.sortiment.SortimentHolder;
 import dan.dit.whatsthat.util.flatworld.look.FramesOneshot;
 import dan.dit.whatsthat.util.general.BuildException;
 import dan.dit.whatsthat.util.general.PercentProgressListener;
@@ -101,6 +104,7 @@ public class RiddleDice extends RiddleGame {
     private Bitmap mDiceAlien;
     private int mMovedDistance;
     private Bitmap[] mAlienSpawnFrames;
+    private int mFirstStartDiceState;
 
     public RiddleDice(Riddle riddle, Image image, Bitmap bitmap, Resources res, RiddleConfig config, PercentProgressListener listener) {
         super(riddle, image, bitmap, res, config, listener);
@@ -198,8 +202,20 @@ public class RiddleDice extends RiddleGame {
             }
         } else {
             DicePosition pos = mField.getRandomField(mRand);
+            mFirstStartDiceState = STATE_RED;
+            if (TestSubject.isInitialized()) {
+                int shopValue = TestSubject.getInstance().getShopValue(SortimentHolder
+                        .ARTICLE_KEY_DICE_IMPROVED_START);
+                for (int i = 0; i < 3; i++) {
+                    if (ShopArticleMulti.hasPurchased(shopValue, i)) {
+                        mFirstStartDiceState = STATE_RED + i + 1;
+                    }
+                }
+                mFirstStartDiceState = Math.min(STATE_ALIEN, mFirstStartDiceState);
+            }
             if (pos != null) {
-                pos.checkCreateDice();
+                pos.createDice(mFirstStartDiceState,
+                        mFirstStartDiceState == STATE_ALIEN ? 0 : rollDice());
             }
         }
     }
@@ -369,9 +385,14 @@ public class RiddleDice extends RiddleGame {
     @Override
     protected @NonNull RiddleScore calculateGainedScore() {
         boolean noResets = mConfig.mAchievementGameData != null && mConfig.mAchievementGameData.getValue(AchievementDice.KEY_GAME_RESET_COUNT, 0L) == 0L;
-        boolean noPurpleDices = mConfig.mAchievementGameData != null && mConfig.mAchievementGameData.getValue(AchievementDice.KEY_GAME_PURPLE_COUNT, 0L) == 0L;
-
-        int bonus = ((noResets && noPurpleDices) ? Types.SCORE_SIMPLE : 0);
+        boolean noPurpleDices = mConfig.mAchievementGameData != null
+                && mConfig.mAchievementGameData.getValue(AchievementDice.KEY_GAME_PURPLE_COUNT, 0L)
+                    == 0L;
+        boolean noAliens = mConfig.mAchievementGameData != null && mConfig.mAchievementGameData
+                .getValue(AchievementDice.KEY_GAME_ALIEN_COUNT, 0L)
+                    == (mFirstStartDiceState == STATE_ALIEN ? 1L : 0L);
+        int bonus = ((noResets && noPurpleDices && noAliens) ? Types.SCORE_VERY_HARD :
+                (noResets && noPurpleDices) ? Types.SCORE_MEDIUM : 0);
         return super.calculateGainedScore().addBonus(bonus);
     }
 
@@ -469,23 +490,27 @@ public class RiddleDice extends RiddleGame {
 
         private boolean checkCreateDice() {
             if (!isOccupied()) {
-                mDiceNumber = rollDice();
-                mDiceState = STATE_RED;
-                int dicesCount = 0;
-                for (DicePosition pos : mField) {
-                    if (pos.isOccupied()) {
-                        dicesCount++;
-                    }
-                }
-                if (dicesCount == mField.getFieldCount()) {
-                    resetFields();
-                } else {
-                    updateAchievementDataForFields();
-                }
-                drawFieldArea();
+                createDice(STATE_RED, rollDice());
                 return true;
             }
             return false;
+        }
+
+        private void createDice(int state, int number) {
+            mDiceNumber = number;
+            mDiceState = state;
+            int dicesCount = 0;
+            for (DicePosition pos : mField) {
+                if (pos.isOccupied()) {
+                    dicesCount++;
+                }
+            }
+            if (dicesCount == mField.getFieldCount()) {
+                resetFields();
+            } else {
+                updateAchievementDataForFields();
+            }
+            drawFieldArea();
         }
 
         public void onReset() {
