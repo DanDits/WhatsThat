@@ -489,7 +489,8 @@ public abstract class TestSubjectLevel {
 
         @Override
         public void makeMainIntroEpisodes(EpisodeBuilder builder) {
-            builder.nextEpisodes("M0", R.array.test_subject_5_intro_main);
+            builder.nextEpisodes("M0", R.array.test_subject_5_0_intro_main);
+            builder.nextEpisodes("M0", R.array.test_subject_5_1_intro_main);
         }
 
         @Override
@@ -502,7 +503,7 @@ public abstract class TestSubjectLevel {
             mBaseImageResId[TestSubject.GENDER_MALE] = R.drawable.kid02;
             mBaseImageResId[TestSubject.GENDER_FEMALE] = R.drawable.kid_fem02;
             mBaseImageResId[TestSubject.GENDER_WHATEVER] = R.drawable.kid_ani05_base;
-            mTextMain = res.getStringArray(R.array.test_subject_5_intro_main);
+            mTextMain = res.getStringArray(R.array.test_subject_5_0_intro_main); //TODO Zeile hier und unten jeweils löschen
             mTextNuts = res.getStringArray(R.array.test_subject_5_intro_nuts);
             mRiddleSolvedCandy = R.array.test_subject_5_riddle_solved_candy;
             mTestSubject.ensureSkipableGames(TestSubject.DEFAULT_SKIPABLE_GAMES + 6);
@@ -525,7 +526,9 @@ public abstract class TestSubjectLevel {
 
         @Override
         public void makeMainIntroEpisodes(EpisodeBuilder builder) {
-            builder.nextEpisodes("M0", R.array.test_subject_6_intro_main);
+            builder.nextEpisodes("M0", R.array.test_subject_6_0_intro_main);
+            builder.nextEpisodes("M0", R.array.test_subject_6_1_intro_main);
+            builder.nextEpisodes("M0", R.array.test_subject_6_2_intro_main);
         }
 
         @Override
@@ -535,7 +538,7 @@ public abstract class TestSubjectLevel {
             mImageResId[TestSubject.GENDER_MALE] = R.drawable.kid06;
             mImageResId[TestSubject.GENDER_FEMALE] = R.drawable.kid_fem06;
             mImageResId[TestSubject.GENDER_WHATEVER] = R.drawable.kid_ani06;
-            mTextMain = res.getStringArray(R.array.test_subject_6_intro_main);
+            mTextMain = res.getStringArray(R.array.test_subject_6_0_intro_main);
             mTextNuts = res.getStringArray(R.array.test_subject_6_intro_nuts);
             mRiddleSolvedCandy = R.array.test_subject_6_riddle_solved_candy;
             mTestSubject.ensureSkipableGames(TestSubject.DEFAULT_SKIPABLE_GAMES + 7);
@@ -558,7 +561,7 @@ public abstract class TestSubjectLevel {
 
         @Override
         public void makeMainIntroEpisodes(EpisodeBuilder builder) {
-            builder.nextEpisodes("M0", R.array.test_subject_7_intro_main);
+            builder.nextEpisodes("M0", R.array.test_subject_7_0_intro_main);
         }
         @Override
         protected void applyLevel(Resources res) {
@@ -570,7 +573,7 @@ public abstract class TestSubjectLevel {
             mBaseImageResId[TestSubject.GENDER_MALE] = R.drawable.kid06;
             mBaseImageResId[TestSubject.GENDER_FEMALE] = R.drawable.kid_fem06;
             mBaseImageResId[TestSubject.GENDER_WHATEVER] = R.drawable.kid_ani07_base;
-            mTextMain = res.getStringArray(R.array.test_subject_7_intro_main);
+            mTextMain = res.getStringArray(R.array.test_subject_7_0_intro_main);
             mTextNuts = res.getStringArray(R.array.test_subject_7_intro_nuts);
             mRiddleSolvedCandy = R.array.test_subject_7_riddle_solved_candy;
             mTestSubject.ensureSkipableGames(TestSubject.DEFAULT_SKIPABLE_GAMES + 8);

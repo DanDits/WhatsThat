@@ -421,7 +421,7 @@
     <!-- Level 5 -->
     <string name="test_subject_5_name">Grünschnabel</string>
     <string name="test_subject_5_int">Lichtblick</string>
-    <string-array name="test_subject_5_intro_main">
+    <string-array name="test_subject_5_0_intro_main">
         <item>Letztes Mal habe ich etwas übertrieben.</item>
         <item>Ich habe WiseMind versprochen, dass ich die Menschheit nicht pausenlos dumm nenne.</item>
         <item>Und dich nicht pausenlos beleidige.</item>
