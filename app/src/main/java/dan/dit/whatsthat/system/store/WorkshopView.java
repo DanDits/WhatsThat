@@ -65,7 +65,7 @@ public class WorkshopView extends FrameLayout implements StoreContainer {
     }
 
     @Override
-    public void refresh(FragmentActivity activity, FrameLayout titleBackContainer) {
+    public void refresh(StoreActivity activity, FrameLayout titleBackContainer) {
         if (mTabHost == null) {
             mTabHost = (TabHost) getRootView().findViewById(android.R.id.tabhost);
             initializeTabHost(activity);

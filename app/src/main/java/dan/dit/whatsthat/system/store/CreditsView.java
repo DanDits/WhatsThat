@@ -34,7 +34,7 @@ public class CreditsView extends WebView implements StoreContainer {
         super(context, attributes);
     }
 
-    public void refresh(FragmentActivity activity, FrameLayout titleBackContainer) {
+    public void refresh(StoreActivity activity, FrameLayout titleBackContainer) {
         getSettings().setDefaultTextEncodingName("utf-8");
         loadData(getContext().getString(R.string.credits_text), "text/html; charset=utf-8", "UTF-8");
         setBackgroundColor(Color.TRANSPARENT);

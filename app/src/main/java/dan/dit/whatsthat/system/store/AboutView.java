@@ -33,7 +33,6 @@ import android.view.VelocityTracker;
 import android.view.View;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.FrameLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import dan.dit.whatsthat.R;
@@ -329,7 +328,7 @@ public class AboutView extends View implements StoreContainer {
     }
 
     @Override
-    public void refresh(FragmentActivity activity, FrameLayout titleBackContainer) {
+    public void refresh(StoreActivity activity, FrameLayout titleBackContainer) {
         requestLayout();
         invalidate();
     }

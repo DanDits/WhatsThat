@@ -37,7 +37,6 @@ public class DonationsView extends FrameLayout implements StoreContainer {
     /**
      * Google
      */
-    private static final String GOOGLE_PUBKEY = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAn6hUO5Q7mp16xluE7lRKlXJeFAvNktJjEHaDeD624XNcVcfRs7F5+LooYu2fCgHPnX74MyYG6p3ZDXDsHfaubenWVodBYHUo9ZfLWk3bo/kfd3vdFDiRVErQflZgQ88MUwcHl0caexKVYAP/LOCkniJvZKQ7+B/bj93us1nyqbaJOV+iBNveZwoODAgYembc0pOCJ4YgjY+J112o1+cgKZkuDunVLSapokhIWriVDp3XHU6b/1WyegzAA3cSiJV6y6rxy6kMFwGIc1e15oZPV8S7ae6GbZMc/GkeYGzxY1Qi1i4edk0K44rNjm0gfGd1Tz5WYD19cdECY9PXn4WD6QIDAQAB";
     private static final String[] GOOGLE_CATALOG = new String[]{"whatsthat.donation.1",
             "whatsthat.donation.2", "whatsthat.donation.3", "whatsthat.donation.5", "whatsthat.donation.8",
             "whatsthat.donation.13"};
@@ -65,9 +64,10 @@ public class DonationsView extends FrameLayout implements StoreContainer {
 
 
     @Override
-    public void refresh(FragmentActivity activity, FrameLayout titleBackContainer) {
+    public void refresh(StoreActivity activity, FrameLayout titleBackContainer) {
         if (mFragment == null) {
-            mFragment = DonationsFragment.newInstance(false, true, GOOGLE_PUBKEY, GOOGLE_CATALOG,
+            mFragment = DonationsFragment.newInstance(false, true, StoreActivity.GOOGLE_PUBKEY,
+                    GOOGLE_CATALOG,
                     getResources().getStringArray(R.array.donation_google_catalog_values), false, null, null,
                     null, true, FLATTR_PROJECT_URL, FLATTR_URL, true, BITCOIN_ADDRESS);
         }

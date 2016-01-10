@@ -26,4 +26,5 @@ dependencies {
     compile 'org.sufficientlysecure:donations:2.4'
     compile project(':leonidlib')
     compile 'com.cloudinary:cloudinary-android:1.2.2'
+    compile project(':inappbilling')
 }

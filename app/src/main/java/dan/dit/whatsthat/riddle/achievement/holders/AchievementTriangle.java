@@ -62,7 +62,7 @@ public class AchievementTriangle extends TypeAchievementHolder {
         public static final boolean DISCOVERED = true;
         private static final int REQUIRED_GAMES_COUNT = 5;
         private static final String KEY_TIMER_SOLVED = Types.Triangle.NAME + NUMBER + "games_solved";
-        private static final long MAX_TIME_DURATION = 120000L;
+        private static final long MAX_TIME_DURATION = 180000L;
 
         public Achievement1(AchievementManager manager, PracticalRiddleType type) {
             super(type, R.string.achievement_triangle_1_name, R.string.achievement_triangle_1_descr, 0, NUMBER, manager, LEVEL, REWARD, 1, DISCOVERED);

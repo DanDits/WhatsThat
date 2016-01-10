@@ -23,6 +23,7 @@ import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 
+import dan.dit.whatsthat.system.store.BillingCallback;
 import dan.dit.whatsthat.testsubject.ForeignPurse;
 import dan.dit.whatsthat.testsubject.shopping.filter.ShopArticleGroupFilter;
 
@@ -36,6 +37,8 @@ public abstract class ShopArticleHolder {
     protected List<ShopArticle> mFilteredArticles;
     protected List<ShopArticle> mAllArticles;
     private ShopArticleGroupFilter mRootFilter;
+
+    private BillingCallback mBillingCallback;
 
 
     public void setFilter(ShopArticleGroupFilter rootFilter) {
@@ -68,6 +71,14 @@ public abstract class ShopArticleHolder {
 
     public ForeignPurse getPurse() {
         return mPurse;
+    }
+
+    public BillingCallback getBillingCallback() {
+        return mBillingCallback;
+    }
+
+    public void setBillingCallback(BillingCallback billingCallback) {
+        mBillingCallback = billingCallback;
     }
 
     public interface OnArticleChangedListener {

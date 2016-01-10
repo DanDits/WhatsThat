@@ -85,25 +85,22 @@ public class ShopArticleRiddleHints extends ShopArticle {
     }
 
     @Override
-    public CharSequence getSpentScore(Resources resources) {
-        int spent = 0;
-        final int purchasedCount = mPurse.getAvailableRiddleHintsCount(mType);
-        for (int i = 0; i <  purchasedCount; i++) {
-            spent += mCosts.get(Math.min(i, mCosts.size() - 1));
-        }
-        if (spent == 0) {
-            return "";
-        }
-        return resources.getString(R.string.shop_article_spent, spent);
-    }
-
-    @Override
     public int getSpentScore(int subProductIndex) {
+        if (mCosts.size() == 0) {
+            return 0;
+        }
         int cost;
         if (subProductIndex >= 0 && subProductIndex < mCosts.size()) {
             cost = mCosts.get(subProductIndex);
-        } else {
+        } else if (subProductIndex >= mCosts.size()) {
             cost = mCosts.get(mCosts.size() - 1);
+        } else {
+            //index smaller than zero, so general product index
+            cost = 0;
+            final int purchasedCount = mPurse.getAvailableRiddleHintsCount(mType);
+            for (int i = 0; i <  purchasedCount; i++) {
+                cost += mCosts.get(Math.min(i, mCosts.size() - 1));
+            }
         }
         return Math.max(cost, 0);
     }

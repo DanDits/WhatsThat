@@ -26,7 +26,6 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.BaseExpandableListAdapter;
-import android.widget.Button;
 import android.widget.ExpandableListView;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -125,7 +124,7 @@ public class AchievementView extends ExpandableListView implements StoreContaine
     }
 
     @Override
-    public void refresh(FragmentActivity activity, FrameLayout titleBackContainer) {
+    public void refresh(StoreActivity activity, FrameLayout titleBackContainer) {
         if (mAdapter == null) {
             mAdapter = new AchievementsAdapter(activity);
             setGroupIndicator(getResources().getDrawable(R.drawable.achievement_list_group_indicator));

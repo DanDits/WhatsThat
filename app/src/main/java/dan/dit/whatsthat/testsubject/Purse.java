@@ -31,6 +31,7 @@ class Purse {
     static final String SHW_KEY_SKIPABLE_GAMES = "skipable_games";
     private static final String SW_KEY_SPENT_SCORE = "testsubject_spent_score";
     static final String SW_KEY_SOLVED_RIDDLE_SCORE = "solved_riddle_score";
+    static final String SW_KEY_PURCHASED_CURRENCY_SCORE = "purchased_currency_score";
     static final String SW_KEY_ACHIEVEMENT_SCORE = "achievement_score";
     private static final String SHW_KEY_CURRENT_RIDDLE_HINT = "current_riddle_hint_";
     private static final String SHW_KEY_AVAILABLE_RIDDLE_HINT_COUNT = "available_riddle_hint_";
@@ -47,6 +48,7 @@ class Purse {
     public int getCurrentScore() {
         return  mScoreWallet.getEntryValue(SW_KEY_SOLVED_RIDDLE_SCORE)
                 + mScoreWallet.getEntryValue(SW_KEY_ACHIEVEMENT_SCORE)
+                + mScoreWallet.getEntryValue(SW_KEY_PURCHASED_CURRENCY_SCORE)
                 - mScoreWallet.getEntryValue(SW_KEY_SPENT_SCORE);
     }
 

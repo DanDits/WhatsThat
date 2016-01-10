@@ -50,6 +50,8 @@ public class SortimentHolder extends ShopArticleHolder {
             .JUMPER_INSTANCE.getFullName() + "_better_ideas";
     public static final String ARTICLE_KEY_DICE_IMPROVED_START = PracticalRiddleType.DICE_INSTANCE
             .getFullName() + "_improved_start";
+    public static final String ARTICLE_KEY_PURCHASE_CURRENCY_500 = "article_purchase_currency_500";
+    public static final String GOOGLE_PRODUCT_ID_PURCHASE_CURRENCY_500 = "currency_500";
 
     private Dependency mAnyDownloadProductPurchasedDependency;
     public SortimentHolder(Context applicationContext, ForeignPurse purse) {
@@ -66,6 +68,16 @@ public class SortimentHolder extends ShopArticleHolder {
         addArticle(new ShopArticleSimple(ARTICLE_KEY_TRIANGLE_DIVIDE_BY_MOVE_FEATURE, mPurse, R.string.article_triangle_divide_by_move_feature_name, R.string.article_triangle_divide_by_move_feature_descr, R.drawable.icon_triangle, 200));
         addArticle(new ShopArticleToggleable(ARTICLE_KEY_SNOW_FEATURE_ORIENTATION_SENSOR, mPurse, R.string.article_snow_feature_orientation_sensor_name, R.string.article_snow_feature_orientation_sensor_descr, R.drawable.icon_snow,
                 R.string.article_snow_feature_orientation_sensor_on, R.string.article_snow_feature_orientation_sensor_off, 300));
+
+        addArticle(new PurchaseCurrencyArticle(ARTICLE_KEY_PURCHASE_CURRENCY_500, mPurse, this,
+                R.string.article_currency_purchase_500_name,
+                R.string.article_currency_purchase_500_descr,
+                R.drawable.icon_think_currency,
+                500, // gained in game currency, >0
+                GOOGLE_PRODUCT_ID_PURCHASE_CURRENCY_500,
+                200 // cost in cent, only visual, price in developer console
+        ));
+
         addHintArticles();
 
         addArticle(new ShopArticleDownload(mApplicationContext, mPurse, R.string.download_article_name, R.string.download_article_descr_technical, R.drawable.ic_download, 25,

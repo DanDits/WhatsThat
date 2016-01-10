@@ -210,15 +210,13 @@ public class ShopArticleDownload extends ShopArticle implements ImageDataDownloa
     }
 
     private class DownloadProduct extends SubProduct {
-        private View mView;
         private TextView mDescription;
         private View mProgressIsWorking;
         private ProgressBar mActualProgress;
         private View mProgress;
 
-        @Override
-        public View getView() {
-            return mView;
+        public DownloadProduct() {
+            super(R.layout.download_product);
         }
 
         public void updateDescription() {
@@ -252,7 +250,7 @@ public class ShopArticleDownload extends ShopArticle implements ImageDataDownloa
 
         @Override
         public void inflateView(LayoutInflater inflater) {
-            mView = inflater.inflate(R.layout.download_product, null);
+            super.inflateView(inflater);
             mProgress = mView.findViewById(R.id.progress);
             mProgressIsWorking = mView.findViewById(R.id.progress_is_working);
             mActualProgress = (ProgressBar) mView.findViewById(R.id.progress_bar);

@@ -511,6 +511,13 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
                     }
                 }
             });
+            mScoreInfo.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    mBtnCheat.setVisibility(View.VISIBLE);
+                    return false;
+                }
+            });
         }
         mBtnRiddles.setEnabled(false);
         mBtnRiddles.setImageResource(TestSubject.getInstance().getImageResId());

@@ -131,6 +131,7 @@
     <string name="article_hint_not_yet_read">New hint in the next game</string>
 
     <string name="shop_article_spent" translatable="false">-%1$d</string>
+    <string name="shop_article_gained" translatable="false">+%1$d</string>
 
     <string name="article_product_confirm_purchase_dependency_missing">Requires: %1$s</string>
 
@@ -272,4 +273,12 @@
         <item quantity="one">%1$d image</item>
         <item quantity="other">%1$d images</item>
     </plurals>
+
+    <string name="article_purchase_with_real_money">Real money</string>
+    <string name="article_purchase_start_plain">Start purchase</string>
+    <string name="article_purchase_start">Start purchase (%1$.2f€)</string>
+    <string name="article_currency_purchase_500_name">Purchase 500 cells</string>
+    <string name="article_currency_purchase_500_descr">Support the developers (and
+        yourself)! Purchase ingame currency with real money using in app billing.</string>
+
 </resources>

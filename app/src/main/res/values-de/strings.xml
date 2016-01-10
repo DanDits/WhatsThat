@@ -275,4 +275,11 @@
     <string name="dependency_or">oder</string>
     <string name="panic_share_dialog">Teile Experiment Bild mit…</string>
     <string name="panic_share_failed">Teilen des Experiments fehlgeschlagen.</string>
+
+    <string name="article_purchase_with_real_money">Echtes Geld</string>
+    <string name="article_purchase_start_plain">Kauf starten</string>
+    <string name="article_purchase_start">Kauf starten (%1$.2f€)</string>
+    <string name="article_currency_purchase_500_name">Kaufe 500 Zellen</string>
+    <string name="article_currency_purchase_500_descr">Unterstütze die Entwickler (und dich)! Kaufe
+        Spielwährung mit echtem Geld über GooglePlay.</string>
 </resources>

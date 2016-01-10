@@ -153,16 +153,11 @@ public class RiddleArticle extends ShopArticle {
 
     private class RiddleProduct extends SubProduct {
         PracticalRiddleType mType;
-        View mView;
 
         public RiddleProduct(PracticalRiddleType type) {
+            super(R.layout.choose_riddle_product);
             mType = type;
             mParentArticle = RiddleArticle.this;
-        }
-
-        @Override
-        public View getView() {
-            return mView;
         }
 
         public void updateState() {
@@ -193,7 +188,7 @@ public class RiddleArticle extends ShopArticle {
 
         @Override
         public void inflateView(LayoutInflater inflater) {
-            mView = inflater.inflate(R.layout.choose_riddle_product, null);
+            super.inflateView(inflater);
             ((ImageView) mView.findViewById(R.id.riddle_icon)).setImageResource(mType.getIconResId());
             ((TextView) mView.findViewById(R.id.riddle_name)).setText(mType.getNameResId());
             ((TextView) mView.findViewById(R.id.riddle_advertising)).setText(mType.getAdvertisingResId());

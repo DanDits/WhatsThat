@@ -19,6 +19,9 @@
     <string name="intro_test_answer_217341">217341</string>
     <string name="intro_test_answer_6">6</string> <!--Level 2-->
     <string name="intro_test_answer_potatosalad">Potato salad</string>
+    <string name="intro_test_answer_3">3</string> <!--Level 3-->
+    <string name="intro_test_answer_4">4</string>
+    <string name="intro_test_answer_5">5</string>
 
     <string name="intro_starting_episode">Welcome %1$s</string>
 
