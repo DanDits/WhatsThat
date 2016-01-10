@@ -498,7 +498,7 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
         // only allow cheats in debug build
         final boolean allowCheats = BuildConfig.DEBUG;
         if (allowCheats) {
-            mScoreInfo.setOnClickListener(new View.OnClickListener() {
+            /*mScoreInfo.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     if (mClickCount == 0 || System.currentTimeMillis() - mFirstClickTime > 2000L) {
@@ -517,7 +517,8 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
                     mBtnCheat.setVisibility(View.VISIBLE);
                     return false;
                 }
-            });
+            });*/
+            mBtnCheat.setVisibility(View.VISIBLE);
         }
         mBtnRiddles.setEnabled(false);
         mBtnRiddles.setImageResource(TestSubject.getInstance().getImageResId());
