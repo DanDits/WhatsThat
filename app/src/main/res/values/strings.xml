@@ -12,6 +12,7 @@
         <ul>
         <li>This project makes use of <a href="https://github.com/SufficientlySecure/donations">DonationsFragment</a> by <em>SufficientlySecure</em> to handle the donations.</li>
         <li>All those neat popup messages are made possible by <a href="https://github.com/JohnPersano/SuperToasts">SuperToasts</a> from <em>JohnPersano</em>.</li>
+        <li>Talking to GooglePlay and the billing system is supported by <a href="https://github.com/anjlab/android-inapp-billing-v3">anjlab</a>.</li>
         <li>Some aspects of the mosaic generation rely on <a href="http://math.nist.gov/javanumerics/jama">JAMA</a> for the math heavy calculations.</li>
         </ul>
         <p>Furthermore, we want to say thank you to all those people that were interested in helping during the testing phase. If you want to see your name (or pseudonym) displayed here, contact us! You will either become a new tester or get your deserved credit for already being awesome.</p>
@@ -277,8 +278,10 @@
     <string name="article_purchase_with_real_money">Real money</string>
     <string name="article_purchase_start_plain">Start purchase</string>
     <string name="article_purchase_start">Start purchase (%1$.2f€)</string>
-    <string name="article_currency_purchase_500_name">Purchase 500 cells</string>
-    <string name="article_currency_purchase_500_descr">Support the developers (and
+    <string name="article_currency_purchase_250_name">Purchase 250 brain cells</string>
+    <string name="article_currency_purchase_500_name">Purchase 500 brain cells</string>
+    <string name="article_currency_purchase_1000_name">Purchase 1000 brain cells</string>
+    <string name="article_currency_purchase_descr">Support the developers (and
         yourself)! Purchase ingame currency with real money using in app billing.</string>
 
 </resources>

@@ -181,7 +181,9 @@ public class ShopView extends ExpandableListView implements  StoreContainer, Sho
 
     @Override
     public void stop(FragmentActivity activity, boolean pausedOnly) {
-        mArticleHolder.setBillingCallback(null);
+        if (!pausedOnly) {
+            mArticleHolder.setBillingCallback(null);
+        }
         mCurrency.setVisibility(View.INVISIBLE);
         mArticleHolder.setOnArticleChangedListener(null);
         mArticleHolder.closeArticles();

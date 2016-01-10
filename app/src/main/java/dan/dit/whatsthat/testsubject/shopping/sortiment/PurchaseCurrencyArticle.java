@@ -25,6 +25,25 @@ public class PurchaseCurrencyArticle extends ShopArticle {
     private PurchaseCurrencyProduct mProduct;
     private int mCostInCent;
 
+    /**
+     * Creates a new article to purchase in app currency for real money using GooglePlay billing.
+     * Requires inapp billing (and internet) and can fail on various reasons during the process.
+     * This article can be purchased infinite times, the gained currency is displayed where
+     * normally the spent currency is visualized.
+     * @param articleKey The key of this article. Must be unique for all ShopArticles.
+     * @param purse The purse used to add gained currency to.
+     * @param holder The SortimentHolder used to get a valid BillingCallback of when click on
+     *               purchase.
+     * @param nameResId A string resource for the article name.
+     * @param descrResId A string resource for the article description.
+     * @param iconResId A drawable resource for the icon.
+     * @param gainedCurrency The gained currency on successful purchase. Must be positive!
+     * @param googleProductId The product id as specified in the google developer console. Must
+     *                        be valid!
+     * @param costInCent A visual hint as to how much real money this is going to cost in cents.
+     *                   This is normalized for prices in germany including taxes, but the actual
+     *                   price for billing will differ from country and currency used.
+     */
     public PurchaseCurrencyArticle(String articleKey, ForeignPurse purse, SortimentHolder holder,
                                    int nameResId, int descrResId, int iconResId,
                                    int gainedCurrency,
@@ -37,6 +56,9 @@ public class PurchaseCurrencyArticle extends ShopArticle {
         mCostInCent = costInCent;
         if (mGainedCurrency <= 0) {
             throw new IllegalArgumentException("No currency gain to buy.");
+        }
+        if (TextUtils.isEmpty(mGoogleProductId)) {
+            throw new IllegalArgumentException("No google product id given.");
         }
     }
 
@@ -90,7 +112,7 @@ public class PurchaseCurrencyArticle extends ShopArticle {
 
     @Override
     public void onChildClick(SubProduct product) {
-        if (product == mProduct && mHolder != null) {
+        if (product == mProduct && mHolder != null && isPurchasable(0) == HINT_PURCHASABLE) {
             Log.d("Billing", "Clicked on " + mProduct + " child, holder not null, callback null="
                     + (mHolder.getBillingCallback() == null));
             BillingCallback callback = mHolder.getBillingCallback();
@@ -116,6 +138,9 @@ public class PurchaseCurrencyArticle extends ShopArticle {
         public int onProductPurchased(String productId, TransactionDetails details) {
             if (!TextUtils.isEmpty(productId) && productId.equals(mGoogleProductId)) {
                 mPurse.purchaseCurrency(mKey, mGainedCurrency);
+                if (mListener != null) {
+                    mListener.onArticleChanged(PurchaseCurrencyArticle.this);
+                }
                 return StoreActivity.ProductPurchasedCallback.CONSUME_PRODUCT;
             }
             return StoreActivity.ProductPurchasedCallback.DO_NOTHING;

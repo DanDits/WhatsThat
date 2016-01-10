@@ -12,6 +12,7 @@
         <ul>
         <li>Dieses Projekt benutzt das <a href="https://github.com/SufficientlySecure/donations">DonationsFragment</a> von <em>SufficientlySecure</em> für die Spendenseite.</li>
         <li>Die ganzen netten Popup Meldungen werden ermöglicht von <a href="https://github.com/JohnPersano/SuperToasts">SuperToasts</a> erstellt von <em>JohnPersano</em>.</li>
+        <li>Kommunikation mit GooglePlay und das Bezahlsystem werden unterstützt von <a href="https://github.com/anjlab/android-inapp-billing-v3">anjlab</a>.</li>
         <li>Manche Teile der Mosaikerstellung benötigen <a href="http://math.nist.gov/javanumerics/jama">JAMA</a> für mathematisch knifflige Operationen.</li>
         </ul>
         <p>Weiterhin möchten wir all jenen danken, die Interesse gezeigt haben, während das Projekt noch in den Kinderschuhen steckte. Durch Einbringen neuer Ideen und Testen, immer kam irgendwo ein neuer Wind her. Falls ihr euren Namen (oder Pseudonym) hier geschrieben sehen wollt, nehmt Kontakt mit uns auf! Dann werdet ihr entweder ein neuer Tester oder ihr bekommt die wohlverdiente Anerkennung dafür, dass ihr so große Klasse seid!</p>
@@ -279,7 +280,9 @@
     <string name="article_purchase_with_real_money">Echtes Geld</string>
     <string name="article_purchase_start_plain">Kauf starten</string>
     <string name="article_purchase_start">Kauf starten (%1$.2f€)</string>
-    <string name="article_currency_purchase_500_name">Kaufe 500 Zellen</string>
-    <string name="article_currency_purchase_500_descr">Unterstütze die Entwickler (und dich)! Kaufe
+    <string name="article_currency_purchase_250_name">Kaufe 250 Gehirnzellen</string>
+    <string name="article_currency_purchase_500_name">Kaufe 500 Gehirnzellen</string>
+    <string name="article_currency_purchase_1000_name">Kaufe 1000 Gehirnzellen</string>
+    <string name="article_currency_purchase_descr">Unterstütze die Entwickler (und dich)! Kaufe
         Spielwährung mit echtem Geld über GooglePlay.</string>
 </resources>

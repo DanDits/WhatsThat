@@ -23,7 +23,6 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -37,7 +36,6 @@ import android.view.animation.ScaleAnimation;
 import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 import android.widget.FrameLayout;
-import android.widget.Toast;
 
 import com.anjlab.android.iab.v3.BillingProcessor;
 import com.anjlab.android.iab.v3.Constants;
@@ -366,7 +364,9 @@ public class StoreActivity extends FragmentActivity implements BillingProcessor.
         ProductPurchasedCallback callback = mProductPurchaseCallbacks.get(productId);
         if (callback != null) {
             Log.d("Billing", "Product purchased " + productId + " details: " + details);
-            if (callback.onProductPurchased(productId, details) == ProductPurchasedCallback.CONSUME_PRODUCT) {
+            int result = callback.onProductPurchased(productId, details);
+            mProductPurchaseCallbacks.remove(productId);
+            if (result == ProductPurchasedCallback.CONSUME_PRODUCT) {
                 if (!mBP.consumePurchase(productId)) {
                     Log.e("Billing", "Product consuming failed!");
                 }
