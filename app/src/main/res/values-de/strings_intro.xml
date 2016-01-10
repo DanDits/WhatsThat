@@ -354,8 +354,8 @@
     <string name="test_subject_4_name">Neunmalklug</string>
     <string name="test_subject_4_int">Messbar:…9</string>
     <string-array name="test_subject_4_0_intro_main">
-        <item>WiseMind untersucht gerade, woher die Evolutionskluft kommt …</item>
-        <item>… die zwischen den Erdlingen und den restlichen Lebewesen des Universums herrscht.</item>
+        <item>WiseMind untersucht gerade, woher die Evolutionskluft kommt…</item>
+        <item>…die zwischen den Erdlingen und den restlichen Lebewesen des Universums herrscht.</item>
         <item>Es hat sich sogar schon eine Beleidigung nach euren Maßstäben geprägt:</item>
         <item>Humanoide Minimalkonfiguration.</item>
         <item>Wir untersuchen gerade, an welchen kognitiven Defiziten Erdlinge leiden.</item>
@@ -376,7 +376,7 @@
         <item>Scharfsinnig im Verstand.</item>
         <item>Fürsorgend für niedere Wesen wie dich.</item>
         <item>Und natürlich total bescheiden.</item>
-        <item>Ich verstehe nicht, wie und warum sich Homo Spaiens zu einem Über-Erdling entwickeln möchte.</item>
+        <item>Ich verstehe nicht, wie und warum sich Homo Sapiens zu einem Über-Erdling entwickeln möchte.</item>
         <item>Vielleicht ist ein vernebeltes Gehirn überhaupt Voraussetzung, um an die Spitze zu gelangen.</item>
         <item>Immerhin strebt jedes von den Erdlingen danach mehr zu sein, als überhaupt möglich.</item>
         <item>Oder jeder Erdling will mehr haben, als überhaupt nötig.</item>
@@ -475,7 +475,7 @@
     <!-- Level 6 -->
     <string name="test_subject_6_name">Entdecker</string>
     <string name="test_subject_6_int">Eine weitere Spur</string>
-    <string-array name="test_subject_6_intro_main">
+    <string-array name="test_subject_6_0_intro_main">
         <item>WiseMind hat mir für diese Atmosphäre eine Spezialcreme hergestellt!</item>
         <item>Jetzt geht es mir wesentlich besser!</item>
         <item>Voller Tatendrang haben wir deine Farbwahrnehmung nochmals genauer untersucht.</item>
@@ -565,20 +565,44 @@
     <!-- Level 7 -->
     <string name="test_subject_7_name">Träumer</string>
     <string name="test_subject_7_int">Ein Quäntchen Weisheit</string>
-    <string-array name="test_subject_7_intro_main">
-        <item>Wir haben deine Farbwahrnehmung nochmals genauer untersucht!</item>
-        <item>Neue Erkenntnisse wollen wir aber noch nicht mitteilen.</item>
-        <item>Bisher sieht es nämlich ziemlich traurig aus.</item>
-        <item>Deswegen wollen wir unsere Untersuchungen in den letzten Winkeln in den Untiefen deines Geistes ausweiten.</item>
-        <item>Ich hoffe wir finden etwas wirklich Nützliches.</item>
-        <item>Weil um ehrlich zu sein: …</item>
-        <item>Die Konvergenz unserer bisherigen Untersuchungen… stimmt..</item>
-        <item>..nicht einmal annähernd mit eurem Wissen überein.</item>
-        <item>Ihr wisst also gar nichts.</item>
-        <item>Na schön. Mit so offensichtliche Dinge hätte ich mir nicht einmal einen Keks verdient.</item>
+    <string-array name="test_subject_7_0_intro_main">
+        <item>WiseMind hat eine Zeit lang ein paar Menschenherden beobachtet und erschreckendes festegestellt…</item>
+        <item>Zwei Gruppen verfügen über keinerlei Gehirn</item>
+        <item>Oh, es reagiert auf die Worte \"kein Gehirn\".</item>
+        <item>Interessant. Hat das etwas zu bedeuten? WiseMind muss das untersuchen.</item>
+        <item>Nochmal zurück. Ein Lebewesen ohne Gehirn.</item>
+        <item>Absolut nichts.</item>
+        <item>Nur Leere. Ein Vakuum.</item>
+        <item>Wie konnte es so lange überleben?</item>
+        <item>Über diese Erkenntnis war ich so schockiert, dass ich einen Moment mein Tarnliquida fallen gelassen hab.</item>
+        <item>Es hat mich glücklicherweise keiner gesehen.</item>
+        <item>Bei den Menschengruppen handelt es sich um animalisch getrieben und rückständige…</item>
+        <item>..war das eben wieder ein Zucken..? Egal…</item>
+        <item>..um animalisch und rückständige Lebewesen.</item>
+        <item>Obwohl animalisch eine Beleidigung für jedes intelligentere Lebewesen auf diesem Planeten ist.</item>
+        <item>Sogar ein Stein hat mehr Intelligenz.</item>
+        <item>Die liegen wenigstens nur rum und stören niemand.</item>
+        <item>Ihr Menschen kennzeichnet diese fanatischen Gruppen mit Richtungen.. Moment..</item>
+        <item>..Oben-, Unten.. nee.. West..-Ost.. auch nicht.</item>
+        <item>Wie hießen die denn nochmal…</item>
+        <item>Naja egal.</item>
+        <item>Ich habe zur Entstehung der genannten Gruppen schon drei verschiedene Thesen.</item>
+        <item>Es ergeben sich nur keine eindeutigen Antworten.</item>
+        <item>Auf jede These gibt es 279 mögliche Theorien.</item>
+        <item>Auf jede Theorie 13 mögliche Lösungen.</item>
+        <item>Aber auf jede Lösung kommen 7 Hypothesen, 65 Gegentheorien, 8 Doktrinen und 4 Hirngespinste.</item>
+        <item>Von den 3038 unterschiedlichen Meinungen ganz zu schweigen!</item>
+        <item>Oder um es mathematisch-philosophisch auszudrücken:</item>
+        <item>Eine Gleichung mit achthundertfünfunzwanzig Unbekannten, siebenundreißig Dogmen und fünfzehn Neologismen.</item>
+        <item>Kapiert?</item>
     </string-array>
     <string-array name="test_subject_7_intro_nuts">
-        <item>Dummy</item>
+        <item>…</item>
+        <item>Wenn ich deine Gesichtszüge richtig interpretiere, dann ja.</item>
+        <item>Siehst du WiseMind?!</item>
+        <item>Ich glaube der Erdling hat verstanden und ist glücklich.</item>
+        <item>Guck doch wie es lächelt.</item>
+        <item>Oh halt.. warte. Es steht ja auf dem Kopf.</item>
     </string-array>
     <string-array name="test_subject_7_riddle_solved_candy">
         <item>Fantastisch</item>
@@ -592,38 +616,10 @@
     <string name="test_subject_8_name">Kleinstein</string>
     <string name="test_subject_8_int">Hoffnungsvoll</string>
     <string-array name="test_subject_8_intro_main">
-        <item>Ich muss etwas zurück schiffen.</item>
-        <item>Mach dir keine falschen Hoffnungen.</item>
-        <item>Ups. Wenn ich mich mit WiseMind unterhalte, ..</item>
-        <item>Ich will nicht sagen, du bist schlau oder schlauer, nene.</item>
-        <item>WiseMind hat eine Zeit lang ein paar Menschenherden beobachtet und erschreckendes festegestellt…</item>
-        <item>Zwei Gruppen verfügen über keinerlei Gehirn</item>
-        <item>Oh, es reagiert auf die Worte \"kein Gehirn\".Interessant. Hat das etwas zu bedeuten? WiseMind muss das untersuchen.</item>
-        <item>Nochmal zurück. Ein Lebewesen ohne Gehirn.</item>
-        <item>Absolut nichts.</item>
-        <item>Nur Leere. Ein Vakuum.</item>
-        <item>Wie konnte es so lange überleben?</item>
-        <item>Über diese Erkenntnis war ich so schockiert, dass ich einen Moment mein Tarnliquida fallen gelassen hab.</item>
-        <item>Es hat mich glücklicherweise keiner gesehen.</item>
+        <item>dummy</item>
     </string-array>
     <string-array name="test_subject_8_intro_nuts">
-        <item>Bei den Menschengruppen handelt es sich um animalisch getrieben und rückständige…</item>
-        <item>..war das eben wieder ein Zucken..? Egal…</item>
-        <item>..um animalisch und rückständige Lebewesen. Obwohl animalisch eine Beleidigung für jedes intelligentere Tier auf diesem Planeten ist.</item>
-        <item>Sogar ein Stein hat mehr Intelligenz.</item>
-        <item>Ihr Menschen kennzeichnet diese fanatischen Gruppen mit Richtungen.. Moment..</item>
-        <item>..Oben- und Unten.. nee.. West- und Ost.. auch nicht.</item>
-        <item>Wie hießen die denn nochmal…</item>
-        <item>Naja egal.</item>
-        <item>Ich habe zur Entstehung der genannten Gruppen schon drei verschiedene Theorien.</item>
-        <item>Es ergeben sich nur keine eindeutigen Antworten.</item>
-        <item>Auf jede Theorie gibt es 279 mögliche Thesen.</item>
-        <item>Auf jede These 13 mögliche Lösungen.</item>
-        <item>Aber auf jede Lösung kommen 7 Hypothesen, 65 Gegentheorien, 8 Doktrinen und 4 Hirngespinste.</item>
-        <item>Von den 3038 unterschiedlichen Meinungen ganz zu schweigen!</item>
-        <item>Oder um es mathematisch-philosophisch auszudrücken:</item>
-        <item>Eine Gleichung mit achthundertfünfunzwanzig Unbekannten, siebenundreißig Dogmen und fünfzehn Neologismen.</item>
-        <item>Kapiert?</item>
+        <item>Dummy</item>
     </string-array>
     <string-array name="test_subject_8_riddle_solved_candy">
         <item>Absolut brillant</item>
@@ -663,10 +659,6 @@
         <item>Dein Anblick wird für uns nicht erträglicher…</item>
         <item>Ach…</item>
         <item>Der Strom läuft ja wieder.</item>
-        <item>Siehst du WiseMind, das Menschenwesen ist glücklich.</item>
-        <item>Guck doch wie es lächelt.</item>
-        <item>Oh halt, warte.</item>
-        <item>Es steht ja auf dem Kopf.</item>
     </string-array>
     <string-array name="test_subject_9_riddle_solved_candy">
         <item>Meisterhafte Arbeit</item>
