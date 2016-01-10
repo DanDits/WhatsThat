@@ -22,7 +22,8 @@
     <string name="achievement_circle_6_name">Click domination</string>
     <string name="achievement_circle_6_descr">More clicks than swipes for a few more tests.</string>
     <string name="achievement_circle_7_name">I\'m in a hurry…</string>
-    <string name="achievement_circle_7_descr">Finish two…OK let\'s say one riddle in less than %1$d seconds.</string>
+    <string name="achievement_circle_7_descr">Finish two…OK let\'s say one experiment in less than
+        %1$d seconds.</string>
     <string name="achievement_circle_8_name">…still in hurry</string>
     <string name="achievement_circle_8_descr">Sorry…Don\'t wanna bother ya. %1$d experiments within %2$d seconds.</string>
     <string name="achievement_circle_9_name">All we need is love</string>
@@ -62,7 +63,7 @@
     <string name="achievement_snow_10_name">Stubborn donkey</string>
     <string name="achievement_snow_10_descr">You know that the wall will not help you?</string>
     <string name="achievement_snow_11_name">…or maybe skill?</string>
-    <string name="achievement_snow_11_descr">Solve %1$d riddles with only one explosion.</string>
+    <string name="achievement_snow_11_descr">Solve %1$d experiments with only one explosion.</string>
     <string name="achievement_snow_12_name">Overkill</string>
     <string name="achievement_snow_12_descr">Collect %1$d more tasty candies as Angry Cell.</string>
     <string name="achievement_snow_13_name">Gotta catch \'em all</string>
@@ -76,6 +77,8 @@
     <string name="achievement_snow_17_name">Both as well as</string>
     <string name="achievement_snow_17_descr">Finish %1$d experiments using the click system, %2$d using
         the other and %3$d using both during a test.</string>
+    <string name="achievement_snow_18_name">Annoyed angel</string>
+    <string name="achievement_snow_18_descr">Try to mock the angel.</string>
 
     <!-- Dice achievements -->
     <string name="achievement_dice_1_name">Unpleasant beginning</string>
@@ -167,6 +170,9 @@
     <string name="achievement_triangle_5_descr">How do you call a politician on Mars?</string>
     <string name="achievement_triangle_5_descr_unachieved">How do you call a politician on Mars? Still a liar.</string>
     <string name="achievement_triangle_5_name">Progressive progress</string>
+    <string name="achievement_triangle_6_name">Illuminati</string>
+    <string name="achievement_triangle_6_descr">Solve 3 triangle experiments within 3 * 33 seconds of
+        total played time.</string>
 
     <!-- Misc achievements -->
     <string name="achievement_misc_1_name">Creators\' names</string>

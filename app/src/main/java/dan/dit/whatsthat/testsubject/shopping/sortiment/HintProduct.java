@@ -30,7 +30,6 @@ import dan.dit.whatsthat.testsubject.shopping.SubProduct;
  */
 public class HintProduct extends SubProduct {
     private static final int STATE_SHORT_LENGTH = 15;
-    private View mView;
     private boolean mStateFullyVisible;
     private PracticalRiddleType mType;
     private int mHintNumber;
@@ -38,6 +37,7 @@ public class HintProduct extends SubProduct {
     private int mDefaultTextColor;
 
     public HintProduct(PracticalRiddleType type, int hintNumber, boolean alreadyRead) {
+        super(R.layout.hint_product);
         mType = type;
         mHintNumber = hintNumber;
         mAlreadyRead = alreadyRead;
@@ -49,13 +49,8 @@ public class HintProduct extends SubProduct {
     }
 
     @Override
-    public View getView() {
-        return mView;
-    }
-
-    @Override
     public void inflateView(LayoutInflater inflater) {
-        mView = inflater.inflate(R.layout.hint_product, null);
+        super.inflateView(inflater);
         mDefaultTextColor = ((TextView) mView.findViewById(R.id.hint_text)).getCurrentTextColor();
         setText();
     }
@@ -78,11 +73,6 @@ public class HintProduct extends SubProduct {
         } else {
             view.setText(text.subSequence(0, STATE_SHORT_LENGTH) + "...");
         }
-    }
-
-    @Override
-    public boolean hasNoView() {
-        return mView == null;
     }
 
     @Override

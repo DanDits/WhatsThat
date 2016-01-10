@@ -191,10 +191,11 @@ public class ShopArticleMulti extends ShopArticle {
     }
 
     private class MultiProduct extends SubProduct {
+        private ViewGroup mViewGroup;
         private String mDescr;
-        private ViewGroup mView;
         private ConfirmProduct mConfirm;
         public MultiProduct(LayoutInflater inflater, int subProductIndex) {
+            super(R.layout.shop_article_multi_product);
             setParentArticle(ShopArticleMulti.this);
             String[] descrs = inflater.getContext().getResources().getStringArray(mProductDescrResId);
             if (descrs.length > 0 && descrs.length > subProductIndex) {
@@ -206,29 +207,25 @@ public class ShopArticleMulti extends ShopArticle {
         }
 
         @Override
-        public View getView() {
-            return mView;
-        }
-
-        @Override
         public void inflateView(LayoutInflater inflater) {
-            mView = (ViewGroup) inflater.inflate(R.layout.shop_article_multi_product, null);
+            super.inflateView(inflater);
+            mViewGroup = (ViewGroup) mView;
             ((TextView) mView.findViewById(R.id.product_descr)).setText(mDescr);
         }
 
         public void addConfirmView(ConfirmProduct confirm) {
             mConfirm = confirm;
-            if (mView.getChildCount() == 1) {
+            if (mViewGroup.getChildCount() == 1) {
                 LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
                 layoutParams.gravity = Gravity.CENTER_HORIZONTAL;
-                mView.addView(confirm.getView());
+                mViewGroup.addView(confirm.getView());
             }
         }
 
         public void removeConfirmView() {
             mConfirm = null;
-            if (mView.getChildCount() > 1) {
-                mView.removeViewAt(mView.getChildCount() - 1);
+            if (mViewGroup.getChildCount() > 1) {
+                mViewGroup.removeViewAt(mViewGroup.getChildCount() - 1);
             }
         }
     }

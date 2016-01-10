@@ -82,6 +82,16 @@ public class ForeignPurse {
         return false;
     }
 
+    public synchronized boolean purchaseCurrency(final String key, final int currencyGain) {
+        if (TextUtils.isEmpty(key) || currencyGain <= 0) {
+            throw new IllegalArgumentException("No key or illegal currencyGain to " +
+                    "purchaseCurrency: " + key + ": " + currencyGain);
+        }
+        mPurse.mShopWallet.editEntry(key).add(1);
+        mPurse.mScoreWallet.editEntry(Purse.SW_KEY_PURCHASED_CURRENCY_SCORE).add(currencyGain);
+        return true;
+    }
+
     public synchronized boolean purchase(final String key, final int cost, final int amount) {
         if (TextUtils.isEmpty(key) || cost < 0) {
             throw new IllegalArgumentException("No key or illegal cost to purchaseFeature: " + key + ": " + cost);

@@ -28,20 +28,11 @@ import dan.dit.whatsthat.R;
 public class ConfirmProduct extends SubProduct {
 
 
-    private View mView;
-
     public ConfirmProduct(ShopArticle parent) {
+        super(R.layout.shop_confirm_product);
         setParentArticle(parent);
     }
 
-    public void inflateView(LayoutInflater inflater) {
-        mView = inflater.inflate(R.layout.shop_confirm_product, null);
-    }
-
-    @Override
-    public View getView() {
-        return mView;
-    }
 
     public void setConfirmable(int purchasableHint, CharSequence costText, CharSequence depText, int icon) {
         if (mView != null) {

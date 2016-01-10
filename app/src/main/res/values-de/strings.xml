@@ -12,6 +12,7 @@
         <ul>
         <li>Dieses Projekt benutzt das <a href="https://github.com/SufficientlySecure/donations">DonationsFragment</a> von <em>SufficientlySecure</em> für die Spendenseite.</li>
         <li>Die ganzen netten Popup Meldungen werden ermöglicht von <a href="https://github.com/JohnPersano/SuperToasts">SuperToasts</a> erstellt von <em>JohnPersano</em>.</li>
+        <li>Kommunikation mit GooglePlay und das Bezahlsystem werden unterstützt von <a href="https://github.com/anjlab/android-inapp-billing-v3">anjlab</a>.</li>
         <li>Manche Teile der Mosaikerstellung benötigen <a href="http://math.nist.gov/javanumerics/jama">JAMA</a> für mathematisch knifflige Operationen.</li>
         </ul>
         <p>Weiterhin möchten wir all jenen danken, die Interesse gezeigt haben, während das Projekt noch in den Kinderschuhen steckte. Durch Einbringen neuer Ideen und Testen, immer kam irgendwo ein neuer Wind her. Falls ihr euren Namen (oder Pseudonym) hier geschrieben sehen wollt, nehmt Kontakt mit uns auf! Dann werdet ihr entweder ein neuer Tester oder ihr bekommt die wohlverdiente Anerkennung dafür, dass ihr so große Klasse seid!</p>
@@ -99,7 +100,7 @@
     <string name="panic_retry">Bild mit anderem Experiment neu versuchen</string>
     <string name="panic_share">Freunde zu diesem Experiment herausfordern</string>
     <string name="panic_complain">Per Mail über das Bild beschweren!!1</string>
-    <string name="panic_cannot_skip">Gehirn überladen … kann nicht .. weitere Experimente. merken …</string>
+    <string name="panic_cannot_skip">Zu viele ausgesetzte Experimente im Gedächtnis…</string>
     <string name="panic_retry_notification">Du erhälst dann dafür nur noch 1 Punkt und
         keine Erfolge!</string>
     <string name="panic_retry_failed_no_types">Hole dir zuerst neue Experimente im Laden!</string>
@@ -224,8 +225,8 @@
     <string name="bundle_creator_progress_error_result">Fehler (%1$d) beim Speichern</string>
     <string name="share_failed">Teilen fehlgeschlagen</string>
     <string name="article_level_up_name">Gehirnlevel Boost</string>
-    <string name="article_level_up_descr">Ermöglicht das Erfassen von weiteren Experimenten und
-        Erfolgen.</string>
+    <string name="article_level_up_descr">Schaltet neue Experimente und Erfolge im Gehirn frei
+        .</string>
     <string name="article_level_up_dep_new_riddle">Zuerst ein neues Experiment wählen!</string>
     <string name="article_choose_riddle_name">Wähle ein neues Experiment</string>
     <string name="article_choose_riddle_descr">Fordere deinen Geist mit einer neuen Aufgabe heraus!</string>
@@ -275,4 +276,13 @@
     <string name="dependency_or">oder</string>
     <string name="panic_share_dialog">Teile Experiment Bild mit…</string>
     <string name="panic_share_failed">Teilen des Experiments fehlgeschlagen.</string>
+
+    <string name="article_purchase_with_real_money">Echtes Geld</string>
+    <string name="article_purchase_start_plain">Kauf starten</string>
+    <string name="article_purchase_start">Kauf starten (%1$.2f€)</string>
+    <string name="article_currency_purchase_250_name">Kaufe 250 Gehirnzellen</string>
+    <string name="article_currency_purchase_500_name">Kaufe 500 Gehirnzellen</string>
+    <string name="article_currency_purchase_1000_name">Kaufe 1000 Gehirnzellen</string>
+    <string name="article_currency_purchase_descr">Unterstütze die Entwickler (und dich)! Kaufe
+        Spielwährung mit echtem Geld über GooglePlay.</string>
 </resources>

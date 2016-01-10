@@ -18,19 +18,31 @@ package dan.dit.whatsthat.testsubject.shopping;
 import android.view.LayoutInflater;
 import android.view.View;
 
+import dan.dit.whatsthat.R;
+
 /**
  * Created by daniel on 29.07.15.
  */
 public abstract class SubProduct {
+    protected View mView;
     protected ShopArticle mParentArticle;
+    protected int mLayoutResId;
+    public SubProduct(int layoutResId) {
+        mLayoutResId = layoutResId;
+    }
 
-    public abstract View getView();
+    public View getView() {
+        return mView;
+    }
 
-    void setParentArticle(ShopArticle parentArticle) {
+    protected void setParentArticle(ShopArticle parentArticle) {
         mParentArticle = parentArticle;
     }
 
-    public abstract void inflateView(LayoutInflater inflater);
+    public void inflateView(LayoutInflater inflater) {
+        mView = inflater.inflate(mLayoutResId, null);
+    }
+
     public boolean hasNoView() {
         return getView() == null;
     }

@@ -77,16 +77,15 @@ public class ShopArticleToggleable extends ShopArticleSimple {
     }
 
     private class ToggleableProduct extends SubProduct {
-        private View mView;
 
-        @Override
-        public View getView() {
-            return mView;
+        public ToggleableProduct() {
+            super(R.layout.shop_toggler_product);
         }
+
 
         @Override
         public void inflateView(LayoutInflater inflater) {
-            mView = inflater.inflate(R.layout.shop_toggler_product, null);
+            super.inflateView(inflater);
             updateState();
         }
 

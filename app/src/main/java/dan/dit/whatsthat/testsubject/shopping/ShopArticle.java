@@ -66,10 +66,18 @@ public abstract class ShopArticle {
 
     public CharSequence getSpentScore(Resources resources) {
         int spentScore = getSpentScore(GENERAL_PRODUCT_INDEX);
-        if (spentScore == 0) {
+        return handleSpentScoreText(resources, spentScore);
+    }
+
+    protected static CharSequence handleSpentScoreText(Resources resources, int spent) {
+        if (spent == 0) {
             return "";
         }
-        return resources.getString(R.string.shop_article_spent, spentScore);
+        if (spent > 0) {
+            return resources.getString(R.string.shop_article_spent, spent);
+        } else {
+            return resources.getString(R.string.shop_article_gained, -spent);
+        }
     }
 
     public abstract int getSpentScore(int subProductIndex);

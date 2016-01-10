@@ -24,7 +24,7 @@ import android.widget.FrameLayout;
  * Created by daniel on 11.06.15.
  */
 interface StoreContainer {
-    void refresh(FragmentActivity activity, FrameLayout titleBackContainer);
+    void refresh(StoreActivity activity, FrameLayout titleBackContainer);
     void stop(FragmentActivity activity, boolean pausedOnly);
     View getView();
 }

@@ -103,7 +103,10 @@
     <string name="riddle_type_dice_advertising">A tricky and complicated experiment for the patients and logistician. You need to move dices on a grid and combine them.</string>
     <string name="riddle_type_dice_explanation">Touch an empty field to create dices with different number of points. Move and combine dices with equal numbers to reveal the image.</string>
     <string-array name="riddle_type_dice_hints">
-        <item>A very complicated test. Create new dices by touching empty fields. Combine dices with the same number and colour to get more transparency in the shown areas. There are the three basic dice red, yellow and green and the special Alien-Cube. The Alien-Cube has special effects on each basic dice.</item>
+        <item>A very complicated test. Create new dices by touching empty fields. Combine dices
+            with the same number and colour to get more transparency in the shown areas. There
+            are three basic dices red, yellow and green. And there is the special Alien-Cube. The
+            Alien-Cube has special effects on each basic dice.</item>
         <item>We have to do this complicated experiment as we discovered a strange anomaly: Somehow your earthly cubes miss one dimension. By mistake there are only six cube faces instead of nine. Of course we have to test your brain on reality in terms of combination, numbers, tactic, logistics, colour, movement, logic and speed. Ay, I think it\'s a mistake, too. I told WiseMind we are expecting too much, but I have to execute this command.</item>
         <item>Something you need to know about the Alien-Cube: Alien-Cube on red results in a green dice with the same number. Plus some transparency in the shown areas!</item>
         <item>Alien-Cube on yellow will reveal the field completely but both cubes will vanish!</item>
@@ -124,18 +127,26 @@
 
     <!-- Jumper related -->
     <string name="riddle_type_jumper">Monstarathon</string>
-    <string name="riddle_type_jumper_advertising">A moving experiment. You jump and run and need to avoid touching obstacles!</string>
-    <string name="riddle_type_jumper_explanation">Touch to jump or keep pressed to doublejump over obstacles. Each one will slowly reveal the image</string>
+    <string name="riddle_type_jumper_advertising">A moving experiment. You jump and run and need
+        to avoid colliding with obstacles!</string>
+    <string name="riddle_type_jumper_explanation">Touch to jump or keep pressed to doublejump
+        over obstacles. Ideas will slowly reveal the forgotten image</string>
     <string-array name="riddle_type_jumper_hints">
-        <item>Humans are strange creatures. A donkey is moving if you keep a carrot in front of his head, for Homo sapiens it requires a bundle of money, even tough you can\'t eat it.</item>
+        <item>Humans are strange creatures. A donkey is moving if you keep a carrot in front of
+            his head, for Homo sapiens it requires a bundle of money, even tough you can\'t even eat
+            it.</item>
         <item>Whatever. We run some tests on a business men and had to block his memory. Luckily, you can break the blockage by jumping over different obstacles. It was easy to motivate the business man for a marathon with a simple thought: \"At the end of the rainbow you will be rewarded by a pot of money!\" What a pity, that there is no rainbow in the middle of the night.</item>
         <item>Click once: Jump, Click twice: Double Jump. Got it?</item>
-        <item>You will pass four areas. Depending on the difficulty memory comes back much bigger.</item>
-        <item>Our Business Man will remember something every x-passed obstacles. Sometimes it\'s unimportant for us, the field stays the same.</item>
+        <item>You will pass different stages. Depending on the difficulty more memory will come back
+            .</item>
+        <item>Our Business Man will remember something every x-passed obstacles. But not every
+            idea will be relevant for the forgotten picture.</item>
         <item>Practice makes perfect. But some people are just not made for Jump and Runs.</item>
         <item>You wonder who is Manomnom? A mysterious being!</item>
-        <item>Manomnom is waiting for you in the last area. As my master loves him so much, you will meet him after each leaving any area.</item>
-        <item>You should\'t touch Manomnom. His laser is just show. A show with great style, don\'t you think so?</item>
+        <item>Manomnom is waiting for you in the last area. As my master loves him so much, you
+            will meet him at the end of each stage.</item>
+        <item>You should\'t touch Manomnom. But his laser is just a show. A show with great style,
+            don\'t you think so?</item>
         <item>You wonder why he wants to laser everything? Unfortunately he got crazy after eating a Magnetar.</item>
         <item>Manomnom and I, we are the sweeties of our Master!</item>
         <item>Oh Manomno, you silly ninny, why did you eat the Magnetar… Just why?</item>
@@ -181,20 +192,30 @@
 
     <!-- Flow related -->
     <string name="riddle_type_flow">Cellflow</string>
-    <string name="riddle_type_flow_advertising">An oasis of chaos for slobs. Put down cells in the unknown chaos to discover known points and shapes of the image! A simple experiment!</string>
-    <string name="riddle_type_flow_explanation">Click anywhere in the field to create cellflows. If cells hit a point of the image, they follow the shapes of the picture.</string>
+    <string name="riddle_type_flow_advertising">An oasis of chaos for slobs. Put down Cellis in
+        the unknown chaos to discover known points and shapes of the image! A simple experiment!</string>
+    <string name="riddle_type_flow_explanation">Click anywhere in the field to create cellflows.
+        If Cellis hit an edge of the image, they follow the shapes of the picture.</string>
     <string-array name="riddle_type_flow_hints">
-        <item>Maybe you think this is a confusing experiment, on the whole that\'s how to describe your mind: Confusy and empty. At least at the beginning! We recreated your mind with a model.\nClick anywhere on the field to place some Cellis. If Cellis hit a shape of the image, they will follow them and reveal the picture at the same time!</item>
-        <item>Not every Celli is a specialized and intelligent cell. Only every third Celli will follow the shapes.</item>
-        <item>Celli\'s lifetime is always the same.</item>
+        <item>Maybe you think this is a confusing experiment, on the whole that\'s how to
+            describe your mind: Confused and empty. At least at the beginning! We recreated your
+            mind with a model.\nClick anywhere on the field to place some Cellis. If Cellis hit
+            an edge of the image, they will follow them and reveal the picture at the same
+            time!</item>
+        <item>Not every Celli is a specialized and intelligent cell. Only every third Celli will
+            detect edges.</item>
+        <item>Celli\'s maximum lifetime is always the same.</item>
         <item>However not every Celli will work until the end. Most of them collide in a dead end.</item>
     </string-array>
 
 
     <!-- Lazor related -->
     <string name="riddle_type_lazor">Lazor</string>
-    <string name="riddle_type_lazor_advertising">An arcade experiment with some futuristic aspects. Defend your city against descending meteors.</string>
-    <string name="riddle_type_lazor_explanation">The closest charged Lazor is shot towards the chosen point and will explode there or on collision. Stop the destruction!</string>
+    <string name="riddle_type_lazor_advertising">An arcade experiment with some futuristic
+        aspects. Defend your city against descending comets in an arcade point-and-click shooter
+        .</string>
+    <string name="riddle_type_lazor_explanation">The closest charged Lazor is firing towards
+        clicked point and will explode there or on collision. Stop the comets!</string>
     <string-array name="riddle_type_lazor_hints">
         <item>A simulation to test your reaction to extraterrestrial threats. Use the lazors to shoot on incoming comets which threat your city. On collision or when reaching the clicked point the lazor explodes. Along its tail the corresponding colour gets visible.</item>
         <item>Pay attention to the canons plants to see, when the lazor gets ready to shoot. By the way, always the next canon plant fires as long as it\'s ready to shoot of course.</item>
@@ -202,7 +223,8 @@
         <item>White comets cover and uncover the path completely. Shoot them first by any cost!</item>
         <item>Hitting a comet later increases the revealed area and the risk to miss a comet! Later, if comets are spawning much faster, you should try to hit them as early as possible as you won\'t be able to stop them all!</item>
         <item>In some situations you won\'t be able to prevent an impact. Decide as fast as possible, which comet will strike your city and try to stop the other ones.</item>
-        <item>The green shield protects your city against any impacts. Especially the white comets negative influence is decreased.</item>
+        <item>The green shield protects your city against any impacts. Especially the white
+            comets\' negative influence is decreased.</item>
         <item>A covered eye in the achievement menu means a hidden achievement. Either you get a hint or you will find it by chance.</item>
     </string-array>
     <string name="riddle_type_lazor_article_protection_at_name">Reactor improvements</string>
@@ -211,6 +233,7 @@
         <item>Protects if reactor reached 40%.</item>
         <item>Protects if reactor reached 30%</item>
         <item>Protects if reactor reached 25%</item>
-        <item>Protects if reactor reached 20%. If the shield is active, 3% more white meteors will spawn.</item>
+        <item>Protects if reactor reached 20%. If the shield is active, 3% more white comets will
+            spawn.</item>
     </string-array>
 </resources>

@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.util.DisplayMetrics;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -214,7 +215,7 @@ class SolutionInputLetterClickLayout extends SolutionInputLayout {
 
     @Override
     public void draw(Canvas canvas) {
-        drawUserLetteres(canvas);
+        drawUserLetters(canvas);
         drawAllLetters(canvas);
     }
 
@@ -237,12 +238,12 @@ class SolutionInputLetterClickLayout extends SolutionInputLayout {
         }
     }
 
-    private void drawUserLetteres(Canvas canvas) {
+    private void drawUserLetters(Canvas canvas) {
         int validUserLettersCount = mLetterClick.getUserLettersCount();
         int userLetterCountToShow = mLetterClick.showMainSolutionWordLength() ?
                 mLetterClick.getMainSolutionWordLength() : 0;
         userLetterCountToShow = Math.max(userLetterCountToShow, validUserLettersCount);
-
+        userLetterCountToShow = Math.max(userLetterCountToShow, mUserLetterX.size());
         if (userLetterCountToShow > 0) {
             if (mLetterClick.showCompleted() && mLetterClick.isStateCompleted()) {
                 mUserLetterPaint.setColor(USER_LETTER_COLOR_COMPLETED);

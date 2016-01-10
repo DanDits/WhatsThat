@@ -23,7 +23,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
-import android.widget.Button;
 import android.widget.ExpandableListView;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -103,7 +102,7 @@ public class ShopView extends ExpandableListView implements  StoreContainer, Sho
     }
 
     @Override
-    public void refresh(FragmentActivity activity, FrameLayout titleBackContainer) {
+    public void refresh(StoreActivity activity, FrameLayout titleBackContainer) {
         mCurrency = (TextView) titleBackContainer.findViewById(R.id.currency);
         mCurrency.setVisibility(View.VISIBLE);
         if (mAdapter == null) {
@@ -114,6 +113,7 @@ public class ShopView extends ExpandableListView implements  StoreContainer, Sho
         } else {
             applyFilters();
         }
+        mArticleHolder.setBillingCallback(activity);
         mArticleHolder.setOnArticleChangedListener(this);
         updateCurrency();
     }
@@ -181,6 +181,9 @@ public class ShopView extends ExpandableListView implements  StoreContainer, Sho
 
     @Override
     public void stop(FragmentActivity activity, boolean pausedOnly) {
+        if (!pausedOnly) {
+            mArticleHolder.setBillingCallback(null);
+        }
         mCurrency.setVisibility(View.INVISIBLE);
         mArticleHolder.setOnArticleChangedListener(null);
         mArticleHolder.closeArticles();

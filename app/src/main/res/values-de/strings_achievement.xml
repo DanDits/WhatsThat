@@ -22,7 +22,8 @@
     <string name="achievement_circle_6_name">Klick Dominanz</string>
     <string name="achievement_circle_6_descr">Mehr klicken als wischen für ein paar weitere Versuche.</string>
     <string name="achievement_circle_7_name">Ich habs eilig…</string>
-    <string name="achievement_circle_7_descr">Beende zwei..na gut ein Versuch in weniger als %1$d Sekunden.</string>
+    <string name="achievement_circle_7_descr">Beende zwei..na gut, einen Versuch in weniger als
+        %1$d Sekunden.</string>
     <string name="achievement_circle_8_name">…habs immer noch eilig</string>
     <string name="achievement_circle_8_descr">Tschuldige. Wollte dich nicht störe. %1$d Spiele in weniger als %2$d Sekunden.</string>
     <string name="achievement_circle_9_name">All we need is love</string>
@@ -32,8 +33,9 @@
     <string name="achievement_circle_10_descr_unachieved">Du wagst es, mich zu beleidigen?! Entschuldige dich auf der Stelle!</string>
     <string name="achievement_circle_11_name">It\'s over 9000</string>
     <string name="achievement_circle_11_descr">Teile %2$d Kreise. Schau mich nicht so an. Mein Prof ist Mathematiker. Er weiß was er tut…%3$d sind unangemessen. %4$d sind natürlich völlig absurd. Du hast %1$d.</string>
-    <string name="achievement_circle_12_name">Big brother verfolgt dich</string>
-    <string name="achievement_circle_12_descr">Warte ein bisschen bis Big Brother einen Blick in deine nicht existierende Seele geschaut hat und dann schlag ein paar mal zu!</string>
+    <string name="achievement_circle_12_name">Big brother beobachtet dich</string>
+    <string name="achievement_circle_12_descr">Auch wenn du denkst, dass er es nicht tut, ist er
+        da. Wenn du ihn bemerkst, dann schlag ein paar mal zu!</string>
     <string name="achievement_circle_13_name">Reich werden</string>
     <string name="achievement_circle_13_descr">Du hast die Wahl: Werde sofort reich oder erreiche eine bessere Bestzeit als %1$d Sekunden und bekomme noch viel mehr…</string>
     <string name="achievement_circle_13_descr_perfect">Wow, ich hätte nicht gedacht, dass %1$d Sekunden jemals möglich wären! Das war wohl gemogelt.</string>
@@ -76,6 +78,8 @@
     <string name="achievement_snow_17_name">Sowohl als auch</string>
     <string name="achievement_snow_17_descr">Beende %1$d Experimente mit Klick-System, %2$d mit Kippen
         und %3$d in denen du während eines Tests beide benutzt.</string>
+    <string name="achievement_snow_18_name">Genervter Engel</string>
+    <string name="achievement_snow_18_descr">Versuche den Engel zu provozieren.</string>
 
     <!-- Dice achievements -->
     <string name="achievement_dice_1_name">Ein harter Anfang</string>
@@ -167,6 +171,9 @@
     <string name="achievement_triangle_5_name">Fortschritt ist fortschreitend </string>
     <string name="achievement_triangle_5_descr">Wie nennt man einen Politiker auf dem Mars?</string>
     <string name="achievement_triangle_5_descr_unachieved">Wie nennt man einen Politiker auf dem Mars? Noch immer einen Lügner.</string>
+    <string name="achievement_triangle_6_name">Illuminati</string>
+    <string name="achievement_triangle_6_descr">Löse 3 dreieckige Rätsel in 3 * 33 Sekunden gesamter
+        Spielzeit.</string>
 
     <!-- Misc achievements -->
     <string name="achievement_misc_1_name">Schöpfernamen</string>
