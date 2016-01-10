@@ -6,7 +6,7 @@
     <string name="riddle_type_circle_explanation">Touch one circle to pop them into four smaller ones until the shape of the image is visible.</string>
     <string-array name="riddle_type_circle_hints">
         <item>Earthling, welcome to our first experiment. To stimulate your cells, split circles as Mose split the water. However, don\'t split them in two halves but in four parts. Hopefully at some point the stimulation of your cells is enough and you can see a picture due to the better shapes. If not, I have to continue the test series with our Parameciums. They mastered the tests with flying colours.</item>
-        <item>Demo version finished. Get the full version for only 39,99€! Just kidding. Nevertheless, have a quick look in the shop. There are many handy items. For example the intergalacical Circlelaser-Turbo-Cutter…And by the way, you should always pick up your reward in the achievement menu!</item>
+        <item>Demo version finished. Get the full version for only 39,99€! Just kidding. Nevertheless, have a quick look in the shop. There are many handy items. For example the intergalactic Circlelaser-Turbo-Cutter…And by the way, you should always pick up your reward in the achievement menu!</item>
         <item>You can find a quick guide at the top right corner. You can skip a picture, if you don\'t see the solution.</item>
         <item>If you want more pictures from WiseMind, you can get new ones via download in the shop!</item>
         <item>Later, if this experiment is successful, you can choose between different experiment types in the middle of game. Or you can continue all skipped experiments.</item>
@@ -15,7 +15,7 @@
         <item>You get daily bonus cells for the first couple of solved experiments. The bonus is decreasing shortly and depends on the difficulty and length of the experiment type.</item>
         <item>More exclamation marks mean a higher bonus.</item>
     </string-array>
-    <string name="article_circle_divide_by_move_feature_name">Intergalactical Circlelaser-Turbo-Cutter</string>
+    <string name="article_circle_divide_by_move_feature_name">Intergalactic Circlelaser-Turbo-Cutter</string>
     <string name="article_circle_divide_by_move_feature_descr">Divide circles by moving the finger. Very relaxing!</string>
 
     <!-- Snow related -->
@@ -25,9 +25,9 @@
     <string-array name="riddle_type_snow_hints">
         <item>A new test. We place some contaminated biological material of another species close to your cell to test your cell\'s reaction. Pay attention to the particles which are emitted from the material. They will damage your cell. As in policy we will do our best to obscure everything else with a lie </item>
         <item>We hope to gain a better insight into the earthly grey matter which is part of your central nervous system. We had to remove a cell from your brain. Don\'t worry, drinking alcohol kills far more cells.?</item>
-        <item>Angeli is like the Truth serum ScitiLop and shows harsh reality to the cell. We tried to give that stuff to a politician but the cell bursted instantly. That was a mess!</item>
-        <item>Angeli has three cognitive states. The first one will protect you completely against particels or wall collisions. Toxic candies will decrease that effect.</item>
-        <item>The second cognitive state has less protection against particels or wall collisions. Angeli will be dizzy in the third state and does not protect you.</item>
+        <item>Angeli is like the Truth serum ScitiLop and shows harsh reality to the cell. We tried to give that stuff to a politician but the cell exploded instantly. That was a mess!</item>
+        <item>Angeli has three cognitive states. The first one will protect you completely against particles or wall collisions. Toxic candies will decrease that effect.</item>
+        <item>The second cognitive state has less protection against particles or wall collisions. Angeli will be dizzy in the third state and does not protect you.</item>
         <item>You can push Angeli out of the control area. It won\'t bother you anymore, but collecting candies get more risky.</item>
     </string-array>
     <string name="article_snow_feature_orientation_sensor_name">Balancing act</string>
@@ -95,7 +95,7 @@
         <item>Are you in love with me or why can\'t you just stop?!</item>
         <item>OK earth being, now I have enough! One glass of the predator drug should be enough to knock out an elephant. Bye bye!</item>
     </string-array>
-    <string name="article_triangle_divide_by_move_feature_name">Intergalactical Turbolaser-Triangel-Cutter</string>
+    <string name="article_triangle_divide_by_move_feature_name">Intergalactic Turbolaser-Triangle-Cutter</string>
     <string name="article_triangle_divide_by_move_feature_descr">Dr. Drams has tortured his employees for almost a month to upgrade the Circlelaser for you!</string>
 
     <!-- Dice related -->
@@ -135,7 +135,8 @@
         <item>Humans are strange creatures. A donkey is moving if you keep a carrot in front of
             his head, for Homo sapiens it requires a bundle of money, even tough you can\'t even eat
             it.</item>
-        <item>Whatever. We run some tests on a business men and had to block his memory. Luckily, you can break the blockage by jumping over different obstacles. It was easy to motivate the business man for a marathon with a simple thought: \"At the end of the rainbow you will be rewarded by a pot of money!\" What a pity, that there is no rainbow in the middle of the night.</item>
+        <item>Whatever. We run some tests on a business men and had to block his memory. Luckily, you can break
+            the blockades by jumping over different obstacles. It was easy to motivate the business man for a marathon with a simple thought: \"At the end of the rainbow you will be rewarded by a pot of money!\" What a pity, that there is no rainbow in the middle of the night.</item>
         <item>Click once: Jump, Click twice: Double Jump. Got it?</item>
         <item>You will pass different stages. Depending on the difficulty more memory will come back
             .</item>

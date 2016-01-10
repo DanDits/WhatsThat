@@ -349,40 +349,71 @@
     </string-array>
 
     <!-- Level 4 -->
-    <string name="test_subject_4_name">Einfaltspinsel</string>
-    <string name="test_subject_4_int">Unterirdisch</string>
+    <string name="test_subject_4_name">Smart aleck</string>
+    <string name="test_subject_4_int">Measurable:…9</string>
     <string-array name="test_subject_4_0_intro_main">
-        <item>Sogar WiseMind fängt langsam an zu zweifeln.</item>
-        <item>Zu zweifeln, ob die Entscheidung mit dir die richtige war.</item>
-        <item>Sie ist nun am Prüfen, ob es an deinem Gehirn liegt.</item>
+        <item>WiseMind is analyzing the evolution gap between earthlings and the remaining creatures of the universe</item>
+        <item>Maybe she will find some interesting facts.</item>
+        <item>Because right now our language developed a curse word regarding the earth\'s inhabitants:</item>
+        <item>Humanoide Minimalsetup.</item>
+        <item>Furthermore, we\'re looking for further kognitive deficits of your species.</item>
+        <item>First results so far:</item>
+        <item>Arrogance.</item>
+        <item>Excessive hubris.</item>
+        <item>Megalomania.</item>
+        <item>Greed</item>
+        <item>Antipathy.</item>
+        <item>I could continue like this.</item>
+        <item>I\'m sorry but unfortunately this is true.</item>
     </string-array>
     <string-array name="test_subject_4_1_intro_main">
-        <item>Vielleicht ist der Schwachsinn ein kollektives Problem archaischen Ursprungs.</item>
-        <item>Wir wissen ja noch nicht, woran ihr Erdlinge sonst noch leidet.</item>
-        <item>Erste Ergebnisse ergaben bisher nur:</item>
-        <item>Arroganz.</item>
-        <item>Maßlose Selbstüberschätzung.</item>
-        <item>Größenwahn.</item>
-        <item>Teilweise sogar Hybris.</item>
-        <item>Gier.</item>
-        <item>Antipathie.</item>
-        <item>Ich könnte noch weiter machen. Das ist traurige Realität.</item>
+        <item>And then, look at me:</item>
+        <item>Prime example of an unique and intelligent being:</item>
+        <item>Ingenious.</item>
+        <item>Adventurous.</item>
+        <item>A sharp mind.</item>
+        <item>Caring for lower creatures like you.</item>
+        <item>And of course quite modest.</item>
+        <item>I don\'t get it how and why Homo Sapiens wants to develop to an Over-earthling.</item>
+        <item>Maybe an obscured mind is required to get to the top of your planet.</item>
+        <item>At least everyone of the earthlings is trying to be more than possible..</item>
+        <item>.. or to get more than necessary.</item>
+        <item>Some of you tell lies as journalists or whatever you call them, other as politicians…</item>
+        <item>Some waste their time accumulating treasures..</item>
+        <item>.. sell their own principles and literally walk over dead body.</item>
+        <item>Other earthlings waste their time fighting as tiny groups against huge systems.</item>
+        <item>Did you try to blow-dry the arctic yet?</item>
+        <item>No? I can assure, there are more exiting things. For instance watching paint becoming dry.</item>
+        <item>Homo Sapiens.. Do they really call themselves the pride of creation?</item>
+        <item>Ahhh.. okay....</item>
+        <item>Die verhalten sich genauso wie Tiere auf zwei Beinen:</item>
+        <item>Tiefes Primatenerbe, instinktive Handlungen, die wenigsten besitzen Selbstreflexion, xenophobe Abgrenzung von anderen Menschen.</item>
+        <item>Das machen Tiere auch. Fressen oder gefressen werden.</item>
+        <item>Daher lieber andere zuerst vernichten. Du hast recht WiseMind; genug Erdling-Bashing.</item>
     </string-array>
     <string-array name="test_subject_4_intro_nuts">
-        <item>Und dann sieh mich an:</item>
-        <item>Das Musterbeispiel eines intelligenten Wesens:</item>
-        <item>Geistrich.</item>
-        <item>Abenteuerlustig auf andere Planeten.</item>
-        <item>Scharfsinnig im Verstand.</item>
-        <item>Fürsorgend für niedere.</item>
-        <item>Beispielsweise dich.</item>
-        <item>Und natürlich:</item>
-        <item>Total bescheiden.</item>
+        <item>…</item>
+        <item>Was ich damit sagen will:</item>
+        <item>Menschen sind doch alle ein Toastbrot des Systems.</item>
+        <item>Jeder möchte die eigenen Grenzen immer wieder überschreiten.</item>
+        <item>Wollen wachsen und wachsen und wenn man fragt, wann genug ist,..</item>
+        <item>..dann gibt es nur eine Antwort:</item>
+        <item>Niemals.</item>
+        <item>Viel Erfolg dabei.</item>
+        <item>Wärt ihr wie wir und in jeder Hinsicht vollkommen, dann würden die Erdlinge die eigenen Grenzen erkennen..</item>
+        <item>..und wir würden das Gespräch gar nicht führen</item>
+        <item>Ich weiß doch.</item>
+        <item>\"Gespräch\" beinhaltet eine Reaktion des Gegenübers.</item>
+        <item>Das einzige was bei dir reagiert ist der große Zeh.</item>
+        <item>Und das nur aufgrund des fließenden Stroms.</item>
     </string-array>
     <string-array name="test_subject_4_riddle_solved_candy">
-        <item>Wer hätte das gedacht.</item>
-        <item>Wow…</item>
-        <item>Welch eine Überraschung.</item>
+        <item>Großes Lob</item>
+        <item>Tip Top</item>
+        <item>Fantastisch</item>
+        <item>Grandios</item>
+        <item>Vortrefflich</item>
+        <item>Spitze</item>
     </string-array>
 
     <!-- Level 5 -->
@@ -442,7 +473,7 @@
     <!-- Level 6 -->
     <string name="test_subject_6_name">Entdecker</string>
     <string name="test_subject_6_int">Eine weitere Spur</string>
-    <string-array name="test_subject_6_intro_main">
+    <string-array name="test_subject_6_0_intro_main">
         <item>WiseMind hat mir für diese Atmosphäre eine Spezialcreme hergestellt!</item>
         <item>Jetzt geht es mir wesentlich besser!</item>
         <item>Voller Tatendrang haben wir deine Farbwahrnehmung nochmals genauer untersucht.</item>
@@ -530,84 +561,71 @@
     </string-array>
 
     <!-- Level 7 -->
-    <string name="test_subject_7_name">Potenzialträger</string>
-    <string name="test_subject_7_int">Lichtblick</string>
-    <string-array name="test_subject_7_intro_main">
-        <item>Zur Abwechslung haben wir helios beobachtet und die chromische Adaption gemessen.</item>
-        <item>Des mit Fotorezeptoren ausgestatteten Organs zur Wahrnehmung von Reizen.</item>
-        <item>Ups. Wenn ich mich mit WiseMind unterhalte,..</item>
-        <item>..dann vergesse ich manchmal, dass ich bei dir diesen Fachjargon nicht verwenden sollte.</item>
-        <item>Also übersetzt: Wir haben die Sonne und deine Augen beobachtet.</item>
-        <item>Natürlich um die Farbwahrnehmung nochmals genauer zu untersuchen!</item>
-        <item>Die Konvergenz unserer Untersuchungen… stimmt..</item>
-        <item>nicht einmal annähernd mit eurem Wissen überein.</item>
-        <item>Ihr wisst also gar nichts.</item>
-        <item>Na schön. Für diese Erkenntnis hätte ich nicht mal einen Keks bekommen.</item>
-    </string-array>
-    <string-array name="test_subject_7_intro_nuts">
-        <item>Ich will damit folgendes sagen:</item>
-        <item>Wir wissen, dass wir etwas wissen, weil wir weise sind.</item>
-        <item>Manche Lebensformen wissen etwas, aber wissen nicht, dass sie es wissen.</item>
-        <item>Träumer können wir aber mit dem richtigen Kniff aufwecken.</item>
-        <item>Als drittes gibt es noch solche, die nichts wissen und wissen, dass sie nichts wissen.</item>
-        <item>Unwissende können wir aber lehren.</item>
-        <item>Und ihr… ein ganz spezieller Haufen…</item>
-        <item>Ihr wisst nichts und wisst nicht, dass ihr nichts wisst…</item>
-        <item>Diesen Zustand von geistiger Umnachtung…</item>
-        <item>Ihr seid eine Gefahr für diesen Planeten und das Sonnensystem.</item>
-        <item>Wenn ich auf eine Spezies mein ganzes Wissen und Gut setzen müsste..</item>
-        <item>..ihr wärt wohl die letzten…</item>
-        <item>Tut mir ja leid, ich sage halt einfach immer die Wahrheit.</item>
-        <item>Na gut, das war gelogen.</item>
-        <item>Ich neige nur meistens zu aggressiver Offenheit.</item>
-    </string-array>
-    <string-array name="test_subject_7_riddle_solved_candy">
-        <item>Blendend!</item>
-        <item>Bin stolz auf dich!</item>
-        <item>Bemerkenswert!</item>
-    </string-array>
-
-    <!-- Level 8 -->
-    <string name="test_subject_8_name">Banause</string>
-    <string name="test_subject_8_int">Streichholz am Tag</string>
-    <string-array name="test_subject_8_intro_main">
-        <item>Ich muss etwas zurück schiffen.</item>
-        <item>Mach dir keine falschen Hoffnungen.</item>
-        <item>Ups. Wenn ich mich mit WiseMind unterhalte, ..</item>
-        <item>Ich will nicht sagen, du bist schlau oder schlauer, nene.</item>
+    <string name="test_subject_7_name">Träumer</string>
+    <string name="test_subject_7_int">Ein Quäntchen Weisheit</string>
+    <string-array name="test_subject_7_0_intro_main">
         <item>WiseMind hat eine Zeit lang ein paar Menschenherden beobachtet und erschreckendes festegestellt…</item>
         <item>Zwei Gruppen verfügen über keinerlei Gehirn</item>
-        <item>Oh, es reagiert auf die Worte \"kein Gehirn\".Interessant. Hat das etwas zu bedeuten? WiseMind muss das untersuchen.</item>
+        <item>Oh, es reagiert auf die Worte \"kein Gehirn\".</item>
+        <item>Interessant. Hat das etwas zu bedeuten? WiseMind muss das untersuchen.</item>
         <item>Nochmal zurück. Ein Lebewesen ohne Gehirn.</item>
         <item>Absolut nichts.</item>
         <item>Nur Leere. Ein Vakuum.</item>
         <item>Wie konnte es so lange überleben?</item>
         <item>Über diese Erkenntnis war ich so schockiert, dass ich einen Moment mein Tarnliquida fallen gelassen hab.</item>
         <item>Es hat mich glücklicherweise keiner gesehen.</item>
-    </string-array>
-    <string-array name="test_subject_8_intro_nuts">
         <item>Bei den Menschengruppen handelt es sich um animalisch getrieben und rückständige…</item>
         <item>..war das eben wieder ein Zucken..? Egal…</item>
-        <item>..um animalisch und rückständige Lebewesen. Obwohl animalisch eine Beleidigung für jedes intelligentere Tier auf diesem Planeten ist.</item>
+        <item>..um animalisch und rückständige Lebewesen.</item>
+        <item>Obwohl animalisch eine Beleidigung für jedes intelligentere Lebewesen auf diesem Planeten ist.</item>
         <item>Sogar ein Stein hat mehr Intelligenz.</item>
+        <item>Die liegen wenigstens nur rum und stören niemand.</item>
         <item>Ihr Menschen kennzeichnet diese fanatischen Gruppen mit Richtungen.. Moment..</item>
-        <item>..Oben- und Unten.. nee.. West- und Ost.. auch nicht.</item>
+        <item>..Oben-, Unten.. nee.. West..-Ost.. auch nicht.</item>
         <item>Wie hießen die denn nochmal…</item>
         <item>Naja egal.</item>
-        <item>Ich habe zur Entstehung der genannten Gruppen schon drei verschiedene Theorien.</item>
+        <item>Ich habe zur Entstehung der genannten Gruppen schon drei verschiedene Thesen.</item>
         <item>Es ergeben sich nur keine eindeutigen Antworten.</item>
-        <item>Auf jede Theorie gibt es 279 mögliche Thesen.</item>
-        <item>Auf jede These 13 mögliche Lösungen.</item>
+        <item>Auf jede These gibt es 279 mögliche Theorien.</item>
+        <item>Auf jede Theorie 13 mögliche Lösungen.</item>
         <item>Aber auf jede Lösung kommen 7 Hypothesen, 65 Gegentheorien, 8 Doktrinen und 4 Hirngespinste.</item>
         <item>Von den 3038 unterschiedlichen Meinungen ganz zu schweigen!</item>
         <item>Oder um es mathematisch-philosophisch auszudrücken:</item>
         <item>Eine Gleichung mit achthundertfünfunzwanzig Unbekannten, siebenundreißig Dogmen und fünfzehn Neologismen.</item>
         <item>Kapiert?</item>
     </string-array>
+    <string-array name="test_subject_7_intro_nuts">
+        <item>…</item>
+        <item>Wenn ich deine Gesichtszüge richtig interpretiere, dann ja.</item>
+        <item>Siehst du WiseMind?!</item>
+        <item>Ich glaube der Erdling hat verstanden und ist glücklich.</item>
+        <item>Guck doch wie es lächelt.</item>
+        <item>Oh halt.. warte. Es steht ja auf dem Kopf.</item>
+    </string-array>
+    <string-array name="test_subject_7_riddle_solved_candy">
+        <item>Fantastisch</item>
+        <item>WiseMind sagt: nicht schlecht</item>
+        <item>Gigantisch</item>
+        <item>Kluger Zug, Erdling</item>
+        <item>Atemberaubend</item>
+    </string-array>
+
+    <!-- Level 8 -->
+    <string name="test_subject_8_name">Kleinstein</string>
+    <string name="test_subject_8_int">Hoffnungsvoll</string>
+    <string-array name="test_subject_8_intro_main">
+        <item>dummy</item>
+    </string-array>
+    <string-array name="test_subject_8_intro_nuts">
+        <item>Dummy</item>
+    </string-array>
     <string-array name="test_subject_8_riddle_solved_candy">
-        <item>Voll clever!</item>
-        <item>Vorstellung übertroffen!</item>
-        <item>Vorbildlich!</item>
+        <item>Absolut brillant</item>
+        <item>Vorstellung übertroffen</item>
+        <item>Ausgezeichnet</item>
+        <item>Hervorragend</item>
+        <item>Meisterhaft</item>
+        <item>WiseMind sagt: Klasse</item>
     </string-array>
 
     <!-- Level 9 -->
