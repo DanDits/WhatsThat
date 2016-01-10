@@ -278,8 +278,9 @@ public abstract class TestSubjectLevel {
             mImageResId[TestSubject.GENDER_MALE] = R.drawable.kid01;
             mImageResId[TestSubject.GENDER_FEMALE] = R.drawable.kid_fem01;
             mImageResId[TestSubject.GENDER_WHATEVER] = R.drawable.kid_ani01;
-            mImageResId[TestSubject.GENDER_MALE] = R.drawable.kid00;
-            mImageResId[TestSubject.GENDER_FEMALE] = R.drawable.kid_fem00;
+            mBaseImageResId[TestSubject.GENDER_MALE] = R.drawable.kid00;
+            mBaseImageResId[TestSubject.GENDER_FEMALE] = R.drawable.kid_fem00;
+            mBaseImageResId[TestSubject.GENDER_WHATEVER] = R.drawable.kid_ani01_base;
             mTextNuts = res.getStringArray(R.array.test_subject_1_intro_nuts);
             mRiddleSolvedCandy = R.array.test_subject_1_riddle_solved_candy;
             mTestSubject.ensureSkipableGames(TestSubject.DEFAULT_SKIPABLE_GAMES + 2);
@@ -427,8 +428,9 @@ public abstract class TestSubjectLevel {
             mImageResId[TestSubject.GENDER_MALE] = R.drawable.kid03;
             mImageResId[TestSubject.GENDER_FEMALE] = R.drawable.kid_fem03;
             mImageResId[TestSubject.GENDER_WHATEVER] = R.drawable.kid_ani03;
-            mImageResId[TestSubject.GENDER_MALE] = R.drawable.kid02;
-            mImageResId[TestSubject.GENDER_FEMALE] = R.drawable.kid_fem02;
+            mBaseImageResId[TestSubject.GENDER_MALE] = R.drawable.kid02;
+            mBaseImageResId[TestSubject.GENDER_FEMALE] = R.drawable.kid_fem02;
+            mBaseImageResId[TestSubject.GENDER_WHATEVER] = R.drawable.kid_ani03_base;
             mTextNuts = res.getStringArray(R.array.test_subject_3_intro_nuts);
             mRiddleSolvedCandy = R.array.test_subject_3_riddle_solved_candy;
             mTestSubject.ensureSkipableGames(TestSubject.DEFAULT_SKIPABLE_GAMES + 4);
@@ -462,8 +464,9 @@ public abstract class TestSubjectLevel {
             mImageResId[TestSubject.GENDER_MALE] = R.drawable.kid04;
             mImageResId[TestSubject.GENDER_FEMALE] = R.drawable.kid_fem04;
             mImageResId[TestSubject.GENDER_WHATEVER] = R.drawable.kid_ani04;
-            mImageResId[TestSubject.GENDER_MALE] = R.drawable.kid02;
-            mImageResId[TestSubject.GENDER_FEMALE] = R.drawable.kid_fem02;
+            mBaseImageResId[TestSubject.GENDER_MALE] = R.drawable.kid02;
+            mBaseImageResId[TestSubject.GENDER_FEMALE] = R.drawable.kid_fem02;
+            mBaseImageResId[TestSubject.GENDER_WHATEVER] = R.drawable.kid_ani04_base;
             mTextNuts = res.getStringArray(R.array.test_subject_4_intro_nuts);
             mRiddleSolvedCandy = R.array.test_subject_4_riddle_solved_candy;
             mTestSubject.ensureSkipableGames(TestSubject.DEFAULT_SKIPABLE_GAMES + 5);
@@ -496,8 +499,9 @@ public abstract class TestSubjectLevel {
             mImageResId[TestSubject.GENDER_MALE] = R.drawable.kid05;
             mImageResId[TestSubject.GENDER_FEMALE] = R.drawable.kid_fem05;
             mImageResId[TestSubject.GENDER_WHATEVER] = R.drawable.kid_ani05;
-            mImageResId[TestSubject.GENDER_MALE] = R.drawable.kid02;
-            mImageResId[TestSubject.GENDER_FEMALE] = R.drawable.kid_fem02;
+            mBaseImageResId[TestSubject.GENDER_MALE] = R.drawable.kid02;
+            mBaseImageResId[TestSubject.GENDER_FEMALE] = R.drawable.kid_fem02;
+            mBaseImageResId[TestSubject.GENDER_WHATEVER] = R.drawable.kid_ani05_base;
             mTextMain = res.getStringArray(R.array.test_subject_5_intro_main);
             mTextNuts = res.getStringArray(R.array.test_subject_5_intro_nuts);
             mRiddleSolvedCandy = R.array.test_subject_5_riddle_solved_candy;
@@ -563,8 +567,9 @@ public abstract class TestSubjectLevel {
             mImageResId[TestSubject.GENDER_MALE] = R.drawable.kid07;
             mImageResId[TestSubject.GENDER_FEMALE] = R.drawable.kid_fem07;
             mImageResId[TestSubject.GENDER_WHATEVER] = R.drawable.kid_ani07;
-            mImageResId[TestSubject.GENDER_MALE] = R.drawable.kid06;
-            mImageResId[TestSubject.GENDER_FEMALE] = R.drawable.kid_fem06;
+            mBaseImageResId[TestSubject.GENDER_MALE] = R.drawable.kid06;
+            mBaseImageResId[TestSubject.GENDER_FEMALE] = R.drawable.kid_fem06;
+            mBaseImageResId[TestSubject.GENDER_WHATEVER] = R.drawable.kid_ani07_base;
             mTextMain = res.getStringArray(R.array.test_subject_7_intro_main);
             mTextNuts = res.getStringArray(R.array.test_subject_7_intro_nuts);
             mRiddleSolvedCandy = R.array.test_subject_7_riddle_solved_candy;
@@ -598,8 +603,9 @@ public abstract class TestSubjectLevel {
             mImageResId[TestSubject.GENDER_MALE] = R.drawable.kid08;
             mImageResId[TestSubject.GENDER_FEMALE] = R.drawable.kid_fem08;
             mImageResId[TestSubject.GENDER_WHATEVER] = R.drawable.kid_ani08;
-            mImageResId[TestSubject.GENDER_MALE] = R.drawable.kid06;
-            mImageResId[TestSubject.GENDER_FEMALE] = R.drawable.kid_fem06;
+            mBaseImageResId[TestSubject.GENDER_MALE] = R.drawable.kid06;
+            mBaseImageResId[TestSubject.GENDER_FEMALE] = R.drawable.kid_fem06;
+            mBaseImageResId[TestSubject.GENDER_WHATEVER] = R.drawable.kid_ani08_base;
             mTextMain = res.getStringArray(R.array.test_subject_8_intro_main);
             mTextNuts = res.getStringArray(R.array.test_subject_8_intro_nuts);
             mRiddleSolvedCandy = R.array.test_subject_8_riddle_solved_candy;
@@ -633,8 +639,9 @@ public abstract class TestSubjectLevel {
             mImageResId[TestSubject.GENDER_MALE] = R.drawable.kid09;
             mImageResId[TestSubject.GENDER_FEMALE] = R.drawable.kid_fem09;
             mImageResId[TestSubject.GENDER_WHATEVER] = R.drawable.kid_ani09;
-            mImageResId[TestSubject.GENDER_MALE] = R.drawable.kid06;
-            mImageResId[TestSubject.GENDER_FEMALE] = R.drawable.kid_fem06;
+            mBaseImageResId[TestSubject.GENDER_MALE] = R.drawable.kid06;
+            mBaseImageResId[TestSubject.GENDER_FEMALE] = R.drawable.kid_fem06;
+            mBaseImageResId[TestSubject.GENDER_WHATEVER] = R.drawable.kid_ani09;//FIXME change
             mTextMain = res.getStringArray(R.array.test_subject_9_intro_main);
             mTextNuts = res.getStringArray(R.array.test_subject_9_intro_nuts);
             mRiddleSolvedCandy = R.array.test_subject_9_riddle_solved_candy;
