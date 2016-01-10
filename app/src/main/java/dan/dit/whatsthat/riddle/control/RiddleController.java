@@ -119,6 +119,7 @@ public class RiddleController implements RiddleAnimationController.OnAnimationCo
         public GameHandlerThread() {
             super("GameHandlerThread");
             start();
+            Log.d("Riddle", "GameThread started.");
             mHandler = new Handler(getLooper());
         }
 

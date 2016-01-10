@@ -87,7 +87,6 @@ public class StoreActivity extends FragmentActivity implements BillingProcessor.
     private Map<String, ProductPurchasedCallback> mProductPurchaseCallbacks = new HashMap<>();
     private boolean mBillingInitialized;
     private String mLastStartedPurchaseProductId;
-    private ProductPurchasedCallback mLastStartedPurchaseCallback;
 
     private void showMenu() {
         mCurrCategory = CATEGORY_MENU;
@@ -228,6 +227,9 @@ public class StoreActivity extends FragmentActivity implements BillingProcessor.
     public void onDestroy() {
         if (mBP != null) {
             mBP.release();
+        }
+        if (mProductPurchaseCallbacks != null) {
+            mProductPurchaseCallbacks.clear();
         }
         super.onDestroy();
     }
@@ -414,7 +416,6 @@ public class StoreActivity extends FragmentActivity implements BillingProcessor.
             if (mBP.purchase(this, productId)) {
                 Log.d("Billing", "Purchased successfully started " + productId);
                 mLastStartedPurchaseProductId = productId;
-                mLastStartedPurchaseCallback = callback;
                 mProductPurchaseCallbacks.put(productId, callback);
             }
         }

@@ -387,87 +387,146 @@
 
     <!-- Level 5 -->
     <string name="test_subject_5_name">Grünschnabel</string>
-    <string name="test_subject_5_int">Ein Stein im Wasser</string>
+    <string name="test_subject_5_int">Lichtblick</string>
     <string-array name="test_subject_5_intro_main">
         <item>Letztes Mal habe ich etwas übertrieben.</item>
         <item>Ich habe WiseMind versprochen, dass ich die Menschheit nicht pausenlos dumm nenne.</item>
-        <item>Und dich soll ich auch nicht mehr beleidgen.</item>
+        <item>Und dich nicht pausenlos beleidige.</item>
         <item>Zumindest nicht so offensichtlich.</item>
         <item>Was aber nicht heißt, dass ich dich anspruchsvoller beschimpfen werde.</item>
         <item>Du kannst über die Bedeutung ja nachdenken und dich später beschweren.</item>
     </string-array>
-    <string-array name="test_subject_5_intro_nuts">
-        <item>Eine Frage stelle ich mir schon die ganze Zeit.</item>
+    <string-array name="test_subject_5_1_intro_main">
+        <item>Was mir übrigens noch aufgefallen ist.. </item>
+        <item>.. ihr Erdlinge führt Versuche an niederen Lebewesen durch …</item>
+        <item>Das tun wir auch!</item>
+        <item>Mit euch zum Beispiel.</item>
+        <item>Unsere Versuche dienen immer nur zur Messung der Intelligenz anderer Lebewesen!</item>
+        <item>Naja meistens zumindest. Sofern vorhanden.</item>
+        <item>Und wenn sie sich nicht so anstellen.</item>
+        <item>Ich gebe mir ja Mühe den Motivationsfaktor wieder anzukurbeln.</item>
+        <item>Hier ist das aber schwieriger als angenommen.</item>
+        <item>Achja, eine Frage stelle ich mir schon die ganze Zeit.</item>
         <item>Ich kann ja verstehen, dass sich Kinder bei eurer Spezies noch im Entwicklungsstadium und am Lernen befinden.</item>
-        <item>Aber wieso seid ihr erwachsenen Menschen so dumm?</item>
+        <item>Aber wieso sind die ausgewachsenen Erdlinge so dumm?</item>
         <item>Verzeihung bitte.</item>
-        <item>Ich wollte sagen: Wieso stellen körperlich ausgereifte Menschen eine Evolutionsbremse in der Entwicklung dar?</item>
+        <item>Ich wollte sagen:</item>
+        <item>Wieso stellen körperlich und kognitiv ausgereifte Menschen eine Evolutionsbremse in der Entwicklung dar?</item>
         <item>Die Betonung liegt auf körperlich.</item>
-        <item>Von geistig kann kaum die Rede sein.</item>
-        <item>Dass ein dum..</item>
-        <item>..ein intellektueller Tiefflieger aufgrund mangelnder Alternativen Politiker wird, verständlich.</item>
+    </string-array>
+    <string-array name="test_subject_5_intro_nuts">
+        <item>…</item>
+        <item>Das ein intellektueller Tiefflieger aufgrund mangelnder Alternativen Politiker wird, verständlich.</item>
         <item>Doch der Rest?</item>
-        <item>Könnte versuchen, mal das eigene Sonnensystem zu erforschen.</item>
-        <item>Die Sonne zu erkunden. Euren Intellekt zu verbessern.</item>
-        <item>Und stattdessen aufhören an eurer eigenen Vernichtung zu arbeiten…</item>
-        <item>Ihr baut Waffen, die euch selbst vernichten würden.</item>
+        <item>Könnte mal das eigene Sonnensystem erforschen,…</item>
+        <item>..die Sonne  erkunden. Den eigenen Intellekt verbessern.</item>
+        <item>Und stattdessen aufhören an der eigenen Vernichtung zu arbeiten…</item>
+        <item>Homo Sapiens.. baut Waffen, die sie selbst vernichten könnten.</item>
         <item>Welches Wesen sägt bitte schön den Ast ab, auf dem es sitzt?</item>
+        <item>Achja. Homo Spiens!</item>
+        <item>…\"der weise Mensch\"…</item>
         <item>Ich sehe.. mein Temperament geht mit mir durch.</item>
         <item>Die Tests reizen mein Nervenschild.</item>
         <item>Ich frage WiseMind, ob sie nicht etwas dagegen tun kann.</item>
         <item>Der erd-sphärische Druck schlägt aufs Gemüt.</item>
     </string-array>
     <string-array name="test_subject_5_riddle_solved_candy">
-        <item>Nochmal bitte!</item>
-        <item>Nicht schlecht!</item>
-        <item>Nur weiter so!</item>
+        <item>Wow, der Hammer</item>
+        <item>Bravo</item>
+        <item>Genial</item>
+        <item>Absolut herausragend</item>
+        <item>Goldrichtig</item>
+        <item>Bewundernswert</item>
     </string-array>
 
     <!-- Level 6 -->
     <string name="test_subject_6_name">Entdecker</string>
-    <string name="test_subject_6_int">Ausbaufähig</string>
+    <string name="test_subject_6_int">Eine weitere Spur</string>
     <string-array name="test_subject_6_intro_main">
         <item>WiseMind hat mir für diese Atmosphäre eine Spezialcreme hergestellt!</item>
         <item>Jetzt geht es mir wesentlich besser!</item>
-        <item>Und noch eine gute Nachricht!</item>
-        <item>Wir haben dich noch nicht aufgegeben!</item>
-        <item>Zumindest noch nicht ganz.</item>
-        <item>WiseMind hat gesagt, ich soll meine Anforderungen senken.</item>
-        <item>Also meine Anforderungen an dich.</item>
-        <item>Und sie trifft den Menschen, äh den Nagel auf den Kopf!</item>
-        <item>Natürlich tut sie das. WiseMind irrt sich fast nie.</item>
-        <item>Aber zurück zum Thema.</item>
+        <item>Voller Tatendrang haben wir deine Farbwahrnehmung nochmals genauer untersucht.</item>
+        <item>Weil neue Erkenntnisse aber ziemlich bescheiden ausgefallen sind,..</item>
+        <item>..wollen wir unsere Untersuchungen nochmals in den letzten Winkeln in den Untiefen deines Geistes ausweiten.</item>
+        <item>Ich hoffe wir finden etwas wirklich nützliches.</item>
+        <item>Weil um ehrlich zu sein:</item>
+        <item>Die Konvergenz unserer bisherigen Untersuchungen…</item>
+        <item>..stimmt.. nicht einmal annhärend mit eurem Wissen überein.</item>
+        <item>Ihr wisst also nichts.</item>
+        <item>Na schön. Mit so offensichtlichen Dingen hätte ich mir nicht einmal einen Keks verdient..</item>
+    </string-array>
+    <string-array name="test_subject_6_1_intro_main">
+        <item>Ich will damit folgendes sagen:</item>
+        <item>Wir wissen, dass wir etwas wissen, weil wir weise sind.</item>
+        <item>Manche Lebensformen wissen etwas, aber wissen nicht, dass sie es wissen.</item>
+        <item>Träumer können wir aber mit dem richtigen Kniff aufwecken.</item>
+        <item>Als drittes gibt es noch solche, die nichts wissen und wissen, dass sie nichts wissen.</item>
+        <item>Unwissende können wir aber lehren.</item>
+        <item>Und ihr… ein ganz spezieller Haufen…</item>
+        <item>Ihr wisst nichts und wisst nicht, dass ihr nichts wisst…</item>
+        <item>Diesen Zustand von geistiger Umnachtung…</item>
+        <item>Ihr seid eine Gefahr für diesen Planeten und das Sonnensystem.</item>
+        <item>Wenn ich auf einen Planeten und deren Lebewesen mein ganzes Wissen und Gut setzen müsste..</item>
+        <item>..ihr wärt wohl die letzten…</item>
+        <item>Tut mir ja leid, ich sage halt einfach immer die Wahrheit.</item>
+        <item>Na gut, das war gelogen.</item>
+        <item>Ich neige nur meistens zu aggressiver Offenheit.</item>
+        <item>..Und nun..</item>
+        <item>Zu deiner Farbwahrnehmung: Ich habe eine gute und schlechte Nachricht.</item>
+        <item>Die gute: Ihr Erdlinge und wir Hochwesen teilen eine Gemeinsamkeit.</item>
+        <item>Zwar nicht so facettenreich wie wir..</item>
+        <item>..ungefähr 1% davon..</item>
+        <item>..für eure Verhältnisse aber ganz gut.</item>
+        <item>Nun die schlechte: es existieren keine Farben.</item>
+        <item>Du hast richtig gehört. Keine Farben.</item>
+        <item>Oh du solltest deine Gesichtsentgleisung sehen.</item>
+        <item>Kurze Erklärung:</item>
+    </string-array>
+    <string-array name="test_subject_6_2_intro_main">
+        <item>Weißt du woraus Licht besteht?</item>
+    </string-array>
+    <string-array name="test_subject_6_3a_intro_main">
+        <item>Korrekt!</item>
+        <item>Bilder und Farben scheinst du zu verstehen.</item>
+        <item>Deswegen haben wir dich ja auch ausgewählt :).</item> <!--Option: Elektromagnetische Wellen-->
+    </string-array>
+    <string-array name="test_subject_6_3b_intro_main">
+        <item>Nicht schlimm, ich bin ja so lieb und erklär es dir kurz:</item> <!--Option: Hä?-->
+    </string-array>
+    <string-array name="test_subject_6_3c_intro_main">
+        <item>Hä? Kartoffelsalat??</item>
+        <item>Dieser Gedanke scheint bei dem Erdling häufiger aufzutreten.</item>
+        <item>WiseMind, bist du dir sicher, dass wir die richtige Kreatur erwischt haben?</item>
+        <item>Ich weiß langsam nicht mehr weiter mit.. mit diesem Ding..</item>
+    </string-array>
+    <string-array name="test_subject_6_4_intro_main">
+        <item>Aber egal wie sicher du meintest, es zu wissen..</item>
+        <item>Aus unserem Lexikon, Lektion 58373:</item>
+        <item>\"Licht besteht aus plasmaktronisch elektromagnetrischer Zantra Strahlung.\"</item>
+        <item>Strahlung heißt aber nicht Farben. Es bedarf entsprechender Sinneszellen.</item>
+        <item>Ich spreche von den Augen..</item>
+        <item>Der distale Reiz wird von elektromagnetischen Wellen getroffen.</item>
+        <item>Ein proximaler Stimulus wird über den Oculus absorbiert.</item>
+    </string-array>
+    <string-array name="test_subject_6_5_intro_main">
+        <item>Dadurch entsteht die Wahrnehmung. Verstanden?</item>
     </string-array>
     <string-array name="test_subject_6_intro_nuts">
-        <item>Voller Hoffnung starten wir einen kurzen Versuch:</item>
-        <item>Ist die 11 eine Primzahl?</item>
-        <item>Nein, Lakritze ist nicht ganz korrekt! Du hattest es fast.</item>
-        <item>Warte, die Frage anders formuliert: Was ist die 3. Schokolade von Pi?</item>
-        <item>4 ist korrekt!!!</item>
-        <item>Fantastisch! Fehlt eigentlich nur noch der Trommelwirbel.</item>
-        <item>Und welche Primzahl lakritzt?</item>
-        <item>18 IST.. nicht ganz korrekt. Aber ein Anfang</item>
-        <item>Schnelle Antwort bei teilweise richtigen Antworten.</item>
-        <item>hmm… Das Ergebnis ist nicht weltbewegend.</item>
-        <item>Es zeugt zumindest noch nicht von besonderer Intelligenz.</item>
-        <item>Bist ja auch bloß ein Mensch.</item>
-        <item>Aber in Summe war es ganz passabel.</item>
-        <item>So passabel, wie die Pyramide in Ägypten einem Kreis entspricht.</item>
         <item>…</item>
-        <item>Ich habe einen Entschluss gefasst.</item>
-        <item>Deine Reaktionen auf Zahlen waren, stark untertrieben, bescheiden.</item>
-        <item>Katastrophal um genau zu sein.</item>
-        <item>Das ist wohl nicht deine Stärke.</item>
-        <item>Und Buchstaben auch nicht.</item>
-        <item>Ich bin zwar optimistisch, aber im Wolkenkuckucksheim lebe ich trotzdem nicht.</item>
-        <item>Wir arbeiten deswegen ausschließlich mit Bildern weiter.</item>
-        <item>Das bietet noch Potenzial.</item>
-        <item>Und weniger Frust.</item>
+        <item>Nein?</item>
+        <item>Warum mache ich mir überhaupt die Mühe..</item>
+        <item>..Seufz.. vielleicht kann ich dir mit Strom etwas Erkenntnis verschaffen.</item>
+        <item>Eventuell werden stillgelegte Verbindungen aktiviert.</item>
+        <item>Eventuell..</item>
+        <item>Zu Risiken und Nebenwirkungen, lese ich die Bedienungsanleitung, fragte WiseMind oder die Apokalypten.</item>
     </string-array>
     <string-array name="test_subject_6_riddle_solved_candy">
-        <item>Unverhofft gut!</item>
-        <item>Unglaublich!</item>
-        <item>Unerwartet passabel.</item>
+        <item>Vorbildlich</item>
+        <item>Unglaublich</item>
+        <item>Voll clever</item>
+        <item>Brillant</item>
+        <item>Blendend</item>
+        <item>Klasse Leistung</item>
     </string-array>
 
     <!-- Level 7 -->
