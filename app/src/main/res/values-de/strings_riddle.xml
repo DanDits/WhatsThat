@@ -12,7 +12,8 @@
         <item>Einen Nachschub an Bildern kannst du dir von WiseMind per Download im Shop geben lassen!</item>
         <item>Manche menschliche Augen erkennen manche Bilder manchmal erst aus manch einer Entfernung. Manchmal hilft auch ein Screenshot.</item>
         <item>Ist dir aufgefallen, dass teilweise Konfetti vom Himmel regnet? In diesem Fall hast du das Experiment schneller oder besser gelöst als standardmäßig erwartet.</item>
-        <item>Du bekommst täglich für die ersten paar gelösten Experimente Bonus Zellen. Der Bonusfaktor nimmt langsam ab. Wie viele du bekommst, ist abhängig von der Dauer und Schwierigkeit des Experimententyps.</item>
+        <item>Du bekommst täglich für die ersten paar gelösten Experimente Bonus Neuronen. Der
+            Bonusfaktor nimmt langsam ab. Wie viele du bekommst, ist abhängig von der Dauer und Schwierigkeit des Experimententyps.</item>
         <item>Je mehr Ausrufezeichen, desto größer der Bonusfaktor.</item>
     </string-array>
     <string name="article_circle_divide_by_move_feature_name">Intergalaktischer Kreislaser-Turbo-Schneider</string>
@@ -194,7 +195,9 @@
     <string-array name="riddle_type_lazor_hints">
         <item>Eine Simulation, um deine Reaktion auf außerplanetarische Bedrohungen zu messen. Schieße mit den Lazorn auf die Kometen, die deine Stadt bedrohen. Lazoren explodieren bei Kollision oder Erreichen des geklickten Punktes. Entlang des Kometenschweifes wird die entsprechende Farbe aufgedeckt.</item>
         <item>Achte einmal auf die Schussanlagen, um festzustellen, wann der nächste Lazor schussbereit ist. Übrigens feuert immer die nächst gelegene Anlage, sofern sie natürlich aufgeladen ist.</item>
-        <item>Abhängig von den Kosten der Tipps siehst du eventuell, wie sinnvoll oder nützlich die Tipps sind. Trotzdem kann es vorkommen, dass du manches schon weißt und deine Hirnzellen, dein Geld, umsonst ausgegeben hast.</item>
+        <item>Abhängig von den Kosten der Tipps siehst du eventuell, wie sinnvoll oder nützlich
+            die Tipps sind. Trotzdem kann es vorkommen, dass du manches schon weißt und deine
+            Neuronen, dein Geld, umsonst ausgegeben hast.</item>
         <item>Weiße Kometen decken den Bereich vollständig auf. Aber auch wieder zu. Priorisiere sie vor allen anderen Farben!</item>
         <item>Einen Kometen später abzuschießen vergrößert den aufgedeckten Bereich, aber auch das Risiko für einen Verpasser. Spätestens wenn Kometen häufiger erscheinen, solltest du versuchen sie frühestmöglich abschießen, weil du sonst nicht alle aufhalten kannst!</item>
         <item>Du wirst in manchen Konstellationen einen Einschlag nicht verhindern können. Entscheide schnell, welchen Kometen du durchkommen lässt und versuche die anderen zu stoppen.</item>

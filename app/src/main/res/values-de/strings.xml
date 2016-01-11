@@ -96,13 +96,12 @@
     <string name="panic_dialog_positive">Alles ok</string>
     <string name="panic_ask_type">Wie funktioniert das Experiment</string>
     <string name="panic_ask_author">Wessen Bild ist das</string>
-    <string name="panic_skip">Experiment aussetzen… später weitermachen</string>
-    <string name="panic_retry">Bild mit anderem Experiment neu versuchen</string>
-    <string name="panic_share">Freunde zu diesem Experiment herausfordern</string>
-    <string name="panic_complain">Per Mail über das Bild beschweren!!1</string>
+    <string name="panic_skip">Experiment erstmal aussetzen…</string>
+    <string name="panic_retry">Bild neu versuchen…</string>
+    <string name="panic_share">Freunde dazu herausfordern</string>
+    <string name="panic_complain">Per Mail beschweren!!1</string>
     <string name="panic_cannot_skip">Zu viele ausgesetzte Experimente im Gedächtnis…</string>
-    <string name="panic_retry_notification">Du erhälst dann dafür nur noch 1 Punkt und
-        keine Erfolge!</string>
+    <string name="panic_retry_notification">Gibt nur 1 Neuron und keine Erfolge!</string>
     <string name="panic_retry_failed_no_types">Hole dir zuerst neue Experimente im Laden!</string>
     <string name="panic_retry_confirm">OK</string>
 
@@ -280,9 +279,9 @@
     <string name="article_purchase_with_real_money">Echtes Geld</string>
     <string name="article_purchase_start_plain">Kauf starten</string>
     <string name="article_purchase_start">Kauf starten (%1$.2f€)</string>
-    <string name="article_currency_purchase_250_name">Kaufe 250 Gehirnzellen</string>
-    <string name="article_currency_purchase_500_name">Kaufe 500 Gehirnzellen</string>
-    <string name="article_currency_purchase_1000_name">Kaufe 1000 Gehirnzellen</string>
+    <string name="article_currency_purchase_250_name">Kaufe 250 Neuronen</string>
+    <string name="article_currency_purchase_500_name">Kaufe 500 Neuronen</string>
+    <string name="article_currency_purchase_1000_name">Kaufe 1000 Neuronen</string>
     <string name="article_currency_purchase_descr">Unterstütze die Entwickler (und dich)! Kaufe
         Spielwährung mit echtem Geld über GooglePlay.</string>
 </resources>

@@ -220,7 +220,8 @@
     <string name="achievement_memory_6_descr">%1$d matching pairs with the first try? Well, maybe with Angry-Cell it was skill but here, DEFINITELY NOT!</string>
     <string name="achievement_memory_7_descr">That streak… Either this was brilliant or you cheated…</string>
     <string name="achievement_memory_7_name">Cardships</string>
-    <string name="achievement_memory_8_descr">You get the points if you solve the test without hitting a field twice. Quickly, grab a pencil!</string>
+    <string name="achievement_memory_8_descr">You get the neurons if you solve the test without
+        hitting a field twice. Quickly, grab a pencil!</string>
     <string name="achievement_memory_8_name">Cheating</string>
     <string name="achievement_memory_9_name">Not a magician</string>
     <string name="achievement_memory_9_descr">Luckily you are not a magician. Your brain couldn\'t even keep one spell in mind. Like these %1$d/%2$d cards.</string>
