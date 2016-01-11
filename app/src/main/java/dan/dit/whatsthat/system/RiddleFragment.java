@@ -99,9 +99,8 @@ import dan.dit.whatsthat.util.wallet.WalletEntry;
 /**
  * Created by daniel on 10.04.15.
  */
-public class RiddleFragment extends Fragment implements PercentProgressListener, Wallet
-        .OnEntryChangedListener, LoaderManager.LoaderCallbacks<Cursor>, SolutionInputListener,
-        UnsolvedRiddlesChooser.Callback, NoPanicDialog.Callback, RiddleView.PartyCallback, AchievementManager.UnclaimedAchievementsCountListener {
+public class RiddleFragment extends Fragment implements PercentProgressListener, LoaderManager.LoaderCallbacks<Cursor>, SolutionInputListener,
+        UnsolvedRiddlesChooser.Callback, NoPanicDialog.Callback, RiddleView.PartyCallback {
     public static final Map<String, Image> ALL_IMAGES = new HashMap<>();
     private static final String PRE_ENCRYPTED_COMPLAIN = "Image: ";
     private static final String POST_ENCRYPTED_COMPLAIN = "EndImage";
@@ -120,6 +119,8 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
     private int mClickCount;
     private ImageButton mBtnPanic;
     private Handler mMainHandler;
+    private AchievementManager.UnclaimedAchievementsCountListener mUnclaimedChangedListener;
+    private Wallet.OnEntryChangedListener mScoreChangedListener;
 
     public void onProgressUpdate(int progress) {
         mProgressBar.onProgressUpdate(progress);
@@ -172,7 +173,8 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
                         && mSolutionView != null) {
                 mSolutionView.provideHint(SolutionInput.HINT_LEVEL_MINIMAL);
             }
-            if (mSolutionView.getProvidedHintLevel() > SolutionInput.HINT_LEVEL_NONE) {
+            if (mSolutionView != null &&
+                    mSolutionView.getProvidedHintLevel() > SolutionInput.HINT_LEVEL_NONE) {
                 mRiddleView.forbidRiddleBonusScore();
             }
         }
@@ -722,6 +724,7 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
         mRiddlePickerDialog.show(getFragmentManager(), "RiddlePickerDialog");
     }
 
+    @SuppressWarnings("deprecation")
     private void onCheat() {
 
         final EditText input = new EditText(getActivity());
@@ -882,9 +885,24 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
         mErrorHandlingAttempted = false;
         getLoaderManager().initLoader(0, null, this);
         updateScoreInfo();
-        TestSubject.getInstance().registerScoreChangedListener(this);
-        AchievementManager.getInstance().addUnclaimedAchievementsCountListener(this);
-        onUnclaimedAchievementsCountChanged(AchievementManager.getInstance()
+        mScoreChangedListener = new Wallet.OnEntryChangedListener() {
+            @Override
+            public void onDataEvent(WalletEntry entry) {
+                updateScoreInfo();
+            }
+            @Override
+            public void onEntryRemoved(WalletEntry entry) {
+            }
+        };
+        TestSubject.getInstance().registerScoreChangedListener(mScoreChangedListener);
+        mUnclaimedChangedListener = new AchievementManager.UnclaimedAchievementsCountListener() {
+            @Override
+            public void onDataEvent(Integer unclaimedAchievementsCount) {
+                handleUnclaimedAchievementsCountChanged(unclaimedAchievementsCount);
+            }
+        };
+        AchievementManager.getInstance().addUnclaimedAchievementsCountListener(mUnclaimedChangedListener);
+        handleUnclaimedAchievementsCountChanged(AchievementManager.getInstance()
                 .getUnclaimedAchievementsCount());
     }
 
@@ -911,8 +929,8 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
     public void onStop() {
         super.onStop();
         mManager.cancelMakeRiddle();
-        TestSubject.getInstance().removeScoreChangedListener(this);
-        AchievementManager.getInstance().removeUnclaimedAchievementsCountListener(this);
+        TestSubject.getInstance().removeScoreChangedListener(mScoreChangedListener);
+        AchievementManager.getInstance().removeUnclaimedAchievementsCountListener(mUnclaimedChangedListener);
         if (mRiddleView != null) {
             mRiddleView.setVisibility(View.INVISIBLE); // else it is black when being reloaded
             // after having opened the shop
@@ -1004,16 +1022,7 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
         }
     }
 
-    @Override
-    public void onEntryChanged(WalletEntry entry) {
-        updateScoreInfo();
-    }
-    @Override
-    public void onEntryRemoved(WalletEntry entry) {
-    }
-
-    @Override
-    public void onUnclaimedAchievementsCountChanged(final int unclaimed) {
+    private void handleUnclaimedAchievementsCountChanged(final int unclaimed) {
         mMainHandler.post(new Runnable() {
             @Override
             public void run() {

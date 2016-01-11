@@ -343,7 +343,7 @@ public class AchievementCircle extends TypeAchievementHolder {
         public static final int REWARD = 150;
         public static final boolean DISCOVERED = true;
         private static final String KEY_TIMER_SOLVED = Types.Circle.NAME + NUMBER + "_solved"; // timed data key
-        private static final int SOLVED_COUNT = 5;
+        private static final int SOLVED_COUNT = 4;
         private static final int SOLVED_MAX_TIME = 120000; //ms
 
         public Achievement8(AchievementManager manager, PracticalRiddleType type) {
@@ -600,11 +600,11 @@ public class AchievementCircle extends TypeAchievementHolder {
 
     public static class Achievement13 extends GameAchievement {
         public static final int NUMBER = 13;
-        public static final int LEVEL = 3;
+        public static final int LEVEL = 5;
         public static final int REWARD = 0;
         public static final boolean DISCOVERED = false;
-        public static final int PERFECT_REWARD = 250;
-        public static final int MAX_REWARD = 200;
+        public static final int PERFECT_REWARD = 300;
+        public static final int MAX_REWARD = 250;
         public static final int MIN_REWARD = 5;
         public static final long MAX_REWARD_TIME = 10L * 1000L;
         public static final long MIN_REWARD_TIME = 60L * 1000L;
@@ -649,7 +649,7 @@ public class AchievementCircle extends TypeAchievementHolder {
 
         @Override
         public void onNonCustomDataEvent(AchievementDataEvent event) {
-            if (!isDiscovered() && event.getChangedData() == mGameData && mGameData.isSolved()
+            if (event.getChangedData() == mGameData && mGameData.isSolved()
                     && event.getEventType() == AchievementDataEvent.EVENT_TYPE_DATA_CLOSE) {
                 if (areDependenciesFulfilled()) {
                     achieve();

@@ -28,6 +28,7 @@ import dan.dit.whatsthat.image.Image;
 import dan.dit.whatsthat.riddle.control.RiddleGame;
 import dan.dit.whatsthat.riddle.types.PracticalRiddleType;
 import dan.dit.whatsthat.testsubject.TestSubject;
+import dan.dit.whatsthat.util.general.ObserverController;
 import dan.dit.whatsthat.util.image.Dimension;
 
 /**
@@ -39,7 +40,8 @@ public class RiddleManager {
     private final List<Riddle> mAllUnsolvedRiddles = new LinkedList<>();
     private static LruCache<Riddle, Bitmap> mMemoryCache;
 
-    private List<UnsolvedRiddleListener> mUnsolvedRiddleListeners = new LinkedList<>();
+    private ObserverController<UnsolvedRiddleListener, Void> mUnsolvedRiddleListenerController
+            = new ObserverController<>();
     private RiddleMaker mMaker;
     private int mSolvedRiddlesCount;
 
@@ -76,17 +78,18 @@ public class RiddleManager {
                 mMemoryCache.remove(riddle);
             }
             if (mAllUnsolvedRiddles.remove(riddle)) {
-                notifyUnsolvedRiddleListeners();
+                mUnsolvedRiddleListenerController.notifyObservers(null);
             }
         }
     }
 
     /**
      * There was a change (not further specified) with the unsolved riddles.
-     * This informs listeners to recheck the information they need from the manager.
+     * This informs listeners to recheck the information they need from the manager. No data is
+     * passed for the event, information needs to be pulled from observer.
      */
-    public interface UnsolvedRiddleListener {
-        void onUnsolvedRiddlesChanged();
+    public interface UnsolvedRiddleListener extends ObserverController.Observer<Void> {
+
     }
 
     /**
@@ -103,6 +106,7 @@ public class RiddleManager {
      * @param riddle The riddle that was solved which must not be null.
      */
     public void onRiddleSolved(@NonNull Riddle riddle) {
+        //noinspection ConstantConditions
         if (riddle == null) {
             throw new IllegalArgumentException("On solved riddle with null riddle.");
         }
@@ -110,7 +114,7 @@ public class RiddleManager {
         TestSubject.getInstance().addSolvedRiddleScore(riddle.getScore());
         RiddleInitializer.INSTANCE.registerUsedRiddleImage(riddle);
         if (mAllUnsolvedRiddles.remove(riddle)) {
-            notifyUnsolvedRiddleListeners();
+            mUnsolvedRiddleListenerController.notifyObservers(null);
         }
         if (mMemoryCache != null) {
             mMemoryCache.remove(riddle);
@@ -142,19 +146,14 @@ public class RiddleManager {
      * @param riddle The unsolved riddle which must not be null.
      */
     public void onUnsolvedRiddle(@NonNull Riddle riddle) {
+        //noinspection ConstantConditions
         if (riddle == null) {
             throw new IllegalArgumentException("On unsolved riddle with null riddle.");
         }
         RiddleInitializer.INSTANCE.registerUsedRiddleImage(riddle);
         if (!mAllUnsolvedRiddles.contains(riddle)) {
             mAllUnsolvedRiddles.add(riddle);
-            notifyUnsolvedRiddleListeners();
-        }
-    }
-
-    private void notifyUnsolvedRiddleListeners() {
-        for (UnsolvedRiddleListener listener : mUnsolvedRiddleListeners) {
-            listener.onUnsolvedRiddlesChanged();
+            mUnsolvedRiddleListenerController.notifyObservers(null);
         }
     }
 
@@ -164,9 +163,7 @@ public class RiddleManager {
      * @param listener The listener to register.
      */
     public void registerUnsolvedRiddleListener(UnsolvedRiddleListener listener) {
-        if (listener != null && !mUnsolvedRiddleListeners.contains(listener)) {
-            mUnsolvedRiddleListeners.add(listener);
-        }
+        mUnsolvedRiddleListenerController.addObserver(listener);
     }
 
     /**
@@ -175,7 +172,7 @@ public class RiddleManager {
      * @return True if the given listener was registered and removed.
      */
     public boolean unregisterUnsolvedRiddleListener(UnsolvedRiddleListener listener) {
-        return mUnsolvedRiddleListeners.remove(listener);
+        return mUnsolvedRiddleListenerController.removeObserver(listener);
     }
 
     // ************ MAKING RIDDLES; DELEGATING AND MANAGING A RIDDLE MAKER ************************

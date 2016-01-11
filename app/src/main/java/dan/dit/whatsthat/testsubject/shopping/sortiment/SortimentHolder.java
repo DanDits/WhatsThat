@@ -159,7 +159,6 @@ public class SortimentHolder extends ShopArticleHolder {
         dep.setName(R.string.dependency_any_download_article_name);
         for (ShopArticle article : mAllArticles) {
             if (article.getKey().startsWith(ShopArticleDownload.KEY_PREFIX)) {
-                Log.d("HomeStuff", "Download article key: " + article.getKey());
                 dep.add(TestSubject.getInstance().makeFeatureAvailableDependency(article.getKey()
                         , 2));
             }

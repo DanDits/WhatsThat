@@ -73,15 +73,15 @@ public abstract class AchievementData implements Compactable {
 
 
     public boolean removeListener(AchievementDataEventListener listener) {
-        return mObserverController.removeListener(listener);
+        return mObserverController.removeObserver(listener);
     }
 
     public void addListener(AchievementDataEventListener listener) {
-        mObserverController.addListener(listener);
+        mObserverController.addObserver(listener);
     }
 
     public void notifyListeners(AchievementDataEvent event) {
-        mObserverController.notifyListeners(event);
+        mObserverController.notifyObservers(event);
         mEventFactory.add(event); // free event
     }
 

@@ -28,6 +28,7 @@ import java.util.Set;
 
 import dan.dit.whatsthat.testsubject.TestSubject;
 import dan.dit.whatsthat.util.compaction.Compacter;
+import dan.dit.whatsthat.util.general.ObserverController;
 
 /**
  * An achievement is managed by this manager class which saves relevant achievement's data
@@ -51,7 +52,16 @@ public class AchievementManager implements AchievementDataEventListener {
     private Set<AchievementData> mManagedChangedData;
     private Set<Achievement> mChangedAchievements;
     private int mUnclaimedAchievementsCount;
-    private List<UnclaimedAchievementsCountListener> mUnclaimedListeners;
+    private ObserverController<UnclaimedAchievementsCountListener, Integer> mUnclaimedObserversController;
+
+    /**
+     * The interface for listening to the amount of unclaimed achievements. The event parameter
+     * passed is an integer indicating the amount of currently unclaimed achievements.
+     */
+    public interface UnclaimedAchievementsCountListener extends ObserverController
+            .Observer<Integer> {
+        // for naming and simplification only, no more methods required
+    }
 
     private AchievementManager(Context applicationContext) {
         if (applicationContext == null) {
@@ -61,7 +71,7 @@ public class AchievementManager implements AchievementDataEventListener {
         mPrefs = applicationContext.getSharedPreferences(ACHIEVEMENT_PREFERENCES_FILE, Context.MODE_PRIVATE);
         mManagedChangedData = new HashSet<>();
         mChangedAchievements = new HashSet<>();
-        mUnclaimedListeners = new ArrayList<>(1);
+        mUnclaimedObserversController = new ObserverController<>(1);
         mUnclaimedAchievementsCount = mPrefs.getInt(KEY_UNCLAIMED_ACHIEVEMENTS_COUNT, 0);
     }
 
@@ -112,32 +122,14 @@ public class AchievementManager implements AchievementDataEventListener {
         return mUnclaimedAchievementsCount;
     }
 
-    /**
-     * Notifies the listener about changes to the unclaimed achievements amount.
-     */
-    public interface UnclaimedAchievementsCountListener {
-        /**
-         * The unclaimed achievements count changed. Not necessarily in ui thread.
-         * @param unclaimed The amount of unclaimed achievements.
-         */
-        void onUnclaimedAchievementsCountChanged(int unclaimed);
-    }
 
     public void addUnclaimedAchievementsCountListener(UnclaimedAchievementsCountListener listener) {
-        if (listener != null && !mUnclaimedListeners.contains(listener)) {
-            mUnclaimedListeners.add(listener);
-        }
+        mUnclaimedObserversController.addObserver(listener);
     }
 
     public void removeUnclaimedAchievementsCountListener(UnclaimedAchievementsCountListener
                                                                  listener) {
-        mUnclaimedListeners.remove(listener);
-    }
-
-    private void notifyUnclaimedAchievementsListener() {
-        for (UnclaimedAchievementsCountListener listener : mUnclaimedListeners) {
-            listener.onUnclaimedAchievementsCountChanged(mUnclaimedAchievementsCount);
-        }
+        mUnclaimedObserversController.removeObserver(listener);
     }
 
     /**
@@ -150,11 +142,11 @@ public class AchievementManager implements AchievementDataEventListener {
             mChangedAchievements.add(achievement);
             if (changedHint == CHANGED_TO_ACHIEVED) {
                 mUnclaimedAchievementsCount++;
-                notifyUnclaimedAchievementsListener();
+                mUnclaimedObserversController.notifyObservers(mUnclaimedAchievementsCount);
                 TestSubject.getInstance().postAchievementAchieved(achievement);
             } else if (changedHint == CHANGED_GOT_CLAIMED) {
                 mUnclaimedAchievementsCount--;
-                notifyUnclaimedAchievementsListener();
+                mUnclaimedObserversController.notifyObservers(mUnclaimedAchievementsCount);
                 TestSubject.getInstance().addAchievementScore(achievement.getScoreReward());
             }
         }

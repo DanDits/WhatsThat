@@ -8,68 +8,50 @@ import java.util.List;
  * removed at any time (event during event processing). Processing an event can trigger other
  * events. Adding and removing observers will only take place after all processing is done. So
  * removing an observer during processing an event will not prevent it from being called in case
- * another event is triggered during processing.
+ * another event is triggered during processing. Processed events that result in nested
+ * notifications must do this in the original thread of the first notification, this also
+ * includes adding and removing of observers as these operations are synchronized.
  * Created by daniel on 26.11.15.
  */
-public class RobustObserverController<Listener extends RobustObserverController.Observer<?
-        super Event>, Event> {
+public class RobustObserverController<Observer extends ObserverController.Observer<?
+        super Event>, Event> extends ObserverController<Observer, Event> {
 
-    private final List<Listener> mListeners = new ArrayList<>();
-    private List<Listener> mAddedListeners = new ArrayList<>(4);
-    private List<Listener> mRemovedListeners = new ArrayList<>(4);
+    private List<Observer> mAddedObservers = new ArrayList<>(4);
+    private List<Observer> mRemovedObservers = new ArrayList<>(4);
     private int mIsProcessingEventDepth;
 
-    /**
-     * The listeners controlled by this class need to implement this interface and react to the
-     * given data event.
-     * @param <Event> The event that happened and needs to be processed.
-     */
-    public interface Observer<Event> {
-        void onDataEvent(Event event);
-    }
-
-    /**
-     * Adds a listener to be notified on future data events.
-     * @param listener The listener to add if not yet added.
-     */
-    public void addListener(Listener listener) {
-        if (!mListeners.contains(listener) && !mAddedListeners.contains(listener)) {
-            mAddedListeners.add(listener);
+    @Override
+    public synchronized void addObserver(Observer observer) {
+        if (observer != null && !mObservers.contains(observer)
+                && !mAddedObservers.contains(observer)) {
+            mAddedObservers.add(observer);
         }
     }
 
-    /**
-     * Removes a listener that will no longer be notified on future data events.
-     * @param listener The listener to remove if not yet removed.
-     * @return If the listener will be removed before next notification.
-     */
-    public boolean removeListener(Listener listener) {
-        if (mListeners.contains(listener) && !mRemovedListeners.contains(listener)) {
-            mRemovedListeners.add(listener);
+
+    @Override
+    public synchronized boolean removeObserver(Observer observer) {
+        if (mObservers.contains(observer) && !mRemovedObservers.contains(observer)) {
+            mRemovedObservers.add(observer);
             return true;
         }
         return false;
     }
-
-    /**
-     * Notifies all associated listeners of the given event.
-     * @param event The event to notify listeners of.
-     */
-    public synchronized void notifyListeners(Event event) {
+    
+    @Override
+    public synchronized void notifyObservers(Event event) {
         if (mIsProcessingEventDepth == 0) {
-            for (int i = 0; i < mAddedListeners.size(); i++) {
-                mListeners.add(mAddedListeners.get(i));
+            for (int i = 0; i < mAddedObservers.size(); i++) {
+                mObservers.add(mAddedObservers.get(i));
             }
-            for (int i = 0; i < mRemovedListeners.size(); i++) {
-                mListeners.remove(mRemovedListeners.get(i));
+            for (int i = 0; i < mRemovedObservers.size(); i++) {
+                mObservers.remove(mRemovedObservers.get(i));
             }
-            mAddedListeners.clear();
-            mRemovedListeners.clear();
+            mAddedObservers.clear();
+            mRemovedObservers.clear();
         }
         mIsProcessingEventDepth++;
-        for (int i = 0; i < mListeners.size(); i++) {
-            mListeners.get(i).onDataEvent(event);
-        }
+        super.notifyObservers(event);
         mIsProcessingEventDepth--;
     }
 
