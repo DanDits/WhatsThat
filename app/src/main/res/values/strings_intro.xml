@@ -17,11 +17,15 @@
     <string name="intro_test_answer_9">9</string>
     <string name="intro_test_answer_256">256</string>
     <string name="intro_test_answer_217341">217341</string>
-    <string name="intro_test_answer_6">6</string> <!--Level 2-->
+    <string name="intro_test_answer_6">6</string> <!--Level 2&3-->
     <string name="intro_test_answer_potatosalad">Potato salad</string>
     <string name="intro_test_answer_3">3</string> <!--Level 3-->
     <string name="intro_test_answer_4">4</string>
     <string name="intro_test_answer_5">5</string>
+    <string name="intro_test_answer_nope">Nope</string> <!--Level6-->
+    <string name="intro_test_answer_lolno">Nah</string>
+    <string name="intro_test_answer_radiation">Radiation</string>
+    <string name="intro_test_answer_eh">Eh?</string>
 
     <string name="intro_starting_episode">Welcome %1$s</string>
 
@@ -222,7 +226,7 @@
     <string-array name="test_subject_2_4b_intro_main">
         <item>Potato salad??</item>
         <item>Ugh…</item>
-        <item>…ok…</item>
+        <item>…Hmm…</item>
         <item>WiseMind, I think our testsubject needs some stimulation. With high voltage please.</item>
         <item>Some neutrons seem to be gone wild.</item>
         <item>…</item>
@@ -283,7 +287,7 @@
 
     <string-array name="test_subject_3_6a_intro_main">
         <item>Wrong. 6. Enough for today. I give up.</item>
-        <item>Hmmpff…</item>
+        <item>Holy creation…</item>
         <item>We picked up an intelligence allergy sufferer, didn\'t we?</item>
         <item>Well, to be honest, having a quote of 100% right answers would be impossible for your species.</item>
         <item>Maybe I would have come to the suspicion of fraud.</item>
@@ -292,16 +296,16 @@
         <item>Haha. A likely story!</item>
     </string-array>
     <string-array name="test_subject_3_6b_intro_main">
-        <item>6. Wow.</item>
+        <item>6. Wow. That\'s right.</item>
         <item>Amazing.</item>
         <item>Unbelievable!</item>
         <item>First, you had my curiosity. Now you have my attention.</item>
         <item>.. sorry WiseMind?</item>
-        <item>You told the earthling all the answers?!</item>
+        <item>You told it ALL the answers?!</item>
         <item>Good job, you really scared me for a short moment. I really thought I underestimated the earthling\'s intellect!</item>
         <item>Very well. Well played. I have to admit, the prank for my transcendental century succeeded…</item>
         <item>By the way, it\'s the century we achieve our full intellectual and meta-spiritual abilities…</item>
-        <item>And for exactly that reason our concentric spheres usually play a trick on all Sublime-beings.</item>
+        <item>In our concentric spheres it\'s a habit to play a trick on all Sublime-beings.</item>
     </string-array>
     <string-array name="test_subject_3_6c_intro_main">
         <item>Correct.</item>
@@ -312,16 +316,16 @@
     <string-array name="test_subject_3_7_intro_main">
         <item>Enough stories for today.</item>
         <item>But.. considering.. having some smalltalk, I can tell you a curious story that happened to me.</item>
-        <item>When using the tractor beam we picked up a lot of stuff. You and some things too.</item>
+        <item>When using the tractor beam for you we picked up a lot of stuff too.</item>
         <item>Exactly, you and other garbage was abducted.</item>
         <item>By mistake of course!</item>
         <item>I had to clear this mess in the first step.</item>
-        <item>Our boss always told us: \"No studies in chaos!\"</item>
+        <item>My parents always told me: \"No studies in chaos!\"</item>
         <item>..at least it\'s common to do this among us.. </item>
         <item>Nevertheless, when looking up during my cleanup efforts I was suddenly looking in a face in front of me.</item>
-        <item>It was showing surprise, disgust and hope for some tasty hay.</item>
+        <item>I was surprised reading surprise, disgust and hope for some tasty hay in it.</item>
         <item>It was the face of a cow.</item>
-        <item>It\'s very difficult to distinguish you mortal creatures from each other.</item>
+        <item>Honestly, it\'s very difficult to distinguish you mortal creatures from each other.</item>
         <item>Especially human beings.</item>
         <item>Some humans have one chin, others two.</item>
         <item>Otherwise, you all look the same.</item>
@@ -329,15 +333,16 @@
 
     <string-array name="test_subject_3_intro_nuts">
         <item>…</item>
-        <item>Oh, one more thing I have to tell you… </item>
-        <item>..you and your fellow earthling creatures run different tests with inferior living beings…</item>
-        <item>That\'s what we do, too!</item>
-        <item>For instance with you.</item>
-        <item>However our experiments always try to determine the living beings\'s intellect!</item>
-        <item>Well, in the majority of cases. If existing.</item>
-        <item>And if not struggling like this..</item>
-        <item>I really try my best to increase my motivation.</item>
-        <item>Here, it is a true challenge.</item>
+        <item>I came to a conclusion.</item>
+        <item>Really understated your reactions to numbers were poor.</item>
+        <item>Disastrous to be precisely.</item>
+        <item>Not your strength I guess.</item>
+        <item>Letters are poor as well..</item>
+        <item>Although I am an optimist..</item>
+        <item>.. I\'m not living in a fool\'s paradise.</item>
+        <item>We will continue and focus our work with pictures.</item>
+        <item>More potential, less frustration.</item>
+        <item>That\'s the way.</item>
     </string-array>
     <string-array name="test_subject_3_riddle_solved_candy">
         <item>Great work</item>
@@ -352,11 +357,11 @@
     <string name="test_subject_4_name">Smart aleck</string>
     <string name="test_subject_4_int">Measurable:…9</string>
     <string-array name="test_subject_4_0_intro_main">
-        <item>WiseMind is analyzing the evolution gap between earthlings and the remaining creatures of the universe</item>
+        <item>WiseMind is analyzing the evolution gap between earthlings and the remaining creatures of the universe.</item>
         <item>Maybe she will find some interesting facts.</item>
         <item>Because right now our language developed a curse word regarding the earth\'s inhabitants:</item>
         <item>Humanoide Minimalsetup.</item>
-        <item>Furthermore, we\'re looking for further kognitive deficits of your species.</item>
+        <item>Furthermore, we\'re looking for further cognitive deficits of your species.</item>
         <item>First results so far:</item>
         <item>Arrogance.</item>
         <item>Excessive hubris.</item>
@@ -368,82 +373,81 @@
     </string-array>
     <string-array name="test_subject_4_1_intro_main">
         <item>And then, look at me:</item>
-        <item>Prime example of an unique and intelligent being:</item>
+        <item>Prime example of an unique and intelligent being.</item>
         <item>Ingenious.</item>
         <item>Adventurous.</item>
         <item>A sharp mind.</item>
         <item>Caring for lower creatures like you.</item>
         <item>And of course quite modest.</item>
-        <item>I don\'t get it how and why Homo Sapiens wants to develop to an Over-earthling.</item>
+        <item>I don\'t get it how and why Homo Sapiens wants to develop to Over-earthlings.</item>
         <item>Maybe an obscured mind is required to get to the top of your planet.</item>
         <item>At least everyone of the earthlings is trying to be more than possible..</item>
         <item>.. or to get more than necessary.</item>
-        <item>Some of you tell lies as journalists or whatever you call them, other as politicians…</item>
-        <item>Some waste their time accumulating treasures..</item>
-        <item>.. sell their own principles and literally walk over dead body.</item>
-        <item>Other earthlings waste their time fighting as tiny groups against huge systems.</item>
+        <item>Some of you are telling lies as journalists, other as politicians…</item>
+        <item>Some are wasting their time accumulating treasures..</item>
+        <item>..or selling their own principles.</item>
+        <item>Other earthlings waste their time by fighting as tiny groups against huge systems.</item>
         <item>Did you try to blow-dry the arctic yet?</item>
         <item>No? I can assure, there are more exiting things. For instance watching paint becoming dry.</item>
         <item>Homo Sapiens.. Do they really call themselves the pride of creation?</item>
         <item>Ahhh.. okay....</item>
-        <item>Die verhalten sich genauso wie Tiere auf zwei Beinen:</item>
-        <item>Tiefes Primatenerbe, instinktive Handlungen, die wenigsten besitzen Selbstreflexion, xenophobe Abgrenzung von anderen Menschen.</item>
-        <item>Das machen Tiere auch. Fressen oder gefressen werden.</item>
-        <item>Daher lieber andere zuerst vernichten. Du hast recht WiseMind; genug Erdling-Bashing.</item>
+        <item>They are like animals on two feet:</item>
+        <item>Deep primate heritage, instinctive actions, the fewest have self reflection, Xenophobia of other people.</item>
+        <item>As I said, like animals. Eat or be eaten.</item>
+        <item>Better destroy other people first. You\'re right WiseMind: Enough earthling-bashing.</item>
     </string-array>
     <string-array name="test_subject_4_intro_nuts">
         <item>…</item>
-        <item>Was ich damit sagen will:</item>
-        <item>Menschen sind doch alle ein Toastbrot des Systems.</item>
-        <item>Jeder möchte die eigenen Grenzen immer wieder überschreiten.</item>
-        <item>Wollen wachsen und wachsen und wenn man fragt, wann genug ist,..</item>
-        <item>..dann gibt es nur eine Antwort:</item>
-        <item>Niemals.</item>
-        <item>Viel Erfolg dabei.</item>
-        <item>Wärt ihr wie wir und in jeder Hinsicht vollkommen, dann würden die Erdlinge die eigenen Grenzen erkennen..</item>
-        <item>..und wir würden das Gespräch gar nicht führen</item>
-        <item>Ich weiß doch.</item>
-        <item>\"Gespräch\" beinhaltet eine Reaktion des Gegenübers.</item>
-        <item>Das einzige was bei dir reagiert ist der große Zeh.</item>
-        <item>Und das nur aufgrund des fließenden Stroms.</item>
+        <item>My point is:</item>
+        <item>Humans are all a toast of the system.</item>
+        <item>Everyone wants to exceed their own limits again and again.</item>
+        <item>Becoming bigger and bigger, growing and growing and if you ask, when they want to stop,..</item>
+        <item>..there is only one answer:</item>
+        <item>Never.</item>
+        <item>Good luck with that.</item>
+        <item>If you were the way we are and be near to perfect, all earthlings would know their limits..</item>
+        <item>..and we wouldn\'t need this conversation.</item>
+        <item>I know.</item>
+        <item>\"Conversation\" means a reaction of opposite living being.</item>
+        <item>The only thing that is showing any kind of reaction is the big toe.</item>
+        <item>Thanks to the current flowing..</item>
     </string-array>
     <string-array name="test_subject_4_riddle_solved_candy">
-        <item>Großes Lob</item>
-        <item>Tip Top</item>
-        <item>Fantastisch</item>
-        <item>Grandios</item>
-        <item>Vortrefflich</item>
-        <item>Spitze</item>
+        <item>Big Thumbs-up</item>
+        <item>TipTop</item>
+        <item>Fantastic</item>
+        <item>Magnificent</item>
+        <item>Brilliant</item>
+        <item>Unbelievable</item>
     </string-array>
 
     <!-- Level 5 -->
-    <string name="test_subject_5_name">Grünschnabel</string>
-    <string name="test_subject_5_int">Lichtblick</string>
+    <string name="test_subject_5_name">Greenhorn</string>
+    <string name="test_subject_5_int">Ray of hope</string>
     <string-array name="test_subject_5_0_intro_main">
-        <item>Letztes Mal habe ich etwas übertrieben.</item>
-        <item>Ich habe WiseMind versprochen, dass ich die Menschheit nicht pausenlos dumm nenne.</item>
-        <item>Und dich nicht pausenlos beleidige.</item>
-        <item>Zumindest nicht so offensichtlich.</item>
-        <item>Was aber nicht heißt, dass ich dich anspruchsvoller beschimpfen werde.</item>
-        <item>Du kannst über die Bedeutung ja nachdenken und dich später beschweren.</item>
+        <item>Last time I exaggerated a bit.</item>
+        <item>I promised WiseMind to stop calling mankind stupid all the time.</item>
+        <item>And stop insulting you nonstop.</item>
+        <item>At least no obvious insults anymore.</item>
+        <item>However this does not mean that I must stop calling you names. I\'m going to be more creative.</item>
+        <item>You can think about everything and complain afterwards.</item>
     </string-array>
     <string-array name="test_subject_5_1_intro_main">
-        <item>Was mir übrigens noch aufgefallen ist.. </item>
-        <item>.. ihr Erdlinge führt Versuche an niederen Lebewesen durch …</item>
-        <item>Das tun wir auch!</item>
-        <item>Mit euch zum Beispiel.</item>
-        <item>Unsere Versuche dienen immer nur zur Messung der Intelligenz anderer Lebewesen!</item>
-        <item>Naja meistens zumindest. Sofern vorhanden.</item>
-        <item>Und wenn sie sich nicht so anstellen.</item>
-        <item>Ich gebe mir ja Mühe den Motivationsfaktor wieder anzukurbeln.</item>
-        <item>Hier ist das aber schwieriger als angenommen.</item>
-        <item>Achja, eine Frage stelle ich mir schon die ganze Zeit.</item>
-        <item>Ich kann ja verstehen, dass sich Kinder bei eurer Spezies noch im Entwicklungsstadium und am Lernen befinden.</item>
-        <item>Aber wieso sind die ausgewachsenen Erdlinge so dumm?</item>
-        <item>Verzeihung bitte.</item>
-        <item>Ich wollte sagen:</item>
-        <item>Wieso stellen körperlich und kognitiv ausgereifte Menschen eine Evolutionsbremse in der Entwicklung dar?</item>
-        <item>Die Betonung liegt auf körperlich.</item>
+        <item>Talking about it.. I realized yesterday.. </item>
+        <item>..your fellow earthling creatures are running different experiments on inferior living beings…</item>
+        <item>That\'s what we do, too!</item>
+        <item>For instance with you.</item>
+        <item>However our experiments always try to determine the living beings\'s intellect!</item>
+        <item>Well, in the majority of cases. If existing.</item>
+        <item>And if the creatures are not struggling like this..</item>
+        <item>I really try my best to increase my motivation.</item>
+        <item>With you, it is a true challenge.</item>
+        <item>Oh, by the way, one important question to you.</item>
+        <item>I do understand that children are in some kind of developing stage and need to learn a lot of things.</item>
+        <item>But why, just why, are fully grown earthlings that stupid?</item>
+        <item>Sorry.</item>
+        <item>I wanted to say:</item>
+        <item>Why are physical and cognitive fully-grown humans an evolution brake of the steady evolution?</item>
     </string-array>
     <string-array name="test_subject_5_intro_nuts">
         <item>…</item>
@@ -519,19 +523,21 @@
     <string-array name="test_subject_6_3a_intro_main">
         <item>Korrekt!</item>
         <item>Bilder und Farben scheinst du zu verstehen.</item>
-        <item>Deswegen haben wir dich ja auch ausgewählt :).</item> <!--Option: Elektromagnetische Wellen-->
+        <item>Deswegen haben wir dich ja auch ausgewählt :).</item>
+        <item>Aber egal wie sicher du meintest, es zu wissen..</item>
     </string-array>
     <string-array name="test_subject_6_3b_intro_main">
-        <item>Nicht schlimm, ich bin ja so lieb und erklär es dir kurz:</item> <!--Option: Hä?-->
+        <item>Nicht schlimm, ich bin ja so lieb und erklär es dir kurz:</item>
+        <item>Trotz Unwissenheit lese ich dir die Antwort kurz vor.</item>
     </string-array>
     <string-array name="test_subject_6_3c_intro_main">
         <item>Hä? Kartoffelsalat??</item>
         <item>Dieser Gedanke scheint bei dem Erdling häufiger aufzutreten.</item>
         <item>WiseMind, bist du dir sicher, dass wir die richtige Kreatur erwischt haben?</item>
         <item>Ich weiß langsam nicht mehr weiter mit.. mit diesem Ding..</item>
+        <item>So viel Unwissenheit.. Meine Güte ist heute grenzenlos, denn ich les dir trotzdem die Lösung vor.</item>
     </string-array>
     <string-array name="test_subject_6_4_intro_main">
-        <item>Aber egal wie sicher du meintest, es zu wissen..</item>
         <item>Aus unserem Lexikon, Lektion 58373:</item>
         <item>\"Licht besteht aus plasmaktronisch elektromagnetrischer Zantra Strahlung.\"</item>
         <item>Strahlung heißt aber nicht Farben. Es bedarf entsprechender Sinneszellen.</item>

@@ -155,6 +155,7 @@
     <string name="download_article_descr_general">Extend the image pool with different kinds of pictures :)!</string>
     <string name="download_article_descr_technical">Extend the image pool with technical pictures!</string>
     <string name="download_article_descr_superlative">Extend the image pool with sport, vehicle and job pictures!</string>
+    <string name="download_article_descr_gaming">Custom image pool, sorry!</string>
 
     <string name="panic_complain_nothing">Keep calm and wait on</string>
     <string name="panic_complain_dummy_toast">Complaint has been noted</string>

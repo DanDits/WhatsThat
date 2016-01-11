@@ -142,6 +142,7 @@
     <string name="download_article_descr_general">Erweitere den Bilderpool mit diversen Allerlei-Bildern :)!</string>
     <string name="download_article_descr_technical">Erweitere den Bilderpool mit technischen Bildern!</string>
     <string name="download_article_descr_superlative">Erweitere den Bilderpool mit Sport-, Fahrzeug- und Berufsbilder!</string>
+    <string name="download_article_descr_gaming">Custom Bilderpool, sorry!</string>
 
     <string name="download_article_descr_downloading">%2$s Bilder von %1$s werden heruntergeladen…</string>
     <string name="download_article_descr_downloaded">%2$s Bilder von %1$s wurden heruntergeladen!</string>
