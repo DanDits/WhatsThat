@@ -518,7 +518,7 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
                     return false;
                 }
             });*/
-            mBtnCheat.setVisibility(View.VISIBLE);
+            getView().findViewById(R.id.riddle_cheat).setVisibility(View.VISIBLE);
         }
         mBtnRiddles.setEnabled(false);
         mBtnRiddles.setImageResource(TestSubject.getInstance().getImageResId());
@@ -537,7 +537,6 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
             }
         });
         mBtnCheat = (ImageButton) getView().findViewById(R.id.riddle_cheat);
-        mBtnCheat.setVisibility(View.GONE);
         if (allowCheats) {
             mBtnCheat.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -546,6 +545,8 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
                     onCheat();
                 }
             });
+        } else {
+            mBtnCheat.setVisibility(View.GONE);
         }
 
         mManager = RiddleInitializer.INSTANCE.getRiddleManager();

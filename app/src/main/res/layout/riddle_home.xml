@@ -51,6 +51,7 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/riddle_cheat"
                     android:src="@drawable/cheat"
+                    android:visibility="gone"
                     android:layout_alignParentTop="true"
                     android:layout_toLeftOf="@+id/riddle_make_next"
                     android:layout_toStartOf="@+id/riddle_make_next" />
