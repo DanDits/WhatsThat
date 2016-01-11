@@ -103,22 +103,28 @@ public class SortimentHolder extends ShopArticleHolder {
 
         addHintArticles();
 
-        addArticle(new ShopArticleDownload(mApplicationContext, mPurse, R.string.download_article_name, R.string.download_article_descr_technical, R.drawable.ic_download, 25,
+        addArticle(new ShopArticleDownload(mApplicationContext, mPurse, R.string.download_article_name, R.string.download_article_descr_technical, R.drawable.ic_download,
+                50,
                 "fabian", "crackle42_pics", 5, "https://www.dropbox.com/s/b5nydme8eg1lq8e/fabian_crackle42_pics.wtb?dl=1"));
 
-        addArticle(new ShopArticleDownload(mApplicationContext, mPurse, R.string.download_article_name, R.string.download_article_descr_general, R.drawable.ic_download, 25,
+        addArticle(new ShopArticleDownload(mApplicationContext, mPurse, R.string.download_article_name, R.string.download_article_descr_general, R.drawable.ic_download,
+                100,
                 "fabian", "FaDi_pics", 8, "https://www.dropbox.com/s/drvqyfc9s9ar8j6/fabian_FaDi_pics.wtb?dl=1"));
 
-        addArticle(new ShopArticleDownload(mApplicationContext, mPurse, R.string.download_article_name, R.string.download_article_descr_housing, R.drawable.ic_download, 40,
+        addArticle(new ShopArticleDownload(mApplicationContext, mPurse, R.string.download_article_name, R.string.download_article_descr_housing, R.drawable.ic_download,
+                100,
                 "fabian", "housing", 8, "https://www.dropbox.com/s/4b28so70j5jugpo/fabian_housing.wtb?dl=1"));
 
-        addArticle(new ShopArticleDownload(mApplicationContext, mPurse, R.string.download_article_name, R.string.download_article_descr_nature, R.drawable.ic_download, 60,
+        addArticle(new ShopArticleDownload(mApplicationContext, mPurse, R.string.download_article_name, R.string.download_article_descr_nature, R.drawable.ic_download,
+                250,
                 "fabian", "nature", 9, "https://www.dropbox.com/s/6pgvwdyfvbp95n2/fabian_nature.wtb?dl=1"));
 
-        addArticle(new ShopArticleDownload(mApplicationContext, mPurse, R.string.download_article_name, R.string.download_article_descr_animal, R.drawable.ic_download, 25,
+        addArticle(new ShopArticleDownload(mApplicationContext, mPurse, R.string.download_article_name, R.string.download_article_descr_animal, R.drawable.ic_download,
+                150,
                 "fabian", "NoAnimal", 5, "https://www.dropbox.com/s/j6ofjcberhvt6tz/fabian_NoAnimal.wtb?dl=1"));
 
-        addArticle(new ShopArticleDownload(mApplicationContext, mPurse, R.string.download_article_name, R.string.download_article_descr_superlative, R.drawable.ic_download, 50,
+        addArticle(new ShopArticleDownload(mApplicationContext, mPurse, R.string.download_article_name, R.string.download_article_descr_superlative, R.drawable.ic_download,
+                200,
                 "fabian", "superlative", 8, "https://www.dropbox.com/s/vx5f7lkim0jja4j/fabian_superlative.wtb?dl=1"));
 
         addArticle(new ShopArticleSimple(ARTICLE_KEY_JUMPER_START_FURTHER_FEATURE, mPurse,
@@ -156,7 +162,6 @@ public class SortimentHolder extends ShopArticleHolder {
         dep.setName(R.string.dependency_any_download_article_name);
         for (ShopArticle article : mAllArticles) {
             if (article.getKey().startsWith(ShopArticleDownload.KEY_PREFIX)) {
-                Log.d("HomeStuff", "Download article key: " + article.getKey());
                 dep.add(TestSubject.getInstance().makeFeatureAvailableDependency(article.getKey()
                         , 2));
             }

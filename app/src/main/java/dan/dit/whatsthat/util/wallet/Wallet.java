@@ -23,6 +23,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import dan.dit.whatsthat.util.general.ObserverController;
+
 /**
  * A wallet is a single object hold by the TestSubject which contains
  * various kinds of currencies, expenses, valuables and unlocked features that can be used.
@@ -36,10 +38,10 @@ public class Wallet {
     private Editor mEditor;
     private SharedPreferences mPrefs;
     private final String mName;
-    private List<OnEntryChangedListener> mListeners;
+    private ObserverController<OnEntryChangedListener, WalletEntry>
+            mOnEntryChangedListenerController = new ObserverController<>();
 
-    public interface OnEntryChangedListener {
-        void onEntryChanged(WalletEntry entry);
+    public interface OnEntryChangedListener extends ObserverController.Observer<WalletEntry>{
         void onEntryRemoved(WalletEntry entry);
     }
 
@@ -147,33 +149,20 @@ public class Wallet {
     }
 
     public void addChangedListener(OnEntryChangedListener listener) {
-        if (mListeners == null) {
-            mListeners = new ArrayList<>(1);
-        }
-        if (!mListeners.contains(listener)) {
-            mListeners.add(listener);
-        }
+        mOnEntryChangedListenerController.addObserver(listener);
     }
 
     public void removeChangedListener(OnEntryChangedListener listener) {
-        if (mListeners != null) {
-            mListeners.remove(listener);
-        }
+        mOnEntryChangedListenerController.removeObserver(listener);
     }
 
     private void notifyChangedListeners(WalletEntry entry) {
-        if (mListeners != null) {
-            for (int i = 0; i < mListeners.size(); i++) {
-                mListeners.get(i).onEntryChanged(entry);
-            }
-        }
+        mOnEntryChangedListenerController.notifyObservers(entry);
     }
 
     private void notifyRemovedListeners(WalletEntry entry) {
-        if (mListeners != null) {
-            for (int i = 0; i < mListeners.size(); i++) {
-                mListeners.get(i).onEntryRemoved(entry);
-            }
+        for (OnEntryChangedListener listener : mOnEntryChangedListenerController) {
+            listener.onEntryRemoved(entry);
         }
     }
 }
