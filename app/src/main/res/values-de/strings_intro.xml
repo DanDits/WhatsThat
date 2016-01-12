@@ -86,7 +86,7 @@
         <item>Wunderbar, da der Anschluss funktioniert können wir hoffentlich gleich beginnen.</item>
         <item>Ich hoffe mal du bist nicht schwer von Begriff.</item>
         <item>Nicht das wir dich überfordern.</item>
-        <item> Mal sehen.. Buchstaben, nö…Zahlen, negativ…</item>
+        <item> Mal sehen.. Buchstaben: nö…Zahlen: negativ…</item>
         <item>Was kannst du eigentlich?</item>
         <item>Mal sehen, wie es auf Bilder reagiert.</item>
         <item>Aha.. Affinität zu Anomalien der Farbvalenz</item>
@@ -95,7 +95,8 @@
         <item>Erdling, wie bei allen zukünftigen Experimenten der Versuchsreihe 272, geht es darum, das Bild zu erraten.</item>
         <item>Wenn du einmal nicht weiterkommst, dann schiebe bitte "keine Panik".</item>
         <item>WiseMind wird eine für dich maßgeschneiderte Hilfe geben, wenn unser Intellekt den irdischen übersteigt.</item>
-        <item>Und nun, wie man bei euch so schön sagt: Auf ins Getümmel mit Glanz und Gloria!</item>
+        <item>Und nun, wie man bei euch so schön sagt:</item>
+        <item>Auf ins Getümmel mit Glanz und Gloria!</item>
         <item>Und natürlich: Viel Erfolg!</item>
     </string-array>
     <string-array name="test_subject_0_riddle_solved_candy">
@@ -362,7 +363,7 @@
         <item>…die zwischen den Erdlingen und den restlichen Lebewesen des Universums herrscht.</item>
         <item>Es hat sich sogar schon eine Beleidigung nach euren Maßstäben geprägt:</item>
         <item>Humanoide Minimalkonfiguration.</item>
-        <item>Wir untersuchen gerade, an welchen kognitiven Defiziten Erdlinge leiden.</item>
+        <item>Wir untersuchen gerade an welchen kognitiven Defiziten Erdlinge leiden.</item>
         <item>Erste Ergebnisse ergaben bisher nur:</item>
         <item>Arroganz.</item>
         <item>Maßlose Selbstüberschätzung.</item>
@@ -380,29 +381,29 @@
         <item>Scharfsinnig im Verstand.</item>
         <item>Fürsorgend für niedere Wesen wie dich.</item>
         <item>Und natürlich total bescheiden.</item>
-        <item>Ich verstehe nicht, wie und warum sich Homo Sapiens zu einem Über-Erdling entwickeln möchte.</item>
-        <item>Vielleicht ist ein vernebeltes Gehirn überhaupt Voraussetzung, um an die Spitze zu gelangen.</item>
-        <item>Immerhin strebt jedes von den Erdlingen danach mehr zu sein, als überhaupt möglich.</item>
+        <item>Eins kann ich nicht verstehen.</item>
+        <item>Warum um Cthulhu Willen, möchte sich jeder Erdbewohner zu einem Über-Erdling entwickeln?</item>
+        <item>Vielleicht ist ein vernebeltes Gehirn Ursache dafür, dass jeder danach strebt, an die Spitze zu gelangen.</item>
+        <item>Egal wohin ich blicke, absolut jeder der Erdlinge strebt danach mehr zu sein, als überhaupt möglich.</item>
         <item>Oder jeder Erdling will mehr haben, als überhaupt nötig.</item>
         <item>Die einen erzählen ihre Lügen als Journalisten, andere als Politiker…</item>
-        <item>Manche vergeuden ihre Zeit mit sinnlosem Anhäufen von Reichtümern..</item>
-        <item>.. und verkaufen dabei ihre eigenen Prinzipien.</item>
-        <item>Wieder andere vergeuden ihre Zeit mit winzigen Rebellionen gegen riesige Systeme.</item>
-        <item>Schonmal versucht die Arktis weg zu föhnen?</item>
-        <item>Es gibt spannenderes. Zum Beispiel Farbe beim Trocknen zuzusehen.</item>
-        <item>Und Homo Sapiens auf Planet Erde nennt sich wirklich die Krone der Schöpfung?</item>
-        <item>Ahh jaaa…</item>
+        <item>Manche vergeuden ihre Zeit mit sinnlosem Anhäufen von Reichtümern.</item>
+        <item>Wieder andere mit winzigen Rebellionen gegen riesige Systeme.</item>
+        <item>.. und beide verkaufen dabei ihre eigenen Prinzipien…</item>
+        <item>Kaum zu glauben, dass sich Homo Sapiens auf Planet Erde dann noch traut sich die Krone der Schöpfung zu nennen…</item>
+        <item>Da kann ich nur die Nase rümpfen…</item>
         <item>Die verhalten sich genauso wie Tiere auf zwei Beinen:</item>
         <item>Tiefes Primatenerbe, instinktive Handlungen, die wenigsten besitzen Selbstreflexion, xenophobe Abgrenzung von anderen Menschen.</item>
         <item>Das machen Tiere auch. Fressen oder gefressen werden.</item>
-        <item>Daher lieber andere zuerst vernichten. Du hast recht WiseMind; genug Erdling-Bashing.</item>
+        <item>Daher lieber die anderen zuerst vernichten.</item>
+        <item>Du hast recht WiseMind; genug Pauschalisierung und genug Erdling-Bashing.</item>
     </string-array>
     <string-array name="test_subject_4_intro_nuts">
         <item>…</item>
         <item>Was ich damit sagen will:</item>
-        <item>Menschen sind doch alle ein Toastbrot des Systems.</item>
+        <item>Menschen sind doch alle ein Toastbrot ihres eigenen Systems.</item>
         <item>Jeder möchte die eigenen Grenzen immer wieder überschreiten.</item>
-        <item>Wollen wachsen und wachsen und wenn man fragt, wann genug ist,..</item>
+        <item>Will wachsen und wachsen und wenn man fragt, wann genug ist,..</item>
         <item>..dann gibt es nur eine Antwort:</item>
         <item>Niemals.</item>
         <item>Viel Erfolg dabei.</item>
@@ -435,7 +436,7 @@
     </string-array>
     <string-array name="test_subject_5_1_intro_main">
         <item>Was mir übrigens noch aufgefallen ist.. </item>
-        <item>.. ihr Erdlinge führt Versuche an niederen Lebewesen durch …</item>
+        <item>.. ihr Erdlinge führt Versuche an niederen Lebewesen durch…</item>
         <item>Das tun wir auch!</item>
         <item>Mit euch zum Beispiel.</item>
         <item>Unsere Versuche dienen immer nur zur Messung der Intelligenz anderer Lebewesen!</item>
@@ -443,9 +444,9 @@
         <item>Und wenn sie sich nicht so anstellen.</item>
         <item>Ich gebe mir ja Mühe den Motivationsfaktor wieder anzukurbeln.</item>
         <item>Hier ist das aber schwieriger als angenommen.</item>
-        <item>Achja, eine Frage stelle ich mir schon die ganze Zeit.</item>
-        <item>Ich kann ja verstehen, dass sich Kinder bei eurer Spezies noch im Entwicklungsstadium und am Lernen befinden.</item>
-        <item>Aber wieso sind die ausgewachsenen Erdlinge so dumm?</item>
+        <item>Apropos, eine Frage stelle ich mir schon die ganze Zeit.</item>
+        <item>Ich kann ja verstehen, dass sich Kinder noch in einem Entwicklungsstadium und am Lernen befinden.</item>
+        <item>Aber wieso sind dann ausgewachsenen Erdlinge so dumm?</item>
         <item>Verzeihung bitte.</item>
         <item>Ich wollte sagen:</item>
         <item>Wieso stellen körperlich und kognitiv ausgereifte Menschen eine Evolutionsbremse in der Entwicklung dar?</item>
@@ -454,12 +455,12 @@
         <item>…</item>
         <item>Das ein intellektueller Tiefflieger aufgrund mangelnder Alternativen Politiker wird, verständlich.</item>
         <item>Doch der Rest?</item>
-        <item>Könnte mal das eigene Sonnensystem erforschen,…</item>
-        <item>..die Sonne  erkunden. Den eigenen Intellekt verbessern.</item>
+        <item>Könnte mal das eigene Sonnensystem erforschen…</item>
+        <item>…die Sonne  erkunden. Den eigenen Intellekt verbessern.</item>
         <item>Und stattdessen aufhören an der eigenen Vernichtung zu arbeiten…</item>
         <item>Homo Sapiens.. baut Waffen, die sie selbst vernichten könnten.</item>
         <item>Welches Wesen sägt bitte schön den Ast ab, auf dem es sitzt?</item>
-        <item>Achja. Homo Spiens!</item>
+        <item>Achja. Homo Sapiens!</item>
         <item>…\"der weise Mensch\"…</item>
         <item>Ich sehe.. mein Temperament geht mit mir durch.</item>
         <item>Die Tests reizen mein Nervenschild.</item>
@@ -482,7 +483,7 @@
         <item>WiseMind hat mir für diese Atmosphäre eine Spezialcreme hergestellt!</item>
         <item>Jetzt geht es mir wesentlich besser!</item>
         <item>Voller Tatendrang haben wir deine Farbwahrnehmung nochmals genauer untersucht.</item>
-        <item>Weil neue Erkenntnisse aber ziemlich bescheiden ausgefallen sind,..</item>
+        <item>Weil die neuen Erkenntnisse aber ziemlich bescheiden ausgefallen sind,..</item>
         <item>..wollen wir unsere Untersuchungen nochmals in den letzten Winkeln in den Untiefen deines Geistes ausweiten.</item>
         <item>Ich hoffe wir finden etwas wirklich nützliches.</item>
         <item>Weil um ehrlich zu sein:</item>
@@ -510,13 +511,14 @@
         <item>..Und nun..</item>
         <item>Zu deiner Farbwahrnehmung: Ich habe eine gute und schlechte Nachricht.</item>
         <item>Die gute: Ihr Erdlinge und wir Hochwesen teilen eine Gemeinsamkeit.</item>
-        <item>Zwar nicht so facettenreich wie wir..</item>
+        <item>Wir können beide Farben wahrnehmen.</item>
+        <item>Zwar ist eure nicht Wahrnehmung so facettenreich wie unsere..</item>
         <item>..ungefähr 1% davon..</item>
         <item>..für eure Verhältnisse aber ganz gut.</item>
         <item>Nun die schlechte: es existieren keine Farben.</item>
         <item>Du hast richtig gehört. Keine Farben.</item>
         <item>Oh du solltest deine Gesichtsentgleisung sehen.</item>
-        <item>Kurze Erklärung:</item>
+        <item>Eine kurze Erklärung dazu.</item>
     </string-array>
     <string-array name="test_subject_6_2_intro_main">
         <item>Weißt du woraus Licht besteht?</item>
@@ -525,24 +527,25 @@
         <item>Korrekt!</item>
         <item>Bilder und Farben scheinst du zu verstehen.</item>
         <item>Deswegen haben wir dich ja auch ausgewählt :).</item>
-        <item>Aber egal wie sicher du meintest, es zu wissen..</item>
+        <item>Mir ist langweilig, deswegen werde ich dir trotzdem kurz die Antwort vorlesen.</item>
     </string-array>
     <string-array name="test_subject_6_3b_intro_main">
-        <item>Nicht schlimm, ich bin so lieb und erklär es dir kurz.</item>
-        <item>Trotz Unwissenheit lese ich dir die Antwort kurz vor.</item>
+        <item>Nicht schlimm.</item>
+        <item>Weil ich so lieb bin, erklär ich es dir kurz.</item>
     </string-array>
     <string-array name="test_subject_6_3c_intro_main">
         <item>Hä? Kartoffelsalat??</item>
         <item>Dieser Gedanke scheint bei dem Erdling häufiger aufzutreten.</item>
-        <item>WiseMind, bist du dir sicher, dass wir die richtige Kreatur erwischt haben?</item>
-        <item>Ich weiß langsam nicht mehr weiter mit.. mit diesem Ding..</item>
-        <item>So viel Unwissenheit.. Meine Güte ist heute grenzenlos, denn ich les dir trotzdem die Lösung vor.</item>
+        <item>WiseMind, bist du dir sicher, dass wir die richtige Kreatur aufgenommen haben?</item>
+        <item>Ich weiß langsam nicht mehr weiter..</item>
+        <item>So viel Unwissenheit..</item>
+        <item>Meine Güte ist heute grenzenlos: Ich bilde dich weiter und lese dir kurz vor.</item>
     </string-array>
     <string-array name="test_subject_6_4_intro_main">
         <item>Aus unserem Lexikon, Lektion 58373:</item>
         <item>\"Licht besteht aus plasmaktronisch elektromagnetrischer Zantra Strahlung.\"</item>
         <item>Strahlung heißt aber nicht Farben. Es bedarf entsprechender Sinneszellen.</item>
-        <item>Ich spreche von den Augen..</item>
+        <item>Zu deiner Information, ich spreche von den Augen..</item>
         <item>Der distale Reiz wird von elektromagnetischen Wellen getroffen.</item>
         <item>Ein proximaler Stimulus wird über den Oculus absorbiert.</item>
     </string-array>
@@ -556,7 +559,7 @@
         <item>..Seufz.. vielleicht kann ich dir mit Strom etwas Erkenntnis verschaffen.</item>
         <item>Eventuell werden stillgelegte Verbindungen aktiviert.</item>
         <item>Eventuell..</item>
-        <item>Zu Risiken und Nebenwirkungen, lese ich die Bedienungsanleitung, fragte WiseMind oder die Apokalypten.</item>
+        <item>Zu Risiken und Nebenwirkungen, lese ich vorher die Bedienungsanleitung, fragte WiseMind oder die Apokalypten.</item>
         </string-array>
     <string-array name="test_subject_6_riddle_solved_candy">
         <item>Vorbildlich</item>

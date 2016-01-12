@@ -70,7 +70,7 @@
         <item>May I introduce our Centralbrain WiseMind to you… We connected your brain to hers.</item>
         <item>A brain with the size of a galaxy… and … well … yours right next to it…</item>
         <item>I hope you two get along well together and take care of each other.</item>
-        <item>OK, ok. I mean WiseMind takes care of you.</item>
+        <item>Well. I mean WiseMind takes care of you.</item>
     </string-array>
     <string-array name="test_subject_0_1_intro_nuts">
         <item>Test: Is 13 a prime number?</item>
@@ -88,17 +88,17 @@
     <string-array name="test_subject_0_5_intro_nuts">
         <item>Great, as the connection is working, we hopefully can start in a couple of seconds.</item>
         <item>I hope that you are not slow on the uptake.</item>
-        <item>We don\"t want to overwhelm you.</item>
-        <item>Let\"s see.. Letters, nope… Numbers, negative…</item>
+        <item>We don\'t want to overwhelm you.</item>
+        <item>Let\'s see.. Letters: nope… Numbers: negative…</item>
         <item>Can you do anything at all?</item>
-        <item>Let\"s see how it is reacting to pictures…</item>
-        <item>Aha.. Affinity to Colorimetry anomaly</item>
-        <item>WiseMind, prepare test series 272 for determination and measurement of earthling’s intelligence.</item>
+        <item>Let\'s see how it is reacting to pictures…</item>
+        <item>Aha.. Affinity to colorimetric anomaly</item>
+        <item>WiseMind, prepare test series 272 for determination and measurement of earthling\'s intelligence.</item>
         <item>…</item>
-        <item>Earthling, as all following experiments of test series 272 it\"s all about seeing the right picture.</item>
+        <item>Earthling, as all following experiments of test series 272 it\'s all about seeing the right picture.</item>
         <item>If you are stuck or need some help, please \"Don\'t panic\".</item>
         <item>WiseMind will give some customized help, if our infinite intellect is exceeding yours.</item>
-        <item>Or better: All earthling\"s intellect.</item>
+        <item>Or better: All earthling\'s intellect.</item>
         <item>Well then, as you always say: Enter the fray within grand style!</item>
         <item>And of course: Good luck!</item>
     </string-array>
@@ -123,7 +123,8 @@
         <item>Test: What\'s the 7364th prime number?</item>
     </string-array>
     <string-array name="test_subject_1_2a_intro_main">
-        <item>No, chocolate delicious but not a prime number…</item>
+        <item>No, chocolate is delicious but not a prime number…</item>
+        <item>Besides, prime number are healthier than chocolate.</item>
     </string-array>
     <string-array name="test_subject_1_2b_intro_main">
         <item>No, donuts are primarily holes…</item>
@@ -379,37 +380,37 @@
         <item>A sharp mind.</item>
         <item>Caring for lower creatures like you.</item>
         <item>And of course quite modest.</item>
-        <item>I don\'t get it how and why Homo Sapiens wants to develop to Over-earthlings.</item>
-        <item>Maybe an obscured mind is required to get to the top of your planet.</item>
-        <item>At least everyone of the earthlings is trying to be more than possible..</item>
+        <item>I didn\'t get one thing so far.</item>
+        <item>Why for Cthulhu\'s sake does every earthling want do become an over-earthling?</item>
+        <item>Maybe an obscured mind is the root that everyone is seeking to come to power.</item>
+        <item>At least wherever you\'re looking, everyone of the earthlings is trying to be more than possible..</item>
         <item>.. or to get more than necessary.</item>
-        <item>Some of you are telling lies as journalists, other as politicians…</item>
-        <item>Some are wasting their time accumulating treasures..</item>
-        <item>..or selling their own principles.</item>
-        <item>Other earthlings waste their time by fighting as tiny groups against huge systems.</item>
-        <item>Did you try to blow-dry the arctic yet?</item>
-        <item>No? I can assure, there are more exiting things. For instance watching paint becoming dry.</item>
-        <item>Homo Sapiens.. Do they really call themselves the pride of creation?</item>
-        <item>Ahhh.. okay....</item>
+        <item>Some of them are telling lies as journalists, other as politicians…</item>
+        <item>Some are wasting their time accumulating treasures and money..</item>
+        <item>Others by fighting as tiny groups against huge systems.</item>
+        <item>..and both are compromising their principles.</item>
+        <item>Hard to believe that Homo Sapiens on planet earth is calling itself the pride of creation…</item>
+        <item>I really don\'t know what to say.</item>
         <item>They are like animals on two feet:</item>
         <item>Deep primate heritage, instinctive actions, the fewest have self reflection, Xenophobia of other people.</item>
         <item>As I said, like animals. Eat or be eaten.</item>
-        <item>Better destroy other people first. You\'re right WiseMind: Enough earthling-bashing.</item>
+        <item>Better destroy other people first.</item>
+        <item>You\'re right WiseMind: Enough generalizing and enough earthling-bashing.</item>
     </string-array>
     <string-array name="test_subject_4_intro_nuts">
         <item>…</item>
         <item>My point is:</item>
-        <item>Humans are all a toast of the system.</item>
+        <item>Humans are all a toast of their own system.</item>
         <item>Everyone wants to exceed their own limits again and again.</item>
         <item>Becoming bigger and bigger, growing and growing and if you ask, when they want to stop,..</item>
         <item>..there is only one answer:</item>
         <item>Never.</item>
         <item>Good luck with that.</item>
         <item>If you were the way we are and be near to perfect, all earthlings would know their limits..</item>
-        <item>..and we wouldn\'t need this conversation.</item>
+        <item>..and we wouldn\'t have this conversation.</item>
         <item>I know.</item>
-        <item>\"Conversation\" means a reaction of opposite living being.</item>
-        <item>The only thing that is showing any kind of reaction is the big toe.</item>
+        <item>\"Conversation\" means a reaction of the opposite living being.</item>
+        <item>The only thing that is showing any kind of reaction is your big toe.</item>
         <item>Thanks to the current flowing..</item>
     </string-array>
     <string-array name="test_subject_4_riddle_solved_candy">
@@ -443,7 +444,7 @@
         <item>I really try my best to increase my motivation.</item>
         <item>With you, it is a true challenge.</item>
         <item>Oh, by the way, one important question to you.</item>
-        <item>I do understand that children are in some kind of developing stage and need to learn a lot of things.</item>
+        <item>I know that children are in some kind of developing stage and need to learn a lot of things.</item>
         <item>But why, just why, are fully grown earthlings that stupid?</item>
         <item>Sorry.</item>
         <item>I wanted to say:</item>
@@ -451,27 +452,27 @@
     </string-array>
     <string-array name="test_subject_5_intro_nuts">
         <item>…</item>
-        <item>Das ein intellektueller Tiefflieger aufgrund mangelnder Alternativen Politiker wird, verständlich.</item>
-        <item>Doch der Rest?</item>
-        <item>Könnte mal das eigene Sonnensystem erforschen,…</item>
-        <item>..die Sonne  erkunden. Den eigenen Intellekt verbessern.</item>
-        <item>Und stattdessen aufhören an der eigenen Vernichtung zu arbeiten…</item>
-        <item>Homo Sapiens.. baut Waffen, die sie selbst vernichten könnten.</item>
-        <item>Welches Wesen sägt bitte schön den Ast ab, auf dem es sitzt?</item>
-        <item>Achja. Homo Spiens!</item>
-        <item>…\"der weise Mensch\"…</item>
-        <item>Ich sehe.. mein Temperament geht mit mir durch.</item>
-        <item>Die Tests reizen mein Nervenschild.</item>
-        <item>Ich frage WiseMind, ob sie nicht etwas dagegen tun kann.</item>
-        <item>Der erd-sphärische Druck schlägt aufs Gemüt.</item>
+        <item>Intellectual strafers becoming politicians due to a lack of alternatives, easy to understand.</item>
+        <item>But everyone else?</item>
+        <item>Could explore your own solar system…</item>
+        <item>…or the sun.</item>
+        <item>Improve their intellect instead of working on your own elimination…</item>
+        <item>Homo Sapiens.. crafting weapons which could extinguish themselves.</item>
+        <item>What kind of creature cuts of the lim it is sitting on?</item>
+        <item>Oh yeah. Homo Sapiens!</item>
+        <item>…\"the wise earthling\"…</item>
+        <item>I see.. I cannot control my temper anymore.</item>
+        <item>All these tests irritated my vein-shield too strong.</item>
+        <item>I need to ask WiseMind for some help.</item>
+        <item>The earth pressure is still new to me.</item>
     </string-array>
     <string-array name="test_subject_5_riddle_solved_candy">
-        <item>Wow, der Hammer</item>
+        <item>A doozie</item>
         <item>Bravo</item>
-        <item>Genial</item>
-        <item>Absolut herausragend</item>
-        <item>Goldrichtig</item>
-        <item>Bewundernswert</item>
+        <item>Admirable</item>
+        <item>Outstanding</item>
+        <item>Genius</item>
+        <item>Dead right</item>
     </string-array>
 
     <!-- Level 6 -->
@@ -509,7 +510,8 @@
         <item>..Und nun..</item>
         <item>Zu deiner Farbwahrnehmung: Ich habe eine gute und schlechte Nachricht.</item>
         <item>Die gute: Ihr Erdlinge und wir Hochwesen teilen eine Gemeinsamkeit.</item>
-        <item>Zwar nicht so facettenreich wie wir..</item>
+        <item>Wir können beide Farben wahrnehmen.</item>
+        <item>Ihr Zwar nicht so facettenreich wie wir..</item>
         <item>..ungefähr 1% davon..</item>
         <item>..für eure Verhältnisse aber ganz gut.</item>
         <item>Nun die schlechte: es existieren keine Farben.</item>
@@ -524,18 +526,19 @@
         <item>Korrekt!</item>
         <item>Bilder und Farben scheinst du zu verstehen.</item>
         <item>Deswegen haben wir dich ja auch ausgewählt :).</item>
-        <item>Aber egal wie sicher du meintest, es zu wissen..</item>
+        <item>Mir ist langweilig, deswegen werde ich dir trotzdem kurz die Antwort vorlesen.</item>
     </string-array>
     <string-array name="test_subject_6_3b_intro_main">
-        <item>Nicht schlimm, ich bin ja so lieb und erklär es dir kurz:</item>
-        <item>Trotz Unwissenheit lese ich dir die Antwort kurz vor.</item>
+        <item>Nicht schlimm.</item>
+        <item>Weil ich so lieb bin, erklär ich es dir kurz.</item>
     </string-array>
     <string-array name="test_subject_6_3c_intro_main">
         <item>Hä? Kartoffelsalat??</item>
         <item>Dieser Gedanke scheint bei dem Erdling häufiger aufzutreten.</item>
-        <item>WiseMind, bist du dir sicher, dass wir die richtige Kreatur erwischt haben?</item>
-        <item>Ich weiß langsam nicht mehr weiter mit.. mit diesem Ding..</item>
-        <item>So viel Unwissenheit.. Meine Güte ist heute grenzenlos, denn ich les dir trotzdem die Lösung vor.</item>
+        <item>WiseMind, bist du dir sicher, dass wir die richtige Kreatur aufgenommen haben?</item>
+        <item>Ich weiß langsam nicht mehr weiter..</item>
+        <item>So viel Unwissenheit..</item>
+        <item>Meine Güte ist heute grenzenlos: Ich bilde dich weiter und lese dir kurz vor.</item>
     </string-array>
     <string-array name="test_subject_6_4_intro_main">
         <item>Aus unserem Lexikon, Lektion 58373:</item>
