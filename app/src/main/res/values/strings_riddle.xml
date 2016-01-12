@@ -12,7 +12,8 @@
         <item>Later, if this experiment is successful, you can choose between different experiment types in the middle of game. Or you can continue all skipped experiments.</item>
         <item>Sometimes human eyes recognize some pictures from a certain distance. Sometimes a screenshot is helping, too.</item>
         <item>Did you notice that WiseMind\'s compliment appears green sometimes? In that case, you finished the experiment better or faster as usually expected.</item>
-        <item>You get daily bonus cells for the first couple of solved experiments. The bonus is decreasing shortly and depends on the difficulty and length of the experiment type.</item>
+        <item>You get daily bonus neurons for the first couple of solved experiments. The bonus is
+            decreasing shortly and depends on the difficulty and length of the experiment type.</item>
         <item>More exclamation marks mean a higher bonus.</item>
     </string-array>
     <string name="article_circle_divide_by_move_feature_name">Intergalactic Circlelaser-Turbo-Cutter</string>
@@ -220,7 +221,9 @@
     <string-array name="riddle_type_lazor_hints">
         <item>A simulation to test your reaction to extraterrestrial threats. Use the lazors to shoot on incoming comets which threat your city. On collision or when reaching the clicked point the lazor explodes. Along its tail the corresponding colour gets visible.</item>
         <item>Pay attention to the canons plants to see, when the lazor gets ready to shoot. By the way, always the next canon plant fires as long as it\'s ready to shoot of course.</item>
-        <item>Depending on the costs of the next hint, you can eventually see if it\'s a useful hint. Nevertheless it\'s possible that you already know the fact and you spend the Braincells, your money, for nothing.</item>
+        <item>Depending on the costs of the next hint, you can eventually see if it\'s a useful
+            hint. Nevertheless it\'s possible that you already know the fact and you spent the
+            neurons, your money, for nothing.</item>
         <item>White comets cover and uncover the path completely. Shoot them first by any cost!</item>
         <item>Hitting a comet later increases the revealed area and the risk to miss a comet! Later, if comets are spawning much faster, you should try to hit them as early as possible as you won\'t be able to stop them all!</item>
         <item>In some situations you won\'t be able to prevent an impact. Decide as fast as possible, which comet will strike your city and try to stop the other ones.</item>

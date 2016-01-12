@@ -219,7 +219,8 @@
     <string name="achievement_memory_7_name">Karten versenken</string>
     <string name="achievement_memory_7_descr">So viel richtige Paare hintereinander… Entweder das war gerade ganz schön genial oder aber gemogelt…</string>
     <string name="achievement_memory_8_name">Gemogelt</string>
-    <string name="achievement_memory_8_descr">Die Punkte bekommst du, wenn du das Experiment löst und keines der Felder zweimal angeklickt. Einen Stift bitte!</string>
+    <string name="achievement_memory_8_descr">Die Neuronen bekommst du, wenn du das Experiment löst
+        und keines der Felder zweimal angeklickt. Einen Stift bitte!</string>
     <string name="achievement_memory_9_name">Kein Zauberer</string>
     <string name="achievement_memory_9_descr">Zum Glück bist du kein Zauberer, einen Zauberspruch hättest du dir nie gemerkt. So wie die %1$d/%2$d Karten.</string>
 

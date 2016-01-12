@@ -56,15 +56,14 @@
 
     <string name="panic_dialog_positive">All right</string>
     <string name="panic_ask_type">How does this experiment work</string>
-    <string name="panic_skip">Skip experiment … come back later</string>
-    <string name="panic_retry">Retry image as different experiment</string>
-    <string name="panic_share">Challenge friends to this experiment</string>
+    <string name="panic_skip">Skip experiment for the moment…</string>
+    <string name="panic_retry">Retry image…</string>
+    <string name="panic_share">Challenge friends</string>
     <string name="panic_share_dialog">Share experiment image with…</string>
     <string name="panic_share_failed">Sharing failed.</string>
-    <string name="panic_cannot_skip">Brain .. full … cannot .. remember more .. riddles …</string>
-    <string name="panic_complain">Complain about the image per mail!!1</string>
-    <string name="panic_retry_notification">You\'ll then only get 1 point and no achievements
-        for this!</string>
+    <string name="panic_cannot_skip">Too many skipped experiments in memory…</string>
+    <string name="panic_complain">Complain per mail!!1</string>
+    <string name="panic_retry_notification">You\'ll get 1 neuron only and no achievements!</string>
     <string name="panic_retry_failed_no_types">First get another experiment in the shop!</string>
     <string name="panic_retry_confirm">OK</string>
     <string-array name="panic_author_credit_title">
@@ -279,9 +278,9 @@
     <string name="article_purchase_with_real_money">Real money</string>
     <string name="article_purchase_start_plain">Start purchase</string>
     <string name="article_purchase_start">Start purchase (%1$.2f€)</string>
-    <string name="article_currency_purchase_250_name">Purchase 250 brain cells</string>
-    <string name="article_currency_purchase_500_name">Purchase 500 brain cells</string>
-    <string name="article_currency_purchase_1000_name">Purchase 1000 brain cells</string>
+    <string name="article_currency_purchase_250_name">Purchase 250 neurons</string>
+    <string name="article_currency_purchase_500_name">Purchase 500 neurons</string>
+    <string name="article_currency_purchase_1000_name">Purchase 1000 neurons</string>
     <string name="article_currency_purchase_descr">Support the developers (and
         yourself)! Purchase ingame currency with real money using in app billing.</string>
 
