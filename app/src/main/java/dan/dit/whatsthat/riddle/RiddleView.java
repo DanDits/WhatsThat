@@ -327,6 +327,10 @@ public class RiddleView extends SurfaceView implements SensorEventListener, Part
         }
     }
 
+    public boolean isPaused() {
+        return !mIsResumed;
+    }
+
     private class ParticleController implements ParticleFieldController {
 
 

@@ -514,6 +514,9 @@ public class RiddleController implements RiddleAnimationController.OnAnimationCo
     }
 
     private void handlePeriodicEventForCount(int count) {
+        if (mRiddleView != null && mRiddleView.isPaused()) {
+            return;
+        }
         // ensure the following actions take place on ui thread
         if (count == 0) {
             mMainHandler.post(new Runnable() {

@@ -33,6 +33,7 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateInterpolator;
@@ -42,6 +43,7 @@ import android.view.animation.OvershootInterpolator;
 import android.view.animation.TranslateAnimation;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -117,12 +119,11 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
     private boolean mErrorHandlingAttempted;
     private ImageButton mBtnCheat;
     private TextView mScoreInfo;
-    private long mFirstClickTime;
-    private int mClickCount;
-    private ImageButton mBtnPanic;
+    private ImageView mBtnPanic;
     private Handler mMainHandler;
     private TestSubjectAchievementHolder.UnclaimedAchievementsCountListener mUnclaimedChangedListener;
     private Wallet.OnEntryChangedListener mScoreChangedListener;
+    private Animation mBtnPanicPressedAnim;
 
     public void onProgressUpdate(int progress) {
         mProgressBar.onProgressUpdate(progress);
@@ -138,9 +139,54 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
         mBtnPanic.setEnabled(isTotalMenuEnabled());
     }
 
-    private void updateScoreInfo() {
+    private int mLastDisplayedScoreInfo = -1;
+    private boolean mNewScoreInfoAnimating = false;
+    private long mLastNewScoreAnimEndedTimestamp;
+    private Animation mNewScoreInfo;
+    private Animation.AnimationListener mNewScoreInfoAnimListener;
+    private Animation mScoreInfoFadeOut;
+
+    private void initNewScoreInfo() {
+        mScoreInfo.setVisibility(View.INVISIBLE);
+        mNewScoreInfo = AnimationUtils.loadAnimation(getActivity(), R.anim.score_info_newdata);
+        mNewScoreInfoAnimListener = new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+                mNewScoreInfoAnimating = true;
+                mScoreInfo.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                mNewScoreInfoAnimating = false;
+                mLastNewScoreAnimEndedTimestamp = System.currentTimeMillis();
+                mScoreInfo.startAnimation(mScoreInfoFadeOut);
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        };
+        mNewScoreInfo.setAnimationListener(mNewScoreInfoAnimListener);
+        mScoreInfoFadeOut = AnimationUtils.loadAnimation(getActivity(), R.anim.score_info_fadeout);
+    }
+
+    private void updateScoreInfo(boolean animate) {
         if (mScoreInfo != null) {
-            mScoreInfo.setText(String.valueOf(TestSubject.getInstance().getCurrentScore()));
+            int currentScoreInfo = TestSubject.getInstance().getCurrentScore();
+            if (currentScoreInfo != mLastDisplayedScoreInfo || currentScoreInfo == 0) {
+                // only new info and not necessarily at start when there is no score
+                mScoreInfo.setText(String.valueOf(currentScoreInfo));
+                if (animate && !mNewScoreInfoAnimating
+                        && System.currentTimeMillis() - mLastNewScoreAnimEndedTimestamp >= 10000L) {
+                    // when not currently animating and didn't animate in the last some seconds,
+                    // start the animation
+                    mLastDisplayedScoreInfo = currentScoreInfo;
+                    mScoreInfo.clearAnimation(); // in case it is fading out
+                    mScoreInfo.startAnimation(mNewScoreInfo);
+                }
+            }
         }
     }
 
@@ -533,10 +579,33 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
             }
         });
 
-        mBtnPanic = (ImageButton) getView().findViewById(R.id.riddle_hint);
+        mBtnPanic = (ImageView) getView().findViewById(R.id.riddle_hint);
+        mBtnPanicPressedAnim = AnimationUtils.loadAnimation(getActivity(), R.anim.panic_menu_press);
+        mBtnPanic.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getActionMasked()) {
+                    case MotionEvent.ACTION_DOWN:
+                        mBtnPanic.startAnimation(mBtnPanicPressedAnim);
+                        break;
+                    case MotionEvent.ACTION_UP:
+                        float checkX = event.getX() + v.getLeft();
+                        float checkY = event.getY() + v.getTop();
+                        if (checkX >= v.getLeft() && checkX <= v.getRight()
+                                && checkY >= v.getTop() && checkY <= v.getBottom()) {
+                            v.performClick();
+                        }
+                        // fall through!
+                    case MotionEvent.ACTION_CANCEL:
+                        v.clearAnimation();
+                        break;
+                }
+                return true;
+            }
+        });
         mBtnPanic.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(View v) {
                 onPanic();
             }
         });
@@ -554,6 +623,7 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
         }
 
         mManager = RiddleInitializer.INSTANCE.getRiddleManager();
+        initNewScoreInfo();
     }
 
     private void onOpenStore() {
@@ -808,7 +878,6 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
                         // Do nothing.
                     }
                 }).show();
-        UiStyleUtil.setDialogDividerColor(dialog, getResources(), getResources().getColor(R.color.alien_purple));
     }
 
     @Override
@@ -877,6 +946,7 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
             mBtnRiddles.setEnabled(false);
             return;
         }
+        updateScoreInfo(true);
         showRiddlesDialog();
     }
 
@@ -886,11 +956,11 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
         mMainHandler = new Handler();
         mErrorHandlingAttempted = false;
         getLoaderManager().initLoader(0, null, this);
-        updateScoreInfo();
+        updateScoreInfo(false);
         mScoreChangedListener = new Wallet.OnEntryChangedListener() {
             @Override
             public void onDataEvent(WalletEntry entry) {
-                updateScoreInfo();
+                updateScoreInfo(true);
             }
             @Override
             public void onEntryRemoved(WalletEntry entry) {
