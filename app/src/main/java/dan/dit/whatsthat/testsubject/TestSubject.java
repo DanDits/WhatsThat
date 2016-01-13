@@ -20,27 +20,17 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Color;
-import android.graphics.Typeface;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.text.Spannable;
-import android.text.SpannableStringBuilder;
-import android.text.style.StyleSpan;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
-import android.widget.TextView;
 
 import com.github.johnpersano.supertoasts.SuperToast;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
 
 import dan.dit.whatsthat.BuildConfig;
 import dan.dit.whatsthat.R;
@@ -48,22 +38,21 @@ import dan.dit.whatsthat.achievement.Achievement;
 import dan.dit.whatsthat.achievement.AchievementManager;
 import dan.dit.whatsthat.achievement.AchievementProperties;
 import dan.dit.whatsthat.riddle.RiddleInitializer;
+import dan.dit.whatsthat.riddle.achievement.holders.AchievementHolder;
 import dan.dit.whatsthat.riddle.achievement.holders.MiscAchievementHolder;
 import dan.dit.whatsthat.riddle.achievement.holders.TestSubjectAchievementHolder;
 import dan.dit.whatsthat.riddle.achievement.holders.TypeAchievementHolder;
 import dan.dit.whatsthat.riddle.types.PracticalRiddleType;
-import dan.dit.whatsthat.testsubject.intro.GeneralStartingEpisode;
 import dan.dit.whatsthat.testsubject.intro.Intro;
+import dan.dit.whatsthat.testsubject.shopping.ShopArticleHolder;
+import dan.dit.whatsthat.testsubject.shopping.sortiment.ShopArticleRiddleHints;
 import dan.dit.whatsthat.testsubject.shopping.sortiment.SortimentHolder;
 import dan.dit.whatsthat.util.dependencies.Dependable;
 import dan.dit.whatsthat.util.dependencies.Dependency;
 import dan.dit.whatsthat.util.dependencies.MinValueDependency;
-import dan.dit.whatsthat.testsubject.shopping.ShopArticle;
-import dan.dit.whatsthat.testsubject.shopping.ShopArticleHolder;
-import dan.dit.whatsthat.testsubject.shopping.sortiment.ShopArticleRiddleHints;
+import dan.dit.whatsthat.util.general.DelayedQueueProcessor;
 import dan.dit.whatsthat.util.wallet.Wallet;
 import dan.dit.whatsthat.util.wallet.WalletEntry;
-import dan.dit.whatsthat.util.general.DelayedQueueProcessor;
 
 /**
  * Created by daniel on 11.04.15.
@@ -84,7 +73,6 @@ public class TestSubject {
     public static final int GENDER_ALIEN = 3; // :o
     public static final int GENDERS_COUNT = 4; // amount of valid genders
     public static final String SHW_KEY_MAX_AVAILABLE_RIDDLE_TYPES = "shw_key_can_choose_new_riddle";
-    public static final String SHW_KEY_SPENT_SCORE_ON_LEVEL_UP = "shw_level_up_spent_score";
     private static final int AVAILABLE_RIDDLES_AT_GAME_START = 1; // one additional riddle type is granted per level up (also on level 0)
 
 
@@ -145,37 +133,7 @@ public class TestSubject {
         TestSubjectLevel currLevel = mLevels[level];
         Intro intro = Intro.makeIntro(introView, currLevel);
         intro.load(mPreferences, level);
-        Resources res = intro.getResources();
-
-        // Create the running text
-        SpannableStringBuilder longDescription = new SpannableStringBuilder();
-        longDescription.append(res.getString(R.string.intro_test_subject_name));
-        int start = longDescription.length();
-        longDescription.append(res.getString(currLevel.mNameResId));
-        longDescription.setSpan(new StyleSpan(Typeface.ITALIC), start,
-                longDescription.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-
-        longDescription.append('\t');
-        longDescription.append(res.getString(R.string.intro_test_subject_estimated_intelligence));
-        start = longDescription.length();
-        longDescription.append(res.getString(currLevel.mIntelligenceResId));
-        longDescription.setSpan(new StyleSpan(Typeface.ITALIC), start,
-                longDescription.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-
-
-
-        TextView subjectDescr = ((TextView) intro.findViewById(R.id.intro_subject_descr));
-        subjectDescr.setText(longDescription);
-        subjectDescr.setVisibility(View.INVISIBLE);
-
-
-        new GeneralStartingEpisode(intro, res.getString(R.string.intro_starting_episode, res.getString(currLevel.mNameResId)), currLevel).start();
-        if (intro.getCurrentEpisode() == null) {
-            intro.nextEpisode(); // if this level is loaded for the first time we need to set the initial episode
-        } else {
-            intro.startUnmanagedEpisode(intro.getCurrentEpisode());
-        }
-        return intro;
+        return currLevel.makeIntro(intro);
     }
 
     public int getCurrentLevel() {
@@ -249,53 +207,43 @@ public class TestSubject {
             return -1; // already at max level
         }
         double fraction = mLevels[mCurrLevel + 1].getLevelUpAchievementScoreFraction();
+
         int maxAchievementScore = 0;
-        for (TestSubjectRiddleType type : mTypesController.getAll()) {
-            TypeAchievementHolder holder = mAchievementHolder.getTypeAchievementHolder(type.getType());
-            if (holder == null) {
-                continue;
-            }
-            List<? extends Achievement> achievements = holder.getAchievements();
-            if (achievements != null) {
-                for (Achievement achievement : achievements) {
-                    if (achievement.getLevel() <= mCurrLevel) {
-                        maxAchievementScore += achievement.getMaxScoreReward();
-                    }
-                }
-            }
+        for (AchievementHolder holder : mAchievementHolder.getHolders()) {
+            maxAchievementScore += holder.getExpectedTestSubjectScore(mCurrLevel);
         }
         int cost =  (int) (maxAchievementScore * fraction) - mPurse.mShopWallet.getEntryValue
-                (SHW_KEY_SPENT_SCORE_ON_LEVEL_UP);
+                (Purse.SHW_KEY_SPENT_SCORE_ON_LEVEL_UP);
         // now round to some decent value
         final int roundingPrecision = 5;
         return cost + roundingPrecision - (cost % roundingPrecision);
     }
 
     public synchronized boolean purchaseLevelUp() {
+        return isLevelUpAvailable() && mPurse.purchaseLevelUp(getNextLevelUpCost())
+                && levelUp();
+    }
+
+    public synchronized boolean isLevelUpAvailable() {
         if (mCurrLevel >= mLevels.length -1) {
             return false; // already at max level
         }
-        int cost = getNextLevelUpCost();
-        if (cost < 0) {
-            return false; // no cost initialized or no level available
-        }
-        if (mPurse.getCurrentScore() < cost) {
-            return false; // too little score
-        }
-        if (levelUp()) {
-            mPurse.spentScore(cost);
-            mPurse.mShopWallet.editEntry(SHW_KEY_SPENT_SCORE_ON_LEVEL_UP).add(cost);
-            return true;
-        }
-        return false;
-    }
-
-    public boolean levelUp() {
-        if (mCurrLevel >= mLevels.length - 1) {
-            return false;
-        }
         if (mCurrLevel != TestSubjectLevel.LEVEL_NONE && canChooseNewRiddle()) {
             return false; // first user needs to choose a new riddle
+        }
+        return true;
+    }
+
+    /**
+     * Increases the TestSubject level by one.
+     * @return This is almost always true. An exception is if there is no more level available.
+     */
+    public boolean levelUp() {
+        // every condition that will imply this method to return false also needs to imply that
+        // isLevelUpAvailable also returns false. This method is only public to make available
+        // for cheats.
+        if (mCurrLevel >= mLevels.length -1) {
+            return false; // already at max level
         }
         mPurse.mShopWallet.editEntry(SHW_KEY_MAX_AVAILABLE_RIDDLE_TYPES, AVAILABLE_RIDDLES_AT_GAME_START).add(1);
         mPurse.mShopWallet.editEntry(Purse.SHW_KEY_TESTSUBJECT_LEVEL).add(1);
@@ -303,7 +251,6 @@ public class TestSubject {
         TestSubjectLevel currLevel = mLevels[mCurrLevel];
         currLevel.onLeveledUp();
         currLevel.applyLevel(mApplicationContext.getResources());
-
         return true;
     }
 
@@ -504,6 +451,22 @@ public class TestSubject {
 
     public TestSubjectRiddleTypeController getTypesController() {
         return mTypesController;
+    }
+
+    private final Dependable mTestSubjectRiddleTypeCountDependable = new Dependable() {
+
+        @Override
+        public CharSequence getName(Resources res) {
+            return res.getString(R.string.dependable_testsubject_riddle_type_count);
+        }
+
+        @Override
+        public int getValue() {
+            return mTypesController.getCount();
+        }
+    };
+    public Dependable getTestSubjectRiddleTypeCountDependency() {
+            return mTestSubjectRiddleTypeCountDependable;
     }
 
     private Map<PracticalRiddleType, Dependency> mTypeDependencies = new HashMap<>();

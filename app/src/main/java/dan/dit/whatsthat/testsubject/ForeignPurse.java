@@ -62,7 +62,7 @@ public class ForeignPurse {
         }
         int oldScore = mPurse.getCurrentScore();
         mPurse.mShopWallet.editEntry(key).setTrue();
-        mPurse.spentScore(cost);
+        mPurse.spendScore(cost);
         TestSubject.getInstance().getAchievementHolder().getMiscData().updateMappedValue(MiscAchievementHolder.KEY_FEATURES_PURCHASED, key);
         Log.d("HomeStuff", "Purchased " + key + " for " + cost + " (score change: " + oldScore + "->" + mPurse.getCurrentScore() + ")");
         return true;
@@ -76,7 +76,7 @@ public class ForeignPurse {
             return false;
         }
         if (mPurse.mShopWallet.editEntry(key).set(newValue)) {
-            mPurse.spentScore(cost);
+            mPurse.spendScore(cost);
             return true;
         }
         return false;
@@ -100,7 +100,7 @@ public class ForeignPurse {
             return false;
         }
         mPurse.mShopWallet.editEntry(key).add(amount);
-        mPurse.spentScore(cost);
+        mPurse.spendScore(cost);
         return true;
     }
 
@@ -147,8 +147,12 @@ public class ForeignPurse {
         }
         int oldScore = mPurse.getCurrentScore();
         mPurse.increaseAvailableRiddleHintNumber(type);
-        mPurse.spentScore(cost);
+        mPurse.spendScore(cost);
         Log.d("HomeStuff", "Purchased hint for " + type + " for " + cost + " (score change: " + oldScore + "->" + mPurse.getCurrentScore() + ")");
         return true;
+    }
+
+    public int getScoreSpentOnLevelUp() {
+        return mPurse.mShopWallet.getEntryValue(Purse.SHW_KEY_SPENT_SCORE_ON_LEVEL_UP);
     }
 }

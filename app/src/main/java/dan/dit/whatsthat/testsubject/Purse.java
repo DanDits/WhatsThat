@@ -35,6 +35,7 @@ class Purse {
     static final String SW_KEY_ACHIEVEMENT_SCORE = "achievement_score";
     private static final String SHW_KEY_CURRENT_RIDDLE_HINT = "current_riddle_hint_";
     private static final String SHW_KEY_AVAILABLE_RIDDLE_HINT_COUNT = "available_riddle_hint_";
+    public static final String SHW_KEY_SPENT_SCORE_ON_LEVEL_UP = "shw_level_up_spent_score";
 
 
     public final Wallet mScoreWallet;
@@ -52,7 +53,7 @@ class Purse {
                 - mScoreWallet.getEntryValue(SW_KEY_SPENT_SCORE);
     }
 
-    public void spentScore(final int score) {
+    public void spendScore(final int score) {
         if (score < 0) {
             throw new IllegalArgumentException("No score to spent: " + score);
         }
@@ -87,5 +88,17 @@ class Purse {
     public boolean hasToggleableFeature(String featureKey) {
         int entryValue = mShopWallet.getEntryValue(featureKey);
         return entryValue > WalletEntry.FALSE && entryValue % 2 == 1;
+    }
+
+    public boolean purchaseLevelUp(final int nextLevelUpCost) {
+        if (nextLevelUpCost < 0) {
+            return false; // no cost initialized or no level available
+        }
+        if (getCurrentScore() < nextLevelUpCost) {
+            return false; // too little score
+        }
+        spendScore(nextLevelUpCost);
+        mShopWallet.editEntry(SHW_KEY_SPENT_SCORE_ON_LEVEL_UP).add(nextLevelUpCost);
+        return true;
     }
 }

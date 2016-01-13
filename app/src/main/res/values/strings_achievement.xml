@@ -204,11 +204,13 @@
     <!-- Daily achievements -->
     <string name="achievement_daily_category_name">Daily</string>
 
-    <string name="achievement_daily_1_name">Daily brain jogging</string>
+    <string name="achievement_daily_1_name">Brain jogging</string>
     <string name="achievement_daily_1_descr">Solve %1$d experiments of any kind.</string>
     <string name="achievement_daily_2_name">Variety</string>
     <string name="achievement_daily_2_descr">Solve %1$d experiment for %2$d different kinds of
         experiments.</string>
+    <string name="achievement_daily_single_type_default_name">Only one kind</string>
+    <string name="achievement_daily_single_type_descr">Solve %1$d %2$s experiments.</string>
 
 
     <!-- Memory achievements -->

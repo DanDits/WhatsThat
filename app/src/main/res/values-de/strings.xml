@@ -274,6 +274,10 @@
         <item quantity="other">%1$d Bilder</item>
     </plurals>
     <string name="dependency_or">oder</string>
+    <string name="dependable_testsubject_riddle_type_count">Experimentarten</string>
+    <string name="dependency_testsubject_riddle_type_min_count">Mindestens %1$d
+        verschiedene Experimentarten</string>
+    <string name="dependency_daily_achievement_not_today">Anderen Tag!</string>
     <string name="panic_share_dialog">Teile Experiment Bild mit…</string>
     <string name="panic_share_failed">Teilen des Experiments fehlgeschlagen.</string>
 

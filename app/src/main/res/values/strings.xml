@@ -236,6 +236,10 @@
     <string name="article_level_up_dep_new_level">Boost your brain first!</string>
     <string name="article_choose_riddle_confirm">Unlock this experiment. Get the others later!</string>
     <string name="dependency_or">or</string>
+    <string name="dependable_testsubject_riddle_type_count">Experiment types</string>
+    <string name="dependency_testsubject_riddle_type_min_count">At least %1$d different
+        experiment types</string>
+    <string name="dependency_daily_achievement_not_today">Another day!</string>
     <string name="mosaic_generator_mosaic_type">Mosaic type</string>
     <string name="mosaic_generator_mosaic_parameter">Configuration</string>
     <string name="mosaic_generator_select_image">Select an image</string>

@@ -15,9 +15,15 @@
 
 package dan.dit.whatsthat.testsubject;
 
+import android.content.SharedPreferences;
 import android.content.res.Resources;
+import android.graphics.Typeface;
+import android.text.Spannable;
+import android.text.SpannableStringBuilder;
+import android.text.style.StyleSpan;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 
 import java.util.List;
 
@@ -26,6 +32,7 @@ import dan.dit.whatsthat.preferences.User;
 import dan.dit.whatsthat.riddle.types.PracticalRiddleType;
 import dan.dit.whatsthat.testsubject.intro.Episode;
 import dan.dit.whatsthat.testsubject.intro.EpisodeBuilder;
+import dan.dit.whatsthat.testsubject.intro.GeneralStartingEpisode;
 import dan.dit.whatsthat.testsubject.intro.Intro;
 import dan.dit.whatsthat.testsubject.intro.QuestionEpisode;
 
@@ -120,6 +127,41 @@ public abstract class TestSubjectLevel {
     }
 
     public abstract double getLevelUpAchievementScoreFraction();
+
+    public Intro makeIntro(Intro intro) {
+        Resources res = intro.getResources();
+
+        // Create the running text
+        SpannableStringBuilder longDescription = new SpannableStringBuilder();
+        longDescription.append(res.getString(R.string.intro_test_subject_name));
+        int start = longDescription.length();
+        longDescription.append(res.getString(mNameResId));
+        longDescription.setSpan(new StyleSpan(Typeface.ITALIC), start,
+                longDescription.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+        longDescription.append('\t');
+        longDescription.append(res.getString(R.string.intro_test_subject_estimated_intelligence));
+        start = longDescription.length();
+        longDescription.append(res.getString(mIntelligenceResId));
+        longDescription.setSpan(new StyleSpan(Typeface.ITALIC), start,
+                longDescription.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+
+
+        TextView subjectDescr = ((TextView) intro.findViewById(R.id.intro_subject_descr));
+        subjectDescr.setText(longDescription);
+        subjectDescr.setVisibility(View.INVISIBLE);
+
+
+        new GeneralStartingEpisode(intro, res.getString(R.string.intro_starting_episode, res
+                .getString(mNameResId)), this).start();
+        if (intro.getCurrentEpisode() == null) {
+            intro.nextEpisode(); // if this level is loaded for the first time we need to set the initial episode
+        } else {
+            intro.startUnmanagedEpisode(intro.getCurrentEpisode());
+        }
+        return intro;
+    }
 
 
     private static class TestSubjectLevel0 extends TestSubjectLevel {

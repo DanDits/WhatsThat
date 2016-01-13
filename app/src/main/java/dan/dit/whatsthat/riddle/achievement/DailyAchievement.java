@@ -1,6 +1,7 @@
 package dan.dit.whatsthat.riddle.achievement;
 
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
@@ -9,8 +10,13 @@ import java.util.Date;
 
 import dan.dit.whatsthat.R;
 import dan.dit.whatsthat.achievement.Achievement;
+import dan.dit.whatsthat.achievement.AchievementDataEvent;
 import dan.dit.whatsthat.achievement.AchievementManager;
+import dan.dit.whatsthat.riddle.achievement.holders.AchievementCircle;
+import dan.dit.whatsthat.riddle.types.PracticalRiddleType;
 import dan.dit.whatsthat.testsubject.LevelDependency;
+import dan.dit.whatsthat.testsubject.TestSubject;
+import dan.dit.whatsthat.util.dependencies.Dependency;
 
 /**
  * Created by daniel on 12.01.16.
@@ -18,24 +24,54 @@ import dan.dit.whatsthat.testsubject.LevelDependency;
 public abstract class DailyAchievement extends Achievement {
 
     private static final String KEY_LAST_RESET_TIMESTAMP = "daily_lastreset";
-    protected final AchievementPropertiesMapped<String> mMiscData;
+    private static final String KEY_AVAILABLE_TODAY = "daily_available";
+    private static final boolean DEFAULT_IS_AVAILABLE = false;
+    private static final int REQUIRED_DIFFERENT_RIDDLE_TYPES_FOR_DAILY_ACHIEVEMENTS = 2;
     private boolean mInitialized;
     private static final Calendar CHECKER = Calendar.getInstance();
     private static final Date CHECKER_DATE = new Date();
     private long mLastResetTimestamp;
+    private boolean mAvailableToday;
 
     protected DailyAchievement(int nameResId, int descrResId, int rewardResId,
                                AchievementManager manager, int level, int number,
-                               int scoreReward, int maxValue, boolean discovered,
-                               @NonNull AchievementPropertiesMapped<String> miscData) {
+                               int scoreReward, int maxValue, boolean discovered) {
         super(makeId(number), nameResId, descrResId, rewardResId, manager, level, scoreReward,
                 maxValue, discovered);
-        mMiscData = miscData;
     }
+
+    private static final Dependency MIN_DIFFERENT_RIDDLE_TYPES_DEPENDENCY = new Dependency() {
+            @Override
+            public boolean isFulfilled() {
+                return TestSubject.getInstance().getTestSubjectRiddleTypeCountDependency().getValue()
+                        >= REQUIRED_DIFFERENT_RIDDLE_TYPES_FOR_DAILY_ACHIEVEMENTS;
+            }
+
+            @Override
+            public CharSequence getName(Resources res) {
+                return res.getString(R.string.dependency_testsubject_riddle_type_min_count,
+                        REQUIRED_DIFFERENT_RIDDLE_TYPES_FOR_DAILY_ACHIEVEMENTS);
+            }
+        };
 
     public void setDependencies() {
         addLevelDependency();
+        // get achievement "the beginning"
+        mDependencies.add(TestSubject.getInstance().makeClaimedAchievementDependency
+                (PracticalRiddleType.CIRCLE_INSTANCE, AchievementCircle.Achievement1.NUMBER));
+
+        // get another riddle type
+        mDependencies.add(MIN_DIFFERENT_RIDDLE_TYPES_DEPENDENCY);
     }
+
+    @Override
+    public final void onDataEvent(AchievementDataEvent event) {
+        if (isAvailable()) {
+            onIsAvailableDataEvent(event);
+        }
+    }
+
+    protected abstract void onIsAvailableDataEvent(AchievementDataEvent event);
 
     @Override
     public int getIconResId() {
@@ -58,7 +94,7 @@ public abstract class DailyAchievement extends Achievement {
                     return R.drawable.alien_achieved_claimed;
                 }
             } else {
-                return R.drawable.eye_refresh;
+                return getIconResId();
             }
         } else {
             return R.drawable.eye_blind;
@@ -69,7 +105,6 @@ public abstract class DailyAchievement extends Achievement {
         if (!mInitialized && isNotAchievedToday(initTime)) {
             Log.d("Achievement", "Initializing " + mId);
             mInitialized = true;
-            mMiscData.addListener(this);
             onInit();
             if (!gotResetToday(initTime)) {
                 reset(initTime);
@@ -78,8 +113,9 @@ public abstract class DailyAchievement extends Achievement {
     }
 
     private void reset(Calendar initTime) {
-        Log.d("Achievement", "Resetting " + mId);
+        Log.d("Achievement", "Resetting " + mId + " on " + initTime);
         mLastResetTimestamp = initTime.getTimeInMillis();
+        mAvailableToday = DEFAULT_IS_AVAILABLE;
         resetAnyProgress();
         onReset();
     }
@@ -92,11 +128,9 @@ public abstract class DailyAchievement extends Achievement {
         return isNextDay(today, CHECKER);
     }
 
-    private boolean gotResetToday(@NonNull Calendar today) {
+    public boolean gotResetToday(@NonNull Calendar today) {
         CHECKER_DATE.setTime(mLastResetTimestamp);
         CHECKER.setTime(CHECKER_DATE);
-        Log.d("Achievement", "Checking if got reset today: " + today + " and last reset: " +
-                CHECKER);
         return isToday(today, CHECKER);
     }
 
@@ -116,13 +150,25 @@ public abstract class DailyAchievement extends Achievement {
         super.addData(editor);
         editor
                 .putLong(mId + Achievement.SEPARATOR + KEY_LAST_RESET_TIMESTAMP,
-                        mLastResetTimestamp);
+                        mLastResetTimestamp)
+                .putBoolean(mId + Achievement.SEPARATOR + KEY_AVAILABLE_TODAY, mAvailableToday);
     }
 
     protected void loadData(SharedPreferences prefs) {
         super.loadData(prefs);
         mLastResetTimestamp = prefs.getLong(mId + Achievement.SEPARATOR +
                 KEY_LAST_RESET_TIMESTAMP, 0L);
+        mAvailableToday = prefs.getBoolean(mId + Achievement.SEPARATOR + KEY_AVAILABLE_TODAY,
+                DEFAULT_IS_AVAILABLE);
+    }
+
+    public void setAvailable() {
+        mAvailableToday = true;
+        mManager.onChanged(this, AchievementManager.CHANGED_OTHER);
+    }
+
+    public boolean isAvailable() {
+        return mAvailableToday;
     }
 
     public void onInit() {
@@ -140,8 +186,11 @@ public abstract class DailyAchievement extends Achievement {
 
     @Override
     protected void onAchieved() {
-        mMiscData.removeListener(this);
         Log.d("Achievement", "Achieved: " + mId);
+    }
+
+    public int getExpectedScore(int forLevel) {
+        return 0; // do not expect daily achievements to produce any score
     }
 
     protected static String makeId(int number) {

@@ -15,20 +15,23 @@
 
 package dan.dit.whatsthat.riddle.achievement;
 
-import android.content.res.Resources;
 import android.util.Log;
 
 import dan.dit.whatsthat.R;
 import dan.dit.whatsthat.achievement.Achievement;
 import dan.dit.whatsthat.achievement.AchievementManager;
 import dan.dit.whatsthat.testsubject.LevelDependency;
-import dan.dit.whatsthat.testsubject.TestSubject;
-import dan.dit.whatsthat.util.dependencies.MinValueDependency;
 
 /**
  * Created by daniel on 23.07.15.
  */
 public abstract class MiscAchievement extends Achievement {
+
+    /**
+     * Indicates the factor of the default expectation on the score. As these achievements are
+     * more random and global, the impact should be less than 1.
+     */
+    private static final double EXPECTED_SCORE_FACTOR = 0.7;
     protected final AchievementPropertiesMapped<String> mMiscData;
 
     private boolean mInitialized;
@@ -97,6 +100,10 @@ public abstract class MiscAchievement extends Achievement {
             mMiscData.addListener(this);
             onInit();
         }
+    }
+
+    public int getExpectedScore(int forLevel) {
+        return (int) (super.getExpectedScore(forLevel) * EXPECTED_SCORE_FACTOR);
     }
 
     protected void onInit() {

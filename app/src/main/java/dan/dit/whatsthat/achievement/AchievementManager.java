@@ -37,32 +37,24 @@ import dan.dit.whatsthat.util.general.ObserverController;
 public class AchievementManager implements AchievementDataEventListener {
 
     private static final String ACHIEVEMENT_PREFERENCES_FILE = "dan.dit.whatsthat.achievement_data";
-    private static final String KEY_UNCLAIMED_ACHIEVEMENTS_COUNT = "dan.dit.whatsthat" +
-            ".unclaimed_achievements_count";
     public static final int CHANGED_PROGRESS = 0;
     public static final int CHANGED_TO_COVERED = 1;
     public static final int CHANGED_TO_DISCOVERED = 2;
     public static final int CHANGED_TO_ACHIEVED_AND_UNCLAIMED = 3;
     public static final int CHANGED_GOT_CLAIMED = 4;
     public static final int CHANGED_TO_RESET = 5;
-    public static final int CHANGED_FROM_UNCLAIMED_TO_RESET = 6;
+    public static final int CHANGED_OTHER = 6;
+
     private static AchievementManager INSTANCE = null;
     private final SharedPreferences mPrefs;
     private Set<AchievementData> mManagedChangedData;
     private Set<Achievement> mChangedAchievements;
-    private int mUnclaimedAchievementsCount;
-    private final int mLoadedUnclaimedAchievementsCount;
-    private ObserverController<UnclaimedAchievementsCountListener, Integer> mUnclaimedObserversController;
+    private final ObserverController<OnAchievementChangedListener, Integer>
+            mAchievementChangedEventController = new ObserverController<>();
 
-    /**
-     * The interface for listening to the amount of unclaimed achievements. The event parameter
-     * passed is an integer indicating the amount of currently unclaimed achievements.
-     */
-    public interface UnclaimedAchievementsCountListener extends ObserverController
-            .Observer<Integer> {
-        // for naming and simplification only, no more methods required
+    public interface OnAchievementChangedListener extends ObserverController.Observer<Integer> {
+
     }
-
     private AchievementManager(Context applicationContext) {
         if (applicationContext == null) {
             throw new IllegalArgumentException("No context given.");
@@ -71,9 +63,6 @@ public class AchievementManager implements AchievementDataEventListener {
         mPrefs = applicationContext.getSharedPreferences(ACHIEVEMENT_PREFERENCES_FILE, Context.MODE_PRIVATE);
         mManagedChangedData = new HashSet<>();
         mChangedAchievements = new HashSet<>();
-        mUnclaimedObserversController = new ObserverController<>(1);
-        mUnclaimedAchievementsCount = mPrefs.getInt(KEY_UNCLAIMED_ACHIEVEMENTS_COUNT, 0);
-        mLoadedUnclaimedAchievementsCount = mUnclaimedAchievementsCount;
     }
 
     /**
@@ -101,8 +90,7 @@ public class AchievementManager implements AchievementDataEventListener {
      * if no instance initialized.
      */
     public static synchronized void commit() {
-        if (INSTANCE != null && (!INSTANCE.mManagedChangedData.isEmpty() || !INSTANCE.mChangedAchievements.isEmpty()
-            || INSTANCE.mLoadedUnclaimedAchievementsCount != INSTANCE.mUnclaimedAchievementsCount)) {
+        if (INSTANCE != null && (!INSTANCE.mManagedChangedData.isEmpty() || !INSTANCE.mChangedAchievements.isEmpty())) {
             SharedPreferences.Editor editor = INSTANCE.mPrefs.edit();
             for (AchievementData data : INSTANCE.mManagedChangedData) {
                 editor.putString(data.mName, data.compact());
@@ -110,28 +98,21 @@ public class AchievementManager implements AchievementDataEventListener {
             for (Achievement achievement : INSTANCE.mChangedAchievements) {
                 achievement.addData(editor);
             }
-            // unclaimed count only changes if changedAchievements is not empty
-            editor.putInt(KEY_UNCLAIMED_ACHIEVEMENTS_COUNT, INSTANCE
-                    .mUnclaimedAchievementsCount);
             editor.apply();
-            Log.d("Achievement", "Commiting achievement manager, saving " + INSTANCE.mChangedAchievements.size() + " changed achievements.");
+            Log.d("Achievement", "Commiting achievement manager"
+                    + " , saving " + INSTANCE.mChangedAchievements.size() + " changed " +
+                            "achievements.");
             INSTANCE.mManagedChangedData.clear();
             INSTANCE.mChangedAchievements.clear();
         }
     }
 
-    public int getUnclaimedAchievementsCount() {
-        return mUnclaimedAchievementsCount;
+    public void addAchievementChangedListener(OnAchievementChangedListener listener) {
+        mAchievementChangedEventController.addObserver(listener);
     }
 
-
-    public void addUnclaimedAchievementsCountListener(UnclaimedAchievementsCountListener listener) {
-        mUnclaimedObserversController.addObserver(listener);
-    }
-
-    public void removeUnclaimedAchievementsCountListener(UnclaimedAchievementsCountListener
-                                                                 listener) {
-        mUnclaimedObserversController.removeObserver(listener);
+    public void removeAchievementChangedListener(OnAchievementChangedListener listener) {
+        mAchievementChangedEventController.removeObserver(listener);
     }
 
     /**
@@ -142,20 +123,13 @@ public class AchievementManager implements AchievementDataEventListener {
     public void onChanged(final Achievement achievement, final int changedHint) {
         if (achievement != null) {
             mChangedAchievements.add(achievement);
+            mAchievementChangedEventController.notifyObservers(changedHint);
             switch (changedHint) {
                 case CHANGED_TO_ACHIEVED_AND_UNCLAIMED:
-                    mUnclaimedAchievementsCount++;
-                    mUnclaimedObserversController.notifyObservers(mUnclaimedAchievementsCount);
                     TestSubject.getInstance().postAchievementAchieved(achievement);
                     break;
                 case CHANGED_GOT_CLAIMED:
-                    mUnclaimedAchievementsCount--;
-                    mUnclaimedObserversController.notifyObservers(mUnclaimedAchievementsCount);
                     TestSubject.getInstance().addAchievementScore(achievement.getScoreReward());
-                    break;
-                case CHANGED_FROM_UNCLAIMED_TO_RESET:
-                    mUnclaimedAchievementsCount--;
-                    mUnclaimedObserversController.notifyObservers(mUnclaimedAchievementsCount);
                     break;
             }
         }

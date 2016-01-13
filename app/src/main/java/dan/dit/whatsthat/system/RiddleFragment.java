@@ -76,6 +76,7 @@ import dan.dit.whatsthat.riddle.RiddleView;
 import dan.dit.whatsthat.riddle.UnsolvedRiddlesChooser;
 import dan.dit.whatsthat.riddle.achievement.MiscAchievement;
 import dan.dit.whatsthat.riddle.achievement.holders.MiscAchievementHolder;
+import dan.dit.whatsthat.riddle.achievement.holders.TestSubjectAchievementHolder;
 import dan.dit.whatsthat.riddle.control.GameWelcomeDialog;
 import dan.dit.whatsthat.riddle.control.RiddleGame;
 import dan.dit.whatsthat.riddle.types.PracticalRiddleType;
@@ -86,6 +87,7 @@ import dan.dit.whatsthat.storage.ImageTable;
 import dan.dit.whatsthat.storage.ImagesContentProvider;
 import dan.dit.whatsthat.system.store.StoreActivity;
 import dan.dit.whatsthat.testsubject.TestSubject;
+import dan.dit.whatsthat.testsubject.TestSubjectRiddleType;
 import dan.dit.whatsthat.testsubject.TestSubjectToast;
 import dan.dit.whatsthat.util.general.PercentProgressListener;
 import dan.dit.whatsthat.util.general.SimpleCrypto;
@@ -119,7 +121,7 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
     private int mClickCount;
     private ImageButton mBtnPanic;
     private Handler mMainHandler;
-    private AchievementManager.UnclaimedAchievementsCountListener mUnclaimedChangedListener;
+    private TestSubjectAchievementHolder.UnclaimedAchievementsCountListener mUnclaimedChangedListener;
     private Wallet.OnEntryChangedListener mScoreChangedListener;
 
     public void onProgressUpdate(int progress) {
@@ -895,14 +897,16 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
             }
         };
         TestSubject.getInstance().registerScoreChangedListener(mScoreChangedListener);
-        mUnclaimedChangedListener = new AchievementManager.UnclaimedAchievementsCountListener() {
+        mUnclaimedChangedListener = new TestSubjectAchievementHolder.UnclaimedAchievementsCountListener() {
             @Override
-            public void onDataEvent(Integer unclaimedAchievementsCount) {
-                handleUnclaimedAchievementsCountChanged(unclaimedAchievementsCount);
+            public void onDataEvent(Void nothing) {
+                handleUnclaimedAchievementsCountChanged(TestSubject.getInstance()
+                        .getAchievementHolder().getUnclaimedAchievementsCount());
             }
         };
-        AchievementManager.getInstance().addUnclaimedAchievementsCountListener(mUnclaimedChangedListener);
-        handleUnclaimedAchievementsCountChanged(AchievementManager.getInstance()
+        TestSubject.getInstance().getAchievementHolder().addUnclaimedAchievementsCountListener
+                (mUnclaimedChangedListener);
+        handleUnclaimedAchievementsCountChanged(TestSubject.getInstance().getAchievementHolder()
                 .getUnclaimedAchievementsCount());
     }
 
@@ -930,7 +934,8 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
         super.onStop();
         mManager.cancelMakeRiddle();
         TestSubject.getInstance().removeScoreChangedListener(mScoreChangedListener);
-        AchievementManager.getInstance().removeUnclaimedAchievementsCountListener(mUnclaimedChangedListener);
+        TestSubject.getInstance().getAchievementHolder().removeUnclaimedAchievementsCountListener
+                (mUnclaimedChangedListener);
         if (mRiddleView != null) {
             mRiddleView.setVisibility(View.INVISIBLE); // else it is black when being reloaded
             // after having opened the shop

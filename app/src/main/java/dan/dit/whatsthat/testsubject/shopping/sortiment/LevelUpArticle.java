@@ -73,7 +73,7 @@ public class LevelUpArticle extends ShopArticle {
 
     @Override
     public int getSpentScore(int subProductIndex) {
-        return mPurse.getShopValue(TestSubject.SHW_KEY_SPENT_SCORE_ON_LEVEL_UP);
+        return mPurse.getScoreSpentOnLevelUp();
     }
 
     @Override

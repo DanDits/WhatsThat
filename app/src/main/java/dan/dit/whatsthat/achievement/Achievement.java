@@ -179,20 +179,15 @@ public abstract class Achievement implements AchievementDataEventListener, Depen
 
     /**
      * Resets any progress of this achievement. This also works if the achievement is already
-     * achieved, even if is already claimed. Will notify the manager of this change accordingly.
+     * achieved, even if is already claimed. Will notify the manager that it changed
+     * CHANGED_TO_RESET.<br>
      * The value will be equal to the default value afterwards.
      */
     protected void resetAnyProgress() {
-        boolean unclaimed = isRewardClaimable();
-        Log.d("Achievement", "Resetting progress " + mId + " was unclaimed: " + unclaimed);
+        Log.d("Achievement", "Resetting progress " + mId + " was unclaimed: " + isRewardClaimable());
         mValue = DEFAULT_VALUE;
         mRewardClaimed = false;
-        if (unclaimed) {
-            // if not claimed do not grant the score if user didn't claim it...
-            mManager.onChanged(this, AchievementManager.CHANGED_FROM_UNCLAIMED_TO_RESET);
-        } else {
-            mManager.onChanged(this, AchievementManager.CHANGED_TO_RESET);
-        }
+        mManager.onChanged(this, AchievementManager.CHANGED_TO_RESET);
     }
 
     /**
@@ -462,5 +457,19 @@ public abstract class Achievement implements AchievementDataEventListener, Depen
      */
     public String getId() {
         return mId;
+    }
+
+    /**
+     * Returns the expected score of this achievement for a client at a certain level. This can
+     * be any non zero value. By default this is zero if the achievement level is higher than the
+     * given level and else this is getMaxScoreReward().
+     * @param forLevel The level to check the expected score for.
+     * @return The expected score. Should be non negative.
+     */
+    public int getExpectedScore(int forLevel) {
+        if (forLevel >= mLevel) {
+            return getMaxScoreReward();
+        }
+        return 0;
     }
 }

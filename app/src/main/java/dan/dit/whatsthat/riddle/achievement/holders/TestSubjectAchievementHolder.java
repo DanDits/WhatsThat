@@ -24,18 +24,51 @@ import dan.dit.whatsthat.achievement.Achievement;
 import dan.dit.whatsthat.achievement.AchievementManager;
 import dan.dit.whatsthat.riddle.achievement.AchievementPropertiesMapped;
 import dan.dit.whatsthat.riddle.types.PracticalRiddleType;
+import dan.dit.whatsthat.util.general.ObserverController;
 
 /**
  * Created by daniel on 21.05.15.
  */
 public class TestSubjectAchievementHolder implements AchievementHolder {
 
-    private Map<PracticalRiddleType, TypeAchievementHolder> mHolders = new HashMap<>();
+    private final Map<PracticalRiddleType, TypeAchievementHolder> mHolders = new HashMap<>();
     private MiscAchievementHolder mMiscHolder;
     private DailyAchievementsHolder mDailyHolder;
+    private final List<AchievementHolder> mAllHolders = new ArrayList<>();
+    private ObserverController<UnclaimedAchievementsCountListener, Void>
+            mUnclaimedObserverController = new ObserverController<>();
+
+    /**
+     * The interface for listening to the amount of unclaimed achievements. The event parameter
+     * passed is null.
+     */
+    public interface UnclaimedAchievementsCountListener extends ObserverController
+            .Observer<Void> {
+        // for naming and simplification only, no more methods required
+    }
 
     public TestSubjectAchievementHolder(AchievementManager manager) {
         makeAchievements(manager);
+        manager.addAchievementChangedListener(new AchievementManager.OnAchievementChangedListener() {
+            @Override
+            public void onDataEvent(Integer changedHint) {
+                switch (changedHint) {
+                    case AchievementManager.CHANGED_GOT_CLAIMED: // fall through
+                    case AchievementManager.CHANGED_TO_RESET: // fall through
+                    case AchievementManager.CHANGED_TO_ACHIEVED_AND_UNCLAIMED:
+                        mUnclaimedObserverController.notifyObservers(null);
+                }
+            }
+        });
+    }
+
+    private boolean manageHolder(AchievementManager manager, AchievementHolder holder) {
+        if (holder == null) {
+            return false;
+        }
+        mAllHolders.add(holder);
+        holder.makeAchievements(manager);
+        return true;
     }
 
     public TypeAchievementHolder getTypeAchievementHolder(PracticalRiddleType type) {
@@ -46,6 +79,10 @@ public class TestSubjectAchievementHolder implements AchievementHolder {
         return mMiscHolder;
     }
 
+    public AchievementHolder getDailyAchievementHolder() {
+        return mDailyHolder;
+    }
+
     public AchievementPropertiesMapped<String> getMiscData() {
         return mMiscHolder == null ? null : mMiscHolder.getData();
     }
@@ -53,50 +90,73 @@ public class TestSubjectAchievementHolder implements AchievementHolder {
     @Override
     public void makeAchievements(AchievementManager manager) {
         mMiscHolder = new MiscAchievementHolder();
-        mMiscHolder.makeAchievements(manager);
+        manageHolder(manager, mMiscHolder);
 
         for (PracticalRiddleType type : PracticalRiddleType.getAll()) {
             TypeAchievementHolder holder = type.getAchievementHolder();
-            if (holder != null) {
-                holder.makeAchievements(manager);
+            if (manageHolder(manager, holder)) {
                 mHolders.put(type, holder);
             }
         }
 
-        mDailyHolder = new DailyAchievementsHolder(mMiscHolder.getData());
-        mDailyHolder.makeAchievements(manager);
+        mDailyHolder = new DailyAchievementsHolder();
+        manageHolder(manager, mDailyHolder);
     }
 
     @Override
     public void addDependencies() {
-        mMiscHolder.addDependencies();
-        for (TypeAchievementHolder holder : mHolders.values()) {
+        for (AchievementHolder holder : mAllHolders) {
             holder.addDependencies();
         }
-        mDailyHolder.addDependencies();
     }
 
     @Override
     public void initAchievements() {
-        mMiscHolder.initAchievements();
-        for (TypeAchievementHolder holder : mHolders.values()) {
+        for (AchievementHolder holder : mAllHolders) {
             holder.initAchievements();
         }
-        mDailyHolder.initAchievements();
     }
 
     @Override
     public List<Achievement> getAchievements() {
         List<Achievement> achievements = new ArrayList<>();
-        achievements.addAll(mMiscHolder.getAchievements());
-        for (TypeAchievementHolder holder : mHolders.values()) {
+        for (AchievementHolder holder : mAllHolders) {
             achievements.addAll(holder.getAchievements());
         }
-        achievements.addAll(mDailyHolder.getAchievements());
         return achievements;
     }
 
-    public AchievementHolder getDailyAchievementHolder() {
-        return mDailyHolder;
+    @Override
+    public int getExpectedTestSubjectScore(int testSubjectLevel) {
+        int expectedResult = 0;
+        for (AchievementHolder holder : mAllHolders) {
+            expectedResult += holder.getExpectedTestSubjectScore(testSubjectLevel);
+        }
+        return expectedResult;
+    }
+
+    public List<AchievementHolder> getHolders() {
+        return mAllHolders;
+    }
+
+    public void addUnclaimedAchievementsCountListener(UnclaimedAchievementsCountListener
+                                                              listener) {
+        mUnclaimedObserverController.addObserver(listener);
+    }
+
+    public int getUnclaimedAchievementsCount() {
+        int unclaimed = 0;
+        for (AchievementHolder holder : mAllHolders) {
+            for (Achievement achievement : holder.getAchievements()) {
+                if (achievement.isRewardClaimable()) {
+                    unclaimed++;
+                }
+            }
+        }
+        return unclaimed;
+    }
+
+    public void removeUnclaimedAchievementsCountListener(UnclaimedAchievementsCountListener listener) {
+        mUnclaimedObserverController.removeObserver(listener);
     }
 }

@@ -66,4 +66,13 @@ public abstract class TypeAchievementHolder implements AchievementHolder {
     public GameAchievement getByNumber(int number) {
         return mAchievements.get(number);
     }
+
+    @Override
+    public int getExpectedTestSubjectScore(int testSubjectLevel) {
+        int expected = 0;
+        for (Achievement achievement : mAchievements.values()) {
+            expected += achievement.getExpectedScore(testSubjectLevel);
+        }
+        return expected;
+    }
 }

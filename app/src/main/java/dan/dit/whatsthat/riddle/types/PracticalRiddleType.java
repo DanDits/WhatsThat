@@ -231,5 +231,9 @@ public abstract class PracticalRiddleType extends RiddleType {
 
     public abstract int getAdvertisingResId();
 
+    /**
+     * Returns the id of this riddle type. This is some positive integer.
+     * @return A positive integer identifying the PractialRiddleType among all others.
+     */
     public abstract int getId();
 }

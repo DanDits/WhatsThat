@@ -28,4 +28,6 @@ public interface AchievementHolder {
     void addDependencies();
     void initAchievements();
     List<? extends Achievement> getAchievements();
+
+    int getExpectedTestSubjectScore(int testSubjectLevel);
 }
