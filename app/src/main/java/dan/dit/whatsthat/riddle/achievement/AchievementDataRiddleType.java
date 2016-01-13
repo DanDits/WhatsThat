@@ -85,6 +85,6 @@ public class AchievementDataRiddleType extends AchievementProperties {
     }
 
     public boolean isCustom() {
-        return getValue(AchievementDataRiddleGame.KEY_CUSTOM, 0L) == 1L;
+        return getValue(GameAchievement.KEY_DATA_IS_OF_CUSTOM_GAME, 0L) == 1L;
     }
 }

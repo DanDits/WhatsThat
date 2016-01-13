@@ -62,6 +62,13 @@ public class AchievementView extends ExpandableListView implements StoreContaine
         mCategoryNames = new ArrayList<>();
         mCategoryImage = new ArrayList<>();
         PracticalRiddleType lastVisibleType = Riddle.getLastVisibleRiddleType(getContext());
+
+        // DAILY
+        addAchievementHolder(TestSubject.getInstance().getAchievementHolder()
+                .getDailyAchievementHolder(), context.getResources().getString(R.string
+                .achievement_daily_category_name), R.drawable.icon_daily);
+
+        //TYPES
         TestSubjectAchievementHolder holder = TestSubject.getInstance().getAchievementHolder();
         mVisibleCategoryIndex = -1;
         for (TestSubjectRiddleType type : TestSubject.getInstance().getAvailableTypes()) {
@@ -73,9 +80,12 @@ public class AchievementView extends ExpandableListView implements StoreContaine
                 }
             }
         }
+
+        //MISC
         AchievementHolder misHolder = TestSubject.getInstance().getAchievementHolder().getMiscAchievementHolder();
         addAchievementHolder(misHolder, context.getResources().getString(R.string.achievement_misc_category_name), R.drawable.icon_general);
 
+        // For claiming rewards
         setOnChildClickListener(new OnChildClickListener() {
             @Override
             public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {

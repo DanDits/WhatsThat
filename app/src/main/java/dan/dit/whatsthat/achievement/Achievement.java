@@ -18,6 +18,7 @@ package dan.dit.whatsthat.achievement;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.text.TextUtils;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,7 +44,7 @@ import dan.dit.whatsthat.util.general.PercentProgressListener;
  * Created by daniel on 12.05.15.
  */
 public abstract class Achievement implements AchievementDataEventListener, Dependable {
-    private static final String SEPARATOR = "_";
+    protected static final String SEPARATOR = "_";
     private static final String KEY_DISCOVERED = "discovered";
     private static final String KEY_VALUE = "value";
     private static final String KEY_ACHIEVED_TIMESTAMP = "achievedtime";
@@ -63,7 +64,7 @@ public abstract class Achievement implements AchievementDataEventListener, Depen
     protected final int mDescrResId;
     private final int mRewardResId;
     protected final List<Dependency> mDependencies;
-    private long mAchievedTimestamp;
+    protected long mAchievedTimestamp;
 
     /**
      * Creates a new achievement. The id string needs to be unique for all achievements. The given name, description
@@ -106,7 +107,8 @@ public abstract class Achievement implements AchievementDataEventListener, Depen
     }
 
     /**
-     * Returns the icon resource id.
+     * Returns the icon resource id. This is the default icon for the achievement used in general
+     * places like when it is achieved or shown in some generic place.
      * @return The icon resource id.
      */
     public abstract int getIconResId();
@@ -173,6 +175,24 @@ public abstract class Achievement implements AchievementDataEventListener, Depen
             return true;
         }
         return false;
+    }
+
+    /**
+     * Resets any progress of this achievement. This also works if the achievement is already
+     * achieved, even if is already claimed. Will notify the manager of this change accordingly.
+     * The value will be equal to the default value afterwards.
+     */
+    protected void resetAnyProgress() {
+        boolean unclaimed = isRewardClaimable();
+        Log.d("Achievement", "Resetting progress " + mId + " was unclaimed: " + unclaimed);
+        mValue = DEFAULT_VALUE;
+        mRewardClaimed = false;
+        if (unclaimed) {
+            // if not claimed do not grant the score if user didn't claim it...
+            mManager.onChanged(this, AchievementManager.CHANGED_FROM_UNCLAIMED_TO_RESET);
+        } else {
+            mManager.onChanged(this, AchievementManager.CHANGED_TO_RESET);
+        }
     }
 
     /**
@@ -247,6 +267,10 @@ public abstract class Achievement implements AchievementDataEventListener, Depen
         return mScoreReward;
     }
 
+    /**
+     * The maximum possible score reward. By default equal to getScoreReward().
+     * @return The maximum possible reward.
+     */
     public int getMaxScoreReward() {
         return getScoreReward();
     }
@@ -333,7 +357,7 @@ public abstract class Achievement implements AchievementDataEventListener, Depen
         mValue = mMaxValue;
         mAchievedTimestamp = System.currentTimeMillis();
         onAchieved();
-        mManager.onChanged(this, AchievementManager.CHANGED_TO_ACHIEVED);
+        mManager.onChanged(this, AchievementManager.CHANGED_TO_ACHIEVED_AND_UNCLAIMED);
     }
 
     /**
@@ -368,7 +392,7 @@ public abstract class Achievement implements AchievementDataEventListener, Depen
      * Loads data out of the given shared preferences.
      * @param prefs The preferences to load data from.
      */
-    private void loadData(SharedPreferences prefs) {
+    protected void loadData(SharedPreferences prefs) {
         mDiscovered = prefs.getBoolean(mId + SEPARATOR + KEY_DISCOVERED, mDiscovered);
         mValue = prefs.getInt(mId + SEPARATOR + KEY_VALUE, mValue);
         mAchievedTimestamp = prefs.getLong(mId + SEPARATOR + KEY_ACHIEVED_TIMESTAMP, 0L);
@@ -432,6 +456,10 @@ public abstract class Achievement implements AchievementDataEventListener, Depen
         return builder.toString();
     }
 
+    /**
+     * Returns the unique id of this Achievement.
+     * @return The unique id for managing this achievement.
+     */
     public String getId() {
         return mId;
     }

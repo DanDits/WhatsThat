@@ -21,6 +21,7 @@ import android.util.Log;
 import dan.dit.whatsthat.R;
 import dan.dit.whatsthat.achievement.Achievement;
 import dan.dit.whatsthat.achievement.AchievementManager;
+import dan.dit.whatsthat.testsubject.LevelDependency;
 import dan.dit.whatsthat.testsubject.TestSubject;
 import dan.dit.whatsthat.util.dependencies.MinValueDependency;
 
@@ -76,19 +77,7 @@ public abstract class MiscAchievement extends Achievement {
     }
 
     private void addLevelDependency() {
-        mDependencies.add(new LevelDependency(mLevel));
-    }
-
-    private static class LevelDependency extends MinValueDependency {
-
-        public LevelDependency(int level) {
-            super(TestSubject.getInstance().getLevelDependency(), level);
-        }
-
-        @Override
-        public CharSequence getName(Resources res) {
-            return res.getString(R.string.level_dependency, getMinValue());
-        }
+        mDependencies.add(LevelDependency.getInstance(mLevel));
     }
 
     @Override

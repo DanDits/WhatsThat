@@ -202,6 +202,15 @@
     <string name="achievement_misc_10_descr">Du hast einen Keks gefunden, hast du mir
         dafür geschrieben?</string>
 
+    <!-- Daily achievements -->
+    <string name="achievement_daily_category_name">Täglich</string>
+
+    <string name="achievement_daily_1_name">Tägliches Gehirnjogging</string>
+    <string name="achievement_daily_1_descr">Löse %1$d beliebige Experimente.</string>
+    <string name="achievement_daily_2_name">Abwechslung</string>
+    <string name="achievement_daily_2_descr">Löse %1$d Experiment jeweils für %2$d verschiedene
+        Experimentarten.</string>
+
     <!-- Memory achievements -->
     <string name="achievement_memory_1_name">Kurzzeitgedächtnis</string>
     <string name="achievement_memory_1_descr">Schon Gletscher sind schneller vorangekommen als du bei diesem Experiment.</string>

@@ -11,10 +11,9 @@
         <item>If you want more pictures from WiseMind, you can get new ones via download in the shop!</item>
         <item>Later, if this experiment is successful, you can choose between different experiment types in the middle of game. Or you can continue all skipped experiments.</item>
         <item>Sometimes human eyes recognize some pictures from a certain distance. Sometimes a screenshot is helping, too.</item>
-        <item>Did you notice that WiseMind\'s compliment appears green sometimes? In that case, you finished the experiment better or faster as usually expected.</item>
-        <item>You get daily bonus neurons for the first couple of solved experiments. The bonus is
-            decreasing shortly and depends on the difficulty and length of the experiment type.</item>
-        <item>More exclamation marks mean a higher bonus.</item>
+        <item>Did WiseMind ever invite you to a party? In that case, you finished the
+            experiment better or faster as usually expected.</item>
+        <item>You can get bonus neurons every day when you complete the daily achievements.</item>
     </string-array>
     <string name="article_circle_divide_by_move_feature_name">Intergalactic Circlelaser-Turbo-Cutter</string>
     <string name="article_circle_divide_by_move_feature_descr">Divide circles by moving the finger. Very relaxing!</string>

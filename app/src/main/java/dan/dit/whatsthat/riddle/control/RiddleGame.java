@@ -35,6 +35,7 @@ import dan.dit.whatsthat.riddle.RiddleConfig;
 import dan.dit.whatsthat.riddle.RiddleView;
 import dan.dit.whatsthat.riddle.achievement.AchievementDataRiddleGame;
 import dan.dit.whatsthat.riddle.achievement.AchievementDataRiddleType;
+import dan.dit.whatsthat.riddle.achievement.GameAchievement;
 import dan.dit.whatsthat.riddle.types.PracticalRiddleType;
 import dan.dit.whatsthat.riddle.types.Types;
 import dan.dit.whatsthat.solution.Solution;
@@ -65,12 +66,11 @@ public abstract class RiddleGame {
      */
     protected static final Dimension SNAPSHOT_DIMENSION = new Dimension(32, 32);
     /**
-     * Maximum time from creating a new riddle till solving that results in using the multiplier for score calculation
+     * Maximum time from creating a new riddle till solving that results in getting bonus for score
+     * calculation
      */
     private static final long SCORE_BONUS_MAX_RIDDLE_TIME = 30 * 60 * 1000; //30 minutes in ms
     public static final int BASE_SCORE_MULTIPLIER = 1; //should not change
-    private static final int MAX_SCORE_MULTIPLIER = 3; // > BASE_SCORE_MULTIPLIER
-    private static final int SCORES_MULTIPLIED_PER_DAY_COUNT = 10;
 
     private final Riddle mRiddle; // should be hidden
     private final RiddleController mRiddleController;
@@ -253,18 +253,17 @@ public abstract class RiddleGame {
         Compacter achievementCmp = TextUtils.isEmpty(achievementData) ? null : new Compacter(achievementData);
         mRiddle.getType().getAchievementDataGame().loadGame(achievementCmp);
         Long customValue = Image.ORIGIN_IS_THE_APP.equalsIgnoreCase(mRiddle.getOrigin()) ? 0L : 1L;
-        mRiddle.getType().getAchievementDataGame().putValue(AchievementDataRiddleGame.KEY_CUSTOM, customValue, AchievementProperties.UPDATE_POLICY_ALWAYS);
+        mRiddle.getType().getAchievementDataGame().putValue(GameAchievement.KEY_DATA_IS_OF_CUSTOM_GAME, customValue,
+                AchievementProperties.UPDATE_POLICY_ALWAYS);
         AchievementDataRiddleType dataType = mRiddle.getType().getAchievementData(null);
         if (dataType != null) {
-            dataType.putValue(AchievementDataRiddleGame.KEY_CUSTOM, customValue, AchievementProperties.UPDATE_POLICY_ALWAYS);
+            dataType.putValue(GameAchievement.KEY_DATA_IS_OF_CUSTOM_GAME, customValue, AchievementProperties.UPDATE_POLICY_ALWAYS);
         }
 
         initAchievementData();
     }
 
     protected abstract void initAchievementData();
-
-    private static final double SCORE_EXP_FACTOR = Math.log(MAX_SCORE_MULTIPLIER - BASE_SCORE_MULTIPLIER) / SCORES_MULTIPLIED_PER_DAY_COUNT;
 
     /**
      * Calculates the gained score. Can but generally should not depend on the
@@ -285,10 +284,8 @@ public abstract class RiddleGame {
         }
         int scoreMultiplicator = BASE_SCORE_MULTIPLIER;
         long now = System.currentTimeMillis();
-        if (mConfig.mAchievementGameData != null && (now - mRiddle.getTimestamp()) < SCORE_BONUS_MAX_RIDDLE_TIME && TestSubject.isInitialized()) {
-            int bonusCount = TestSubject.getInstance().getAndIncrementTodaysScoreBonusCount();
-            scoreMultiplicator = (int) ((MAX_SCORE_MULTIPLIER - BASE_SCORE_MULTIPLIER) * Math.exp(-SCORE_EXP_FACTOR * bonusCount) + BASE_SCORE_MULTIPLIER);
-            scoreMultiplicator = Math.max(1, scoreMultiplicator); // to be sure score will never be zero or negativly multiplied (which cannot happen for exp(x) but this might change)
+        if ((now - mRiddle.getTimestamp()) >= SCORE_BONUS_MAX_RIDDLE_TIME) {
+            mForbidBonus = true;
         }
         return mForbidBonus ? new RiddleScore.NoBonus(base, scoreMultiplicator)
             : new RiddleScore(base, scoreMultiplicator);

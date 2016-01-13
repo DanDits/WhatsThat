@@ -32,6 +32,7 @@ public class TestSubjectAchievementHolder implements AchievementHolder {
 
     private Map<PracticalRiddleType, TypeAchievementHolder> mHolders = new HashMap<>();
     private MiscAchievementHolder mMiscHolder;
+    private DailyAchievementsHolder mDailyHolder;
 
     public TestSubjectAchievementHolder(AchievementManager manager) {
         makeAchievements(manager);
@@ -53,6 +54,7 @@ public class TestSubjectAchievementHolder implements AchievementHolder {
     public void makeAchievements(AchievementManager manager) {
         mMiscHolder = new MiscAchievementHolder();
         mMiscHolder.makeAchievements(manager);
+
         for (PracticalRiddleType type : PracticalRiddleType.getAll()) {
             TypeAchievementHolder holder = type.getAchievementHolder();
             if (holder != null) {
@@ -60,6 +62,9 @@ public class TestSubjectAchievementHolder implements AchievementHolder {
                 mHolders.put(type, holder);
             }
         }
+
+        mDailyHolder = new DailyAchievementsHolder(mMiscHolder.getData());
+        mDailyHolder.makeAchievements(manager);
     }
 
     @Override
@@ -68,6 +73,7 @@ public class TestSubjectAchievementHolder implements AchievementHolder {
         for (TypeAchievementHolder holder : mHolders.values()) {
             holder.addDependencies();
         }
+        mDailyHolder.addDependencies();
     }
 
     @Override
@@ -76,6 +82,7 @@ public class TestSubjectAchievementHolder implements AchievementHolder {
         for (TypeAchievementHolder holder : mHolders.values()) {
             holder.initAchievements();
         }
+        mDailyHolder.initAchievements();
     }
 
     @Override
@@ -85,7 +92,11 @@ public class TestSubjectAchievementHolder implements AchievementHolder {
         for (TypeAchievementHolder holder : mHolders.values()) {
             achievements.addAll(holder.getAchievements());
         }
+        achievements.addAll(mDailyHolder.getAchievements());
         return achievements;
     }
 
+    public AchievementHolder getDailyAchievementHolder() {
+        return mDailyHolder;
+    }
 }

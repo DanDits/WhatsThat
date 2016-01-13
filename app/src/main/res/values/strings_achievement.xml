@@ -201,7 +201,14 @@
     <string name="achievement_misc_10_descr">You found a cookie, did you mail me to find
         it?</string>
 
+    <!-- Daily achievements -->
+    <string name="achievement_daily_category_name">Daily</string>
 
+    <string name="achievement_daily_1_name">Daily brain jogging</string>
+    <string name="achievement_daily_1_descr">Solve %1$d experiments of any kind.</string>
+    <string name="achievement_daily_2_name">Variety</string>
+    <string name="achievement_daily_2_descr">Solve %1$d experiment for %2$d different kinds of
+        experiments.</string>
 
 
     <!-- Memory achievements -->

@@ -37,8 +37,9 @@ public class RiddleScore {
 
     public RiddleScore addBonus(int bonus) {
         bonus = Math.max(0, bonus);
-        mBonus += bonus;
-        mTotalScore += bonus;
+        int delta = bonus * mMultiplicator;
+        mBonus += delta;
+        mTotalScore += delta;
         return this;
     }
 

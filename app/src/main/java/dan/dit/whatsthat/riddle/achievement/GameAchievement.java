@@ -31,6 +31,7 @@ public abstract class GameAchievement extends Achievement {
     protected final AchievementDataRiddleType mTypeData;
     protected final AchievementDataRiddleGame mGameData;
     protected final AchievementDataTimerRiddle mTimerData;
+    public static final String KEY_DATA_IS_OF_CUSTOM_GAME = "custom";
 
     private boolean mInitialized;
     private int mIconResId;
@@ -39,7 +40,6 @@ public abstract class GameAchievement extends Achievement {
         super(makeId(type, number), nameResId, descrResId, rewardResId, manager, level, scoreReward, maxValue, discovered);
         mIconResId = type.getIconResId();
         if (isAchieved()) {
-            Log.d("Achievement", "Creating achievement " + type.getFullName() + number + ": already achieved.");
             mTypeData = null;
             mGameData = null;
             mTimerData = null;

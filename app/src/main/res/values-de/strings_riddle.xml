@@ -12,9 +12,8 @@
         <item>Einen Nachschub an Bildern kannst du dir von WiseMind per Download im Shop geben lassen!</item>
         <item>Manche menschliche Augen erkennen manche Bilder manchmal erst aus manch einer Entfernung. Manchmal hilft auch ein Screenshot.</item>
         <item>Ist dir aufgefallen, dass teilweise Konfetti vom Himmel regnet? In diesem Fall hast du das Experiment schneller oder besser gelöst als standardmäßig erwartet.</item>
-        <item>Du bekommst täglich für die ersten paar gelösten Experimente Bonus Neuronen. Der
-            Bonusfaktor nimmt langsam ab. Wie viele du bekommst, ist abhängig von der Dauer und Schwierigkeit des Experimententyps.</item>
-        <item>Je mehr Ausrufezeichen, desto größer der Bonusfaktor.</item>
+        <item>Du kannst dir täglich Bonus Neuronen verdienen, wenn du die täglichen Erfolge schaffst
+            .</item>
     </string-array>
     <string name="article_circle_divide_by_move_feature_name">Intergalaktischer Kreislaser-Turbo-Schneider</string>
     <string name="article_circle_divide_by_move_feature_descr">Zerschneide die Kreise per Wischen mit dem Finger. Sehr entspannend!</string>

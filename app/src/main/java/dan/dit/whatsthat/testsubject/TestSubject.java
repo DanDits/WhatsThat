@@ -486,26 +486,6 @@ public class TestSubject {
         return mLevels[mCurrLevel].getImageResourceId();
     }
 
-    private static final String KEY_LAST_SCORE_MULTIPLIER_REFRESH_DAY_OF_YEAR = "dan.dit.whatsthat.score_multiplier_day_of_year";
-    private static final String KEY_SCORE_BONUS_COUNT = "dan.dit.whatsthat.score_bonus_count";
-    public int getAndIncrementTodaysScoreBonusCount() {
-        Calendar now = Calendar.getInstance();
-        int currentDayOfYear = now.get(Calendar.DAY_OF_YEAR);
-        int lastMultiplierRefreshDay = mPreferences.getInt(KEY_LAST_SCORE_MULTIPLIER_REFRESH_DAY_OF_YEAR, -1);
-        //this will not refresh if the last refresh day was exactly one year ago, this is not a bug but a runtime feature
-        if (lastMultiplierRefreshDay == -1 || lastMultiplierRefreshDay != currentDayOfYear) {
-            //refresh the day (of year) to get a new bonus for today
-            mPreferences.edit()
-                    .putInt(KEY_LAST_SCORE_MULTIPLIER_REFRESH_DAY_OF_YEAR, currentDayOfYear)
-                    .putInt(KEY_SCORE_BONUS_COUNT, -1)
-                    .apply();
-        }
-        // get and increment bonus count
-        int bonusCount = mPreferences.getInt(KEY_SCORE_BONUS_COUNT, 0);
-        mPreferences.edit().putInt(KEY_SCORE_BONUS_COUNT, bonusCount + 1).apply();
-        return bonusCount;
-    }
-
     public int getCurrentScore() {
         return mPurse.getCurrentScore();
     }

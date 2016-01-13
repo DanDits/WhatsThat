@@ -42,7 +42,6 @@ public class AchievementDataRiddleGame extends AchievementProperties {
     public static final String KEY_PLAYED_TIME = "played_time";
     public static final String KEY_LAST_OPENED = "last_opened";
     public static final String KEY_SOLVED = "solved";
-    public static final String KEY_CUSTOM = "custom";
     private static final AchievementDataRiddleGame sNull = new AchievementDataRiddleGame
             .NullObject();
 
@@ -187,6 +186,6 @@ public class AchievementDataRiddleGame extends AchievementProperties {
     }
 
     public boolean isCustom() {
-        return getValue(AchievementDataRiddleGame.KEY_CUSTOM, 0L) == 1L;
+        return getValue(GameAchievement.KEY_DATA_IS_OF_CUSTOM_GAME, 0L) == 1L;
     }
 }

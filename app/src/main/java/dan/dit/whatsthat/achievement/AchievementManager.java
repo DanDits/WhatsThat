@@ -17,13 +17,10 @@ package dan.dit.whatsthat.achievement;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.support.annotation.MainThread;
 import android.text.TextUtils;
 import android.util.Log;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import dan.dit.whatsthat.testsubject.TestSubject;
@@ -45,13 +42,16 @@ public class AchievementManager implements AchievementDataEventListener {
     public static final int CHANGED_PROGRESS = 0;
     public static final int CHANGED_TO_COVERED = 1;
     public static final int CHANGED_TO_DISCOVERED = 2;
-    public static final int CHANGED_TO_ACHIEVED = 3;
+    public static final int CHANGED_TO_ACHIEVED_AND_UNCLAIMED = 3;
     public static final int CHANGED_GOT_CLAIMED = 4;
+    public static final int CHANGED_TO_RESET = 5;
+    public static final int CHANGED_FROM_UNCLAIMED_TO_RESET = 6;
     private static AchievementManager INSTANCE = null;
     private final SharedPreferences mPrefs;
     private Set<AchievementData> mManagedChangedData;
     private Set<Achievement> mChangedAchievements;
     private int mUnclaimedAchievementsCount;
+    private final int mLoadedUnclaimedAchievementsCount;
     private ObserverController<UnclaimedAchievementsCountListener, Integer> mUnclaimedObserversController;
 
     /**
@@ -73,6 +73,7 @@ public class AchievementManager implements AchievementDataEventListener {
         mChangedAchievements = new HashSet<>();
         mUnclaimedObserversController = new ObserverController<>(1);
         mUnclaimedAchievementsCount = mPrefs.getInt(KEY_UNCLAIMED_ACHIEVEMENTS_COUNT, 0);
+        mLoadedUnclaimedAchievementsCount = mUnclaimedAchievementsCount;
     }
 
     /**
@@ -100,7 +101,8 @@ public class AchievementManager implements AchievementDataEventListener {
      * if no instance initialized.
      */
     public static synchronized void commit() {
-        if (INSTANCE != null && (!INSTANCE.mManagedChangedData.isEmpty() || !INSTANCE.mChangedAchievements.isEmpty())) {
+        if (INSTANCE != null && (!INSTANCE.mManagedChangedData.isEmpty() || !INSTANCE.mChangedAchievements.isEmpty()
+            || INSTANCE.mLoadedUnclaimedAchievementsCount != INSTANCE.mUnclaimedAchievementsCount)) {
             SharedPreferences.Editor editor = INSTANCE.mPrefs.edit();
             for (AchievementData data : INSTANCE.mManagedChangedData) {
                 editor.putString(data.mName, data.compact());
@@ -137,17 +139,24 @@ public class AchievementManager implements AchievementDataEventListener {
      * @param achievement The achievement that changed.
      * @param changedHint The hint of what kind of change happened to the achievement.
      */
-    void onChanged(final Achievement achievement, final int changedHint) {
+    public void onChanged(final Achievement achievement, final int changedHint) {
         if (achievement != null) {
             mChangedAchievements.add(achievement);
-            if (changedHint == CHANGED_TO_ACHIEVED) {
-                mUnclaimedAchievementsCount++;
-                mUnclaimedObserversController.notifyObservers(mUnclaimedAchievementsCount);
-                TestSubject.getInstance().postAchievementAchieved(achievement);
-            } else if (changedHint == CHANGED_GOT_CLAIMED) {
-                mUnclaimedAchievementsCount--;
-                mUnclaimedObserversController.notifyObservers(mUnclaimedAchievementsCount);
-                TestSubject.getInstance().addAchievementScore(achievement.getScoreReward());
+            switch (changedHint) {
+                case CHANGED_TO_ACHIEVED_AND_UNCLAIMED:
+                    mUnclaimedAchievementsCount++;
+                    mUnclaimedObserversController.notifyObservers(mUnclaimedAchievementsCount);
+                    TestSubject.getInstance().postAchievementAchieved(achievement);
+                    break;
+                case CHANGED_GOT_CLAIMED:
+                    mUnclaimedAchievementsCount--;
+                    mUnclaimedObserversController.notifyObservers(mUnclaimedAchievementsCount);
+                    TestSubject.getInstance().addAchievementScore(achievement.getScoreReward());
+                    break;
+                case CHANGED_FROM_UNCLAIMED_TO_RESET:
+                    mUnclaimedAchievementsCount--;
+                    mUnclaimedObserversController.notifyObservers(mUnclaimedAchievementsCount);
+                    break;
             }
         }
     }
