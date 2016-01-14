@@ -7,11 +7,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/shop_filters_gone_container">
-        <ImageButton
+        <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/show_filters"
-            android:src="@drawable/no_filter"
+            android:background="@drawable/button_nofilter"
             android:layout_centerHorizontal="true"
             />
     </RelativeLayout>

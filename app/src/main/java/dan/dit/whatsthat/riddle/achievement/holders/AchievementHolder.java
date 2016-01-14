@@ -29,5 +29,5 @@ public interface AchievementHolder {
     void initAchievements();
     List<? extends Achievement> getAchievements();
 
-    int getExpectedTestSubjectScore(int testSubjectLevel);
+    int getExpectableTestSubjectScore(int testSubjectLevel);
 }

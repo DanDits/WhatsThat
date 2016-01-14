@@ -265,10 +265,16 @@ public class DailyAchievementsHolder implements AchievementHolder {
 
     @Override
     public void initAchievements() {
+        for (DailyAchievement achievement : mAchievements.values()) {
+            achievement.init(mToday);
+        }
+        makeResetCandidatesAvailable();
+    }
+
+    private void makeResetCandidatesAvailable() {
         int availableCount = 0;
         List<DailyAchievement> candidates = new ArrayList<>(mAchievements.size());
         for (DailyAchievement achievement : mAchievements.values()) {
-            achievement.init(mToday);
             if (achievement.gotResetToday(mToday) && achievement.areDependenciesFulfilled()
                     && !achievement.isAvailable()) {
                 candidates.add(achievement);
@@ -290,6 +296,21 @@ public class DailyAchievementsHolder implements AchievementHolder {
         }
     }
 
+    public boolean refresh() {
+        mToday = Calendar.getInstance();
+
+        boolean foundAny = false;
+        for (DailyAchievement achievement : mAchievements.values()) {
+            if (achievement.checkedReset(mToday)) {
+                foundAny = true;
+            }
+        }
+        if (foundAny) {
+            makeResetCandidatesAvailable();
+        }
+        return foundAny;
+    }
+
     @Override
     public List<? extends Achievement> getAchievements() {
         List<DailyAchievement> available = new ArrayList<>(mAchievements.size());
@@ -302,7 +323,7 @@ public class DailyAchievementsHolder implements AchievementHolder {
     }
 
     @Override
-    public int getExpectedTestSubjectScore(int testSubjectLevel) {
+    public int getExpectableTestSubjectScore(int testSubjectLevel) {
         int expected = 0;
         for (Achievement achievement : mAchievements.values()) {
             expected += achievement.getExpectedScore(testSubjectLevel);

@@ -63,13 +63,13 @@ public class AchievementView extends ExpandableListView implements StoreContaine
         mCategoryImage = new ArrayList<>();
         PracticalRiddleType lastVisibleType = Riddle.getLastVisibleRiddleType(getContext());
 
+        TestSubjectAchievementHolder holder = TestSubject.getInstance().getAchievementHolder();
+
         // DAILY
-        addAchievementHolder(TestSubject.getInstance().getAchievementHolder()
-                .getDailyAchievementHolder(), context.getResources().getString(R.string
+        addAchievementHolder(holder.getDailyAchievementHolder(), context.getResources().getString(R.string
                 .achievement_daily_category_name), R.drawable.icon_daily);
 
         //TYPES
-        TestSubjectAchievementHolder holder = TestSubject.getInstance().getAchievementHolder();
         mVisibleCategoryIndex = -1;
         for (TestSubjectRiddleType type : TestSubject.getInstance().getAvailableTypes()) {
             TypeAchievementHolder typeHolder = holder.getTypeAchievementHolder(type.getType());
@@ -82,7 +82,7 @@ public class AchievementView extends ExpandableListView implements StoreContaine
         }
 
         //MISC
-        AchievementHolder misHolder = TestSubject.getInstance().getAchievementHolder().getMiscAchievementHolder();
+        AchievementHolder misHolder = holder.getMiscAchievementHolder();
         addAchievementHolder(misHolder, context.getResources().getString(R.string.achievement_misc_category_name), R.drawable.icon_general);
 
         // For claiming rewards
@@ -148,6 +148,9 @@ public class AchievementView extends ExpandableListView implements StoreContaine
                 expandGroup(mVisibleCategoryIndex);
             }
         } else {
+            // will not add daily achievements when previously non were available since the
+            // holder was not added as a category then, this happens when the app is shut completely
+            TestSubject.getInstance().getAchievementHolder().refresh();
             mAdapter.notifyDataSetChanged();
         }
     }

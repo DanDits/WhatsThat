@@ -18,6 +18,9 @@ package dan.dit.whatsthat.system;
 import android.app.Application;
 import android.content.Intent;
 
+import java.io.PrintWriter;
+import java.io.StringWriter;
+
 import dan.dit.whatsthat.preferences.User;
 
 public class MyApplication extends Application {
@@ -49,10 +52,18 @@ public class MyApplication extends Application {
             e.printStackTrace(); // not all Android versions will print the stack trace automatically
 
             Intent intent = new Intent();
+            intent.putExtra(SendLog.KEY_CAUSE, convertStacktraceToString(e));
             intent.setAction("dan.dit.whatsthat.SEND_LOG"); // see step 5.
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK); // required when starting from Application
             startActivity(intent);
         }
         System.exit(1); // kill off the crashed app
+    }
+
+    private String convertStacktraceToString(Throwable e) {
+        StringWriter sw = new StringWriter();
+        PrintWriter pw = new PrintWriter(sw);
+        e.printStackTrace(pw);
+        return sw.toString();
     }
 }

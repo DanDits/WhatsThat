@@ -25,6 +25,7 @@ import java.util.Map;
 import dan.dit.whatsthat.achievement.Achievement;
 import dan.dit.whatsthat.riddle.achievement.GameAchievement;
 import dan.dit.whatsthat.riddle.types.PracticalRiddleType;
+import dan.dit.whatsthat.testsubject.TestSubject;
 
 
 /**
@@ -68,7 +69,10 @@ public abstract class TypeAchievementHolder implements AchievementHolder {
     }
 
     @Override
-    public int getExpectedTestSubjectScore(int testSubjectLevel) {
+    public int getExpectableTestSubjectScore(int testSubjectLevel) {
+        if (!TestSubject.getInstance().getTypesController().isTypeAvailable(mType)) {
+            return 0; // doesn't own that type, can't expect any score
+        }
         int expected = 0;
         for (Achievement achievement : mAchievements.values()) {
             expected += achievement.getExpectedScore(testSubjectLevel);

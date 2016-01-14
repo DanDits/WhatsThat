@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<translate xmlns:android="http://schemas.android.com/apk/res/android"
+    android:duration="400"
+        android:fromXDelta="0%"
+        android:toXDelta="-200%"
+        android:fromYDelta="0%"
+        android:toYDelta="0%"
+           android:interpolator="@android:interpolator/accelerate_quad"
+           android:repeatMode="restart"
+           android:repeatCount="infinite">
+</translate>

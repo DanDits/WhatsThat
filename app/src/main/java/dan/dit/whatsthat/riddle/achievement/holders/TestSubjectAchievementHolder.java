@@ -38,6 +38,10 @@ public class TestSubjectAchievementHolder implements AchievementHolder {
     private ObserverController<UnclaimedAchievementsCountListener, Void>
             mUnclaimedObserverController = new ObserverController<>();
 
+    public boolean refresh() {
+        return mDailyHolder.refresh();
+    }
+
     /**
      * The interface for listening to the amount of unclaimed achievements. The event parameter
      * passed is null.
@@ -127,10 +131,10 @@ public class TestSubjectAchievementHolder implements AchievementHolder {
     }
 
     @Override
-    public int getExpectedTestSubjectScore(int testSubjectLevel) {
+    public int getExpectableTestSubjectScore(int testSubjectLevel) {
         int expectedResult = 0;
         for (AchievementHolder holder : mAllHolders) {
-            expectedResult += holder.getExpectedTestSubjectScore(testSubjectLevel);
+            expectedResult += holder.getExpectableTestSubjectScore(testSubjectLevel);
         }
         return expectedResult;
     }

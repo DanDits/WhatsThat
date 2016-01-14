@@ -113,7 +113,7 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
     private SolutionInputView mSolutionView;
     private PercentProgressListener mProgressBar;
     private ImageButton mBtnRiddles;
-    private ImageButtonWithNumber mOpenStore;
+    private ImageView mOpenStore;
     private Iterator<Long> mOpenUnsolvedRiddlesId;
     private RiddlePickerDialog mRiddlePickerDialog;
     private boolean mErrorHandlingAttempted;
@@ -124,6 +124,8 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
     private TestSubjectAchievementHolder.UnclaimedAchievementsCountListener mUnclaimedChangedListener;
     private Wallet.OnEntryChangedListener mScoreChangedListener;
     private Animation mBtnPanicPressedAnim;
+    private View mOpenStoreArrow;
+    private Animation mOpenStoreArrowAnim;
 
     public void onProgressUpdate(int progress) {
         mProgressBar.onProgressUpdate(progress);
@@ -175,7 +177,7 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
     private void updateScoreInfo(boolean animate) {
         if (mScoreInfo != null) {
             int currentScoreInfo = TestSubject.getInstance().getCurrentScore();
-            if (currentScoreInfo != mLastDisplayedScoreInfo || currentScoreInfo == 0) {
+            if (currentScoreInfo != mLastDisplayedScoreInfo && currentScoreInfo != 0) {
                 // only new info and not necessarily at start when there is no score
                 mScoreInfo.setText(String.valueOf(currentScoreInfo));
                 if (animate && !mNewScoreInfoAnimating
@@ -535,7 +537,38 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
 
         mProgressBar = (PercentProgressListener) getView().findViewById(R.id.progress_bar);
         mSolutionView = (SolutionInputView) getView().findViewById(R.id.solution_input_view);
-        mOpenStore = (ImageButtonWithNumber) getView().findViewById(R.id.open_store);
+        mOpenStoreArrow = getView().findViewById(R.id.open_store_arrow);
+        mOpenStoreArrow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onOpenStore();
+            }
+        });
+        mOpenStore = (ImageView) getView().findViewById(R.id.open_store);
+        mOpenStoreArrowAnim = AnimationUtils.loadAnimation(getActivity(), R.anim.open_store_arrow);
+        mOpenStore.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getActionMasked()) {
+                    case MotionEvent.ACTION_DOWN:
+                        mOpenStoreArrow.clearAnimation();
+                        mOpenStoreArrow.startAnimation(mOpenStoreArrowAnim);
+                        break;
+                    case MotionEvent.ACTION_UP:
+                        float checkX = event.getX() + v.getLeft();
+                        float checkY = event.getY() + v.getTop();
+                        if (checkX >= v.getLeft() && checkX <= v.getRight()
+                                && checkY >= v.getTop() && checkY <= v.getBottom()) {
+                            v.performClick();
+                        }
+                        // fall through!
+                    case MotionEvent.ACTION_CANCEL:
+                        mOpenStoreArrow.clearAnimation();
+                        break;
+                }
+                return true;
+            }
+        });
         mOpenStore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -597,7 +630,7 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
                         }
                         // fall through!
                     case MotionEvent.ACTION_CANCEL:
-                        v.clearAnimation();
+                        mBtnPanic.clearAnimation();
                         break;
                 }
                 return true;
@@ -1102,7 +1135,7 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
             @Override
             public void run() {
                 if (unclaimed == 0) {
-                    mOpenStore.setImageResource(R.drawable.alien_menu_enter_notreasure);
+                    mOpenStore.setImageResource(R.drawable.alien_menu_enter_no_treasure);
                 } else {
                     mOpenStore.setImageResource(R.drawable.alien_menu_enter);
                 }

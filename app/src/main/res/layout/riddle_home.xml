@@ -21,16 +21,21 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="top">
 
-                <view
-                    class="dan.dit.whatsthat.util.ui.ImageButtonWithNumber"
-                    custom:numberColor="@color/black"
-                    custom:numberSize="25dp"
-                    custom:numberBold="true"
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentTop="true"
+                    android:id="@+id/open_store_arrow"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/menu_enter_arrow"
+                    android:layout_alignBottom="@+id/riddle_make_next"/>
+                <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/open_store"
+                    android:layout_toRightOf="@+id/open_store_arrow"
                     android:src="@drawable/alien_menu_enter"
-                    android:layout_alignParentLeft="true"
                     android:layout_alignParentTop="true"
                     android:adjustViewBounds="false"
                     android:layout_gravity="left"

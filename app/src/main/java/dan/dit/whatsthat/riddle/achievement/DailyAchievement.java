@@ -106,10 +106,21 @@ public abstract class DailyAchievement extends Achievement {
             Log.d("Achievement", "Initializing " + mId);
             mInitialized = true;
             onInit();
-            if (!gotResetToday(initTime)) {
+            checkedReset(initTime);
+        }
+    }
+
+    public boolean checkedReset(@NonNull Calendar initTime) {
+        if (isNotAchievedToday(initTime) && !gotResetToday(initTime)) {
+            // ensure initialized
+            if (!mInitialized) {
+                init(initTime); // will also invoke reset by invoking checkedReset again
+            } else {
                 reset(initTime);
             }
+            return true;
         }
+        return false;
     }
 
     private void reset(Calendar initTime) {

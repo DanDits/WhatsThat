@@ -1,12 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="dan.dit.whatsthat" >/>
+          xmlns:tools="http://schemas.android.com/tools"
+          package="dan.dit.whatsthat">/>
 
-    <!-- Required for donations by Flattr.com and downloads of image bundles-->
+    <!-- Some included package that doesn't probably set target version makes gradle bug and import
+     this permission for compatibility reasons but we do not need it!-->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"
+                     tools:node="remove" />
+
+    <!-- Required for donations by Flattr.com and downloads of image bundles and uploads to share experiments-->
+    <uses-feature android:name="android.permission.INTERNET" android:required="false" />
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
-    <!-- Required for donations (and in app purchases) over the PlayStore -->
+    <!-- Required for donations and in app purchases over the PlayStore -->
+    <uses-feature android:name="com.android.vending.BILLING" android:required="false" />
     <uses-permission android:name="com.android.vending.BILLING" />
 
     <!-- Required by the uncaught exception handler -->
@@ -33,6 +40,7 @@
 
         <activity
             android:name=".system.SendLog"
+            android:excludeFromRecents="true"
             android:theme="@android:style/Theme.Dialog"
             android:textAppearance="@android:style/TextAppearance.Large"
             android:windowSoftInputMode="stateHidden">

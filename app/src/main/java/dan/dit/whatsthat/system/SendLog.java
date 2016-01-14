@@ -31,6 +31,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+import dan.dit.whatsthat.BuildConfig;
 import dan.dit.whatsthat.R;
 import dan.dit.whatsthat.testsubject.TestSubject;
 import dan.dit.whatsthat.util.image.ExternalStorage;
@@ -44,6 +45,8 @@ import dan.dit.whatsthat.util.image.ExternalStorage;
 public class SendLog extends Activity implements View.OnClickListener {
 
     private static final String LOGS_DIRECTORY_NAME = "logs";
+    public static final String KEY_CAUSE = "dan.dit.whatsthat.CRASH_CAUSE";
+    private String mCause;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -53,6 +56,14 @@ public class SendLog extends Activity implements View.OnClickListener {
         setContentView (R.layout.send_log);
         findViewById(R.id.send).setOnClickListener(this);
         findViewById(R.id.cancel).setOnClickListener(this);
+
+        Intent intent = getIntent();
+        if (intent != null) {
+            Bundle data = intent.getExtras();
+            if (data != null) {
+                mCause = data.getString(KEY_CAUSE, "");
+            }
+        }
     }
 
     @Override
@@ -118,30 +129,40 @@ public class SendLog extends Activity implements View.OnClickListener {
         {
             // For Android 4.0 and earlier, you will get all app's log output, so filter it to
             // mostly limit it to your app's output.  In later versions, the filtering isn't needed.
-            String cmd = (Build.VERSION.SDK_INT <= Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1) ?
+            final String cmd = (Build.VERSION.SDK_INT <= Build.VERSION_CODES
+                    .ICE_CREAM_SANDWICH_MR1) ?
                     "logcat -d -v time WhatsThat:v dalvikvm:v System.err:v *:s" :
                     "logcat -d -v time";
-
-            // get input stream
-            Process process = Runtime.getRuntime().exec(cmd);
-            reader = new InputStreamReader (process.getInputStream());
 
             // write output stream
             writer = new FileWriter (file);
             writer.write ("Android version: " +  Build.VERSION.SDK_INT + "\n");
             writer.write ("Device: " + model + "\n");
             writer.write ("App version: " + (info == null ? "(null)" : info.versionCode) + "\n");
+            writer.write("Cause: " + (mCause == null ? "(null)" : mCause));
 
-            char[] buffer = new char[10000];
-            do
-            {
-                int n = reader.read (buffer, 0, buffer.length);
-                if (n == -1)
-                    break;
-                writer.write (buffer, 0, n);
-            } while (true);
+            if (BuildConfig.DEBUG) {
+                // get input stream
+                try {
+                    Process process = Runtime.getRuntime().exec(cmd);
+                    reader = new InputStreamReader(process.getInputStream());
 
-            reader.close();
+
+                    char[] buffer = new char[10000];
+                    do {
+                        int n = reader.read(buffer, 0, buffer.length);
+                        if (n == -1)
+                            break;
+                        writer.write(buffer, 0, n);
+                    } while (true);
+
+                    reader.close();
+                } catch (Exception e) {
+                    Log.e("HomeStuff", "Critical, exception during getting error log in debug " +
+                            "config: " + e);
+                }
+            }
+
             writer.close();
         }
         catch (IOException e)

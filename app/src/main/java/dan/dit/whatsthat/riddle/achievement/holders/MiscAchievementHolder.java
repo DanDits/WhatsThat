@@ -441,7 +441,7 @@ public class MiscAchievementHolder implements AchievementHolder {
     }
 
     @Override
-    public int getExpectedTestSubjectScore(int testSubjectLevel) {
+    public int getExpectableTestSubjectScore(int testSubjectLevel) {
         int expected = 0;
         for (Achievement achievement : mAchievements.values()) {
             expected += achievement.getExpectedScore(testSubjectLevel);

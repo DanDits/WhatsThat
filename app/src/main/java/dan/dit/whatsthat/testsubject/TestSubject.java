@@ -38,7 +38,6 @@ import dan.dit.whatsthat.achievement.Achievement;
 import dan.dit.whatsthat.achievement.AchievementManager;
 import dan.dit.whatsthat.achievement.AchievementProperties;
 import dan.dit.whatsthat.riddle.RiddleInitializer;
-import dan.dit.whatsthat.riddle.achievement.holders.AchievementHolder;
 import dan.dit.whatsthat.riddle.achievement.holders.MiscAchievementHolder;
 import dan.dit.whatsthat.riddle.achievement.holders.TestSubjectAchievementHolder;
 import dan.dit.whatsthat.riddle.achievement.holders.TypeAchievementHolder;
@@ -208,12 +207,10 @@ public class TestSubject {
         }
         double fraction = mLevels[mCurrLevel + 1].getLevelUpAchievementScoreFraction();
 
-        int maxAchievementScore = 0;
-        for (AchievementHolder holder : mAchievementHolder.getHolders()) {
-            maxAchievementScore += holder.getExpectedTestSubjectScore(mCurrLevel);
-        }
-        int cost =  (int) (maxAchievementScore * fraction) - mPurse.mShopWallet.getEntryValue
-                (Purse.SHW_KEY_SPENT_SCORE_ON_LEVEL_UP);
+        int maxAchievementScore = mAchievementHolder.getExpectableTestSubjectScore(mCurrLevel);
+        int alreadySpent = mPurse.mShopWallet.getEntryValue(Purse.SHW_KEY_SPENT_SCORE_ON_LEVEL_UP);
+        int cost =  (int) (maxAchievementScore * fraction) - alreadySpent;
+
         // now round to some decent value
         final int roundingPrecision = 5;
         return cost + roundingPrecision - (cost % roundingPrecision);
