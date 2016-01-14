@@ -197,7 +197,7 @@ public class AchievementFlow extends  TypeAchievementHolder {
     private static class Achievement5 extends GameAchievement {
         public static final int NUMBER = 5;
         public static final int LEVEL = 0;
-        public static final int REWARD = 200;
+        public static final int REWARD = 100;
         public static final boolean DISCOVERED = false;
         private static final int REQUIRED_CELLIS = 500;
         private static final int MAX_TIME_OUTS = 3;
@@ -225,7 +225,7 @@ public class AchievementFlow extends  TypeAchievementHolder {
     private static class Achievement6 extends GameAchievement {
         public static final int NUMBER = 6;
         public static final int LEVEL = 0;
-        public static final int REWARD = 150;
+        public static final int REWARD = 100;
         public static final boolean DISCOVERED = true;
         private static final int REQUIRED_CELLIS_AFTER_REOPENING = 200;
 
@@ -247,7 +247,7 @@ public class AchievementFlow extends  TypeAchievementHolder {
     private static class Achievement7 extends GameAchievement {
         public static final int NUMBER = 7;
         public static final int LEVEL = 0;
-        public static final int REWARD = 300;
+        public static final int REWARD = 200;
         public static final boolean DISCOVERED = true;
         private static final int TOTAL_TIMED_OUT_CELLIS = 400;
 

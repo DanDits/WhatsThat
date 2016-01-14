@@ -46,7 +46,7 @@ public class DonationsView extends FrameLayout implements StoreContainer {
      */
     private static final String FLATTR_PROJECT_URL = "https://github.com/DanDits/WhatsThat/";
     // FLATTR_URL without http:// !
-    private static final String FLATTR_URL = "flattr.com";//TODO add own as soon as thing created (after first flattr)
+    private static final String FLATTR_URL = "flattr.com/thing/7d8634e6e740e03bbea3e5f4b10bf2a0";
 
     /**
      * Bitcoin
