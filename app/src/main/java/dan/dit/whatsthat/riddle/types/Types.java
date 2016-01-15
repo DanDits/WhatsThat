@@ -218,7 +218,9 @@ public class Types {
             List<Integer> costs = new ArrayList<>(getTotalAvailableHintsCount());
             costs.add(0);
             costs.add(0);
-            costs.add(15);
+            costs.add(25);
+            costs.add(25);
+            costs.add(30);
             return costs;
         }
 
@@ -301,10 +303,10 @@ public class Types {
             List<Integer> costs = new ArrayList<>(getTotalAvailableHintsCount());
             costs.add(0);
             costs.add(0);
-            costs.add(15);
-            costs.add(15);
-            costs.add(15);
-            costs.add(25);
+            costs.add(30);
+            costs.add(35);
+            costs.add(35);
+            costs.add(30);
             return costs;
         }
 
@@ -381,9 +383,9 @@ public class Types {
         public List<Integer> getHintCosts() {
             List<Integer> costs = new ArrayList<>(getTotalAvailableHintsCount());
             costs.add(0);
-            costs.add(20);
-            costs.add(10);
-            costs.add(15);
+            costs.add(30);
+            costs.add(35);
+            costs.add(25);
             return costs;
         }
         @Override
@@ -460,14 +462,14 @@ public class Types {
             costs.add(0);
             costs.add(5);
             costs.add(10);
-            costs.add(15);
-            costs.add(15);
+            costs.add(10);
             costs.add(20);
-            costs.add(25);
-            costs.add(30);
+            costs.add(20);
+            costs.add(35);
             costs.add(40);
-            costs.add(45);
+            costs.add(40);
             costs.add(50);
+            costs.add(70);
             return costs;
         }
         @Override
@@ -539,10 +541,9 @@ public class Types {
         public List<Integer> getHintCosts() {
             List<Integer> costs = new ArrayList<>(getTotalAvailableHintsCount());
             costs.add(0);
-            costs.add(10);
-            costs.add(10);
+            costs.add(20);
             costs.add(30);
-            costs.add(30);
+            costs.add(40);
             return costs;
         }
 
@@ -702,8 +703,8 @@ public class Types {
         public List<Integer> getHintCosts() {
             List<Integer> costs = new ArrayList<>(getTotalAvailableHintsCount());
             costs.add(0);
-            costs.add(20);
-            costs.add(30);
+            costs.add(10);
+            costs.add(15);
             return costs;
         }
         @Override
@@ -779,7 +780,7 @@ public class Types {
             costs.add(15);
             costs.add(35);
             costs.add(20);
-            costs.add(25);
+            costs.add(30);
             return costs;
         }
 

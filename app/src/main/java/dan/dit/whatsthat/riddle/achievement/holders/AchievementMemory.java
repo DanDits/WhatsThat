@@ -91,7 +91,7 @@ public class AchievementMemory extends TypeAchievementHolder {
     private static class Achievement2 extends GameAchievement {
         public static final int NUMBER = 2;
         public static final int LEVEL = 0;
-        public static final int REWARD = 120;
+        public static final int REWARD = 150;
         public static final boolean DISCOVERED = true;
         private static final long REQUIRED_PATH_LENGTH = 11L;
 
@@ -230,7 +230,7 @@ public class AchievementMemory extends TypeAchievementHolder {
     private static class Achievement7 extends GameAchievement {
         public static final int NUMBER = 7;
         public static final int LEVEL = 1;
-        public static final int REWARD = 120;
+        public static final int REWARD = 100;
         public static final boolean DISCOVERED = false;
         public static final int REQUIRED_BLIND_FOUND_PAIRS = 3;
         public static final int REQUIRED_BLIND_GAMES = 5;

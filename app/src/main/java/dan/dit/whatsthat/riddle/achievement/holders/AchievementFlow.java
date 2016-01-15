@@ -64,7 +64,7 @@ public class AchievementFlow extends  TypeAchievementHolder {
         public static final int LEVEL = 0;
         public static final int REWARD = 90;
         public static final boolean DISCOVERED = true;
-        public static final int REQUIRED_CELLIS = 15;
+        public static final int REQUIRED_CELLIS = 20;
         public static final String KEY_GAME_SINGLE_CELLIS_SET = NUMBER + "single_cellis_set";
         public Achievement1(AchievementManager manager, PracticalRiddleType type) {
             super(type, R.string.achievement_flow_1_name, R.string.achievement_flow_1_descr, 0, NUMBER, manager, LEVEL, REWARD, 1, DISCOVERED);
@@ -102,7 +102,7 @@ public class AchievementFlow extends  TypeAchievementHolder {
         public static final int LEVEL = 0;
         public static final int REWARD = 125;
         public static final boolean DISCOVERED = true;
-        private static final int REQUIRED_CELLIS = 11;
+        private static final int REQUIRED_CELLIS = 17;
 
         public Achievement2(AchievementManager manager, PracticalRiddleType type) {
             super(type, R.string.achievement_flow_2_name, R.string.achievement_flow_2_descr, 0, NUMBER, manager, LEVEL, REWARD, 1, DISCOVERED);
@@ -129,7 +129,7 @@ public class AchievementFlow extends  TypeAchievementHolder {
         public static final int LEVEL = 0;
         public static final int REWARD = 150;
         public static final boolean DISCOVERED = true;
-        private static final int REQUIRED_VISIBLE_PERCENT = 50;
+        private static final int REQUIRED_VISIBLE_PERCENT = 40;
 
         public Achievement3(AchievementManager manager, PracticalRiddleType type) {
             super(type, R.string.achievement_flow_3_name, R.string.achievement_flow_3_descr, 0, NUMBER, manager, LEVEL, REWARD, 1, DISCOVERED);
@@ -225,7 +225,7 @@ public class AchievementFlow extends  TypeAchievementHolder {
     private static class Achievement6 extends GameAchievement {
         public static final int NUMBER = 6;
         public static final int LEVEL = 0;
-        public static final int REWARD = 100;
+        public static final int REWARD = 125;
         public static final boolean DISCOVERED = true;
         private static final int REQUIRED_CELLIS_AFTER_REOPENING = 200;
 
@@ -249,7 +249,7 @@ public class AchievementFlow extends  TypeAchievementHolder {
         public static final int LEVEL = 0;
         public static final int REWARD = 200;
         public static final boolean DISCOVERED = true;
-        private static final int TOTAL_TIMED_OUT_CELLIS = 400;
+        private static final int TOTAL_TIMED_OUT_CELLIS = 500;
 
         public Achievement7(AchievementManager manager, PracticalRiddleType type) {
             super(type, R.string.achievement_flow_7_name, R.string.achievement_flow_7_descr, 0, NUMBER, manager, LEVEL, REWARD, TOTAL_TIMED_OUT_CELLIS, DISCOVERED);
@@ -281,7 +281,7 @@ public class AchievementFlow extends  TypeAchievementHolder {
     private static class Achievement8 extends GameAchievement {
         public static final int NUMBER = 8;
         public static final int LEVEL = 0;
-        public static final int REWARD = 75;
+        public static final int REWARD = 80;
         public static final boolean DISCOVERED = true;
         public static final int MAX_CELLIS_FOR_SOLVING = 10;
 

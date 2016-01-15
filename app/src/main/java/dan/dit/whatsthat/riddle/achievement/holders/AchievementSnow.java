@@ -209,7 +209,7 @@ public class AchievementSnow extends TypeAchievementHolder {
         public static final int REWARD = 200;
         public static final boolean DISCOVERED = true;
         private static final String KEY_TIMER_COLLECT_IDEA = Types.Snow.NAME + NUMBER + "_collectidea"; // timed data key
-        private static final int COLLECT_COUNT = 18;
+        private static final int COLLECT_COUNT = 20;
         private static final long COLLECT_MAX_TIME = 20000; //ms
 
         public Achievement4(AchievementManager manager, PracticalRiddleType type) {
@@ -262,7 +262,7 @@ public class AchievementSnow extends TypeAchievementHolder {
     public static class Achievement5 extends GameAchievement {
         public static final int NUMBER = 5;
         public static final int LEVEL = 0;
-        public static final int REWARD = 150;
+        public static final int REWARD = 175;
         public static final boolean DISCOVERED = true;
         private static final int EXPLOSION_COUNT = 3;
 
@@ -570,7 +570,7 @@ public class AchievementSnow extends TypeAchievementHolder {
         public static final int REWARD = 80;
         public static final boolean DISCOVERED = true;
 
-        public static final int OVERKILL_COUNT = 2;
+        public static final int OVERKILL_COUNT = 4;
         private boolean mStateOverkill;
         private int mOverkillCount;
 
@@ -614,7 +614,7 @@ public class AchievementSnow extends TypeAchievementHolder {
         public static final int LEVEL = 0;
         public static final int REWARD = 90;
         public static final boolean DISCOVERED = true;
-        public static final int MAX_SPORES = 10;
+        public static final int MAX_SPORES = 8;
 
         public Achievement14(AchievementManager manager, PracticalRiddleType type) {
             super(type, R.string.achievement_snow_14_name, R.string.achievement_snow_14_descr, 0, NUMBER, manager, LEVEL, REWARD, 1, DISCOVERED);
@@ -759,7 +759,7 @@ public class AchievementSnow extends TypeAchievementHolder {
     public static class Achievement18 extends GameAchievement {
         public static final int NUMBER = 18;
         public static final int LEVEL = 0;
-        public static final int REWARD = 50;
+        public static final int REWARD = 70;
         public static final boolean DISCOVERED = true;
 
         public Achievement18(AchievementManager manager, PracticalRiddleType type) {

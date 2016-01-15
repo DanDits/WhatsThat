@@ -483,17 +483,16 @@
         <item>WiseMind hat mir für diese Atmosphäre eine Spezialcreme hergestellt!</item>
         <item>Jetzt geht es mir wesentlich besser!</item>
         <item>Voller Tatendrang haben wir deine Farbwahrnehmung nochmals genauer untersucht.</item>
-        <item>Weil die neuen Erkenntnisse aber ziemlich bescheiden ausgefallen sind,..</item>
+        <item>Weil die neuen Erkenntnisse aber ziemlich bescheiden ausgefallen sind..</item>
         <item>..wollen wir unsere Untersuchungen nochmals in den letzten Winkeln in den Untiefen deines Geistes ausweiten.</item>
         <item>Ich hoffe wir finden etwas wirklich nützliches.</item>
-        <item>Weil um ehrlich zu sein:</item>
         <item>Die Konvergenz unserer bisherigen Untersuchungen…</item>
-        <item>..stimmt.. nicht einmal annhärend mit eurem Wissen überein.</item>
+        <item>..stimmen.. nicht einmal annhärend mit eurem Wissen überein.</item>
         <item>Ihr wisst also nichts.</item>
-        <item>Na schön. Mit so offensichtlichen Dingen hätte ich mir nicht einmal einen Keks verdient..</item>
+        <item>Na schön. Mit so offensichtlichen Dingen verdiene ich mir bei uns keine Auszeichnungen.</item>
     </string-array>
     <string-array name="test_subject_6_1_intro_main">
-        <item>Ich will damit folgendes sagen:</item>
+        <item>Aber was ich damit sagen wollte:</item>
         <item>Wir wissen, dass wir etwas wissen, weil wir weise sind.</item>
         <item>Manche Lebensformen wissen etwas, aber wissen nicht, dass sie es wissen.</item>
         <item>Träumer können wir aber mit dem richtigen Kniff aufwecken.</item>
@@ -582,7 +581,7 @@
         <item>Absolut nichts.</item>
         <item>Nur Leere. Ein Vakuum.</item>
         <item>Wie konnte es so lange überleben?</item>
-        <item>Über diese Erkenntnis war ich so schockiert, dass ich einen Moment mein Tarnliquida fallen gelassen hab.</item>
+        <item>Über diese Erkenntnis war ich so schockiert, dass ich einen Moment mein Tarnlipida fallen gelassen hab.</item>
         <item>Es hat mich glücklicherweise keiner gesehen.</item>
         <item>Bei den Menschengruppen handelt es sich um animalisch getrieben und rückständige…</item>
         <item>..war das eben wieder ein Zucken..? Egal…</item>
@@ -590,11 +589,11 @@
         <item>Obwohl animalisch eine Beleidigung für jedes intelligentere Lebewesen auf diesem Planeten ist.</item>
         <item>Sogar ein Stein hat mehr Intelligenz.</item>
         <item>Die liegen wenigstens nur rum und stören niemand.</item>
-        <item>Ihr Menschen kennzeichnet diese fanatischen Gruppen mit Richtungen.. Moment..</item>
-        <item>..Oben-, Unten.. nee.. West..-Ost.. auch nicht.</item>
+        <item>Die Menschen kennzeichnen diese fanatischen Gruppen mit Richtungen.. Moment..</item>
+        <item>..Oben.. Unten.. nee.. West..Ost.. auch nicht.</item>
         <item>Wie hießen die denn nochmal…</item>
         <item>Naja egal.</item>
-        <item>Ich habe zur Entstehung der genannten Gruppen schon drei verschiedene Thesen.</item>
+        <item>Ich habe zur Entstehung der genannten Gruppen schon 3 verschiedene Thesen.</item>
         <item>Es ergeben sich nur keine eindeutigen Antworten.</item>
         <item>Auf jede These gibt es 279 mögliche Theorien.</item>
         <item>Auf jede Theorie 13 mögliche Lösungen.</item>
@@ -614,7 +613,7 @@
     </string-array>
     <string-array name="test_subject_7_riddle_solved_candy">
         <item>Fantastisch</item>
-        <item>WiseMind sagt: nicht schlecht</item>
+        <item>WiseMind sagt: Nicht schlecht</item>
         <item>Gigantisch</item>
         <item>Kluger Zug, Erdling</item>
         <item>Atemberaubend</item>
@@ -624,10 +623,10 @@
     <string name="test_subject_8_name">Kleinstein</string>
     <string name="test_subject_8_int">Hoffnungsvoll</string>
     <string-array name="test_subject_8_intro_main">
-        <item>dummy</item>
+        <item>Weiter gehts noch nicht. Du musst dich noch etwas gedulden!</item>
     </string-array>
     <string-array name="test_subject_8_intro_nuts">
-        <item>Dummy</item>
+        <item>Weiter gehts noch nicht! Du musst dich noch etwas gedulden!</item>
     </string-array>
     <string-array name="test_subject_8_riddle_solved_candy">
         <item>Absolut brillant</item>

@@ -97,9 +97,9 @@ public class SortimentHolder extends ShopArticleHolder {
         ));
 
         addArticle(new ShopArticleSimple(ARTICLE_KEY_CIRCLE_DIVIDE_BY_MOVE_FEATURE, mPurse, R.string.article_circle_divide_by_move_feature_name, R.string.article_circle_divide_by_move_feature_descr, R.drawable.icon_circle, 100));
-        addArticle(new ShopArticleSimple(ARTICLE_KEY_TRIANGLE_DIVIDE_BY_MOVE_FEATURE, mPurse, R.string.article_triangle_divide_by_move_feature_name, R.string.article_triangle_divide_by_move_feature_descr, R.drawable.icon_triangle, 200));
+        addArticle(new ShopArticleSimple(ARTICLE_KEY_TRIANGLE_DIVIDE_BY_MOVE_FEATURE, mPurse, R.string.article_triangle_divide_by_move_feature_name, R.string.article_triangle_divide_by_move_feature_descr, R.drawable.icon_triangle, 300));
         addArticle(new ShopArticleToggleable(ARTICLE_KEY_SNOW_FEATURE_ORIENTATION_SENSOR, mPurse, R.string.article_snow_feature_orientation_sensor_name, R.string.article_snow_feature_orientation_sensor_descr, R.drawable.icon_snow,
-                R.string.article_snow_feature_orientation_sensor_on, R.string.article_snow_feature_orientation_sensor_off, 300));
+                R.string.article_snow_feature_orientation_sensor_on, R.string.article_snow_feature_orientation_sensor_off, 400));
 
         addHintArticles();
 
@@ -128,25 +128,25 @@ public class SortimentHolder extends ShopArticleHolder {
                 R.string.article_jumper_start_further_name,
                 R.string.article_jumper_start_further_descr,
                 R.drawable.icon_jumprun,
-                150));
+                800));
         addArticle(new ShopArticleMulti(ARTICLE_KEY_LAZOR_PROTECTION_AT_DIFFICULTY, mPurse,
                 R.string.riddle_type_lazor_article_protection_at_name,
                 R.string.riddle_type_lazor_article_protection_at_descr,
                 R.drawable.icon_lazor,
                 R.array.riddle_type_lazor_article_protection_at_products,
-                new int[] {25, 50, 100, 300}));
+                new int[] {50, 150, 200, 500}));
         addArticle(new ShopArticleSimple(ARTICLE_KEY_JUMPER_BETTERS_IDEAS, mPurse,
                 R.string.article_jumper_better_ideas_name,
                 R.string.article_jumper_better_ideas_descr,
                 R.drawable.icon_jumprun,
-                200));
+                700));
 
         addArticle(new ShopArticleMulti(ARTICLE_KEY_DICE_IMPROVED_START, mPurse,
                 R.string.article_dice_improved_start_name,
                 R.string.article_dice_improved_start_descr,
                 R.drawable.icon_dice,
                 R.array.riddle_type_dice_article_improved_start_products,
-                new int[] {50, 150, 250}));
+                new int[] {300, 500, 1000}));
 
         sortArticles();
     }

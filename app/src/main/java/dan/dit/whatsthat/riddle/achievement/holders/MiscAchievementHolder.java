@@ -135,7 +135,7 @@ public class MiscAchievementHolder implements AchievementHolder {
         public static final int REWARD = 75;
         public static final boolean DISCOVERED = false;
         private static final long MS_TO_DAYS = 1000 * 60 * 60 * 24;
-        private static final long MIN_TOTAL_TIME = MS_TO_DAYS * 2; // ms
+        private static final long MIN_TOTAL_TIME = MS_TO_DAYS * 3; // ms
 
         public Achievement2(AchievementManager manager, AchievementPropertiesMapped<String> miscData) {
             super(miscData, R.string.achievement_misc_2_name, R.string.achievement_misc_2_descr, 0, NUMBER, manager, LEVEL, REWARD, 1, DISCOVERED);
@@ -186,7 +186,7 @@ public class MiscAchievementHolder implements AchievementHolder {
         public static final int LEVEL = 2;
         public static final int REWARD = 300;
         public static final boolean DISCOVERED = true;
-        public static final int ACHIEVEMENTS_REQUIRED = 50;
+        public static final int ACHIEVEMENTS_REQUIRED = 60; //Daily achievements count in, too
 
         public Achievement4(AchievementManager manager, AchievementPropertiesMapped<String> miscData) {
             super(miscData, R.string.achievement_misc_4_name, R.string.achievement_misc_4_descr, 0, NUMBER, manager, LEVEL, REWARD, ACHIEVEMENTS_REQUIRED, DISCOVERED);
@@ -209,7 +209,7 @@ public class MiscAchievementHolder implements AchievementHolder {
     private static class Achievement5 extends MiscAchievement {
         public static final int NUMBER = 5;
         public static final int LEVEL = 0;
-        public static final int REWARD = 50;
+        public static final int REWARD = 60;
         public static final boolean DISCOVERED = true;
         public static final int REQUIRED_TIME_ON_DONATION_SITE = 60000;//ms
 

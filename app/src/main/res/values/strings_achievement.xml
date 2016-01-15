@@ -176,7 +176,7 @@
 
     <!-- Misc achievements -->
     <string name="achievement_misc_1_name">Creators\' names</string>
-    <string name="achievement_misc_1_descr">Did you see the menu \"About and Contact\" yet? There you can find my creators\' names!</string>
+    <string name="achievement_misc_1_descr">Keep your eyes open for the right moment to enter my creators\' names!</string>
     <string name="achievement_misc_2_name">Need my friends</string>
     <string name="achievement_misc_2_descr">You skipped an experiment for more than %1$d days.</string>
     <string name="achievement_misc_3_name">Stockholm syndrome</string>
@@ -207,7 +207,7 @@
     <string name="achievement_daily_1_name">Brain jogging</string>
     <string name="achievement_daily_1_descr">Solve %1$d experiments of any kind.</string>
     <string name="achievement_daily_2_name">Variety</string>
-    <string name="achievement_daily_2_descr">Solve %1$d experiment for %2$d different kinds of
+    <string name="achievement_daily_2_descr">Solve %1$d experiment. Do this for %2$d different kinds of
         experiments.</string>
     <string name="achievement_daily_single_type_default_name">Only one kind</string>
     <string name="achievement_daily_single_type_descr">Solve %1$d %2$s experiments.</string>

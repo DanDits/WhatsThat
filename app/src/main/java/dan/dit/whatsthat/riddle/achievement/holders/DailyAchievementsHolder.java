@@ -61,13 +61,13 @@ public class DailyAchievementsHolder implements AchievementHolder {
     }
 
     private static class Achievement1 extends DailyAchievement {
+        private static final int REQUIRED_RIDDLES_TO_SOLVE = 5;//>1 for plural reasons
         public static final int NUMBER = 1;
         public static final int LEVEL = 0;
-        public static final int REWARD = 30;
+        public static final int REWARD = REQUIRED_RIDDLES_TO_SOLVE*3;
         public static final boolean DISCOVERED = true;
         public static final String KEY_GAMES_SOLVED_COUNT = NUMBER +
                 "games_solved_today_count";
-        private static final int REQUIRED_RIDDLES_TO_SOLVE = 5;//>1 for plural reasons
         private AchievementPropertiesMapped<String> mMiscData;
 
         public Achievement1(AchievementManager manager) {
@@ -123,12 +123,12 @@ public class DailyAchievementsHolder implements AchievementHolder {
     private static class Achievement2 extends DailyAchievement {
         public static final int NUMBER = 2;
         public static final int LEVEL = 1;
-        public static final int REWARD = 35;
+        public static final int REWARD = 30;
         public static final boolean DISCOVERED = true;
         public static final String KEY_GAMES_SOLVED_FOR_TYPE_COUNT = NUMBER +
                 "games_solved_today_for_type_count";
         private static final int REQUIRED_RIDDLES_TO_SOLVE_PER_TYPE = 1;
-        private static final int REQUIRED_DIFFERENT_TYPES = 3;
+        private static final int REQUIRED_DIFFERENT_TYPES = 4;
 
         public Achievement2(AchievementManager manager) {
             super(R.string.achievement_daily_2_name, R.string.achievement_daily_2_descr, 0, manager,

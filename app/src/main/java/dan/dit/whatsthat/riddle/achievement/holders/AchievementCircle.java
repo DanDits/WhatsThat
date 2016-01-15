@@ -229,7 +229,7 @@ public class AchievementCircle extends TypeAchievementHolder {
         public static final int LEVEL = 0;
         public static final int REWARD = 60;
         public static final boolean DISCOVERED = true;
-        public static final int FINISH_WITHIN_DURATION = 20000; //ms
+        public static final int FINISH_WITHIN_DURATION = 18000; //ms
 
         public Achievement5(AchievementManager manager, PracticalRiddleType type) {
             super(type, R.string.achievement_circle_5_name, R.string.achievement_circle_5_descr, 0, NUMBER, manager, LEVEL, REWARD, 1, DISCOVERED);
@@ -270,7 +270,7 @@ public class AchievementCircle extends TypeAchievementHolder {
         public static final int NUMBER = 6;
         public static final int LEVEL = 0;
         public static final int CLICKS_OVER_SWIPES_COUNT = 5;
-        public static final int REWARD = CLICKS_OVER_SWIPES_COUNT*10;
+        public static final int REWARD = CLICKS_OVER_SWIPES_COUNT*11;
         public static final boolean DISCOVERED = true;
 
 
@@ -313,7 +313,7 @@ public class AchievementCircle extends TypeAchievementHolder {
         public static final int LEVEL = 0;
         public static final int REWARD = 40;
         public static final boolean DISCOVERED = true;
-        public static final int FINISH_WITHIN_DURATION = 17000; //ms
+        public static final int FINISH_WITHIN_DURATION = 15000; //ms
 
         public Achievement7(AchievementManager manager, PracticalRiddleType type) {
             super(type, R.string.achievement_circle_7_name, R.string.achievement_circle_7_descr, 0, NUMBER, manager, LEVEL, REWARD, 1, DISCOVERED);
@@ -343,7 +343,7 @@ public class AchievementCircle extends TypeAchievementHolder {
         public static final int REWARD = 150;
         public static final boolean DISCOVERED = true;
         private static final String KEY_TIMER_SOLVED = Types.Circle.NAME + NUMBER + "_solved"; // timed data key
-        private static final int SOLVED_COUNT = 4;
+        private static final int SOLVED_COUNT = 5;
         private static final int SOLVED_MAX_TIME = 120000; //ms
 
         public Achievement8(AchievementManager manager, PracticalRiddleType type) {
@@ -549,11 +549,11 @@ public class AchievementCircle extends TypeAchievementHolder {
     public static class Achievement11 extends GameAchievement {
         public static final int NUMBER = 11;
         public static final int LEVEL = 0;
-        public static final int REWARD = 200;
+        public static final int REWARD = 250;
         public static final boolean DISCOVERED = true;
-        public static final int CIRCLE_TO_CREATE = 34746;
-        public static final int CIRCLE_NOT_TO_CREATE = 34745;
-        public static final int CIRCLE_NOT_TO_CREATE_TOO_MANY = 34747;
+        public static final int CIRCLE_TO_CREATE = 35746;
+        public static final int CIRCLE_NOT_TO_CREATE = 35745;
+        public static final int CIRCLE_NOT_TO_CREATE_TOO_MANY = 35747;
 
         public Achievement11(AchievementManager manager, PracticalRiddleType type) {
             super(type, R.string.achievement_circle_11_name, R.string.achievement_circle_11_descr, 0, NUMBER, manager, LEVEL, REWARD, CIRCLE_TO_CREATE, DISCOVERED);
@@ -600,11 +600,11 @@ public class AchievementCircle extends TypeAchievementHolder {
 
     public static class Achievement13 extends GameAchievement {
         public static final int NUMBER = 13;
-        public static final int LEVEL = 5;
+        public static final int LEVEL = 4;
         public static final int REWARD = 0;
         public static final boolean DISCOVERED = false;
         public static final int PERFECT_REWARD = 300;
-        public static final int MAX_REWARD = 250;
+        public static final int MAX_REWARD = 200;
         public static final int MIN_REWARD = 5;
         public static final long MAX_REWARD_TIME = 10L * 1000L;
         public static final long MIN_REWARD_TIME = 60L * 1000L;

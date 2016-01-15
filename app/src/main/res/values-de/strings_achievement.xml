@@ -130,8 +130,8 @@
 
     <!-- Jumper achievements -->
     <string name="achievement_jumper_1_name">Die Antwort auf das Leben…</string>
-    <string name="achievement_jumper_1_descr">… das Universum und den Rest. Plus die Anzahl an Hörnern eines Einhorns.</string>
-    <string name="achievement_jumper_1_descr_claimed">… das Universum und den Rest. Plus die Anzahl an Hörnern eines Einhorns. 43!</string>
+    <string name="achievement_jumper_1_descr">… das Universum und den Rest. Plus die Anzahl an Hörner eines Einhorns.</string>
+    <string name="achievement_jumper_1_descr_claimed">… das Universum und den Rest. Plus die Anzahl an Hörner eines Einhorns. 43!</string>
     <string name="achievement_jumper_2_name">Unterbegabung</string>
     <string name="achievement_jumper_2_descr">Sag mal, du hast nun %1$d mal im ersten Bereich versagt. Bist du sicher, dass du das hier weiter machen möchtest?</string>
     <string name="achievement_jumper_3_name">Super Mario</string>
@@ -177,7 +177,7 @@
 
     <!-- Misc achievements -->
     <string name="achievement_misc_1_name">Schöpfernamen</string>
-    <string name="achievement_misc_1_descr">Schonmal auf den Menüpunkt \"Info und Kontakt\" geklickt? Da stehen meine Schöpfernamen!</string>
+    <string name="achievement_misc_1_descr">Finde den richtigen Augenblick, um die beiden Schöpfernamen als Lösung einzugeben!</string>
     <string name="achievement_misc_2_name">Brauch meine Freunde</string>
     <string name="achievement_misc_2_descr">Du hast ein Experiment für mehr als %1$d Tage zurückgestellt.</string>
     <string name="achievement_misc_3_name">Stockholmsyndrom</string>
@@ -199,7 +199,7 @@
     <string name="achievement_misc_9_descr">Bekomme in %1$d verschiedenen Experimentarten
         einen Bonus.</string>
     <string name="achievement_misc_10_name">Nur in Panik auffindbar</string>
-    <string name="achievement_misc_10_descr">Du hast einen Keks gefunden, hast du mir
+    <string name="achievement_misc_10_descr">Du hast einen Keks gefunden. Hast du mir
         dafür geschrieben?</string>
 
     <!-- Daily achievements -->
@@ -208,7 +208,7 @@
     <string name="achievement_daily_1_name">Gehirnjogging</string>
     <string name="achievement_daily_1_descr">Löse %1$d beliebige Experimente.</string>
     <string name="achievement_daily_2_name">Abwechslung</string>
-    <string name="achievement_daily_2_descr">Löse %1$d Experiment jeweils für %2$d verschiedene
+    <string name="achievement_daily_2_descr">Löse jeweils %1$d Experiment. Das ganze jeweils in %2$d verschiedenen
         Experimentarten.</string>
     <string name="achievement_daily_single_type_default_name">Nur eine Art</string>
     <string name="achievement_daily_single_type_descr">Löse %1$d %2$s Experimente.</string>
@@ -255,8 +255,8 @@
 
     <!-- Lazor achievements -->
     <string name="achievement_lazor_1_name">Drei mit einem Streich</string>
-    <string name="achievement_lazor_1_descr">Treffe drei Kometen mit einem Schuss mit Generator
-        unter %1$d%%.</string>
+    <string name="achievement_lazor_1_descr">Treffe drei Kometen mit einem Schuss solange der Generator
+        unter %1$d%% ist.</string>
     <string name="achievement_lazor_2_name">Stadt Beschützer</string>
     <string name="achievement_lazor_2_descr">Fange alle Kometen ab, bis das Schild deine Stadt beschützt.</string>
     <string name="achievement_lazor_3_name">Resignation</string>
@@ -267,7 +267,7 @@
     <string name="achievement_lazor_5_descr">Schieße %1$d Kometen im oberen Drittel des Bildes ab.</string>
     <string name="achievement_lazor_6_name">Präzisionsschütze</string>
     <string name="achievement_lazor_6_descr">Treffe mit jedem Schuss einen Meteoriten ohne dass einer durchkommt. Wie viele? Nun, mehr als %1$d und weniger als %2$d.</string>
-    <string name="achievement_lazor_7_name">Armageddonz</string>
+    <string name="achievement_lazor_7_name">Armageddon</string>
     <string name="achievement_lazor_7_descr">Halte den Generator über %1$d%% solange bis %2$d Meteoriten erschienen sind.</string>
     <string name="achievement_lazor_8_name">Eingeholt</string>
     <string name="achievement_lazor_8_descr">Daneben schießen ist nicht unbedingt tragisch. Manchmal holt die Explosion den Kometen sogar noch ein.</string>
