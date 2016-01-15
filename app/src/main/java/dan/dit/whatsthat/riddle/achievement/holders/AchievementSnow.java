@@ -570,7 +570,7 @@ public class AchievementSnow extends TypeAchievementHolder {
         public static final int REWARD = 80;
         public static final boolean DISCOVERED = true;
 
-        public static final int OVERKILL_COUNT = 4;
+        public static final int OVERKILL_COUNT = 3;
         private boolean mStateOverkill;
         private int mOverkillCount;
 

@@ -159,8 +159,6 @@ public class WebPhotoStorage {
                 return ERROR_CODE_DOWNLOAD_RESPONSE_NOT_OK;
             }
 
-            int fileLength = connection.getContentLength();
-
             if (task != null && task.isCancelled()) {
                 return null;
             }

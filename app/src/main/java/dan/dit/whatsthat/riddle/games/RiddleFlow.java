@@ -212,7 +212,9 @@ public class RiddleFlow extends RiddleGame {
     @Override
     public void onPeriodicEvent(long updatePeriod) {
         executeFlow(updatePeriod);
-
+        // Periodic Event runs in maximum possible rate the system allows, we do not need this here
+        // as we do not really use the updatePeriod given to update the flow. So we sleep some
+        // more time and reduce CPU usage a bit.
         final long sleep = UPDATE_PERIOD - updatePeriod;
         if (sleep > 0) {
             try {

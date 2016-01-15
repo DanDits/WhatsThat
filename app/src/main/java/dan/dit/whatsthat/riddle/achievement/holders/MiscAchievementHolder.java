@@ -33,7 +33,6 @@ import dan.dit.whatsthat.riddle.achievement.AchievementDataRiddleType;
 import dan.dit.whatsthat.riddle.achievement.AchievementPropertiesMapped;
 import dan.dit.whatsthat.riddle.achievement.MiscAchievement;
 import dan.dit.whatsthat.riddle.types.PracticalRiddleType;
-import dan.dit.whatsthat.testsubject.TestSubject;
 import dan.dit.whatsthat.util.compaction.CompactedDataCorruptException;
 
 /**

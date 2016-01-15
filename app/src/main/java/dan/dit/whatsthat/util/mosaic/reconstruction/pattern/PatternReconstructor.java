@@ -1,7 +1,6 @@
 package dan.dit.whatsthat.util.mosaic.reconstruction.pattern;
 
 import android.graphics.Bitmap;
-import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;

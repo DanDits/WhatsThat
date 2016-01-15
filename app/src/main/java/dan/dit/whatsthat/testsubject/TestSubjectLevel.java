@@ -15,17 +15,13 @@
 
 package dan.dit.whatsthat.testsubject;
 
-import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Typeface;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.style.StyleSpan;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
-
-import java.util.List;
 
 import dan.dit.whatsthat.R;
 import dan.dit.whatsthat.preferences.User;

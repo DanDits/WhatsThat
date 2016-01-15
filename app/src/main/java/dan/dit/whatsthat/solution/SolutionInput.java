@@ -15,10 +15,7 @@
 
 package dan.dit.whatsthat.solution;
 
-import android.graphics.Canvas;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.util.DisplayMetrics;
 import android.view.MotionEvent;
 
 import dan.dit.whatsthat.util.compaction.Compactable;

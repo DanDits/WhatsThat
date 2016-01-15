@@ -16,7 +16,6 @@
 package dan.dit.whatsthat.testsubject.shopping.sortiment;
 
 import android.content.Context;
-import android.util.Log;
 
 import java.util.ArrayList;
 
@@ -207,6 +206,7 @@ public class SortimentHolder extends ShopArticleHolder {
         makeDownloadArticleLevelDependency(ShopArticleDownload.makeKey("fabian", "nature"), 5);
         makeDownloadArticleLevelDependency(ShopArticleDownload.makeKey("fabian", "superlative"), 4);
 
+        // OTHER ARTICLES
         getArticle(ARTICLE_KEY_CIRCLE_DIVIDE_BY_MOVE_FEATURE)
                 .addDependency(TestSubject.getInstance().getRiddleTypeDependency(PracticalRiddleType.CIRCLE_INSTANCE), ShopArticle.GENERAL_PRODUCT_INDEX);
         getArticle(ARTICLE_KEY_TRIANGLE_DIVIDE_BY_MOVE_FEATURE)
@@ -215,6 +215,11 @@ public class SortimentHolder extends ShopArticleHolder {
         getArticle(ARTICLE_KEY_SNOW_FEATURE_ORIENTATION_SENSOR)
                 .addDependency(TestSubject.getInstance().getRiddleTypeDependency(PracticalRiddleType.SNOW_INSTANCE), ShopArticle.GENERAL_PRODUCT_INDEX);
         getArticle(ShopArticleRiddleHints.makeKey(PracticalRiddleType.CIRCLE_INSTANCE))
+                // before buying circle hints make sure the dividing feature and the first
+                // achievement are done
+                .addDependency(TestSubject.getInstance().makeProductPurchasedDependency
+                        (ARTICLE_KEY_CIRCLE_DIVIDE_BY_MOVE_FEATURE, ShopArticle
+                                .GENERAL_PRODUCT_INDEX), 1)
                 .addDependency(TestSubject.getInstance().makeAchievementDependency(PracticalRiddleType.CIRCLE_INSTANCE, AchievementCircle.Achievement1.NUMBER), 1);
         getArticle(ARTICLE_KEY_JUMPER_START_FURTHER_FEATURE)
                 .addDependency(TestSubject.getInstance().makeAchievementDependency(PracticalRiddleType.JUMPER_INSTANCE, AchievementJumper.ACHIEVEMENT_SUPER_MARIO), ShopArticle.GENERAL_PRODUCT_INDEX)

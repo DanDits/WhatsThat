@@ -3,11 +3,6 @@
           xmlns:tools="http://schemas.android.com/tools"
           package="dan.dit.whatsthat">/>
 
-    <!-- Some included package that doesn't probably set target version makes gradle bug and import
-     this permission for compatibility reasons but we do not need it!-->
-    <uses-permission android:name="android.permission.READ_PHONE_STATE"
-                     tools:node="remove" />
-
     <!-- Required for donations by Flattr.com and downloads of image bundles and uploads to share experiments-->
     <uses-feature android:name="android.permission.INTERNET" android:required="false" />
     <uses-permission android:name="android.permission.INTERNET" />

@@ -18,7 +18,6 @@ package dan.dit.whatsthat.testsubject.shopping.sortiment;
 import android.graphics.Color;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.widget.TextView;
 
 import dan.dit.whatsthat.R;

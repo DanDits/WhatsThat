@@ -16,8 +16,6 @@
 package dan.dit.whatsthat.util.mosaic.data;
 
 
-import android.support.annotation.NonNull;
-
 /**
  * This interface is a reference of anything than can be used to reconstruct a mosaic and serve as a MosaicFragment.
  * Therefore it provides an average color and the source.

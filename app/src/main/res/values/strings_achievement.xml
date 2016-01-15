@@ -206,11 +206,13 @@
 
     <string name="achievement_daily_1_name">Brain jogging</string>
     <string name="achievement_daily_1_descr">Solve %1$d experiments of any kind.</string>
-    <string name="achievement_daily_2_name">Variety</string>
+    <string name="achievement_daily_2_name">Triathlon</string>
     <string name="achievement_daily_2_descr">Solve %1$d experiment. Do this for %2$d different kinds of
         experiments.</string>
-    <string name="achievement_daily_single_type_default_name">Only one kind</string>
+    <string name="achievement_daily_single_type_default_name">Athlete</string>
     <string name="achievement_daily_single_type_descr">Solve %1$d %2$s experiments.</string>
+    <string name="achievement_daily_3_name">Brains sprint</string>
+    <string name="achievement_daily_3_descr">Solve one experiment in %1$d seconds.</string>
 
 
     <!-- Memory achievements -->

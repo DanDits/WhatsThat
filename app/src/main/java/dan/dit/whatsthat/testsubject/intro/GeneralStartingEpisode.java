@@ -24,7 +24,6 @@ import android.view.animation.RotateAnimation;
 import android.view.animation.ScaleAnimation;
 import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import dan.dit.whatsthat.R;
 import dan.dit.whatsthat.testsubject.TestSubjectLevel;

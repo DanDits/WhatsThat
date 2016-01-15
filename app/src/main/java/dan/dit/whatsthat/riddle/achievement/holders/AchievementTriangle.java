@@ -16,7 +16,6 @@
 package dan.dit.whatsthat.riddle.achievement.holders;
 
 import android.content.res.Resources;
-import android.util.Log;
 
 import java.util.TreeMap;
 
@@ -25,7 +24,6 @@ import dan.dit.whatsthat.achievement.AchievementDataEvent;
 import dan.dit.whatsthat.achievement.AchievementDataTimer;
 import dan.dit.whatsthat.achievement.AchievementManager;
 import dan.dit.whatsthat.riddle.achievement.AchievementDataRiddleGame;
-import dan.dit.whatsthat.riddle.achievement.AchievementDataRiddleType;
 import dan.dit.whatsthat.riddle.achievement.GameAchievement;
 import dan.dit.whatsthat.riddle.games.RiddleTriangle;
 import dan.dit.whatsthat.riddle.types.PracticalRiddleType;

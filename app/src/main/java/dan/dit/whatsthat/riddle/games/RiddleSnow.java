@@ -547,6 +547,7 @@ public class RiddleSnow extends RiddleGame implements FlatWorldCallback {
             updateCellStateAchievementData();
         } else if (((colliding1 == mDevil && colliding2.onCollision(mDevil)))
                 || (colliding2 == mDevil && colliding1.onCollision(mDevil))) {
+            // on collision for devil required, statement can be empty!
         }
     }
 

@@ -5,7 +5,7 @@
         android:toXDelta="-200%"
         android:fromYDelta="0%"
         android:toYDelta="0%"
-           android:interpolator="@android:interpolator/accelerate_quad"
+           android:interpolator="@android:interpolator/decelerate_quad"
            android:repeatMode="restart"
            android:repeatCount="infinite">
 </translate>

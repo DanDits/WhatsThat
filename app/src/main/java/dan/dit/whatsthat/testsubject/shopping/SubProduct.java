@@ -18,8 +18,6 @@ package dan.dit.whatsthat.testsubject.shopping;
 import android.view.LayoutInflater;
 import android.view.View;
 
-import dan.dit.whatsthat.R;
-
 /**
  * Created by daniel on 29.07.15.
  */

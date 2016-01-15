@@ -24,7 +24,6 @@ import dan.dit.whatsthat.util.general.MultistepPercentProgressListener;
 import dan.dit.whatsthat.util.general.PercentProgressListener;
 import dan.dit.whatsthat.util.image.ColorMetric;
 import dan.dit.whatsthat.util.mosaic.matching.TileMatcher;
-import dan.dit.whatsthat.util.mosaic.matching.TrivialMatcher;
 import dan.dit.whatsthat.util.mosaic.reconstruction.AutoLayerReconstructor;
 import dan.dit.whatsthat.util.mosaic.reconstruction.FixedLayerReconstructor;
 import dan.dit.whatsthat.util.mosaic.reconstruction.MosaicFragment;

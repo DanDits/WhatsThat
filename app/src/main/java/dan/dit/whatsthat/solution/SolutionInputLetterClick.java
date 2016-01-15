@@ -15,20 +15,13 @@
 
 package dan.dit.whatsthat.solution;
 
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.Rect;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
-import android.util.DisplayMetrics;
 import android.view.MotionEvent;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
 
 import dan.dit.whatsthat.riddle.achievement.AchievementPropertiesMapped;
@@ -36,7 +29,6 @@ import dan.dit.whatsthat.riddle.achievement.holders.MiscAchievementHolder;
 import dan.dit.whatsthat.testsubject.TestSubject;
 import dan.dit.whatsthat.util.compaction.CompactedDataCorruptException;
 import dan.dit.whatsthat.util.compaction.Compacter;
-import dan.dit.whatsthat.util.image.ImageUtil;
 
 /**
  * Created by daniel on 12.04.15.

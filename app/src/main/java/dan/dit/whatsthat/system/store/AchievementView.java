@@ -18,8 +18,10 @@ package dan.dit.whatsthat.system.store;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Build;
+import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,17 +52,27 @@ import dan.dit.whatsthat.util.ui.LinearLayoutProgressBar;
  */
 public class AchievementView extends ExpandableListView implements StoreContainer {
 
-    private int mVisibleCategoryIndex;
     private BaseExpandableListAdapter mAdapter;
-    private List<List<? extends Achievement>> mAllAchievements;
-    private List<String> mCategoryNames;
-    private List<Integer> mCategoryImage;
+    private List<HolderContainer> mContainers;
+    private List<HolderContainer> mVisibleContainers;
 
     public AchievementView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        mAllAchievements = new ArrayList<>();
-        mCategoryNames = new ArrayList<>();
-        mCategoryImage = new ArrayList<>();
+        initContainers(context);
+
+        // For claiming rewards
+        setOnChildClickListener(new OnChildClickListener() {
+            @Override
+            public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
+                return claimReward(mVisibleContainers.get(groupPosition).getAchievement(childPosition),
+                        v.findViewById(R.id.achievement_reward));
+            }
+        });
+
+    }
+
+    private void initContainers(Context context) {
+        mContainers = new ArrayList<>();
         PracticalRiddleType lastVisibleType = Riddle.getLastVisibleRiddleType(getContext());
 
         TestSubjectAchievementHolder holder = TestSubject.getInstance().getAchievementHolder();
@@ -70,13 +82,14 @@ public class AchievementView extends ExpandableListView implements StoreContaine
                 .achievement_daily_category_name), R.drawable.icon_daily);
 
         //TYPES
-        mVisibleCategoryIndex = -1;
         for (TestSubjectRiddleType type : TestSubject.getInstance().getAvailableTypes()) {
             TypeAchievementHolder typeHolder = holder.getTypeAchievementHolder(type.getType());
             if (typeHolder != null) {
-                addAchievementHolder(typeHolder, context.getResources().getString(type.getNameResId()), type.getIconResId());
-                if (lastVisibleType != null && type.getType().equals(lastVisibleType)) {
-                    mVisibleCategoryIndex = mCategoryNames.size() - 1;
+                HolderContainer container = addAchievementHolder(typeHolder, context.getResources()
+                        .getString(type.getNameResId()), type.getIconResId());
+                if (container != null && lastVisibleType != null && type.getType().equals
+                        (lastVisibleType)) {
+                    container.mInitiallyExpanded = true;
                 }
             }
         }
@@ -85,26 +98,47 @@ public class AchievementView extends ExpandableListView implements StoreContaine
         AchievementHolder misHolder = holder.getMiscAchievementHolder();
         addAchievementHolder(misHolder, context.getResources().getString(R.string.achievement_misc_category_name), R.drawable.icon_general);
 
-        // For claiming rewards
-        setOnChildClickListener(new OnChildClickListener() {
-            @Override
-            public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
-                return claimReward(mAllAchievements.get(groupPosition).get(childPosition), v.findViewById(R.id.achievement_reward));
-            }
-        });
-
+        mVisibleContainers = new ArrayList<>(mContainers.size());
+        refreshContainers();
     }
 
-    private void addAchievementHolder(AchievementHolder holder, String name, int imageResId) {
+    private static class HolderContainer {
+        final AchievementHolder mHolder;
+        final String mCategoryName;
+        final int mCategoryIconId;
+        List<? extends Achievement> mDisplayedAchievements;
+        boolean mInitiallyExpanded;
+
+        HolderContainer(@NonNull AchievementHolder holder, String categoryName, int iconResId) {
+            mHolder = holder;
+            mCategoryName = categoryName;
+            mCategoryIconId = iconResId;
+        }
+
+        void refresh() {
+            mDisplayedAchievements = mHolder.getAchievements();
+        }
+
+        public boolean isVisible() {
+            return mDisplayedAchievements != null && !mDisplayedAchievements.isEmpty();
+        }
+
+        public int getAchievementCount() {
+            return mDisplayedAchievements == null ? 0 : mDisplayedAchievements.size();
+        }
+
+        public Achievement getAchievement(int index) {
+            return mDisplayedAchievements.get(index);
+        }
+    }
+
+    private HolderContainer addAchievementHolder(AchievementHolder holder, String name, int imageResId) {
         if (holder == null) {
-            return;
+            return null;
         }
-        List<? extends Achievement> achievements = holder.getAchievements();
-        if (achievements != null && !achievements.isEmpty()) {
-            mAllAchievements.add(achievements);
-            mCategoryNames.add(name);
-            mCategoryImage.add(imageResId);
-        }
+        HolderContainer container = new HolderContainer(holder, name, imageResId);
+        mContainers.add(container);
+        return container;
     }
 
     private boolean claimReward(Achievement achievement, View toAnimate) {
@@ -135,6 +169,9 @@ public class AchievementView extends ExpandableListView implements StoreContaine
 
     @Override
     public void refresh(StoreActivity activity, FrameLayout titleBackContainer) {
+        Log.d("Achievement", "Refreshing achievement view.");
+        TestSubject.getInstance().getAchievementHolder().refresh();
+        refreshContainers();
         if (mAdapter == null) {
             mAdapter = new AchievementsAdapter(activity);
             setGroupIndicator(getResources().getDrawable(R.drawable.achievement_list_group_indicator));
@@ -144,14 +181,23 @@ public class AchievementView extends ExpandableListView implements StoreContaine
                 setIndicatorBounds(100, 150);
             }
             setAdapter(mAdapter);
-            if (mVisibleCategoryIndex >= 0 && mVisibleCategoryIndex < mAdapter.getGroupCount()) {
-                expandGroup(mVisibleCategoryIndex);
+            for (int i = 0; i < mVisibleContainers.size(); i++) {
+                if (mVisibleContainers.get(i).mInitiallyExpanded) {
+                    expandGroup(i);
+                }
             }
         } else {
-            // will not add daily achievements when previously non were available since the
-            // holder was not added as a category then, this happens when the app is shut completely
-            TestSubject.getInstance().getAchievementHolder().refresh();
             mAdapter.notifyDataSetChanged();
+        }
+    }
+
+    private void refreshContainers() {
+        mVisibleContainers.clear();
+        for (HolderContainer container : mContainers) {
+            container.refresh();
+            if (container.isVisible()) {
+                mVisibleContainers.add(container);
+            }
         }
     }
 
@@ -176,22 +222,22 @@ public class AchievementView extends ExpandableListView implements StoreContaine
 
         @Override
         public int getGroupCount() {
-            return mCategoryNames.size();
+            return mVisibleContainers.size();
         }
 
         @Override
         public int getChildrenCount(int i) {
-            return mAllAchievements.get(i).size();
+            return mVisibleContainers.get(i).getAchievementCount();
         }
 
         @Override
         public Object getGroup(int i) {
-            return mCategoryNames.get(i);
+            return mVisibleContainers.get(i);
         }
 
         @Override
         public Object getChild(int i, int i1) {
-            return mAllAchievements.get(i).get(i1);
+            return mVisibleContainers.get(i).getAchievement(i1);
         }
 
         @Override
@@ -216,11 +262,10 @@ public class AchievementView extends ExpandableListView implements StoreContaine
                 convertView = mInflater.inflate(R.layout.achievement_category, null);
                 name = convertView.findViewById(R.id.achievement_category_name);
             }
-            ((TextView) name).setText(mCategoryNames.get(groupPosition));
-            int imageResId = mCategoryImage.get(groupPosition);
-            if (imageResId != 0) {
-                ((ImageView) convertView.findViewById(R.id.achievement_category_image)).setImageResource(imageResId);
-            }
+            ((TextView) name).setText(mVisibleContainers.get(groupPosition).mCategoryName);
+            int imageResId = mVisibleContainers.get(groupPosition).mCategoryIconId;
+            ((ImageView) convertView.findViewById(R.id.achievement_category_image))
+                    .setImageResource(imageResId);
             return convertView;
         }
 
@@ -229,7 +274,7 @@ public class AchievementView extends ExpandableListView implements StoreContaine
             if (convertView == null) {
                 convertView = mInflater.inflate(R.layout.achievement_element, null);
             }
-            Achievement achievement = mAllAchievements.get(groupPosition).get(childPosition);
+            Achievement achievement = mVisibleContainers.get(groupPosition).getAchievement(childPosition);
             boolean dependenciesFulfilled = achievement.areDependenciesFulfilled();
 
             LinearLayoutProgressBar progressListener = (LinearLayoutProgressBar) convertView.findViewById(R.id.progress_bar);
@@ -275,7 +320,7 @@ public class AchievementView extends ExpandableListView implements StoreContaine
 
         @Override
         public boolean isChildSelectable(int i, int childPosition) {
-            Achievement achievement = mAllAchievements.get(i).get(childPosition);
+            Achievement achievement = mVisibleContainers.get(i).getAchievement(childPosition);
             return achievement.isRewardClaimable();
         }
     }

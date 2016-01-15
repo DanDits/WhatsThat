@@ -205,6 +205,7 @@ public class RiddleView extends SurfaceView implements SensorEventListener, Part
         return mRiddleCtr != null;
     }
 
+    @SuppressWarnings("SuspiciousNameCombination")
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);

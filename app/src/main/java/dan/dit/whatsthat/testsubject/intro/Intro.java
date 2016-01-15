@@ -25,7 +25,6 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -33,7 +32,6 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Set;
 
-import dan.dit.whatsthat.BuildConfig;
 import dan.dit.whatsthat.R;
 import dan.dit.whatsthat.testsubject.TestSubjectLevel;
 import dan.dit.whatsthat.util.compaction.CompactedDataCorruptException;

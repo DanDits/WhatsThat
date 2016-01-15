@@ -15,7 +15,6 @@
 
 package dan.dit.whatsthat.testsubject.intro;
 
-import android.support.annotation.NonNull;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;

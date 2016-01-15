@@ -207,11 +207,13 @@
 
     <string name="achievement_daily_1_name">Gehirnjogging</string>
     <string name="achievement_daily_1_descr">Löse %1$d beliebige Experimente.</string>
-    <string name="achievement_daily_2_name">Abwechslung</string>
+    <string name="achievement_daily_2_name">Triathlon</string>
     <string name="achievement_daily_2_descr">Löse jeweils %1$d Experiment. Das ganze jeweils in %2$d verschiedenen
         Experimentarten.</string>
-    <string name="achievement_daily_single_type_default_name">Nur eine Art</string>
+    <string name="achievement_daily_single_type_default_name">Athlet</string>
     <string name="achievement_daily_single_type_descr">Löse %1$d %2$s Experimente.</string>
+    <string name="achievement_daily_3_name">Gehirnsprint</string>
+    <string name="achievement_daily_3_descr">Löse ein Experiment in %1$d Sekunden.</string>
 
     <!-- Memory achievements -->
     <string name="achievement_memory_1_name">Kurzzeitgedächtnis</string>

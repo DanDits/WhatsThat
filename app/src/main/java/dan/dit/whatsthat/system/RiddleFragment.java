@@ -50,8 +50,6 @@ import android.widget.Toast;
 import com.github.johnpersano.supertoasts.SuperToast;
 import com.plattysoft.leonids.ParticleSystem;
 
-import junit.framework.Test;
-
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -76,7 +74,6 @@ import dan.dit.whatsthat.riddle.RiddleMaker;
 import dan.dit.whatsthat.riddle.RiddleManager;
 import dan.dit.whatsthat.riddle.RiddleView;
 import dan.dit.whatsthat.riddle.UnsolvedRiddlesChooser;
-import dan.dit.whatsthat.riddle.achievement.MiscAchievement;
 import dan.dit.whatsthat.riddle.achievement.holders.MiscAchievementHolder;
 import dan.dit.whatsthat.riddle.achievement.holders.TestSubjectAchievementHolder;
 import dan.dit.whatsthat.riddle.control.GameWelcomeDialog;
@@ -89,14 +86,11 @@ import dan.dit.whatsthat.storage.ImageTable;
 import dan.dit.whatsthat.storage.ImagesContentProvider;
 import dan.dit.whatsthat.system.store.StoreActivity;
 import dan.dit.whatsthat.testsubject.TestSubject;
-import dan.dit.whatsthat.testsubject.TestSubjectRiddleType;
 import dan.dit.whatsthat.testsubject.TestSubjectToast;
 import dan.dit.whatsthat.util.general.PercentProgressListener;
 import dan.dit.whatsthat.util.general.SimpleCrypto;
 import dan.dit.whatsthat.util.image.Dimension;
 import dan.dit.whatsthat.util.image.ExternalStorage;
-import dan.dit.whatsthat.util.ui.ImageButtonWithNumber;
-import dan.dit.whatsthat.util.ui.UiStyleUtil;
 import dan.dit.whatsthat.util.wallet.Wallet;
 import dan.dit.whatsthat.util.wallet.WalletEntry;
 
@@ -834,7 +828,7 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
 
         final EditText input = new EditText(getActivity());
         input.setInputType(android.text.InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
-        AlertDialog dialog = new AlertDialog.Builder(getActivity())
+        new AlertDialog.Builder(getActivity())
                 .setTitle("CheatBox")
                 .setMessage("Ch34t0r's h4ckZ:")
                 .setView(input)

@@ -17,7 +17,6 @@ package dan.dit.whatsthat.testsubject.intro;
 
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
-import android.util.Log;
 
 import java.util.LinkedList;
 import java.util.List;

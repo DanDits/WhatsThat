@@ -22,6 +22,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
+import android.support.annotation.NonNull;
 import android.text.TextUtils;
 
 /**
@@ -103,7 +104,7 @@ public class ImagesContentProvider extends ContentProvider {
     }
 
     @Override
-    public int delete(Uri uri, String selection, String[] selectionArgs) {
+    public int delete(@NonNull Uri uri, String selection, String[] selectionArgs) {
         int uriType = sURIMatcher.match(uri);
         SQLiteDatabase sqlDB = mDatabase.getWritableDatabase();
         int rowsDeleted;
@@ -139,12 +140,12 @@ public class ImagesContentProvider extends ContentProvider {
     }
 
     @Override
-    public String getType(Uri uri) {
+    public String getType(@NonNull Uri uri) {
         return null;
     }
 
     @Override
-    public Uri insert(Uri uri, ContentValues values) {
+    public Uri insert(@NonNull Uri uri, ContentValues values) {
         int uriType = sURIMatcher.match(uri);
 
         SQLiteDatabase sqlDB = mDatabase.getWritableDatabase();
@@ -195,7 +196,7 @@ public class ImagesContentProvider extends ContentProvider {
     }
 
     @Override
-    public Cursor query(Uri uri, String[] projection, String selection,
+    public Cursor query(@NonNull Uri uri, String[] projection, String selection,
                         String[] selectionArgs, String sortOrder) {
 
         int uriType = sURIMatcher.match(uri);
@@ -243,7 +244,7 @@ public class ImagesContentProvider extends ContentProvider {
     }
 
     @Override
-    public int update(Uri uri, ContentValues values, String selection,
+    public int update(@NonNull Uri uri, ContentValues values, String selection,
                       String[] selectionArgs) {
 
         int uriType = sURIMatcher.match(uri);

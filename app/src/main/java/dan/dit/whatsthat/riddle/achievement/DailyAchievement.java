@@ -111,7 +111,8 @@ public abstract class DailyAchievement extends Achievement {
     }
 
     public boolean checkedReset(@NonNull Calendar initTime) {
-        if (isNotAchievedToday(initTime) && !gotResetToday(initTime)) {
+        if (isNotAchievedToday(initTime) && !gotResetToday(initTime)
+                && areDependenciesFulfilled()) {
             // ensure initialized
             if (!mInitialized) {
                 init(initTime); // will also invoke reset by invoking checkedReset again
@@ -136,19 +137,13 @@ public abstract class DailyAchievement extends Achievement {
     private boolean isNotAchievedToday(@NonNull Calendar today) {
         CHECKER_DATE.setTime(mAchievedTimestamp);
         CHECKER.setTime(CHECKER_DATE);
-        return isNextDay(today, CHECKER);
+        return !isToday(today, CHECKER);
     }
 
     public boolean gotResetToday(@NonNull Calendar today) {
         CHECKER_DATE.setTime(mLastResetTimestamp);
         CHECKER.setTime(CHECKER_DATE);
         return isToday(today, CHECKER);
-    }
-
-    private static boolean isNextDay(Calendar today, Calendar previous) {
-        return (today.get(Calendar.DAY_OF_YEAR) > previous.get(Calendar.DAY_OF_YEAR)
-                    && today.get(Calendar.YEAR) == previous.get(Calendar.YEAR))
-                || today.get(Calendar.YEAR) > previous.get(Calendar.YEAR);
     }
 
     private static boolean isToday(Calendar today, Calendar check) {
@@ -174,6 +169,7 @@ public abstract class DailyAchievement extends Achievement {
     }
 
     public void setAvailable() {
+        Log.d("Achievement", "Made available: " + mId);
         mAvailableToday = true;
         mManager.onChanged(this, AchievementManager.CHANGED_OTHER);
     }

@@ -33,7 +33,8 @@ public class FixedRandom {
 	private int next() {
         // algorithm by wikipedia.org
 	    int t = x ^ (x << 11);
-	    x = y; y = z; z = w;
+		//noinspection SuspiciousNameCombination
+		x = y; y = z; z = w;
 	    return w = w ^ (w >> 19) ^ t ^ (t >> 8);
 	}
 	

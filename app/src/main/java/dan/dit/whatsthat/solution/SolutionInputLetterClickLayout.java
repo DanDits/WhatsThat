@@ -5,7 +5,6 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.util.DisplayMetrics;
-import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.Iterator;

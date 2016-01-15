@@ -17,7 +17,6 @@ package dan.dit.whatsthat.testsubject.shopping;
 
 import android.os.Build;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.widget.Button;
 import android.widget.Switch;
 

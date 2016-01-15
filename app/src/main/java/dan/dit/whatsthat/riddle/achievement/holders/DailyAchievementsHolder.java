@@ -1,6 +1,7 @@
 package dan.dit.whatsthat.riddle.achievement.holders;
 
 import android.content.res.Resources;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -58,13 +59,14 @@ public class DailyAchievementsHolder implements AchievementHolder {
                     number, -1);
             mAchievements.put(number, achievement);
         }
+        mAchievements.put(Achievement3.NUMBER, new Achievement3(manager));
     }
 
     private static class Achievement1 extends DailyAchievement {
         private static final int REQUIRED_RIDDLES_TO_SOLVE = 5;//>1 for plural reasons
         public static final int NUMBER = 1;
         public static final int LEVEL = 0;
-        public static final int REWARD = REQUIRED_RIDDLES_TO_SOLVE*3;
+        public static final int REWARD = 20;
         public static final boolean DISCOVERED = true;
         public static final String KEY_GAMES_SOLVED_COUNT = NUMBER +
                 "games_solved_today_count";
@@ -122,13 +124,13 @@ public class DailyAchievementsHolder implements AchievementHolder {
 
     private static class Achievement2 extends DailyAchievement {
         public static final int NUMBER = 2;
-        public static final int LEVEL = 1;
-        public static final int REWARD = 30;
+        public static final int REWARD = 35;
         public static final boolean DISCOVERED = true;
         public static final String KEY_GAMES_SOLVED_FOR_TYPE_COUNT = NUMBER +
                 "games_solved_today_for_type_count";
         private static final int REQUIRED_RIDDLES_TO_SOLVE_PER_TYPE = 1;
         private static final int REQUIRED_DIFFERENT_TYPES = 4;
+        public static final int LEVEL = REQUIRED_DIFFERENT_TYPES - 2;
 
         public Achievement2(AchievementManager manager) {
             super(R.string.achievement_daily_2_name, R.string.achievement_daily_2_descr, 0, manager,
@@ -256,6 +258,65 @@ public class DailyAchievementsHolder implements AchievementHolder {
         }
     }
 
+    private static class Achievement3 extends DailyAchievement {
+        public static final int NUMBER = 3;
+        public static final int LEVEL = 2;
+        public static final int REWARD = 50;
+        public static final boolean DISCOVERED = true;
+        private static final long MAX_SOLVING_TIME = 30000;//ms
+
+        public Achievement3(AchievementManager manager) {
+            super(R.string.achievement_daily_3_name, R.string.achievement_daily_3_descr, 0, manager,
+                    LEVEL, NUMBER, REWARD, 1,
+                    DISCOVERED);
+        }
+
+        @Override
+        public CharSequence getDescription(Resources res) {
+            return res.getString(mDescrResId, MAX_SOLVING_TIME / 1000L);
+        }
+
+        @Override
+        protected void onReset() {
+        }
+
+        @Override
+        public void onAchieved() {
+            super.onAchieved();
+            for (PracticalRiddleType type : PracticalRiddleType.ALL_PLAYABLE_TYPES) {
+                type.getAchievementDataGame().removeListener(this);
+            }
+        }
+
+        @Override
+        public void onInit() {
+            super.onInit();
+            for (PracticalRiddleType type : PracticalRiddleType.ALL_PLAYABLE_TYPES) {
+                type.getAchievementDataGame().addListener(this);
+            }
+        }
+
+        @Override
+        public void onIsAvailableDataEvent(AchievementDataEvent event) {
+            if (event.getEventType() != AchievementDataEvent.EVENT_TYPE_DATA_CLOSE
+                    || !areDependenciesFulfilled()) {
+                return;
+            }
+            for (PracticalRiddleType type : PracticalRiddleType.ALL_PLAYABLE_TYPES) {
+                AchievementDataRiddleGame data = type.getAchievementDataGame();
+                if (data == event.getChangedData()) {
+                    if (!data.isCustom()
+                            && data.isSolved()
+                            && data.getValue(AchievementDataRiddleGame.KEY_PLAYED_TIME, 0L) <=
+                                MAX_SOLVING_TIME) {
+                        achieve();
+                    }
+                    break;
+                }
+            }
+        }
+    }
+
     @Override
     public void addDependencies() {
         for (DailyAchievement achievement : mAchievements.values()) {
@@ -275,8 +336,7 @@ public class DailyAchievementsHolder implements AchievementHolder {
         int availableCount = 0;
         List<DailyAchievement> candidates = new ArrayList<>(mAchievements.size());
         for (DailyAchievement achievement : mAchievements.values()) {
-            if (achievement.gotResetToday(mToday) && achievement.areDependenciesFulfilled()
-                    && !achievement.isAvailable()) {
+            if (achievement.gotResetToday(mToday) && !achievement.isAvailable()) {
                 candidates.add(achievement);
             }
             if (achievement.isAvailable()) {
@@ -305,6 +365,8 @@ public class DailyAchievementsHolder implements AchievementHolder {
                 foundAny = true;
             }
         }
+        Log.d("Achievement", "Refreshing daily achievements, found any that got reset: " +
+                foundAny);
         if (foundAny) {
             makeResetCandidatesAvailable();
         }

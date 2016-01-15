@@ -20,6 +20,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Color;
+import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -150,14 +151,14 @@ public class TestSubject {
     public void initToasts() {
         mGeneralToastProcessor = new DelayedQueueProcessor<>(new DelayedQueueProcessor.Callback<TestSubjectToast>() {
             @Override
-            public long process(TestSubjectToast toProcess) {
+            public long process(@NonNull TestSubjectToast toProcess) {
                 showToast(toProcess);
                 return toProcess.mDuration;
             }
         });
         mAchievementToastProcessor = new DelayedQueueProcessor<>(new DelayedQueueProcessor.Callback<Achievement>() {
             @Override
-            public long process(Achievement toProcess) {
+            public long process(@NonNull Achievement toProcess) {
                 TestSubjectToast achievementToast = makeAchievementToast(toProcess);
                 showToast(achievementToast);
                 return achievementToast == null ? 0L : achievementToast.mDuration;
@@ -225,10 +226,7 @@ public class TestSubject {
         if (mCurrLevel >= mLevels.length -1) {
             return false; // already at max level
         }
-        if (mCurrLevel != TestSubjectLevel.LEVEL_NONE && canChooseNewRiddle()) {
-            return false; // first user needs to choose a new riddle
-        }
-        return true;
+        return mCurrLevel == TestSubjectLevel.LEVEL_NONE || !canChooseNewRiddle();
     }
 
     /**

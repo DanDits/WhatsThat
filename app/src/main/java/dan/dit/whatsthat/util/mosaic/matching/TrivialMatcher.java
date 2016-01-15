@@ -7,13 +7,13 @@ import dan.dit.whatsthat.util.mosaic.data.MosaicTile;
  * Created by daniel on 05.12.15.
  */
 public class TrivialMatcher<S> extends TileMatcher<S> {
-    private NullTile<S> mTile;
+    private NullTile mTile;
     public TrivialMatcher() {
         super(true, ColorMetric.Absolute.INSTANCE);
-        mTile = new NullTile<>();
+        mTile = new NullTile();
     }
 
-    private class NullTile<S> implements MosaicTile<S> {
+    private class NullTile implements MosaicTile<S> {
         protected int mAverageColor;
         @Override
         public S getSource() {
