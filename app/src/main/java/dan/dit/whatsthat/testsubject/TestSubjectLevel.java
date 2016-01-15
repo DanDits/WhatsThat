@@ -334,7 +334,7 @@ public abstract class TestSubjectLevel {
 
         @Override
         public double getLevelUpAchievementScoreFraction() {
-            return 0.1;
+            return 0.09;
         }
     }
     private static class TestSubjectLevel2 extends TestSubjectLevel {
@@ -384,7 +384,7 @@ public abstract class TestSubjectLevel {
         }
         @Override
         public double getLevelUpAchievementScoreFraction() {
-            return 0.2;
+            return 0.15;
         }
     }
 
@@ -483,7 +483,7 @@ public abstract class TestSubjectLevel {
         }
         @Override
         public double getLevelUpAchievementScoreFraction() {
-            return 0.30;
+            return 0.28;
         }
     }
     
@@ -649,6 +649,7 @@ public abstract class TestSubjectLevel {
 
         @Override
         protected void onLeveledUp() {
+            User.getInstance().givePermission(User.PERMISSION_WORKSHOP);
         }
         @Override
         public double getLevelUpAchievementScoreFraction() {
@@ -719,7 +720,6 @@ public abstract class TestSubjectLevel {
 
         @Override
         protected void onLeveledUp() {
-            User.getInstance().givePermission(User.PERMISSION_WORKSHOP);
         }
         @Override
         public double getLevelUpAchievementScoreFraction() {

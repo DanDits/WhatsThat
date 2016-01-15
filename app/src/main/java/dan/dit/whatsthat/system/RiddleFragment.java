@@ -1030,6 +1030,10 @@ public class RiddleFragment extends Fragment implements PercentProgressListener,
     // needs to be robust against multiple calls
     private void cleanUp() {
         AchievementManager.commit();
+        if (mScoreInfo != null) {
+            mScoreInfo.clearAnimation();
+            mScoreInfo.setVisibility(View.INVISIBLE);
+        }
     }
 
     @Override

@@ -240,7 +240,7 @@ public class AchievementTriangle extends TypeAchievementHolder {
         public static final int REWARD = 333;
         public static final boolean DISCOVERED = true;
         private static final int ILLUMINATI = 3;
-        private static final String KEY_TIMER_SOLVED = PracticalRiddleType.DICE_INSTANCE
+        private static final String KEY_TIMER_SOLVED = PracticalRiddleType.TRIANGLE_INSTANCE
                 .getFullName() + NUMBER + "_solved_experiments";
         private static final long SOLVED_MAX_TIME = 3 * 33L * 1000L; //ms
 
