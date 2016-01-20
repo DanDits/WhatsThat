@@ -16,6 +16,8 @@ import dan.dit.whatsthat.testsubject.shopping.ShopArticle;
 import dan.dit.whatsthat.testsubject.shopping.SubProduct;
 
 /**
+ * //TODO For publishing on amazon appstore, https://developer.amazon.com/public/apis/earn/in-app-purchasing/docs-v2/migrating-from-googles-iab-to-amazons-iap
+ * //TODO Migrate google billing to amazon billing, also for donations view add paypal and remove googleplay
  * Created by daniel on 09.01.16.
  */
 public class PurchaseCurrencyArticle extends ShopArticle {

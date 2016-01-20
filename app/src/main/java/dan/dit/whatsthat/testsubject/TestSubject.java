@@ -211,7 +211,9 @@ public class TestSubject {
         int maxAchievementScore = mAchievementHolder.getExpectableTestSubjectScore(mCurrLevel);
         int alreadySpent = mPurse.mShopWallet.getEntryValue(Purse.SHW_KEY_SPENT_SCORE_ON_LEVEL_UP);
         int cost =  (int) (maxAchievementScore * fraction) - alreadySpent;
-
+        if (cost < 0) {
+            return 0;
+        }
         // now round to some decent value
         final int roundingPrecision = 5;
         return cost + roundingPrecision - (cost % roundingPrecision);
