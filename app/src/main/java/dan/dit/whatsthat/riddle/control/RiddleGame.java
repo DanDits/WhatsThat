@@ -36,6 +36,7 @@ import dan.dit.whatsthat.riddle.RiddleView;
 import dan.dit.whatsthat.riddle.achievement.AchievementDataRiddleGame;
 import dan.dit.whatsthat.riddle.achievement.AchievementDataRiddleType;
 import dan.dit.whatsthat.riddle.achievement.GameAchievement;
+import dan.dit.whatsthat.riddle.types.TypesHolder;
 import dan.dit.whatsthat.solution.Solution;
 import dan.dit.whatsthat.solution.SolutionInput;
 import dan.dit.whatsthat.solution.SolutionInputListener;
@@ -62,11 +63,7 @@ public abstract class RiddleGame {
      * The dimension for a snapshot bitmap for unsolved RiddleGames that get closed.
      */
     protected static final Dimension SNAPSHOT_DIMENSION = new Dimension(32, 32);
-    /**
-     * Maximum time from creating a new riddle till solving that results in getting bonus for score
-     * calculation
-     */
-    private static final long SCORE_BONUS_MAX_RIDDLE_TIME = 30 * 60 * 1000; //30 minutes in ms
+
     public static final int BASE_SCORE_MULTIPLIER = 1; //should not change
 
     private final Riddle mRiddle; // should be hidden
@@ -77,6 +74,7 @@ public abstract class RiddleGame {
     // note: full galaxy s2 display 480x800 pixel, hdpi (scaling of 1.5 by default)
     protected final RiddleConfig mConfig;
     private boolean mForbidBonus;
+    private RiddleScore mCalculatedScore;
 
     /**
      * Creates a new RiddleGame, decorating the given riddle, using the given bitmap loaded from the riddle's image.
@@ -206,8 +204,7 @@ public abstract class RiddleGame {
         String currentState = null;
         String solutionData;
         if (solved >= Solution.SOLVED_COMPLETELY) {
-            RiddleScore riddleScore = calculateGainedScore();
-            score = riddleScore.getTotalScore();
+            score = getGainedScore(false).getTotalScore();
             solutionData = mSolutionInput.getCurrentUserSolution().compact();
         } else {
             currentState = compactCurrentState();
@@ -263,29 +260,41 @@ public abstract class RiddleGame {
     protected abstract void initAchievementData();
 
     /**
-     * Calculates the gained score. Can but generally should not depend on the
-     * way the riddle was solved and the game was played.
-     * Calculations should be robust and produce the same result if nothing major happens to the game.
+     * Calculates the gained score. Calculations should be robust and produce the same result if
+     * nothing major happens to the game.
      *
-     * @return A valid RiddleScore.
+     * @return A RiddleScore.
      */
-    protected synchronized
+    private synchronized
     @NonNull
     RiddleScore calculateGainedScore() {
-        int base = mRiddle.getType().getBaseScore();
+        final int scoreMultiplicator = BASE_SCORE_MULTIPLIER;
+        final long timeTaken = mConfig.mAchievementGameData.getCurrentPlayedTime();
+
+        int base = mRiddle.getType().getBaseScore(timeTaken);
+        boolean forbidBonus = mForbidBonus;
         if (isCustom()) {
-            if (mRiddle.isRemade()) {
-                return new RiddleScore.SimpleNoBonus();
-            }
-            return RiddleScore.NullRiddleScore.INSTANCE;
+            forbidBonus = true;
+            base = mRiddle.isRemade() ? TypesHolder.SCORE_MINIMAL : 0;
         }
-        int scoreMultiplicator = BASE_SCORE_MULTIPLIER;
-        long now = System.currentTimeMillis();
-        if ((now - mRiddle.getTimestamp()) >= SCORE_BONUS_MAX_RIDDLE_TIME) {
-            mForbidBonus = true;
+        RiddleScore.Builder builder = forbidBonus ? new RiddleScore.NoBonusBuilder()
+                : new RiddleScore.Builder();
+        addBonusReward(builder);
+        return builder
+                .setBase(base)
+                .setMultiplicator(scoreMultiplicator)
+                .build();
+    }
+
+    protected void addBonusReward(@NonNull RiddleScore.Rewardable rewardable) {
+        // can be overwritten for specific game
+    }
+
+    public RiddleScore getGainedScore(boolean forceRefresh) {
+        if (mCalculatedScore == null || forceRefresh) {
+            mCalculatedScore = calculateGainedScore();
         }
-        return mForbidBonus ? new RiddleScore.NoBonus(base, scoreMultiplicator)
-            : new RiddleScore(base, scoreMultiplicator);
+        return mCalculatedScore;
     }
 
     protected final boolean isCustom() {

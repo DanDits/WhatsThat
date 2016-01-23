@@ -129,7 +129,7 @@ public class AchievementFlow extends  TypeAchievementHolder {
         public static final int LEVEL = 0;
         public static final int REWARD = 150;
         public static final boolean DISCOVERED = true;
-        private static final int REQUIRED_VISIBLE_PERCENT = 40;
+        private static final int REQUIRED_VISIBLE_PERCENT = 60;
 
         public Achievement3(AchievementManager manager, PracticalRiddleType type) {
             super(type, R.string.achievement_flow_3_name, R.string.achievement_flow_3_descr, 0, NUMBER, manager, LEVEL, REWARD, 1, DISCOVERED);

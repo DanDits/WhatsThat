@@ -1,50 +1,26 @@
 package dan.dit.whatsthat.riddle.control;
 
-import dan.dit.whatsthat.riddle.types.Types;
-
 /**
  * Created by daniel on 26.11.15.
  */
 public class RiddleScore {
-    private int mTotalScore;
+    private final int mBase;
     private int mBonus;
     private int mMultiplicator;
 
-    public RiddleScore(int base, int multiplicator) {
-        base = Math.max(0, base);
+    private RiddleScore(int base, int multiplicator) {
+        mBase = Math.max(0, base);
         mMultiplicator = Math.max(1, multiplicator);
-        mTotalScore = base * mMultiplicator;
     }
 
-    public static class NoBonus extends RiddleScore {
-        public NoBonus(int base, int multiplicator) {
-            super(base, multiplicator);
-        }
-
-        @Override
-        public RiddleScore addBonus(int bonus) {
-            return this; // do not add any bonus
-        }
-    }
-
-    public static class NullRiddleScore extends NoBonus {
-        public static final NullRiddleScore INSTANCE = new NullRiddleScore();
-        private NullRiddleScore() {
-            super(0, 1);
-        }
-
-    }
-
-    public RiddleScore addBonus(int bonus) {
+    private RiddleScore addBonus(int bonus) {
         bonus = Math.max(0, bonus);
-        int delta = bonus * mMultiplicator;
-        mBonus += delta;
-        mTotalScore += delta;
+        mBonus += bonus;
         return this;
     }
 
-    public int getTotalScore() {
-        return mTotalScore;
+    public final int getTotalScore() {
+        return mMultiplicator * (mBase + mBonus);
     }
 
     public boolean hasBonus() {
@@ -59,10 +35,41 @@ public class RiddleScore {
         return mBonus;
     }
 
-    public static class SimpleNoBonus extends NoBonus {
+    public interface Rewardable {
+        Rewardable addBonus(int bonusDelta);
+    }
 
-        public SimpleNoBonus() {
-            super(Types.SCORE_SIMPLE, 1);
+    public static class Builder implements Rewardable {
+        private int mBase;
+        private int mBonus;
+        private int mMultiplicator;
+
+        Builder setBase(int base) {
+            mBase = base;
+            return this;
+        }
+
+        @Override
+        public Builder addBonus(int bonusDelta) {
+            mBonus += bonusDelta;
+            return this;
+        }
+
+        Builder setMultiplicator(int multiplicator) {
+            mMultiplicator = multiplicator;
+            return this;
+        }
+
+        public RiddleScore build() {
+            return new RiddleScore(mBase, mMultiplicator).addBonus(mBonus);
+        }
+    }
+
+    public static class NoBonusBuilder extends Builder {
+        @Override
+        public Builder addBonus(int bonusDelta) {
+            // do nothing
+            return this;
         }
     }
 }

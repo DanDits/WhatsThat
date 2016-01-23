@@ -186,6 +186,9 @@
         <item>Die Lebensdauer der Zellis ist bei allen gleich.</item>
         <item>Nur wenige der Zellis werden bis zum Ende ihres Lebens arbeiten. Die meisten kollidieren irgendwann in einer Sackgasse.</item>
     </string-array>
+    <string name="article_flow_stream_name">Strömung</string>
+    <string name="article_flow_stream_descr">Einst ein kleiner Fluss, nun eine große
+        Strömung. Verdoppelt die Breite!</string>
 
     <!-- Lazor related -->
     <string name="riddle_type_lazor">Lazor</string>

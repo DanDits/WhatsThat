@@ -27,7 +27,7 @@ import dan.dit.whatsthat.riddle.achievement.AchievementDataRiddleGame;
 import dan.dit.whatsthat.riddle.achievement.GameAchievement;
 import dan.dit.whatsthat.riddle.games.RiddleTriangle;
 import dan.dit.whatsthat.riddle.types.PracticalRiddleType;
-import dan.dit.whatsthat.riddle.types.Types;
+import dan.dit.whatsthat.riddle.types.TypesHolder;
 
 /**
  * Created by daniel on 23.07.15.
@@ -59,7 +59,7 @@ public class AchievementTriangle extends TypeAchievementHolder {
         public static final int REWARD = 75;
         public static final boolean DISCOVERED = true;
         private static final int REQUIRED_GAMES_COUNT = 5;
-        private static final String KEY_TIMER_SOLVED = Types.Triangle.NAME + NUMBER + "games_solved";
+        private static final String KEY_TIMER_SOLVED = TypesHolder.Triangle.NAME + NUMBER + "games_solved";
         private static final long MAX_TIME_DURATION = 180000L;
 
         public Achievement1(AchievementManager manager, PracticalRiddleType type) {

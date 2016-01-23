@@ -45,7 +45,7 @@ import dan.dit.whatsthat.riddle.control.LookRiddleAnimation;
 import dan.dit.whatsthat.riddle.control.RiddleAnimation;
 import dan.dit.whatsthat.riddle.control.RiddleGame;
 import dan.dit.whatsthat.riddle.control.RiddleScore;
-import dan.dit.whatsthat.riddle.types.Types;
+import dan.dit.whatsthat.riddle.types.TypesHolder;
 import dan.dit.whatsthat.testsubject.TestSubject;
 import dan.dit.whatsthat.testsubject.shopping.sortiment.SortimentHolder;
 import dan.dit.whatsthat.util.compaction.CompactedDataCorruptException;
@@ -309,11 +309,11 @@ public class RiddleCircle extends RiddleGame {
     }
 
     @Override
-    protected @NonNull RiddleScore calculateGainedScore() {
-        int bonus = (mCircleCenterX.size() < MAX_CIRCLES_FOR_EXTRA_SCORE ? Types.SCORE_SIMPLE :
-                    mCircleCenterX.size() < MAX_CIRCLES_FOR_EXTRA_EXTRA_SCORE ? Types
+    protected void addBonusReward(@NonNull RiddleScore.Rewardable rewardable) {
+        int bonus = (mCircleCenterX.size() < MAX_CIRCLES_FOR_EXTRA_SCORE ? TypesHolder.SCORE_SIMPLE :
+                    mCircleCenterX.size() < MAX_CIRCLES_FOR_EXTRA_EXTRA_SCORE ? TypesHolder
                             .SCORE_MEDIUM : 0);
-        return super.calculateGainedScore().addBonus(bonus);
+        rewardable.addBonus(bonus);
     }
 
     /**

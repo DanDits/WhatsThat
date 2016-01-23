@@ -38,13 +38,16 @@ import dan.dit.whatsthat.riddle.RiddleConfig;
 import dan.dit.whatsthat.riddle.achievement.holders.AchievementFlow;
 import dan.dit.whatsthat.riddle.control.RiddleGame;
 import dan.dit.whatsthat.riddle.control.RiddleScore;
-import dan.dit.whatsthat.riddle.types.Types;
+import dan.dit.whatsthat.riddle.types.TypesHolder;
+import dan.dit.whatsthat.testsubject.TestSubject;
+import dan.dit.whatsthat.testsubject.shopping.sortiment.SortimentHolder;
 import dan.dit.whatsthat.util.general.PercentProgressListener;
 import dan.dit.whatsthat.util.compaction.CompactedDataCorruptException;
 import dan.dit.whatsthat.util.compaction.Compacter;
 import dan.dit.whatsthat.util.image.BitmapUtil;
 import dan.dit.whatsthat.util.image.ColorAnalysisUtil;
 import dan.dit.whatsthat.util.image.ColorMetric;
+import dan.dit.whatsthat.util.image.ImageUtil;
 
 /**
  * Created by daniel on 18.08.15.
@@ -62,6 +65,8 @@ public class RiddleFlow extends RiddleGame {
 
     // searching edges results in lines searching for pixels with high pressure values and makes them search for edges (lines of great color difference) to follow. Else it follows colors of equal pressure so lines need to be clicked to follow them.
     private static final int SEARCH_EDGES_EACH_X_FLOWS = 3;
+    private static final float DEFAULT_FLOW_WIDTH_PIXELS = 1.5f;
+    private static final float UPGRADED_FLOW_WIDTH_PIXELS = 3f;
 
     private int[][] mSolutionRaster;
     private double[][] mPressureRaster;
@@ -80,6 +85,7 @@ public class RiddleFlow extends RiddleGame {
     private float mOffsetY;
     private int mRevealedPixelsCount;
     private int mCreatedFlowsCounter;
+    private int mFlowWidthPixels;
 
     private enum FlowDirection {
         TOP_LEFT(-1, -1), TOP(0, -1), TOP_RIGHT(1, -1),
@@ -118,10 +124,10 @@ public class RiddleFlow extends RiddleGame {
     }
 
     @Override
-    protected @NonNull RiddleScore calculateGainedScore() {
-        int bonus = (mFlowStartsX.size() < MAX_FLOWS_FOR_SCORE_BIG_BONUS ? Types.SCORE_HARD :
-                (mFlowStartsX.size() < MAX_FLOWS_FOR_SCORE_BONUS ? Types.SCORE_MEDIUM : 0));
-        return super.calculateGainedScore().addBonus(bonus);
+    protected void addBonusReward(@NonNull RiddleScore.Rewardable rewardable) {
+        int bonus = (mFlowStartsX.size() < MAX_FLOWS_FOR_SCORE_BIG_BONUS ? TypesHolder.SCORE_HARD :
+                (mFlowStartsX.size() < MAX_FLOWS_FOR_SCORE_BONUS ? TypesHolder.SCORE_MEDIUM : 0));
+        rewardable.addBonus(bonus);
     }
 
     @Override
@@ -142,7 +148,14 @@ public class RiddleFlow extends RiddleGame {
 
     @Override
     protected void initBitmap(Resources res, PercentProgressListener listener) {
+        final float streamWidth = TestSubject.isInitialized() && TestSubject.getInstance()
+                        .hasFeature(SortimentHolder.ARTICLE_KEY_FLOW_BIGGER_FLOW) ?
+                UPGRADED_FLOW_WIDTH_PIXELS : DEFAULT_FLOW_WIDTH_PIXELS;
         mRand = new Random();
+        mFlowWidthPixels = Math.round(ImageUtil.convertDpToPixel(streamWidth, mConfig
+                .mScreenDensity));
+        mFlowWidthPixels = Math.max(1, mFlowWidthPixels);
+
         mFlowStartsX = new ArrayList<>(128);
         mFlowStartsY = new ArrayList<>(128);
         mFlows = new ArrayList<>();
@@ -332,20 +345,49 @@ public class RiddleFlow extends RiddleGame {
                         mLastFlowDirection = dir;
                     }
                 }
+                int lastX = mX;
+                int lastY = mY;
                 mX = bestNeighborX;
                 mY = bestNeighborY;
-                int colorToApply = APPLY_TRUE_SOLUTION_COLOR_PER_PIXEL ? mSolutionRaster[mY][mX] : mColor;
-                if (Color.alpha(colorToApply) == 0) {
-                    colorToApply = Color.argb(255, mRand.nextInt(256), mRand.nextInt(256), mRand.nextInt(256));
+                spreadIntensity(mX, mY, updatePeriod);
+
+                int deltaX = (int) Math.signum(mX - lastX);
+                int deltaY = (int) Math.signum(mY - lastY);
+                for (int i = 0; i < mFlowWidthPixels; i++) {
+                    int signum = i % 2 == 0 ? 1 : -1;
+                    // for i > 0 spread in orthogonal directions of flow direction
+                    spreadColor(mX + signum * deltaY * (i + 1) / 2,
+                                mY - signum * deltaX * (i + 1) / 2);
                 }
-                mOutputRaster[mX + mWidth * mY] = colorToApply;
-                mIntensity -= updatePeriod / (double) FLOW_MAX_DURATION;
-                if (mFlowIntensityRaster[mY][mX] == 0) {
-                    mRevealedPixelsCount++;
-                }
-                mFlowIntensityRaster[mY][mX] = mIntensity;
             }
         }
+
+        private void spreadIntensity(int x, int y, long updatePeriod) {
+            if (!isValidPoint(x, y)) {
+                return;
+            }
+            mIntensity -= updatePeriod / (double) FLOW_MAX_DURATION;
+            mFlowIntensityRaster[y][x] = mIntensity;
+        }
+
+        private void spreadColor(int x, int y) {
+            if (!isValidPoint(x, y)) {
+                return;
+            }
+            int colorToApply = APPLY_TRUE_SOLUTION_COLOR_PER_PIXEL ? mSolutionRaster[y][x] :
+                    mColor;
+            if (mOutputRaster[x + mWidth * y] == 0) {
+                mRevealedPixelsCount++;
+            }
+            if (Color.alpha(colorToApply) == 0) {
+                colorToApply = Color.argb(255, mRand.nextInt(256), mRand.nextInt(256), mRand.nextInt(256));
+            }
+            mOutputRaster[x + mWidth * y] = colorToApply;
+        }
+    }
+
+    private boolean isValidPoint(int x, int y) {
+        return x >= 0 && y >= 0 && x < mWidth && y < mHeight;
     }
 
     //Fisher–Yates shuffle
@@ -359,7 +401,7 @@ public class RiddleFlow extends RiddleGame {
     }
 
     private boolean addFlow(int x, int y, boolean silentDeath) {
-        if (x >= 0 && y >= 0 && x < mWidth && y < mHeight) {
+        if (isValidPoint(x, y)) {
             mFlows.add(new Flow(x, y, silentDeath));
             return true;
         }

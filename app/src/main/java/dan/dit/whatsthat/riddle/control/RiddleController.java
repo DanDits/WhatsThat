@@ -31,6 +31,8 @@ import com.github.johnpersano.supertoasts.SuperToast;
 import com.plattysoft.leonids.ParticleField;
 import com.plattysoft.leonids.ParticleSystem;
 
+import java.sql.Types;
+
 import dan.dit.whatsthat.R;
 import dan.dit.whatsthat.achievement.AchievementManager;
 import dan.dit.whatsthat.achievement.AchievementProperties;
@@ -40,6 +42,7 @@ import dan.dit.whatsthat.riddle.RiddleManager;
 import dan.dit.whatsthat.riddle.RiddleView;
 import dan.dit.whatsthat.riddle.achievement.AchievementDataRiddleType;
 import dan.dit.whatsthat.riddle.types.PracticalRiddleType;
+import dan.dit.whatsthat.riddle.types.TypesHolder;
 import dan.dit.whatsthat.testsubject.TestSubject;
 import dan.dit.whatsthat.testsubject.TestSubjectToast;
 import dan.dit.whatsthat.util.general.MathFunction;
@@ -462,7 +465,7 @@ public class RiddleController implements RiddleAnimationController.OnAnimationCo
         toast.mBackgroundColor = res.getColor(R.color.main_background);
 
         String[] candies = res.getStringArray(subject.getRiddleSolvedResIds());
-        RiddleScore riddleScore = mRiddleGame.calculateGainedScore();
+        RiddleScore riddleScore = mRiddleGame.getGainedScore(false);
         int score = riddleScore.getTotalScore();
         int party = riddleScore.getBonus();
 
@@ -475,7 +478,14 @@ public class RiddleController implements RiddleAnimationController.OnAnimationCo
 
         StringBuilder builder = new StringBuilder();
         if (candies != null && candies.length > 0) {
-            builder.append(candies[(int) (Math.random() * candies.length)]);
+            int candyIndex = score - TypesHolder.SCORE_MINIMAL;
+            if (candyIndex >= candies.length) {
+                float bestFrac = 1f/3f;
+                candyIndex = (int) (candies.length * (1f - bestFrac)
+                        + Math.random() * candies.length * bestFrac);
+            }
+            builder.append(candies[candyIndex < 0 ? 0 : candyIndex >= candies.length ?
+                    candies.length - 1 : candyIndex]);
         }
         if (score > 0) {
             builder.append(" +")

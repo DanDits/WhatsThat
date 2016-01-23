@@ -41,7 +41,7 @@ import dan.dit.whatsthat.riddle.RiddleConfig;
 import dan.dit.whatsthat.riddle.achievement.holders.AchievementTriangle;
 import dan.dit.whatsthat.riddle.control.RiddleGame;
 import dan.dit.whatsthat.riddle.control.RiddleScore;
-import dan.dit.whatsthat.riddle.types.Types;
+import dan.dit.whatsthat.riddle.types.TypesHolder;
 import dan.dit.whatsthat.testsubject.TestSubject;
 import dan.dit.whatsthat.testsubject.shopping.sortiment.SortimentHolder;
 import dan.dit.whatsthat.util.general.PercentProgressListener;
@@ -77,10 +77,10 @@ public class RiddleTriangle extends RiddleGame {
     }
 
     @Override
-    protected @NonNull RiddleScore calculateGainedScore() {
-        int bonus = (mTriangles.size() <= MAX_TRIANGLES_FOR_BIG_SCORE_BONUS ? Types.SCORE_HARD :
-                mTriangles.size() <= MAX_TRIANGLES_FOR_SCORE_BONUS ? Types.SCORE_SIMPLE : 0);
-        return super.calculateGainedScore().addBonus(bonus);
+    protected void addBonusReward(@NonNull RiddleScore.Rewardable rewardable) {
+        int bonus = (mTriangles.size() <= MAX_TRIANGLES_FOR_BIG_SCORE_BONUS ? TypesHolder.SCORE_HARD :
+                mTriangles.size() <= MAX_TRIANGLES_FOR_SCORE_BONUS ? TypesHolder.SCORE_SIMPLE : 0);
+        rewardable.addBonus(bonus);
     }
 
     @Override

@@ -42,7 +42,7 @@ import dan.dit.whatsthat.riddle.control.LookRiddleAnimation;
 import dan.dit.whatsthat.riddle.control.RiddleAnimation;
 import dan.dit.whatsthat.riddle.control.RiddleGame;
 import dan.dit.whatsthat.riddle.control.RiddleScore;
-import dan.dit.whatsthat.riddle.types.Types;
+import dan.dit.whatsthat.riddle.types.TypesHolder;
 import dan.dit.whatsthat.testsubject.TestSubject;
 import dan.dit.whatsthat.testsubject.shopping.ShopArticleMulti;
 import dan.dit.whatsthat.testsubject.shopping.sortiment.SortimentHolder;
@@ -87,7 +87,7 @@ public class RiddleDice extends RiddleGame {
             new FieldElement.Neighbor[] {FieldElement.Neighbor.TOP_LEFT, FieldElement.Neighbor.BOTTOM_RIGHT, FieldElement.Neighbor.TOP_RIGHT, FieldElement.Neighbor.BOTTOM_LEFT, FieldElement.Neighbor.LEFT, FieldElement.Neighbor.RIGHT, FieldElement.Neighbor.TOP, FieldElement.Neighbor.BOTTOM, FieldElement.Neighbor.SELF}, //9
 
     };
-    private static final String CACHE_DICE_ALIEN = Types.Dice.NAME + "DiceAlien";
+    private static final String CACHE_DICE_ALIEN = TypesHolder.Dice.NAME + "DiceAlien";
     private Random mRand;
     private Field2D<DicePosition> mField;
     private Paint mBorderPaint;
@@ -383,7 +383,7 @@ public class RiddleDice extends RiddleGame {
 
 
     @Override
-    protected @NonNull RiddleScore calculateGainedScore() {
+    protected void addBonusReward(@NonNull RiddleScore.Rewardable rewardable) {
         boolean noResets = mConfig.mAchievementGameData != null && mConfig.mAchievementGameData.getValue(AchievementDice.KEY_GAME_RESET_COUNT, 0L) == 0L;
         boolean noPurpleDices = mConfig.mAchievementGameData != null
                 && mConfig.mAchievementGameData.getValue(AchievementDice.KEY_GAME_PURPLE_COUNT, 0L)
@@ -391,9 +391,9 @@ public class RiddleDice extends RiddleGame {
         boolean noAliens = mConfig.mAchievementGameData != null && mConfig.mAchievementGameData
                 .getValue(AchievementDice.KEY_GAME_ALIEN_COUNT, 0L)
                     == (mFirstStartDiceState == STATE_ALIEN ? 1L : 0L);
-        int bonus = ((noResets && noPurpleDices && noAliens) ? Types.SCORE_VERY_HARD :
-                (noResets && noPurpleDices) ? Types.SCORE_MEDIUM : 0);
-        return super.calculateGainedScore().addBonus(bonus);
+        int bonus = ((noResets && noPurpleDices && noAliens) ? TypesHolder.SCORE_VERY_HARD :
+                (noResets && noPurpleDices) ? TypesHolder.SCORE_MEDIUM : 0);
+        rewardable.addBonus(bonus);
     }
 
     @Override

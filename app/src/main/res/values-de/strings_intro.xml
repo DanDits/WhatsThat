@@ -100,11 +100,11 @@
         <item>Und natürlich: Viel Erfolg!</item>
     </string-array>
     <string-array name="test_subject_0_riddle_solved_candy">
-        <item>Wunderbar</item>
         <item>Geschafft</item>
         <item>Gut gemacht</item>
-        <item>Voll gut</item>
         <item>Unerwartet gut</item>
+        <item>Voll gut</item>
+        <item>Wunderbar</item>
         <item>Großartig</item>
     </string-array>
 
@@ -182,11 +182,11 @@
     </string-array>
     <string-array name="test_subject_1_riddle_solved_candy">
         <item>Applaus</item>
+        <item>Gute Arbeit</item>
         <item>Toll gemacht</item>
         <item>Super</item>
-        <item>Sehr gut</item>
-        <item>gute Arbeit</item>
         <item>Voll gut</item>
+        <item>Sehr gut</item>
     </string-array>
 
     <!-- Level 2 -->
@@ -240,11 +240,11 @@
         <item>Aber nun weiter im Protokoll.</item>
     </string-array>
     <string-array name="test_subject_2_riddle_solved_candy">
+        <item>Beachtlich</item>
         <item>Bemerkenswert</item>
         <item>Klasse</item>
-        <item>Top Arbeit</item>
-        <item>Beachtlich</item>
         <item>Goldrichtig</item>
+        <item>Top Arbeit</item>
         <item>Schöne Leistung</item>
     </string-array>
 
@@ -347,11 +347,11 @@
         <item>Und weniger Frust.</item>
     </string-array>
     <string-array name="test_subject_3_riddle_solved_candy">
+        <item>Sagenhaft</item>
         <item>Klasse gemacht</item>
         <item>Wunderschön</item>
         <item>Sensationell</item>
         <item>Exzellent</item>
-        <item>Sagenhaft</item>
         <item>Bin stolz auf dich</item>
     </string-array>
 

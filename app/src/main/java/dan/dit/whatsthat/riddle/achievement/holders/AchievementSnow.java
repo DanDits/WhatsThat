@@ -13,7 +13,7 @@ import dan.dit.whatsthat.riddle.achievement.AchievementDataRiddleGame;
 import dan.dit.whatsthat.riddle.achievement.GameAchievement;
 import dan.dit.whatsthat.riddle.games.RiddleSnow;
 import dan.dit.whatsthat.riddle.types.PracticalRiddleType;
-import dan.dit.whatsthat.riddle.types.Types;
+import dan.dit.whatsthat.riddle.types.TypesHolder;
 import dan.dit.whatsthat.solution.Solution;
 import dan.dit.whatsthat.testsubject.TestSubject;
 import dan.dit.whatsthat.util.dependencies.Dependency;
@@ -124,7 +124,7 @@ public class AchievementSnow extends TypeAchievementHolder {
         public static final int LEVEL = 0;
         public static final int REWARD = 85;
         public static final boolean DISCOVERED = true;
-        private static final String KEY_TIMER_SOLVED = Types.Snow.NAME + NUMBER + "_solved"; // timed data key
+        private static final String KEY_TIMER_SOLVED = TypesHolder.Snow.NAME + NUMBER + "_solved"; // timed data key
         private static final int SOLVED_COUNT = 2;
         private static final long SOLVED_MAX_TIME = 120000; //ms
 
@@ -208,7 +208,7 @@ public class AchievementSnow extends TypeAchievementHolder {
         public static final int LEVEL = 1;
         public static final int REWARD = 200;
         public static final boolean DISCOVERED = true;
-        private static final String KEY_TIMER_COLLECT_IDEA = Types.Snow.NAME + NUMBER + "_collectidea"; // timed data key
+        private static final String KEY_TIMER_COLLECT_IDEA = TypesHolder.Snow.NAME + NUMBER + "_collectidea"; // timed data key
         private static final int COLLECT_COUNT = 20;
         private static final long COLLECT_MAX_TIME = 20000; //ms
 

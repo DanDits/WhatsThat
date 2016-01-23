@@ -40,6 +40,8 @@ import dan.dit.whatsthat.util.dependencies.OrDependency;
  * Created by daniel on 20.08.15.
  */
 public class SortimentHolder extends ShopArticleHolder {
+    public static final String ARTICLE_KEY_FLOW_BIGGER_FLOW = PracticalRiddleType.FLOW_INSTANCE
+            .getFullName() + "_bigger_flow";
     public static final String ARTICLE_KEY_JUMPER_START_FURTHER_FEATURE = PracticalRiddleType.JUMPER_INSTANCE.getFullName() + "_start_further";
     public static final String ARTICLE_KEY_CIRCLE_DIVIDE_BY_MOVE_FEATURE = PracticalRiddleType.CIRCLE_INSTANCE.getFullName() + "_divide_by_move_feature";
     public static final String ARTICLE_KEY_TRIANGLE_DIVIDE_BY_MOVE_FEATURE = PracticalRiddleType.TRIANGLE_INSTANCE.getFullName() + "_divided_by_move_feature";
@@ -146,7 +148,11 @@ public class SortimentHolder extends ShopArticleHolder {
                 R.drawable.icon_dice,
                 R.array.riddle_type_dice_article_improved_start_products,
                 new int[] {300, 500, 1000}));
-
+        addArticle(new ShopArticleSimple(ARTICLE_KEY_FLOW_BIGGER_FLOW, mPurse,
+                R.string.article_flow_stream_name,
+                R.string.article_flow_stream_descr,
+                R.drawable.icon_flow,
+                300));
         sortArticles();
     }
 
@@ -236,6 +242,9 @@ public class SortimentHolder extends ShopArticleHolder {
                                 (PracticalRiddleType.DICE_INSTANCE, AchievementDice.Achievement10.NUMBER),
                         1)
                 .addDependency(LevelDependency.getInstance(5), 2);
+        getArticle(ARTICLE_KEY_FLOW_BIGGER_FLOW)
+                .addDependency(TestSubject.getInstance().getRiddleTypeDependency
+                        (PracticalRiddleType.FLOW_INSTANCE), ShopArticle.GENERAL_PRODUCT_INDEX);
     }
 
     private void makeDownloadArticleLevelDependency(String key, int level) {

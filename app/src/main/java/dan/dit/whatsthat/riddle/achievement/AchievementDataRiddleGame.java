@@ -158,25 +158,30 @@ public class AchievementDataRiddleGame extends AchievementProperties {
         return mState;
     }
 
+    public long getCurrentPlayedTime() {
+        return getValue(KEY_PLAYED_TIME, 0L) + System.currentTimeMillis() - getValue
+                (KEY_LAST_OPENED, getValue(KEY_START_TIME, 0L));
+    }
+
     public synchronized void closeGame(long solved) {
         if (mState == STATE_CLOSED || mState == STATE_NONE) {
             Log.e("Achievement", "Trying to close already closed or not yet opened AchievementDataRiddleGame " + mName);
             return;
         }
         enableSilentChanges(AchievementDataEvent.EVENT_TYPE_DATA_CLOSE);
-        long currentTime = System.currentTimeMillis();
-        long playedTime = increment(KEY_PLAYED_TIME, currentTime - getValue(KEY_LAST_OPENED, getValue(KEY_START_TIME, 0L)), 0L);
+        long playedTime = getCurrentPlayedTime();
         Log.d("Achievement", "Played time after closing game: " + playedTime);
-        putValue(KEY_SOLVED, solved, AchievementProperties.UPDATE_POLICY_ALWAYS);
+        putValueIfBigger(KEY_PLAYED_TIME, playedTime);
+        putValue(KEY_SOLVED, solved);
         mState = STATE_CLOSED;
         disableSilentChanges();
 
         if (isSolved() && TestSubject.isInitialized()) {
-            long totalTime = currentTime - getValue(KEY_START_TIME, 0L);
+            long totalTime = System.currentTimeMillis() - getValue(KEY_START_TIME, 0L);
             AchievementPropertiesMapped<String> data = TestSubject.getInstance().getAchievementHolder().getMiscData();
             data.enableSilentChanges(AchievementDataEvent.EVENT_TYPE_DATA_UPDATE);
-            data.putValue(MiscAchievementHolder.KEY_LAST_SOLVED_GAME_PLAYED_TIME, playedTime, UPDATE_POLICY_ALWAYS);
-            data.putValue(MiscAchievementHolder.KEY_LAST_SOLVED_GAME_TOTAL_TIME, totalTime, UPDATE_POLICY_ALWAYS);
+            data.putValue(MiscAchievementHolder.KEY_LAST_SOLVED_GAME_PLAYED_TIME, playedTime);
+            data.putValue(MiscAchievementHolder.KEY_LAST_SOLVED_GAME_TOTAL_TIME, totalTime);
             data.disableSilentChanges();
         }
     }

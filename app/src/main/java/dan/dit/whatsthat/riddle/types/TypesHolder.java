@@ -17,6 +17,8 @@ package dan.dit.whatsthat.riddle.types;
 
 import android.content.res.Resources;
 import android.graphics.Bitmap;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,6 +36,7 @@ import dan.dit.whatsthat.riddle.achievement.holders.AchievementMemory;
 import dan.dit.whatsthat.riddle.achievement.holders.AchievementSnow;
 import dan.dit.whatsthat.riddle.achievement.holders.AchievementTriangle;
 import dan.dit.whatsthat.riddle.achievement.holders.TypeAchievementHolder;
+import dan.dit.whatsthat.riddle.control.RiddleScoreConfig;
 import dan.dit.whatsthat.riddle.games.RiddleCircle;
 import dan.dit.whatsthat.riddle.games.RiddleDeveloper;
 import dan.dit.whatsthat.riddle.games.RiddleDice;
@@ -53,21 +56,27 @@ import dan.dit.whatsthat.util.general.PercentProgressListener;
  * PracticalRiddleType class.
  * Created by daniel on 18.05.15.
  */
-public class Types {
-    public static final int SCORE_SIMPLE = 1;
-    public static final int SCORE_MEDIUM = 2;
-    public static final int SCORE_HARD = 3;
-    public static final int SCORE_VERY_HARD = 4;
-    public static final int SCORE_ULTRA = 5;
+public class TypesHolder {
+    public static final int SCORE_MINIMAL = 1;
+    public static final int SCORE_SIMPLE = 2;
+    public static final int SCORE_MEDIUM = 3;
+    public static final int SCORE_HARD = 4;
+    public static final int SCORE_VERY_HARD = 5;
+    public static final int SCORE_ULTRA = 6;
+    private static final long SEC_TO_MS = 1000L;
 
-    private Types() {} // do not instantiate
+    private TypesHolder() {} // do not instantiate
 
     /**
      * The matching type for RiddleCircle.
      */
     public static class Circle extends PracticalRiddleType {
         public static final String NAME = "Circle";
-        public TypeAchievementHolder mHolder = new AchievementCircle(this);
+
+        protected Circle() {
+            super(new RiddleScoreConfig(25 * SEC_TO_MS, SCORE_SIMPLE));
+            mHolder = new AchievementCircle(this);
+        }
 
         @Override
         protected String getName() {return NAME;}
@@ -75,11 +84,6 @@ public class Types {
         @Override
         public RiddleGame makeRiddle(Riddle riddle, Image image, Bitmap bitmap, Resources res, RiddleConfig config, PercentProgressListener listener) {
             return new RiddleCircle(riddle, image, bitmap, res, config, listener);
-        }
-
-        @Override
-        public TypeAchievementHolder getAchievementHolder() {
-            return mHolder;
         }
 
         @Override
@@ -139,18 +143,13 @@ public class Types {
             List<Integer> costs = new ArrayList<>(getTotalAvailableHintsCount());
             costs.add(0);
             costs.add(0);
-            costs.add(5);
+            costs.add(0);
             costs.add(5);
             costs.add(10);
             costs.add(15);
             costs.add(20);
             costs.add(30);
             return costs;
-        }
-
-        @Override
-        public int getBaseScore() {
-            return SCORE_SIMPLE;
         }
 
         @Override
@@ -169,7 +168,12 @@ public class Types {
      */
     public static class Snow extends PracticalRiddleType {
         public static final String NAME = "Snow";
-        public TypeAchievementHolder mHolder = new AchievementSnow(this);
+
+        protected Snow() {
+            super(new RiddleScoreConfig(60 * SEC_TO_MS, SCORE_MEDIUM));
+            mHolder = new AchievementSnow(this);
+        }
+
         @Override
         protected String getName() {return NAME;}
 
@@ -193,10 +197,6 @@ public class Types {
         @Override
         public int getExplanationResId() {
             return R.string.riddle_type_snow_explanation;
-        }
-        @Override
-        public TypeAchievementHolder getAchievementHolder() {
-            return mHolder;
         }
         @Override
         public CharSequence getRiddleHint(Resources res, int hintNumber) {
@@ -225,11 +225,6 @@ public class Types {
         }
 
         @Override
-        public int getBaseScore() {
-            return SCORE_MEDIUM;
-        }
-
-        @Override
         public int getId() {
             return 2;
         }
@@ -240,7 +235,12 @@ public class Types {
      */
     public static class Dice extends PracticalRiddleType {
         public static final String NAME = "Dice";
-        public TypeAchievementHolder mHolder = new AchievementDice(this);
+
+        protected Dice() {
+            super(new RiddleScoreConfig(90 * SEC_TO_MS, SCORE_VERY_HARD));
+            mHolder = new AchievementDice(this);
+        }
+
         @Override
         protected String getName() {return NAME;}
 
@@ -281,10 +281,6 @@ public class Types {
         }
 
         @Override
-        public TypeAchievementHolder getAchievementHolder() {
-            return mHolder;
-        }
-        @Override
         public CharSequence getRiddleHint(Resources res, int hintNumber) {
             String[] hints = res.getStringArray(R.array.riddle_type_dice_hints);
             if (hintNumber >= 0 && hintNumber < hints.length) {
@@ -311,11 +307,6 @@ public class Types {
         }
 
         @Override
-        public int getBaseScore() {
-            return SCORE_VERY_HARD;
-        }
-
-        @Override
         public int getId() {
             return 3;
         }
@@ -326,7 +317,12 @@ public class Types {
      */
     public static class Triangle extends PracticalRiddleType {
         public static final String NAME = "Triangle";
-        public TypeAchievementHolder mHolder = new AchievementTriangle(this);
+
+        protected Triangle() {
+            super(new RiddleScoreConfig(22 * SEC_TO_MS, SCORE_SIMPLE));
+            mHolder = new AchievementTriangle(this);
+        }
+
         @Override
         protected String getName() {return NAME;}
 
@@ -362,10 +358,6 @@ public class Types {
             return R.string.riddle_type_triangle_explanation;
         }
         @Override
-        public TypeAchievementHolder getAchievementHolder() {
-            return mHolder;
-        }
-        @Override
         public CharSequence getRiddleHint(Resources res, int hintNumber) {
             String[] hints = res.getStringArray(R.array.riddle_type_triangle_hints);
             if (hintNumber >= 0 && hintNumber < hints.length) {
@@ -388,10 +380,6 @@ public class Types {
             costs.add(25);
             return costs;
         }
-        @Override
-        public int getBaseScore() {
-            return SCORE_SIMPLE;
-        }
 
         @Override
         public int getId() {
@@ -405,7 +393,10 @@ public class Types {
     public static class Jumper extends PracticalRiddleType {
         public static final String NAME = "Jumper";
         public static final double BITMAP_ASPECT_RATIO = 5. / 4.;
-        public TypeAchievementHolder mHolder = new AchievementJumper(this);
+        protected Jumper() {
+            super(new RiddleScoreConfig(70 * SEC_TO_MS, SCORE_HARD));
+            mHolder = new AchievementJumper(this);
+        }
 
         @Override
         protected String getName() {return NAME;}
@@ -435,10 +426,6 @@ public class Types {
         @Override
         public double getSuggestedBitmapAspectRatio() {
             return BITMAP_ASPECT_RATIO;
-        }
-        @Override
-        public TypeAchievementHolder getAchievementHolder() {
-            return mHolder;
         }
         @Override
         public CharSequence getRiddleHint(Resources res, int hintNumber) {
@@ -478,10 +465,6 @@ public class Types {
             interest += typeToCheck.getInterestValueIfEqual(ContentRiddleType.CONTRAST_WEAK_INSTANCE);
             return interest;
         }
-        @Override
-        public int getBaseScore() {
-            return SCORE_ULTRA;
-        }
 
         @Override
         public int getId() {
@@ -494,7 +477,10 @@ public class Types {
      */
     public static class Memory extends PracticalRiddleType {
         public static final String NAME = "Memory";
-        private TypeAchievementHolder mHolder = new AchievementMemory(this);
+        protected Memory() {
+            super(new RiddleScoreConfig(90 * SEC_TO_MS, SCORE_VERY_HARD));
+            mHolder = new AchievementMemory(this);
+        }
         @Override
         protected String getName() {return NAME;}
 
@@ -502,10 +488,6 @@ public class Types {
         public int getAdvertisingResId() {
             return R.string.riddle_type_memory_advertising;
         }
-        @Override
-        public TypeAchievementHolder getAchievementHolder() {
-        return mHolder;
-    }
         @Override
         public RiddleGame makeRiddle(Riddle riddle, Image image, Bitmap bitmap, Resources res, RiddleConfig config, PercentProgressListener listener) {
             return new RiddleMemory(riddle, image, bitmap, res, config, listener);
@@ -548,11 +530,6 @@ public class Types {
         }
 
         @Override
-        public int getBaseScore() {
-            return SCORE_HARD;
-        }
-
-        @Override
         public int getId() {
             return 6;
         }
@@ -565,6 +542,9 @@ public class Types {
      */
     public static class Developer extends PracticalRiddleType {
         public static final String NAME = "Developer";
+        protected Developer() {
+            super(new RiddleScoreConfig(1000L, 0));
+        }
         @Override
         protected String getName() {return NAME;}
 
@@ -591,11 +571,6 @@ public class Types {
         }
 
         @Override
-        public int getBaseScore() {
-            return SCORE_SIMPLE;
-        }
-
-        @Override
         public int getId() {
             return 7;
         }
@@ -606,6 +581,9 @@ public class Types {
      */
     public static class Torchlight extends PracticalRiddleType {
         public static final String NAME = "Torchlight";
+        protected Torchlight() {
+            super(new RiddleScoreConfig(1000L, 0));
+        }
         @Override
         protected String getName() {return NAME;}
 
@@ -631,11 +609,6 @@ public class Types {
         }
 
         @Override
-        public int getBaseScore() {
-            return SCORE_SIMPLE;
-        }
-
-        @Override
         public int getId() {
             return 8;
         }
@@ -646,7 +619,10 @@ public class Types {
      */
     public static class Flow extends PracticalRiddleType {
         public static final String NAME = "Flow";
-        private TypeAchievementHolder mHolder = new AchievementFlow(this);
+        protected Flow() {
+            super(new RiddleScoreConfig(40 * SEC_TO_MS, SCORE_MEDIUM));
+            mHolder = new AchievementFlow(this);
+        }
 
         @Override
         protected String getName() {return NAME;}
@@ -654,10 +630,6 @@ public class Types {
         @Override
         public int getAdvertisingResId() {
             return R.string.riddle_type_flow_advertising;
-        }
-        @Override
-        public TypeAchievementHolder getAchievementHolder() {
-            return mHolder;
         }
         @Override
         public RiddleGame makeRiddle(Riddle riddle, Image image, Bitmap bitmap, Resources res, RiddleConfig config, PercentProgressListener listener) {
@@ -707,10 +679,6 @@ public class Types {
             costs.add(15);
             return costs;
         }
-        @Override
-        public int getBaseScore() {
-            return SCORE_MEDIUM;
-        }
 
         @Override
         public int getId() {
@@ -724,7 +692,10 @@ public class Types {
     public static class Lazor extends PracticalRiddleType {
         public static final String NAME = "Lazor";
         private static final double BITMAP_ASPECT_RATIO = 5. / 4.;
-        private TypeAchievementHolder mHolder = new AchievementLazor(this);
+        protected Lazor() {
+            super(new RiddleScoreConfig(60 * SEC_TO_MS, SCORE_HARD));
+            mHolder = new AchievementLazor(this);
+        }
 
         @Override
         protected String getName() {return NAME;}
@@ -739,10 +710,6 @@ public class Types {
         }
         @Override
         public boolean enforcesBitmapAspectRatio() {return true;}
-        @Override
-        public TypeAchievementHolder getAchievementHolder() {
-            return mHolder;
-        }
 
         @Override
         public RiddleGame makeRiddle(Riddle riddle, Image image, Bitmap bitmap, Resources res, RiddleConfig config, PercentProgressListener listener) {
@@ -790,11 +757,6 @@ public class Types {
             interest += typeToCheck.getInterestValueIfEqual(FormatRiddleType.LANDSCAPE_INSTANCE);
             interest += typeToCheck.getInterestValueIfEqual(ContentRiddleType.CONTRAST_WEAK_INSTANCE);
             return interest;
-        }
-
-        @Override
-        public int getBaseScore() {
-            return SCORE_HARD;
         }
 
         @Override

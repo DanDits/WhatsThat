@@ -208,6 +208,9 @@
         <item>Celli\'s maximum lifetime is always the same.</item>
         <item>However not every Celli will work until the end. Most of them collide in a dead end.</item>
     </string-array>
+    <string name="article_flow_stream_name">Stream</string>
+    <string name="article_flow_stream_descr">Once a small flow, now a powerful stream.
+        Doubles the width!</string>
 
 
     <!-- Lazor related -->

@@ -79,6 +79,30 @@ public class AchievementProperties extends AchievementData {
         notifyListeners(obtainNewEvent().initReset(this));
     }
 
+    public synchronized void putValue(String key, Long value) {
+        putValue(key, value, UPDATE_POLICY_ALWAYS);
+    }
+
+    public synchronized void putValueIfBigger(String key, Long value) {
+        putValue(key, value, 1L);
+    }
+
+    public synchronized void putValueIfSmaller(String key, Long value) {
+        putValue(key, value, -1L);
+    }
+
+    /**
+     * Associates the given key with the given value. If the key is null this does nothing. If
+     * silent changes are currently not enabled and the value changed, listeners will be notified
+     * of the update. If given value is null, the association will be removed.
+     * @param key The key to use.
+     * @param value The value to associate to the key.
+     * @param requiredValueToOldDelta The required minimum delta to the old value that must
+     *                                exceeded for the value to update. If zero the
+     *                                value will always be updated, though not always notify
+     *                                listeners. If positive the new value needs to be bigger
+     *                                than the old value.
+     */
     public synchronized void putValue(String key, Long value, long requiredValueToOldDelta) {
         if (key == null) {
             return;
@@ -133,6 +157,13 @@ public class AchievementProperties extends AchievementData {
         return value;
     }
 
+    /**
+     * Returns the value saved for the given key. If there is no value associated to this key,
+     * the given default value will be returned instead.
+     * @param key The valid key to use.
+     * @param defaultValue The default value to use.
+     * @return The associated value or the default value.
+     */
     public synchronized Long getValue(String key, long defaultValue) {
         Long value = mValues.get(key);
         if (value == null) {

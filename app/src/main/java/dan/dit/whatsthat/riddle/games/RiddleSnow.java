@@ -42,7 +42,7 @@ import dan.dit.whatsthat.riddle.achievement.holders.AchievementSnow;
 import dan.dit.whatsthat.riddle.control.RiddleGame;
 import dan.dit.whatsthat.riddle.control.RiddleCanvasAnimation;
 import dan.dit.whatsthat.riddle.control.RiddleScore;
-import dan.dit.whatsthat.riddle.types.Types;
+import dan.dit.whatsthat.riddle.types.TypesHolder;
 import dan.dit.whatsthat.testsubject.TestSubject;
 import dan.dit.whatsthat.testsubject.shopping.sortiment.SortimentHolder;
 import dan.dit.whatsthat.util.general.MathFunction;
@@ -91,11 +91,11 @@ public class RiddleSnow extends RiddleGame implements FlatWorldCallback {
     private static final float DEVIL_RADIUS_FRACTION_OF_CELL_MAX_RADIUS = 0.25f;
     public static final boolean DEFAULT_DEVIL_IS_VISIBLE = true;
     private static final int MAX_WALL_COLLISONS_FOR_SCORE_BONUS = 0;
-    private static final String CACHE_FULL_EXPLOSION0 = Types.Snow.NAME + "FullExplosion0";
-    private static final String CACHE_FULL_EXPLOSION1 = Types.Snow.NAME + "FullExplosion1";
-    private static final String CACHE_FULL_EXPLOSION2 = Types.Snow.NAME + "FullExplosion2";
-    private static final String CACHE_FULL_EXPLOSION3 = Types.Snow.NAME + "FullExplosion3";
-    private static final String CACHE_FULL_EXPLOSION4 = Types.Snow.NAME + "FullExplosion4";
+    private static final String CACHE_FULL_EXPLOSION0 = TypesHolder.Snow.NAME + "FullExplosion0";
+    private static final String CACHE_FULL_EXPLOSION1 = TypesHolder.Snow.NAME + "FullExplosion1";
+    private static final String CACHE_FULL_EXPLOSION2 = TypesHolder.Snow.NAME + "FullExplosion2";
+    private static final String CACHE_FULL_EXPLOSION3 = TypesHolder.Snow.NAME + "FullExplosion3";
+    private static final String CACHE_FULL_EXPLOSION4 = TypesHolder.Snow.NAME + "FullExplosion4";
 
     private long mReloadRiddleMoveBlockDuration;
 
@@ -446,10 +446,10 @@ public class RiddleSnow extends RiddleGame implements FlatWorldCallback {
     }
 
     @Override
-    protected @NonNull RiddleScore calculateGainedScore() {
+    protected void addBonusReward(@NonNull RiddleScore.Rewardable rewardable) {
         int wallCollisions = mConfig.mAchievementGameData != null ? mConfig.mAchievementGameData.getValue(AchievementSnow.KEY_GAME_COLLISION_COUNT, 0L).intValue() : 0;
-        int bonus = (wallCollisions <= MAX_WALL_COLLISONS_FOR_SCORE_BONUS ? Types.SCORE_MEDIUM : 0);
-        return super.calculateGainedScore().addBonus(bonus);
+        int bonus = (wallCollisions <= MAX_WALL_COLLISONS_FOR_SCORE_BONUS ? TypesHolder.SCORE_MEDIUM : 0);
+        rewardable.addBonus(bonus);
     }
 
     @Override

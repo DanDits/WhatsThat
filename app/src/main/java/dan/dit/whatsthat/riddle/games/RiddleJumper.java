@@ -42,7 +42,7 @@ import dan.dit.whatsthat.riddle.RiddleConfig;
 import dan.dit.whatsthat.riddle.achievement.holders.AchievementJumper;
 import dan.dit.whatsthat.riddle.control.RiddleGame;
 import dan.dit.whatsthat.riddle.control.RiddleScore;
-import dan.dit.whatsthat.riddle.types.Types;
+import dan.dit.whatsthat.riddle.types.TypesHolder;
 import dan.dit.whatsthat.testsubject.TestSubject;
 import dan.dit.whatsthat.testsubject.shopping.sortiment.SortimentHolder;
 import dan.dit.whatsthat.util.compaction.CompactedDataCorruptException;
@@ -112,14 +112,14 @@ public class RiddleJumper extends RiddleGame implements FlatWorldCallback {
     private static final float MAX_SOLUTION_SCALE = 0.5f;
     private static final float BUBBLE_CENTER_Y_ESTIMATE = 0.765f * 0.5f;
     private static final float DISTANCE_RUN_PENALTY_ON_SAVE_FRACTION = 0.75f; // mainly required so that it is not worth closing the riddle (or app) when you know you are going to collide
-    private static final float[] CLEAR_MIND_SIZE_FRACTION = new float[] {0.1f, 0.18f, 0.3f, 0.7f};
+    private static final float[] CLEAR_MIND_SIZE_FRACTION = new float[] {0.15f, 0.2f, 0.35f, 0.7f};
     private static final int FOGGED_MIND_COLOR = Color.DKGRAY;
-    private static final int[] MIND_CLEARED_EVERY_K_OBSTACLES = new int[] {2, 3, 5, 8};
+    private static final int[] MIND_CLEARED_EVERY_K_OBSTACLES = new int[] {2, 3, 4, 6};
     private static final int MAX_COLLISIONS_FOR_SCORE_BONUS = 3;
     private static final int MAX_COLLISIONS_FOR_SCORE_BIG_BONUS = 1;
 
-    private static final String CACHE_BIG_BEAM = Types.Jumper.NAME + "BigBeam";
-    private static final String CACHE_BACKGROUND = Types.Jumper.NAME + "Background";
+    private static final String CACHE_BIG_BEAM = TypesHolder.Jumper.NAME + "BigBeam";
+    private static final String CACHE_BACKGROUND = TypesHolder.Jumper.NAME + "Background";
 
 
     private Bitmap mThoughtbubble;
@@ -186,11 +186,11 @@ public class RiddleJumper extends RiddleGame implements FlatWorldCallback {
     }
 
     @Override
-    protected @NonNull RiddleScore calculateGainedScore() {
+    protected void addBonusReward(@NonNull RiddleScore.Rewardable rewardable) {
         int collisions = mConfig.mAchievementGameData != null ? mConfig.mAchievementGameData.getValue(AchievementJumper.KEY_GAME_COLLISION_COUNT, 0L).intValue() : 0;
-        int bonus = (collisions <= MAX_COLLISIONS_FOR_SCORE_BIG_BONUS ? Types.SCORE_HARD:
-                (collisions <= MAX_COLLISIONS_FOR_SCORE_BONUS ? Types.SCORE_MEDIUM : 0));
-        return super.calculateGainedScore().addBonus(bonus);
+        int bonus = (collisions <= MAX_COLLISIONS_FOR_SCORE_BIG_BONUS ? TypesHolder.SCORE_HARD:
+                (collisions <= MAX_COLLISIONS_FOR_SCORE_BONUS ? TypesHolder.SCORE_MEDIUM : 0));
+        rewardable.addBonus(bonus);
     }
 
     @Override
@@ -259,7 +259,7 @@ public class RiddleJumper extends RiddleGame implements FlatWorldCallback {
         mClearMindEffect = new WorldEffectMoved(mClearMindLook,
                 0f, 0f, new HitboxNewtonMover(0f, -40f));
 
-        mSolutionBackgroundHeight = (int) (mConfig.mHeight / Types.Jumper.BITMAP_ASPECT_RATIO);
+        mSolutionBackgroundHeight = (int) (mConfig.mHeight / TypesHolder.Jumper.BITMAP_ASPECT_RATIO);
         listener.onProgressUpdate(20);
         mObstaclesSpeed = - mConfig.mWidth / ((float) OBSTACLES_RIGHT_LEFT_DURATION / ONE_SECOND);
         listener.onProgressUpdate(30);

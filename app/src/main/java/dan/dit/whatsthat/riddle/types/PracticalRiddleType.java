@@ -36,31 +36,28 @@ import dan.dit.whatsthat.riddle.achievement.AchievementDataRiddleGame;
 import dan.dit.whatsthat.riddle.achievement.AchievementDataRiddleType;
 import dan.dit.whatsthat.riddle.achievement.holders.TypeAchievementHolder;
 import dan.dit.whatsthat.riddle.control.RiddleGame;
+import dan.dit.whatsthat.riddle.control.RiddleScoreConfig;
 import dan.dit.whatsthat.testsubject.TestSubject;
-import dan.dit.whatsthat.util.general.PercentProgressListener;
 import dan.dit.whatsthat.util.compaction.CompactedDataCorruptException;
+import dan.dit.whatsthat.util.general.PercentProgressListener;
 
 /**
  * Created by daniel on 01.04.15.
  */
 public abstract class PracticalRiddleType extends RiddleType {
 
-    /**
-     * The default score awarded for solving a RiddleGame.
-     */
-    static final int DEFAULT_SCORE = 1;
     private static final Map<String, PracticalRiddleType> ALL_TYPES = new HashMap<>();
     private static final int INTEREST_VALUE = 10;
-    public static final Types.Circle CIRCLE_INSTANCE = new Types.Circle();
-    public static final Types.Snow SNOW_INSTANCE = new Types.Snow();
-    public static final Types.Dice DICE_INSTANCE = new Types.Dice();
-    private static final Types.Developer DEVELOPER_INSTANCE = new Types.Developer();
-    public static final Types.Triangle TRIANGLE_INSTANCE = new Types.Triangle();
-    public static final Types.Jumper JUMPER_INSTANCE = new Types.Jumper();
-    public static final Types.Memory MEMORY_INSTANCE = new Types.Memory();
-    public static final Types.Lazor LAZOR_INSTANCE = new Types.Lazor();
-    public static final Types.Torchlight TORCHLIGHT_INSTANCE = new Types.Torchlight();
-    public static final Types.Flow FLOW_INSTANCE = new Types.Flow();
+    public static final TypesHolder.Circle CIRCLE_INSTANCE = new TypesHolder.Circle();
+    public static final TypesHolder.Snow SNOW_INSTANCE = new TypesHolder.Snow();
+    public static final TypesHolder.Dice DICE_INSTANCE = new TypesHolder.Dice();
+    private static final TypesHolder.Developer DEVELOPER_INSTANCE = new TypesHolder.Developer();
+    public static final TypesHolder.Triangle TRIANGLE_INSTANCE = new TypesHolder.Triangle();
+    public static final TypesHolder.Jumper JUMPER_INSTANCE = new TypesHolder.Jumper();
+    public static final TypesHolder.Memory MEMORY_INSTANCE = new TypesHolder.Memory();
+    public static final TypesHolder.Lazor LAZOR_INSTANCE = new TypesHolder.Lazor();
+    public static final TypesHolder.Torchlight TORCHLIGHT_INSTANCE = new TypesHolder.Torchlight();
+    public static final TypesHolder.Flow FLOW_INSTANCE = new TypesHolder.Flow();
 
     public static final List<PracticalRiddleType> ALL_PLAYABLE_TYPES = new ArrayList<>();
     public static final int NO_ID = 0;
@@ -76,9 +73,16 @@ public abstract class PracticalRiddleType extends RiddleType {
         ALL_PLAYABLE_TYPES.add(MEMORY_INSTANCE);
     }
 
+    private final RiddleScoreConfig mScoreConfig;
+
     private SoftReference<Drawable> mIcon;
     private volatile AchievementDataRiddleType mAchievementData;
     private final AchievementDataRiddleGame mAchievementDataGame = new AchievementDataRiddleGame(this);
+    protected TypeAchievementHolder mHolder;
+
+    protected PracticalRiddleType(@NonNull RiddleScoreConfig scoreConfig) {
+        mScoreConfig = scoreConfig;
+    }
 
     public Drawable getIcon(Resources res) {
         if (mIcon != null)  {
@@ -210,7 +214,7 @@ public abstract class PracticalRiddleType extends RiddleType {
         return mAchievementDataGame;
     }
     public TypeAchievementHolder getAchievementHolder() {
-        return null;
+        return mHolder;
     }
 
     public CharSequence getRiddleHint(Resources res, int hintNumber) {
@@ -227,8 +231,6 @@ public abstract class PracticalRiddleType extends RiddleType {
         return null;
     }
 
-    public abstract int getBaseScore();
-
     public abstract int getAdvertisingResId();
 
     /**
@@ -236,4 +238,8 @@ public abstract class PracticalRiddleType extends RiddleType {
      * @return A positive integer identifying the PractialRiddleType among all others.
      */
     public abstract int getId();
+
+    public int getBaseScore(long timeTaken) {
+        return mScoreConfig.getBaseScore(timeTaken);
+    }
 }

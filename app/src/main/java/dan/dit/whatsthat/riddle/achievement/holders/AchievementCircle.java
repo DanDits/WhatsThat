@@ -30,7 +30,7 @@ import dan.dit.whatsthat.riddle.achievement.AchievementDataRiddleType;
 import dan.dit.whatsthat.riddle.achievement.AchievementPropertiesMapped;
 import dan.dit.whatsthat.riddle.achievement.GameAchievement;
 import dan.dit.whatsthat.riddle.types.PracticalRiddleType;
-import dan.dit.whatsthat.riddle.types.Types;
+import dan.dit.whatsthat.riddle.types.TypesHolder;
 import dan.dit.whatsthat.testsubject.TestSubject;
 import dan.dit.whatsthat.testsubject.shopping.sortiment.SortimentHolder;
 import dan.dit.whatsthat.util.dependencies.Dependency;
@@ -342,7 +342,7 @@ public class AchievementCircle extends TypeAchievementHolder {
         public static final int LEVEL = 2;
         public static final int REWARD = 150;
         public static final boolean DISCOVERED = true;
-        private static final String KEY_TIMER_SOLVED = Types.Circle.NAME + NUMBER + "_solved"; // timed data key
+        private static final String KEY_TIMER_SOLVED = TypesHolder.Circle.NAME + NUMBER + "_solved"; // timed data key
         private static final int SOLVED_COUNT = 4;
         private static final int SOLVED_MAX_TIME = 120000; //ms
 
@@ -408,7 +408,7 @@ public class AchievementCircle extends TypeAchievementHolder {
     public static class Achievement9 extends GameAchievement {
         public static final int NUMBER = 9;
         public static final int LEVEL = 0;
-        public static final int REWARD = PracticalRiddleType.CIRCLE_INSTANCE.getBaseScore() * 10;
+        public static final int REWARD = 10;
         public static final boolean DISCOVERED = true;
         private static final int MIN_RUBBISH_LETTERS = 18;
         private static final long TALK_POLITE = 1L;
@@ -464,7 +464,7 @@ public class AchievementCircle extends TypeAchievementHolder {
     public static class Achievement10 extends GameAchievement {
         public static final int NUMBER = 10;
         public static final int LEVEL = 0;
-        public static final int REWARD = PracticalRiddleType.CIRCLE_INSTANCE.getBaseScore() * 3;
+        public static final int REWARD = 3;
         public static final boolean DISCOVERED = true;
         public static final String KEY_ACHIEVE_ME = NUMBER + "achieve_me";
         private AchievementPropertiesMapped<String> mMiscData;

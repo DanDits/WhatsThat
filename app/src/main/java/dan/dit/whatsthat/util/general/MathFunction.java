@@ -15,6 +15,7 @@
 
 package dan.dit.whatsthat.util.general;
 
+import android.support.annotation.NonNull;
 import android.view.animation.Interpolator;
 
 /**
@@ -36,12 +37,27 @@ public abstract class MathFunction {
 
         private final Interpolator mInterpolator;
 
-        public AnimationInterpolator(android.view.animation.Interpolator interpolator) {
+        public AnimationInterpolator(@NonNull android.view.animation.Interpolator interpolator) {
             mInterpolator = interpolator;
         }
         @Override
         public double evaluate(double at) {
             return mInterpolator.getInterpolation((float) at);
+        }
+    }
+
+    public static class Max extends MathFunction {
+        private final MathFunction mOtherValueFunction;
+        private final double mMinimalAllowedValue;
+
+        public Max(double minimalAllowedValue, @NonNull MathFunction otherValueFunction) {
+            mOtherValueFunction = otherValueFunction;
+            mMinimalAllowedValue = minimalAllowedValue;
+        }
+
+        @Override
+        public double evaluate(double at) {
+            return Math.max(mMinimalAllowedValue, mOtherValueFunction.evaluate(at));
         }
     }
     /**
