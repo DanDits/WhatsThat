@@ -5,7 +5,7 @@
     <string name="riddle_type_circle_advertising">A simple experiment that aims to stimulate your grey matter through grey circles.</string>
     <string name="riddle_type_circle_explanation">Touch one circle to pop them into four smaller ones until the shape of the image is visible.</string>
     <string-array name="riddle_type_circle_hints">
-        <item>Welcome earthling!\n\nTo stimulate your cells, click on a circle to split them in four parts.\n\nTell us the solution, if you can recognize the shapes and the picture.</item>
+        <item>Welcome earthling!\n\nTo stimulate your cells, click on a circle to split them in four parts.\n\nTell us the solution, if you can recognize the shapes and therefore the picture!</item>
         <item>So, are your fingers hurting?\nTo continue the experiments in an easier way do the following things:\n1: Go to the menu \"Achievements\" and grab your reward.\2: Go to the menu \"shop\" and get the amazing intergalactic Circlelaser-Turbo-Cutter!</item>
         <item>You can find a quick guide at the \"No panic\"button. You can skip a picture, too if you don\'t see the solution.\n\nThere are more hints available now in the shop which you can and should buy.</item>
         <item>If you want more pictures from WiseMind, you can get new ones via download in the shop!</item>
