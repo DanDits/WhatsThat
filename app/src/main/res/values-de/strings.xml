@@ -55,7 +55,7 @@
     <string name="image_author_license">Lizenz: %1$s</string>
     <string name="image_author_details">%1$s</string>
 
-    <string name="init_skip_state_ready">Testsubjekt bereit</string>
+    <string name="init_skip_state_ready">Experimente starten</string>
     <string name="init_skip_state_mandatory_intro_missing">Warte auf Testsubjekt Reaktion</string>
     <string name="init_skip_state_init_missing">Testsubjekt wird initialisiert</string>
     <string name="init_skip_state_none">Testsubjekt wird geladen</string>

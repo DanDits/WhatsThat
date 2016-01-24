@@ -5,9 +5,9 @@
     <string name="riddle_type_circle_advertising">A simple experiment that aims to stimulate your grey matter through grey circles.</string>
     <string name="riddle_type_circle_explanation">Touch one circle to pop them into four smaller ones until the shape of the image is visible.</string>
     <string-array name="riddle_type_circle_hints">
-        <item>Earthling, welcome to our first experiment. To stimulate your cells, split circles as Mose split the water. However, don\'t split them in two halves but in four parts. Hopefully at some point the stimulation of your cells is enough and you can see a picture due to the better shapes. If not, I have to continue the test series with our Parameciums. They mastered the tests with flying colours.</item>
-        <item>Demo version finished. Get the full version for only 39,99€! Just kidding. Nevertheless, have a quick look in the shop. There are many handy items. For example the intergalactic Circlelaser-Turbo-Cutter…And by the way, you should always pick up your reward in the achievement menu!</item>
-        <item>You can find a quick guide at the top right corner. You can skip a picture, if you don\'t see the solution.</item>
+        <item>Welcome earthling!\n\nTo stimulate your cells, click on a circle to split them in four parts.\n\nTell us the solution, if you can recognize the shapes and the picture.</item>
+        <item>So, are your fingers hurting?\nTo continue the experiments in an easier way do the following things:\n1: Go to the menu \"Achievements\" and grab your reward.\2: Go to the menu \"shop\" and get the amazing intergalactic Circlelaser-Turbo-Cutter!</item>
+        <item>You can find a quick guide at the \"No panic\"button. You can skip a picture, too if you don\'t see the solution.\n\nThere are more hints available now in the shop which you can and should buy.</item>
         <item>If you want more pictures from WiseMind, you can get new ones via download in the shop!</item>
         <item>Later, if this experiment is successful, you can choose between different experiment types in the middle of game. Or you can continue all skipped experiments.</item>
         <item>Sometimes human eyes recognize some pictures from a certain distance. Sometimes a screenshot is helping, too.</item>

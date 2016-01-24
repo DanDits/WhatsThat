@@ -49,7 +49,7 @@
     <string name="image_author_details">%1$s</string>
     <string name="app_name">WhatsThat</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
-    <string name="init_skip_state_ready">testsubject ready</string>
+    <string name="init_skip_state_ready">start experiments</string>
     <string name="init_skip_state_mandatory_intro_missing">waiting for testsubject reaction</string>
     <string name="init_skip_state_init_missing">initializing testsubject</string>
     <string name="init_skip_state_none">loading testsubject</string>
@@ -81,7 +81,7 @@
     <string name="no_panic_anims">2011110100000121010120211010121000002201202122000002121022202102012021210200000201111010000021101011120101211022201221010121011100000112102220121000001200000212102220222021201101</string>
 
     <string name="handle_error_attempted">Image not available?! Check external memory!</string>
-    <string name="tongue_select_explanation">Sprache für Lösungswörter: %1$s</string>
+    <string name="tongue_select_explanation">Language for solution words: %1$s</string>
     <string name="btn_open_shop">Shop</string>
     <string name="achievement_button">Achievements</string>
     <string name="workshop_button">Workshop</string>
