@@ -118,7 +118,10 @@ public class RiddleController implements RiddleAnimationController.OnAnimationCo
     }
 
     private class GameHandlerThread extends HandlerThread {
+        private static final long MIN_TIME_BETWEEN_MOTION_MOVE_EVENTS = 30L;
         private Handler mHandler;
+        private long mLastMotionMoveTimestamp;
+
         public GameHandlerThread() {
             super("GameHandlerThread");
             start();
@@ -127,6 +130,13 @@ public class RiddleController implements RiddleAnimationController.OnAnimationCo
         }
 
         public void onMotionEvent(MotionEvent event) {
+            if (event.getActionMasked() == MotionEvent.ACTION_MOVE) {
+                long now = System.currentTimeMillis();
+                if (now - mLastMotionMoveTimestamp < MIN_TIME_BETWEEN_MOTION_MOVE_EVENTS) {
+                    return;
+                }
+                mLastMotionMoveTimestamp = now;
+            }
             final MotionEvent eventCopy = MotionEvent.obtain(event);
             mHandler.post(new Runnable() {
                 @Override

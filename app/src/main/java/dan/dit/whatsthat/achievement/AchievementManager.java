@@ -23,7 +23,6 @@ import android.util.Log;
 import java.util.HashSet;
 import java.util.Set;
 
-import dan.dit.whatsthat.testsubject.TestSubject;
 import dan.dit.whatsthat.util.compaction.Compacter;
 import dan.dit.whatsthat.util.general.ObserverController;
 
@@ -49,10 +48,37 @@ public class AchievementManager implements AchievementDataEventListener {
     private final SharedPreferences mPrefs;
     private Set<AchievementData> mManagedChangedData;
     private Set<Achievement> mChangedAchievements;
-    private final ObserverController<OnAchievementChangedListener, Integer>
+    private final ObserverController<OnAchievementChangedListener, AchievementChangeEvent>
             mAchievementChangedEventController = new ObserverController<>();
 
-    public interface OnAchievementChangedListener extends ObserverController.Observer<Integer> {
+    /**
+     * Event class for the observers of achievement state.
+     */
+    public static class AchievementChangeEvent {
+        private final Achievement mAchievement;
+        private int mChangedHint;
+
+        AchievementChangeEvent(Achievement achievement) {
+            mAchievement = achievement;
+            if (mAchievement == null) {
+                throw new IllegalArgumentException("Null achievement givenf or change event.");
+            }
+        }
+
+        private void setChangedHint(int changedHint) {
+            mChangedHint = changedHint;
+        }
+
+        public Achievement getAchievement() {
+            return mAchievement;
+        }
+
+        public int getChangedHint() {
+            return mChangedHint;
+        }
+    }
+
+    public interface OnAchievementChangedListener extends ObserverController.Observer<AchievementChangeEvent> {
 
     }
     private AchievementManager(Context applicationContext) {
@@ -123,15 +149,9 @@ public class AchievementManager implements AchievementDataEventListener {
     public void onChanged(final Achievement achievement, final int changedHint) {
         if (achievement != null) {
             mChangedAchievements.add(achievement);
-            mAchievementChangedEventController.notifyObservers(changedHint);
-            switch (changedHint) {
-                case CHANGED_TO_ACHIEVED_AND_UNCLAIMED:
-                    TestSubject.getInstance().postAchievementAchieved(achievement);
-                    break;
-                case CHANGED_GOT_CLAIMED:
-                    TestSubject.getInstance().addAchievementScore(achievement.getScoreReward());
-                    break;
-            }
+            AchievementChangeEvent event = achievement.getStateChangeEvent();
+            event.setChangedHint(changedHint);
+            mAchievementChangedEventController.notifyObservers(event);
         }
     }
 

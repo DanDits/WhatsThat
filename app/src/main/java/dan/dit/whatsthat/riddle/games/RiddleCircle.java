@@ -154,7 +154,7 @@ public class RiddleCircle extends RiddleGame {
                 return RiddleCircle.this.makeParticleSystem(mRes, 10, R.drawable
                         .spark, 400L).setFadeOut(200, new AccelerateInterpolator());
             }
-        }, 20);
+        }, 10);
         // fill raster with brightness and calculate average brightness
         {
             mRaster = new double[mBitmap.getHeight() * mBitmap.getWidth()];

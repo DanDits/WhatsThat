@@ -6,7 +6,7 @@ import dan.dit.whatsthat.util.general.MathFunction;
  * Created by daniel on 23.01.16.
  */
 public class RiddleScoreConfig {
-    private static final double MAXIMUM_EXPECTED_BASE_SCORE_FACTOR = 3.5;
+    private static final double MAXIMUM_EXPECTED_BASE_SCORE_FACTOR = 3;
     private final long mExpectedTimeNeeded;//ms
     private final MathFunction mFasterThanExpectedScore;
     private final MathFunction mSlowerThanExpectedScore;
@@ -31,7 +31,7 @@ public class RiddleScoreConfig {
         mFasterThanExpectedScore = new MathFunction.QuadraticInterpolation(0, maxBaseScore,
                 expectedTimeNeeded, expectedBaseScore);
         mSlowerThanExpectedScore = new MathFunction.Max(Math.min(1, expectedBaseScore),
-                new MathFunction.LinearInterpolation(expectedTimeNeeded, expectedBaseScore, 2
+                new MathFunction.LinearInterpolation(expectedTimeNeeded, expectedBaseScore, 3
                         * expectedTimeNeeded, 0.5 * expectedBaseScore));
     }
 

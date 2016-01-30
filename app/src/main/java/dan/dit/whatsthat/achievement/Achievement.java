@@ -65,6 +65,7 @@ public abstract class Achievement implements AchievementDataEventListener, Depen
     private final int mRewardResId;
     protected final List<Dependency> mDependencies;
     protected long mAchievedTimestamp;
+    private AchievementManager.AchievementChangeEvent mStateChangeEvent;
 
     /**
      * Creates a new achievement. The id string needs to be unique for all achievements. The given name, description
@@ -90,6 +91,7 @@ public abstract class Achievement implements AchievementDataEventListener, Depen
         mDependencies = new ArrayList<>();
         mManager = manager;
         mLevel = level;
+        mStateChangeEvent = new AchievementManager.AchievementChangeEvent(this);
         mScoreReward = Math.max(scoreReward, 0);
         if (TextUtils.isEmpty(mId)) {
             throw new IllegalArgumentException("Null id given.");
@@ -258,7 +260,7 @@ public abstract class Achievement implements AchievementDataEventListener, Depen
      * Returns the set score reward.
      * @return The score reward.
      */
-    protected int getScoreReward() {
+    public int getScoreReward() {
         return mScoreReward;
     }
 
@@ -471,5 +473,9 @@ public abstract class Achievement implements AchievementDataEventListener, Depen
             return getMaxScoreReward();
         }
         return 0;
+    }
+
+    AchievementManager.AchievementChangeEvent getStateChangeEvent() {
+        return mStateChangeEvent;
     }
 }

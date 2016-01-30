@@ -100,7 +100,7 @@ public class TestSubject {
             return INSTANCE;
         }
         INSTANCE.mApplicationContext = context.getApplicationContext();
-        AchievementManager.initialize(INSTANCE.mApplicationContext);
+        INSTANCE.initAchievementManager();
         INSTANCE.initPreferences();
         INSTANCE.initLevels();
         INSTANCE.mInitialized = true;
@@ -191,6 +191,24 @@ public class TestSubject {
 
     public static boolean isInitialized() {
         return INSTANCE.mInitialized;
+    }
+
+    private void initAchievementManager() {
+        AchievementManager.initialize(mApplicationContext);
+        AchievementManager.getInstance().addAchievementChangedListener(new AchievementManager.OnAchievementChangedListener() {
+            @Override
+            public void onDataEvent(AchievementManager.AchievementChangeEvent changeEvent) {
+                switch (changeEvent.getChangedHint()) {
+                    case AchievementManager.CHANGED_TO_ACHIEVED_AND_UNCLAIMED:
+                        TestSubject.this.postAchievementAchieved(changeEvent.getAchievement());
+                        break;
+                    case AchievementManager.CHANGED_GOT_CLAIMED:
+                        TestSubject.this.addAchievementScore(changeEvent.getAchievement()
+                                .getScoreReward());
+                        break;
+                }
+            }
+        });
     }
 
     private void initPreferences() {

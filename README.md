@@ -1,36 +1,24 @@
-## WhatsThat
+# WhatsThat
 An android riddle game app.
 
-#The idea
-An android application created for and with Android-Studio. It's a cooperation between me and my 
-brother and a playground for various mini games and ideas. All riddle types have the central idea
- to find the solution word to an arbitrary image provided and hidden by the riddle. Most riddles are
-  not hard to solve and take from one to several minutes of play time. Some can be skipped and 
-  solved later. The selection of the riddle type to play is up to the player, though one one new 
-  riddle type can be chosen at each level that is gained by fulfilling achievements and solving 
-  riddles.
+##The idea
+An android application created for and with Android-Studio. It's a cooperation between me and my and a playground for various mini games and ideas. All experiment types have the central idea to find the solution word to an arbitrary image provided and hidden by the experiment.
+Most experiments are not hard to solve and take from one to several minutes of play time. Some can be skipped and solved later. The selection of the experiment type to play is up to the player, though one one new experiment type can be chosen at each level that is gained by fulfilling achievements and solving experiments.
 #Working progress
-As I am a student of mathematics and not directly into computer science or game development. This 
-also is a playground for coding and image processing for me. My brother does not work much on the 
-code but rather on the development of the ideas, collection of images, general game design and the 
-testing.
-As there are many free parameters to adjust for game balance and enjoyment and we are a 
-little team the (beta) testing will probably take some time and we will see how and when it works 
-out.
+I am a student of mathematics and do some computer science on the side. Game development and image manipulation is a hobby and some ideas got implemented in this app. 
+My brother did much of the art, searched for images and did the game design and testing.
+
+We still have some ideas for new experiments and changes, but as this is a side project and we do not have much time to spare, development is now paused and slowed down. Though support for small features and bug fixes will be provided.
  
 #How to get the app
-As soon as major testing is done a release version will be available on the google play store 
-free of charge. The project can be built using latest (Marshmallow) android SDK with a fully 
-setup android studio.
+You can obtain the APK for free from Google's PlayStore or, if you want to download it from another hoster, by contacting us at whatsthat.contact@gmail.com. The project can be built using latest (Marshmallow) android SDK with a fully setup android studio.
 
 #Contribution
-If you find a bug, want to implement a new feature or riddle, feel free to do so. As this is a 
-non profit project with no ads the only way to thank you will be adding you to the credits. 
+If you find a bug, want to implement a new feature or experiment, feel free to do so. As this is a non profit project with no ads the only way to thank you will be adding you to the credits. 
 
 
-* Create a new riddle
-    1. In riddle/types/Types.java create a new static class for your riddle type and overwrite all 
-    required (and optional) methods. See other riddle types in same file for examples.
+* Create a new experiment (internal name: riddle)
+    1. In its [holder class](app/src/main/java/dan/dit/whatsthat/riddle/types/TypesHolder.java) create a new static class for your riddle type and overwrite all required (and optional) methods. See other riddle types in same file for examples.
     2. Create a singleton instance of your riddle type class in riddle/types/PracticalRiddleType
     .java and add that instance to the static global ALL_PLAYABLE_TYPES list in the same file.
     3. The method makeRiddle of your riddle type class needs to return a new instance of a 

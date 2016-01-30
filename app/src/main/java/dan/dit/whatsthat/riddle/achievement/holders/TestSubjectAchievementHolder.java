@@ -55,8 +55,8 @@ public class TestSubjectAchievementHolder implements AchievementHolder {
         makeAchievements(manager);
         manager.addAchievementChangedListener(new AchievementManager.OnAchievementChangedListener() {
             @Override
-            public void onDataEvent(Integer changedHint) {
-                switch (changedHint) {
+            public void onDataEvent(AchievementManager.AchievementChangeEvent changeEvent) {
+                switch (changeEvent.getChangedHint()) {
                     case AchievementManager.CHANGED_GOT_CLAIMED: // fall through
                     case AchievementManager.CHANGED_TO_RESET: // fall through
                     case AchievementManager.CHANGED_TO_ACHIEVED_AND_UNCLAIMED:

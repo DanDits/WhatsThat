@@ -76,15 +76,15 @@ import dan.dit.whatsthat.util.image.ImageUtil;
  * Created by daniel on 04.09.15.
  */
 public class RiddleLazor extends RiddleGame implements FlatWorldCallback {
-    private static final float METEOR_BEAM_WIDTH_FRACTION_OF_SCREEN_WIDTH = 0.022f; //meteor trail
+    private static final float METEOR_BEAM_WIDTH_FRACTION_OF_SCREEN_WIDTH = 0.03f; //meteor trail
     // width
-    private static final float METEOR_RADIUS_FRACTION_OF_SCREEN_WIDTH = 0.025f; //meteor head radius
+    private static final float METEOR_RADIUS_FRACTION_OF_SCREEN_WIDTH = 0.031f; //meteor head radius
     private static final float METEOR_DIAGONAL_DURATION = 9000.f; //ms, time for a meteor that moves directly from top left to bottom right
     private static final float ONE_SECOND = 1000.f; // ms, one second, fixed
     private static final double CHANCE_FOR_BONUS_BEAM_BASE = 0.12; // basic chance for super beam in percent
     private static final double ADDITIONAL_CHANCE_FOR_BONUS_BEAM_ARTICLE = 0.03; // when the third article is purchased the chance increases
     private static final float CANNON_BEAM_FRACTION_OF_SCREEN_WIDTH = 0.005f;
-    private static final float CANNONBALL_RADIUS_FRACTION_OF_SCREEN_WIDTH = 0.03f;
+    private static final float CANNONBALL_RADIUS_FRACTION_OF_SCREEN_WIDTH = 0.038f;
     private static final float CANNONBALL_DIAGONAL_DURATION = 9000.f; //ms
     private static final long CANNON_RELOAD_DURATION_START = Cannon.LOADING_STATES_COUNT * 1600L; //for each loading state (3atm) wait x ms
     private static final long CANNON_RELOAD_DURATION_DIFFICULTY_ULTRA = Cannon.LOADING_STATES_COUNT * 500L;
