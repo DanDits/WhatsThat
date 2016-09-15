@@ -64,7 +64,7 @@ public class AchievementFlow extends  TypeAchievementHolder {
         public static final int LEVEL = 0;
         public static final int REWARD = 90;
         public static final boolean DISCOVERED = true;
-        public static final int REQUIRED_CELLIS = 20;
+        public static final int REQUIRED_CELLIS = 15;
         public static final String KEY_GAME_SINGLE_CELLIS_SET = NUMBER + "single_cellis_set";
         public Achievement1(AchievementManager manager, PracticalRiddleType type) {
             super(type, R.string.achievement_flow_1_name, R.string.achievement_flow_1_descr, 0, NUMBER, manager, LEVEL, REWARD, 1, DISCOVERED);
@@ -84,7 +84,8 @@ public class AchievementFlow extends  TypeAchievementHolder {
         @Override
         public void onNonCustomDataEvent(AchievementDataEvent event) {
             if (event.getChangedData() == mGameData && event.hasChangedKey(KEY_GAME_CELLI_CREATED)) {
-                if (mGameData.getValue(KEY_GAME_CELLI_ACTIVE_COUNT, 0L) > 0L) {
+                if (mGameData.getValue(KEY_GAME_CELLI_ACTIVE_COUNT, 0L) > 1L)  {
+                    // if more than one celli active, reset counter
                     mGameData.putValue(KEY_GAME_SINGLE_CELLIS_SET, 0L, AchievementProperties.UPDATE_POLICY_ALWAYS);
                 } else {
                     long newCount = mGameData.increment(KEY_GAME_SINGLE_CELLIS_SET, 1L, 0L);
@@ -143,7 +144,7 @@ public class AchievementFlow extends  TypeAchievementHolder {
         @Override
         public void onNonCustomDataEvent(AchievementDataEvent event) {
             if (event.getChangedData() == mGameData && event.hasChangedKey(KEY_GAME_REVEALED_PIXELS_COUNT)) {
-                if (mGameData.getValue(KEY_GAME_CELLI_TIMED_OUT_COUNT, 0L) >= REQUIRED_VISIBLE_PERCENT / 100. * mGameData.getValue(KEY_GAME_TOTAL_PIXELS_COUNT, 0L)) {
+                if (mGameData.getValue(KEY_GAME_REVEALED_PIXELS_COUNT, 0L) >= REQUIRED_VISIBLE_PERCENT / 100. * mGameData.getValue(KEY_GAME_TOTAL_PIXELS_COUNT, 0L)) {
                     achieveAfterDependencyCheck();
                 }
             }
@@ -283,7 +284,7 @@ public class AchievementFlow extends  TypeAchievementHolder {
         public static final int LEVEL = 0;
         public static final int REWARD = 80;
         public static final boolean DISCOVERED = true;
-        public static final int MAX_CELLIS_FOR_SOLVING = 10;
+        public static final int MAX_CELLIS_FOR_SOLVING = 12;
 
         public Achievement8(AchievementManager manager, PracticalRiddleType type) {
             super(type, R.string.achievement_flow_8_name, R.string.achievement_flow_8_descr, 0, NUMBER, manager, LEVEL, REWARD, 1, DISCOVERED);

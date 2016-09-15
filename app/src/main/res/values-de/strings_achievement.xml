@@ -266,7 +266,8 @@
     <string name="achievement_lazor_4_name">Blackout</string>
     <string name="achievement_lazor_4_descr">Woah, zum Glück bin ich kein Einwohner deiner Stadt. Siehst du wie sie zerstört ist? Schlechter Beschützer!</string>
     <string name="achievement_lazor_5_name">Abfangjäger</string>
-    <string name="achievement_lazor_5_descr">Schieße %1$d Kometen im oberen Drittel des Bildes ab.</string>
+    <string name="achievement_lazor_5_descr">Schieße %1$d Kometen in der oberen Hälfte des Bildes ab
+        .</string>
     <string name="achievement_lazor_6_name">Präzisionsschütze</string>
     <string name="achievement_lazor_6_descr">Treffe mit jedem Schuss einen Meteoriten ohne dass einer durchkommt. Wie viele? Nun, mehr als %1$d und weniger als %2$d.</string>
     <string name="achievement_lazor_7_name">Armageddon</string>
@@ -284,7 +285,8 @@
     <string name="achievement_lazor_13_name">In letzter Sekunde</string>
     <string name="achievement_lazor_13_descr">Halte ein paar Kometen in allerletzter Sekunde auf.</string>
     <string name="achievement_lazor_14_name">Unterbrochen</string>
-    <string name="achievement_lazor_14_descr">Schieße %1$d mal, wobei der Schuss weiter gesetzt aber von einem Kometen unterbrochen wurde.</string>
+    <string name="achievement_lazor_14_descr">Schieße %1$d mal, wobei der Schuss weiter gesetzt,
+        aber von einem Kometen unterbrochen wurde.</string>
     <string name="achievement_lazor_15_name">Kurzsstrecken-Schüsse</string>
     <string name="achievement_lazor_15_descr">Alle erfolgreichen Schüsse, die kürzer als %1$d Sekunden geflogen sind.</string>
     <string name="achievement_lazor_16_name">Langstrecken-Schüsse</string>

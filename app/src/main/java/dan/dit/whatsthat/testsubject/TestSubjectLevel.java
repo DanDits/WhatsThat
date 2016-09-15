@@ -479,7 +479,7 @@ public abstract class TestSubjectLevel {
         }
         @Override
         public double getLevelUpAchievementScoreFraction() {
-            return 0.28;
+            return 0.18;
         }
     }
     
@@ -515,7 +515,7 @@ public abstract class TestSubjectLevel {
         }
         @Override
         public double getLevelUpAchievementScoreFraction() {
-            return 0.45;
+            return 0.25;
         }
     }
 
@@ -551,7 +551,7 @@ public abstract class TestSubjectLevel {
         }
         @Override
         public double getLevelUpAchievementScoreFraction() {
-            return 0.65;
+            return 0.35;
         }
     }
 
@@ -614,7 +614,7 @@ public abstract class TestSubjectLevel {
         }
         @Override
         public double getLevelUpAchievementScoreFraction() {
-            return 0.75;
+            return 0.5;
         }
     }
 
@@ -649,7 +649,7 @@ public abstract class TestSubjectLevel {
         }
         @Override
         public double getLevelUpAchievementScoreFraction() {
-            return 0.80;
+            return 0.60;
         }
     }
 
@@ -684,7 +684,7 @@ public abstract class TestSubjectLevel {
         }
         @Override
         public double getLevelUpAchievementScoreFraction() {
-            return 0.85;
+            return 0.7;
         }
     }
 
@@ -719,7 +719,7 @@ public abstract class TestSubjectLevel {
         }
         @Override
         public double getLevelUpAchievementScoreFraction() {
-            return 0.9;
+            return 0.8;
         }
     }
 }

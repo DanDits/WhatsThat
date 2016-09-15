@@ -66,7 +66,7 @@ public class DailyAchievementsHolder implements AchievementHolder {
         private static final int REQUIRED_RIDDLES_TO_SOLVE = 5;//>1 for plural reasons
         public static final int NUMBER = 1;
         public static final int LEVEL = 0;
-        public static final int REWARD = 20;
+        public static final int REWARD = 40;
         public static final boolean DISCOVERED = true;
         public static final String KEY_GAMES_SOLVED_COUNT = NUMBER +
                 "games_solved_today_count";
@@ -124,7 +124,7 @@ public class DailyAchievementsHolder implements AchievementHolder {
 
     private static class Achievement2 extends DailyAchievement {
         public static final int NUMBER = 2;
-        public static final int REWARD = 35;
+        public static final int REWARD = 50;
         public static final boolean DISCOVERED = true;
         public static final String KEY_GAMES_SOLVED_FOR_TYPE_COUNT = NUMBER +
                 "games_solved_today_for_type_count";
@@ -261,7 +261,7 @@ public class DailyAchievementsHolder implements AchievementHolder {
     private static class Achievement3 extends DailyAchievement {
         public static final int NUMBER = 3;
         public static final int LEVEL = 2;
-        public static final int REWARD = 50;
+        public static final int REWARD = 70;
         public static final boolean DISCOVERED = true;
         private static final long MAX_SOLVING_TIME = 30000;//ms
 

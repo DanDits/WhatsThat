@@ -207,7 +207,7 @@ public class AchievementLazor extends TypeAchievementHolder {
         public static final int REWARD = 110;
         public static final boolean DISCOVERED = true;
         private static final int METEORS_TO_SHOOT = 50;
-        private static final int MAX_METEOR_Y_PERCENT = 33; // not synced to description string!
+        private static final int MAX_METEOR_Y_PERCENT = 50; // not synced to description string!
 
         public Achievement5(AchievementManager manager, PracticalRiddleType type) {
             super(type, R.string.achievement_lazor_5_name, R.string.achievement_lazor_5_descr, 0, NUMBER, manager, LEVEL, REWARD, METEORS_TO_SHOOT, DISCOVERED);
@@ -588,7 +588,7 @@ public class AchievementLazor extends TypeAchievementHolder {
         public static final int NUMBER = 16;
         public static final int LEVEL = 1;
         public static final boolean DISCOVERED = true;
-        private static final int REQUIRED_SHOTS = 100;
+        private static final int REQUIRED_SHOTS = 40;
         public static final int REWARD = REQUIRED_SHOTS*3;
         private static final long MIN_FLY_DURATION = 3500L;//ms
 

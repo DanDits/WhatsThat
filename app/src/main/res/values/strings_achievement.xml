@@ -264,7 +264,8 @@
     <string name="achievement_lazor_3_name">Resignation</string>
     <string name="achievement_lazor_4_descr">Woah, luckily I\'m not a citizen of your city. Do you see the destruction? Bad protector!</string>
     <string name="achievement_lazor_4_name">Blackout</string>
-    <string name="achievement_lazor_5_descr">Catch %1$d meteors in the upper third of the picture</string>
+    <string name="achievement_lazor_5_descr">Catch %1$d meteors in the upper half of the
+        picture</string>
     <string name="achievement_lazor_5_name">Interceptor</string>
     <string name="achievement_lazor_6_descr">All shots must hit a meteor and none must pass. How many? Well, more than %1$d but less than %2$d.</string>
     <string name="achievement_lazor_6_name">Sniper</string>
